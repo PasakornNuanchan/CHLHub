@@ -27,16 +27,13 @@
                   <div class="col-md-10">
                      <div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
                         <div class="card-body">
-                           <a href="../../dashboard/main.php" class="navbar-brand d-flex align-items-center mb-3">
+                           <a href="../../dashboard/auth/sign-in.php" class="navbar-brand d-flex align-items-center mb-3">
                               <!--Logo start-->
-                              <svg width="30" class="" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)" fill="currentColor" />
-                                 <rect x="7.72803" y="27.728" width="28" height="4" rx="2" transform="rotate(-45 7.72803 27.728)" fill="currentColor" />
-                                 <rect x="10.5366" y="16.3945" width="16" height="4" rx="2" transform="rotate(45 10.5366 16.3945)" fill="currentColor" />
-                                 <rect x="10.5562" y="-0.556152" width="28" height="4" rx="2" transform="rotate(45 10.5562 -0.556152)" fill="currentColor" />
-                              </svg>
+                              <div class="bd-example">
+                                 <img class="bd-placeholder-img bd-placeholder-img-lg img-fluid" src="logo.png" alt="" width="100%" height="250" srcset="" SVG>
+                              </div>
+                             
                               <!--logo End-->
-                              <h4 class="logo-title ms-3">Hope UI</h4>
                            </a>
                            <h2 class="mb-2 text-center">Sign In</h2>
                            <p class="text-center">Login to stay connected.</p>
@@ -44,7 +41,7 @@
                               <div class="row">
                                  <div class="col-lg-12">
                                     <div class="form-group">
-                                       <label for="email" class="form-label">Email</label>
+                                       <label for="email" class="form-label">User</label>
                                        <input type="text" class="form-control" id="email" aria-describedby="email" placeholder=" ">
                                     </div>
                                  </div>
@@ -65,7 +62,7 @@
                               <div class="d-flex justify-content-center">
                                  <button type="button" class="btn btn-primary" onclick="login.login();">Sign In</button>
                               </div>
-                              <p class="text-center my-3">or sign in with other accounts?</p>
+                              <!-- <p class="text-center my-3">or sign in with other accounts?</p>
                               <div class="d-flex justify-content-center">
                                  <ul class="list-group list-group-horizontal list-group-flush">
                                     <li class="list-group-item border-0 pb-0">
@@ -84,7 +81,7 @@
                               </div>
                               <p class="mt-3 text-center">
                                  Don’t have an account? <a href="sign-up.html" class="text-underline">Click here to sign up.</a>
-                              </p>
+                              </p> -->
                            </form>
                         </div>
                      </div>
