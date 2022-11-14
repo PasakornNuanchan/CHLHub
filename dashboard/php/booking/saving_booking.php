@@ -1,5 +1,7 @@
 <?php
     // print_r($_POST);
+    $err_msg = "";
+    $job_number = '0001';
     $bk_no = $_POST['bk_no'];
     $shipper = $_POST['shipper'];
     $shipterm = $_POST['shipterm'];
@@ -15,8 +17,10 @@
     $feeder_voy_no = $_POST['feeder_voy_no'];
     $etd = $_POST['etd'];
     $eta = $_POST['eta'];
-    include '../../core/conn.php';
+    $container = $_POST['container'];
 
+    include '../../core/conn.php';
+    $sql = '';
     $sql = "
     INSERT INTO `job_title`(
         `job_number`,
@@ -36,7 +40,7 @@
         `ETD`,
         `ETA`
     ) VALUES (
-        '0001',
+        '$job_number',
         '$bk_no',
         '$shipper',
         '$shipterm',
@@ -53,13 +57,48 @@
         '$etd',
         '$eta'
  
-    );
-    
-    ";
-
-    if ($con->query($sql) === TRUE) {
-        echo json_encode(array('res' => 'insert succussfully !!'));
+    ); ";
+     if ($con->query($sql) === TRUE) {
     } else {
-        echo json_encode(array('res' => 'insert fail !!'));
+        $err_msg='insert fail !!';
     }
+    foreach ($container as $k => $v) {
+        $type = $v['type'];
+        $qty = $v['qty'];
+        $weight = $v['weight'];
+        $soc = $v['soc'];
+        $ow = $v['ow'];
+        $sqlcontainer = "
+        INSERT INTO `container`(
+            `job_nubmer`,
+            `container_type`,
+            `container_quantity`,
+            `single_cnt`,
+            `soc`,
+            `ow`,
+            `cy`,
+            `rtn`
+        )
+        VALUES(
+            '$job_number',
+            '$type',
+            '$qty',
+            '$weight',
+            '$soc',
+            '$ow',
+            '2022-01-03',
+            '2022-01-03'
+        ); ";
+        if ($con->query($sqlcontainer) === TRUE) {
+        } else {
+            $err_msg='insert fail !!';
+        }
+    }
+
+    if ($err_msg== "" ){
+        echo json_encode(array('res' => 'insert successful !!'));
+    }else{
+        echo json_encode(array('res' => 'insert failed !!'));
+    }
+
 ?>
