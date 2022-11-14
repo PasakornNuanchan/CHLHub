@@ -13,10 +13,10 @@ const booking = {
         });
     },
     addconthtml : function () {
+        let html_select = $('.td-sel-conttype').html();
         html = `
         <tr >
-            <td><select class="form-select form-select-sm shadow-none">      
-                </select></td>
+            <td>${html_select}</td>
             <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
             <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
@@ -32,5 +32,51 @@ const booking = {
     },
     del_container_row : function (e = null) { 
         $(e).closest('tr').remove();
-    },    
+    },   
+    save_booking : function () { 
+        let bk_no = $('.inp-bkno').val();
+        let shipper = $('.inp-shper').find(":selected").val();
+        let shipterm = $('.inp-shptrm').find(":selected").val();
+        let remark = $('.inp-rmk').val();
+        let carrier = $('.inp-carrier').find(":selected").val();
+        let port_recieve = $('.inp-prtrecieve').find(":selected").val();
+        let port_load = $('.inp-prtload').find(":selected").val();
+        let ts_port = $('.inp-ts_port').find(":selected").val();
+        let port_delivery = $('.inp-delivery').find(":selected").val();
+        let mother_vessel = $('.inp-M_vessel').val();
+        let mother_voy_no = $('.inp-mother-voy-no').val();
+        let feeder_vessel = $('.feeder_vessel').val();
+        let feeder_voy_no = $('.inp-feeder_voy_no').val();
+        let etd = $('.inp-etd').val();
+        let eta = $('.inp-eta').val();
+        let data = {
+            'bk_no' : bk_no,
+            'shipper' : shipper,
+            'shipterm' : shipterm,
+            'remark' : remark,
+            'carrier' : carrier,
+            'port_recieve' :  port_recieve,
+            'port_load' : port_load,
+            'ts_port' : ts_port,
+            'port_delivery' :port_delivery,
+            'mother_vessel' : mother_vessel,
+            'mother_voy_no' : mother_voy_no,
+            'feeder_vessel' : feeder_vessel,
+            'feeder_voy_no' : feeder_voy_no,
+            'etd' : etd,
+            'eta' : eta,
+        }
+        booking.ajax_save_booking(data);
+    },
+    ajax_save_booking : function (data = null) { 
+        $.ajax({
+            type: "post",
+            url: "php//booking/saving_booking.php",
+            data: data,
+            dataType: "json",
+            success: function (res) {
+                console.log(res['res']);
+            }
+        });
+    },
 };
