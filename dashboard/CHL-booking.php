@@ -45,21 +45,21 @@ include 'core/conn.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <input type="input" class="form-control form-control-sm inp-jobno" id="pwd2" placeholder="" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Booking number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-bkno" id="" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Shipper:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Shipper:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none">
+                                        <select class="form-select form-select-sm mb-3 shadow-none inp-shper">
                                             <?php
-                                            $shipper_select = "SELECT * FROM carrier";
+                                            $shipper_select = "SELECT * FROM shipper";
                                             $result_shipper = mysqli_query($con, $shipper_select);
                                             ?>
 
@@ -67,7 +67,7 @@ include 'core/conn.php';
                                             <?php
                                             while ($result_shipper_total = mysqli_fetch_assoc($result_shipper)) {
                                             ?>
-                                                <option value="<?php $result_shipper_total['ID'] ?>"><?php echo $result_shipper_total['carrier_name'] ?></option>
+                                                <option value="<?= $result_shipper_total['ID'] ?>"><?php echo $result_shipper_total['shipper_name'] ?></option>
                                             <?php
                                             }
                                             ?>
@@ -77,7 +77,7 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Shipment Terms</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-shptrm">
                                                 <?php
                                                 $shipment_select = "SELECT * FROM shipment_term";
                                                 $result_shipment = mysqli_query($con, $shipment_select);
@@ -86,7 +86,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_shipment_total = mysqli_fetch_assoc($result_shipment)) {
                                                 ?>
-                                                    <option value="<?php $result_shipment_total['ID'] ?>"><?php echo $result_shipment_total['st_name'] ?></option>
+                                                    <option value="<?= $result_shipment_total['ID'] ?>"><?php echo $result_shipment_total['st_name'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -96,13 +96,13 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Remark</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                            <input type="input" class="form-control form-control-sm inp-rmk" id="pwd2" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Carrier:</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-carrier">
                                                 <?php
                                                 $carrier_select = "SELECT * FROM carrier";
                                                 $result_carrier = mysqli_query($con, $carrier_select);
@@ -111,7 +111,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
                                                 ?>
-                                                    <option value="<?php $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
+                                                    <option value="<?= $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -121,7 +121,7 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Receipt</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-prtrecieve">
                                                 <?php
 
                                                 $area_select = "SELECT * FROM area";
@@ -131,7 +131,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                                 ?>
-                                                    <option value="<?php $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                                    <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -141,7 +141,7 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Loading</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-prtload">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
                                                 $result_area = mysqli_query($con, $area_select);
@@ -150,7 +150,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                                 ?>
-                                                    <option value="<?php $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                                    <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -160,7 +160,7 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="email1">T/S Port</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-ts_port">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
                                                 $result_area = mysqli_query($con, $area_select);
@@ -169,7 +169,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                                 ?>
-                                                    <option value="<?php $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                                    <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -179,7 +179,7 @@ include 'core/conn.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Delivery</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none inp-delivery">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
                                                 $result_area = mysqli_query($con, $area_select);
@@ -188,7 +188,7 @@ include 'core/conn.php';
                                                 <?php
                                                 while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                                 ?>
-                                                    <option value="<?php $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                                    <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -200,11 +200,11 @@ include 'core/conn.php';
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
                                                 </div>
-                                                <label class="control-label col-sm-1 align-self-center mb-0" for="pwd2">Voy No. :</label>
+                                                <label class="control-label col-sm-1 align-self-center mb-0" for="pwd2">Voy No.:</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
@@ -214,32 +214,27 @@ include 'core/conn.php';
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm feeder_vessel" placeholder="">
                                                 </div>
-                                                <label class="control-label col-sm-1 align-self-center mb-0" for="pwd2">Voy No. :</label>
+                                                <label class="control-label col-sm-1 align-self-center mb-0" for="pwd2">Voy No.:</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_voy_no" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Voy No.:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
-                                        </div>
-                                    </div>
+                                   
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">ETD:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm inp-etd" id="pwd2" value="2019-12-18">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">ETA:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm inp-eta" id="pwd2" value="2019-12-18">
                                         </div>
                                     </div>
 
@@ -268,7 +263,7 @@ include 'core/conn.php';
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><select class="form-select form-select-sm shadow-none">
+                                                            <td class="td-sel-conttype"><select class="form-select form-select-sm shadow-none inp-container_type">
                                                                     <?php
                                                                     $Container_type_select = "SELECT * FROM container_type";
                                                                     $result_Container_type = mysqli_query($con, $Container_type_select);
@@ -379,7 +374,7 @@ include 'core/conn.php';
                                                 <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary rounded-pill ">
+                                        <button class="btn btn-primary rounded-pill btn-save-booking" onclick="booking.save_booking();">
                                             <span class="btn-inner">
                                                 <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M12.0001 8.32739V15.6537" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
