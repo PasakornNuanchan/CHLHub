@@ -33,7 +33,7 @@ const booking = {
     del_container_row : function (e = null) { 
         $(e).closest('tr').remove();
     },   
-    save_booking : function () { 
+    save_booking : async function () { 
         let bk_no = $('.inp-bkno').val();
         let shipper = $('.inp-shper').find(":selected").val();
         let shipterm = $('.inp-shptrm').find(":selected").val();
@@ -49,6 +49,15 @@ const booking = {
         let feeder_voy_no = $('.inp-feeder_voy_no').val();
         let etd = $('.inp-etd').val();
         let eta = $('.inp-eta').val();
+
+
+        let container_type = [];
+        $( ".inp-container_type" ).each(function( e ) {
+            $(this).find(":selected").val();
+            container_type.push( $(this).find(":selected").val());
+          });
+          console.log(container_type);
+          return;
         let data = {
             'bk_no' : bk_no,
             'shipper' : shipper,
@@ -66,17 +75,28 @@ const booking = {
             'etd' : etd,
             'eta' : eta,
         }
-        booking.ajax_save_booking(data);
+        let res = await booking.ajax_save_booking(data);
+        
     },
     ajax_save_booking : function (data = null) { 
-        $.ajax({
-            type: "post",
-            url: "php//booking/saving_booking.php",
-            data: data,
-            dataType: "json",
-            success: function (res) {
-                console.log(res['res']);
-            }
-        });
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "post",
+                url: "php//booking/saving_booking.php",
+                data: data,
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Complete',
+                        text: res['res'],
+                        })
+                },
+                error: function (error) {
+                    reject(error)
+                  },
+            });
+        })
     },
 };

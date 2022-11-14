@@ -8,6 +8,8 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <?php include '../assets/include/theme_include_css.php'; ?>
+
 </head>
 <style>
         body {
@@ -872,7 +874,7 @@ session_start();
     <!-- Wrapper End-->
     <!-- offcanvas start -->
     <?php include 'include/offcanvas.php'; ?>
-    <?php include '../assets/include/theme_include.php'; ?>
+    <?php include '../assets/include/theme_include_js.php'; ?>
 </body>
 
 </html>

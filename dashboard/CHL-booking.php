@@ -9,6 +9,7 @@ include 'core/conn.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <?php include '../assets/include/theme_include_css.php'; ?>
 </head>
 
 <body class="  ">
@@ -43,6 +44,7 @@ include 'core/conn.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
+                                <i class="bi bi-telephone"></i>
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job number:</label>
                                     <div class="col-sm-9">
                                         <input type="input" class="form-control form-control-sm inp-jobno" id="pwd2" placeholder="" readonly>
@@ -272,7 +274,7 @@ include 'core/conn.php';
                                                                     <?php
                                                                     while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
                                                                     ?>
-                                                                        <option value="<?php $result_Container_type_total['container_type_number'] ?>"><?php echo $result_Container_type_total['container_type_name'] ?></option>
+                                                                        <option value="<?= $result_Container_type_total['container_type_number'] ?>"><?php echo $result_Container_type_total['container_type_name'] ?></option>
                                                                     <?php
                                                                     }
                                                                     ?>
@@ -409,7 +411,7 @@ include 'core/conn.php';
     <!-- Wrapper End-->
     <!-- offcanvas start -->
     <?php include 'include/offcanvas.php'; ?>
-    <?php include '../assets/include/theme_include.php'; ?>
+    <?php include '../assets/include/theme_include_js.php'; ?>
 </body>
 
 </html>

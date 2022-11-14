@@ -411,7 +411,7 @@ session_start();
     <!-- Wrapper End-->
     <!-- offcanvas start -->
     <?php include 'include/offcanvas.php'; ?>
-    <?php include '../assets/include/theme_include.php'; ?>
+    <?php include '../assets/include/theme_include_js.php'; ?>
 </body>
 
 </html>

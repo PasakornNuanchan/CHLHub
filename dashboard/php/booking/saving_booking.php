@@ -17,7 +17,7 @@
     $eta = $_POST['eta'];
     include '../../core/conn.php';
 
-    echo $sql = "
+    $sql = "
     INSERT INTO `job_title`(
         `job_number`,
         `booking_number`,
