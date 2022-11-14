@@ -44,7 +44,6 @@ include 'core/conn.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                <i class="bi bi-telephone"></i>
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job number:</label>
                                     <div class="col-sm-9">
                                         <input type="input" class="form-control form-control-sm inp-jobno" id="pwd2" placeholder="" readonly>
