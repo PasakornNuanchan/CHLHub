@@ -50,6 +50,17 @@ const booking = {
         let etd = $('.inp-etd').val();
         let eta = $('.inp-eta').val();
 
+        let cy = $('.inp-cy' ).val();
+        let rtn = $('.inp-rtn' ).val();
+
+        let cargo_desc = $('.inp-cargodes').val();
+        let hs_code = $('.inp-hscode').find(":selected").val();
+        let cargo_type = $('.inp-cargo_type').find(":selected").val();
+        let cargo_qty = $('.inp-cargo_qty').val();
+        let cargo_gw = $('.inp-cargo_gw').val();
+        let cargo_vol = $('.inp-cargo_vol').val();
+        let cargo_marks = $('.inp-cargo_marks').val();
+
             //container section
         let container = [];
         $( ".booking_container").each(function( e ) {
@@ -60,12 +71,16 @@ const booking = {
             let weight = $('.inp-single-wieght' , this).val();
             let soc = $('.inp-soc:checked' , this).length > 0 ? '1' : '0' ;
             let ow = $('.inp-ow:checked' , this).length > 0 ? '1' : '0' ;
+            
+
             cont_tmp = {
                 'type' : type,
                 'qty': qty,
                 'weight' : weight,
                 'soc' : soc,
-                'ow' : ow
+                'ow' : ow,
+                'cy' : cy,
+                'rtn' : rtn
             }
             container.push(cont_tmp);
         });
@@ -87,6 +102,14 @@ const booking = {
             'etd' : etd,
             'eta' : eta,
             'container' : container,
+
+            'cargo_desc' : cargo_desc,
+            'hs_code':hs_code,
+            'cargo_type' :cargo_type,
+            'cargo_qty' :cargo_qty,
+            'cargo_gw' :cargo_gw,
+            'cargo_vol' :cargo_vol,
+            'cargo_marks':cargo_marks,
         }
        
         let res = await booking.ajax_save_booking(data);
@@ -100,6 +123,7 @@ const booking = {
                 data: data,
                 dataType: "text",
                 success: function (res) {
+                    console.log(res);
                     resolve(res);
                     Swal.fire({
                         icon: 'success',
