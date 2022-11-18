@@ -9,9 +9,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Petty Cash return</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
-
-   
-
 </head>
 
 <body class="  ">
