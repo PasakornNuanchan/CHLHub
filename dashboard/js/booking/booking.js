@@ -1,4 +1,3 @@
-// alert('xxxx');
 const booking = {
 
     select_port: function () {
@@ -33,12 +32,28 @@ const booking = {
     del_container_row : function (e = null) { 
         $(e).closest('tr').remove();
     },   
+    validate_input : function(elements_class = []){
+        valid_st = true;
+       $.each(elements_class, function (k, v) { 
+        if ($(v).val() == '' || $(v).val() == null || $(v).val() == undefined) {
+            $(v).addClass('is-invalid');
+            valid_st = false;
+        }else{
+            $(v).removeClass( 'is-invalid');
+        }
+       });
+        
+        
+        return valid_st;
+    },
     save_booking : async function () { 
+
+        let valid = true;
         let bk_no = $('.inp-bkno').val();
         let shipper = $('.inp-shper').find(":selected").val();
-        let shipterm = $('.inp-shptrm').find(":selected").val();
+        let shipterm = $('.inp-shptrm').find(":selected").val(); 
         let remark = $('.inp-rmk').val();
-        let carrier = $('.inp-carrier').find(":selected").val();
+        let carrier = $('.inp-carrier').find(":selected").val(); 
         let port_recieve = $('.inp-prtrecieve').find(":selected").val();
         let port_load = $('.inp-prtload').find(":selected").val();
         let ts_port = $('.inp-ts_port').find(":selected").val();
@@ -60,7 +75,28 @@ const booking = {
         let cargo_gw = $('.inp-cargo_gw').val();
         let cargo_vol = $('.inp-cargo_vol').val();
         let cargo_marks = $('.inp-cargo_marks').val();
+        datavalid = [
+            '.inp-bkno',
+            '.inp-shptrm',
+            '.inp-carrier',
+            '.inp-prtload',
+            '.inp-ts_port',
+            '.inp-etd',
+            '.inp-cy',
+            '.inp-rtn'
+        ];
+        valid = await booking.validate_input(datavalid);
+        if (valid === false) {
+            Swal.fire({
+                'icon' : 'warning',
+                'title' : 'Warning!',
+                'text' : 'some of the inputs are blank please fill'
+            });
+        }
 
+        return;
+        
+        
             //container section
         let container = [];
         $( ".booking_container").each(function( e ) {
@@ -84,6 +120,7 @@ const booking = {
             }
             container.push(cont_tmp);
         });
+        
         //end container section
         let data = {
             'bk_no' : bk_no,

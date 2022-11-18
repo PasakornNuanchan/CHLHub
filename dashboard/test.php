@@ -45,7 +45,39 @@ session_start();
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <table class="table">
+          ALL
+          <tr>
+              <th>PART</th>
+              <th>Price</th>
+              <th>Current</th>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="" id="">Apply to all</td>
+              <td><input type="text" name="" id=""></td>
+              <td><input type="text" name="" id=""></td>
+            </tr>
+            <tr>
+              <th>PART</th>
+              <th>Price</th>
+              <th>Current</th>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="" id="">T1</td>
+              <td><input type="text" name="" id=""></td>
+              <td><input type="text" name="" id=""></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="" id="">T2</td>
+              <td><input type="text" name="" id=""></td>
+              <td><input type="text" name="" id=""></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="" id="">T3</td>
+              <td><input type="text" name="" id=""></td>
+              <td><input type="text" name="" id=""></td>
+            </tr>
+      </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
