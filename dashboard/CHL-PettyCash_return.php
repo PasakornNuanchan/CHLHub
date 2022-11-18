@@ -8,24 +8,9 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Petty Cash return</title>
+    <?php include '../assets/include/theme_include_css.php'; ?>
 
-    <style>
-        .card {
-            box-shadow: 3px 2px 6px rgba(0, 0, 0, 0.25);
-            border-radius: 8px;
-            background-color: #0D47A1;
-        }
-
-        .table {
-            border-radius: 12px;
-        }
-
-        .button{
-            
-        }
-       
-        
-    </style>
+   
 
 </head>
 
@@ -392,7 +377,6 @@ session_start();
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
 
