@@ -1,5 +1,7 @@
 <?php
     // print_r($_POST);
+    $err_msg = "";
+    $job_number = '0002';
     $bk_no = $_POST['bk_no'];
     $shipper = $_POST['shipper'];
     $shipterm = $_POST['shipterm'];
@@ -15,8 +17,20 @@
     $feeder_voy_no = $_POST['feeder_voy_no'];
     $etd = $_POST['etd'];
     $eta = $_POST['eta'];
-    include '../../core/conn.php';
+    $container = $_POST['container'];
 
+    $cargo_desc = $_POST['cargo_desc'];
+    $hs_code = $_POST['hs_code'];
+    $cargo_type = $_POST['cargo_type'];
+    $cargo_qty = $_POST['cargo_qty'];
+    $cargo_gw = $_POST['cargo_gw'];
+    $cargo_vol = $_POST['cargo_vol'];
+    $cargo_marks = $_POST['cargo_marks'];
+    
+    include '../../core/conn.php';
+    
+    $con->autocommit(FALSE);
+    $sql = '';
     $sql = "
     INSERT INTO `job_title`(
         `job_number`,
@@ -36,7 +50,7 @@
         `ETD`,
         `ETA`
     ) VALUES (
-        '0001',
+        '$job_number',
         '$bk_no',
         '$shipper',
         '$shipterm',
@@ -53,13 +67,79 @@
         '$etd',
         '$eta'
  
-    );
-    
+    ); ";
+     if ($con->query($sql) === TRUE) {
+    } else {
+        $err_msg='insert fail !!';
+    }
+    foreach ($container as $k => $v) {
+        $type = $v['type'];
+        $qty = $v['qty'];
+        $weight = $v['weight'];
+        $soc = $v['soc'];
+        $ow = $v['ow'];
+        $cy = $v['cy'];
+        $rtn = $v['rtn'];
+
+        $sqlcontainer = "
+        INSERT INTO `container`(
+            `job_nubmer`,
+            `container_type`,
+            `container_quantity`,
+            `single_cnt`,
+            `soc`,
+            `ow`,
+            `cy`,
+            `rtn`
+        )
+        VALUES(
+            '$job_number',
+            '$type',
+            '$qty',
+            '$weight',
+            '$soc',
+            '$ow',
+            '$cy',
+            '$rtn'
+        ); ";
+        if ($con->query($sqlcontainer) === TRUE) {
+        } else {
+            $err_msg='insert fail !!';
+        }
+    }
+    $sql_cargo = "
+        INSERT INTO `container_information`(
+            `job_number`,
+            `cargo`,
+            `hs_code`,
+            `cargo_type`,
+            `quantity`,
+            `gw`,
+            `volume`,
+            `mark`
+        )
+        VALUES(
+            '$job_number',
+            '$cargo_desc',
+            '$hs_code',
+            '$cargo_type',
+            '$cargo_qty',
+            '$cargo_gw',
+            '$cargo_vol',
+            '$cargo_marks'
+        )
     ";
 
-    if ($con->query($sql) === TRUE) {
-        echo json_encode(array('res' => 'insert succussfully !!'));
+    if ($con->query($sql_cargo) === TRUE) {
     } else {
-        echo json_encode(array('res' => 'insert fail !!'));
+        $err_msg='insert fail !!';
     }
+
+    $con->commit();
+    if ($err_msg== "" ){
+        echo json_encode(array('res' => 'insert successful !!'));
+    }else{
+        echo json_encode(array('res' => 'insert failed !!','err' => $con->error));
+    }
+    $con->close();
 ?>
