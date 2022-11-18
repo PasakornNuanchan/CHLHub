@@ -49,12 +49,12 @@ session_start();
                         <div class="card">
                             <div class="card-header d-flex justify-content-between ">
                                 <div class="header-title">
-                                    <h4 class="card-title fw-normal">Request Petty Cash</h4>
+                                    <h4 class="card-title fw-normal">Request Advance Cash</h4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Petty Cash Nubmer :</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Advance Cash Nubmer :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -164,7 +164,7 @@ session_start();
                                                     <tr class="text-center" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>No.</th>
                                                         <th>Description</th>
-                                                        <th>Petty Cash Amount</th>
+                                                        <th>Advance Cash Amount</th>
                                                         <th>Curency</th>
                                                     </tr>
                                                 </thead>
@@ -213,7 +213,7 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Petty Cash :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Advance Cash :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
                                         </div>
@@ -226,20 +226,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Pay :</label>
-                                        <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-sm-2">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                <option value="" selected>THB</option>
-                                                <option value="">USD</option>
-                                                <option value="">RMB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Petty Cash return :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Advance Cash return :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
                                         </div>
@@ -295,7 +282,7 @@ session_start();
                         <div class="card" style="">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title fw-normal">Description Petty Cash Detail</h4>
+                                    <h4 class="card-title fw-normal">Description Advance Cash Detail</h4>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -359,13 +346,10 @@ session_start();
                                     <center>
                                         <div class="alert alert-solid col-sm-11" style="background: #10929A; color:white;">
                                             <div class="small">
-                                                <label class="control-label col-sm-0 align-self-center fw-bold">Petty Cash :</label>
+                                                <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
                                                 <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
                                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
-                                                <label class="control-label col-sm-1 align-self-center fw-bold">Pay :</label>
-                                                <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
-                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
-                                                <label class="control-label col-sm-2 align-self-center fw-bold">Pay Return :</label>
+                                                <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
                                                 <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
                                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                                             </div>
