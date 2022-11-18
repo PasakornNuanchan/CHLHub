@@ -54,26 +54,25 @@ include 'core/conn.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Job number:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Job number</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-jobno" id="" placeholder="" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Booking number:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Booking number</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-bkno" id="" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Shipper:</label>
+                                    <label class="control-label col-sm-3 align-self-center" for="">Shipper</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-shper">
+                                        <select class="form-select form-select-sm inp-shper">
                                             <?php
                                             $shipper_select = "SELECT * FROM shipper";
                                             $result_shipper = mysqli_query($con, $shipper_select);
                                             ?>
-
                                             <option selected="">Please select shipper</option>
                                             <?php
                                             while ($result_shipper_total = mysqli_fetch_assoc($result_shipper)) {
@@ -86,9 +85,9 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="">Shipment Terms</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-shptrm">
+                                    <label class="control-label col-sm-3 align-self-center" for="">Shipment Terms</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-shptrm">
                                             <?php
                                             $shipment_select = "SELECT * FROM shipment_term";
                                             $result_shipment = mysqli_query($con, $shipment_select);
@@ -112,8 +111,8 @@ include 'core/conn.php';
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="">Carrier:</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-carrier">
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-carrier">
                                             <?php
                                             $carrier_select = "SELECT * FROM carrier";
                                             $result_carrier = mysqli_query($con, $carrier_select);
@@ -132,8 +131,8 @@ include 'core/conn.php';
 
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="">Port of Receipt</label>
-                                    <div class="col-sm-9 col-md-4 col-lg-4">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-prtrecieve">
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-prtrecieve">
                                             <?php
 
                                             $area_select = "SELECT * FROM area";
@@ -152,13 +151,13 @@ include 'core/conn.php';
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="">Port of Loading</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-prtload">
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-prtload">
                                             <?php
                                             $area_select = "SELECT * FROM area";
                                             $result_area = mysqli_query($con, $area_select);
                                             ?>
-                                            <option selected="">Please select ort of Loading</option>
+                                            <option selected="">Please select Port of Loading</option>
                                             <?php
                                             while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                             ?>
@@ -171,8 +170,8 @@ include 'core/conn.php';
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="">T/S Port</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-ts_port">
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-ts_port">
                                             <?php
                                             $area_select = "SELECT * FROM area";
                                             $result_area = mysqli_query($con, $area_select);
@@ -190,8 +189,8 @@ include 'core/conn.php';
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="">Port of Delivery</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none inp-delivery">
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <select class="form-select form-select-sm inp-delivery">
                                             <?php
                                             $area_select = "SELECT * FROM area";
                                             $result_area = mysqli_query($con, $area_select);
@@ -304,13 +303,13 @@ include 'core/conn.php';
 
                                         <p></p>
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">CY:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4 ">
+                                        <div class="col-sm-9 col-md-4 col-lg-3 ">
                                             <input type="date" class="form-control form-control-sm inp-cy" id="" value="2019-12-18">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">RTN:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4 ">
+                                        <div class="col-sm-9 col-md-4 col-lg-3 ">
                                             <input type="date" class="form-control form-control-sm inp-rtn" id="" value="2019-12-18">
                                         </div>
                                     </div>
@@ -333,8 +332,8 @@ include 'core/conn.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">H.S.Code:</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none inp-hscode">
+                                        <div class="col-sm-9 col-md-5 col-lg-6">
+                                            <select class="form-select form-select-sm inp-hscode">
                                                 <?php
                                                 $hs_select = "SELECT * FROM hs_code";
                                                 $result_hs = mysqli_query($con, $hs_select);
@@ -352,8 +351,8 @@ include 'core/conn.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">Cargo Type:</label>
-                                        <div class="col-sm-9 col-md-7 col-lg-7">
-                                            <select class="form-select form-select-sm mb-3 shadow-none inp-cargo_type">
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <select class="form-select form-select-sm inp-cargo_type">
                                                 <?php
                                                 $cargo_type_select = "SELECT * FROM cargo_type";
                                                 $result_cargo_type = mysqli_query($con, $cargo_type_select);
