@@ -104,7 +104,7 @@ include('core/conn.php');
                 while ($menu_res = mysqli_fetch_assoc($menu_fetch1)) {
                 ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../dashboard/admin.html">
+                            <a class="nav-link" href="<?php echo $menu_res['link'] ?>">
                                 <i class="<?php echo $menu_res['menu_icon'] ?>"></i>
                                 <span class="item-name"> <?php echo $menu_res['menu_name'] ?></span>
                             </a>
