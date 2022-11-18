@@ -11,48 +11,7 @@ session_start();
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
-<style>
-        body {
-            font-family: Arial;
-        }
 
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 0px solid #ccc;
-            border-top: none;
-        }
-    </style>
 <body class="  ">
     <!-- loader Start -->
     <div id="loading">
@@ -70,37 +29,17 @@ session_start();
             <!--Nav Start-->
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
-            <div class="iq-navbar-header" style="height: 215px;">
-                <div class="container-fluid iq-container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="flex-wrap d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h1>Customs Clearance</h1>
-                                    <p></p>
-                                    <div>
-                                        <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'Document')">Customs Clearance</button>
-                                        <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'pettycash_advance')" id="defaultOpen">Pettycash & Advance</button>
-                                        <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'transport')">Transport</button>
-                                        <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'booking')">Booking</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="iq-header-img">
-                    <img src="../../assets/images/dashboard/top-header.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
-                    <img src="../../assets/images/dashboard/top-header1.png" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX">
-                    <img src="../../assets/images/dashboard/top-header2.png" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX">
-                    <img src="../../assets/images/dashboard/top-header3.png" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX">
-                    <img src="../../assets/images/dashboard/top-header4.png" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX">
-                    <img src="../../assets/images/dashboard/top-header5.png" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
+            <div class="iq-navbar-header" style="height: 100px;">
+                <div class="conatiner-fluid content-inner mt-n5 py-0">
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'Document')">Customs Clearance</button>
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'pettycash_advance')" id="defaultOpen">Pettycash & Advance</button>
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'transport')">Transport</button>
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'booking')">Booking</button>
                 </div>
             </div> <!-- Nav Header Component End -->
             <!--Nav End-->
         </div>
-        </div>
+        
         <div id="transport" class="tabcontent">
             <div class="conatiner-fluid content-inner mt-n5 py-0">
                 <div>
@@ -143,7 +82,7 @@ session_start();
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
                                                     <?php
                                                     $transport_sup_select = "SELECT * FROM transport_sup";
-                                                    
+
                                                     ?>
                                                 </select>
                                             </div>
@@ -266,11 +205,11 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">No. :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">No. :</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control form-select-sm mb-3 shadow-none" readonly>
                                         </div>
-                                    
+
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Type :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
@@ -310,8 +249,8 @@ session_start();
                                         </div>
                                     </div>
                                     <div style="float: right">
-                                    <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-square"></i> Save</button>
-                                    <button class="btn btn-warning rounded-pill btn-sm"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+                                        <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-square"></i> Save</button>
+                                        <button class="btn btn-warning rounded-pill btn-sm"><i class="bi bi-arrow-clockwise"></i> Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -583,7 +522,7 @@ session_start();
 
                                                 <?php
                                                 $shipper_select = "SELECT * FROM carrier";
-                                               
+
                                                 ?>
                                             </select>
 
@@ -596,7 +535,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $shipment_select = "SELECT * FROM shipment_term";
-                                                
+
                                                 ?>
 
                                             </select>
@@ -614,7 +553,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $carrier_select = "SELECT * FROM carrier";
-                                                
+
                                                 ?>
                                             </select>
                                         </div>
@@ -625,7 +564,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
-                                                
+
                                                 ?>
                                             </select>
                                         </div>
@@ -636,7 +575,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
-                                                
+
                                                 ?>
                                             </select>
                                         </div>
@@ -647,7 +586,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
-                                                
+
                                                 ?>
                                             </select>
                                         </div>
@@ -658,7 +597,7 @@ session_start();
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
                                                 $area_select = "SELECT * FROM area";
-                                                
+
                                                 ?>
                                             </select>
                                         </div>
@@ -739,7 +678,7 @@ session_start();
                                                             <td><select class="form-select form-select-sm shadow-none">
                                                                     <?php
                                                                     $Container_type_select = "SELECT * FROM container_type";
-                                                                    
+
                                                                     ?>
                                                                 </select></td>
                                                             <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
@@ -747,8 +686,8 @@ session_start();
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-trash"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Delete</button>
+                                                                <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-trash"></i> Edit</button>
+                                                                <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -793,7 +732,7 @@ session_start();
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
                                                     <?php
                                                     $hs_select = "SELECT * FROM hs_code";
-                                                    
+
                                                     ?>
                                                 </select>
                                             </div>
@@ -806,7 +745,7 @@ session_start();
 
                                                     <?php
                                                     $cargo_type_select = "SELECT * FROM cargo_type";
-                                                    
+
                                                     ?>
                                                 </select>
                                             </div>
@@ -868,9 +807,9 @@ session_start();
             </div>
         </div>
     </main>
- <!-- Footer Section Start -->
-        <?php include 'include/footermain.php'; ?>
-        <!-- Footer Section End -->
+    <!-- Footer Section Start -->
+    <?php include 'include/footermain.php'; ?>
+    <!-- Footer Section End -->
     <!-- Wrapper End-->
     <!-- offcanvas start -->
     <?php include 'include/offcanvas.php'; ?>
@@ -880,20 +819,20 @@ session_start();
 </html>
 
 <script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
 
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-    </script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
