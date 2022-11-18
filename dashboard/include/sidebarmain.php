@@ -27,15 +27,15 @@ include('core/conn.php');
         <div class="sidebar-list">
             <!-- Sidebar Menu Start -->
             <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
-                
+
                 <li class="nav-item static-item">
                     <a class="nav-link static-item disabled" href="#" tabindex="-1">
-                        <span class="default-icon">Pages</span>
+                        <span class="default-icon">Page</span>
                         <span class="mini-icon">-</span>
                     </a>
                 </li>
-                
-                <li class="nav-item">
+
+                <!-- <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-user" role="button" aria-expanded="false" aria-controls="sidebar-user">
                         <i class="icon">
                             <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,21 +95,21 @@ include('core/conn.php');
                             </a>
                         </li>
                     </ul>
-                </li>
-                
-                <?php
-                $menu_sidemain = "SELECT * FROM menu ORDER BY menu_number ASC;";
-                $menu_fetch = mysqli_query($con, $menu_sidemain);
+                </li> -->
 
-                while ($menu_res = mysqli_fetch_assoc($menu_fetch)) {
-                ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../dashboard/admin.html">
-                        <i class="<?php echo $menu_res['menu_icon'] ?>"></i>
-                            <span class="item-name"> <?php echo $menu_res['menu_name'] ?></span>
-                        </a>
-                    </li>
                 <?php
+                $menu_sidemain1 = "SELECT * FROM menu ORDER BY menu_number ASC;";                
+                $menu_fetch1 = mysqli_query($con, $menu_sidemain1);
+                $x = 1;
+                while ($menu_res = mysqli_fetch_assoc($menu_fetch1)) {
+                ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../dashboard/admin.html">
+                                <i class="<?php echo $menu_res['menu_icon'] ?>"></i>
+                                <span class="item-name"> <?php echo $menu_res['menu_name'] ?></span>
+                            </a>
+                        </li>
+                    <?php
                 }
                 ?>
             </ul>
