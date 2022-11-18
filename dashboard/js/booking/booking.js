@@ -83,7 +83,8 @@ const booking = {
             '.inp-ts_port',
             '.inp-etd',
             '.inp-cy',
-            '.inp-rtn'
+            '.inp-rtn',
+            '.inp-eta'
         ];
         valid = await booking.validate_input(datavalid);
         if (valid === false) {
