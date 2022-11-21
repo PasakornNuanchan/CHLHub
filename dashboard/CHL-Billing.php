@@ -51,7 +51,7 @@ session_start();
                                         <div class="table-responsive mt-4">
                                             <table id="basic-table" class="table table-striped mb-0" role="grid" style="border-radius: 12px;">
                                                 <thead>
-                                                    <tr class="text-center bg-gradient " style="background-color :#0D47A1; color :aliceblue;">
+                                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>Code.</th>
                                                         <th>Description</th>
                                                         <th>Bill to</th>
@@ -63,7 +63,7 @@ session_start();
                                                         <th>Vat(%)</th>
                                                         <th>Amt(incl.Vat)</th>
                                                         <th>Remark</th>
-                                                        <th>CN#</th>
+                                                        <th>check</th>
                                                         <th>Action</th>
                                                         <th>Paid Action</th>
                                                     </tr>
@@ -93,11 +93,7 @@ session_start();
                                                         <td></td>
                                                         <td></td>
                                                         <td><input type="text" class="form-control"></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
+                                                        <td><input type="checkbox" class="form-check-input"></td>
                                                         <td>
                                                             <button type="button" class="btn btn-warning rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
                                                             <button type="button" class="btn btn-danger rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
@@ -179,7 +175,7 @@ session_start();
                                                         <th>Vat(%)</th>
                                                         <th>Amt(incl.Vat)</th>
                                                         <th>Remark</th>
-                                                        <th>CN#</th>
+                                                        <th>Check</th>
                                                         <th>Action</th>
                                                         <th>Paid Action</th>
                                                     </tr>
@@ -209,11 +205,7 @@ session_start();
                                                         <td></td>
                                                         <td></td>
                                                         <td><input type="text" class="form-control"></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
+                                                        <td><input type="checkbox" class="form-check-input"></td>
                                                         <td>
                                                             <button type="button" class="btn btn-warning rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
                                                             <button type="button" class="btn btn-danger rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
