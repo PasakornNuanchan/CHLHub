@@ -1,5 +1,6 @@
 <?php
 include('core/conn.php');
+require_once 'lang_lib.php';
 ?>
 <aside class="sidebar sidebar-default navs-rounded-all">
     <div class="sidebar-header d-flex align-items-center justify-content-start">

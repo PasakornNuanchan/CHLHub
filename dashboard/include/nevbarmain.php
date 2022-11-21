@@ -1,10 +1,10 @@
 <?php
-    if(sizeof($_SESSION) > 0){
-        $name = $_SESSION['name'];
-        $lastname = $_SESSION['lastname'];
-        $depart = $_SESSION['department_name'];
-    }
-    
+if (sizeof($_SESSION) > 0) {
+    $name = $_SESSION['name'];
+    $lastname = $_SESSION['lastname'];
+    $depart = $_SESSION['department_name'];
+}
+
 ?>
 <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
     <div class="container-fluid navbar-inner">
@@ -54,40 +54,28 @@
                             <div class="p-0">
                                 <ul class="p-0 list-group list-group-flush">
                                     <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="#"><img src="../assets/images/Flag/flag-03.png" alt="img-flaf" class="img-fluid me-2" style="
-                                  width: 15px;
-                                  height: 15px;
-                                  min-width: 15px;
-                                " />Spanish</a>
+                                        <a class="p-0" href="?lang=en"><img src="../assets/images/Flag/icon/us.png" alt="img-flaf" class="img-fluid me-2" style="
+                                  width: 20px;
+                                  height: 18px;
+                                  min-width: 20px;
+                                " />English</a>
                                     </li>
                                     <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="#"><img src="../assets/images/Flag/flag-04.png" alt="img-flaf" class="img-fluid me-2" style="
-                                  width: 15px;
-                                  height: 15px;
-                                  min-width: 15px;
-                                " />Italian</a>
+                                        <a class="p-0" href="?lang=th"><img src="../assets/images/Flag/icon/th.png" alt="img-flaf" class="img-fluid me-2" style="
+                                  width: 20px;
+                                  height: 18px;
+                                  min-width: 20px;
+                                " />Thai</a>
                                     </li>
                                     <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="#"><img src="../assets/images/Flag/flag-02.png" alt="img-flaf" class="img-fluid me-2" style="
-                                  width: 15px;
-                                  height: 15px;
-                                  min-width: 15px;
-                                " />French</a>
+                                        <a class="p-0" href="?lang=cn"><img src="../assets/images/Flag/icon/cn.png" alt="img-flaf" class="img-fluid me-2" style="
+                                  width: 20px;
+                                  height: 18px;
+                                  min-width: 20px;
+                                " />Chainese</a>
                                     </li>
-                                    <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="#"><img src="../assets/images/Flag/flag-05.png" alt="img-flaf" class="img-fluid me-2" style="
-                                  width: 15px;
-                                  height: 15px;
-                                  min-width: 15px;
-                                " />German</a>
-                                    </li>
-                                    <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="#"><img src="../assets/images/Flag/flag-06.png" alt="img-flaf" class="img-fluid me-2" style="
-                                  width: 15px;
-                                  height: 15px;
-                                  min-width: 15px;
-                                " />Japanese</a>
-                                    </li>
+                                    
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -247,7 +235,7 @@
                         <img src="../assets/images/avatars/avtar_5.png" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded" />
                         <img src="../assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded" />
                         <div class="caption ms-3 d-none d-md-block">
-                            <h6 class="mb-0 caption-title"><?=$name.' '.$lastname ?></h6>
+                            <h6 class="mb-0 caption-title"><?= $name . ' ' . $lastname ?></h6>
                             <p class="mb-0 caption-sub-title">
                                 <?= $depart ?>
                             </p>
@@ -279,7 +267,7 @@
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
                     <div>
                         <h1>Hello Devs!</h1>
-                        
+
                     </div>
                     <div>
                         <a href="" class="btn btn-link btn-soft-light">
