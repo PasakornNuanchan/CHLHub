@@ -39,19 +39,19 @@ session_start();
                     <div class="col-sm-12 col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4 class="card-title">Account Receivable</h4>
+                                <h3 class="card-title">Account Receivable</h3>
                                 <div style="float: right">
-                                    <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-check-square"></i> Export</button>
-                                    <button class="btn btn-warning rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-check-square"></i> Print</button>
+                                    <button class="btn btn-info rounded-pill btn-save-booking bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
+                                    <button class="btn btn-warning rounded-pill btn-save-booking bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" role="grid" style="border-radius: 12px;">
                                                 <thead>
-                                                    <tr class="text-center">
+                                                    <tr class="text-center bg-gradient " style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>Code.</th>
                                                         <th>Description</th>
                                                         <th>Bill to</th>
@@ -99,11 +99,11 @@ session_start();
                                                                 <option value="">RMB</option>
                                                             </select></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
+                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
+                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success rounded-pill btn-xs"><i class="bi bi-cash-coin"></i> Paid</button>
+                                                            <button type="button" class="btn btn-success rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -154,19 +154,20 @@ session_start();
                         </div>
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4 class="card-title">Account Payble</h4>
+                                <h3 class="card-title">Account Payble</h3>
                                 <div style="float: right">
-                                    <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-check-square"></i> Export</button>
-                                    <button class="btn btn-warning rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-check-square"></i> Print</button>
+                                    <button class="btn btn-info rounded-pill btn-save-booking bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
+                                    <button class="btn btn-warning rounded-pill btn-save-booking bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
+                                    <button class="btn btn-success rounded-pill btn-save-booking bg-success bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-arrow-down-square"></i> Import petty cash , advance</button>                               
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" style="border-radius: 12px;" role="grid">
                                                 <thead>
-                                                    <tr class="text-center">
+                                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;" >
                                                         <th>Code.</th>
                                                         <th>Description</th>
                                                         <th>Bill to</th>
@@ -214,17 +215,17 @@ session_start();
                                                                 <option value="">RMB</option>
                                                             </select></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
+                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
+                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success rounded-pill btn-xs"><i class="bi bi-cash-coin"></i> Paid</button>
+                                                            <button type="button" class="btn btn-success rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill ">add new</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -205,20 +205,23 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">No. :</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control form-select-sm mb-3 shadow-none" readonly>
-                                        </div>
-
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Type :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <option selected>Please select shipper</option>
+                                                <option selected>Please select type</option>
                                                 <option value="">Petty Cash</option>
                                                 <option value="">Advance Cash</option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Description :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">description :</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                                <option selected>Please select shipper</option>
+                                                <option value="">Cargo rent</option>
+                                                <option value="">OT Customs Department Officer </option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pay to :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
