@@ -10,7 +10,7 @@ include 'core/conn.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
-    <style></style>
+    <?php require_once 'include/lang_lib.php' ?>
 </head>
 
 <body class="  ">
@@ -48,12 +48,12 @@ include 'core/conn.php';
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">Booking Detail</h4>
+                                <h4 class="card-title"><?=$get_lang['Booking_Detail']?></h4>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center mb-0" for="">Job number</label>
+                                <label class="control-label col-sm-3 align-self-center mb-0" for=""><?=$get_lang['Job_number']?></label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-jobno" id="" placeholder="" readonly>
                                 </div>
@@ -430,3 +430,4 @@ include 'core/conn.php';
 <script src="js/booking/booking.js"></script>
 <script>
 </script>
+
