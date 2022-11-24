@@ -38,7 +38,7 @@ session_start();
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title text-center">Petty Cash Balance</h4>
-                                <h4 class="card-title text-center">18,000.00</h4>
+                                <h4 class="card-title text-center">222,000.00</h4>
                                 <h4 class="card-title text-center">THB</h4>
                             </div>
                         </div>
