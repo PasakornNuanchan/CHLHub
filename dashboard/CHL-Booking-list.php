@@ -52,37 +52,32 @@ session_start();
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>                 
+                                        <?php
+                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
+                                                        FROM job_title as jt 
+                                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
+                                                        INNER JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
+                                                        WHERE jt.status_job ='0'";
+
+
+                                        $fetch_sql = mysqli_query($con, $sql_table_list);
+                                        while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        ?>
                                         <tr>
-                                            <td>05/09/2022</td>
-                                            <td>T2209042</td>
-                                            <td>A15CX16008</td>
-                                            <td>Wanhai Line c...</td>
-                                            <td>WINTEK Co.,ltd</td>
-                                            <td>Lamchabang, thailand</td>
-                                            <td>2022/09/24</td>
+                                            <td><?= $result_table_list['create_date'] ?></td>
+                                            <td><?= $result_table_list['job_number'] ?></td>
+                                            <td><?= $result_table_list['mbl'] ?></td>
+                                            <td><?= $result_table_list['carrier_name'] ?></td>
+                                            <td><?= $result_table_list['consignee_name'] ?></td>
+                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
+                                            <td><?= $result_table_list['eta'] ?></td>
                                             <td>010</td>
                                         </tr>
-                                        <tr>
-                                            <td>05/09/2022</td>
-                                            <td>T2209042</td>
-                                            <td>A15CX16008</td>
-                                            <td>Wanhai Line c...</td>
-                                            <td>WINTEK Co.,ltd</td>
-                                            <td>Lamchabang, thailand</td>
-                                            <td>2022/09/24</td>
-                                            <td>010</td>
-                                        </tr>
-                                        <tr>
-                                            <td>05/09/2022</td>
-                                            <td>T2209042</td>
-                                            <td>A15CX16008</td>
-                                            <td>Wanhai Line c...</td>
-                                            <td>WINTEK Co.,ltd</td>
-                                            <td>Lamchabang, thailand</td>
-                                            <td>2022/09/24</td>
-                                            <td>010</td>
-                                        </tr>
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
