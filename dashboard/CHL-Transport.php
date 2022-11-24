@@ -143,7 +143,16 @@ session_start();
                                                 </div>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Container:</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-1 col-md-3 col-lg-3">
+                                                    <select name="" id="" class="form-select form-select-sm"></select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div style="float: right">
                                         <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
@@ -205,7 +214,7 @@ session_start();
                                                     <th>Package</th>
                                                     <th>Gross Weight</th>
                                                     <th>CBM</th>
-                                                    <th>Action</th>
+                                                   
                                                 </tr>
                                             </thead>
                                             <tbody style="text-align:center;">
@@ -218,7 +227,7 @@ session_start();
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
@@ -229,7 +238,7 @@ session_start();
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
+                                                   
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
@@ -240,7 +249,7 @@ session_start();
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
                                                     <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </table>
