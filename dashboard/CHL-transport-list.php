@@ -44,22 +44,21 @@ session_start();
                                         <tr>
                                             <th>Create Date</th>
                                             <th>Job number</th>
-                                            <th>B/L</th>
-                                            <th>Carrier</th>
                                             <th>Consignee</th>
-                                            <th>T/S Port</th>
+                                            <th>Type</th>
                                             <th>ETA</th>
+                                            <th>T/S Port</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>                 
                                         <?php
-                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
-                                                        FROM job_title as jt 
-                                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                                        INNER JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
-                                                        WHERE jt.status_job ='0'";
+                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.type_import_export,c.consignee_name,a.location_name,a.country,jt.eta,(SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status
+                                        FROM job_title as jt 
+                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
+                                        WHERE jt.status_job ='0'";
 
 
                                         $fetch_sql = mysqli_query($con, $sql_table_list);
@@ -68,11 +67,11 @@ session_start();
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
-                                            <td><?= $result_table_list['mbl'] ?></td>
-                                            <td><?= $result_table_list['carrier_name'] ?></td>
                                             <td><?= $result_table_list['consignee_name'] ?></td>
-                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
+                                            <td><?= $result_table_list['type_import_export'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
+                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
+                                            <td><?= $result_table_list['status'] ?></td>
                                             <td>010</td>
                                         </tr>
                                         <?php
