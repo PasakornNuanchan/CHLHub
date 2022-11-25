@@ -54,7 +54,8 @@ session_start();
                                     </thead>
                                     <tbody>                 
                                         <?php
-                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,(SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status
+                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,
+                                        (SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status 
                                         FROM job_title as jt 
                                         INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                         INNER JOIN area as a ON jt.ts_port_number = a.area_number
