@@ -37,11 +37,11 @@ session_start();
             <div class="row mt-5">
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="card-body p-0">
-                            <div class="mt-4">
-                                <table id="basic-table" class="table table-striped table-hover mb-0" role="grid">
+                        <div class="card-body">
+                            
+                            <table class="table table-borderless" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                     <thead>
-                                        <tr>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                             <th>Create Date</th>
                                             <th>Job number</th>
                                             <th>B/L</th>
@@ -73,14 +73,14 @@ session_start();
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
-                                            <td>010</td>
+                                            <td><button type="button" href="#" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                         <?php
                                         }
                                         ?>
                                     </tbody>
                                 </table>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
