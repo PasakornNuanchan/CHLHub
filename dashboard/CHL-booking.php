@@ -141,7 +141,7 @@ include 'core/conn.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -160,7 +160,7 @@ include 'core/conn.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -179,7 +179,7 @@ include 'core/conn.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -198,7 +198,7 @@ include 'core/conn.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['Provice'] . " ," . $result_area_total['Country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -227,7 +227,7 @@ include 'core/conn.php';
                                             <input type="text" class="form-control form-control-sm feeder_vessel" placeholder="">
                                         </div>
                                         <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center mb-0" for="">Voy No.:</label>
-                                        <div class="col-lg-9 col-md-9">
+                                        <div class="col-lg-4 col-md-5">
                                             <input type="text" class="form-control form-control-sm inp-feeder_voy_no" placeholder="">
                                         </div>
                                     </div>
@@ -241,7 +241,7 @@ include 'core/conn.php';
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center mb-0" for="">ETA:</label>
-                                <div class="col-sm-9 col-md-4 col-lg-3">
+                                <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="date" class="form-control form-control-sm inp-eta" id="" value="">
                                 </div>
                             </div>

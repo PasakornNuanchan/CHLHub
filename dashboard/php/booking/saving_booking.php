@@ -1,6 +1,17 @@
 <?php
+    include '../../core/conn.php';
+
+
+$con->begin_transaction();
+$con->autocommit(FALSE);
+try {
+
+
+
+
     // print_r($_POST);
     $err_msg = "";
+    $inst_st = "1";
     $job_number = '0002';
     $bk_no = $_POST['bk_no'];
     $shipper = $_POST['shipper'];
@@ -26,10 +37,9 @@
     $cargo_gw = $_POST['cargo_gw'];
     $cargo_vol = $_POST['cargo_vol'];
     $cargo_marks = $_POST['cargo_marks'];
-    
-    include '../../core/conn.php';
-    
-    $con->autocommit(FALSE);
+
+
+
     $sql = '';
     $sql = "
     INSERT INTO `job_title`(
@@ -41,7 +51,7 @@
         `carrier_number`,
         `port_of_receipt_number`,
         `port_of_loading_number`,
-        `t/s_port_number`,
+        `ts_port_number`,
         `port_of_delivery_number`,
         `mother_vessel`,
         `voy_no_mother`,
@@ -68,24 +78,22 @@
         '$eta'
  
     ); ";
-     if ($con->query($sql) === TRUE) {
-    } else {
-        $err_msg='insert fail !!';
-    }
+    if ($con->query($sql) === TRUE) {
+    } 
     foreach ($container as $k => $v) {
+        $cont_each = [];
         $type = $v['type'];
-        $qty = $v['qty'];
         $weight = $v['weight'];
         $soc = $v['soc'];
         $ow = $v['ow'];
         $cy = $v['cy'];
         $rtn = $v['rtn'];
 
+
         $sqlcontainer = "
         INSERT INTO `container`(
             `job_nubmer`,
             `container_type`,
-            `container_quantity`,
             `single_cnt`,
             `soc`,
             `ow`,
@@ -95,7 +103,6 @@
         VALUES(
             '$job_number',
             '$type',
-            '$qty',
             '$weight',
             '$soc',
             '$ow',
@@ -103,9 +110,7 @@
             '$rtn'
         ); ";
         if ($con->query($sqlcontainer) === TRUE) {
-        } else {
-            $err_msg='insert fail !!';
-        }
+        } 
     }
     $sql_cargo = "
         INSERT INTO `container_information`(
@@ -131,15 +136,24 @@
     ";
 
     if ($con->query($sql_cargo) === TRUE) {
-    } else {
-        $err_msg='insert fail !!';
-    }
-
+    } 
+    $arr = array('res' => 'insert successful !!', 'st' => '1');
+    echo json_encode($arr);
     $con->commit();
-    if ($err_msg== "" ){
-        echo json_encode(array('res' => 'insert successful !!'));
-    }else{
-        echo json_encode(array('res' => 'insert failed !!','err' => $con->error));
-    }
-    $con->close();
-?>
+
+} catch (\Exception $e) {
+    // this will show statement with error
+    $arr = array('res' => 'Insert Failed !!', 'st' => '0');
+    echo json_encode($arr);
+    $con->rollback();
+    throw $e;
+}
+
+// if ($err_msg == "") {
+//     $arr = array('res' => 'insert successful !!', 'st' => $inst_st);
+//     echo json_encode($arr);
+// } else {
+//     $arr = array('res' => 'insert failed !!', 'st' => $inst_st, 'err' => $con->error, 'msg' => $err_msg);
+//     echo json_encode($arr);
+// }
+$con->close();

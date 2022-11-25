@@ -1,5 +1,4 @@
 const booking = {
-
     select_port: function () {
         $.ajax({
             type: "post",
@@ -8,11 +7,11 @@ const booking = {
             dataType: "text",
             success: function (response) {
                 alert(response);
-            }
+            },
         });
     },
-    addconthtml : function () {
-        let html_select = $('.td-sel-conttype').html();
+    addconthtml: function () {
+        let html_select = $(".td-sel-conttype").html();
         html = `
         <tr class="booking_container">
             <td>${html_select}</td>
@@ -29,150 +28,168 @@ const booking = {
         `;
         $('[name="container-tbl"]>tbody').append(html);
     },
-    del_container_row : function (e = null) { 
-        $(e).closest('tr').remove();
-    },   
-    validate_input : function(elements_class = []){
+    del_container_row: function (e = null) {
+        $(e).closest("tr").remove();
+    },
+    validate_input: function (elements_class = [],container) {
         valid_st = true;
-       $.each(elements_class, function (k, v) { 
-        if ($(v).val() == '' || $(v).val() == null || $(v).val() == undefined) {
-            $(v).addClass('is-invalid');
-            valid_st = false;
+        $.each(elements_class, function (k, v) {
+            if ($(v).val() == "" || $(v).val() == null || $(v).val() == undefined) {
+                $(v).addClass("is-invalid");
+                valid_st = false;
+            } else {
+                $(v).removeClass("is-invalid");
+            }
+        });
+
+        if (container.length == 0) {
+            $('.inp-container_type').addClass("is-invalid");
+            valid_st = false; 
         }else{
-            $(v).removeClass( 'is-invalid');
+            $('.inp-container_type').removeClass("is-invalid");
         }
-       });
-        
-        
         return valid_st;
     },
-    save_booking : async function () { 
-
+    save_booking: async function () {
         let valid = true;
-        let bk_no = $('.inp-bkno').val();
-        let shipper = $('.inp-shper').find(":selected").val();
-        let shipterm = $('.inp-shptrm').find(":selected").val(); 
-        let remark = $('.inp-rmk').val();
-        let carrier = $('.inp-carrier').find(":selected").val(); 
-        let port_recieve = $('.inp-prtrecieve').find(":selected").val();
-        let port_load = $('.inp-prtload').find(":selected").val();
-        let ts_port = $('.inp-ts_port').find(":selected").val();
-        let port_delivery = $('.inp-delivery').find(":selected").val();
-        let mother_vessel = $('.inp-M_vessel').val();
-        let mother_voy_no = $('.inp-mother-voy-no').val();
-        let feeder_vessel = $('.feeder_vessel').val();
-        let feeder_voy_no = $('.inp-feeder_voy_no').val();
-        let etd = $('.inp-etd').val();
-        let eta = $('.inp-eta').val();
+        let bk_no = $(".inp-bkno").val();
+        let shipper = $(".inp-shper").find(":selected").val();
+        let shipterm = $(".inp-shptrm").find(":selected").val();
+        let remark = $(".inp-rmk").val();
+        let carrier = $(".inp-carrier").find(":selected").val();
+        let port_recieve = $(".inp-prtrecieve").find(":selected").val();
+        let port_load = $(".inp-prtload").find(":selected").val();
+        let ts_port = $(".inp-ts_port").find(":selected").val();
+        let port_delivery = $(".inp-delivery").find(":selected").val();
+        let mother_vessel = $(".inp-M_vessel").val();
+        let mother_voy_no = $(".inp-mother-voy-no").val();
+        let feeder_vessel = $(".feeder_vessel").val();
+        let feeder_voy_no = $(".inp-feeder_voy_no").val();
+        let etd = $(".inp-etd").val();
+        let eta = $(".inp-eta").val();
 
-        let cy = $('.inp-cy' ).val();
-        let rtn = $('.inp-rtn' ).val();
+        let cy = $(".inp-cy").val();
+        let rtn = $(".inp-rtn").val();
 
-        let cargo_desc = $('.inp-cargodes').val();
-        let hs_code = $('.inp-hscode').find(":selected").val();
-        let cargo_type = $('.inp-cargo_type').find(":selected").val();
-        let cargo_qty = $('.inp-cargo_qty').val();
-        let cargo_gw = $('.inp-cargo_gw').val();
-        let cargo_vol = $('.inp-cargo_vol').val();
-        let cargo_marks = $('.inp-cargo_marks').val();
-        datavalid = [
-            '.inp-bkno',
-            '.inp-shptrm',
-            '.inp-carrier',
-            '.inp-prtload',
-            '.inp-ts_port',
-            '.inp-etd',
-            '.inp-cy',
-            '.inp-rtn',
-            '.inp-eta'
-        ];
-        valid = await booking.validate_input(datavalid);
-        if (valid === false) {
-            Swal.fire({
-                'icon' : 'warning',
-                'title' : 'Warning!',
-                'text' : 'some of the inputs are blank please fill'
-            });
-        }
+        let cargo_desc = $(".inp-cargodes").val();
+        let hs_code = $(".inp-hscode").find(":selected").val();
+        let cargo_type = $(".inp-cargo_type").find(":selected").val();
+        let cargo_qty = $(".inp-cargo_qty").val();
+        let cargo_gw = $(".inp-cargo_gw").val();
+        let cargo_vol = $(".inp-cargo_vol").val();
+        let cargo_marks = $(".inp-cargo_marks").val();
 
-        return;
-        
-        
-            //container section
+
+        //container section
         let container = [];
-        $( ".booking_container").each(function( e ) {
+        $(".booking_container").each(function (e) {
             let cont_tmp = {};
 
-            let type = $('.inp-container_type').find(":selected").val();
-            let qty = $('.inp-contqty' , this).val();
-            let weight = $('.inp-single-wieght' , this).val();
-            let soc = $('.inp-soc:checked' , this).length > 0 ? '1' : '0' ;
-            let ow = $('.inp-ow:checked' , this).length > 0 ? '1' : '0' ;
-            
-
-            cont_tmp = {
-                'type' : type,
-                'qty': qty,
-                'weight' : weight,
-                'soc' : soc,
-                'ow' : ow,
-                'cy' : cy,
-                'rtn' : rtn
+            let type = $(".inp-container_type option:selected", this).val();
+            let qty = $(".inp-contqty", this).val();
+            let weight = $(".inp-single-wieght", this).val();
+            let soc = $(".inp-soc:checked", this).length > 0 ? "1" : "0";
+            let ow = $(".inp-ow:checked", this).length > 0 ? "1" : "0";
+            let count = qty;
+            while (count > 0) {
+                cont_tmp = {
+                    type: type,
+                    weight: weight,
+                    soc: soc,
+                    ow: ow,
+                    cy: cy,
+                    rtn: rtn,
+                };
+                container.push(cont_tmp);
+                count--;
             }
-            container.push(cont_tmp);
         });
-        
+
+        datavalid = [
+            ".inp-bkno",
+            ".inp-shptrm",
+            ".inp-carrier",
+            ".inp-prtload",
+            ".inp-ts_port",
+            ".inp-etd",
+            ".inp-cy",
+            ".inp-rtn",
+            ".inp-eta",
+        ];
+        // valid = await booking.validate_input(datavalid,container);
+        // if (valid === false) {
+        //     Swal.fire({
+        //         icon: "warning",
+        //         title: "Warning!",
+        //         text: "some of the inputs are blank please fill",
+        //     });
+        //     return;
+        // }
+
+
+
         //end container section
         let data = {
-            'bk_no' : bk_no,
-            'shipper' : shipper,
-            'shipterm' : shipterm,
-            'remark' : remark,
-            'carrier' : carrier,
-            'port_recieve' :  port_recieve,
-            'port_load' : port_load,
-            'ts_port' : ts_port,
-            'port_delivery' :port_delivery,
-            'mother_vessel' : mother_vessel,
-            'mother_voy_no' : mother_voy_no,
-            'feeder_vessel' : feeder_vessel,
-            'feeder_voy_no' : feeder_voy_no,
-            'etd' : etd,
-            'eta' : eta,
-            'container' : container,
+            'bk_no': bk_no,
+            'shipper': shipper,
+            'shipterm': shipterm,
+            'remark': remark,
+            'carrier': carrier,
+            'port_recieve': port_recieve,
+            'port_load': port_load,
+            'ts_port': ts_port,
+            'port_delivery': port_delivery,
+            'mother_vessel': mother_vessel,
+            'mother_voy_no': mother_voy_no,
+            'feeder_vessel': feeder_vessel,
+            'feeder_voy_no': feeder_voy_no,
+            'etd': etd,
+            'eta': eta,
+            'container': container,
 
-            'cargo_desc' : cargo_desc,
-            'hs_code':hs_code,
-            'cargo_type' :cargo_type,
-            'cargo_qty' :cargo_qty,
-            'cargo_gw' :cargo_gw,
-            'cargo_vol' :cargo_vol,
-            'cargo_marks':cargo_marks,
-        }
-       
+            'cargo_desc': cargo_desc,
+            'hs_code': hs_code,
+            'cargo_type': cargo_type,
+            'cargo_qty': cargo_qty,
+            'cargo_gw': cargo_gw,
+            'cargo_vol': cargo_vol,
+            'cargo_marks': cargo_marks,
+        };
+
         let res = await booking.ajax_save_booking(data);
+        console.log(res.st);
+        if (res['st'] == '1') {
+            Swal.fire(
+                'Succedd',
+                'Data saved!',
+                'success'
+              );
+           
+        }else{
+            
+            Swal.fire(
+                'Error',
+                'Insert failed!' + res['err'],
+                'error'
+              );
+        }
         
     },
-    ajax_save_booking : function (data = null) { 
+    ajax_save_booking: function (data) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "post",
-                url: "php//booking/saving_booking.php",
+                url: "php/booking/saving_booking.php",
                 data: data,
-                dataType: "text",
+                dataType: "json",
                 success: function (res) {
                     console.log(res);
                     resolve(res);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Complete',
-                        text: res['res'],
-                        })
                 },
                 error: function (error) {
-                    reject(error)
-                  },
+                    reject(error);
+                },
             });
-        })
+        });
     },
 };
