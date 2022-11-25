@@ -53,7 +53,7 @@ session_start();
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody align="center">
                                     <?php
                                     $sql_table_list = "SELECT jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,jt.mother_vessel,jt.voy_no_mother,jt.inv,jt.mbl
                                     FROM job_title as jt 

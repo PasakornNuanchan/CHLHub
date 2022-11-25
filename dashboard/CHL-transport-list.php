@@ -51,7 +51,7 @@ session_start();
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody align="center">
                                     <?php
                                     $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,
                                         (SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status 

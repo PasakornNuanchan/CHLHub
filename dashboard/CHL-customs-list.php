@@ -53,7 +53,7 @@ session_start();
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody align="center">
                                     <?php
                                     $sql_table_list = "SELECT jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,a.location_name,a.country,IF(jt.type_import_export=1,'Export','Import') as import_export
                                     FROM job_title as jt 
