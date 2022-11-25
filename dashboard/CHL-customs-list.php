@@ -38,27 +38,28 @@ session_start();
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
+                        <div class="bd-example table-responsive">
                             <table class="table table-borderless" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
                                         <th>Job number</th>
-                                        <th>Consignee</th>
                                         <th>Type</th>
+                                        <th>Consignee</th>
                                         <th>ETA</th>
                                         <th>T/S Port</th>
-                                        <th>Status</th>
+                                        <th>Document</th>
+                                        <th>Transport</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,
-                                        (SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status 
-                                        FROM job_title as jt 
-                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                        WHERE jt.status_job ='0'";
+                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,a.location_name,a.country,IF(jt.type_import_export=1,'Export','Import') as import_export
+                                    FROM job_title as jt 
+                                    INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                    INNER JOIN area as a ON jt.ts_port_number = a.area_number
+                                    WHERE jt.status_job ='0'";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
@@ -67,15 +68,12 @@ session_start();
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
-                                            <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['import_export'] ?></td>
+                                            <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
                                             <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
-                                            <td><?php if ($result_table_list['status'] == '1') {
-                                                    echo "<span class='badge rounded-pill bg-success'>Success</span>";
-                                                } else {
-                                                    echo "<span class='badge rounded-pill bg-danger'>Fail</span>";
-                                                } ?></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><button type="button" href="#" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
@@ -83,7 +81,7 @@ session_start();
                                     ?>
                                 </tbody>
                             </table>
-
+                        </div>
                         </div>
                     </div>
                 </div>

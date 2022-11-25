@@ -38,40 +38,37 @@ session_start();
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
+                        <div class="bd-example table-responsive">
                             <table class="table table-borderless" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
-                                        <th>Job number</th>
-                                        <th>Consignee</th>
-                                        <th>Type</th>
-                                        <th>ETA</th>
-                                        <th>T/S Port</th>
-                                        <th>Status</th>
+                                        <th>Petty number</th>
+                                        <th>Create By</th>
+                                        <th>Job Quantity</th>
+                                        <th>Total amount</th>
+                                        <th>Customs Clearance</th>
+                                        <th>Petty Cash Clear</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,
-                                        (SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status 
-                                        FROM job_title as jt 
-                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                        WHERE jt.status_job ='0'";
+                                    $sql_table_list = "SELECT * FROM petty_cash as pc
+                                    INNER JOIN user as u ON pc.request_by = u.user_number";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
                                     ?>
                                         <tr>
-                                            <td><?= $result_table_list['create_date'] ?></td>
-                                            <td><?= $result_table_list['job_number'] ?></td>
-                                            <td><?= $result_table_list['consignee_name'] ?></td>
-                                            <td><?= $result_table_list['import_export'] ?></td>
-                                            <td><?= $result_table_list['eta'] ?></td>
-                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
-                                            <td><?php if ($result_table_list['status'] == '1') {
+                                            <td><?= $result_table_list['datetime_request'] ?></td>
+                                            <td><?= $result_table_list['petty_cash_number'] ?></td>
+                                            <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
+                                            <td></td>
+                                            <td><?= $result_table_list['total_amount_request'] ?></td>
+                                            <td></td>
+                                            <td><?php if ($result_table_list['return_payment_by'] <> '0') {
                                                     echo "<span class='badge rounded-pill bg-success'>Success</span>";
                                                 } else {
                                                     echo "<span class='badge rounded-pill bg-danger'>Fail</span>";
@@ -83,7 +80,7 @@ session_start();
                                     ?>
                                 </tbody>
                             </table>
-
+                        </div>
                         </div>
                     </div>
                 </div>
