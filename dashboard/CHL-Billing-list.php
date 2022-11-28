@@ -43,11 +43,11 @@ session_start();
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                             <th>Create Date</th>
                                             <th>Job number</th>
-                                            <th>B/L</th>
-                                            <th>Carrier</th>
-                                            <th>Consignee</th>
-                                            <th>T/S Port</th>
-                                            <th>ETA</th>
+                                            <th>Sale</th>
+                                            <th>Client</th>
+                                            <th>AR</th>
+                                            <th>AP</th>
+                                            <th>Shipped</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -67,11 +67,11 @@ session_start();
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
-                                            <td><?= $result_table_list['mbl'] ?></td>
-                                            <td><?= $result_table_list['carrier_name'] ?></td>
-                                            <td><?= $result_table_list['consignee_name'] ?></td>
-                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
-                                            <td><?= $result_table_list['eta'] ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><button type="button" onclick="location.href='https://google.com';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                         <?php
