@@ -12,7 +12,6 @@ include 'core/conn.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php require_once 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body class="  ">
@@ -428,6 +427,7 @@ include 'core/conn.php';
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="js/booking/booking.js"></script>
 
