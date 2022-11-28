@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Transport</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -38,7 +38,19 @@ session_start();
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                        <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                            <div class="form-group row">
+                                <label class="control-label col-sm-2 col-lg-2 ">Transport Status :</label>
+                                <div class="col-sm-2">
+                                    <div class="row">
+                                        <select name="" class="form form-select form-select-sm" id="">
+                                            <option value="">All</option>
+                                            <option value="">Success</option>
+                                            <option value="">False</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
@@ -74,9 +86,9 @@ session_start();
                                             <td><?php if ($result_table_list['status'] == '1') {
                                                     echo "<span class='badge rounded-pill bg-success'>Success</span>";
                                                 } else {
-                                                    echo "<span class='badge rounded-pill bg-danger'>Fail</span>";
+                                                    echo "<span class='badge rounded-pill bg-danger'>False</span>";
                                                 } ?></td>
-                                            <td><button type="button" href="#" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="location.href='CHL-Transport.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }

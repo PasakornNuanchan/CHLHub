@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Billing</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -39,21 +39,21 @@ session_start();
                     <div class="card">
                         <div class="card-body">
                             <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
-                                    <thead>
+                                <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
-                                            <th>Create Date</th>
-                                            <th>Job number</th>
-                                            <th>Sale</th>
-                                            <th>Client</th>
-                                            <th>AR</th>
-                                            <th>AP</th>
-                                            <th>Shipped</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody align="center">                 
-                                        <?php
-                                        $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
+                                        <th>Create Date</th>
+                                        <th>Job number</th>
+                                        <th>Sale</th>
+                                        <th>Client</th>
+                                        <th>AR</th>
+                                        <th>AP</th>
+                                        <th>Shipped</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody align="center">
+                                    <?php
+                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
                                                         FROM job_title as jt 
                                                         INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                                         INNER JOIN area as a ON jt.ts_port_number = a.area_number
@@ -61,9 +61,9 @@ session_start();
                                                         WHERE jt.status_job ='0'";
 
 
-                                        $fetch_sql = mysqli_query($con, $sql_table_list);
-                                        while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                        ?>
+                                    $fetch_sql = mysqli_query($con, $sql_table_list);
+                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                    ?>
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
@@ -72,50 +72,18 @@ session_start();
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="button" onclick="location.href='https://google.com';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="location.href='CHL-Billing.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- MAIN BODY END -->
         </div>
