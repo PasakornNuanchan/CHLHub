@@ -9,6 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
+    
 
 </head>
 
@@ -215,7 +216,7 @@ session_start();
                                         </div>
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">description :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm mb-3 shadow-none" >
                                                 <option selected>Please select shipper</option>
                                                 <option value="">Cargo rent</option>
                                                 <option value="">OT Customs Department Officer </option>
@@ -838,4 +839,7 @@ session_start();
 
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
+
+
+   
 </script>

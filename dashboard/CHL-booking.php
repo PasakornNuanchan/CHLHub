@@ -11,6 +11,8 @@ include 'core/conn.php';
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php require_once 'include/lang_lib.php' ?>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body class="  ">
@@ -67,7 +69,7 @@ include 'core/conn.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center" for="">Shipper</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <select class="form-select form-select-sm inp-shper">
+                                    <select class="form-select form-select-sm inp-shper ">
                                         <?php
                                         $shipper_select = "SELECT * FROM shipper";
                                         $result_shipper = mysqli_query($con, $shipper_select);
@@ -111,7 +113,7 @@ include 'core/conn.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center mb-0" for="">Carrier:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <select class="form-select form-select-sm inp-carrier">
+                                    <select class="form-select form-select-sm inp-carrier js-example-basic-single">
                                         <?php
                                         $carrier_select = "SELECT * FROM carrier";
                                         $result_carrier = mysqli_query($con, $carrier_select);
@@ -428,6 +430,9 @@ include 'core/conn.php';
 </html>
 
 <script src="js/booking/booking.js"></script>
-<script>
-</script>
 
+<script> 
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
