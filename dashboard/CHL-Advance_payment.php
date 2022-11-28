@@ -279,7 +279,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                        <div class="card" style="">
+                        <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
                                     <h4 class="card-title fw-normal">Description Advance Cash Detail</h4>
