@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'core/conn.php';
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -434,5 +435,6 @@ include 'core/conn.php';
 <script> 
 $(document).ready(function() {
     $('.js-example-basic-single').select2();
+    booking.check_get();
 });
 </script>

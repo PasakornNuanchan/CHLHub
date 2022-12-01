@@ -192,4 +192,66 @@ const booking = {
             });
         });
     },
+    check_get : function () {  
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+        
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        let get_job = getUrlParameter('job_number');
+        let get_action = getUrlParameter('action');
+
+        let job_number = get_job==false ? null : get_job;
+        let action = get_action==false ? null : get_action;
+
+        if (action == 'preview') {
+            booking.set_preview_data(job_number);
+        }else{
+
+        }
+    },
+    ajax_set_preview_data : function (job_number) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/booking/get_preview_data.php",
+                data: {'job_number' : job_number},
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+    set_preview_data :async function (job_number) { 
+        let res_data = await booking.ajax_set_preview_data(job_number);
+        console.log(res_data);
+        $('.inp-jobno').val(res_data['job_number']);
+        $('.inp-bkno').val(res_data['booking_number']).attr('readonly',true);
+        $('.inp-remark').val(res_data['remark']).attr('readonly',true);
+        $('.inp-M_vessel').val(res_data['mother_vessel']).attr('readonly',true);
+        $('.inp-mother-voy-no').val(res_data['voy_no_mother']).attr('readonly',true);
+        $('.feeder_vessel').val(res_data['feeder_vessel']).attr('readonly',true);
+        $('.inp-feeder_voy_no').val(res_data['voy_no_feeder']).attr('readonly',true);
+        $('.inp-shper').val(res_data['shipper_number']).attr('disabled',true);
+        $('.inp-shptrm').val(res_data['st_number']).attr('disabled',true);
+        $('.inp-carrier').val(res_data['carrier_number']).attr('disabled',true);
+        $('.inp-prtrecieve').val(res_data['port_of_receipt_number']).attr('disabled',true);
+        $('.inp-delivery').val(res_data['port_of_delivery_number']).attr('disabled',true);
+
+        $('.inp-prtload').val(res_data['port_of_loading_number']).attr('disabled',true);
+        $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
+        $('.inp-etd').val(res_data['etd']).attr('readonly',true);
+        $('.inp-eta').val(res_data['eta']).attr('readonly',true);
+
+    },
 };

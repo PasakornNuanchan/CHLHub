@@ -67,14 +67,15 @@ session_start();
                                     <?php
                                     $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
                                                         FROM job_title as jt 
-                                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                                        INNER JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
+                                                        LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                                        LEFT JOIN area as a ON jt.ts_port_number = a.area_number
+                                                        LEFT JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
                                                         WHERE jt.status_job ='0'";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $job_numer = $result_table_list['job_number'];
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
@@ -84,7 +85,7 @@ session_start();
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
-                                            <td><button type="button" onclick="location.href='CHL-booking.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="booking_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -96,35 +97,6 @@ session_start();
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -144,3 +116,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/booking-list/booking_list.js"></script>

@@ -1,7 +1,5 @@
 <?php
     include '../../core/conn.php';
-
-
 $con->begin_transaction();
 $con->autocommit(FALSE);
 try {
