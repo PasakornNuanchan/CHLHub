@@ -50,6 +50,7 @@ session_start();
                                     </div>
                                 </div>
                             </div>
+                            
                         <div class="bd-example table-responsive">
                         <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>

@@ -112,7 +112,7 @@ include 'core/conn.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center mb-0" for="">Carrier:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <select class="form-select form-select-sm inp-carrier js-example-basic-single">
+                                    <select class="form-select form-select-sm inp-carrier ">
                                         <?php
                                         $carrier_select = "SELECT * FROM carrier";
                                         $result_carrier = mysqli_query($con, $carrier_select);
