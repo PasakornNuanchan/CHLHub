@@ -10,7 +10,7 @@ const login = {
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                window.location.href = '../main.php';
+                window.location.href = '../CHL-Billing-list.php';
 
             }
         });
