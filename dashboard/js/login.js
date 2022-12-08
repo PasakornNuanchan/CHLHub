@@ -9,7 +9,6 @@ const login = {
             data: data,
             dataType: "json",
             success: function (response) {
-                console.log(response);
                 window.location.href = '../CHL-Booking-list.php';
 
             }
