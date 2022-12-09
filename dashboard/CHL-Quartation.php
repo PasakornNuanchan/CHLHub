@@ -44,6 +44,20 @@ session_start();
                                 </div>
                             </div>
                             <div class="card-body">
+                            <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status :</label>
+                                            <div class="col-lg-2">
+                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
@@ -108,11 +122,11 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-5">
-                                            <select class="form-select form-select-sm inp-ts_port">
-                                            <option value="" selected>Select size</option>
-                                            <option value="">40HQ</option>
-                                            <option value="">20DC</option>
-                                        </select>
+                                                <select class="form-select form-select-sm inp-ts_port">
+                                                    <option value="" selected>Select size</option>
+                                                    <option value="">40HQ</option>
+                                                    <option value="">20DC</option>
+                                                </select>
                                             </div>
                                             <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Container Quantity :</label>
                                             <div class="col-lg-2">
@@ -256,7 +270,7 @@ session_start();
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
-                                <H4>Other service</H4>
+                                    <H4>Other service</H4>
                                     <div class="table-responsive mt-4">
                                         <table id="basic-table" name="container-tbl" class="table table-striped mb-0" role="grid">
                                             <thead>
