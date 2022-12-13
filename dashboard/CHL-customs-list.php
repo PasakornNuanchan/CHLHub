@@ -77,6 +77,7 @@ session_start();
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $job_numer = $result_table_list['job_number'];
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
@@ -87,7 +88,7 @@ session_start();
                                             <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="button" onclick="location.href='CHL-customs.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="customs_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -147,3 +148,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/customs-list/customs_list.js"></script>
