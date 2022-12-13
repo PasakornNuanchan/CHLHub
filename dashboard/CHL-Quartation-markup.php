@@ -90,19 +90,26 @@ session_start();
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Sale:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <input type="input" class="form-control form-control-sm" readonly>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <H4>Other service</H4>
+                                    <H4>Service Description</H4>
                                     <div class="table-responsive mt-4">
                                         <table id="basic-table" name="container-tbl" class="table table-striped mb-0" role="grid">
                                             <thead>
                                                 <tr align="center">
                                                     <th>Item NO.</th>
                                                     <th>Description</th>
+                                                    <th>Type</th>
                                                     <th>Unit Price</th>
                                                     <th>Cur.</th>
                                                     <th>remark</th>
@@ -114,39 +121,57 @@ session_start();
                                                 <tr class="booking_container">
                                                     <td align="center">1</td>
                                                     <td class="col-lg-3"><input type="input" class="form-control form-control-sm" readonly value="Ocean freight TSL Co,.ltd LCB to Osaka"></td>
+                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
+                                                            <option value="">Plese select type</option>
+                                                            <option value="">Import</option>
+                                                            <option value=""selected>Export</option>
+                                                            <option value="">Other service</option>
+                                                        </select></td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="450" readonly></td>
                                                     <td><select name="" class="form-select form-select-sm" id="" disabled>
                                                             <option value="">THB</option>
                                                             <option value="" selected>USD</option>
                                                             <option value="">RMB</option>
                                                         </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" value="7*40HQ" readonly></td>
+                                                    <td><input type="input" class="form-control form-control-sm" id="" value="7*40HQ"></td>
                                                     <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
+                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
                                                 </tr>
                                                 <tr class="booking_container">
                                                     <td align="center">2</td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="Trucking Fee (Import) Rama9 - LCB" readonly></td>
+                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
+                                                            <option value="">Plese select type</option>
+                                                            <option value="">Import</option>
+                                                            <option value=""selected>Export</option>
+                                                            <option value="">Other service</option>
+                                                        </select></td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="17000" readonly></td>
                                                     <td><select name="" class="form-select form-select-sm" id="" disabled>
                                                             <option value="">THB</option>
                                                         </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder="" readonly></td>
+                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
                                                     <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
+                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
                                                 </tr>
                                                 <tr class="booking_container">
                                                     <td align="center">3</td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="Trucking Fee (Export) Osaka - Tokyo" readonly></td>
+                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
+                                                            <option value="">Plese select type</option>
+                                                            <option value=""selected>Import</option>
+                                                            <option value="">Export</option>
+                                                            <option value="">Other service</option>
+                                                        </select></td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="500" readonly></td>
                                                     <td><select name="" class="form-select form-select-sm" id="" disabled>
                                                             <option value="">THB</option>
                                                             <option value="" selected>USD</option>
                                                             <option value="">RMB</option>
                                                         </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder="" readonly></td>
+                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
                                                     <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
+                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
                                                 </tr>
                                                 <tr class="booking_container">
                                                     <td align="center">4</td>
@@ -175,13 +200,19 @@ session_start();
                                                             <option value="">Carrier Security Charge</option>
                                                             <option value="">Port Security Charge (PU)</option>
                                                         </select></td>
+                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
+                                                            <option value="">Plese select type</option>
+                                                            <option value="">Import</option>
+                                                            <option value="">Export</option>
+                                                            <option value="" selected>Other service</option>
+                                                        </select></td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" value="1500" readonly></td>
                                                     <td><select name="" class="form-select form-select-sm" id="" disabled>
                                                             <option value="">THB</option>
                                                         </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder="" readonly></td>
+                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
                                                     <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
+                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -192,12 +223,12 @@ session_start();
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                <H4>Result</H4>
+                                    <H4>Result</H4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                   
+
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Description quantity :</label>
                                         <div class="col-sm-1 col-md-3 col-lg-4">
@@ -223,7 +254,7 @@ session_start();
                                         <label class="control-label col-lg-2 align-self-center mb-0" for="pwd2">Markup total:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                            <div class="col-lg-2">
+                                                <div class="col-lg-2">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">USD</label>
@@ -238,7 +269,7 @@ session_start();
                                         <label class="control-label col-lg-2 align-self-center mb-0" for="pwd2">Percentage :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                            <div class="col-lg-2">
+                                                <div class="col-lg-2">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">USD</label>
@@ -253,19 +284,19 @@ session_start();
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
-                                    <div style="color:red;">* if markup price it is null system will chage to at cost if any </div>
-                                    <div style="float: right">
-                                        <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
-                                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
-                                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sign</button>
-                                    </div>
+                                <div style="color:red;">* if markup price it is null system will chage to at cost if any </div>
+                                <div style="float: right">
+                                    <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
+                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sign</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </main>
     <!-- Footer Section Start -->

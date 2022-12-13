@@ -44,7 +44,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="card-body">
-                            <div class="form-group row">
+                                <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
@@ -66,7 +66,7 @@ session_start();
                                         </select>
                                     </div>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Consignee</button>
+                                        <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Consignee</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -87,7 +87,7 @@ session_start();
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Type:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <select class="form-select form-select-sm">
-                                            <option value="" selected>-- Plese select type --</option>
+                                            <option value="" selected>Plese select type</option>
                                             <option value="">Import</option>
                                             <option value="">Export</option>
                                         </select>
@@ -118,7 +118,7 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Port of loading :</label>
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-5">
@@ -190,9 +190,13 @@ session_start();
                                                     <option value="">RMB</option>
                                                 </select>
                                             </div>
+                                            <div class="col-sm-9 col-md-5 col-lg-4">
+                                                <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <hr>
                                 <h5>Trucking Fee (Import)</h5>
                                 <div class="form-group row">
@@ -224,7 +228,7 @@ session_start();
                                                 </select>
                                             </div>
                                             <div class="col-sm-9 col-md-5 col-lg-4">
-                                                <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                                <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
                                             </div>
                                         </div>
                                     </div>
@@ -260,7 +264,7 @@ session_start();
                                                 </select>
                                             </div>
                                             <div class="col-sm-9 col-md-5 col-lg-4">
-                                                <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add route</button>
+                                                <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add route</button>
                                             </div>
                                         </div>
                                     </div>
@@ -270,13 +274,14 @@ session_start();
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <H4>Other service</H4>
+                                    <H4>Sub service</H4>
                                     <div class="table-responsive mt-4">
                                         <table id="basic-table" name="container-tbl" class="table table-striped mb-0" role="grid">
                                             <thead>
                                                 <tr align="center">
                                                     <th>Item NO.</th>
                                                     <th>Description</th>
+                                                    <th>Type</th>
                                                     <th>Unit Price</th>
                                                     <th>Cur.</th>
                                                     <th>remark</th>
@@ -311,6 +316,11 @@ session_start();
                                                             <option value="">Carrier Security Charge</option>
                                                             <option value="">Port Security Charge (PU)</option>
                                                         </select></td>
+                                                    <td><select name="" id="" class="form-select form-select-sm">
+                                                            <option value="">Import</option>
+                                                            <option value="">Export</option>
+                                                            <option value="" selected>Other service</option>
+                                                        </select></td>
                                                     <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
                                                     <td><select name="" class="form-select form-select-sm" id="">
                                                             <option value="">THB</option>
@@ -330,9 +340,9 @@ session_start();
                                 </div>
                                 <div style="color:red;">* if unit price it is null system will chage to at cost if any </div>
                                 <div style="float: right">
-                                    <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
-                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
-                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sign</button>
+                                    <button class="btn btn-warning rounded-pill bg-gradient btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
+                                    <button class="btn btn-success rounded-pill bg-gradient btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                    <button class="btn btn-primary rounded-pill bg-gradient btn-sm" onclick="location.href='CHL-quartation-markup.php';" target="_blank" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Go to markup</button>
                                 </div>
                             </div>
                         </div>
