@@ -45,14 +45,14 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 col-md-5">
                                                 <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
                                             <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status :</label>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-md-3">
                                                 <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@ session_start();
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Commodity :</label>
-                                    <div class="col-sm-1 col-md-3 col-lg-4">
+                                    <div class="col-sm-1 col-md-6 col-lg-4">
                                         <input type="text" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@ session_start();
                                 <div class="form-group row">
                                     <H4>Service Description</H4>
                                     <div class="table-responsive mt-4">
-                                        <table id="basic-table" name="container-tbl" class="table table-striped mb-0" role="grid">
+                                        <table id="basic-table" name="container-tbl" class="table table-striped mb-10" role="grid">
                                             <thead>
                                                 <tr align="center">
                                                     <th>Item NO.</th>
@@ -120,7 +120,7 @@ session_start();
                                             <tbody>
                                                 <tr class="booking_container">
                                                     <td align="center">1</td>
-                                                    <td class="col-lg-3"><input type="input" class="form-control form-control-sm" readonly value="Ocean freight TSL Co,.ltd LCB to Osaka"></td>
+                                                    <td><input type="input" class="form-control form-control-sm" readonly value="Ocean freight TSL Co,.ltd LCB to Osaka"></td>
                                                     <td><select name="" id="" class="form-select form-select-sm" disabled>
                                                             <option value="">Plese select type</option>
                                                             <option value="">Import</option>
@@ -139,7 +139,7 @@ session_start();
                                                 </tr>
                                                 <tr class="booking_container">
                                                     <td align="center">2</td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="Trucking Fee (Import) Rama9 - LCB" readonly></td>
+                                                    <td><input type="input" class="form-control form-control-sm" id="" value="Trucking Fee (Import) Rama9 - LCB" readonly></td>
                                                     <td><select name="" id="" class="form-select form-select-sm" disabled>
                                                             <option value="">Plese select type</option>
                                                             <option value="">Import</option>
@@ -230,55 +230,55 @@ session_start();
                                 <div class="form-group row">
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Description quantity :</label>
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Description quantity :</label>
                                         <div class="col-sm-1 col-md-3 col-lg-4">
                                             <input type="text" class="form-control form-control-sm" value="4" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 align-self-center mb-0" for="pwd2">Unit price after markup:</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Unit price after markup:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">USD</label>
-                                                <div class="col-lg-2">
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">THB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 align-self-center mb-0" for="pwd2">Markup total:</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Markup total:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">USD</label>
-                                                <div class="col-lg-2">
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">THB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 align-self-center mb-0" for="pwd2">Percentage :</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Percentage :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">USD</label>
-                                                <div class="col-lg-2">
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">THB</label>
-                                                <label class="control-label col-lg-1 align-self-center mb-0" for="pwd2">Total</label>
-                                                <div class="col-lg-2">
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">Total</label>
+                                                <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                                 </div>
                                             </div>

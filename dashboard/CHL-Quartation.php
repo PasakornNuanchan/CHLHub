@@ -45,22 +45,22 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Quartation number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-2 col-md-4">
                                                 <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status :</label>
-                                            <div class="col-lg-2">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status</label>
+                                            <div class="col-lg-2 col-md-3">
                                                 <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee:</label>
-                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee</label>
+                                    <div class="col-sm-9 col-md-4 col-lg-4">
                                         <select class="form-select form-select-sm">
                                             <option value="" selected>Plese select Congsignee</option>
                                         </select>
@@ -71,7 +71,7 @@ session_start();
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Term :</label>
-                                    <div class="col-sm-1 col-md-3 col-lg-4">
+                                    <div class="col-sm-1 col-md-4 col-lg-4">
                                         <select class="select form-select form-select-sm" id="">
                                             <option value="" selected>Plese select Term</option>
                                         </select>
@@ -79,7 +79,7 @@ session_start();
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Commodity :</label>
-                                    <div class="col-sm-1 col-md-3 col-lg-4">
+                                    <div class="col-sm-1 col-md-5 col-lg-4">
                                         <input type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
@@ -99,8 +99,8 @@ session_start();
                             <div class="card-body">
                                 <H4>Base Service</H4>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
-                                    <div class="col-lg-5">
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
+                                    <div class="col-lg-5 col-md-5">
                                         <select class="form-select form-select-sm inp-carrier ">
                                             <?php
                                             $carrier_select = "SELECT * FROM carrier";
@@ -118,18 +118,18 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 col-md-4">
                                                 <select class="form-select form-select-sm inp-ts_port">
                                                     <option value="" selected>Select size</option>
                                                     <option value="">40HQ</option>
                                                     <option value="">20DC</option>
                                                 </select>
                                             </div>
-                                            <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Container Quantity :</label>
-                                            <div class="col-lg-2">
+                                            <label class="control-label col-sm-2 col-md-4 align-self-center mb-0" for="pwd2">Container Quantity</label>
+                                            <div class="col-lg-2 col-md-2">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
                                         </div>
@@ -137,10 +137,10 @@ session_start();
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Port of loading :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <select class="form-select form-select-sm inp-ts_port">
                                                     <?php
                                                     $area_select = "SELECT * FROM area";
@@ -156,7 +156,7 @@ session_start();
                                                     ?>
                                                 </select>
                                             </div>
-                                            <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Port of Delivery :</label>
+                                            <label class="control-label col-sm-2 col-md-3 align-self-center mb-0" for="pwd2">Port of Delivery</label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm inp-ts_port">
                                                     <?php
@@ -177,13 +177,13 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-4">
                                                 <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3 col-md-3">
                                                 <select name="" class="form-select form-select-sm" id="" disabled>
                                                     <option value="" selected>THB</option>
                                                     <option value="">USD</option>
@@ -200,27 +200,27 @@ session_start();
                                 <hr>
                                 <h5>Trucking Fee (Import)</h5>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Pickup :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-5">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
-                                            <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Dropoff :</label>
-                                            <div class="col-lg-3">
+                                            <label class="control-label col-sm-2 col-md-2 align-self-center mb-0" >Dropoff :</label>
+                                            <div class="col-lg-3 col-md-5">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Budget :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-4">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-md-3">
                                                 <select name="" class="form-select form-select-sm" id="">
                                                     <option value="" selected>THB</option>
                                                     <option value="">USD</option>
@@ -236,14 +236,14 @@ session_start();
                                 <hr>
                                 <h5>Trucking Fee (Export)</h5>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-5">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
                                             <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Dropoff :</label>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-5">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
                                         </div>
@@ -253,10 +253,10 @@ session_start();
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 col-md-4">
                                                 <input type="text" class="form-control form-control-sm">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-md-3">
                                                 <select name="" class="form-select form-select-sm" id="">
                                                     <option value="" selected>THB</option>
                                                     <option value="">USD</option>
