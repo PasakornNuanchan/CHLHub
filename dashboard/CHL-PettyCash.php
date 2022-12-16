@@ -75,10 +75,9 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" name="pettycash-tbl" role="grid">
                                                 <thead>
                                                     <tr class="text-center">
-                                                        <th>No.</th>
                                                         <th>Description</th>
                                                         <th>Amount</th>
                                                         <th>Curency</th>
@@ -86,9 +85,8 @@ session_start();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="text-center">
-                                                        <td>1</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
+                                                    <tr class="pettycash_detail">
+                                                        <td class="td-sel-conttype"><select name="" id="" class="form-select shadow-none">
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
@@ -103,27 +101,10 @@ session_start();
                                                             <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
                                                         </td>
                                                     </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-success rounded-pill btn-xs"><i class="bi bi-check-circle-fill"></i> Save</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-x-circle-fill"></i> Cancle</button>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="booking.addconthtml();">add new</button>
                                     </div>
                                 </div>
                             </div>
@@ -200,3 +181,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/pettycash/pettycash.js"></script>
