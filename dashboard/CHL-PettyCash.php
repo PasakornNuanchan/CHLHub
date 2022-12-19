@@ -86,25 +86,22 @@ session_start();
                                                 </thead>
                                                 <tbody>
                                                     <tr class="pettycash_detail">
-                                                        <td class="td-sel-conttype"><select name="" id="" class="form-select shadow-none">
+                                                        <td><select name="" id="" class="form-select">
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
+                                                        <td><input type="input" class="form-control form-control-sm"></td>
+                                                        <td><select name="" id="" class="form-select">
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
-                                                        </td>
+                                                       <td></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.addpthtml();">add new</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,15 +114,15 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job quantity:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Job quantity:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="2" readonly>
+                                        <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Amount:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Amount:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -133,29 +130,6 @@ session_start();
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

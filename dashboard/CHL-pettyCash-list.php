@@ -57,7 +57,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="bd-example table-responsive">
-                                <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                <table id="datatable" class="table table-striped" data-toggle="data-table"  style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                     <thead>
                                         <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                             <th>Create Date</th>
@@ -92,7 +92,7 @@ session_start();
                                                         echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
                                                     } ?></td>
                                                 <td><?= $result_table_list['tranfer_datetime'] ?></td>
-                                                <td><button type="button" onclick="pettycash_list.preview(<?=$pettycash_nubmer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                                <td><button type="button" onclick="pettycash_list.preview('<?=$pettycash_nubmer?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                             </tr>
                                         <?php
                                         }

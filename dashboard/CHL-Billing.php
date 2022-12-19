@@ -11,7 +11,6 @@ session_start();
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
-
 <body class="  ">
     <!-- loader Start -->
     <div id="loading">
