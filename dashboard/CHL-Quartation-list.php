@@ -95,7 +95,7 @@ session_start();
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['type'] ?></td>
                                             <td><?= $rs ?> 
-                                            <td><button type="button" onclick="quartation_list.preview(<?=$quartation_number?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="quartation_list.preview('<?=$quartation_number?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }

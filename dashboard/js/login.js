@@ -9,8 +9,7 @@ const login = {
             data: data,
             dataType: "json",
             success: function (response) {
-                window.location.href = '../CHL-Booking-list.php';
-
+                window.location.href = '../CHL-Booking-list.php'
             }
         });
       }

@@ -97,107 +97,109 @@ session_start();
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <div class="base-add">
-                                    <H4>Base Service</H4>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
-                                        <div class="col-lg-5 col-md-5">
-                                            <div class="db-select-carrier">
-                                            <select class="form-select form-select-sm inp-carrier ">
-                                                <?php
-                                                $carrier_select = "SELECT * FROM carrier";
-                                                $result_carrier = mysqli_query($con, $carrier_select);
-                                                ?>
-                                                <option selected value="">Please select carrier</option>
-                                                <?php
-                                                while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
-                                                ?>
-                                                    <option value="<?= $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-5 col-md-4">
-                                                    <select class="form-select form-select-sm inp-ts_port">
-                                                        <option value="" selected>Select size</option>
-                                                        <option value="">40HQ</option>
-                                                        <option value="">20DC</option>
-                                                    </select>
-                                                </div>
-                                                <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
-                                                <div class="col-lg-2 col-md-2 ">
-                                                    <input type="text" class="form-control form-control-sm">
+                                <div class="base-row">
+                                    <div class="base-add">
+                                        <H4>Base Service</H4>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
+                                            <div class="col-lg-5 col-md-5">
+                                                <div class="db-select-carrier">
+                                                <select class="form-select form-select-sm inp-carrier ">
+                                                    <?php
+                                                    $carrier_select = "SELECT * FROM carrier";
+                                                    $result_carrier = mysqli_query($con, $carrier_select);
+                                                    ?>
+                                                    <option selected value="">Please select carrier</option>
+                                                    <?php
+                                                    while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
+                                                    ?>
+                                                        <option value="<?= $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-md-4 col-lg-4">
-                                                    <div class="db-select-pol">
-                                                    <select class="form-select form-select-sm inp-ts_port">
-                                                        <?php
-                                                        $area_select = "SELECT * FROM area";
-                                                        $result_area = mysqli_query($con, $area_select);
-                                                        ?>
-                                                        <option selected value="">Please select Port of Loading</option>
-                                                        <?php
-                                                        while ($result_area_total = mysqli_fetch_assoc($result_area)) {
-                                                        ?>
-                                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-lg-5 col-md-4">
+                                                        <select class="form-select form-select-sm inp-ts_port">
+                                                            <option value="" selected>Select size</option>
+                                                            <option value="">40HQ</option>
+                                                            <option value="">20DC</option>
+                                                        </select>
                                                     </div>
-                                                </div>
-                                                <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
-                                                <div class="col-lg-4">
-                                                    <div class="db-select-pod">
-                                                    <select class="form-select form-select-sm inp-ts_port">
-                                                        <?php
-                                                        $area_select = "SELECT * FROM area";
-                                                        $result_area = mysqli_query($con, $area_select);
-                                                        ?>
-                                                        <option selected value="">Please select Port of Delivery</option>
-                                                        <?php
-                                                        while ($result_area_total = mysqli_fetch_assoc($result_area)) {
-                                                        ?>
-                                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
+                                                    <div class="col-lg-2 col-md-2 ">
+                                                        <input type="text" class="form-control form-control-sm">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" readonly>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-lg-4">
+                                                        <div class="db-select-pol">
+                                                        <select class="form-select form-select-sm inp-ts_port">
+                                                            <?php
+                                                            $area_select = "SELECT * FROM area";
+                                                            $result_area = mysqli_query($con, $area_select);
+                                                            ?>
+                                                            <option selected value="">Please select Port of Loading</option>
+                                                            <?php
+                                                            while ($result_area_total = mysqli_fetch_assoc($result_area)) {
+                                                            ?>
+                                                                <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
+                                                    <div class="col-lg-4">
+                                                        <div class="db-select-pod">
+                                                        <select class="form-select form-select-sm inp-ts_port">
+                                                            <?php
+                                                            $area_select = "SELECT * FROM area";
+                                                            $result_area = mysqli_query($con, $area_select);
+                                                            ?>
+                                                            <option selected value="">Please select Port of Delivery</option>
+                                                            <?php
+                                                            while ($result_area_total = mysqli_fetch_assoc($result_area)) {
+                                                            ?>
+                                                                <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3">
-                                                    <select name="" class="form-select form-select-sm" id="" disabled>
-                                                        <option value="" selected>THB</option>
-                                                        <option value="">USD</option>
-                                                        <option value="">RMB</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-9 col-md-5 col-lg-4">
-                                                    <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-4">
+                                                        <input type="text" class="form-control form-control-sm" readonly>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <select name="" class="form-select form-select-sm" id="" disabled>
+                                                            <option value="" selected>THB</option>
+                                                            <option value="">USD</option>
+                                                            <option value="">RMB</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                                        <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -392,7 +394,7 @@ session_start();
     }
 
     // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
+    // document.getElementById("defaultOpen").click();
 </script>
 
 <script src="js/quartation/quartation.js"></script>
