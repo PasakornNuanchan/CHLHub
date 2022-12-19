@@ -51,7 +51,7 @@ session_start();
                                         </div>
                                         <div class="col-lg-7"></div>
                                         <div class="col-lg-2">
-                                            <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Quotation</button>
+                                            <button type="button" target="_blank" onclick="" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Quotation</button>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@ session_start();
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody align="center" class="data">
+                                <tbody align="center">
                                 <?php
                                     $sql_table_list = "SELECT * FROM quartation_title as qt
                                     INNER JOIN consignee as c ON qt.consignee_number = c.consignee_number
@@ -79,7 +79,7 @@ session_start();
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-
+                                        $quartation_number = $result_table_list['quartation_number'];
                                         
                                         if($status = $result_table_list['status'] == '1'){
                                             $rs = "<span class='badge rounded-pill bg-success'>sign</span>";
@@ -95,8 +95,7 @@ session_start();
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['type'] ?></td>
                                             <td><?= $rs ?> 
-                                            
-                                            <td><button type="button" onclick="booking_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="quartation_list.preview(<?=$quartation_number?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -128,3 +127,4 @@ session_start();
 
 </html>
 
+<script src="js/quotation-list/quotation_list.js"></script>
