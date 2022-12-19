@@ -116,7 +116,7 @@ session_start();
                             </div>
                             <div class="card-body">
                             <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Bank Name</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Amount Tranfer</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col col-sm-4">
@@ -158,48 +158,25 @@ session_start();
                                                         <th>Description</th>
                                                         <th>Amount</th>
                                                         <th>Curency</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="text-center">
                                                         <td>1</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
+                                                        <td><select name="" id="" class="form-select shadow-none" disabled>
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
+                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
+                                                        <td><select name="" id="" class="form-select shadow-none" disabled>
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-success rounded-pill btn-xs"><i class="bi bi-check-circle-fill"></i> Save</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-x-circle-fill"></i> Cancle</button>
-                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
                                     </div>
                                 </div>
                             </div>

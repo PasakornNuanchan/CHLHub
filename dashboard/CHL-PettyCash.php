@@ -104,7 +104,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="booking.addconthtml();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
                                     </div>
                                 </div>
                             </div>

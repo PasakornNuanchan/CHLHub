@@ -41,15 +41,15 @@ session_start();
                             <div class="card-header d-flex justify-content-between">
                                 <h3 class="card-title">Account Receivable</h3>
                                 <div style="float: right">
-                                    <button class="btn btn-info rounded-pill btn-save-booking bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
-                                    <button class="btn btn-warning rounded-pill btn-save-booking bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
+                                    <button class="btn btn-info rounded-pill bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
+                                    <button class="btn btn-warning rounded-pill bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" role="grid" style="border-radius: 12px;">
+                                            <table id="basic-table" class="table table-striped mb-0" name="billing-ar-tbl" role="grid" style="border-radius: 12px;">
                                                 <thead>
                                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>Code.</th>
@@ -95,8 +95,7 @@ session_start();
                                                         <td><input type="text" class="form-control"></td>
                                                         <td><input type="checkbox" class="form-check-input"></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+                                                            
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-success rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
@@ -105,7 +104,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addarthtml();">add new</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -113,15 +112,15 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
                                         </div>
@@ -132,15 +131,15 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
                                         </div>
@@ -152,16 +151,16 @@ session_start();
                             <div class="card-header d-flex justify-content-between">
                                 <h3 class="card-title">Account Payble</h3>
                                 <div style="float: right">
-                                    <button class="btn btn-info rounded-pill btn-save-booking bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
-                                    <button class="btn btn-warning rounded-pill btn-save-booking bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
-                                    <button class="btn btn-success rounded-pill btn-save-booking bg-success bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-arrow-down-square"></i> Import petty cash , advance</button>                               
+                                    <button class="btn btn-info rounded-pill bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-filetype-xlsx"></i> Export</button>
+                                    <button class="btn btn-warning rounded-pill bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-printer"></i> Print</button>
+                                    <button class="btn btn-success rounded-pill bg-success bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-arrow-down-square"></i> Import petty cash , advance</button>                               
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" style="border-radius: 12px;" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" name="billing-ap-tbl" style="border-radius: 12px;" role="grid">
                                                 <thead>
                                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;" >
                                                         <th>Code.</th>
@@ -207,8 +206,7 @@ session_start();
                                                         <td><input type="text" class="form-control"></td>
                                                         <td><input type="checkbox" class="form-check-input"></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+                                                            
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-success rounded-pill btn-xs bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
@@ -217,7 +215,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill ">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addapthtml();">add new</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -225,15 +223,15 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
                                         </div>
@@ -244,15 +242,15 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
                                             </div>
                                             <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
                                         </div>
@@ -280,3 +278,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/billing/billing.js"></script>
