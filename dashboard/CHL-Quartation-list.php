@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Quartation</title>
+    <title>Quotation</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -37,14 +37,9 @@ session_start();
             <div class="row mt-5">
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <div class="header-title">
-                                <h3 class="card-title">Quartation</h3>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0" for="pwd2">Document status:</label>
+                                <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0" for="pwd2">Quotation status:</label>
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -55,8 +50,8 @@ session_start();
                                             </select>
                                         </div>
                                         <div class="col-lg-7"></div>
-                                        <div class="col-lg-2" style="float: right">
-                                            <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Add Quartation</button>
+                                        <div class="col-lg-2">
+                                            <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Quotation</button>
                                         </div>
                                     </div>
                                 </div>
@@ -66,36 +61,46 @@ session_start();
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
-                                        <th>Quartation number</th>
+                                        <th>Quotation number</th>
                                         <th>Sale</th>
                                         <th>Consignee</th>
-                                        <th>Quartation Type</th>
+                                        <th>Quotation Type</th>
                                         <th>Status</th>
-                                        <th>Type</th>
+                                        
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody align="center">
-                                    <tr>
-                                        <td>2022-12-01</td>
-                                        <td>QT2022120001</td>
-                                        <td>Champ</td>
-                                        <td>Test co.,ltd</td>
-                                        <td>Import</td>
-                                        <td>Not Sign</td>
-                                        <td>Ocean Freight</td>
-                                        <td><button type="button" onclick="location.href='CHL-quartation.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-12-01</td>
-                                        <td>QT2022120002</td>
-                                        <td>Champ</td>
-                                        <td>Oversea co.,ltd</td>
-                                        <td>Export</td>
-                                        <td>Sign</td>
-                                        <td>Air Freight</td>
-                                        <td><button type="button" onclick="location.href='CHL-quartation.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
-                                    </tr>
+                                <tbody align="center" class="data">
+                                <?php
+                                    $sql_table_list = "SELECT * FROM quartation_title as qt
+                                    INNER JOIN consignee as c ON qt.consignee_number = c.consignee_number
+                                    INNER JOIN user as u ON qt.user_sale = u.user_number";
+
+
+                                    $fetch_sql = mysqli_query($con, $sql_table_list);
+                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+
+                                        
+                                        if($status = $result_table_list['status'] == '1'){
+                                            $rs = "<span class='badge rounded-pill bg-success'>sign</span>";
+                                        } else {
+                                            $rs = "<span class='badge rounded-pill bg-danger'>unsign</span>";
+                                        } 
+                                        
+                                    ?>
+                                        <tr>
+                                            <td><?= $result_table_list['create_datetime'] ?></td>
+                                            <td><?= $result_table_list['quartation_number'] ?></td>
+                                            <td><?= $result_table_list['first_name'] ?></td>
+                                            <td><?= $result_table_list['consignee_name'] ?></td>
+                                            <td><?= $result_table_list['type'] ?></td>
+                                            <td><?= $rs ?> 
+                                            
+                                            <td><button type="button" onclick="booking_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -122,3 +127,4 @@ session_start();
 </body>
 
 </html>
+

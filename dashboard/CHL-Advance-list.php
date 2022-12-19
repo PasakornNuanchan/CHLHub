@@ -40,13 +40,19 @@ session_start();
                         <div class="card-body">
                         <div class="form-group row">
                                 <label class="control-label col-sm-2 col-lg-1 ">Type :</label>
-                                <div class="col-sm-2">
+                                <div class="col">
                                     <div class="row">
-                                       <select name="" class="form form-select form-select-sm" id="">
-                                        <option value="">All</option>
-                                        <option value="">Paid</option>
-                                        <option value="">Unpaid</option>
-                                       </select>
+                                        <div class="col-lg-3">
+                                            <select name="" class="form form-select form-select-sm" id="">
+                                                <option value="">All</option>
+                                                <option value="">Paid</option>
+                                                <option value="">Unpaid</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-7"></div>
+                                        <div class="col-lg-2">
+                                            <button type="button" style="float: right" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Advance Cash</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
