@@ -121,8 +121,6 @@ const quartation = {
     del_sup_row: function (e = null) {
         $(e).closest("tr").remove();
     },
-
-
     check_get : function () {  
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -153,10 +151,37 @@ const quartation = {
     set_preview_data : async function (quartation_number = null) { 
         let res_data = await quartation.ajax_set_preview_data(quartation_number);
         console.log(res_data);
+        title = res_data['title']
+        
+        // Quartation Detail
+            $('.inp-quo_no').val(title['quartation_number']);
+            $('.inp-sign_st').val( (title['status'] == '1' ? 'Signed' : 'Not Sign') );
+            $('.sel_consignee').val(title['consignee_number']);
+            $('.inp-commodity').val(title['commodity']);
+            $('.sel-type-title').val(title['type']);
+            // ขาด type
 
+        // END Quartation Detail
 
-
-
+        // Base service
+            let data = [];
+            $.each(res_data['detail'], function (i, v) { 
+                if (v['type'] == 'base_service') {
+                    data = v;
+                }
+            });
+            console.log(data);
+            $('.inp-carrier').val(data['carrier_ID']);
+            $('.inp-carrier-type').val(data['container_type']);
+            $('.inp-port_load').val(data['pol']);
+            $('.inp-port_del').val(data['pod']);
+            $('.inp-budget').val(data['price'])
+        
+        
+        
+        
+        
+            // END Base service
 
 
         
@@ -174,9 +199,50 @@ const quartation = {
             });
         });
     },
+    get_consignee_sel : async function () { 
+        let res_consignee = await quartation.ajax_get_consingee();
+        return res_consignee;
+       
+    },
+    ajax_get_consingee : function () { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/quotation/get_consignee.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+    html_consignee : async function (data) { 
+        let res = await quartation.get_consignee_sel();
+        let html = '';
+        $.each(res, function (i, k) { 
+            html += `
+            <option value="${k['ID']}">${k['consignee_name']}</option>
+            `;  
+        });
+        
+        $('.sel_consignee').append(html);
+    },
+
+    html_base_service : function () {  
+
+    },
+    get_base_service : async function () {  
+
+    },
+    ajax_get_base_service : function () {  
+
+    },
 };
 
 
-$(function () {
-    quartation.check_get();
+$( function () {
+     quartation.html_consignee();
+
+     quartation.check_get();
 });
