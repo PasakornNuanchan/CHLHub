@@ -72,7 +72,7 @@ session_start();
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT * FROM petty_cash as pc
+                                    $sql_table_list = "SELECT * FROM advance_cash_title as pc
                                     INNER JOIN user as u ON pc.request_by = u.user_number";
 
 
@@ -81,7 +81,7 @@ session_start();
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['datetime_request'] ?></td>
-                                            <td><?= $result_table_list['petty_cash_number'] ?></td>
+                                            <td><?= $result_table_list['advance_cash_number'] ?></td>
                                             <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
                                             <td></td>
                                             <td><?= $result_table_list['total_amount_request'] ?></td>

@@ -72,7 +72,7 @@ session_start();
                                     </thead>
                                     <tbody align="center">
                                         <?php
-                                        $sql_table_list = "SELECT * FROM petty_cash as pc
+                                        $sql_table_list = "SELECT * FROM petty_cash_title as pc
                                     INNER JOIN user as u ON pc.request_by = u.user_number";
 
 

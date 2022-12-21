@@ -44,7 +44,13 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Tranfer Mehthod Tranfer:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty cash number:</label>
+                                    <div class="col-sm-9">
+                                        <input type="input" class="form-control form-control-sm" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Tranfer Mehthod Tranfer:</label>
                                     <div class="col-sm-9">
                                         <select class="form-select form-select-sm mb-3 shadow-none">
                                             <option value="">Plese select tranfer mehthod</option>
@@ -54,15 +60,15 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Bank Name:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Bank Name:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-bankname" id="pwd2" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Bank Number:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Bank Number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-banknumber" id="pwd2" placeholder="">
                                     </div>
                                 </div>
                             </div>

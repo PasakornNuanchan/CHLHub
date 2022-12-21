@@ -28,13 +28,72 @@ const petty_cash = {
         </tr>
         `;
         $('[name="petty-cash-tbl"]>tbody').append(html);
-    
-        },
-    del_pettycash_row: function (e = null) {
-        $(e).closest("tr").remove();
-     },
 
-    popuptest:function (){
-        alert("test");
-        },
+    },del_pettycash_row: function (e = null) {
+        $(e).closest("tr").remove();
+    }, 
+
+
+
+
+
+
+
+    check_get: function () {
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        let get_job = getUrlParameter('petty_cash_number');
+        let get_action = getUrlParameter('action');
+
+        let job_number = get_job == false ? null : get_job;
+        let action = get_action == false ? null : get_action;
+
+        if (action == 'preview') {
+            petty_cash.set_preview_data(job_number);
+        } else {
+
+        }
+    },
+
+    set_preview_data: async function (job_number) {
+        let res_data = await petty_cash.ajax_set_preview_data(job_number);
+        console.log(res_data);
+        $('.inp-bankname').val(res_data["'job_number'"]);
+        $('.inp-banknumber').val(res_data['booking_number']).attr('readonly', true);
+
+        // $('.inp-prtload').val(res_data['port_of_loading_number']).attr('disabled',true);
+        // $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
+        // $('.inp-etd').val(res_data['etd']).attr('readonly',true);
+        // $('.inp-eta').val(res_data['eta']).attr('readonly',true);
+
+    },
+
+    ajax_set_preview_data: function (job_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/pettycash/get_preview_data.php",
+                data: { 'job_number': job_number },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+
+
 };
