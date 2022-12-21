@@ -1,4 +1,4 @@
-const petty_cash = {
+const advance_cash = {
     select_port: function () {
         $.ajax({
             type: "post",
@@ -10,7 +10,7 @@ const petty_cash = {
             },
         });
     },
-    addpthtml: function () {
+    addadhtml: function () {
         let html_select = $(".td-sel-conttype").html();
         let sl_des_pettycash = $(".db-select-des").html();
         html = `
@@ -27,7 +27,7 @@ const petty_cash = {
         </td>
         </tr>
         `;
-        $('[name="petty-cash-tbl"]>tbody').append(html);
+        $('[name="advance-cash-tbl"]>tbody').append(html);
     
         },
     del_pettycash_row: function (e = null) {

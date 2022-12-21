@@ -86,10 +86,24 @@ session_start();
                                                 </thead>
                                                 <tbody>
                                                     <tr class="pettycash_detail">
-                                                        <td><select name="" id="" class="form-select">
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
+                                                        <td>
+                                                            <div class="db-select-des"><select name="" id="" class="form-select">
+                                                        <?php
+                                                            $Container_type_select = "SELECT consignee_name,job_number FROM job_title as jt
+                                                            INNER JOIN consignee as c on jt.consignee_number = c.consignee_number
+                                                            WHERE jt.status_job = '0'
+                                                            ";
+                                                            $result_Container_type = mysqli_query($con, $Container_type_select);
+                                                            ?>
+                                                            <option selected value="">Please select container type</option>
+                                                            <?php
+                                                            while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
+                                                            ?>
+                                                                <option value=""><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                            </select></div></td>
                                                         <td><input type="input" class="form-control form-control-sm"></td>
                                                         <td><select name="" id="" class="form-select">
                                                                 <option value="" selected>THB</option>
@@ -101,7 +115,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.popuptest();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.addpthtml();">add new</button>
                                     </div>
                                 </div>
                             </div>

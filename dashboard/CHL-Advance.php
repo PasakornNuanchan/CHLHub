@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Advance Cash</title>
+    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -75,10 +75,9 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" name="advance-cash-tbl" role="grid">
                                                 <thead>
                                                     <tr class="text-center">
-                                                        <th>No.</th>
                                                         <th>Description</th>
                                                         <th>Amount</th>
                                                         <th>Curency</th>
@@ -86,44 +85,37 @@ session_start();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="text-center">
-                                                        <td>1</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
+                                                    <tr class="pettycash_detail">
+                                                        <td>
+                                                            <div class="db-select-des"><select name="" id="" class="form-select">
+                                                        <?php
+                                                            $Container_type_select = "SELECT consignee_name,job_number FROM job_title as jt
+                                                            INNER JOIN consignee as c on jt.consignee_number = c.consignee_number
+                                                            WHERE jt.status_job = '0'
+                                                            ";
+                                                            $result_Container_type = mysqli_query($con, $Container_type_select);
+                                                            ?>
+                                                            <option selected value="">Please select container type</option>
+                                                            <?php
+                                                            while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
+                                                            ?>
+                                                                <option value=""><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                            </select></div></td>
+                                                        <td><input type="input" class="form-control form-control-sm"></td>
+                                                        <td><select name="" id="" class="form-select">
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-trash"></i> Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                        <td><select name="" id="" class="form-select shadow-none">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-success rounded-pill btn-xs"><i class="bi bi-check-circle-fill"></i> Save</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-x-circle-fill"></i> Cancle</button>
-                                                        </td>
+                                                       <td></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="advance_cash.addadhtml();">add new</button>
                                     </div>
                                 </div>
                             </div>
@@ -136,15 +128,15 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job quantity:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Job quantity:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="2" readonly>
+                                        <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Amount:</label>
+                                    <label class="control-label col-sm-3 align-self-center mb-0">Amount:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -152,29 +144,6 @@ session_start();
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -200,3 +169,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/advance/advance.js"></script>
