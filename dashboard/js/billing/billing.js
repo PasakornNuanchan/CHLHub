@@ -10,7 +10,7 @@ const billing = {
             },
         });
     },
-    addarthtml: function () {
+    addarhtml: function () {
         let html_select = $(".td-sel-conttype").html();
         html = `
         <tr class="text-center">
@@ -52,7 +52,7 @@ const billing = {
 
 
 
-    addapthtml: function () {
+    addaphtml: function () {
         let html_select = $(".td-sel-conttype").html();
         html = `
         <tr class="text-center">

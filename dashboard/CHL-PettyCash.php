@@ -75,7 +75,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" name="pettycash-tbl" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" name="petty-cash-tbl" role="grid">
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>Description</th>
@@ -101,7 +101,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.addpthtml();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.popuptest();">add new</button>
                                     </div>
                                 </div>
                             </div>

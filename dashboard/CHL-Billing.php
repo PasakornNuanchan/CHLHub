@@ -103,7 +103,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addarthtml();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addarhtml();">add new</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -214,7 +214,7 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addapthtml();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addaphtml();">add new</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
