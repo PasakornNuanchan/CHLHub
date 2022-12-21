@@ -49,11 +49,11 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-4">
-                                                <input type="text" class="form-control form-control-sm inp-quo_no" readonly>
+                                                <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
                                             <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status</label>
                                             <div class="col-lg-2 col-md-3">
-                                                <input type="text" class="form-control form-control-sm inp-sign_st" readonly>
+                                                <input type="text" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
-                                        <select class="form-select form-select-sm sel_consignee">
+                                        <select class="form-select form-select-sm">
                                             <option value="" selected>Plese select Congsignee</option>
                                         </select>
                                     </div>
@@ -80,16 +80,16 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Commodity :</label>
                                     <div class="col-sm-1 col-md-5 col-lg-4">
-                                        <input type="text" class="form-control form-control-sm inp-commodity">
+                                        <input type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Type:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <select class="form-select form-select-sm sel-type-title">
+                                        <select class="form-select form-select-sm">
                                             <option value="" selected>Plese select type</option>
-                                            <option value="Import">Import</option>
-                                            <option value="Export">Export</option>
+                                            <option value="">Import</option>
+                                            <option value="">Export</option>
                                         </select>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@ session_start();
                                     <div class="base-add">
                                         <H4>Base Service</H4>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
                                                 <select class="form-select form-select-sm inp-carrier ">
@@ -126,19 +126,10 @@ session_start();
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-5 col-md-4">
-                                                        <select class="form-select form-select-sm inp-carrier-type ">
-                                                            <?php
-                                                            $carrier_select = "SELECT DISTINCT `container_type` FROM `route`";
-                                                            $result_carrier = mysqli_query($con, $carrier_select);
-                                                            ?>
-                                                            <option selected value="">Please select carrier</option>
-                                                            <?php
-                                                            while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
-                                                            ?>
-                                                                <option value="<?= $result_carrier_total['container_type'] ?>"><?php echo $result_carrier_total['container_type'] ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                        <select class="form-select form-select-sm inp-ts_port">
+                                                            <option value="" selected>Select size</option>
+                                                            <option value="">40HQ</option>
+                                                            <option value="">20DC</option>
                                                         </select>
                                                     </div>
                                                     <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
@@ -154,7 +145,7 @@ session_start();
                                                 <div class="row">
                                                     <div class="col-md-4 col-lg-4">
                                                         <div class="db-select-pol">
-                                                        <select class="form-select form-select-sm inp-port_load">
+                                                        <select class="form-select form-select-sm inp-ts_port">
                                                             <?php
                                                             $area_select = "SELECT * FROM area";
                                                             $result_area = mysqli_query($con, $area_select);
@@ -173,7 +164,7 @@ session_start();
                                                     <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
                                                     <div class="col-lg-4">
                                                         <div class="db-select-pod">
-                                                        <select class="form-select form-select-sm inp-port_del">
+                                                        <select class="form-select form-select-sm inp-ts_port">
                                                             <?php
                                                             $area_select = "SELECT * FROM area";
                                                             $result_area = mysqli_query($con, $area_select);
@@ -197,7 +188,7 @@ session_start();
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
-                                                        <input type="text" class="form-control form-control-sm inp-budget" readonly>
+                                                        <input type="text" class="form-control form-control-sm" readonly>
                                                     </div>
                                                     <div class="col-lg-3 col-md-3">
                                                         <select name="" class="form-select form-select-sm" id="" disabled>
