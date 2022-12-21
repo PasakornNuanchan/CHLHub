@@ -25,18 +25,21 @@ $job_number = $_POST['quartation_number'];
     ";
     $sql_detail = "
         SELECT
-            `ID`,
-            `quartation_number`,
-            `description`,
-            `type`,
-            `unit_price`,
-            `currency`,
-            `remark`,
-            `base_service_route`,
-            `markup_price`,
-            `markup_result`
+            `quartation_detail`.`quartation_number`,
+            `quartation_detail`.`description`,
+            `quartation_detail`.`type`,
+            `quartation_detail`.`unit_price`,
+            `quartation_detail`.`currency`,
+            `quartation_detail`.`remark`,
+            `quartation_detail`.`base_service_route`,
+            `quartation_detail`.`markup_price`,
+            `quartation_detail`.`markup_result`,
+            route.*,
+            carrier.ID as 'carrier_ID'
         FROM
-            `quartation_detail`
+            `quartation_detail` 
+            LEFT JOIN route on route.route_number = quartation_detail.base_service_route and quartation_detail.type = 'base_service'
+            LEFT JOIN carrier on carrier.carrier_number = route.carrier_number
         WHERE
             1 AND `quartation_number` = '$quartation_number'
     ";
