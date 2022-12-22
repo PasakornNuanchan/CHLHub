@@ -4,6 +4,7 @@ $petty_number = $_POST['petty_cash_number'];
 
 
     $bk_no = $_POST['petty_cash_number'];
+    echo $bk_no;
     $sql = "
     SELECT * FROM `petty_cash_title` as pct
     INNER JOIN user as u ON pct.request_by = u.user_number

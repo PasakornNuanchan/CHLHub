@@ -78,12 +78,18 @@ session_start();
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $advancecash_nubmer = $result_table_list['advance_cash_number'];
+
+                                        $count_job = $result_table_list['advance_cash_number'];
+                                        $sql_table_job = "SELECT COUNT(advance_cash_number) FROM `advance_cash_detail` WHERE advance_cash_number = '$count_job'";
+                                        $fetch_job = mysqli_query($con, $sql_table_job);
+                                        $result_table_job = mysqli_fetch_assoc($fetch_job);
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['datetime_request'] ?></td>
                                             <td><?= $result_table_list['advance_cash_number'] ?></td>
                                             <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
-                                            <td></td>
+                                            <td><?= $result_table_job['COUNT(advance_cash_number)'] ?></td>
                                             <td><?= $result_table_list['total_amount_request'] ?></td>
                                             <td></td>
                                             <td><?php if ($result_table_list['return_payment_by'] <> '0') {

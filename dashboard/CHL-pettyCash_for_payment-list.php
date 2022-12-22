@@ -66,18 +66,23 @@ session_start();
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT * FROM petty_cash as pc
+                                    $sql_table_list = "SELECT * FROM petty_cash_title as pc
                                     INNER JOIN user as u ON pc.request_by = u.user_number";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $pettycash_nubmer = $result_table_list['petty_cash_number'];
+                                        $count_job = $result_table_list['petty_cash_number'];
+                                        $sql_table_job = "SELECT COUNT(petty_cash_number) FROM `petty_cash_detail` WHERE petty_cash_number = '$count_job'";
+                                        $fetch_job = mysqli_query($con, $sql_table_job);
+                                        $result_table_job = mysqli_fetch_assoc($fetch_job);
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['datetime_request'] ?></td>
                                             <td><?= $result_table_list['petty_cash_number'] ?></td>
                                             <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
-                                            <td></td>
+                                            <td><?= $result_table_job['COUNT(petty_cash_number)'] ?></td>
                                             <td><?= $result_table_list['total_amount_request'] ?></td>
                                             <td><?php if ($result_table_list['tranfer_by'] <> '0') {
                                                     echo "<span class='badge rounded-pill bg-success'>Paid</span>";

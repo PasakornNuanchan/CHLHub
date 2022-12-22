@@ -32,13 +32,7 @@ const petty_cash = {
     },del_pettycash_row: function (e = null) {
         $(e).closest("tr").remove();
     }, 
-
-
-
-
-
-
-
+    
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -54,24 +48,26 @@ const petty_cash = {
             }
             return false;
         };
-        let get_job = getUrlParameter('petty_cash_number');
+        let get_doc_pt = getUrlParameter('petty_cash_number');
         let get_action = getUrlParameter('action');
 
-        let job_number = get_job == false ? null : get_job;
+        let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
 
+       
+        
         if (action == 'preview') {
-            petty_cash.set_preview_data(job_number);
+            petty_cash.set_preview_data(job_doc_pt);
         } else {
 
         }
     },
 
-    set_preview_data: async function (job_number) {
-        let res_data = await petty_cash.ajax_set_preview_data(job_number);
+    set_preview_data: async function (job_doc_pt) {
+        let res_data = await petty_cash.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
-        $('.inp-bankname').val(res_data["'job_number'"]);
-        $('.inp-banknumber').val(res_data['booking_number']).attr('readonly', true);
+        $('.inp-bankname').val(res_data["'petty_cash_number'"]);
+        $('.inp-banknumber').val(res_data['tranfer_bank_number']);
 
         // $('.inp-prtload').val(res_data['port_of_loading_number']).attr('disabled',true);
         // $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
@@ -80,12 +76,12 @@ const petty_cash = {
 
     },
 
-    ajax_set_preview_data: function (job_number) {
+    ajax_set_preview_data: function (job_doc_pt) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/pettycash/get_preview_data.php",
-                data: { 'job_number': job_number },
+                data: { 'petty_number': job_doc_pt },
                 dataType: "json",
                 success: function (response) {
                     resolve(response);
@@ -94,6 +90,5 @@ const petty_cash = {
         });
     },
 
-
-
+    
 };

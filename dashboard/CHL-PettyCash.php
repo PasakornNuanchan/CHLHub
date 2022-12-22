@@ -11,7 +11,7 @@ session_start();
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
-<body class="  ">
+<body>
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -175,4 +175,11 @@ session_start();
 </body>
 
 </html>
+
 <script src="js/pettycash/pettycash.js"></script>
+<script> 
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+    petty_cash.check_get();
+});
+</script>
