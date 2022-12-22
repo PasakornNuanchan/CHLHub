@@ -79,11 +79,16 @@ session_start();
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
                                         $advancecash_nubmer = $result_table_list['advance_cash_number'];
-
+                                        // count job
                                         $count_job = $result_table_list['advance_cash_number'];
                                         $sql_table_job = "SELECT COUNT(advance_cash_number) FROM `advance_cash_detail` WHERE advance_cash_number = '$count_job'";
                                         $fetch_job = mysqli_query($con, $sql_table_job);
                                         $result_table_job = mysqli_fetch_assoc($fetch_job);
+                                        // customs cal
+                                        $sql_cal_job_number = "SELECT SUM(jt.status_job) as status_check FROM advance_cash_detail as acd
+                                        INNER JOIN job_title as jt ON acd.job_number = jt.job_number WHERE advance_cash_number ='$count_job'";
+                                        $fetch_cal_job_status = mysqli_query($con, $sql_cal_job_number);
+                                        $result_table_job_status = mysqli_fetch_assoc($fetch_cal_job_status);
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['datetime_request'] ?></td>
@@ -91,7 +96,11 @@ session_start();
                                             <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
                                             <td><?= $result_table_job['COUNT(advance_cash_number)'] ?></td>
                                             <td><?= $result_table_list['total_amount_request'] ?></td>
-                                            <td></td>
+                                            <td><?php if ($result_table_job['COUNT(advance_cash_number)'] == $result_table_job_status['status_check']) {
+                                                    echo "<span class='badge rounded-pill bg-success'>success</span>";
+                                                } else {
+                                                    echo "<span class='badge rounded-pill bg-danger'>fail</span>";
+                                                } ?></td>
                                             <td><?php if ($result_table_list['return_payment_by'] <> '0') {
                                                     echo "<span class='badge rounded-pill bg-success'>Paid</span>";
                                                 } else {

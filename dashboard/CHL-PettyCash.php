@@ -105,7 +105,7 @@ session_start();
                                                             <?php
                                                             while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
                                                             ?>
-                                                                <option value=""><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
+                                                                <option value="<?php echo $result_Container_type_total['job_number'] ?>"><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
                                                             <?php
                                                             }
                                                             ?>
@@ -175,7 +175,7 @@ session_start();
 </body>
 
 </html>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/pettycash/pettycash.js"></script>
 <script> 
 $(document).ready(function() {

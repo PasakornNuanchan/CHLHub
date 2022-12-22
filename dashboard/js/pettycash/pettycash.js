@@ -1,15 +1,7 @@
 const petty_cash = {
-    select_port: function () {
-        $.ajax({
-            type: "post",
-            url: "../ajax_request/booking.php",
-            data: "data",
-            dataType: "text",
-            success: function (response) {
-                alert(response);
-            },
-        });
-    },
+   
+
+
     addpthtml: function () {
         let html_select = $(".td-sel-conttype").html();
         let sl_des_pettycash = $(".db-select-des").html();
@@ -54,21 +46,59 @@ const petty_cash = {
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
 
-       
+        console.log(action);
         
         if (action == 'preview') {
             petty_cash.set_preview_data(job_doc_pt);
+           
         } else {
 
         }
     },
 
     set_preview_data: async function (job_doc_pt) {
+        
+        let sl_des_pettycash = $(".db-select-des");
+
         let res_data = await petty_cash.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
-        $('.inp-bankname').val(res_data["'petty_cash_number'"]);
-        $('.inp-banknumber').val(res_data['tranfer_bank_number']);
+       
+        $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
+        $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
+        
 
+        
+
+        $.each(res_data['pcd'], function (i, v) { 
+            html = `
+            <tr class="pettycash_detail">
+            <td class="sel-des-pcd${i} sel-des-pcd">${sl_des_pettycash.html()}</td>
+            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}"></td>
+            <td><select name="" id="" class="form-select">
+                <option value="" selected>THB</option>
+                <option value="">USD</option>
+                <option value="">RMB</option>
+            </select></td>
+            <td onclick="petty_cash.del_pettycash_row(this);" align="center">
+                <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+            </td>
+            </tr>
+            `;
+
+
+            $('[name="petty-cash-tbl"]>tbody').append(html);
+            //$(`sel-des-pcd${i}>select`).val(v['job_number']);
+      
+            $(`td.sel-des-pcd${i} > select option[value="${v['job_number']}"]`).attr('selected', 'selected');
+
+
+
+
+
+        });
+       
+
+        
         // $('.inp-prtload').val(res_data['port_of_loading_number']).attr('disabled',true);
         // $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
         // $('.inp-etd').val(res_data['etd']).attr('readonly',true);
@@ -77,6 +107,7 @@ const petty_cash = {
     },
 
     ajax_set_preview_data: function (job_doc_pt) {
+        
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
