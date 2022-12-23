@@ -106,7 +106,7 @@ session_start();
                                                 } else {
                                                     echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
                                                 } ?></td>
-                                            <td><button type="button" onclick="location.href='CHL-advance.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="advancecash_list.preview('<?=$advancecash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -166,3 +166,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/advancecash-list/advancecash_list.js"></script>

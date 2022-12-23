@@ -63,8 +63,10 @@ const petty_cash = {
         let res_data = await petty_cash.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
        
+        $('.inp-pt_number').val(res_data['pct']['petty_cash_number']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
+        
         
 
         

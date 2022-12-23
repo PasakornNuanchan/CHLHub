@@ -72,6 +72,8 @@ session_start();
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $advancecash_number = $result_table_list['advance_cash_number'];
+
                                         // count job
                                         $count_job = $result_table_list['advance_cash_number'];
                                         $sql_table_job = "SELECT COUNT(advance_cash_number) FROM `advance_cash_detail` WHERE advance_cash_number = '$count_job'";
@@ -101,7 +103,7 @@ session_start();
                                                 } else {
                                                     echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
                                                 } ?></td>
-                                            <td><button type="button" onclick="location.href='CHL-advance_payment.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="advancecash_payment_list.preview('<?=$advancecash_number?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -161,3 +163,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/advancecash-payment_list/advancecash_payment_list.js"></script>

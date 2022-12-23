@@ -46,7 +46,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty cash number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                        <input type="input" class="form-control form-control-sm inp-pt_number" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
