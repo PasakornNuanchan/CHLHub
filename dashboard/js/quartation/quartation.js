@@ -191,7 +191,7 @@ const quartation = {
         $.each(base_data, function (i, v) {
             html = `
                     <div class="base-add">
-                        <H4>Base Service ${num}</H4>
+                        <H5 class="mb-3">Route ${num}</H5>
                         <div class="form-group row">
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
                             <div class="col-lg-5 col-md-5">
@@ -271,7 +271,7 @@ const quartation = {
         $.each(res_data['truck_fee']['import'], function (i, v) { 
             html = `
                 <div class="truck_fee_import_row">                    
-                    <h5>Trucking Fee (Import) ${i+1}</h5>
+                    <h5> Import ${i+1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
@@ -320,7 +320,7 @@ const quartation = {
         $.each(res_data['truck_fee']['export'], function (i, v) { 
             html = `
                 <div class="truck_fee_export_row">                    
-                    <h5>Trucking Fee (Export) ${i+1}</h5>
+                    <h5>Export ${i+1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
