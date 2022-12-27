@@ -135,11 +135,11 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Number</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-all_job" placeholder="" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -319,40 +319,25 @@ session_start();
                                                 <tbody>
                                                     <tr class="text-center">
                                                         <td>1</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                        <td><select class="form-select form-select-sm shadow-none sel-des" disabled>
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                        <td><input type="input" class="form-control form-control-sm inp-amount" readonly></td>
+                                                        <td><select class="form-select form-select-sm shadow-none sel-curr" disabled>
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select>
                                                         </td>
                                                         <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><input type="input" class="form-control form-control-sm inp-remark" readonly></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+                                    
                                     <center>
                                         <div class="alert alert-solid col-sm-11" style="background: #10929A; color:white;">
                                             <div class="small">
