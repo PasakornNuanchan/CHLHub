@@ -216,74 +216,83 @@ session_start();
                                 </div>
                                 <hr>
 
-                                    
-                                    <h5>Trucking Fee (Import)</h5>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Pickup :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
-                                                <div class="col-lg-3 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Budget :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-lg-2 col-md-3">
-                                                    <select name="" class="form-select form-select-sm" id="">
-                                                        <option value="" selected>THB</option>
-                                                        <option value="">USD</option>
-                                                        <option value="">RMB</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-9 col-md-5 col-lg-4">
-                                                    <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                    <div class="truck_fee_import">  
+                                        <div class="truck_fee_import_row">                    
+                                            <h5>Trucking Fee (Import)</h5>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-5">
+                                                            <input type="text" class="form-control form-control-sm inp-truck_fee_pickup">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
+                                                        <div class="col-lg-3 col-md-5">
+                                                            <input type="text" class="form-control form-control-sm inp-truck_fee_drop">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center inp-tr_fee_budget">Budget :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4">
+                                                            <input type="text" class="form-control form-control-sm inp-truck_fee_budget">
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-3">
+                                                            <select name="" class="form-select form-select-sm sel-tr_fee_currency" id="">
+                                                                <option value="THB" selected>THB</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="RMB">RMB</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                                            <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
                                         </div>
                                     </div>
                                     <hr>
-                                    <h5>Trucking Fee (Export)</h5>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <label class="control-label col-sm-2 col-lg-1 align-self-center mb-0" for="pwd2">Dropoff :</label>
-                                                <div class="col-lg-3 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm">
+
+                                    <div class="truck_fee_export">  
+                                        <div class="truck_fee_export_row"> 
+                                            <h5>Trucking Fee (Export)</h5>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-5">
+                                                            <input type="text" class="form-control form-control-sm inp-truck_exp_pickup">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 col-lg-1 align-self-center mb-0" for="pwd2">Dropoff :</label>
+                                                        <div class="col-lg-3 col-md-5">
+                                                            <input type="text" class="form-control form-control-sm inp-truck_exp_dropoff">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm">
-                                                </div>
-                                                <div class="col-lg-2 col-md-3">
-                                                    <select name="" class="form-select form-select-sm" id="">
-                                                        <option value="" selected>THB</option>
-                                                        <option value="">USD</option>
-                                                        <option value="">RMB</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-9 col-md-5 col-lg-4">
-                                                    <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add route</button>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4">
+                                                            <input type="text" class="form-control form-control-sm">
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-3">
+                                                            <select name="" class="form-select form-select-sm select-currency" id="">
+                                                                <option value="THB" selected>THB</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="RMB">RMB</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                                            <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add route</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,35 +317,25 @@ session_start();
                                                 </thead>
                                                 <tbody align="center">
                                                     <tr class="sub_des">
-                                                        <td class="select_des_sup"><select name="" class="form-select form-select-sm" id="">
-                                                                <option value="" selected>Plese Select service</option>
-                                                                <option value="">DF/DO Fee</option>
-                                                                <option value="">THC</option>
-                                                                <option value="">Seal Fee</option>
-                                                                <option value="">Handling Charge</option>
-                                                                <option value="">Import Duty With Vat</option>
-                                                                <option value="">Customs Clearance Charge</option>
-                                                                <option value="">Customs fee</option>
-                                                                <option value="">Customs Inspection Charge</option>
-                                                                <option value="">Gate Charge</option>
-                                                                <option value="">Pick-up Empty Container Fee</option>
-                                                                <option value="">Return Laden Container Fee</option>
-                                                                <option value="">Container Cleaning Charge</option>
-                                                                <option value="">Equipment Maintenance Fee</option>
-                                                                <option value="">Demurrage & Detention</option>
-                                                                <option value="">Over time Charge for truck</option>
-                                                                <option value="">Storage Charge</option>
-                                                                <option value="">Over time charge for customer </option>
-                                                                <option value="">insurance</option>
-                                                                <option value="">Surrender BL Fee</option>
-                                                                <option value="">AMS (amtomated manifest system)</option>
-                                                                <option value="">Carrier Security Charge</option>
-                                                                <option value="">Port Security Charge (PU)</option>
+                                                        <td class="select_des_sup">
+                                                            <select name="" class="form-select form-select-sm sel-sup_service" id="">
+                                                            <?php
+                                                                $sup_service_sql = "SELECT * FROM quotation_sup_service";
+                                                                $result_sup_service = mysqli_query($con, $sup_service_sql);
+                                                                ?>
+                                                                <option selected value="">Please select carrier</option>
+                                                                <?php
+                                                                while ($result = mysqli_fetch_assoc($result_sup_service)) {
+                                                                ?>
+                                                                    <option value="<?= $result['ID'] ?>"><?php echo $result['description'] ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
                                                             </select></td>
                                                         <td><select name="" id="" class="form-select form-select-sm">
-                                                                <option value="">Import</option>
-                                                                <option value="">Export</option>
-                                                                <option value="" selected>Other service</option>
+                                                                <option value="Import">Import</option>
+                                                                <option value="Export">Export</option>
+                                                                <option value="Other" selected>Other service</option>
                                                             </select></td>
                                                         <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
                                                         <td><select name="" class="form-select form-select-sm" id="">
