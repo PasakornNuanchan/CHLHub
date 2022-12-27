@@ -96,8 +96,8 @@ session_start();
                             </div>
                         </div>
                         <div class="card">
-                            <div class="card-body">
-                                <div class="base-row">
+                            <div class="card-body" >
+                                <div class="base-row"  style="background-color: #f9c9c9; border-radius:10px">
                                     <div class="base-add">
                                         <H4>Base Service</H4>
                                         <div class="form-group row">
@@ -216,7 +216,7 @@ session_start();
                                 </div>
                                 <hr>
 
-                                    <div class="truck_fee_import">  
+                                    <div class="truck_fee_import" style="background-color: #c8f6ff; border-radius:10px">  
                                         <div class="truck_fee_import_row">                    
                                             <h5>Trucking Fee (Import)</h5>
                                             <div class="form-group row">
@@ -258,7 +258,7 @@ session_start();
                                     </div>
                                     <hr>
 
-                                    <div class="truck_fee_export">  
+                                    <div class="truck_fee_export" style="background-color: #feffcd; border-radius:10px">  
                                         <div class="truck_fee_export_row"> 
                                             <h5>Trucking Fee (Export)</h5>
                                             <div class="form-group row">
@@ -318,7 +318,7 @@ session_start();
                                                 <tbody align="center">
                                                     <tr class="sub_des">
                                                         <td class="select_des_sup">
-                                                            <select name="" class="form-select form-select-sm sel-sup_service" id="">
+                                                            <select name="" class="form-select form-select-sm sel-sup_des_service" id="">
                                                             <?php
                                                                 $sup_service_sql = "SELECT * FROM quotation_sup_service";
                                                                 $result_sup_service = mysqli_query($con, $sup_service_sql);
@@ -365,11 +365,6 @@ session_start();
                         </div>
                     </div>
                 </div>
-
-
-
-
-
 
     </main>
     <!-- Footer Section Start -->

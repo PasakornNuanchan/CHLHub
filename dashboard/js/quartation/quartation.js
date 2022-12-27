@@ -364,7 +364,7 @@ const quartation = {
 
 
         // Sup service
-            let sel_sup_service = $('.sel-sup_service').parent().html();
+            let sel_sup_service = $('.sel-sup_des_service').parent().html();
 
             $('[name = "sub-tbl"] tbody').html('');
             $.each(res_data['sup_service'], function (i, v) { 
@@ -394,6 +394,8 @@ const quartation = {
                 `;
                 $('[name = "sub-tbl"] tbody').append(html);
                 $(`.sub_des${i} .sel_type_sup_service`).val(v['type']);
+                $(`.sub_des${i} .sel-sup_des_service`).val(v['description']);
+
                 $(`.sub_des${i} .sel_currency_sup_service`).val(v['currency']);
 
             });
