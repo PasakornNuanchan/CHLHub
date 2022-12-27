@@ -46,7 +46,7 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Request By:</label>
+                                    <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center mb-0">Request By:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -63,10 +63,10 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2 align-self-center mb-0">Tranfer Method:</label>
                                     <div class="col-sm-9">
-                                    <select class="form-select form-select-sm mb-3 shadow-none" disabled>
+                                    <select class="form-select form-select-sm mb-3 shadow-none sel_tranfer_mt" disabled>
                                             <option value="">Plese select tranfer mehthod</option>
-                                            <option value="">Cash</option>
-                                            <option value="">Bank Tranfer</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Tranfer">Tranfer</option>
                                         </select>
                                     </div>
                                 </div>
@@ -86,21 +86,21 @@ session_start();
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Quantity</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Quantity</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="number" class="form-control form-control-sm inp-job_quantity" placeholder="" readonly>
+                                                <input type="number" class="form-control form-control-sm inp-job_quantity"  readonly>
                                             </div>
                                             <label class="control-label col-sm-3 align-self-center mb-0" >Total Amount:</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm col-sm-2 inp-total_amount" style="text-align: right;" readonly>
                                             </div>
                                             <div class="col col-sm-2">
-                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                    <option value="" selected>THB</option>
-                                                    <option value="">USD</option>
-                                                    <option value="">RMB</option>
+                                                <select name="" id="" class="form-select form-select-sm shadow-none sel_total_amount_req" disabled>
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -123,10 +123,10 @@ session_start();
                                                 <input type="number" class="form-control form-control-sm inp-total_amount_tranfer" placeholder="">
                                             </div>
                                             <div class="col col-sm-2">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none">
-                                                    <option value="" selected>THB</option>
-                                                    <option value="">USD</option>
-                                                    <option value="">RMB</option>
+                                            <select name="" id="" class="form-select form-select-sm shadow-none sel_total_amount_tranfer_req">
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -163,13 +163,12 @@ session_start();
                                                     <tr class="text-center h-des">
                                                         <td><select name="" id="" class="form-select shadow-none" disabled>
                                                                 <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
                                                             </select></td>
                                                         <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
                                                         <td><select name="" id="" class="form-select shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
+                                                                <option value="THB" selected>THB</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="RMB">RMB</option>
                                                             </select></td>
                                                     </tr>
                                                 </tbody>

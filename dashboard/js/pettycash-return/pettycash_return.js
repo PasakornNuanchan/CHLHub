@@ -64,10 +64,12 @@ const pettycash_return = {
         let res_data = await pettycash_return.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
        
-        
+        //card 1 request petty cash
         $('.inp-pettycash_number').val(res_data['pct']['petty_cash_number']);
         $('.inp-req_by').val(res_data['pct']['rq_by_first']+' '+res_data['pct']['rq_by_last']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
+        // hr
+        $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
         $('.inp-tranf_by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
@@ -81,11 +83,7 @@ const pettycash_return = {
         $('.inp-petty_cash_return').val(res_data['pct']['tranfer_amount']);
 
         
-        $.each(res_data['pcd'], function (i, v) { 
-           $text =+ (v['job_number']);
-           i++;
-        });
-        
+    
         $('.inp-all_job').val($text);
         
         $('.inp-total_amount').val(res_data['pct']['total_amount_request']);

@@ -63,25 +63,36 @@ const pettycash_payment = {
         let res_data = await pettycash_payment.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
         
+        //card 1 request petty cash
         $('.inp-req_by').val(res_data['pct']['first_name']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
+        // hr
+        $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
-        
-        
-        $('.inp-total_amount').val(res_data['pct']['total_amount_request']);
-        $('.inp-total_amount_tranfer').val(res_data['pct']['total_amount_request']);
-
+        // hr
         $('.inp-job_quantity').val(res_data['scd']['c_qty']);
+        $('.inp-total_amount').val(res_data['pct']['total_amount_request']);
+        $('.sel_total_amount_req').val(res_data['pct']['total_amount_request_cur']);
+        
+        //card 2 tranfer
+        $('.inp-total_amount_tranfer').val(res_data['pct']['tranfer_amount']);
+        $('.sel_total_amount_tranfer_req').val(res_data['pct']['tranfer_amount_cur']);
+        
+        
+        
+        
+
+        
 
          
 
         $.each(res_data['pcd'], function (i, v) { 
             html = `
             <tr class="pettycash_detail">
-            <td><input type="input" class="form-control form-control-sm" value="${v['job_number']} / ${v['consignee_name']}"></td>
-            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}"></td>
-            <td><select name="" id="" class="form-select">
+            <td><input type="input" class="form-control form-control-sm" value="${v['job_number']} / ${v['consignee_name']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm" style="text-align: right;" value="${v['amount']}" readonly></td>
+            <td><select class="form-select" disabled>
                 <option value="" selected>THB</option>
                 <option value="">USD</option>
                 <option value="">RMB</option>

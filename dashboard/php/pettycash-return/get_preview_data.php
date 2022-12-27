@@ -35,15 +35,17 @@ $petty_number = $_POST['petty_number'];
     ";
 
     $job_number = 0;
-    $sql_pcdr = "
-    SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
-    WHERE cp.type = 'Petty_Cash' AND cp.job_number = '$job_number'";
 
+
+
+
+ 
+    
     $result = $con -> query($sql_pct);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           $pct = $row;
-        }
+        } 
       } else {
         $pct = "0 results";
       }
@@ -52,6 +54,7 @@ $petty_number = $_POST['petty_number'];
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $pcd[] = $row;
+            $pcdjn[] = $row['job_number'];
         }
       } else {
         $pcd = "0 results";
@@ -66,14 +69,24 @@ $petty_number = $_POST['petty_number'];
         $scd = "0 results";
       }
   
-
+      $test = implode(',' , $pcdjn);
+      $sql_pcdr = "
+      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
+      WHERE cp.type = 'Petty_Cash' AND cp.job_number IN($test)";
+      
+      $result = $con -> query($sql_pcdr);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $test1[] = $row;
+        }
+      } else {
+        $scd = "0 results";
+      }
       
 
 
 
-
-
-      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd));
+      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'test1'=>$test1));
     
 
 

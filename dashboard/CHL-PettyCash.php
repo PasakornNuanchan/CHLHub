@@ -11,6 +11,7 @@ session_start();
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
+
 <body>
     <!-- loader Start -->
     <div id="loading">
@@ -44,31 +45,31 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty cash number:</label>
-                                    <div class="col-sm-9">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center" for="pwd2">Petty cash number:</label>
+                                    <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-pt_number" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0">Tranfer Mehthod Tranfer:</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none">
+                                    <label class="control-label col-sm-3 align-self-center">Tranfer Mehthod Tranfer:</label>
+                                    <div class="col-sm-9 col-lg-3">
+                                        <select class="form-select form-select-sm shadow-none sel_tranfer_mt">
                                             <option value="">Plese select tranfer mehthod</option>
-                                            <option value="">Cash</option>
-                                            <option value="">Bank Tranfer</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Tranfer">Tranfer</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0">Bank Name:</label>
-                                    <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm inp-bankname" id="pwd2" placeholder="">
+                                    <label class="control-label col-sm-3 align-self-center">Bank Name:</label>
+                                    <div class="col-sm-9 col-md-4 col-lg-3">
+                                        <input type="input" class="form-control form-control-sm inp-bankname">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0">Bank Number:</label>
-                                    <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm inp-banknumber" id="pwd2" placeholder="">
+                                    <label class="control-label col-sm-3 align-self-center">Bank Number:</label>
+                                    <div class="col-sm-9 col-md-4 col-lg-3">
+                                        <input type="input" class="form-control form-control-sm inp-banknumber">
                                     </div>
                                 </div>
                             </div>
@@ -93,30 +94,19 @@ session_start();
                                                 <tbody>
                                                     <tr class="pettycash_detail">
                                                         <td>
-                                                            <div class="db-select-des"><select name="" id="" class="form-select">
-                                                        <?php
-                                                            $Container_type_select = "SELECT consignee_name,job_number FROM job_title as jt
-                                                            INNER JOIN consignee as c on jt.consignee_number = c.consignee_number
-                                                            WHERE jt.status_job = '0'
-                                                            ";
-                                                            $result_Container_type = mysqli_query($con, $Container_type_select);
-                                                            ?>
-                                                            <option selected value="">Please select container type</option>
-                                                            <?php
-                                                            while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
-                                                            ?>
-                                                                <option value="<?php echo $result_Container_type_total['job_number'] ?>"><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                            </select></div></td>
-                                                        <td><input type="input" class="form-control form-control-sm"></td>
+                                                            <div class="db-select-des">
+                                                                <select class="form-select form-select-sm sel_description">
+                                                                    <option value="" selected>Plese select Congsignee</option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td><input type="input" class="form-control form-control-sm inp-amount" onchange="petty_cash.amount_total();"></td>
                                                         <td><select name="" id="" class="form-select">
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select></td>
-                                                       <td></td>
+                                                        <td></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -135,13 +125,13 @@ session_start();
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0">Job quantity:</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0">Amount:</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
@@ -158,7 +148,7 @@ session_start();
 
 
 
-             
+
 
             <!-- MAIN BODY END -->
         </div>
@@ -177,9 +167,3 @@ session_start();
 </html>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/pettycash/pettycash.js"></script>
-<script> 
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-    petty_cash.check_get();
-});
-</script>
