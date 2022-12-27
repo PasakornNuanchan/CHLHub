@@ -251,6 +251,21 @@ session_start();
                                                 </div>
                                             </div>
                                         </div>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty Cash Balance :</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-select form-select-sm mb-3 shadow-none">
+                                                        <option value="" selected>THB</option>
+                                                        <option value="">AMB</option>
+                                                        <option value="">USD</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div style="float: right">
                                         <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-square"></i> Save</button>

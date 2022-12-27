@@ -51,32 +51,32 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Petty Cash Nubmer :</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Petty Cash Nubmer :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-pettycash_number"  readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Request By:</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Request By:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-req_by" placeholder="" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Datetime Request:</label>
+                                            <label class="control-label col-sm-3 align-self-center mb-0">Datetime Request:</label>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-req_datet" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Tranfer Method:</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0" >Tranfer Method:</label>
                                     <div class="col-sm-9">
                                         <select class="form-select form-select-sm" disabled>
                                             <option value="">Plese select tranfer mehthod</option>
@@ -86,43 +86,43 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Bank Name</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0" >Bank Name</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-bankname"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Bank Number:</label>
+                                            <label class="control-label col-sm-3 align-self-center mb-0" >Bank Number:</label>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-banknumber" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Tranfer By.</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Tranfer By.</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-tranf_by" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Tranfer Date time :</label>
+                                            <label class="control-label col-sm-3 align-self-center mb-0">Tranfer Date time :</label>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-tranf_time" placeholder="" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Quantity</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Quantity</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-job_q" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Total Tranfer :</label>
+                                            <label class="control-label col-sm-3 align-self-center mb-0">Total Tranfer :</label>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
+                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-tranf_total"  style="text-align: right;" readonly>
                                             </div>
                                             <div class="col col-sm-2">
                                                 <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -135,11 +135,11 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Number</label>
+                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm inp-all_job" placeholder="" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -210,9 +210,9 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Petty Cash :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Petty Cash :</label>
                                         <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm col-sm-2 inp-petty_cash_return" style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-sm-2">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -223,9 +223,9 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Pay :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Pay :</label>
                                         <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm col-sm-2" style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-sm-2">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -236,9 +236,9 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Petty Cash return :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Petty Cash return :</label>
                                         <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm col-sm-2"  style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-sm-2">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -250,7 +250,7 @@ session_start();
                                     </div>
                                     <hr>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Payment medthod :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" >Payment medthod :</label>
                                         <div class="col col-sm-3">
                                             <select name="" id="" class="form-select form-select-sm">
                                                 <option value="">Bank Tranfer</option>
@@ -259,21 +259,21 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Payment By. :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment By. :</label>
                                         <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="" style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm col-sm-2" style="text-align: right;" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Payment datetime :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" >Payment datetime :</label>
                                         <div class="col col-sm-3">
-                                            <input type="date" class="form-control form-control-sm col-sm-2" placeholder="" style="text-align: right;" readonly>
+                                            <input type="date" class="form-control form-control-sm col-sm-2" style="text-align: right;" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Payment Amount :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment Amount :</label>
                                         <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2" placeholder="12,000.00" style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm col-sm-2" style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-sm-2">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -319,40 +319,25 @@ session_start();
                                                 <tbody>
                                                     <tr class="text-center">
                                                         <td>1</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                        <td><select class="form-select form-select-sm shadow-none sel-des" disabled>
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                        <td><input type="input" class="form-control form-control-sm inp-amount" readonly></td>
+                                                        <td><select class="form-select form-select-sm shadow-none sel-curr" disabled>
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
                                                                 <option value="">RMB</option>
                                                             </select>
                                                         </td>
                                                         <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><input type="input" class="form-control form-control-sm inp-remark" readonly></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+                                    
                                     <center>
                                         <div class="alert alert-solid col-sm-11" style="background: #10929A; color:white;">
                                             <div class="small">
@@ -396,3 +381,12 @@ session_start();
 </body>
 
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="js/pettycash-return/pettycash_return.js"></script>
+    <script> 
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        pettycash_return.check_get();
+    });
+    </script>

@@ -72,6 +72,7 @@ session_start();
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        $pettycash_nubmer = $result_table_list['petty_cash_number'];
 
                                         // count job
                                         $count_job = $result_table_list['petty_cash_number'];
@@ -103,7 +104,7 @@ session_start();
                                                 } else {
                                                     echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
                                                 } ?></td>
-                                            <td><button type="button" onclick="location.href='CHL-pettyCash_return.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="pettycash_return_list.preview('<?=$pettycash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }
@@ -163,3 +164,4 @@ session_start();
 </body>
 
 </html>
+<script src="js/pettycash-return-list/pettycash_return_list.js"></script>

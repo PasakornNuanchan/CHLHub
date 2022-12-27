@@ -46,7 +46,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty cash number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                        <input type="input" class="form-control form-control-sm inp-pt_number" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -105,7 +105,7 @@ session_start();
                                                             <?php
                                                             while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
                                                             ?>
-                                                                <option value=""><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
+                                                                <option value="<?php echo $result_Container_type_total['job_number'] ?>"><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
                                                             <?php
                                                             }
                                                             ?>
@@ -175,7 +175,7 @@ session_start();
 </body>
 
 </html>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/pettycash/pettycash.js"></script>
 <script> 
 $(document).ready(function() {
