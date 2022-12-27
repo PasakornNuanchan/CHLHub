@@ -252,7 +252,7 @@ if (sizeof($_SESSION) > 0) {
                             <hr class="dropdown-divider" />
                         </li>
                         <li>
-                            <a class="dropdown-item" href="../dashboard/auth/sign-in.html">Logout</a>
+                            <a class="dropdown-item" href="../dashboard/auth/sign-in.php">Logout</a>
                         </li>
                     </ul>
                 </li>
