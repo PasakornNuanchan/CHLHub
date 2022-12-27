@@ -78,10 +78,10 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2 align-self-center mb-0" >Tranfer Method:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-select form-select-sm" disabled>
+                                        <select class="form-select form-select-sm sel_tranfer_mt" disabled>
                                             <option value="">Plese select tranfer mehthod</option>
-                                            <option value="">Cash</option>
-                                            <option value="">Bank Tranfer</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Tranfer">Tranfer</option>
                                         </select>
                                     </div>
                                 </div>

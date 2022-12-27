@@ -8,7 +8,7 @@ const petty_cash = {
         html = `
         <tr class="pettycash_detail">
             <td>${sl_des_pettycash}</td>
-        <td><input type="input" class="form-control form-control-sm"></td>
+        <td><input type="input" class="form-control form-control-sm" onchange="petty_cash.amount_total();"></td>
         <td><select name="" id="" class="form-select">
             <option value="" selected>THB</option>
             <option value="">USD</option>
@@ -64,41 +64,42 @@ const petty_cash = {
         console.log(res_data);
        
         $('.inp-pt_number').val(res_data['pct']['petty_cash_number']);
+        $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
-        
-        
-
-        
-
-        // $.each(res_data['pcd'], function (i, v) { 
-        //     html = `
-        //     <tr class="pettycash_detail">
-        //     <td class="sel-des-pcd${i} sel-des-pcd">${sl_des_pettycash.html()}</td>
-        //     <td><input type="input" class="form-control form-control-sm" value="${v['amount']}"></td>
-        //     <td><select name="" id="" class="form-select">
-        //         <option value="" selected>THB</option>
-        //         <option value="">USD</option>
-        //         <option value="">RMB</option>
-        //     </select></td>
-        //     <td onclick="petty_cash.del_pettycash_row(this);" align="center">
-        //         <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-        //     </td>
-        //     </tr>
-        //     `;
-
-
-        //     $('[name="petty-cash-tbl"]>tbody').append(html);
-        //     //$(`sel-des-pcd${i}>select`).val(v['job_number']);
       
-        //     $(`td.sel-des-pcd${i} > select option[value="${v['job_number']}"]`).attr('selected', 'selected');
-
-        // });
+    }, get_description_sel : async function () { 
+        let res_description = await petty_cash.ajax_get_description();
+        return res_description;
        
-        
-        
-      
     },
+    ajax_get_description : function () { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/pettycash/get_pettycash.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+    html_description : async function (data) { 
+        let res = await petty_cash.get_description_sel();
+        let html = '';
+        $.each(res, function (i, k) { 
+            html += `
+            <option value="${k['ID']}">${k['job_number']} / ${k['consignee_name']} </option>
+            `;  
+        });
+        
+        $('.sel_description').append(html);
+    },
+
+
+
 
     ajax_set_preview_data: function (job_doc_pt) {
         
@@ -115,5 +116,24 @@ const petty_cash = {
         });
     },
 
+
+
+
+
+    amount_total : function () { 
+        let sum = '';
+        $('.inp-amount').each(function (e) { 
+            sum += $(this).val();
+        });
+        console.log(sum);
+     }
+
     
 };
+
+
+$( function () {
+    petty_cash.html_description();
+
+    petty_cash.check_get();
+});
