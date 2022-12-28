@@ -172,12 +172,11 @@ const quartation = {
         var select_pod = $('.inp-port_load').parent().html();
         var select_del = $('.inp-port_del').parent().html();
         var select_currency = $('.select-currency').parent().html();
+        var html_select_carrier = $('.inp-carrier').parent().html();
 
         $('.base-row').html('')
         let base_data = [];
-        let truck_import = [];
-        let truck_export = [];
-        let other = [];
+        
 
         $.each(res_data['detail'], function (i, v) {
             if (v['type'] === 'base_service') {
@@ -186,8 +185,6 @@ const quartation = {
         });
         let html = '';
         let num = 1;
-        let html_select_carrier = await quartation.html_select_carrier();
-        $('.base-row').html('');
         $.each(base_data, function (i, v) {
             html = `
                     <div class="base-add">
@@ -196,7 +193,7 @@ const quartation = {
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
                             <div class="col-lg-5 col-md-5">
                                 <div class="db-select-carrier db-select-carrier${i}">
-                                       
+                                       ${html_select_carrier}
                                 </div>
                             </div>
                         </div>
@@ -253,10 +250,8 @@ const quartation = {
                  `;
                  num++;
                 $('.base-row').append(html);
-                $(`.db-select-carrier${i}`).append(html_select_carrier);
 
-                $(`.select-carrier${i} > select`).val(v['carrier_number']); 
-
+                $(`.db-select-carrier${i} > select`).val(v['carrier_number']); 
                 $(`.db-select-carrier_type${i} > select`).val(v['container_type']);                                
                 $(`.db-select-pol${i} > select`).val(v['pol']);                                
                 $(`.db-select-pod${i} > select`).val(v['pod']);                                
@@ -351,7 +346,8 @@ const quartation = {
                                     </select>
                                 </div>
                                 <div class="col-sm-9 col-md-5 col-lg-4">
-                                    <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                    <button onclick="quartation.add_truck_fee_export(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                    <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_export(this);; style=" box-shadow:="" 0px="" 4px="" rgba(0,="" 0,="" 0.25);"=""><i class="bi bi-dash-lg"></i> Delete Route</button>
                                 </div>
                             </div>
                         </div>
@@ -454,87 +450,200 @@ const quartation = {
     ajax_get_base_service: function () {
 
     },
-    html_select_carrier:async function () {
-        let carrier = await quartation.get_carrier();
-        html = '';
-        let html_option = '';
-        $.each(carrier, function (i, v) { 
-            html_option += `
-                <option value="${v['carrier_number']}">
-                    ${v['carrier_name']}
-                </option>
-            `;
-        });
-        
-        html = `
-            <select class="form-select form-select-sm">
-                ${html_option}
-            </select>
-        `;
-        return html;
-    },
-    get_carrier: async function () {
-        let carrier = await quartation.ajax_get_carrier();
-        return carrier;
-    },
-    ajax_get_carrier: function () {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/quotation/get_carrier_all.php",
-                data: {},
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                }
-            });
-        });
-    },
+    
     add_truck_fee_import : function (e = null) {  
-        $num = $('.truck_fee_import_row').length;
+        num = $('.truck_fee_import_row').length;
         let html = `
-        <div class="truck_fee_import_row">                    
-            <h5>Trucking Fee (Import) ${$num+1}</h5>
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-5">
-                            <input type="text" class="form-control form-control-sm">
-                        </div>
-                        <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
-                        <div class="col-lg-3 col-md-5">
-                            <input type="text" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center inp-tr_fee_budget">Budget :</label>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-4">
-                            <input type="text" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-lg-2 col-md-3">
-                            <select name="" class="form-select form-select-sm sel-tr_fee_currency" id="">
-                                <option value="THB" selected>THB</option>
-                                <option value="USD">USD</option>
-                                <option value="RMB">RMB</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-9 col-md-5 col-lg-4">
-                            <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
-                            <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_import(this);; style=" box-shadow:="" 0px="" 4px="" rgba(0,="" 0,="" 0.25);"=""><i class="bi bi-dash-lg"></i> Delete Route</button>
+                <div class="truck_fee_import_row">                    
+                    <h5> Import ${num}</h5>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-5">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="">
+                                </div>
+                                <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
+                                <div class="col-lg-3 col-md-5">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center inp-tr_fee_budget">Budget :</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="">
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <select name="" class="form-select form-select-sm sel-tr_fee_currency" id="" value="">
+                                        <option value="THB" selected>THB</option>
+                                        <option value="USD">USD</option>
+                                        <option value="RMB">RMB</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-9 col-md-5 col-lg-4">
+                                    <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                    <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_import(this);; style=" box-shadow:="" 0px="" 4px="" rgba(0,="" 0,="" 0.25);"=""><i class="bi bi-dash-lg"></i> Delete Route</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-            </div> 
-        </div>
-        `;
+                <hr>     
+            `;
 
         $('.truck_fee_import').append(html);
+    },
+    add_truck_fee_export : function (e = null) {  
+        num = $('.truck_fee_export_row').length;
+        let html = `
+                <div class="truck_fee_export_row">                    
+                    <h5> Export ${num}</h5>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-5">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="">
+                                </div>
+                                <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
+                                <div class="col-lg-3 col-md-5">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center inp-tr_fee_budget">Budget :</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="">
+                                </div>
+                                <div class="col-lg-2 col-md-3">
+                                    <select name="" class="form-select form-select-sm sel-tr_fee_currency" id="" value="">
+                                        <option value="THB" selected>THB</option>
+                                        <option value="USD">USD</option>
+                                        <option value="RMB">RMB</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-9 col-md-5 col-lg-4">
+                                    <button onclick="quartation.add_truck_fee_export(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                    <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_export(this);; style=" box-shadow:="" 0px="" 4px="" rgba(0,="" 0,="" 0.25);"=""><i class="bi bi-dash-lg"></i> Delete Route</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <hr>     
+            `;
+
+        $('.truck_fee_export').append(html);
+    },
+    html_modal_add_consignee : function () {
+        if ($('#add_consignee_moda').length >= 1 ) {
+            $('#add_consignee_moda').remove();
+        }
+        html = `
+        <div class="modal fade" id="add_consignee_moda">
+            <div class="modal-dialog">
+                <div class="modal-content">
+            
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">Add Consignee</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+            
+                    <!-- Modal body -->
+                    <div class="modal-body ps-5">
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">Consignee Name:</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">e-mail:</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">user_sale :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">tax :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">bank_account_name :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">bank_number :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">address :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">contact_person_name :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">contact_person_tel :</label>
+                                <div class="col-sm-11 col-lg-8 col-md-6">
+                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+                        </div>
+                    </div>
+            
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+            
+                </div>
+            </div>
+        </div>`;
+
+        $('body').append(html);
+        $('#add_consignee_moda').modal('show')
     },
 };
 

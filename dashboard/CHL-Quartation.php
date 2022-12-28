@@ -9,7 +9,12 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
+<style>
+    #add_consignee_moda .modal-dialog{
+        max-width: 1000px;
+    }
 
+</style>
 </head>
 
 <body class="  ">
@@ -66,7 +71,7 @@ session_start();
                                         </select>
                                     </div>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Consignee</button>
+                                        <button type="button" onclick="quartation.html_modal_add_consignee();" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Consignee</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -118,7 +123,7 @@ session_start();
                                                         <?php
                                                         while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
                                                         ?>
-                                                            <option value="<?= $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
+                                                            <option value="<?= $result_carrier_total['carrier_number'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
                                                         <?php
                                                         }
                                                         ?>
