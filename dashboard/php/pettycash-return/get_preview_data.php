@@ -17,7 +17,11 @@ $petty_number = $_POST['petty_number'];
       pct.all_job_number,
       pct.tranfer_amount,
       pct.tranfer_datetime,
-      pct.tranfer_amount_cur
+      pct.tranfer_amount_cur,
+      pct.return_payment_datetime,
+      pct.amount_return,
+      pct.amount_return_cur,
+      pct.return_payment_method
       FROM `petty_cash_title` as pct
         INNER JOIN user rqn ON (pct.request_by = rqn.user_number)
         INNER JOIN user rqt ON (pct.tranfer_by = rqt.user_number)
@@ -69,15 +73,15 @@ $petty_number = $_POST['petty_number'];
         $scd = "0 results";
       }
   
-      $test = implode(',' , $pcdjn);
+      $imp_set = implode(',' , $pcdjn);
       $sql_pcdr = "
       SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
-      WHERE cp.type = 'Petty_Cash' AND cp.job_number IN($test)";
+      WHERE cp.type = 'Petty_Cash' AND cp.job_number IN($imp_set)";
       
       $result = $con -> query($sql_pcdr);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-          $test1[] = $row;
+          $dtpc[] = $row;
         }
       } else {
         $scd = "0 results";
@@ -86,7 +90,7 @@ $petty_number = $_POST['petty_number'];
 
 
 
-      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'test1'=>$test1));
+      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
     
 
 

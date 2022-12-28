@@ -1,30 +1,5 @@
 const pettycash_return = {
    
-
-
-    // addpthtml: function () {
-    //     let html_select = $(".td-sel-conttype").html();
-    //     let sl_des_pettycash = $(".db-select-des").html();
-    //     html = `
-    //     <tr class="pettycash_detail">
-    //         <td>${sl_des_pettycash}</td>
-    //     <td><input type="input" class="form-control form-control-sm"></td>
-    //     <td><select name="" id="" class="form-select">
-    //         <option value="" selected>THB</option>
-    //         <option value="">USD</option>
-    //         <option value="">RMB</option>
-    //     </select></td>
-    //     <td onclick="petty_cash.del_pettycash_row(this);" align="center">
-    //         <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-    //     </td>
-    //     </tr>
-    //     `;
-    //     $('[name="petty-cash-tbl"]>tbody').append(html);
-
-    // },del_pettycash_row: function (e = null) {
-    //     $(e).closest("tr").remove();
-    // }, 
-    
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -75,72 +50,100 @@ const pettycash_return = {
         $('.inp-tranf_by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
         $('.inp-tranf_time').val(res_data['pct']['tranfer_datetime']);
         $('.inp-job_q').val(res_data['scd']['c_qty']);
+        $('.inp-all_job').val(res_data['imp_set']);
         $('.inp-tranf_total').val(res_data['pct']['tranfer_amount']);
-
-
-
-
-        $('.inp-petty_cash_return').val(res_data['pct']['tranfer_amount']);
-
         
-    
-        $('.inp-all_job').val($text);
-        
-        $('.inp-total_amount').val(res_data['pct']['total_amount_request']);
-        $('.inp-total_amount_tranfer').val(res_data['pct']['total_amount_request']);
-
-
-        
+        // start Description Petty cash request 
+        let no_des ='1';
+        $('[name = "des-req"] tbody').html('');
         $.each(res_data['pcd'], function (i, v) { 
-            html = `
-            <tr class="pettycash_detail">
-            <td class="sel-des-pcd${i} sel-des-pcd">${sl_des_pettycash.html()}</td>
-            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}"></td>
-            <td><select name="" id="" class="form-select">
-                <option value="" selected>THB</option>
-                <option value="">USD</option>
-                <option value="">RMB</option>
-            </select></td>
-            <td onclick="petty_cash.del_pettycash_row(this);" align="center">
-                <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+            html2 = `
+            <tr class="text-center des-req${i}">
+            <td>${no_des}</td>
+            <td><input type="input" class="form-control form-control-sm" value="${v['consignee_name']} / ${v['job_number']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm" value="${v['currency']}" readonly></td>
             </td>
-            </tr>
+        </tr>
             `;
-
-            htmlfetech =  `
-            <tr class="text-center">
-                <td>1</td>
-                <td><select class="form-select form-select-sm shadow-none sel-des">
-                    <option value="" selected>Plese select description</option>
-                    <option value=""></option>
-                </select></td>
-                <td><input type="input" class="form-control form-control-sm inp-amount" readonly></td>
-                <td><select class="form-select form-select-sm shadow-none sel-curr">
-                    <option value="" selected>THB</option>
-                    <option value="">USD</option>
-                    <option value="">RMB</option>
-                    </select>
-                </td>
-                <td></td>
-                <td><input type="input" class="form-control form-control-sm inp-remark"></td>
-            </tr>
-            `;
-            
-
-
-            $('[name="petty-cash-tbl"]>tbody').append(html);
-            //$(`sel-des-pcd${i}>select`).val(v['job_number']);
-      
-            $(`td.sel-des-pcd${i} > select option[value="${v['job_number']}"]`).attr('selected', 'selected');
-
-
-
-
-
+            $('[name = "des-req"] tbody').append(html2);
+            no_des++;
         });
+        // end Description Petty cash request 
+
+        // petty cash return
+        $('.inp-petty_cash_req').val(res_data['pct']['total_amount_request']);
+
+
+        // hr
+        $('.sel-mt-return').val(res_data['pct']['return_payment_method']);
+        $('.inp-payment-by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
+        $('.inp-payment-d-time').val(res_data['pct']['datetime_request']);
+        $('.inp-payment-re-amount').val(res_data['pct']['amount_return']);
+        $('.inp-payment-re-amount_cur').val(res_data['pct']['amount_return_cur']);
+    
+
+       
 
 
 
+        let html = '';
+        let num = 1;
+        
+
+        $('.des_pet_de').html('');
+        $.each(res_data['$pcdjn'], function (i, v) { 
+        html_dpcd_job = `
+                <div class="form-group row">
+                    <label class="control-label col-sm-2 align-self-center mb-0">Job number :</label>
+                    <div class="col col-sm-3">
+                        <input type="input" class="form-control form-control-sm col-sm-2" value="${v}" readonly>
+                    </div>
+                </div>
+            `;
+            $.each(res_data['$pcdjn'], function (i, v) { 
+        html_dpcd = 
+        `
+            <div class="table-responsive">
+                <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                    <thead>
+                        <tr style="background-color :#0D47A1; color :aliceblue;">
+                            <th>No.</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Curency</th>
+                            <th>Receipt</th>
+                            <th>remark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>1</td>
+                            <td><select class="form-select form-select-sm shadow-none sel-des" disabled>
+                                <option value="" selected>Plese select description</option>
+                                <option value=""></option>
+                            </select></td>
+                            <td><input type="input" class="form-control form-control-sm inp-amount" readonly></td>
+                            <td><select class="form-select form-select-sm shadow-none sel-curr" disabled>
+                                <option value="THB" selected>THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                            </select>
+                            </td>
+                            <td></td>
+                            <td><input type="input" class="form-control form-control-sm inp-remark" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `;
+            });
+        });
+        
+
+
+
+        $('.des_pet_de').append(html_dpcd);
     },
 
     ajax_set_preview_data: function (job_doc_pt) {
