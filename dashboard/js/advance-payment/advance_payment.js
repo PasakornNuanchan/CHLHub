@@ -1,4 +1,4 @@
-const pettycash_return = {
+const advance_return = {
    
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
@@ -15,17 +15,17 @@ const pettycash_return = {
             }
             return false;
         };
-        let get_doc_pt = getUrlParameter('petty_cash_number');
+        let get_doc_ad = getUrlParameter('advance_cash_number');
         let get_action = getUrlParameter('action');
 
-        let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
+        let job_doc_ad = get_doc_ad == false ? null : get_doc_ad;
         let action = get_action == false ? null : get_action;
         
         console.log(action);
         
         if (action == 'preview') {
             
-            pettycash_return.set_preview_data(job_doc_pt);
+            advance_return.set_preview_data(job_doc_ad);
             
         } else {
 
@@ -36,11 +36,11 @@ const pettycash_return = {
     
         let sl_des_pettycash = $(".db-select-des");
 
-        let res_data = await pettycash_return.ajax_set_preview_data(job_doc_pt);
+        let res_data = await advance_return.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
        
         //card 1 request petty cash
-        $('.inp-pettycash_number').val(res_data['pct']['petty_cash_number']);
+        $('.inp-advance_number').val(res_data['pct']['advance_cash_number']);
         $('.inp-req_by').val(res_data['pct']['rq_by_first']+' '+res_data['pct']['rq_by_last']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
         // hr
@@ -49,7 +49,6 @@ const pettycash_return = {
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
         $('.inp-tranf_by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
         $('.inp-tranf_time').val(res_data['pct']['tranfer_datetime']);
-        $('.inp-job_q').val(res_data['scd']['c_qty']);
         $('.inp-all_job').val(res_data['imp_set']);
         $('.inp-tranf_total').val(res_data['pct']['tranfer_amount']);
         
@@ -72,7 +71,7 @@ const pettycash_return = {
         // end Description Petty cash request 
 
         // petty cash return
-        $('.inp-petty_cash_req').val(res_data['pct']['total_amount_request']);
+        $('.inp-advance_cash_req').val(res_data['pct']['total_amount_request']);
 
 
         // hr
@@ -80,7 +79,7 @@ const pettycash_return = {
         $('.inp-payment-by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
         $('.inp-payment-d-time').val(res_data['pct']['datetime_request']);
         $('.inp-payment-re-amount').val(res_data['pct']['amount_return']);
-        $('.inp-payment-re-amount_cur').val(res_data['pct']['amount_return_cur']);
+        $('.sel-payment-re-amount_cur').val(res_data['pct']['amount_return_cur']);
     
 
        
@@ -118,12 +117,12 @@ const pettycash_return = {
          
     },
 
-    ajax_set_preview_data: function (job_doc_pt) {
+    ajax_set_preview_data: function (job_doc_ad) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/pettycash-return/get_preview_data.php",
-                data: { 'petty_number': job_doc_pt },
+                url: "php/advance-return/get_preview_data.php",
+                data: { 'advance_number': job_doc_ad },
                 dataType: "json",
                 success: function (response) {
                     resolve(response);

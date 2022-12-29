@@ -295,7 +295,7 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="table-responsive">
-                                            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                                            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" name="des-check" role="grid">
                                                 <thead>
                                                     <tr style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>No.</th>

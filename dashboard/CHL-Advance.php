@@ -44,25 +44,31 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Tranfer Mehthod Tranfer:</label>
+                                    <label class="control-label col-sm-3 align-self-center">Advance Number:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-select form-select-sm mb-3 shadow-none">
+                                        <input type="input" class="form-control form-control-sm inp-ac_number">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 align-self-center" >Method request payment:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select form-select-sm shadow-none sel_tranfer_mt">
                                             <option value="">Plese select tranfer mehthod</option>
-                                            <option value="">Cash</option>
-                                            <option value="">Bank Tranfer</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Tranfer"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Bank Name:</label>
+                                    <label class="control-label col-sm-3 align-self-center">Bank Name:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-bankname">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Bank Number:</label>
+                                    <label class="control-label col-sm-3 align-self-center">Bank Number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-banknumber">
                                     </div>
                                 </div>
                             </div>
@@ -85,30 +91,16 @@ session_start();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="pettycash_detail">
-                                                        <td>
-                                                            <div class="db-select-des"><select name="" id="" class="form-select">
-                                                        <?php
-                                                            $Container_type_select = "SELECT consignee_name,job_number FROM job_title as jt
-                                                            INNER JOIN consignee as c on jt.consignee_number = c.consignee_number
-                                                            WHERE jt.status_job = '0'
-                                                            ";
-                                                            $result_Container_type = mysqli_query($con, $Container_type_select);
-                                                            ?>
+                                                    <tr class="advance_detail">
+                                                        <td class="db-select-des">
+                                                            <select name="" id="" class="form-select form-select-sm row-of-description">
                                                             <option selected value="">Please select container type</option>
-                                                            <?php
-                                                            while ($result_Container_type_total = mysqli_fetch_assoc($result_Container_type)) {
-                                                            ?>
-                                                                <option value=""><?php echo $result_Container_type_total['consignee_name'] ?> / <?php echo $result_Container_type_total['job_number'] ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                            </select></div></td>
+                                                            </select></td>
                                                         <td><input type="input" class="form-control form-control-sm"></td>
-                                                        <td><select name="" id="" class="form-select">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
+                                                        <td><select name="" id="" class="form-select form-select-sm sel_currency">
+                                                                <option value="THB" selected>THB</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="RMB">RMB</option>
                                                             </select></td>
                                                        <td></td>
                                                     </tr>
@@ -169,4 +161,5 @@ session_start();
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/advance/advance.js"></script>
