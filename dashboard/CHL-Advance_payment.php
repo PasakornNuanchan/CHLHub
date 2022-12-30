@@ -10,7 +10,7 @@ session_start();
     <title>Petty Cash return</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
-   
+
 
 </head>
 
@@ -94,7 +94,7 @@ session_start();
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-bankname" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center " >Bank Number:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Bank Number:</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-banknumber" readonly>
                                             </div>
@@ -139,21 +139,7 @@ session_start();
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
+                                                        <td><input type="input" class="form-control form-control-sm" readonly></td>
                                                         <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
@@ -177,7 +163,7 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" >Advance Cash return :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Advance Cash return :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2 inp-advance_cash_req" style="text-align: right;" readonly>
                                         </div>
@@ -190,7 +176,7 @@ session_start();
                                         </div>
                                     </div>
                                     <hr>
-                                    
+
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0">Payment medthod :</label>
                                         <div class="col col-sm-3">
@@ -240,13 +226,13 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-2 align-self-center mb-0" for="email1">Job number :</label>
+                                        <div class="form-group row job_des_title">
+                                            <label class="control-label col-sm-2 align-self-center">Job number :</label>
                                             <div class="col col-sm-3">
-                                                <input type="input" class="form-control form-control-sm col-sm-2" placeholder="" style="text-align: right; " readonly>
+                                                <input type="input" class="form-control form-control-sm col-sm-2" readonly>
                                             </div>
                                         </div>
-                                        <div class="table-responsive">
+                                        <div class="table-responsive main_des_table">
                                             <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
                                                 <thead>
                                                     <tr style="background-color :#0D47A1; color :aliceblue;">
@@ -295,8 +281,8 @@ session_start();
                                             </table>
                                         </div>
                                     </div>
-                                    <center>
-                                        <div class="alert alert-solid col-sm-11" style="background: #10929A; color:white;">
+                                    <div class="cal_des_detail">
+                                        <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
                                             <div class="small">
                                                 <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
                                                 <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
@@ -306,7 +292,7 @@ session_start();
                                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                                             </div>
                                         </div>
-                                    </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -333,11 +319,11 @@ session_start();
     <?php include 'include/offcanvas.php'; ?>
     <?php include '../assets/include/theme_include_js.php'; ?>
     <script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-        advance_return.check_get();
-    });
-</script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            advance_return.check_get();
+        });
+    </script>
 </body>
 
 </html>

@@ -46,13 +46,12 @@ session_start();
                             <div class="card-body">
                                 <p>Petty Cash Waiting for clear</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                    <table id="basic-table" class="table table-striped mb-0" name="pc_wfc_table" role="grid">
                                         <thead>
-                                            <tr>
+                                            <tr align="center">
                                                 <th>PT. Number</th>
-                                                <th>Job</th>
-                                                <th>Return</th>
                                                 <th>Customs Clearance</th>
+                                                <th>Amount</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -145,3 +144,11 @@ session_start();
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="js/balance/balance.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        balance.set_preview_data();
+    });
+</script>

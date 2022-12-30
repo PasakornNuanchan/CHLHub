@@ -109,6 +109,76 @@ const advance_return = {
             $('[name = "des-check"] tbody').append(html_check);
             no_des_petty_return++;
         });
+
+
+        $('.job_des_title').html('');    
+
+        $.each(res_data['$pcdjn'],function (i,v){
+            html_des = `
+                <div class="form-group row">
+                    <label class="control-label col-sm-2 align-self-center">Job number :</label>
+                    <div class="col col-sm-3">
+                        <input type="input" class="form-control form-control-sm col-sm-2" value="${v}" readonly>
+                    </div>
+                </div>         
+                `;
+            $('.job_des_title').append(html_des);
+        });
+
+        $('.main_des_table').html('');
+        $.each(res_data['dtpc'],function (i,v){
+            
+        html_detail_table = `
+        <tr class="text-center">
+            <td>1</td>
+            <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                <option value="" selected>Plese select description</option>
+                <option value=""></option>
+            </select></td>
+            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}" readonly></td>
+            <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                <option value="" selected>THB</option>
+            <option value="">USD</option>
+            <option value="">RMB</option>
+            </select>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        `;
+
+        });
+
+        html_table_des = `
+        <div class="table-responsive main_des_table">
+            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                <thead>
+                    <tr style="background-color :#0D47A1; color :aliceblue;">
+                        <th>No.</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Curency</th>
+                        <th>Receipt</th>
+                        <th>remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+               ${html_detail_table}                                     
+                </tbody>
+            </table>
+        </div>
+            `;
+        $('.main_des_table').append(html_table_des);
+
+
+        
+
+
+
+
+        $('.cal_des_detail').html('');
+            
+           
         
         
 
