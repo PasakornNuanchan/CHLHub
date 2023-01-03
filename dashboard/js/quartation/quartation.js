@@ -27,7 +27,7 @@ const quartation = {
                                         </div>
                                         <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
                                         <div class="col-lg-2 col-md-2">
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="text" class="form-control form-control-sm" inp_qty >
                                     </div>
                                     </div>
                                 </div>
@@ -74,43 +74,20 @@ const quartation = {
         $(".base-row").append(html);
     },
     addhtmlsub_tbl: function () {
+        let sel_sup_service = $('.sel-sup_des_service').parent().html();
+        let sel_type_sup_service = $('.sel_type_sup_service').parent().html();
+        let sel_currency_sup_service = $('.sel_currency_sup_service').parent().html();
+
         html = `
             <tr class="sub_des">
-                <td class=""><select name="" class="form-select form-select-sm" id="">
-                    <option value="" selected>Plese Select service</option>
-                    <option value="">DF/DO Fee</option>
-                    <option value="">THC</option>
-                    <option value="">Seal Fee</option>
-                    <option value="">Handling Charge</option>
-                    <option value="">Import Duty With Vat</option>
-                    <option value="">Customs Clearance Charge</option>
-                    <option value="">Customs fee</option>
-                    <option value="">Customs Inspection Charge</option>
-                    <option value="">Gate Charge</option>
-                    <option value="">Pick-up Empty Container Fee</option>
-                    <option value="">Return Laden Container Fee</option>
-                    <option value="">Container Cleaning Charge</option>
-                    <option value="">Equipment Maintenance Fee</option>
-                    <option value="">Demurrage & Detention</option>
-                    <option value="">Over time Charge for truck</option>
-                    <option value="">Storage Charge</option>
-                    <option value="">Over time charge for customer </option>
-                    <option value="">insurance</option>
-                    <option value="">Surrender BL Fee</option>
-                    <option value="">AMS (amtomated manifest system)</option>
-                    <option value="">Carrier Security Charge</option>
-                    <option value="">Port Security Charge (PU)</option>
-                </select></td>
-                <td><select name="" id="" class="form-select form-select-sm">
-                    <option value="">Import</option>
-                    <option value="">Export</option>
-                    <option value="" selected>Other service</option>
-                </select></td>
-                <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
-                <td><select name="" class="form-select form-select-sm" id="">
-                    <option value="">THB</option>
-                </select></td>
-                <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
+                <td class="">
+                ${sel_sup_service}</td>
+                <td>
+                    ${sel_type_sup_service}
+                </td>
+                <td><input type="input" class="form-control form-control-sm inp_price_sup_service" id="" placeholder=""></td>
+                <td>${sel_currency_sup_service}</td>
+                <td><input type="input" class="form-control form-control-sm inp_sup_remark" id="" placeholder=""></td>
                 <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
                         <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="red"></path>
@@ -121,7 +98,15 @@ const quartation = {
         $('[name="sub-tbl"]>tbody').append(html);
     },
     del_sup_row: function (e = null) {
-        $(e).closest("tr").remove();
+        let num = $('.sub_des').length;
+        console.log(num);
+        if (num == 1) {
+            alert('You can not remove this one');
+            return
+        }else{
+            $(e).closest("tr").remove();
+
+        }
     },
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
@@ -152,7 +137,6 @@ const quartation = {
     },
     set_preview_data: async function (quartation_number = null) {
         let res_data = await quartation.ajax_set_preview_data(quartation_number);
-        console.log(res_data);
         title = res_data['title']
 
         // Quartation Detail
@@ -186,8 +170,9 @@ const quartation = {
         let html = '';
         let num = 1;
         $.each(base_data, function (i, v) {
+            console.log(v);
             html = `
-                    <div class="base-add">
+                    <div class="base-add" data-id="${v['ID']}">
                         <H5 class="mb-3">Route ${num}</H5>
                         <div class="form-group row">
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
@@ -206,7 +191,7 @@ const quartation = {
                                     </div>
                                     <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
                                     <div class="col-lg-2 col-md-2 ">
-                                        <input type="text" class="form-control form-control-sm">
+                                        <input type="text" class="form-control form-control-sm inp_qty "value='${v['qty']}'>
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +206,7 @@ const quartation = {
                                         </div>
                                     </div>
                                     <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
-                                    <div class="col-lg-4">
+                                    <div class=" col-md-4  col-lg-4">
                                         <div class="db-select-pod db-select-pod${i}">
                                             ${select_del}
                                         </div>
@@ -262,7 +247,7 @@ const quartation = {
 
 
         // trucking fee (import)
-        $('.truck_fee_import_row').html('');
+        $('.truck_fee_import_row').parent().html('');
         $.each(res_data['truck_fee']['import'], function (i, v) { 
             html = `
                 <div class="truck_fee_import_row">                    
@@ -310,7 +295,7 @@ const quartation = {
 
 
         // trucking fee (export)
-        $('.truck_fee_export_row').html('');
+        $('.truck_fee_export_row').parent().html('');
 
         $.each(res_data['truck_fee']['export'], function (i, v) { 
             html = `
@@ -379,11 +364,11 @@ const quartation = {
                                 <option value="USD">USD</option>
                                 <option value="RMB">RMB</option>
                             </select></td>
-                        <td><input type="input" class="form-control form-control-sm " id="" placeholder="" value="${v['remark']}"></td>
-                        <td onclick="">
-                            <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.7688 8.71387H16.2312C18.5886 8.71387 20.5 10.5831 20.5 12.8885V17.8254C20.5 20.1308 18.5886 22 16.2312 22H7.7688C5.41136 22 3.5 20.1308 3.5 17.8254V12.8885C3.5 10.5831 5.41136 8.71387 7.7688 8.71387ZM11.9949 17.3295C12.4928 17.3295 12.8891 16.9419 12.8891 16.455V14.2489C12.8891 13.772 12.4928 13.3844 11.9949 13.3844C11.5072 13.3844 11.1109 13.772 11.1109 14.2489V16.455C11.1109 16.9419 11.5072 17.3295 11.9949 17.3295Z" fill="currentColor"></path>
-                                <path opacity="0.4" d="M17.523 7.39595V8.86667C17.1673 8.7673 16.7913 8.71761 16.4052 8.71761H15.7447V7.39595C15.7447 5.37868 14.0681 3.73903 12.0053 3.73903C9.94257 3.73903 8.26594 5.36874 8.25578 7.37608V8.71761H7.60545C7.20916 8.71761 6.83319 8.7673 6.47754 8.87661V7.39595C6.4877 4.41476 8.95692 2 11.985 2C15.0537 2 17.523 4.41476 17.523 7.39595Z" fill="currentColor"></path>
+                        <td><input type="input" class="form-control form-control-sm inp_sup_remark" id="" placeholder="" value="${v['remark']}"></td>
+                        
+                        <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
+                                <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="red"></path>
                             </svg>
                         </td>
                     </tr>
@@ -441,6 +426,8 @@ const quartation = {
         $('.sel_consignee').append(html);
     },
 
+   
+
     html_base_service: function () {
 
     },
@@ -455,7 +442,7 @@ const quartation = {
         num = $('.truck_fee_import_row').length;
         let html = `
                 <div class="truck_fee_import_row">                    
-                    <h5> Import ${num}</h5>
+                    <h5> Import ${num+1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
@@ -502,7 +489,7 @@ const quartation = {
         num = $('.truck_fee_export_row').length;
         let html = `
                 <div class="truck_fee_export_row">                    
-                    <h5> Export ${num}</h5>
+                    <h5> Export ${num+1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
@@ -645,11 +632,130 @@ const quartation = {
         $('body').append(html);
         $('#add_consignee_moda').modal('show')
     },
+    quotation_save : async function (param) {  
+        data = {};
+        let quo_no = $('.inp-quo_no').val();
+        let sign_st = $('.inp-sign_st').val();
+        let consignee = $('.sel_consignee').val();
+        let term = $('.sel_term').val();
+        let commod = $('.inp-commodity').val();
+        let type_title = $('.sel-type-title').val();
+        let detail = {
+            'quo_no'  :quo_no,
+            'sign_st'  :sign_st,
+            'consignee' :consignee,
+            'term' :term,
+            'commod' :commod,
+            'type_title':type_title,
+
+        }
+
+        let base_arr = [];
+        $('.base-add').each(function (i, e) {
+            // element == this
+            let base_arr_tmp = {};
+
+            let carrier = $('.inp-carrier', this).val();
+            let carrier_type = $('.inp-carrier-type', this).val();
+            let pol = $('.inp-port_load', this).val();
+            let pod = $('.inp-port_del', this).val();
+            let qty = $('.inp_qty', this).val();
+
+            base_arr_tmp = {
+                'carrier' :carrier,
+                'carrier_type' : carrier_type,
+                'pol' : pol,
+                'pod' : pod,  
+                'qty' : qty,
+            }
+            base_arr.push(base_arr_tmp);
+        });
+
+        let truck_fee_import = [];
+        $('.truck_fee_import_row').each(function (i, e) {
+            let truck_fee_import_tmp = {};
+
+            let truck_pickup = $('.inp-truck_fee_pickup', this).val();
+            let truck_drop = $('.inp-truck_fee_drop', this).val();
+            let budget = $('.inp-truck_fee_budget', this).val();
+            let currency = $('.sel-tr_fee_currency', this).val();
+            truck_fee_import_tmp = {
+                'truck_pickup' :truck_pickup,
+                'truck_drop' : truck_drop,
+                'budget' : budget,
+                'currency' : currency,  
+            }
+            truck_fee_import.push(truck_fee_import_tmp);
+        });
+
+        let truck_fee_export = [];
+        $('.truck_fee_export_row').each(function (i, e) {
+            let truck_fee_export_tmp = {};
+
+            let truck_pickup = $('.inp-truck_fee_pickup', this).val();
+            let truck_drop = $('.inp-truck_fee_drop', this).val();
+            let budget = $('.inp-truck_fee_budget', this).val();
+            let currency = $('.sel-tr_fee_currency', this).val();
+            truck_fee_export_tmp = {
+                'truck_pickup' :truck_pickup,
+                'truck_drop' : truck_drop,
+                'budget' : budget,
+                'currency' : currency,  
+            }
+            truck_fee_export.push(truck_fee_export_tmp);
+        });
+
+        let sup_service = [];
+        $('.sub_des').each(function (i, e) {
+            // element == this
+            let sup_service_tmp = {};
+
+            let service = $('.sel-sup_des_service',this).val();
+            let type = $('.sel_type_sup_service',this).val();
+            let unit_price = $('.inp_price_sup_service',this).val();
+            let currency = $('.sel_currency_sup_service',this).val();
+            let remark = $('.inp_sup_remark',this).val();
+
+            sup_service_tmp = {
+                'service' :service,
+                'type' : type,
+                'unit_price' : unit_price,
+                'currency' : currency,  
+                'remark' : remark,  
+
+            }
+            sup_service.push(sup_service_tmp);
+        });
+
+        let save_data = {
+            'detail' : detail,
+            'base' : base_arr,
+            'truck_import' : truck_fee_import,
+            'truck_export' : truck_fee_export,
+            'sup_service' : sup_service
+        }
+        console.log(save_data);
+        let res = await quartation.ajax_save_quotation(save_data);
+    },
+    ajax_save_quotation : function (data) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/quotation/save_quotation.php",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
 };
 
 
 $(function () {
     quartation.html_consignee();
     quartation.check_get();
+    
     
 });

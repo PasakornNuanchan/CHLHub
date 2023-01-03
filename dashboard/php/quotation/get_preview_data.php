@@ -34,6 +34,8 @@ $job_number = $_POST['quartation_number'];
             `quartation_detail_base`.`base_service_route`,
             `quartation_detail_base`.`markup_price`,
             `quartation_detail_base`.`markup_result`,
+            `quartation_detail_base`.`qty`,
+
             route.*,
             carrier.ID as 'carrier_ID'
         FROM

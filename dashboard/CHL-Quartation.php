@@ -77,7 +77,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Term :</label>
                                     <div class="col-sm-1 col-md-4 col-lg-4">
-                                        <select class="select form-select form-select-sm" id="">
+                                        <select class="select form-select form-select-sm sel_term" id="">
                                             <option value="" selected>Plese select Term</option>
                                         </select>
                                     </div>
@@ -114,7 +114,7 @@ session_start();
                                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
-                                                    <select class="form-select form-select-sm inp-carrier ">
+                                                    <select class="form-select form-select-sm inp-carrier">
                                                         <?php
                                                         $carrier_select = "SELECT * FROM carrier";
                                                         $result_carrier = mysqli_query($con, $carrier_select);
@@ -151,9 +151,9 @@ session_start();
                                                             ?>
                                                         </select>
                                                     </div>
-                                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
+                                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="">Container Quantity</label>
                                                     <div class="col-lg-2 col-md-2 ">
-                                                        <input type="text" class="form-control form-control-sm">
+                                                        <input type="text" class="form-control form-control-sm inp_qty">
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@ session_start();
                                                         </div>
                                                     </div>
                                                     <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
-                                                    <div class="col-lg-4">
+                                                    <div class="col-md-4 col-lg-4 ">
                                                         <div class="db-select-pod">
                                                             <select class="form-select form-select-sm inp-port_del">
                                                                 <?php
@@ -382,7 +382,7 @@ session_start();
                         <div style="color:red;">* if unit price it is null system will chage to at cost if any </div>
                         <div style="float: right">
                             <button class="btn btn-warning rounded-pill bg-gradient btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
-                            <button class="btn btn-success rounded-pill bg-gradient btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                            <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="quartation.quotation_save();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
                             <button class="btn btn-primary rounded-pill bg-gradient btn-sm" onclick="location.href='CHL-quartation-markup.php';" target="_blank" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Go to markup</button>
                         </div>
                     </div>
