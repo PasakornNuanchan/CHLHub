@@ -53,12 +53,13 @@ session_start();
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,jt.mbl,cr.carrier_name,c.consignee_name,a.location_name,a.country,jt.eta 
+                                    $sql_table_list = "SELECT * 
                                                         FROM job_title as jt 
                                                         INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                                         INNER JOIN area as a ON jt.ts_port_number = a.area_number
                                                         INNER JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
-                                                        WHERE jt.status_job ='0'";
+                                                        
+                                                       ";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);

@@ -68,7 +68,8 @@ const petty_cash = {
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
       
-    }, get_description_sel : async function () { 
+    }, 
+    get_description_sel : async function () { 
         let res_description = await petty_cash.ajax_get_description();
         return res_description;
        
