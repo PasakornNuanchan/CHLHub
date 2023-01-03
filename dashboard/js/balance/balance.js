@@ -17,14 +17,42 @@ const balance = {
                 <td>${v['petty_cash_number']}</td>
                 <td>${v['customs_clear']}</td>
                 <td>${v['total_amount']}</td>
-                <td><button class="btn btn-primary rounded-pill btn-xs "><i class="bi bi-eye"></i> Check</button></td>
+                <td><button onclick="pettycash_list.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-xs"><i class="bi bi-eye"></i> Check</button></td>
             </tr>
             `;
 
             $('[name = "pc_wfc_table"] tbody').append(html_set_pc_wfc);
            
         });
-      
+
+        $('[name = "ad_wfc_table"] tbody').html('');
+        $.each(res_data['ad_wfc'], function (i, v) { 
+            html_set_ad_wfc = `
+            <tr class="text-center">
+                <td>${v['advance_cash_number']}</td>
+                <td>${v['clearance_status']}</td>
+                <td>${v['total_amount']}</td>
+                <td><button class="btn btn-primary rounded-pill btn-xs "><i class="bi bi-eye"></i> Check</button></td>
+            </tr>
+            `;
+
+            $('[name = "ad_wfc_table"] tbody').append(html_set_ad_wfc);
+           
+        });
+
+        $('[name = "ad_nhc_table"] tbody').html('');
+        $.each(res_data['ad_hnc'], function (i, v) { 
+            html_set_ad_nhc = `
+            <tr class="text-center">
+                <td>${v['job_number']}</td>
+                <td>${v['clearlance_status']}</td>
+                <td>${v['amount']}</td>
+            </tr>
+            `;
+
+            $('[name = "ad_nhc_table"] tbody').append(html_set_ad_nhc);
+           
+        });
       
     }, 
 

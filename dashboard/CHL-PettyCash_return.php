@@ -214,7 +214,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Pay :</label>
                                         <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm " style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-md-3 col-lg-1">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -227,7 +227,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center mb-0">Petty Cash return :</label>
                                         <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm " style="text-align: right;" readonly>
+                                            <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" readonly>
                                         </div>
                                         <div class="col col-md-3 col-lg-1">
                                             <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
@@ -286,10 +286,10 @@ session_start();
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="row">
+                                <div class="row des_pet_de_row">
                                     <div class="des_pet_de">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Job number :</label>
+                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Job number x :</label>
                                             <div class="col col-md-3 col-lg-3">
                                                 <input type="input" class="form-control form-control-sm"  readonly>
                                             </div>

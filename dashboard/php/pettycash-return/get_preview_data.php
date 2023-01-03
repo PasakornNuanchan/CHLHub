@@ -14,7 +14,6 @@ $petty_number = $_POST['petty_number'];
       pct.tranfer_method,
       pct.tranfer_bank_name,
       pct.tranfer_bank_number,
-      pct.all_job_number,
       pct.tranfer_amount,
       pct.tranfer_datetime,
       pct.tranfer_amount_cur,
@@ -76,6 +75,7 @@ $petty_number = $_POST['petty_number'];
       $imp_set = implode(',' , $pcdjn);
       $sql_pcdr = "
       SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
+      
       WHERE cp.type = 'Petty_Cash' AND cp.job_number IN($imp_set)";
       
       $result = $con -> query($sql_pcdr);
@@ -86,11 +86,11 @@ $petty_number = $_POST['petty_number'];
       } else {
         $scd = "0 results";
       }
-      
 
-
-
-      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
+      foreach ($dtpc as $k => $v) {
+        $dtpc_arr[$v['job_number']][] = $v;
+      }
+       echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
     
 
 

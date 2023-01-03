@@ -81,20 +81,18 @@ session_start();
                             <div class="card-body">
                                 <p>Advance Waiting tranfer</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                    <table id="basic-table" class="table table-striped mb-0" name="ad_wfc_table" role="grid">
                                         <thead>
-                                            <tr>
+                                            <tr align="center">
                                                 <th>AD. Number</th>
-                                                <th>Job</th>
-                                                <th>Return</th>
                                                 <th>Customs Clearance</th>
+                                                <th>Amount</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>PT220902</td>
-                                                <td>2</td>
                                                 <td>18,000.00</td>
                                                 <td><span class="badge rounded-pill bg-success">Success</span></td>
                                                 <td><button class="btn btn-primary rounded-pill btn-xs "><i class="bi bi-eye"></i> Check</button></td>
@@ -108,12 +106,12 @@ session_start();
                             <div class="card-body">
                                 <p>Job Not Have Create Advance Cash</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-0 text-center" role="grid">
+                                    <table id="basic-table" class="table table-striped mb-0 text-center" name="ad_nhc_table" role="grid">
                                         <thead>
                                             <tr>
                                                 <th>Job Nubmer</th>
-                                                <th>Amount</th>
                                                 <th>Customs Clearance</th>
+                                                <th>Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -146,6 +144,7 @@ session_start();
 </html>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/balance/balance.js"></script>
+<script src="js/balance/petty_cash_con.js"></script>
 <script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
