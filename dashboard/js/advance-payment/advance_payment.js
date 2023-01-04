@@ -41,10 +41,10 @@ const advance_return = {
        
         //card 1 request petty cash
         $('.inp-advance_number').val(res_data['pct']['advance_cash_number']);
-        $('.inp-req_by').val(res_data['pct']['rq_by_first']+' '+res_data['pct']['rq_by_last']);
+        $('.inp-req_by').val(res_data['pct']['first_name']+' '+res_data['pct']['last_name']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
         // hr
-        $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
+        $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method_request']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
         $('.inp-tranf_by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
@@ -54,13 +54,21 @@ const advance_return = {
         
         // start Description Petty cash request 
         let no_des ='1';
+        var cal_amount = 0;
         $('[name = "des-req"] tbody').html('');
+        let cash_arr = [];
+
         $.each(res_data['pcd'], function (i, v) { 
+            cash_arr[v['job_number']] = v['amount'];
+            cal_amount += parseFloat(v['amount']);
+
+            pf_amount = parseFloat(v['amount']);
+
             html2 = `
             <tr class="text-center des-req${i}">
             <td>${no_des}</td>
             <td><input type="input" class="form-control form-control-sm" value="${v['consignee_name']} / ${v['job_number']}" readonly></td>
-            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm" value="${number_format(pf_amount.toFixed(2))}" style="text-align: right;" readonly></td>
             <td><input type="input" class="form-control form-control-sm" value="${v['currency']}" readonly></td>
             </td>
         </tr>
@@ -71,15 +79,17 @@ const advance_return = {
         // end Description Petty cash request 
 
         // petty cash return
-        $('.inp-advance_cash_req').val(res_data['pct']['total_amount_request']);
+        
+        $('.inp-advance_cash_req').val(number_format(cal_amount.toFixed(2)));
 
+        pf_payment_amount = parseFloat(res_data['payment']['payment_amount']);
 
         // hr
-        $('.sel-mt-return').val(res_data['pct']['return_payment_method']);
-        $('.inp-payment-by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
-        $('.inp-payment-d-time').val(res_data['pct']['datetime_request']);
-        $('.inp-payment-re-amount').val(res_data['pct']['amount_return']);
-        $('.sel-payment-re-amount_cur').val(res_data['pct']['amount_return_cur']);
+        $('.sel-mt-return').val(res_data['payment']['payment_method']);
+        $('.inp-payment-by').val(res_data['payment']['first_name']+' '+res_data['payment']['last_name']);
+        $('.inp-payment-d-time').val(res_data['payment']['payment_datetime']);
+        $('.inp-payment-re-amount').val(number_format(pf_payment_amount.toFixed(2)));
+        $('.sel-payment-re-amount_cur').val(res_data['payment']['payment_amount_cur']);
     
 
        
@@ -89,10 +99,12 @@ const advance_return = {
         let html = '';
         let num = 1;
         
-
+        
         let no_des_petty_return ='1';
         $('[name = "des-check"] tbody').html('');
         $.each(res_data['dtpc'], function (i, v) { 
+
+            
             html_check =
             `
                 <tr class="text-center">
@@ -110,76 +122,75 @@ const advance_return = {
             no_des_petty_return++;
         });
 
-
-        $('.job_des_title').html('');    
-
-        $.each(res_data['$pcdjn'],function (i,v){
-            html_des = `
-                <div class="form-group row">
-                    <label class="control-label col-sm-2 align-self-center">Job number :</label>
-                    <div class="col col-sm-3">
-                        <input type="input" class="form-control form-control-sm col-sm-2" value="${v}" readonly>
-                    </div>
-                </div>         
-                `;
-            $('.job_des_title').append(html_des);
-        });
-
-        $('.main_des_table').html('');
-        $.each(res_data['dtpc'],function (i,v){
-            
-        html_detail_table = `
-        <tr class="text-center">
-            <td>1</td>
-            <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                <option value="" selected>Plese select description</option>
-                <option value=""></option>
-            </select></td>
-            <td><input type="input" class="form-control form-control-sm" value="${v['amount']}" readonly></td>
-            <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                <option value="" selected>THB</option>
-            <option value="">USD</option>
-            <option value="">RMB</option>
-            </select>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-        `;
-
-        });
-
-        html_table_des = `
-        <div class="table-responsive main_des_table">
-            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
-                <thead>
-                    <tr style="background-color :#0D47A1; color :aliceblue;">
-                        <th>No.</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Curency</th>
-                        <th>Receipt</th>
-                        <th>remark</th>
-                    </tr>
-                </thead>
-                <tbody>
-               ${html_detail_table}                                     
-                </tbody>
-            </table>
-        </div>
-            `;
-        $('.main_des_table').append(html_table_des);
-
-
+        $('[name = "des-check"] tbody').html('');
+        $('.des_hide').html('');
         
-
-
-
-
-        $('.cal_des_detail').html('');
+        $.each(res_data['dtpc'], function (i,v){
+            let num1 = 0;
+            let html_des = '';
+            var Cash = parseFloat(cash_arr[i]);
             
+            
+            
+            
+
+            $.each(v, function (i1, v1){
+            pf_amount_dtpc_arr = parseFloat(v1['amount']);
+            num1++;
+            html_des += 
+            `
+            <tr class="text-center">
+                <td>${num1}</td>
+                <td><input type="input" class="form-control form-control-sm" value="${v1['billing_item_name']}" readonly></td>
+                <td><input type="input" class="form-control form-control-sm" value="${number_format(pf_amount_dtpc_arr.toFixed(2))}" style="text-align:right;" readonly></td>
+                <td><input type="input" class="form-control form-control-sm" value="${v1['currency']}" readonly></td>
+                <td></td>
+                <td><input type="input" class="form-control form-control-sm" value="${v1['remark']}" readonly></td>
+            </tr>
+            `
+            });
+        let main_html = `
+                                    <div class="form-group row">
+                                        <div class="form-group row job_des_title">
+                                            <label class="control-label col-sm-2 align-self-center">Job number :</label>
+                                            <div class="col col-sm-3">
+                                                <input type="input" class="form-control form-control-sm col-sm-2" value="${i}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive main_des_table">
+                                            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                                                <thead>
+                                                    <tr style="background-color :#0D47A1; color :aliceblue;">
+                                                        <th>No.</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
+                                                        <th>Curency</th>
+                                                        <th>Receipt</th>
+                                                        <th>remark</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   ${html_des}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="cal_des_detail">
+                                        <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
+                                            <div class="small">
+                                                <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
+                                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
+                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                                <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
+                                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
+                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `
+        $('.des_ad').append(main_html);
            
-        
+        });
         
 
 
@@ -203,3 +214,16 @@ const advance_return = {
 
     
 };
+
+function number_format(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}

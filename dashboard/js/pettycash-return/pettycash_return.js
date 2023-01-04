@@ -51,19 +51,24 @@ const pettycash_return = {
         $('.inp-tranf_time').val(res_data['pct']['tranfer_datetime']);
         $('.inp-job_q').val(res_data['scd']['c_qty']);
         $('.inp-all_job').val(res_data['imp_set']);
-        $('.inp-tranf_total').val(res_data['pct']['tranfer_amount']);
+
+        pf_tranfer_total = parseFloat(res_data['pct']['tranfer_amount']);
+        $('.inp-tranf_total').val(number_format(pf_tranfer_total.toFixed(2)));
         
         // start Description Petty cash request 
         let no_des ='1';
         $('[name = "des-req"] tbody').html('');
         let Cash_arr = [];
+
         $.each(res_data['pcd'], function (i, v) {
             Cash_arr[v['job_number']] = v['amount'] ;
+            pf_amount = parseFloat(v['amount']);
+            
             html2 = `
             <tr class="text-center des-req${i}">
             <td>${no_des}</td>
             <td><input type="input" class="form-control form-control-sm" value="${v['consignee_name']} / ${v['job_number']}" readonly></td>
-            <td><input type="input" class="form-control form-control-sm td_amount_cash td_amount_cash${v['job_number']}" value="${v['amount']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm td_amount_cash td_amount_cash${v['job_number']}" value="${number_format(pf_amount.toFixed(2))}" style="text-align:right;"readonly></td>
             <td><input type="input" class="form-control form-control-sm" value="${v['currency']}" readonly></td>
             </td>
         </tr>
@@ -74,14 +79,14 @@ const pettycash_return = {
         // end Description Petty cash request 
 
         // petty cash return
-        $('.inp-petty_cash_req').val(res_data['pct']['total_amount_request']);
-
 
         // hr
         $('.sel-mt-return').val(res_data['pct']['return_payment_method']);
         $('.inp-payment-by').val(res_data['pct']['tf_by_first']+' '+res_data['pct']['tf_by_last']);
         $('.inp-payment-d-time').val(res_data['pct']['datetime_request']);
-        $('.inp-payment-re-amount').val(res_data['pct']['amount_return']);
+
+        pf_payment_re_amount = parseFloat(res_data['pct']['amount_return']);
+        $('.inp-payment-re-amount').val(number_format(pf_payment_re_amount.toFixed(2)));
         $('.inp-payment-re-amount_cur').val(res_data['pct']['amount_return_cur']);
     
 
@@ -105,13 +110,14 @@ const pettycash_return = {
        $.each(res_data['dtpc'], function (i, v) { 
             let num1 = 0;
             let html_check = '';
-            var Cash = Cash_arr[i];
+            var Cash = parseFloat(Cash_arr[i]);
             Sum_Cash = parseFloat(Cash) + parseFloat(Sum_Cash);
             let Pay = 0;
             $.each(v, function (i1, v1) {
                 Pay += parseFloat(v1['amount']);
                 Sum_Pay = parseFloat(Sum_Pay) + parseFloat(v1['amount']);
                
+                pf_amount = parseFloat(v1['amount']);
                 num1++; 
                 html_check +=
                     `
@@ -119,7 +125,7 @@ const pettycash_return = {
                             <td>${num1}</td>
                             <td><input type="input" class="form-control form-control-sm inp-amount" value="${v1['billing_item_name']}" readonly></td>
                             </select></td>
-                            <td><input type="input" class="form-control form-control-sm inp-amount" value="${v1['amount']}" readonly></td>
+                            <td><input type="input" class="form-control form-control-sm inp-amount" value="${number_format(pf_amount.toFixed(2))}" style="text-align:right;" readonly></td>
                             <td><input type="input" class="form-control form-control-sm inp-amount" value="${v1['currency']}" readonly></td>
                             </td>
                             <td></td>
@@ -128,6 +134,7 @@ const pettycash_return = {
                     `;
             });
             let main_html = `
+            <br><br>
                 <div class="des_pet_de">
                     <div class="form-group row">
                         <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Job number :</label>
@@ -152,21 +159,23 @@ const pettycash_return = {
                             </tbody>
                         </table>
                     </div>
+                    <br>
                     <center>
                         <div class="alert alert-solid col-sm-11" style="background: #10929A; color:white;">
                             <div class="small">
                                 <label class="control-label col-sm-0 align-self-center fw-bold">Petty Cash :</label>
-                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash)}</label>
+                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                                 <label class="control-label col-sm-1 align-self-center fw-bold">Pay :</label>
-                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Pay)}</label>
+                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Pay.toFixed(2))}</label>
                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                                 <label class="control-label col-sm-2 align-self-center fw-bold">Pay Return :</label>
-                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(parseFloat(Cash) - parseFloat(Pay))}</label>
+                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format((parseFloat(Cash) - parseFloat(Pay)).toFixed(2))}</label>
                                 <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                             </div>
                         </div>
                 </div>
+                <br>
             `;
             console.log(parseFloat(Cash) - parseFloat(Pay));
             Sum_cash_return = (parseFloat(Cash) - parseFloat(Pay)) + parseFloat(Sum_cash_return);
@@ -174,9 +183,9 @@ const pettycash_return = {
 
 
        });
-       $('.inp-petty_cash_req').val(number_format(Sum_Cash));
-       $('.inp_pay').val(number_format(Sum_Pay));
-       $('.inp_cash_return').val(number_format(Sum_cash_return));
+       $('.inp-petty_cash_req').val(number_format(Sum_Cash.toFixed(2)));
+       $('.inp_pay').val(number_format(Sum_Pay.toFixed(2)));
+       $('.inp_cash_return').val(number_format(Sum_cash_return.toFixed(2)));
 
        
         // $.each(res_data['dtpc'], function (i, v) { 

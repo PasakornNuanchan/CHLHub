@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Petty Cash return</title>
+    <title>Advance Cash Payment</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 
@@ -116,7 +116,7 @@ session_start();
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title fw-normal">Description</h4>
+                                    <h4 class="card-title fw-normal">Description request</h4>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -139,7 +139,7 @@ session_start();
                                                                 <option value="" selected>Plese select description</option>
                                                                 <option value=""></option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" readonly></td>
+                                                        <td><input type="input" class="form-control form-control-sm" style="text-align: right;" readonly></td>
                                                         <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
                                                                 <option value="" selected>THB</option>
                                                                 <option value="">USD</option>
@@ -157,13 +157,13 @@ session_start();
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
-                                    <h4 class="card-title fw-normal">Petty Cash Payment</h4>
+                                    <h4 class="card-title fw-normal">Advance Cash Payment</h4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Advance Cash return :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Total Advance Cash For Return :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2 inp-advance_cash_req" style="text-align: right;" readonly>
                                         </div>
@@ -225,71 +225,51 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group row">
-                                        <div class="form-group row job_des_title">
-                                            <label class="control-label col-sm-2 align-self-center">Job number :</label>
-                                            <div class="col col-sm-3">
-                                                <input type="input" class="form-control form-control-sm col-sm-2" readonly>
+                                    <div class="des_ad">
+                                        <div class="des_hide">
+                                            <div class="form-group row">
+                                                <div class="form-group row">
+                                                    <label class="control-label col-sm-2 align-self-center">Job number :</label>
+                                                    <div class="col col-sm-3">
+                                                        <input type="input" class="form-control form-control-sm col-sm-2" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive main_des_table">
+                                                    <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                                                        <thead>
+                                                            <tr style="background-color :#0D47A1; color :aliceblue;">
+                                                                <th>No.</th>
+                                                                <th>Description</th>
+                                                                <th>Amount</th>
+                                                                <th>Curency</th>
+                                                                <th>Receipt</th>
+                                                                <th>remark</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="text-center">
+                                                                <td>1</td>
+                                                                <td><input type="input" class="form-control form-control-sm" value="" readonly></td>
+                                                                <td><input type="input" class="form-control form-control-sm" value="" readonly></td>
+                                                                <td><input type="input" class="form-control form-control-sm" value="" readonly></td>
+                                                                <td><input type="input" class="form-control form-control-sm" value="" readonly></td>
+                                                                <td><input type="input" class="form-control form-control-sm" value="" readonly></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="table-responsive main_des_table">
-                                            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
-                                                <thead>
-                                                    <tr style="background-color :#0D47A1; color :aliceblue;">
-                                                        <th>No.</th>
-                                                        <th>Description</th>
-                                                        <th>Amount</th>
-                                                        <th>Curency</th>
-                                                        <th>Receipt</th>
-                                                        <th>remark</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="text-center">
-                                                        <td>1</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <td>2</td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>Plese select description</option>
-                                                                <option value=""></option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="cal_des_detail">
-                                        <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
-                                            <div class="small">
-                                                <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
-                                                <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
-                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
-                                                <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
-                                                <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
-                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                            <div class="cal_des_detail">
+                                                <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
+                                                    <div class="small">
+                                                        <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
+                                                        <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
+                                                        <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                                        <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
+                                                        <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
+                                                        <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

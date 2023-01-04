@@ -72,11 +72,14 @@ const pettycash_payment = {
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
         // hr
         $('.inp-job_quantity').val(res_data['scd']['c_qty']);
-        $('.inp-total_amount').val(res_data['pct']['total_amount_request']);
+        pf_total_amount = parseFloat(res_data['pct']['total_amount_request']);
+        $('.inp-total_amount').val(number_format(pf_total_amount.toFixed(2)));
         $('.sel_total_amount_req').val(res_data['pct']['total_amount_request_cur']);
         
         //card 2 tranfer
-        $('.inp-total_amount_tranfer').val(res_data['pct']['tranfer_amount']);
+        pf_total_amount_tf = parseFloat(res_data['pct']['total_amount_request']);
+        
+        $('.inp-total_amount_tranfer').val((pf_total_amount_tf.toFixed(2)));
         $('.sel_total_amount_tranfer_req').val(res_data['pct']['tranfer_amount_cur']);
         
         
@@ -84,14 +87,17 @@ const pettycash_payment = {
         
 
         
-
+        $('[name = "petty_cash_description"] tbody').html('');
          
 
         $.each(res_data['pcd'], function (i, v) { 
+
+            pf_amount = parseFloat(v['amount']);
+            
             html = `
             <tr class="pettycash_detail">
             <td><input type="input" class="form-control form-control-sm" value="${v['job_number']} / ${v['consignee_name']}" readonly></td>
-            <td><input type="input" class="form-control form-control-sm" style="text-align: right;" value="${v['amount']}" readonly></td>
+            <td><input type="input" class="form-control form-control-sm" style="text-align: right;" value="${number_format(pf_amount.toFixed(2))}" readonly></td>
             <td><select class="form-select" disabled>
                 <option value="" selected>THB</option>
                 <option value="">USD</option>
@@ -138,4 +144,18 @@ const pettycash_payment = {
     },
 
     
+    
 };
+
+function number_format(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
