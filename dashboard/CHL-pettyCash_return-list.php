@@ -51,7 +51,7 @@ session_start();
                                 </div>
                             </div>
                         <div class="bd-example table-responsive">
-                        <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                        <table id="datatable" class="table table-striped" name="data_table_list" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
@@ -65,50 +65,16 @@ session_start();
                                     </tr>
                                 </thead>
                                 <tbody align="center">
-                                    <?php
-                                    $sql_table_list = "SELECT * FROM petty_cash_title as pc
-                                    INNER JOIN user as u ON pc.request_by = u.user_number";
-
-
-                                    $fetch_sql = mysqli_query($con, $sql_table_list);
-                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                        $pettycash_nubmer = $result_table_list['petty_cash_number'];
-
-                                        // count job
-                                        $count_job = $result_table_list['petty_cash_number'];
-                                        $sql_table_job = "SELECT COUNT(petty_cash_number) FROM `petty_cash_detail` WHERE petty_cash_number = '$count_job'";
-                                        $fetch_job = mysqli_query($con, $sql_table_job);
-                                        $result_table_job = mysqli_fetch_assoc($fetch_job);
-
-                                        // status check
-                                        $sql_cal_job_number = "SELECT SUM(jt.status_job) as status_check FROM petty_cash_detail as pcd
-                                        INNER JOIN job_title as jt ON pcd.job_number = jt.job_number WHERE petty_cash_number ='$count_job'";
-                                        $fetch_cal_job_status = mysqli_query($con, $sql_cal_job_number);
-                                        $result_table_job_status = mysqli_fetch_assoc($fetch_cal_job_status);
-                                        
-                                      
-                                    ?>
                                         <tr>
-                                            <td><?= $result_table_list['datetime_request'] ?></td>
-                                            <td><?= $result_table_list['petty_cash_number'] ?></td>
-                                            <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
-                                            <td><?= $result_table_job['COUNT(petty_cash_number)'] ?></td>
-                                            <td><?= $result_table_list['total_amount_request'] ?></td>
-                                            <td><?php if ($result_table_job['COUNT(petty_cash_number)'] == $result_table_job_status['status_check']) {
-                                                    echo "<span class='badge rounded-pill bg-success'>success</span>";
-                                                } else {
-                                                    echo "<span class='badge rounded-pill bg-danger'>fail</span>";
-                                                } ?></td>
-                                            <td><?php if ($result_table_list['return_payment_by'] <> '0') {
-                                                    echo "<span class='badge rounded-pill bg-success'>Paid</span>";
-                                                } else {
-                                                    echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
-                                                } ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><button type="button" onclick="pettycash_return_list.preview('<?=$pettycash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
-                                    <?php
-                                    }
-                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -165,3 +131,9 @@ session_start();
 
 </html>
 <script src="js/pettycash-return-list/pettycash_return_list.js"></script>
+<script src="js/pettycash-return-list/pettycash_return-list_set.js"></script>
+<script>
+    $(document).ready(function(){
+        petty_cash_return_list_set.set_data_rows();
+    });
+</script>
