@@ -114,7 +114,7 @@ session_start();
                                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
-                                                    <select class="form-select form-select-sm inp-carrier">
+                                                    <select class="form-select form-select-sm inp-carrier" onchange ="quartation.fillter_route_carrier(this);">
                                                         <?php
                                                         $carrier_select = "SELECT * FROM carrier";
                                                         $result_carrier = mysqli_query($con, $carrier_select);
