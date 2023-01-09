@@ -57,7 +57,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="bd-example table-responsive">
-                                <table id="datatable" class="table table-striped" data-toggle="data-table"  style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                <table id="datatable" class="table table-striped" name="data_table_list"data-toggle="data-table"  style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                     <thead>
                                         <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                             <th>Create Date</th>
@@ -65,43 +65,18 @@ session_start();
                                             <th>Create By</th>
                                             <th>Job Quantity</th>
                                             <th>Total amount</th>
-                                            <th>Payble</th>
-                                            <th>Payble Datetime</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody align="center">
-                                        <?php
-                                        $sql_table_list = "SELECT * FROM petty_cash_title as pc
-                                    INNER JOIN user as u ON pc.request_by = u.user_number";
-
-
-                                        $fetch_sql = mysqli_query($con, $sql_table_list);
-                                        while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                            $pettycash_nubmer = $result_table_list['petty_cash_number'];
-                                            
-                                            $count_job = $result_table_list['petty_cash_number'];
-                                            $sql_table_job = "SELECT COUNT(petty_cash_number) FROM `petty_cash_detail` WHERE petty_cash_number = '$count_job'";
-                                            $fetch_job = mysqli_query($con, $sql_table_job);
-                                            $result_table_job = mysqli_fetch_assoc($fetch_job);
-                                        ?>
                                             <tr>
-                                                <td><?= $result_table_list['datetime_request'] ?></td>
-                                                <td><?= $result_table_list['petty_cash_number'] ?></td>
-                                                <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
-                                                <td><?= $result_table_job['COUNT(petty_cash_number)'] ?></td>
-                                                <td><?= $result_table_list['total_amount_request'] ?></td>
-                                                <td><?php if ($result_table_list['tranfer_by'] <> '0') {
-                                                        echo "<span class='badge rounded-pill bg-success'>Paid</span>";
-                                                    } else {
-                                                        echo "<span class='badge rounded-pill bg-danger'>Unpaid</span>";
-                                                    } ?></td>
-                                                <td><?= $result_table_list['tranfer_datetime'] ?></td>
-                                                <td><button type="button" onclick="pettycash_list.preview('<?=$pettycash_nubmer?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
-                                        <?php
-                                        }
-                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -126,3 +101,9 @@ session_start();
 
 </html>
 <script src="js/pettycash-list/pettycash_list.js"></script>
+<script src="js/pettycash-list//pettycash_list_set.js"></script>
+<script>
+    $(document).ready(function() {
+        petty_cash_list_set.set_data_rows();
+    });
+</script>

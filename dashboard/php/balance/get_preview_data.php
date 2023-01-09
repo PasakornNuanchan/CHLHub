@@ -1,5 +1,5 @@
 <?php
-$advance_number = $_POST['advance_number'];
+
     include '../../core/conn.php';
 
     $sql_pct = "
@@ -7,13 +7,34 @@ $advance_number = $_POST['advance_number'];
 	pct.ID,
 	pct.petty_cash_number,
     SUM(pcd.amount) as total_amount ,
-    IF(count(jt.job_number) = COUNT(jt.clearlance_date),'PASS','NOT PASS') as customs_clear,
-    pct.return_payment_by as check_payment
+    IF(count(jt.job_number) = COUNT(jt.clearlance_date),'1','0') as customs_clear,
+    pct.return_payment_by as check_payment,
+    pct.total_amount_request_cur
 FROM petty_cash_title as pct 
 INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
 INNER JOIN job_title as jt ON pcd.job_number = jt.job_number
 GROUP BY pct.petty_cash_number
 HAVING pct.return_payment_by = 0
+
+    ";
+    $sql_awt = "
+    SELECT act.advance_cash_number,
+    SUM(acd.amount) as total_amount ,
+    IF(COUNT(acd.job_number) = COUNT(jt.clearlance_date),'1','0') as clearance_status  ,
+    act.payment_by,
+    act.total_amount_request_cur
+    FROM advance_cash_title  as act
+INNER JOIN advance_cash_detail as acd ON act.advance_cash_number = acd.advance_cash_number
+INNER JOIN job_title as jt ON acd.job_number = jt.job_number
+GROUP BY act.advance_cash_number
+HAVING act.payment_by IS NULL
+
+    ";
+    $sql_hnc = "
+    SELECT cp.job_number,cp.amount,cp.currency,IF(jt.clearlance_date IS NULL ,'0','1') as clearlance_status FROM cash_payment as cp
+    LEFT OUTER JOIN advance_cash_detail as acd ON cp.job_number = acd.job_number
+    INNER JOIN job_title as jt ON cp.job_number = jt.job_number
+    WHERE acd.job_number IS NULL
 
     ";
 
@@ -29,8 +50,25 @@ HAVING pct.return_payment_by = 0
         $pc_wfc = "0 results";
       }
 
+      $result = $con -> query($sql_awt);
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+            $ad_wfc[] = $row;
+          }
+        } else {
+          $ad_wfc = "0 results";
+        }
+
+        $result = $con -> query($sql_hnc);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+              $ad_hnc[] = $row;
+            }
+          } else {
+            $ad_hnc = "0 results";
+          }
    
-      echo json_encode(array('pc_wfc'=>$pc_wfc));
+      echo json_encode(array('pc_wfc'=>$pc_wfc,'ad_wfc'=>$ad_wfc,'ad_hnc'=>$ad_hnc));
 
 
 

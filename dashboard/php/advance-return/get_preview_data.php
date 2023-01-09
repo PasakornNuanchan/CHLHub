@@ -3,29 +3,16 @@ $advance_number = $_POST['advance_number'];
     include '../../core/conn.php';
     $sql_pct = "
     SELECT 
-      pct.advance_cash_number,
-      pct.datetime_request,
-      rqn.first_name as rq_by_first,
-      rqn.last_name as rq_by_last,
-      rqt.first_name as tf_by_first,
-      rqt.last_name as tf_by_last,
-      pct.total_amount_request,
-      pct.total_amount_request_cur,
-      pct.tranfer_method,
-      pct.tranfer_bank_name,
-      pct.tranfer_bank_number,
-      pct.all_job_number,
-      pct.tranfer_amount,
-      pct.tranfer_datetime,
-      pct.tranfer_amount_cur,
-      pct.return_payment_datetime,
-      pct.amount_return,
-      pct.amount_return_cur,
-      pct.return_payment_method
-      FROM `advance_cash_title` as pct
-        INNER JOIN user rqn ON (pct.request_by = rqn.user_number)
-        INNER JOIN user rqt ON (pct.tranfer_by = rqt.user_number)
-        WHERE advance_cash_number = '$advance_number'
+   act.advance_cash_number,
+   u.first_name,
+   u.last_name,
+   act.datetime_request,
+   act.tranfer_method_request,
+   act.tranfer_bank_name,
+   act.tranfer_bank_number
+    FROM `advance_cash_title` as act
+      INNER JOIN user u ON (act.request_by = u.user_number)
+      WHERE advance_cash_number ='$advance_number'
     ";
 
    $sql_pcd = "
@@ -34,11 +21,26 @@ $advance_number = $_POST['advance_number'];
    INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE acd.advance_cash_number ='$advance_number'
     ";
 
+   $sql_payment  ="
+   SELECT 
+   act.payment_method,
+   act.payment_by,
+   act.payment_amount,
+   act.payment_amount_cur,
+   act.payment_datetime,
+   act.payment_recript,
+   u.first_name,
+   u.last_name
+   FROM advance_cash_title as act 
+   INNER JOIN user as u ON act.payment_by = u.user_number
+   WHERE act.advance_cash_number = '$advance_number'";
+
    $sql_count_des = "
    SELECT count(job_number) as c_qty FROM `advance_cash_detail` where `advance_cash_number` ='$advance_number'
     ";
 
     
+
     $job_number = 0;
 
 
@@ -65,6 +67,15 @@ $advance_number = $_POST['advance_number'];
         $pcd = "0 results";
       }
 
+      $result = $con -> query($sql_payment);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $payment = $row;
+        } 
+      } else {
+        $payment = "0 results";
+      }
+
       $result = $con -> query($sql_count_des);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -88,10 +99,13 @@ $advance_number = $_POST['advance_number'];
         $scd = "0 results";
       }
       
+      foreach ($dtpc as $k => $v) {
+        $dtpc_arr[$v['job_number']][] = $v;
+      }
 
 
 
-      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
+      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn,'payment'=>$payment));
     
 
 

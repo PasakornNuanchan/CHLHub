@@ -86,8 +86,9 @@ const advance_cash = {
 
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
-
+        
         if (action == 'preview') {
+            
             advance_cash.set_preview_data(job_doc_pt);
            
         } else {
