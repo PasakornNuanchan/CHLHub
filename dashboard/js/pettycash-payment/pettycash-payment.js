@@ -64,7 +64,7 @@ const pettycash_payment = {
         console.log(res_data);
         
         //card 1 request petty cash
-        $('.inp-req_by').val(res_data['pct']['first_name']);
+        $('.inp-req_by').val(res_data['pct']['first_name']+' '+res_data['pct']['last_name']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
         // hr
         $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);

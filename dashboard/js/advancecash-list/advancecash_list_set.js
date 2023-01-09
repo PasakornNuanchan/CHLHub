@@ -1,14 +1,10 @@
 const advance_cash_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
+        
 
-        $('.select_status').on('change', function() {
-            var sent_type = (this.value);  
-            console.log(sent_type)
-         });
         
         let res_data = await advance_cash_list_set.ajax_set_preview_data(job_doc_pt);
-        
         $('[name = "data_table_list"] tbody').html('');
         console.log(res_data);
         $.each(res_data['act'], function (i, v) {         
@@ -32,7 +28,6 @@ const advance_cash_list_set = {
       
     }, 
     
-
     ajax_set_preview_data: function (job_doc_pt) {
         
         return new Promise(function (resolve, reject) {

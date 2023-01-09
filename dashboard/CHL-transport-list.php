@@ -51,7 +51,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="bd-example table-responsive">
-                            <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                            <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
@@ -151,4 +151,11 @@ session_start();
 
 </html>
 <script src="js/transport-list/transport_list.js"></script>
+<script src="js/transport-list/transport_list_set.js"></script>
+<script>
+
+    $(document).ready(function(){
+        transport_list_set.set_data_rows();
+    });
+</script>
 

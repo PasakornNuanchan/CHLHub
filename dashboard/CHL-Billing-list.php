@@ -38,13 +38,12 @@ session_start();
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="datatable" class="table table-striped" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                            <table id="datatable" class="table table-hover" name="data_table_list" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
                                         <th>Job number</th>
                                         <th>Sale</th>
-                                        <th>Client</th>
                                         <th>AR</th>
                                         <th>AP</th>
                                         <th>Shipped</th>
@@ -68,7 +67,6 @@ session_start();
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -101,3 +99,10 @@ session_start();
 </body>
 
 </html>
+<script src="js/billing-list/billing_list.js"></script>
+<script src="js/billing-list/billing_list_set.js"></script>
+<script>
+    $(document).ready(function(){
+        billing_list_set.set_data_rows();
+    });
+</script>
