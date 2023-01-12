@@ -72,7 +72,7 @@ session_start();
                                     FROM job_title as jt 
                                     INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                     INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                    WHERE jt.status_job ='0'";
+                                    ";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);

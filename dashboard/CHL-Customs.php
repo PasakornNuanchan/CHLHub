@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
-    
+
 
 </head>
 
@@ -33,14 +33,14 @@ session_start();
             <div class="iq-navbar-header" style="height: 100px;">
                 <div class="conatiner-fluid content-inner mt-n5 py-0">
                     <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'Document')">Customs Clearance</button>
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'pettycash_advance')" id="defaultOpen">Pettycash & Advance</button>
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'transport')">Transport</button>
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'pettycash_advance')">Pettycash & Advance</button>
+                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'transport')" id="defaultOpen">Transport</button>
                     <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'booking')">Booking</button>
                 </div>
             </div> <!-- Nav Header Component End -->
             <!--Nav End-->
         </div>
-        
+
         <div id="transport" class="tabcontent">
             <div class="conatiner-fluid content-inner mt-n5 py-0">
                 <div>
@@ -54,13 +54,13 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Container Quantity:</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Container Quantity:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
                                                     <input type="text" class="form-control" placeholder="">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Pallet :</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0">Pallet :</label>
                                                 <div class="col">
                                                     <input type="text" class="form-control" placeholder="">
                                                 </div>
@@ -69,8 +69,8 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-lg-12">
-                                <div class="card">
+                            <div class="card-transport">
+                                <div class="card ">
                                     <div class="card-header d-flex justify-content-between">
                                         <div class="header-title">
                                             <h4 class="card-title">Booking Transport Detail</h4>
@@ -78,112 +78,102 @@ session_start();
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Supplier:</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-select form-select-sm mb-3 shadow-none">
-                                                    <?php
-                                                    $transport_sup_select = "SELECT * FROM transport_sup";
-
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pickup Empty Container Address:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
-                                                    </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark :</label>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
-                                                    </div>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Supplier:</label>
+                                            <div class="col-sm-3">
+                                                <div class="db-sel-sup">
+                                                    <select class="form-select form-select-sm mb-3 shadow-none sel-supplier">
+                                                        <option value="">plese select supplier</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pickup Container Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control form-control-sm inp-pick_emp">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control form-control-sm inp-pick_emp_remark">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Drop off Container Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control inp-pick_con">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control inp-pick_con_remark">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Drop off Empty Containe Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control inp-drop_con">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="">
+                                                        <input type="text" class="form-control inp-drop_con_reamrk">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Budget:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_emp">
+                                                    </div>
+                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_emp_remark">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary rounded-pill btn-sm ">
-                                            <span class="btn-inner">
-                                                <i class="bi bi-check-square"></i>
-                                            </span>
-                                            Save
-                                        </button>
-                                        <button class="btn btn-success rounded-pill btn-sm">
-                                            <span class="btn-inner">
-                                                <i class="bi bi-line"></i>
-                                            </span>
-                                            Sent to line group
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-lg-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Confirm status</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Sent Request Line :</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget">
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <select class="form-select form-select-sm sel-cur">
+                                                            <option value=""></option>
+                                                            <option value="THB">THB</option>
+                                                            <option value="USD">USD</option>
+                                                            <option value="RMB">RMB</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Supplier Confirm :</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <hr class="mb-4">
+                                        <h4 class="mb-4">Supplier confirm</h4>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-">Sent Request Line DateTime :</label>
+                                            <div class="col-sm-3 col-lg-3">
+                                                <input type="input" class="form-control form-control-sm inp-sent_request_line" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
+                                            <div class="col-sm-3 col-lg-3">
+                                                <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +182,7 @@ session_start();
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div id="pettycash_advance" class="tabcontent">
             <div class="conatiner-fluid content-inner mt-n5 py-0">
@@ -216,7 +207,7 @@ session_start();
                                         </div>
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">description :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none" >
+                                            <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
                                                 <option value="">Cargo rent</option>
                                                 <option value="">OT Customs Department Officer </option>
@@ -278,57 +269,32 @@ session_start();
                             <div class="card">
                                 <div class="card-body">
                                     <div class="bd-example table-responsive">
-                                        <table class="table table-borderless">
+                                        <table class="table table-borderless" name="cash_payment_table">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <center>No.</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>Type</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>Description</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>picture</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>amount</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>create by.</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>action</center>
-                                                    </th>
+                                                <tr align="center">
+                                                    <th>No.</th>
+                                                    <th>Type</th>
+                                                    <th>Description</th>
+                                                    <th>Pay to</th>
+                                                    <th>picture</th>
+                                                    <th>amount</th>
+                                                    <th>create by.</th>
+                                                    <th>action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
+                                                    <td>1</td>
+                                                    <td>Advance Cash</td>
+                                                    <td>Rent cargo</td>
+                                                    <td></td>
+                                                    <td>32,000.00</td>
+                                                    <td>Apichat Pilalee</td>
+                                                    <td></td>
                                                     <td>
-                                                        <center>1</center>
-                                                    </td>
-                                                    <td>
-                                                        <center>Advance Cash</center>
-                                                    </td>
-                                                    <td>
-                                                        <center>Rent cargo</center>
-                                                    </td>
-                                                    <td>
-                                                        <center></center>
-                                                    </td>
-                                                    <td>
-                                                        <center>32,000.00</center>
-                                                    </td>
-                                                    <td>
-                                                        <center>Apichat Pilalee</center>
-                                                    </td>
-                                                    <td>
-                                                        <center>
-                                                            <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-trash"></i> Edit</button>
-                                                            <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Delete</button>
-                                                        </center>
+
+                                                        <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-trash"></i> Edit</button>
+                                                        <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Delete</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -354,98 +320,73 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="bd-example table-responsive">
-                                        <table class="table table-borderless">
+                                        <table class="table table-hover" name="tbl_job_status" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <center>Document</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>Picture file</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>Received By.</center>
-                                                    </th>
-                                                    <th scope="col">
-                                                        <center>Action</center>
-                                                    </th>
+                                                <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                                    <th>Document</th>
+                                                    <th>Picture file</th>
+                                                    <th>Received By.</th>
+                                                    <th>Received Datetime</th>
+                                                    <th>Check Document By</th>
+                                                    <th>Check Document Datetime</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>Invoice : </td>
-                                                    <td>
-                                                        <center>
-                                                            <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                        </center>
+                                                    <td align="center">
+                                                        <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
                                                     </td>
-
-                                                    <td>
-                                                        <center>sintanarak yatsamer</center>
-                                                    </td>
-                                                    <td>
-                                                        <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></center>
-                                                    </td>
+                                                    <td align="center">sintanarak yatsamer</td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Bill of lading</td>
-                                                    <td>
-                                                        <center>
-                                                            <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                        </center>
+                                                    <td align="center">
+                                                        <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
                                                     </td>
-
-                                                    <td>
-                                                        <center>sintanarak yatsamer</center>
-                                                    </td>
-                                                    <td>
-                                                        <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></center>
-                                                    </td>
+                                                    <td align="center">sintanarak yatsamer</td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Packing list</td>
-                                                    <td>
-                                                        <center>
-                                                            <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                        </center>
+                                                    <td align="center">
+                                                        <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
                                                     </td>
-
-                                                    <td>
-                                                        <center>sintanarak yatsamer</center>
-                                                    </td>
-                                                    <td>
-                                                        <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></center>
-                                                    </td>
+                                                    <td align="center">sintanarak yatsamer</td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Import Declaration</td>
-                                                    <td>
-                                                        <center>
-                                                            <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                        </center>
+                                                    <td align="center">
+                                                        <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
                                                     </td>
-
-                                                    <td>
-                                                        <center>sintanarak yatsamer</center>
-                                                    </td>
-                                                    <td>
-                                                        <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></center>
-                                                    </td>
+                                                    <td align="center">sintanarak yatsamer</td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Import Licence</td>
-                                                    <td>
-                                                        <center>
-                                                            <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                        </center>
+                                                    <td align="center">
+                                                        <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
                                                     </td>
-
-                                                    <td>
-                                                        <center>sintanarak yatsamer</center>
-                                                    </td>
-                                                    <td>
-                                                        <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></center>
-                                                    </td>
+                                                    <td align="center">sintanarak yatsamer</td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"></td>
+                                                    <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Confirm</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -460,48 +401,25 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Clearance Date Plan :</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Clearance Date Plan :</label>
+                                        <div class="col-sm-9 col-lg-3">
+                                            <input type="input" class="form-control form-control-sm " readonly>
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="bd-example table-responsive">
-                                            <table class="table table-borderless">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">
-                                                            <center>Description</center>
-                                                        </th>
-                                                        <th scope="col">
-                                                            <center>Datetime Success</center>
-                                                        </th>
-                                                        <th scope="col">
-                                                            <center>Clearance By.</center>
-                                                        </th>
-                                                        <th scope="col">
-                                                            <center>Operation Success</center>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <center>Customs Clearlance</center>
-                                                        </td>
-                                                        <td>
-                                                            <center>18/10/2022 16:00:00</center>
-                                                        </td>
-                                                        <td>
-                                                            <center>Apichat Pilalee</center>
-                                                        </td>
-                                                        <td>
-                                                            <center><button type="button" class="btn btn-success rounded-pill btn-sm"><i class="bi bi-check-square"></i> Success</button></center>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Clearance by.</label>
+                                        <div class="col-sm-9 col-lg-3">
+                                            <input type="input" class="form-control form-control-sm inp-clearance_by" readonly>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Datetime Success :</label>
+                                        <div class="col-sm-9 col-lg-3">
+                                            <input type="input" class="form-control form-control-sm inp-datetime_success" readonly>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
                                     </div>
                                 </div>
                             </div>
@@ -854,7 +772,12 @@ session_start();
 
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
-
-
-   
+</script>
+<script src="js/customs/customs.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        customs.check_get();
+    });
 </script>

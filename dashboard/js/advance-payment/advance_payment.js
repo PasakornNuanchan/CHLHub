@@ -85,12 +85,19 @@ const advance_return = {
         pf_payment_amount = parseFloat(res_data['payment']['payment_amount']);
 
         // hr
-        $('.sel-mt-return').val(res_data['payment']['payment_method']);
-        $('.inp-payment-by').val(res_data['payment']['first_name']+' '+res_data['payment']['last_name']);
-        $('.inp-payment-d-time').val(res_data['payment']['payment_datetime']);
-        $('.inp-payment-re-amount').val(number_format(pf_payment_amount.toFixed(2)));
-        $('.sel-payment-re-amount_cur').val(res_data['payment']['payment_amount_cur']);
-    
+        if(res_data['payment']['payment_method'] == null){
+            $('.sel-mt-return').val();
+            $('.inp-payment-by').val();
+            $('.inp-payment-d-time').val();
+            $('.inp-payment-re-amount').val();
+            $('.sel-payment-re-amount_cur').val();
+        }else{
+            $('.sel-mt-return').val(res_data['payment']['payment_method']);
+            $('.inp-payment-by').val(res_data['payment']['first_name']+' '+res_data['payment']['last_name']);
+            $('.inp-payment-d-time').val(res_data['payment']['payment_datetime']);
+            $('.inp-payment-re-amount').val(number_format(pf_payment_amount.toFixed(2)));
+            $('.sel-payment-re-amount_cur').val(res_data['payment']['payment_amount_cur']);
+        };
 
        
 
@@ -189,13 +196,8 @@ const advance_return = {
                                     </div>
                                     `
         $('.des_ad').append(main_html);
-           
         });
-        
-
-
-
-         
+  
     },
 
     ajax_set_preview_data: function (job_doc_ad) {

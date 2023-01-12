@@ -180,7 +180,8 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0">Payment medthod :</label>
                                         <div class="col col-sm-3">
-                                            <select name="" id="" class="form-select form-select-sm sel-mt-return">
+                                            <select name="" id="" class="form-select form-select-sm sel-mt-return" disabled>
+                                                <option value="" selected></option>
                                                 <option value="Tranfer">Tranfer</option>
                                                 <option value="Cash">Cash</option>
                                             </select>
@@ -205,7 +206,8 @@ session_start();
                                         </div>
                                         <div class="col col-sm-2">
                                             <select name="" id="" class="form-select form-select-sm shadow-none sel-payment-re-amount_cur" disabled>
-                                                <option value="THB" selected>THB</option>
+                                                <option value="" selected></option>
+                                                <option value="THB">THB</option>
                                                 <option value="USD">USD</option>
                                                 <option value="RMB">RMB</option>
                                             </select>
@@ -262,12 +264,12 @@ session_start();
                                             <div class="cal_des_detail">
                                                 <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
                                                     <div class="small">
-                                                        <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
+                                                        <!-- <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
                                                         <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
                                                         <label class="control-label col-sm-0 align-self-center text-center">THB</label>
                                                         <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
                                                         <label class="control-label col-sm-2 align-self-center" align="right">12,000.00</label>
-                                                        <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                                        <label class="control-label col-sm-0 align-self-center text-center">THB</label> -->
                                                     </div>
                                                 </div>
                                             </div>

@@ -29,14 +29,111 @@ const billing = {
         } else {
         }
     },
-    set_preview_data: async function (job_doc_pt) {
+    set_data_description: async function(){
+        let html_description = '';
+        let set_data = await billing.ajax_set_description();
+        console.log(set_data);
+        $.each(set_data['bl_description'], function (i, v) { 
+            html_description += `
+            <option value="${v['billing_number']}">${v['billing_item_name']}</option>
+            `;  
+        });
+        let html_bill_to = '';
+        $.each(set_data['bl_bill'],function(i,v){
+            html_bill_to += `
+            <option value="${v['consignee_number']}">${v['consignee_name']}</option>
+            `;   
+        });
+        $('.sel_description_ar').append(html_description);
+        $('.sel_bill_to').append(html_bill_to);
         
+    },
+    set_preview_data: async function (job_number) {
+
         
-        let res_data = await billing.ajax_set_preview_data(job_doc_pt);
+        let html_des_ar='';
+        await billing.set_data_description();
+        let res_data = await billing.ajax_set_preview_data(job_number);
         console.log(res_data);
-      
-      
+        let sl_des = $('.sel_description_ar').parent().html();
+        
+        let sl_bill = $('.db-sel-bill').parent().html();
+        // account receiv
+        $.each(res_data['ar'],function(i,v){
+            u_price = parseFloat(v['unit_price']);
+            ar_amt = parseFloat(v['amount']);
+            vat = parseFloat(v['vat']);
+            amtincvat = parseFloat(v['amtinclvat']);
+
+            if(v['payble'] == 1){
+                payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
+                action_payble_ar = 'disabled';
+                action_del_ar = 'disabled';
+            }else{
+                payble_ar = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span>'
+                action_payble_ar = '';
+                action_del_ar = '';
+            }
+
+            if(v['check_status'] == 1){
+                check_status = 'disabled checked';
+                
+            }else{
+                check_status = 'unchecked';
+            };
+            
+
+            html_des_ar += `
+            <tr class="text-center ar_des ar_des${i}">
+                <td>1</td>
+                <td><div class="db-sel-des">${sl_des}</div></td>
+                <td>${sl_bill}</td>
+                <td>${payble_ar}</td>
+                <td><select name="" id="" class="form-select shadow-none sel_cur_description">
+                    <option value="" selected>Plsese select currency</option>
+                    <option value="THB">THB</option>
+                    <option value="USD">USD</option>
+                    <option value="RMB">RMB</option>
+                </select></td>
+                <td><input type="text" class="form-control" value="${v['qty']}"></td>
+                <td><input type="text" class="form-control" value="${number_format(v['unit_price'])}"></td>
+                <td align="right">${number_format(ar_amt.toFixed(2))}</td>
+                <td>${vat}%</td>
+                <td align="right">${number_format(amtincvat.toFixed(2))}</td>
+                <td><input type="text" class="form-control" value="${v['remark']}"></td>
+                <td><input type="checkbox" class="form-check-input"  ${check_status}></td>
+                <td>
+                    <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
+                </td>
+                <td onclick="billing.del_container_row(this);">
+                <button type="button" class="btn btn-danger rounded-pill btn-xs" ${action_del_ar} style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+            </td>
+                
+            </tr>
+            `;  
+            $('[name = "billing-ar-tbl"] tbody').html(html_des_ar);
+            $(`.ar_des${i} .sel_description`).val(v['billing_number']);
+            $(`.ar_des${i} .sel_cur_description`).val(v['currency']);
+
+        });
+            
+        
+
     }, 
+    
+    ajax_set_description: function (job_number){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/get_billing.php",
+                data:  {'job_number':job_number},
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
 
     ajax_set_preview_data: function (job_number) {
         
@@ -66,9 +163,10 @@ const billing = {
                 <option value="" selected>Plese select description</option>
                 <option value=""></option>
             </select></td>
-            <td>Prepaid</td>
+            <td><span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span></td>
             <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>THB</option>
+                <option value="" selected></option>
+                <option value="">THB</option>
                 <option value="">USD</option>
                 <option value="">RMB</option>
             </select></td>
@@ -108,7 +206,7 @@ const billing = {
                 <option value="" selected>Plese select description</option>
                 <option value=""></option>
             </select></td>
-            <td>Prepaid</td>
+            <td><span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span></td>
             <td><select name="" id="" class="form-select shadow-none">
                 <option value="" selected>THB</option>
                 <option value="">USD</option>
@@ -138,3 +236,16 @@ const billing = {
 
 
 };
+
+function number_format(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}

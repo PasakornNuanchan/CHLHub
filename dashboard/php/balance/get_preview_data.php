@@ -14,7 +14,7 @@ FROM petty_cash_title as pct
 INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
 INNER JOIN job_title as jt ON pcd.job_number = jt.job_number
 GROUP BY pct.petty_cash_number
-HAVING pct.return_payment_by = 0
+HAVING pct.return_payment_by IS NULL
 
     ";
     $sql_awt = "
@@ -47,7 +47,7 @@ HAVING act.payment_by IS NULL
           $pc_wfc[] = $row;
         }
       } else {
-        $pc_wfc = "0 results";
+        $pc_wfc = "0";
       }
 
       $result = $con -> query($sql_awt);
@@ -56,7 +56,7 @@ HAVING act.payment_by IS NULL
             $ad_wfc[] = $row;
           }
         } else {
-          $ad_wfc = "0 results";
+          $ad_wfc = "0";
         }
 
         $result = $con -> query($sql_hnc);
@@ -65,7 +65,7 @@ HAVING act.payment_by IS NULL
               $ad_hnc[] = $row;
             }
           } else {
-            $ad_hnc = "0 results";
+            $ad_hnc = "0";
           }
    
       echo json_encode(array('pc_wfc'=>$pc_wfc,'ad_wfc'=>$ad_wfc,'ad_hnc'=>$ad_hnc));
