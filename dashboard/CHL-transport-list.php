@@ -42,7 +42,7 @@ session_start();
                                 <label class="control-label col-sm-2 col-lg-2 ">Transport Status :</label>
                                 <div class="col-sm-2">
                                     <div class="row">
-                                        <select name="" class="form form-select form-select-sm" id="">
+                                        <select name="" class="form form-select form-select-sm" >
                                             <option value="">All</option>
                                             <option value="">Success</option>
                                             <option value="">False</option>

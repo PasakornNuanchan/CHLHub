@@ -54,15 +54,15 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Container Quantity:</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container Quantity:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0">Pallet :</label>
+                                                <label class="control-label col-sm-2 align-self-center ">Pallet :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@ session_start();
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Supplier:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Supplier:</label>
                                             <div class="col-sm-3">
                                                 <div class="db-sel-sup">
                                                     <select class="form-select form-select-sm mb-3 shadow-none sel-supplier">
@@ -88,13 +88,13 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
                                                         <input type="text" class="form-control form-control-sm inp-pick_emp">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
                                                     <div class="col">
                                                         <input type="text" class="form-control form-control-sm inp-pick_emp_remark">
                                                     </div>
@@ -102,13 +102,13 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Container Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-pick_con">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-pick_con_remark">
                                                     </div>
@@ -116,13 +116,13 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Container Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-drop_con">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-drop_con_reamrk">
                                                     </div>
@@ -130,13 +130,13 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address:</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-drop_emp">
                                                     </div>
-                                                    <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
                                                     <div class="col">
                                                         <input type="text" class="form-control inp-drop_emp_remark">
                                                     </div>
@@ -164,13 +164,13 @@ session_start();
                                         <hr class="mb-4">
                                         <h4 class="mb-4">Supplier confirm</h4>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-">Sent Request Line DateTime :</label>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Sent Request Line DateTime :</label>
                                             <div class="col-sm-3 col-lg-3">
                                                 <input type="input" class="form-control form-control-sm inp-sent_request_line" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
                                             <div class="col-sm-3 col-lg-3">
                                                 <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
                                             </div>
@@ -197,7 +197,7 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Type :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Type :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select type</option>
@@ -205,7 +205,7 @@ session_start();
                                                 <option value="">Advance Cash</option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">description :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >description :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
@@ -213,7 +213,7 @@ session_start();
                                                 <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pay to :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Pay to :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
@@ -221,17 +221,17 @@ session_start();
                                                 <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Picture :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Picture :</label>
                                         <div class="col-sm-9">
                                             <div class="mb-3">
                                                 <input type="file" class="form-control form-select-sm" id="customFile">
                                             </div>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Amount :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Amount :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                                 <div class="col-3">
                                                     <select class="form-select form-select-sm mb-3 shadow-none">
@@ -242,11 +242,11 @@ session_start();
                                                 </div>
                                             </div>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Petty Cash Balance :</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Petty Cash Balance :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                                 <div class="col-3">
                                                     <select class="form-select form-select-sm mb-3 shadow-none">
@@ -401,19 +401,19 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Clearance Date Plan :</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Clearance Date Plan :</label>
                                         <div class="col-sm-9 col-lg-3">
                                             <input type="input" class="form-control form-control-sm " readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Clearance by.</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Clearance by.</label>
                                         <div class="col-sm-9 col-lg-3">
                                             <input type="input" class="form-control form-control-sm inp-clearance_by" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Datetime Success :</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Datetime Success :</label>
                                         <div class="col-sm-9 col-lg-3">
                                             <input type="input" class="form-control form-control-sm inp-datetime_success" readonly>
                                         </div>
@@ -441,19 +441,19 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Job number:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Job number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Booking number:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Booking number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Shipper:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Shipper:</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
 
@@ -467,7 +467,7 @@ session_start();
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Shipment Terms</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Shipment Terms</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -479,13 +479,13 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Remark</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Remark</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                            <input type="input" class="form-control form-control-sm"  >
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Carrier:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Carrier:</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -496,7 +496,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Receipt</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Port of Receipt</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -507,7 +507,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Loading</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Port of Loading</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -518,7 +518,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">T/S Port</label>
+                                        <label class="control-label col-sm-3 align-self-center " >T/S Port</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -529,7 +529,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Port of Delivery</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Port of Delivery</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -540,50 +540,50 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3  align-self-center mb-0" for="pwd2">Mother Vessel:</label>
+                                        <label class="control-label col-sm-3  align-self-center " >Mother Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Voy No. :</label>
+                                                <label class="control-label col-sm-2 align-self-center " >Voy No. :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Feeder Vessel:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Feeder Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Voy No. :</label>
+                                                <label class="control-label col-sm-2 align-self-center " >Voy No. :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Voy No.:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >Voy No.:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                            <input type="input" class="form-control form-control-sm"  >
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">ETD:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >ETD:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm"  value="2019-12-18">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">ETA:</label>
+                                        <label class="control-label col-sm-3 align-self-center " >ETA:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm"  value="2019-12-18">
                                         </div>
                                     </div>
 
@@ -599,7 +599,7 @@ session_start();
                                     <div class="row">
                                         <div class="form-group row">
                                             <div class="table-responsive mt-4">
-                                                <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                                <table id="basic-table" class="table table-striped " role="grid">
                                                     <thead>
                                                         <tr align="center">
                                                             <th>Container type</th>
@@ -618,8 +618,8 @@ session_start();
 
                                                                     ?>
                                                                 </select></td>
-                                                            <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
-                                                            <td><input type="input" class="form-control form-control-sm" id="pwd2" placeholder=""></td>
+                                                            <td><input type="input" class="form-control form-control-sm"  ></td>
+                                                            <td><input type="input" class="form-control form-control-sm"  ></td>
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td>
@@ -634,15 +634,15 @@ session_start();
                                             <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
 
                                             <p></p>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">CY:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >CY:</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                                <input type="date" class="form-control form-control-sm"  value="2019-12-18">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">RTN:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >RTN:</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm" id="pwd2" value="2019-12-18">
+                                                <input type="date" class="form-control form-control-sm"  value="2019-12-18">
                                             </div>
                                         </div>
                                     </div>
@@ -657,14 +657,14 @@ session_start();
                                     <div class="row">
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Cargo description</label>
+                                            <label class="control-label col-sm-3 align-self-center " >Cargo description</label>
                                             <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                                <input type="input" class="form-control form-control-sm"  >
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">H.S.Code:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >H.S.Code:</label>
                                             <div class="col-sm-9">
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
                                                     <?php
@@ -676,7 +676,7 @@ session_start();
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Cargo Type:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >Cargo Type:</label>
                                             <div class="col-sm-9">
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
 
@@ -692,7 +692,7 @@ session_start();
 
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Quantity:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >Quantity:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -701,7 +701,7 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">G.W:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >G.W:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -710,7 +710,7 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Volume:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >Volume:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -719,9 +719,9 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Marks:</label>
+                                            <label class="control-label col-sm-3 align-self-center " >Marks:</label>
                                             <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="">
+                                                <input type="input" class="form-control form-control-sm"  >
                                             </div>
 
                                             <button class="btn btn-primary rounded-pill ">

@@ -53,86 +53,74 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Supplier:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0" >Supplier:</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
                                             <select class="form-select form-select-sm">
-                                                <?php
-                                                $transport_sup_select = "SELECT * FROM transport_sup";
-                                                $result_transport_sup = mysqli_query($con, $transport_sup_select);
-                                                ?>
-                                                <option selected="">Please select shipper</option>
-                                                <?php
-                                                while ($result_transport_sup_total = mysqli_fetch_assoc($result_transport_sup)) {
-                                                ?>
-                                                    <option value="<?php $result_transport_sup_total['ID'] ?>"><?php echo $result_transport_sup_total['transport_sup_name'] ?></option>
-                                                <?php
-                                                }
-                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pickup Empty Container Address:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0">Pickup Empty Container Address:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0" >Remark</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Pickup Container Address:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Pickup Container Address:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0"  >Remark</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Drop off Container Address:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Drop off Container Address:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0"  >Remark</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Drop off Empty Containe Address:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Drop off Empty Containe Address:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Remark</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0"  >Remark</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="">
+                                                    <input type="text" class="form-control form-control-sm" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Budget:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Budget:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-1 col-md-3 col-lg-3">
-                                                    <input type="number" class="form-control form-control-sm" style="text-align:right;" id="pwd2" placeholder="">
+                                                    <input type="number" class="form-control form-control-sm" style="text-align:right;"  >
                                                 </div>
                                                 <div class="col-sm-1 col-md-3 col-lg-2">
                                                     <select class="form-select form-select-sm shadow-none">
@@ -145,7 +133,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Container:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Container:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-sm-1 col-md-3 col-lg-3">
@@ -170,15 +158,15 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Sent Request Line :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Sent Request Line :</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Supplier Confirm :</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Supplier Confirm :</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -221,34 +209,34 @@ session_start();
                                                 <tr>
                                                     <td>1</td>
                                                     <td>Dry Cargo Container (40HC)</td>
-                                                    <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                    <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
                                                     
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
                                                     <td>Dry Cargo Container (40HC)</td>
-                                                    <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                    <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
                                                    
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
                                                     <td>Dry Cargo Container (40HC)</td>
-                                                    <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                    <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
-                                                    <td><input type="text" class="form-control" placeholder=""></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
+                                                    <td><input type="text" class="form-control" ></td>
                                                     
                                                 </tr>
                                             </tbody>
@@ -264,29 +252,29 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Driver name:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Driver name:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="" readonly>
+                                                    <input type="text" class="form-control"  readonly>
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Phone Number :</label>
+                                                <label class="control-label col-sm-2 align-self-center mb-0"  >Phone Number :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="" readonly>
+                                                    <input type="text" class="form-control"  readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Container number:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Container number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Seal number:</label>
+                                        <label class="control-label col-sm-3 align-self-center mb-0"  >Seal number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" id="pwd2" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm"   readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -317,13 +305,13 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">Job number</label>
                                         <div class="col-sm-9 col-md-4 col-lg-3">
-                                            <input type="input" class="form-control form-control-sm inp-jobno" id="" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm inp-jobno" id=""  readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">Booking number</label>
                                         <div class="col-sm-9 col-md-4 col-lg-3">
-                                            <input type="input" class="form-control form-control-sm inp-bkno" id="" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm inp-bkno" id=""  readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -367,7 +355,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center mb-0" for="">Remark</label>
                                         <div class="col-sm-9 col-md-8 col-lg-7">
-                                            <input type="input" class="form-control form-control-sm inp-rmk" id="" placeholder="" readonly>
+                                            <input type="input" class="form-control form-control-sm inp-rmk" id=""  readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -472,11 +460,11 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-M_vessel"  readonly>
                                                 </div>
                                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center mb-0" for="">Voy No.:</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-mother-voy-no"  readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -486,11 +474,11 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm feeder_vessel" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm feeder_vessel"  readonly>
                                                 </div>
                                                 <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center mb-0" for="">Voy No.:</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-feeder_voy_no" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_voy_no"  readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -545,8 +533,8 @@ session_start();
                                                                     }
                                                                     ?>
                                                                 </select></td>
-                                                            <td><input type="input" class="form-control form-control-sm inp-contqty" id="" placeholder="" readonly></td>
-                                                            <td><input type="input" class="form-control form-control-sm inp-single-wieght" id="" placeholder="" readonly></td>
+                                                            <td><input type="input" class="form-control form-control-sm inp-contqty" id=""  readonly></td>
+                                                            <td><input type="input" class="form-control form-control-sm inp-single-wieght" id=""  readonly></td>
                                                             <td><input class="form-check-input inp-soc" type="checkbox" value="" id="flexCheckDefault" disabled></td>
                                                             <td><input class="form-check-input inp-ow" type="checkbox" value="" id="flexCheckDefault" disabled></td>
                                                         </tr>
@@ -579,7 +567,7 @@ session_start();
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 align-self-center mb-0" for="">Cargo description</label>
                                             <div class="col-sm-9 col-md-7 col-lg-7">
-                                                <input type="input" class="form-control form-control-sm inp-cargodes" id="" placeholder="" readonly>
+                                                <input type="input" class="form-control form-control-sm inp-cargodes" id=""  readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -650,7 +638,7 @@ session_start();
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 align-self-center mb-0" for="">Marks:</label>
                                             <div class="col-sm-9 col-md-8 col-lg-7">
-                                                <input type="input" class="form-control form-control-sm inp-cargo_marks" id="" placeholder="" readonly>
+                                                <input type="input" class="form-control form-control-sm inp-cargo_marks" id=""  readonly>
                                             </div>
                                         </div>
                                     </div>

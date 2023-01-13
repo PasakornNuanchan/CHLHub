@@ -82,33 +82,30 @@ const petty_cash = {
         
         var sel_description_petty_cash = $('.sel-description').parent().html();
         var sel_description_petty_cash_cur = $('.sel_cur').parent().html();
+
         $('[name = "petty-cash-tbl-description"] tbody').html('');
         
         
         $.each(res_data['pcd'], async function (i,v){
-            
+            console.log(v['amount']);
             amount = parseFloat(v['amount']);
-            html_des += `
+            html_des = `
             <tr class="pettycash_detail pettycash_detail${i}">
                 <td>
-                  
                         ${sel_description_petty_cash}
-                  
                 </td>
                 <td><input type="input" class="form-control form-control-sm inp-amount" style="text-align:right;" value="${number_format(amount)}"onchange="petty_cash.amount_total();"></td>
                 <td>
-                 
                         ${sel_description_petty_cash_cur}
-                 
                 </td>
                 <td></td>
             </tr>`;
             await $('[name = "petty-cash-tbl-description"] tbody').append(html_des);
 
-            
+            console.log(v['currency'])
             //$(`.db-sel-cur${i} > select`).val(v['currency']);
-            $(`.pettycash_detail${i} .sel-description`).val(v['job_number']);
-            $(`.pettycash_detail${i} .sel-sel_cur`).val(v['currency']);
+            console.log($(`.pettycash_detail${i} .sel-description`).val(v['job_number']));
+            console.log($(`.pettycash_detail${i} .sel_cur`).val(v['currency']));
         });
       
     }, 

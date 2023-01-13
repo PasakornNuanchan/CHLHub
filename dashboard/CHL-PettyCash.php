@@ -82,7 +82,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" name="petty-cash-tbl-description" role="grid">
+                                            <table id="basic-table" class="table table-striped" name="petty-cash-tbl-description" role="grid">
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>Description</th>
@@ -125,13 +125,13 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0">Job quantity:</label>
+                                    <label class="control-label col-sm-3 align-self-center">Job quantity:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center mb-0">Amount:</label>
+                                    <label class="control-label col-sm-3 align-self-center">Amount:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm" readonly>
                                     </div>

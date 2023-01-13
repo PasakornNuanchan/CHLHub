@@ -102,7 +102,7 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Number</label>
+                                    <label class="control-label col-sm-2 align-self-center" for="pwd2">Job Number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -123,7 +123,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table mb-0 table table-hover col-sm-12 text-center" name="des-req" role="grid">
+                                            <table id="basic-table" class="table table table-hover col-sm-12 text-center" name="des-req" role="grid">
                                                 <thead>
                                                     <tr class="text-center" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>No.</th>
@@ -163,7 +163,7 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Total Advance Cash For Return :</label>
+                                        <label class="control-label col-sm-3 align-self-center">Total Advance Cash For Return :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2 inp-advance_cash_req" style="text-align: right;" readonly>
                                         </div>
@@ -178,7 +178,7 @@ session_start();
                                     <hr>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment medthod :</label>
+                                        <label class="control-label col-sm-3 align-self-center">Payment medthod :</label>
                                         <div class="col col-sm-3">
                                             <select name="" id="" class="form-select form-select-sm sel-mt-return" disabled>
                                                 <option value="" selected></option>
@@ -188,19 +188,19 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment By. :</label>
+                                        <label class="control-label col-sm-3 align-self-center">Payment By. :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-by" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment datetime :</label>
+                                        <label class="control-label col-sm-3 align-self-center">Payment datetime :</label>
                                         <div class="col col-sm-3">
                                             <input type="datetime" class="form-control form-control-sm col-sm-2 inp-payment-d-time" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center mb-0">Payment Amount :</label>
+                                        <label class="control-label col-sm-3 align-self-center">Payment Amount :</label>
                                         <div class="col col-sm-3">
                                             <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-re-amount" style="text-align: right;" readonly>
                                         </div>
@@ -237,7 +237,7 @@ session_start();
                                                     </div>
                                                 </div>
                                                 <div class="table-responsive main_des_table">
-                                                    <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" role="grid">
+                                                    <table id="table" class="table table table-hover col-sm-12 text-center" role="grid">
                                                         <thead>
                                                             <tr style="background-color :#0D47A1; color :aliceblue;">
                                                                 <th>No.</th>

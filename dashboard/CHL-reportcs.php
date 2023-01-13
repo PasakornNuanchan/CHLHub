@@ -45,87 +45,93 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Job Number</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">Job Number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-job_number" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">INV NO.</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">INV NO.</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-inv" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Consignee</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">Consignee</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-consignee" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">M B/L</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">M B/L</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-mbl" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">ETD</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">ETD</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-eth" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">H B/L</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">H B/L</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-hbl" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">ETA</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">ETA</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-eta"readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Carrier</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-carrier" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">POL</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center " >POL</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-pol" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Vessel</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " >Vessel</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-vessel" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">POD</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center " >POD</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-pod" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">PORT</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">PORT</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-port" readonly>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center " >INV NO.</label>
+                                    <div class="col-sm-3 col-lg-3">
+                                        <input type="text" class="form-control form-control-sm inp-invno" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -138,43 +144,39 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Clearlance Date</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center " >Clearlance Date</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-clearance_date" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Check doc.</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Check doc.</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-check_doc" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Delivery</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">Delivery</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                        <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-delivery" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">Enter</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Enter</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-enter" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0" for="pwd2">Pick up D/O</label>
+                                    <label class="control-label col-sm-2 col-lg-2 align-self-center ">Pick up D/O</label>
                                     <div class="col-sm-9">
                                         <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
-                                            </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0" for="email1">INV NO.</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                        <div class="col-sm-3 col-lg-4">
+                                                <input type="text" class="form-control form-control-sm inp-pick_do" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -189,74 +191,66 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="bd-example table-responsive">
-                                    <table class="table table-borderless" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
-                                        <thead>
-                                            <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
-                                                <th scope="col">
-                                                    <center>Document</center>
-                                                </th>
-                                                <th scope="col">
-                                                    <center>Picture file</center>
-                                                </th>
-                                                <th scope="col">
-                                                    <center>Received By.</center>
-                                                </th>
-                                                <th scope="col">
-                                                    <center>Check By Customs Clerance</center>
-                                                </th>
-                                                <th scope="col">
-                                                    <center>Action</center>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="text-align:center;">
-                                            <tr>
-                                                <td>Invoice</td>
-                                                <td>
-                                                    <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                </td>
-                                                <td>Natdanai Keephimai</td>
-                                                <td>Apichat philalee</td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Confirm</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bill of lading</td>
-                                                <td>
-                                                    <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                </td>
-                                                <td>Natdanai Keephimai</td>
-                                                <td>Apichat philalee</td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Confirm</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Packing list</td>
-                                                <td>
-                                                    <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                </td>
-                                                <td>Natdanai Keephimai</td>
-                                                <td>Apichat philalee</td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Confirm</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Import Declaration</td>
-                                                <td>
-                                                    <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                </td>
-                                                <td>Natdanai Keephimai</td>
-                                                <td>Apichat philalee</td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Confirm</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Import Licence</td>
-                                                <td>
-                                                    <div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div>
-                                                </td>
-                                                <td>Natdanai Keephimai</td>
-                                                <td>Apichat philalee</td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Confirm</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <table class="table table-hover" name="tbl_job_status" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                            <thead>
+                                                <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                                    <th>Document</th>
+                                                    <th>Picture file</th>
+                                                    <th>Received By.</th>
+                                                    <th>Received Datetime</th>
+                                                    <th>Check Document By</th>
+                                                    <th>Check Document Datetime</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                 </div>
                             </div>
                         </div>
@@ -268,59 +262,149 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="bd-example table-responsive">
-                                    <table class="table table-borderless" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                    <table class="table table-hover" name="container-tbl" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                         <thead>
                                             <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                 <th>No.</th>
                                                 <th>Container type</th>
                                                 <th>Container Number</th>
                                                 <th>Seal Number</th>
-                                                <th>PCS.</th>
-                                                <th>Package</th>
                                                 <th>Gross Weight</th>
                                                 <th>CBM</th>
-                                                <th>Action</th>
+                                                <th>SOC</th>
+                                                <th>OW</th>
+                                                <th>CY</th>
+                                                <th>RTN</th>
+                                                
+                                                
                                             </tr>
                                         </thead>
                                         <tbody style="text-align:center;">
                                             <tr>
                                                 <td>1</td>
                                                 <td>Dry Cargo Container (40HC)</td>
-                                                <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
-                                            </tr>
-                                            <tr>
-                                            <td>2</td>
-                                                <td>Dry Cargo Container (40HC)</td>
-                                                <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
-                                            </tr>
-                                            <tr>
-                                            <td>3</td>
-                                                <td>Dry Cargo Container (40HC)</td>
-                                                <td><input type="text" class="form-control" placeholder="FSSU7291592"></td>
-                                                <td><input type="text" class="form-control" placeholder="0062067"></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><input type="text" class="form-control" placeholder=""></td>
-                                                <td><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                <td><input type="text" class="form-control"></td>
+                                                
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="card-transport">
+                                <div class="card ">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <div class="header-title">
+                                            <h4 class="card-title">Booking Transport Detail</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Supplier:</label>
+                                            <div class="col-sm-3">
+                                                <div class="db-sel-sup">
+                                                    <select class="form-select form-select-sm mb-3 shadow-none sel-supplier">
+                                                        <option value="">plese select supplier</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control form-control-sm inp-pick_emp">
+                                                    </div>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control form-control-sm inp-pick_emp_remark">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-pick_con">
+                                                    </div>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-pick_con_remark">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_con">
+                                                    </div>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_con_reamrk">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_emp">
+                                                    </div>
+                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control inp-drop_emp_remark">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget">
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <select class="form-select form-select-sm sel-cur">
+                                                            <option value=""></option>
+                                                            <option value="THB">THB</option>
+                                                            <option value="USD">USD</option>
+                                                            <option value="RMB">RMB</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mb-4">
+                                        <h4 class="mb-4">Supplier confirm</h4>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-">Sent Request Line DateTime :</label>
+                                            <div class="col-sm-3 col-lg-3">
+                                                <input type="input" class="form-control form-control-sm inp-sent_request_line" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
+                                            <div class="col-sm-3 col-lg-3">
+                                                <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -340,3 +424,9 @@ session_start();
 </body>
 
 </html>
+<script src="js/reportcs/reportcs.js"></script>
+<script>
+    $(document).ready(function(){
+        reportcs.check_get();
+    });
+</script>

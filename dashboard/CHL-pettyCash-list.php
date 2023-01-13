@@ -43,7 +43,7 @@ session_start();
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <select name="" class="form form-select form-select-sm" id="">
+                                            <select name="" class="form form-select form-select-sm" >
                                                 <option value="">All</option>
                                                 <option value="">Paid</option>
                                                 <option value="">Unpaid</option>

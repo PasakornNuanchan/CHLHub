@@ -51,7 +51,7 @@ session_start();
                                         <div class="des-ar-del">
                                             <div class="form-group row">
                                                 <div class="table-responsive mt-4">
-                                                    <table id="basic-table" class="table table-hover mb-0" name="billing-ar-tbl" role="grid" style="border-radius: 12px;">
+                                                    <table id="basic-table" class="table table-hover " name="billing-ar-tbl" role="grid" style="border-radius: 12px;">
                                                         <thead>
                                                             <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                                 <th>Code.</th>
@@ -114,40 +114,40 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-lg-1 align-self-center mb-0" for="">Total:</label>
+                                    <label class="control-label col-lg-1 align-self-center " >Total:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >USD</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-lg-1 align-self-center mb-0" for="">Sub Total:</label>
+                                    <label class="control-label col-lg-1 align-self-center " >Sub Total:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >USD</label>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-hover mb-0" name="billing-ap-tbl" style="border-radius: 12px;" role="grid">
+                                            <table id="basic-table" class="table table-hover " name="billing-ap-tbl" style="border-radius: 12px;" role="grid">
                                                 <thead>
                                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>Code.</th>
@@ -226,40 +226,40 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-lg-1 align-self-center mb-0" for="">Total:</label>
+                                    <label class="control-label col-lg-1 align-self-center " >Total:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >USD</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-lg-1 align-self-center mb-0" for="">Sub Total:</label>
+                                    <label class="control-label col-lg-1 align-self-center " >Sub Total:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">THB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >THB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">RMB</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >RMB</label>
                                             <div class="col-lg-2 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                <input type="text" class="form-control form-control-sm"  readonly>
                                             </div>
-                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center mb-0" for="">USD</label>
+                                            <label class="control-label col-sm-1 col-md-2 col-lg-1 align-self-center " >USD</label>
                                         </div>
                                     </div>
                                 </div>

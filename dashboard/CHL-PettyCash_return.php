@@ -51,7 +51,7 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Petty Cash Nubmer :</label>
+                                    <label class="control-label col-sm-2 align-self-center">Petty Cash Nubmer :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -61,13 +61,13 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Request By:</label>
+                                    <label class="control-label col-sm-2 align-self-center">Request By:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-req_by" placeholder="" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0">Datetime Request:</label>
+                                            <label class="control-label col-sm-3 align-self-center">Datetime Request:</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-req_datet" readonly>
                                             </div>
@@ -77,7 +77,7 @@ session_start();
                                 <hr>
                                 <h4 class="card-title fw-normal">Petty Cash Payment</h4>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Tranfer Method:</label>
+                                    <label class="control-label col-sm-2 align-self-center">Tranfer Method:</label>
                                     <div class="col-sm-9">
                                         <select class="form-select form-select-sm sel_tranfer_mt" disabled>
                                             <option value="">Plese select tranfer mehthod</option>
@@ -87,13 +87,13 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Bank Name</label>
+                                    <label class="control-label col-sm-2 align-self-center">Bank Name</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-bankname" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0">Bank Number:</label>
+                                            <label class="control-label col-sm-3 align-self-center">Bank Number:</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-banknumber" readonly>
                                             </div>
@@ -101,13 +101,13 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Tranfer By.</label>
+                                    <label class="control-label col-sm-2 align-self-center">Tranfer By.</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-tranf_by" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0">Tranfer Date time :</label>
+                                            <label class="control-label col-sm-3 align-self-center">Tranfer Date time :</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-tranf_time" placeholder="" readonly>
                                             </div>
@@ -115,13 +115,13 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Quantity</label>
+                                    <label class="control-label col-sm-2 align-self-center">Job Quantity</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-job_q" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center mb-0">Total Tranfer :</label>
+                                            <label class="control-label col-sm-3 align-self-center">Total Tranfer :</label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm col-sm-2 inp-tranf_total" style="text-align: right;" readonly>
                                             </div>
@@ -136,7 +136,7 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center mb-0">Job Number</label>
+                                    <label class="control-label col-sm-2 align-self-center">Job Number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -157,7 +157,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table mb-0 table table-hover col-sm-12 text-center" name="des-req" role="grid">
+                                            <table id="basic-table" class="table table table-hover col-sm-12 text-center" name="des-req" role="grid">
                                                 <thead>
                                                     <tr class="text-center" style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>No.</th>
@@ -199,7 +199,7 @@ session_start();
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Petty Cash :</label>
+                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Petty Cash :</label>
                                         <div class="col col-md-4 col-lg-2">
                                             <input type="text" class="form-control form-control-sm  inp-petty_cash_req" style="text-align: right;" readonly>
                                         </div>
@@ -212,7 +212,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Pay :</label>
+                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Pay :</label>
                                         <div class="col col-md-4 col-lg-2">
                                             <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" readonly>
                                         </div>
@@ -225,7 +225,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center mb-0">Petty Cash return :</label>
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Petty Cash return :</label>
                                         <div class="col col-md-4 col-lg-2">
                                             <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" readonly>
                                         </div>
@@ -239,7 +239,7 @@ session_start();
                                     </div>
                                     <hr>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center mb-0">Payment medthod :</label>
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment medthod :</label>
                                         <div class="col-sm-3 col-md-7 col-lg-3">
                                             <select name="" id="" class="form-select form-select-sm sel-mt-return">
                                                 <option value="" selected>-- plese select method return amount --</option>
@@ -249,19 +249,19 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center mb-0">Payment By. :</label>
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
                                         <div class="col-sm-3 col-md-7 col-lg-3">
                                             <input type="text" class="form-control form-control-sm  inp-payment-by"  readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center mb-0">Payment datetime :</label>
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
                                         <div class="col-sm-3 col-md-7 col-lg-3">
                                             <input type="datetime" class="form-control form-control-sm inp-payment-d-time"  readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Payment Return Amount :</label>
+                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Payment Return Amount :</label>
                                         <div class="col col-md-4 col-lg-2">
                                             <input type="text" class="form-control form-control-sm inp-payment-re-amount" style="text-align: right;" readonly>
                                         </div>
@@ -289,13 +289,13 @@ session_start();
                                 <div class="row des_pet_de_row">
                                     <div class="des_pet_de">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center mb-0">Job number x :</label>
+                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Job number x :</label>
                                             <div class="col col-md-3 col-lg-3">
                                                 <input type="input" class="form-control form-control-sm"  readonly>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
-                                            <table id="table" class="table mb-0 table table-hover col-sm-12 text-center" name="des-check" role="grid">
+                                            <table id="table" class="table table table-hover col-sm-12 text-center" name="des-check" role="grid">
                                                 <thead>
                                                     <tr style="background-color :#0D47A1; color :aliceblue;">
                                                         <th>No.</th>
