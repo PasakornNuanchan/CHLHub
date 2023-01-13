@@ -46,6 +46,7 @@ session_start();
                             <div class="card-header d-flex justify-content-between">
                                 <div class="header-title">
                                     <h4 class="card-title">Quartation Detail</h4>
+
                                 </div>
                             </div>
                             <div class="card-body">
@@ -103,6 +104,8 @@ session_start();
                         <div class="card">
                             <div class="card-header">
                                 <h4> BASE SERVICE </h4>
+                                <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+
                             </div>
                             <hr>
 
@@ -211,13 +214,12 @@ session_start();
                                                     </div>
                                                     <div class="col-lg-3 col-md-3">
                                                         <select name="" class="form-select form-select-sm" id="" disabled>
-                                                            <option value="" selected>THB</option>
+                                                            <option value="">THB</option>
                                                             <option value="">USD</option>
                                                             <option value="">RMB</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                                        <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,6 +231,8 @@ session_start();
                         <div class="card">
                             <div class="card-header">
                                 <h5> Trucking Fee (Import) </h5>
+                                <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Import</button>
+
                             </div>
                             <hr>
                             <div class="card-body">
@@ -258,14 +262,14 @@ session_start();
                                                         <input type="text" class="form-control form-control-sm inp-truck_fee_budget">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
-                                                        <select name="" class="form-select form-select-sm sel-tr_fee_currency" id="">
+                                                        <select name="" class="form-select form-select-sm sel-tr_fee_import_currency " id="">
                                                             <option value="THB" selected>THB</option>
                                                             <option value="USD">USD</option>
                                                             <option value="RMB">RMB</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                                        <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_export(this);"><i class="bi bi-dash-lg"></i> Delete Route</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,12 +281,13 @@ session_start();
                         <div class="card">
                             <div class="card-header">
                                 <h5> Trucking Fee (Export) </h5>
+                                <button onclick="quartation.add_truck_fee_export(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Export</button>
                             </div>
                             <hr>
                             <div class="card-body">
                                 <div class="truck_fee_export">
                                     <div class="truck_fee_export_row">
-                                        <h5>Trucking Fee (Export)</h5>
+                                        <h5>Export 1</h5>
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
                                             <div class="col-sm-9">
@@ -305,7 +310,7 @@ session_start();
                                                         <input type="text" class="form-control form-control-sm">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
-                                                        <select name="" class="form-select form-select-sm select-currency" id="">
+                                                        <select name="" class="form-select form-select-sm select-currency sel-tr_fee_export_currency" id="">
                                                             <option value="THB" selected>THB</option>
                                                             <option value="USD">USD</option>
                                                             <option value="RMB">RMB</option>

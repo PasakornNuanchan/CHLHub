@@ -25,6 +25,7 @@ $job_number = $_POST['quartation_number'];
     ";
     $sql_detail = "
         SELECT
+            `quartation_detail_base`.`ID` as 'base_id',
             `quartation_detail_base`.`quartation_number`,
             `quartation_detail_base`.`description`,
             `quartation_detail_base`.`type`,

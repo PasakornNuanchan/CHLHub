@@ -1,15 +1,4 @@
 const booking = {
-    // select_port: function () {
-    //     $.ajax({
-    //         type: "post",
-    //         url: "../ajax_request/booking.php",
-    //         data: "data",
-    //         dataType: "text",
-    //         success: function (response) {
-    //             alert(response);
-    //         },
-    //     });
-    // },
     addconthtml: function () {
         let html_select = $(".td-sel-conttype").html();
         html = `
@@ -233,7 +222,6 @@ const booking = {
     },
     set_preview_data :async function (job_number) { 
         let res_data = await booking.ajax_set_preview_data(job_number);
-        console.log(res_data);
         $('.inp-jobno').val(res_data['job_number']);
         $('.inp-bkno').val(res_data['booking_number']).attr('readonly',true);
         $('.inp-remark').val(res_data['remark']).attr('readonly',true);
@@ -251,6 +239,6 @@ const booking = {
         $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
         $('.inp-etd').val(res_data['etd']).attr('readonly',true);
         $('.inp-eta').val(res_data['eta']).attr('readonly',true);
-
     },
 };
+
