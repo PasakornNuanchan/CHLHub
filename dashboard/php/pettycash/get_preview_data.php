@@ -1,4 +1,5 @@
 <?php
+$petty_number = $_POST['petty_number'];
     include '../../core/conn.php';
 
     $sql_pct = "

@@ -19,7 +19,7 @@ const petty_cash = {
         </td>
         </tr>
         `;
-        $('[name="petty-cash-tbl"]>tbody').append(html);
+        $('[name="petty-cash-tbl-description"]>tbody').append(html);
 
     },del_pettycash_row: function (e = null) {
         $(e).closest("tr").remove();
@@ -55,6 +55,17 @@ const petty_cash = {
 
         }
     },
+    html_description : async function (data) { 
+        let res = await petty_cash.get_description_sel();
+        let html = '';
+        $.each(res, function (i, k) { 
+            html += `
+            <option value="${k['job_number']}">${k['job_number']} / ${k['consignee_name']} </option>
+            `;  
+        });
+        console.log(res);
+        $('.sel-description').append(html);
+    },
 
     set_preview_data: async function (job_doc_pt) {
         
@@ -67,11 +78,44 @@ const petty_cash = {
         $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
         $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
         $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
+        html_des ='';
+        
+        var sel_description_petty_cash = $('.sel-description').parent().html();
+        var sel_description_petty_cash_cur = $('.sel_cur').parent().html();
+        $('[name = "petty-cash-tbl-description"] tbody').html('');
+        
+        
+        $.each(res_data['pcd'], async function (i,v){
+            
+            amount = parseFloat(v['amount']);
+            html_des += `
+            <tr class="pettycash_detail pettycash_detail${i}">
+                <td>
+                  
+                        ${sel_description_petty_cash}
+                  
+                </td>
+                <td><input type="input" class="form-control form-control-sm inp-amount" style="text-align:right;" value="${number_format(amount)}"onchange="petty_cash.amount_total();"></td>
+                <td>
+                 
+                        ${sel_description_petty_cash_cur}
+                 
+                </td>
+                <td></td>
+            </tr>`;
+            await $('[name = "petty-cash-tbl-description"] tbody').append(html_des);
+
+            
+            //$(`.db-sel-cur${i} > select`).val(v['currency']);
+            $(`.pettycash_detail${i} .sel-description`).val(v['job_number']);
+            $(`.pettycash_detail${i} .sel-sel_cur`).val(v['currency']);
+        });
       
     }, 
     get_description_sel : async function () { 
         let res_description = await petty_cash.ajax_get_description();
         return res_description;
+        
        
     },
     ajax_get_description : function () { 
@@ -87,17 +131,7 @@ const petty_cash = {
             });
         });
     },
-    html_description : async function (data) { 
-        let res = await petty_cash.get_description_sel();
-        let html = '';
-        $.each(res, function (i, k) { 
-            html += `
-            <option value="${k['ID']}">${k['job_number']} / ${k['consignee_name']} </option>
-            `;  
-        });
-        
-        $('.sel_description').append(html);
-    },
+    
 
 
 
@@ -134,7 +168,19 @@ const petty_cash = {
 
 
 $( function () {
-    petty_cash.html_description();
 
+    petty_cash.html_description();
     petty_cash.check_get();
 });
+function number_format(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}

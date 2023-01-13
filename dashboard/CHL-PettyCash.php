@@ -82,7 +82,7 @@ session_start();
                                 <div class="row">
                                     <div class="form-group row">
                                         <div class="table-responsive mt-4">
-                                            <table id="basic-table" class="table table-striped mb-0" name="petty-cash-tbl" role="grid">
+                                            <table id="basic-table" class="table table-striped mb-0" name="petty-cash-tbl-description" role="grid">
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>Description</th>
@@ -94,18 +94,19 @@ session_start();
                                                 <tbody>
                                                     <tr class="pettycash_detail">
                                                         <td>
-                                                            <div class="db-select-des">
-                                                                <select class="form-select form-select-sm sel_description">
-                                                                    <option value="" selected>Plese select Congsignee</option>
+                                                                <select class="form-select form-select-sm sel-description">
+                                                                    <option value="">Plese select Congsignee</option>
                                                                 </select>
-                                                            </div>
                                                         </td>
-                                                        <td><input type="input" class="form-control form-control-sm inp-amount" onchange="petty_cash.amount_total();"></td>
-                                                        <td><select name="" id="" class="form-select">
-                                                                <option value="" selected>THB</option>
-                                                                <option value="">USD</option>
-                                                                <option value="">RMB</option>
-                                                            </select></td>
+                                                        <td><input type="input" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.amount_total();"></td>
+                                                        <td>
+                                                            <select name="" id="" class="form-select sel_cur">
+                                                                <option value=""></option>
+                                                                <option value="THB">THB</option>
+                                                                <option value="USD">USD</option>
+                                                                <option value="RMB">RMB</option>
+                                                            </select>
+                                                        </td>
                                                         <td></td>
                                                     </tr>
                                                 </tbody>

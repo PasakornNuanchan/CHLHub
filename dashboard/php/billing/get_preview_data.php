@@ -1,37 +1,56 @@
 <?php
     include '../../core/conn.php';
     $job_number = $_POST['job_number'];
-    echo $job_number;
-  //   $sql_pct = "
-  //   SELECT * FROM `petty_cash_title` as pct
-  //   INNER JOIN user as u ON pct.request_by = u.user_number
-  //   WHERE petty_cash_number = '$petty_number'
-  //   ";
+    $sql_ar = "
+    SELECT 
+      b.ID,
+      bd.billing_number,
+      bd.billing_item_name,
+      c.consignee_name,
+      b.payble,
+      b.currency,
+      b.qty,
+      b.unit_price,
+      b.amount,
+      b.vat,
+      b.amtinclvat,
+      b.remark,
+      b.check_status
+    FROM `billing` b
+      INNER JOIN billing_description bd ON b.billing_description = bd.billing_number
+      INNER JOIN consignee c ON b.bill_to = c.consignee_number
+    WHERE 
+      job_number = '$job_number' and 
+      type = 'AR'
+    ";
+    $sql_ap = "
+    SELECT * FROM `billing` WHERE job_number = '$job_number' and type = 'AP'
+    ";
 
 
-  //  $sql_pcd = "
-  //   SELECT * FROM `petty_cash_detail` where `petty_cash_number` ='$petty_number'
-  //   ";
+  
 
-  //   $result = $con -> query($sql_pct);
-  //   if ($result->num_rows > 0) {
-  //       while($row = $result->fetch_assoc()) {
-  //         $pct = $row;
-  //       }
-  //     } else {
-  //       $pct = "0 results";
-  //     }
+    $result = $con -> query( $sql_ar);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $ar[] = $row;
+        }
+      } else {
+        $ar = "0 results";
+      }
 
-  //     $result = $con -> query($sql_pcd);
-  //   if ($result->num_rows > 0) {
-  //       while($row = $result->fetch_assoc()) {
-  //           $pcd[] = $row;
-  //       }
-  //     } else {
-  //       $pcd = "0 results";
-  //     }
+      $result = $con -> query($sql_ap);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $ap[] = $row;
+        }
+      } else {
+        $ap = "0 results";
+      }
 
-  //     echo json_encode(array('pcd'=>$pcd,'pct'=>$pct));
+    
+
+      echo json_encode(array('ap'=>$ap,'ar'=>$ar));
 
 
 
