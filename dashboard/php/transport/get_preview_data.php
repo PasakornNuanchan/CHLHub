@@ -69,6 +69,15 @@ SELECT
       $sql_booking = "
       SELECT * FROM job_title WHERE job_number = '$job_number';";
 
+
+      $sql_cn_inform = "
+      SELECT * FROM container_information WHERE job_number = '$job_number';";
+
+      $sql_hscode = "
+      SELECT * FROM hs_code ";
+
+     
+
      
 $result = $con->query($sql_payment);
 if ($result->num_rows > 0) {
@@ -115,7 +124,28 @@ if ($result->num_rows > 0) {
   }
 
  
+
+  $result = $con -> query($sql_cn_inform);
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $cninform = $row;
+      }
+    } else {
+      $cninform = "0 results";
+    }
+
+    $result = $con -> query($sql_hscode);
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $hscode[] = $row;
+      }
+    } else {
+      $hscode[] = "0 results";
+    }
+
+ 
+ 
         
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking));
+      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'hscode'=>$hscode));
 ?>

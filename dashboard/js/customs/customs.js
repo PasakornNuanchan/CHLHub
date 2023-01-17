@@ -71,7 +71,7 @@ const customs ={
     },
     set_preview_data: async function (job_number){
         let res_data = await customs.ajax_set_preview_data(job_number);
-        
+        $('.head-of-menu').html('Customs Clearance');
         
         console.log(res_data);
         $('[name =cash_payment_table] tbody').html('');

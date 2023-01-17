@@ -104,16 +104,18 @@ const transport ={
         $('.inp-ts_port',).append(db_sel_area);
         $('.inp-delivery',).append(db_sel_area);
 
-
-        let db_sel_hs ='';
-        $.each(set_data['hs'], function (i, k) {
-            db_sel_hs += `
-            <option value="${k['hs_code']}">${k['hs_code']} ${k['hs_decription']}</option>
+        let db_sel_cargo ='';
+        $.each(set_data['cargo'], function (i, k) {
+            db_sel_cargo += `
+            <option value="${k['ID']}">${k['cargo_type_name']}</option>
             `;
         });
-        $('.inp-hscode').append(db_sel_hs);
+        $('.inp-cargo_type',).append(db_sel_cargo);
+        
     },
     set_preview_data: async function (job_number){
+        $('.head-of-menu').html('Transport');
+        
         let res_data = await transport.ajax_set_preview_data(job_number);
         console.log(res_data);
         html_transport ='';
@@ -351,14 +353,14 @@ const transport ={
         
 
         // booking set (booking detail)
-        $('.inp-shper').val(res_data['booking']['shipper_number']);
-        $('.inp-shptrm').val(res_data['booking']['st_number']);
+        $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled',true);
+        $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled',true);
 
-        $('.inp-carrier').val(res_data['booking']['carrier_number']);
-        $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']);
-        $('.inp-prtload').val(res_data['booking']['port_of_loading_number']);
-        $('.inp-ts_port').val(res_data['booking']['ts_port_number']);
-        $('.inp-delivery').val(res_data['booking']['port_of_delivery_number']);
+        $('.inp-carrier').val(res_data['booking']['carrier_number']).attr('disabled',true);
+        $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled',true);
+        $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled',true);
+        $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled',true);
+        $('.inp-delivery').val(res_data['booking']['port_of_delivery_number']).attr('disabled',true);
 
 
 
@@ -374,9 +376,25 @@ const transport ={
         $('.inp-etd').val(res_data['booking']['etd']).attr('readonly',true);
         $('.inp-eta').val(res_data['booking']['eta']).attr('readonly',true);
         
+        $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly',true);
 
-     
-        
+        let db_sel_hs ='';
+        $.each(res_data['hscode'], function (i, k) {
+            db_sel_hs += `
+            <option value="${k['hs_code']}">${k['hs_code']} ${k['hs_decription']}</option>
+            `;
+        });
+        $('.inp-hscode').append(db_sel_hs);
+
+        $('.inp-hscode').val(res_data['cninform']['hs_code']).attr('disabled',true);
+        $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled',true);
+        $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly',true);
+        $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly',true);
+        $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly',true);
+        $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly',true);
+
+
+      
 
 
 

@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Quotation</title>
+    <title>Quotation list</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -32,9 +32,15 @@ session_start();
         </div>
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->
+            <div class="row">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bcpage">
+                        <li class="breadcrumb-item"><a href="" style="color:white;">Quotation List Main list </a></li>
+                    </ol>
+                </nav>
+            </div>
 
-
-            <div class="row mt-5">
+            <div class="row ">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
@@ -57,7 +63,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="bd-example table-responsive">
-                            <table id="datatable" class="table table-hover" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                            <table id="datatable" class="table table-hover" name="data_table_list" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
@@ -66,40 +72,19 @@ session_start();
                                         <th>Consignee</th>
                                         <th>Quotation Type</th>
                                         <th>Status</th>
-                                        
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
-                                <?php
-                                    $sql_table_list = "SELECT * FROM quartation_title as qt
-                                    INNER JOIN consignee as c ON qt.consignee_number = c.consignee_number
-                                    INNER JOIN user as u ON qt.user_sale = u.user_number";
-
-
-                                    $fetch_sql = mysqli_query($con, $sql_table_list);
-                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                        $quartation_number = $result_table_list['quartation_number'];
-                                        
-                                        if($status = $result_table_list['status'] == '1'){
-                                            $rs = "<span class='badge rounded-pill bg-success'>sign</span>";
-                                        } else {
-                                            $rs = "<span class='badge rounded-pill bg-danger'>unsign</span>";
-                                        } 
-                                        
-                                    ?>
                                         <tr>
-                                            <td><?= $result_table_list['create_datetime'] ?></td>
-                                            <td><?= $result_table_list['quartation_number'] ?></td>
-                                            <td><?= $result_table_list['first_name'] ?></td>
-                                            <td><?= $result_table_list['consignee_name'] ?></td>
-                                            <td><?= $result_table_list['type'] ?></td>
-                                            <td><?= $rs ?> 
-                                            <td><button type="button" onclick="quartation_list.preview('<?=$quartation_number?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
-                                    <?php
-                                    }
-                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -128,3 +113,9 @@ session_start();
 </html>
 
 <script src="js/quotation-list/quotation_list.js"></script>
+<script src="js/quotation-list/quotation_list_set.js"></script>
+<script>
+    $(document).ready(function(){
+        quotation_list_set.set_data_rows();
+    });
+</script>

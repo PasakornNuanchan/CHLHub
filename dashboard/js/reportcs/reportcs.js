@@ -46,11 +46,12 @@ const reportcs = {
 
     set_preview_data: async function (job_number) {
 
-
+        
 
         let res_data = await reportcs.ajax_set_preview_data(job_number);
         console.log(res_data);
-
+        
+        $('.head-of-menu').html('Report Customser Service');
         // supplier
         let html_supplier = '';
         $.each(res_data['supplier'], function (i, k) {
@@ -276,8 +277,8 @@ const reportcs = {
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Supplier:</label>
-                    <div class="col-sm-3">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Supplier:</label>
+                    <div class="col-sm-3 col-md-5">
                         <div class="db-sel-sup db-sel-sup${i}">
                             ${html_select_supplier}
                         </div>
@@ -340,13 +341,13 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
-                    <div class="col-sm-9">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-3">Budget:</label>
+                    <div class="col-sm-9 col-md-9">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-md-4">
                                 <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget" value="${bud}" readonly>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-1 col-md-3">
                             <div class="db-sel-cur db-sel-cur${i}">
                                 ${html_select_cur}
                             </div>

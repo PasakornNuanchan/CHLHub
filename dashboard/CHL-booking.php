@@ -9,7 +9,7 @@ include 'core/conn.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Booking</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -36,17 +36,19 @@ include 'core/conn.php';
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->
 
-
+            <!-- breadcrumb -->
             <div class="row">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb bcpage">
                         <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">SG202201023</li>
+                        <li class="breadcrumb-item active page-item" aria-current="page"></li>
                     </ol>
                 </nav>
             </div>
+
             <div class="row">
                 <div class="col-md-12 col-xl-5">
+                    <!-- Booking -->
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
@@ -57,13 +59,13 @@ include 'core/conn.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center " >Job number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-jobno" id="" placeholder="" readonly>
+                                    <input type="input" class="form-control form-control-sm inp-jobno" id="" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center " >Booking number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-bkno" id="" placeholder="">
+                                    <input type="input" class="form-control form-control-sm inp-bkno" id="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -107,7 +109,7 @@ include 'core/conn.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center " >Remark</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-rmk" id="" placeholder="">
+                                    <input type="input" class="form-control form-control-sm inp-rmk" id="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -208,29 +210,29 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Mother Vessel:</label>
-                                <div class="col-sm-9">
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center " >Mother Vessel:</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-5">
-                                            <input type="text" class="form-control form-control-sm inp-M_vessel" placeholder="">
+                                        <div class="col-lg-5 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp-M_vessel">
                                         </div>
                                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center " >Voy No.:</label>
-                                        <div class="col-lg-4 col-md-5">
-                                            <input type="text" class="form-control form-control-sm inp-mother-voy-no" placeholder="">
+                                        <div class="col-lg-5 col-md-5">
+                                            <input type="text" class="form-control form-control-sm inp-mother-voy-no">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Feeder Vessel:</label>
-                                <div class="col-sm-9">
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center " >Feeder Vessel:</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-5">
-                                            <input type="text" class="form-control form-control-sm feeder_vessel" placeholder="">
+                                    <div class="col-lg-5 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm feeder_vessel">
                                         </div>
                                         <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center " >Voy No.:</label>
-                                        <div class="col-lg-4 col-md-5">
-                                            <input type="text" class="form-control form-control-sm inp-feeder_voy_no" placeholder="">
+                                        <div class="col-lg-5 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
                                         </div>
                                     </div>
                                 </div>
@@ -251,6 +253,7 @@ include 'core/conn.php';
                         </div>
                     </div>
                 </div>
+                <!-- container information -->
                 <div class="col-md-12 col-xl-7">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
@@ -261,7 +264,7 @@ include 'core/conn.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center " >Cargo description</label>
                                     <div class="col-sm-9 col-md-7 col-lg-7">
-                                        <input type="input" class="form-control form-control-sm inp-cargodes" id="" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-cargodes" id="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -276,7 +279,7 @@ include 'core/conn.php';
                                             <?php
                                             while ($result_hs_total = mysqli_fetch_assoc($result_hs)) {
                                             ?>
-                                                <option value="<?php $result_hs_total['ID'] ?>"><?php echo "" . $result_hs_total['hs_code'] . " " . $result_hs_total['hs_decription'] ?></option>
+                                                <option value="<?php echo $result_hs_total['ID'] ?>"><?php echo "" . $result_hs_total['hs_code'] . " " . $result_hs_total['hs_decription'] ?></option>
                                             <?php
                                             }
                                             ?>
@@ -295,7 +298,7 @@ include 'core/conn.php';
                                             <?php
                                             while ($result_cargo_type_total = mysqli_fetch_assoc($result_cargo_type)) {
                                             ?>
-                                                <option value="<?php $result_cargo_type_total['cargo_type_number'] ?>"><?php echo $result_cargo_type_total['cargo_type_name'] ?></option>
+                                                <option value="<?php echo $result_cargo_type_total['cargo_type_number'] ?>"><?php echo $result_cargo_type_total['cargo_type_name'] ?></option>
                                             <?php
                                             }
                                             ?>
@@ -332,13 +335,14 @@ include 'core/conn.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center " >Marks:</label>
                                     <div class="col-sm-9 col-md-8 col-lg-7">
-                                        <input type="input" class="form-control form-control-sm inp-cargo_marks" id="" placeholder="">
+                                        <input type="input" class="form-control form-control-sm inp-cargo_marks" id="">
                                     </div>
                                 </div>
                             </div>
                             
                         </div>
                     </div>
+                    <!-- container -->
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title">Container</h4>
@@ -347,7 +351,7 @@ include 'core/conn.php';
                             <div class="row">
                                 <div class="form-group row">
                                     <div class="table-responsive mt-4">
-                                        <table id="basic-table" name="container-tbl" class="table table-striped " role="grid">
+                                        <table id="basic-table" name="container-tbl" class="table table-hover " role="grid">
                                             <thead>
                                                 <tr>
                                                     <th>Container type</th>
@@ -374,8 +378,8 @@ include 'core/conn.php';
                                                             }
                                                             ?>
                                                         </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm inp-contqty" id="" placeholder=""></td>
-                                                    <td><input type="input" class="form-control form-control-sm inp-single-wieght" id="" placeholder=""></td>
+                                                    <td><input type="input" class="form-control form-control-sm inp-contqty" id=""></td>
+                                                    <td><input type="input" class="form-control form-control-sm inp-single-wieght" id=""></td>
                                                     <td><input class="form-check-input inp-soc" type="checkbox" value="" id="flexCheckDefault"></td>
                                                     <td><input class="form-check-input inp-ow" type="checkbox" value="" id="flexCheckDefault"></td>
                                                     <td onclick="">

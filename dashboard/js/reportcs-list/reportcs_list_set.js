@@ -1,7 +1,7 @@
 const reportcs_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
-        
+        $('.head-of-menu').html('Report Customer Service List');
 
         let res_data = await reportcs_list_set.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);

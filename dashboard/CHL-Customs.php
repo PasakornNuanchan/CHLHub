@@ -30,20 +30,41 @@ session_start();
             <!--Nav Start-->
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
-            <div class="iq-navbar-header" style="height: 100px;">
-                <div class="conatiner-fluid content-inner mt-n5 py-0">
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'Document')">Customs Clearance</button>
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'pettycash_advance')">Pettycash & Advance</button>
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'transport')" id="defaultOpen">Transport</button>
-                    <button class="btn btn-outline-dark rounded-pill btn-sm" onclick="openCity(event, 'booking')">Booking</button>
+        </div>
+        <div class="iq-navbar-header" style="height: 100px;">
+            <div class="conatiner-fluid content-inner mt-n5 py-0">
+                <div class="row">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bcpage">
+                            <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
+                            <li class="breadcrumb-item active page-item" aria-current="page"></li>
+                        </ol>
+                    </nav>
                 </div>
-            </div> <!-- Nav Header Component End -->
-            <!--Nav End-->
+            </div>
         </div>
 
-        <div id="transport" class="tabcontent">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div>
+        <div class="conatiner-fluid content-inner mt-n5 py-0">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded active" id="pills-boooking-tab" data-bs-toggle="pill" data-bs-target="#pills-transport" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Booking Transport</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="pills-pettycash-tab" data-bs-toggle="pill" data-bs-target="#pills-pettycash" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="false">Petty Cash & Advance</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-customs" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Customs & Document</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-booking" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Booking</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -58,11 +79,11 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
                                                 <label class="control-label col-sm-2 align-self-center ">Pallet :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -181,12 +202,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        </div>
-        <div id="pettycash_advance" class="tabcontent">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div>
+                <div class="tab-pane fade" id="pills-pettycash" role="tabpanel" aria-labelledby="pills-pettycash-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -197,7 +213,7 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Type :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Type :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select type</option>
@@ -205,7 +221,7 @@ session_start();
                                                 <option value="">Advance Cash</option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center " >description :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">description :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
@@ -213,7 +229,7 @@ session_start();
                                                 <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center " >Pay to :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Pay to :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <option selected>Please select shipper</option>
@@ -221,17 +237,17 @@ session_start();
                                                 <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center " >Picture :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Picture :</label>
                                         <div class="col-sm-9">
                                             <div class="mb-3">
                                                 <input type="file" class="form-control form-select-sm" id="customFile">
                                             </div>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center " >Amount :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Amount :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm" >
+                                                    <input type="text" class="form-control form-control-sm">
                                                 </div>
                                                 <div class="col-3">
                                                     <select class="form-select form-select-sm mb-3 shadow-none">
@@ -242,11 +258,11 @@ session_start();
                                                 </div>
                                             </div>
                                         </div>
-                                        <label class="control-label col-sm-3 align-self-center " >Petty Cash Balance :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Petty Cash Balance :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm" >
+                                                    <input type="text" class="form-control form-control-sm">
                                                 </div>
                                                 <div class="col-3">
                                                     <select class="form-select form-select-sm mb-3 shadow-none">
@@ -305,11 +321,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="Document" class="tabcontent">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div>
+                <div class="tab-pane fade" id="pills-customs" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -426,11 +438,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="booking" class="tabcontent">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div>
+                <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -441,19 +449,19 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Job number:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Job number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm"   readonly>
+                                            <input type="input" class="form-control form-control-sm" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Booking number:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Booking number:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm"   readonly>
+                                            <input type="input" class="form-control form-control-sm" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Shipper:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Shipper:</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
 
@@ -467,7 +475,7 @@ session_start();
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Shipment Terms</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Shipment Terms</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -479,13 +487,13 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Remark</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Remark</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm"  >
+                                            <input type="input" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Carrier:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Carrier:</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -496,7 +504,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Port of Receipt</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Port of Receipt</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -507,7 +515,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Port of Loading</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Port of Loading</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -518,7 +526,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >T/S Port</label>
+                                        <label class="control-label col-sm-3 align-self-center ">T/S Port</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -529,7 +537,7 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Port of Delivery</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Port of Delivery</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm mb-3 shadow-none">
                                                 <?php
@@ -540,50 +548,50 @@ session_start();
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3  align-self-center " >Mother Vessel:</label>
+                                        <label class="control-label col-sm-3  align-self-center ">Mother Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center " >Voy No. :</label>
+                                                <label class="control-label col-sm-2 align-self-center ">Voy No. :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Feeder Vessel:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Feeder Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center " >Voy No. :</label>
+                                                <label class="control-label col-sm-2 align-self-center ">Voy No. :</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >Voy No.:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Voy No.:</label>
                                         <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm"  >
+                                            <input type="input" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >ETD:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">ETD:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm"  value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm" value="2019-12-18">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center " >ETA:</label>
+                                        <label class="control-label col-sm-3 align-self-center ">ETA:</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm"  value="2019-12-18">
+                                            <input type="date" class="form-control form-control-sm" value="2019-12-18">
                                         </div>
                                     </div>
 
@@ -618,8 +626,8 @@ session_start();
 
                                                                     ?>
                                                                 </select></td>
-                                                            <td><input type="input" class="form-control form-control-sm"  ></td>
-                                                            <td><input type="input" class="form-control form-control-sm"  ></td>
+                                                            <td><input type="input" class="form-control form-control-sm"></td>
+                                                            <td><input type="input" class="form-control form-control-sm"></td>
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
                                                             <td>
@@ -634,15 +642,15 @@ session_start();
                                             <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
 
                                             <p></p>
-                                            <label class="control-label col-sm-3 align-self-center " >CY:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">CY:</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm"  value="2019-12-18">
+                                                <input type="date" class="form-control form-control-sm" value="2019-12-18">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >RTN:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">RTN:</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm"  value="2019-12-18">
+                                                <input type="date" class="form-control form-control-sm" value="2019-12-18">
                                             </div>
                                         </div>
                                     </div>
@@ -657,14 +665,14 @@ session_start();
                                     <div class="row">
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >Cargo description</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Cargo description</label>
                                             <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm"  >
+                                                <input type="input" class="form-control form-control-sm">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >H.S.Code:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">H.S.Code:</label>
                                             <div class="col-sm-9">
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
                                                     <?php
@@ -676,7 +684,7 @@ session_start();
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >Cargo Type:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Cargo Type:</label>
                                             <div class="col-sm-9">
                                                 <select class="form-select form-select-sm mb-3 shadow-none">
 
@@ -692,7 +700,7 @@ session_start();
 
 
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >Quantity:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Quantity:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -701,7 +709,7 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >G.W:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">G.W:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -710,7 +718,7 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >Volume:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Volume:</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" aria-describedby="basic-addon2">
@@ -719,9 +727,9 @@ session_start();
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center " >Marks:</label>
+                                            <label class="control-label col-sm-3 align-self-center ">Marks:</label>
                                             <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm"  >
+                                                <input type="input" class="form-control form-control-sm">
                                             </div>
 
                                             <button class="btn btn-primary rounded-pill ">

@@ -33,8 +33,16 @@ session_start();
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->
 
+            <!-- breadcrumb -->
+            <div class="row">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bcpage">
+                        <li class="breadcrumb-item"><a href="" style="color:white;">Booking List Main list </a></li>
+                    </ol>
+                </nav>
+            </div>
 
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
@@ -65,7 +73,6 @@ session_start();
                                     </tr>
                                 </thead>
                                 <tbody align="center">
-                                   
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -76,7 +83,6 @@ session_start();
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                   
                                 </tbody>
                             </table>
                             </div>

@@ -16,9 +16,10 @@
     $sql_area ="
     SELECT ID, area_number,location_name,country FROM area;";
 
-    $sql_hscode = "
-    SELECT ID, hs_code ,hs_decription FROM hs_code;";
+    $sql_cargo ="
+    SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";
 
+   
 
 
 $result = $con->query($sql_supplier);
@@ -66,16 +67,18 @@ if ($result->num_rows > 0) {
     $area[] = "0 results";
 }
 
-$result = $con -> query($sql_hscode);
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              $hs[] = $row;
-            }
-          } else {
-            $hs[] = "0 results";
-          }
+$result = $con->query($sql_cargo);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $cargo[] = $row;
+    }
+} else {
+    $cargo[] = "0 results";
+}
+
+
 
   
-    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'hs'=>$hs))
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo))
 
 ?>

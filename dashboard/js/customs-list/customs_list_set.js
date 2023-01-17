@@ -2,7 +2,7 @@ const customs_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-
+        $('.head-of-menu').html('Customs Clearance List');
         let res_data = await customs_list_set.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
         $('[name = "data_table_list"] tbody').html('');

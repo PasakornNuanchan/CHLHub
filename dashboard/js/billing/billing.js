@@ -50,7 +50,7 @@ const billing = {
     },
     set_preview_data: async function (job_number) {
 
-        
+        $('.head-of-menu').html('Billing');
         let html_des_ar='';
         await billing.set_data_description();
         let res_data = await billing.ajax_set_preview_data(job_number);
