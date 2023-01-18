@@ -1,4 +1,7 @@
 const quartation = {
+  get_quono : '',
+
+
   set_preview_data: async function (quartation_number = null) {
     let res_data = await quartation.ajax_set_preview_data(quartation_number)
     console.log(res_data)
@@ -234,7 +237,7 @@ const quartation = {
     $('[name = "sub-tbl"] tbody').html('')
     $.each(res_data['sup_service'], function (i, v) {
       html = `
-                    <tr class="sub_des sub_des${i}">
+                    <tr class="sub_des sub_des${i}" data_sup_id="${v['ID']}">
                         <td class="select_des_sup">
                             ${sel_sup_service}</td>
                         <td><select name="" id="" class="form-select form-select-sm sel_type_sup_service">
@@ -387,6 +390,7 @@ const quartation = {
       return false
     }
     let get_quo = getUrlParameter('quartation_number')
+    quartation.get_quono = getUrlParameter('quartation_number')
     let get_action = getUrlParameter('action')
 
     let quartation_number = get_quo == false ? null : get_quo
@@ -717,7 +721,7 @@ const quartation = {
     $('.sub_des').each(function (i, e) {
       // element == this
       let sup_service_tmp = {}
-
+      let ID = $(this).attr('data_sup_id');
       let service = $('.sel-sup_des_service', this).val()
       let type = $('.sel_type_sup_service', this).val()
       let unit_price = $('.inp_price_sup_service', this).val()
@@ -725,6 +729,7 @@ const quartation = {
       let remark = $('.inp_sup_remark', this).val()
 
       sup_service_tmp = {
+        ID : ID,
         service: service,
         type: type,
         unit_price: unit_price,
@@ -742,8 +747,30 @@ const quartation = {
       truck_export: truck_fee_export,
       sup_service: sup_service,
     }
-    console.log(save_data)
-    let res = await quartation.ajax_save_quotation(save_data)
+    Swal.fire({
+      icon : 'success',
+      text : 'wtf',
+    })
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, save it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+          let res = await quartation.ajax_save_quotation(save_data)
+          console.log(res);
+          Swal.fire(
+            'saved!',
+            'Your file has been saved.',
+            'success'
+          )
+      }
+    })
   },
   ajax_save_quotation: function (data) {
     return new Promise(function (resolve, reject) {
@@ -837,12 +864,18 @@ const quartation = {
       })
     })
   },
-
   del_truck_fee_export: function (e = null) {
     $(e).closest('.truck_fee_export_row').remove()
   },
   del_truck_fee_import: function (e = null) {
     $(e).closest('.truck_fee_import_row').remove()
+  },
+
+  quick_markup: function (e = null) { 
+    let url_get = '?quartation_number='+quartation.get_quono;
+    let url_get_action = '&action='+'preview';
+
+    window.location.href = "CHL-quartation-markup.php"+url_get+url_get_action;  
   },
 }
 

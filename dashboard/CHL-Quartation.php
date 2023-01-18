@@ -388,7 +388,7 @@ session_start();
                         <div style="float: right">
                             <button class="btn btn-warning rounded-pill bg-gradient btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
                             <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="quartation.quotation_save();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
-                            <button class="btn btn-primary rounded-pill bg-gradient btn-sm" onclick="location.href='CHL-quartation-markup.php';" target="_blank" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Go to markup</button>
+                            <button class="btn btn-primary rounded-pill bg-gradient btn-sm" onclick="quartation.quick_markup();" target="_blank" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Go to markup</button>
                         </div>
                     </div>
                 </div>

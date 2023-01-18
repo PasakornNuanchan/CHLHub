@@ -49,11 +49,11 @@ session_start();
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-5 col-md-5">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                                <input type="text" class="form-control form-control-sm inp_quono" readonly>
                                             </div>
                                             <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status :</label>
                                             <div class="col-lg-2 col-md-3">
-                                                <input type="text" class="form-control form-control-sm" readonly>
+                                                <input type="text" class="form-control form-control-sm inp_sign_st" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Commodity :</label>
                                     <div class="col-sm-1 col-md-6 col-lg-4">
-                                        <input type="text" class="form-control form-control-sm" readonly>
+                                        <input type="text" class="form-control form-control-sm inp_commodity" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -328,6 +328,5 @@ session_start();
         evt.currentTarget.className += " active";
     }
 
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
 </script>
+<script src="js/quartation/quartation_markup.js"></script>

@@ -70,9 +70,6 @@ $job_number = $_POST['quartation_number'];
     $result_supservice = $con -> query($sql_supservice);
 
 
-
-
-
     if ($result_detail->num_rows > 0) {
         while($row = $result_detail->fetch_assoc()) {
             $arr['detail'][] = $row;

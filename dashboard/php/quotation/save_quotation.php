@@ -1,6 +1,10 @@
 <?php
     include '../../core/conn.php';
-    // echo json_encode($_POST);
+    $array_st = array(
+        'st' => '1',
+        'msg' => ''
+    );
+
     $detail = $_POST['detail'];
     $base = $_POST['base'];
     $truck_import = $_POST['truck_import'];
@@ -14,7 +18,7 @@
     $check_base_id = array();
     foreach ($base as $k => $v) {
         $id = isset($v['base_id']) ? $v['base_id'] : '';
-        $check_base_id[] = $base_id;
+        $check_base_id[] = $id;
 
         $carrier_number = $v['carrier'];
         $carrier_type = $v['carrier_type'];
@@ -25,12 +29,14 @@
         //Check if route is exist in table route
         $sql_base_check = "SELECT * FROM `route` WHERE carrier_number = '$carrier_number' AND container_type = '$carrier_type' AND pol = '$pol' AND pod = '$pod'; ";
         $result = $con -> query($sql_base_check);
+
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $route_number = ($row['route_number']);
             }
         } else {
-            echo json_encode(array('err_msg' => 'route not found','err' => '1'));
+            $array_st['st'] = '0';
+            $array_st['msg'] = 'Can not find route please check again';
             return;
         }
 
@@ -184,9 +190,6 @@
     }
 
 
-
-
-
     //  $truck_export
     $updated_export_id = array();
     $check_export_id = array();
@@ -264,8 +267,93 @@
         $con->query($sql_delete_truck_export);
     }
     
+
+
+    //Sup service
+    $updated_sup_service_id = array();
+    $check_sup_service_id = array();
+    foreach ($sup_service as $k => $v) {
+        $sup_id = isset($v['ID']) ? $v['ID'] : '';        
+        $quo_no = $quo_no;
+        $description = isset($v['service']) ? $v['service'] : '';
+        $type = isset($v['type']) ? $v['type'] : '';
+        $price = isset($v['unit_price']) ? $v['unit_price'] : '';
+        $currency = isset($v['currency']) ? $v['currency'] : '';
+        $remark = isset($v['remark']) ? $v['remark'] : '';
+
+        $sql_save_sup_service = '';
+        if ($sup_id != '') {
+            $check_sup_service_id[] = $sup_id;
+            $sql_save_sup_service = "
+            UPDATE
+                `quotation_detail_supservice`
+            SET
+                `quotation_number` = '$quo_no',
+                `description` = '$description',
+                `type` = '$type',
+                `price` = '$price',
+                `currency` = '$currency',
+                `remark` = '$remark'
+            WHERE
+                1 AND `ID` = '$sup_id';
+            ";
+            $resule_sup_save[] = $con -> query($sql_save_sup_service);
+            if ($con->affected_rows == 1) {
+                $updated_sup_service_id[] = $id;
+            }
+        }else{
+            $sql_save_sup_service = "
+            INSERT INTO `quotation_detail_supservice`(
+                `quotation_number` ,
+                `description`,
+                `type`,
+                `price`,
+                `currency`,
+                `remark`
+            )
+            VALUES(
+                '$quo_no',
+                '$description',
+                '$type',
+                '$price',
+                '$currency',
+                '$remark'
+            );
+            ";
+            $resule_sup_save[] = $con -> query($sql_save_sup_service);
+            if ($con->affected_rows == 1) {
+                $updated_sup_service_id[] = $con->insert_id;
+            }
+        }
+    }
+
+    $sup_service_rows_arr =array_merge($updated_sup_service_id,$check_sup_service_id);
+    array_walk($sup_service_rows_arr, function(&$val, $key) {
+        $val = "'" . $val . "'";
+    });
+    $sup_service_rows_str = implode(",", $sup_service_rows_arr);
+    if(sizeof($sup_service_rows_arr) >= 1){
+        $sql_delete_sup_service = "
+            DELETE FROM `quotation_detail_supservice` WHERE 1 
+                AND `quotation_number` = '$quo_no'
+                AND ID not in ($sup_service_rows_str)
+        ";
+        $con->query($sql_delete_sup_service);
+    }else{
+        $sql_delete_sup_service = "
+            DELETE FROM `quotation_detail_supservice` WHERE 1 
+                AND `quotation_number` = '$quo_no'
+        ";
+        $con->query($sql_delete_sup_service);
+    }
+
+
+
+
     $con->commit();
-    // echo $con->rollback();
+    // $con->rollback();
+
+    echo json_encode($array_st);
     
 
 ?>
