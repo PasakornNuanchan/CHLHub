@@ -61,7 +61,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <select class="form-select form-select-sm" disabled>
+                                        <select class="form-select form-select-sm sel_consignee" disabled>
                                             <option value="" selected>Plese select Congsignee</option>
                                         </select>
                                     </div>
@@ -69,7 +69,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Term :</label>
                                     <div class="col-sm-1 col-md-3 col-lg-4">
-                                        <select class="select form-select form-select-sm" disabled>
+                                        <select class="select form-select form-select-sm sel_term" disabled>
                                             <option value="" selected>Plese select Term</option>
                                         </select>
                                     </div>
@@ -83,17 +83,17 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Type:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <select class="form-select form-select-sm" disabled>
+                                        <select class="form-select form-select-sm sel_title_type" disabled>
                                             <option value="" selected>-- Plese select type --</option>
-                                            <option value="">Import</option>
-                                            <option value="">Export</option>
+                                            <option value="Import">Import</option>
+                                            <option value="Export">Export</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Sale:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                        <input type="input" class="form-control form-control-sm inp_sale_user" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@ session_start();
                                 <div class="form-group row">
                                     <H4>Service Description</H4>
                                     <div class="table-responsive mt-4">
-                                        <table id="basic-table" name="container-tbl" class="table table-striped mb-10" role="grid">
+                                        <table id="basic-table" name="container-tbl" class="table table-striped mb-10 tbl_service_desc" role="grid">
                                             <thead>
                                                 <tr align="center">
                                                     <th>Item NO.</th>
@@ -118,102 +118,7 @@ session_start();
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="booking_container">
-                                                    <td align="center">1</td>
-                                                    <td><input type="input" class="form-control form-control-sm" readonly value="Ocean freight TSL Co,.ltd LCB to Osaka"></td>
-                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
-                                                            <option value="">Plese select type</option>
-                                                            <option value="">Import</option>
-                                                            <option value=""selected>Export</option>
-                                                            <option value="">Other service</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="450" readonly></td>
-                                                    <td><select name="" class="form-select form-select-sm" id="" disabled>
-                                                            <option value="">THB</option>
-                                                            <option value="" selected>USD</option>
-                                                            <option value="">RMB</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" value="7*40HQ"></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
-                                                </tr>
-                                                <tr class="booking_container">
-                                                    <td align="center">2</td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" value="Trucking Fee (Import) Rama9 - LCB" readonly></td>
-                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
-                                                            <option value="">Plese select type</option>
-                                                            <option value="">Import</option>
-                                                            <option value=""selected>Export</option>
-                                                            <option value="">Other service</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="17000" readonly></td>
-                                                    <td><select name="" class="form-select form-select-sm" id="" disabled>
-                                                            <option value="">THB</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
-                                                </tr>
-                                                <tr class="booking_container">
-                                                    <td align="center">3</td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="Trucking Fee (Export) Osaka - Tokyo" readonly></td>
-                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
-                                                            <option value="">Plese select type</option>
-                                                            <option value=""selected>Import</option>
-                                                            <option value="">Export</option>
-                                                            <option value="">Other service</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="500" readonly></td>
-                                                    <td><select name="" class="form-select form-select-sm" id="" disabled>
-                                                            <option value="">THB</option>
-                                                            <option value="" selected>USD</option>
-                                                            <option value="">RMB</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
-                                                </tr>
-                                                <tr class="booking_container">
-                                                    <td align="center">4</td>
-                                                    <td class="col-lg-3"><select name="" class="form-select form-select-sm" disabled>
-                                                            <option value="">Plese Select service</option>
-                                                            <option value="">DF/DO Fee</option>
-                                                            <option value="">THC</option>
-                                                            <option value="">Seal Fee</option>
-                                                            <option value="">Handling Charge</option>
-                                                            <option value="" selected>Import Duty With Vat</option>
-                                                            <option value="">Customs Clearance Charge</option>
-                                                            <option value="">Customs fee</option>
-                                                            <option value="">Customs Inspection Charge</option>
-                                                            <option value="">Gate Charge</option>
-                                                            <option value="">Pick-up Empty Container Fee</option>
-                                                            <option value="">Return Laden Container Fee</option>
-                                                            <option value="">Container Cleaning Charge</option>
-                                                            <option value="">Equipment Maintenance Fee</option>
-                                                            <option value="">Demurrage & Detention</option>
-                                                            <option value="">Over time Charge for truck</option>
-                                                            <option value="">Storage Charge</option>
-                                                            <option value="">Over time charge for customer </option>
-                                                            <option value="">insurance</option>
-                                                            <option value="">Surrender BL Fee</option>
-                                                            <option value="">AMS (amtomated manifest system)</option>
-                                                            <option value="">Carrier Security Charge</option>
-                                                            <option value="">Port Security Charge (PU)</option>
-                                                        </select></td>
-                                                    <td><select name="" id="" class="form-select form-select-sm" disabled>
-                                                            <option value="">Plese select type</option>
-                                                            <option value="">Import</option>
-                                                            <option value="">Export</option>
-                                                            <option value="" selected>Other service</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm " id="" value="1500" readonly></td>
-                                                    <td><select name="" class="form-select form-select-sm" id="" disabled>
-                                                            <option value="">THB</option>
-                                                        </select></td>
-                                                    <td><input type="input" class="form-control form-control-sm" id="" placeholder=""></td>
-                                                    <td><input type="input" class="form-control form-control-sm"></td>
-                                                    <td><input type="input" class="form-control form-control-sm" readonly></td>
-                                                </tr>
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -232,7 +137,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Description quantity :</label>
                                         <div class="col-sm-1 col-md-3 col-lg-4">
-                                            <input type="text" class="form-control form-control-sm" value="4" readonly>
+                                            <input type="text" class="form-control form-control-sm inp_desc_qty" value="0" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -240,7 +145,7 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_sum_aftermarkup_usd" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
                                                 <div class="col-lg-2 col-md-4">
@@ -255,7 +160,7 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_sum_markup_usd" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
                                                 <div class="col-lg-2 col-md-4">

@@ -422,7 +422,7 @@ const quartation = {
     return new Promise(function (resolve, reject) {
       $.ajax({
         type: 'post',
-        url: 'php/quotation/get_consignee.php',
+        url: 'php/Ajax_select/get_consignee.php',
         data: {},
         dataType: 'json',
         success: function (res) {

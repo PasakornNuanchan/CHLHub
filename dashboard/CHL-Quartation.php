@@ -67,7 +67,7 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
-                                        <select class="form-select form-select-sm sel_consignee">
+                                        <select class="form-select form-select-sm sel_consignee" >
                                             <option value="" selected>Plese select Congsignee</option>
                                         </select>
                                     </div>

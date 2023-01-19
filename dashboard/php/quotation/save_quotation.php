@@ -29,10 +29,11 @@
         //Check if route is exist in table route
         $sql_base_check = "SELECT * FROM `route` WHERE carrier_number = '$carrier_number' AND container_type = '$carrier_type' AND pol = '$pol' AND pod = '$pod'; ";
         $result = $con -> query($sql_base_check);
-
+        $route_price = 0;
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $route_number = ($row['route_number']);
+                $route_price = $row['price'];
             }
         } else {
             $array_st['st'] = '0';
@@ -47,6 +48,7 @@
                 UPDATE
                     `quartation_detail_base`
                 SET
+                    `unit_price` = '$route_price',
                     `base_service_route` = '$route_number',
                     `qty` = '$qty'
                 WHERE
@@ -74,7 +76,7 @@
                     '$quo_no',
                     '',
                     'base_service',
-                    '',
+                    '$route_price',
                     '',
                     '',
                     '$route_number',
