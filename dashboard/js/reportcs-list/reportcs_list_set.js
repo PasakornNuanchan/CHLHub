@@ -2,6 +2,10 @@ const reportcs_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         $('.head-of-menu').html('Report Customer Service List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-reportcs-list.php" target="" style="color:white;">Report Customer service List </a></li>`;
+        $('.bcpage').append(html_bdpage);
 
         let res_data = await reportcs_list_set.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);

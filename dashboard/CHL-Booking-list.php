@@ -35,14 +35,6 @@ session_start();
 
             <!-- breadcrumb -->
             <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bcpage">
-                        <li class="breadcrumb-item"><a href="" style="color:white;">Booking List Main list </a></li>
-                    </ol>
-                </nav>
-            </div>
-
-            <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">

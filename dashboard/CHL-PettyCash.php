@@ -45,7 +45,7 @@ session_start();
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-3 align-self-center" for="pwd2">Petty cash number:</label>
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center">Petty cash number:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-pt_number" readonly>
                                     </div>

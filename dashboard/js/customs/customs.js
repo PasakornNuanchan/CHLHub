@@ -72,7 +72,13 @@ const customs ={
     set_preview_data: async function (job_number){
         let res_data = await customs.ajax_set_preview_data(job_number);
         $('.head-of-menu').html('Customs Clearance');
-        
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-Customs-list.php" target="" style="color:white;">Customs Clearance List </a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Customs Clearance (Job Number ${res_data['dts']['job_number']})</li>`;
+        $('.bcpage').append(html_bdpage);
+
+
         console.log(res_data);
         $('[name =cash_payment_table] tbody').html('');
         html_description_payment = '';

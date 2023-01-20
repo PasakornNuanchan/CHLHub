@@ -2,8 +2,16 @@ const customs_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-        $('.head-of-menu').html('Customs Clearance List');
+        
         let res_data = await customs_list_set.ajax_set_preview_data(job_doc_pt);
+
+
+        $('.head-of-menu').html('Customs Clearance List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-Customs-list.php" target="" style="color:white;">Customs Clearance Main List</a></li>`;
+        $('.bcpage').append(html_bdpage);
+        
         console.log(res_data);
         $('[name = "data_table_list"] tbody').html('');
 
@@ -26,7 +34,7 @@ const customs_list_set = {
             <tr>
                 <td>${v['create_date']}</td>
                 <td>${v['job_number']}</td>
-                <td>${v['import_export']}</td>
+                <td>${v['type_import_export']}</td>
                 <td>${v['consignee_name']}</td>
                 <td>${v['eta']}</td>
                 <td>${v['location_name']} , ${v['country']}</td>

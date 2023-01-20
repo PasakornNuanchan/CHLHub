@@ -2,8 +2,15 @@ const advance_cash_payment_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-        $('.head-of-menu').html('Advance Cash Payment List');
+        
         let res_data = await advance_cash_payment_list_set.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Advance Cash Payment List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-Advance_payment-list.php" target="" style="color:white;">Advance Cash Payment Main List</a></li>`;
+        $('.bcpage').append(html_bdpage);
+
         console.log(res_data);
         $('[name = "data_table_list"] tbody').html('');
 

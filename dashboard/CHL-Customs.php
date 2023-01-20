@@ -31,18 +31,6 @@ session_start();
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
         </div>
-        <div class="iq-navbar-header" style="height: 100px;">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div class="row">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bcpage">
-                            <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
-                            <li class="breadcrumb-item active page-item" aria-current="page"></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
 
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <div class="card">

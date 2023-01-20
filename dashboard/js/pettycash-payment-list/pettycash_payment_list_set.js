@@ -2,8 +2,14 @@ const petty_cash_payment_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-        $('.head-of-menu').html('Petty Cash Payment List');
+        
         let res_data = await petty_cash_payment_list_set.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Petty Cash Payment List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-PettyCash_for_payment-list.php" target="" style="color:white;">Petty Cash Payment Main List</a></li>`;
+        $('.bcpage').append(html_bdpage);
         
         console.log(res_data);
         $('[name = "data-table-list"] tbody').html('');

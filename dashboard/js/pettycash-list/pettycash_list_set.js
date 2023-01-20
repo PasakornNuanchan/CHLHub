@@ -2,8 +2,14 @@ const petty_cash_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-        $('.head-of-menu').html('Petty Cash List');
         let res_data = await petty_cash_list_set.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Petty Cash List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-PettyCash-list.php" target="" style="color:white;">Petty Cash main list</a></li>`;
+        $('.bcpage').append(html_bdpage);
+
         console.log(res_data);
         $('[name = "data_table_list"] tbody').html('');
 

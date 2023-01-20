@@ -100,6 +100,14 @@ const advance_cash = {
         let sl_des_pettycash = $(".db-select-des");
 
         let res_data = await advance_cash.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Advance Cash');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-Advance-list.php" target="" style="color:white;">Advance Cash List</a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Advance Cash (Advance Cash Number ${job_doc_pt})</li>`;
+        $('.bcpage').append(html_bdpage);
+
         console.log(res_data);
        
         $('.inp-ac_number').val(res_data['act']['advance_cash_number']);

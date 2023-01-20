@@ -6,6 +6,10 @@ const balance = {
         
 
         let res_data = await balance.ajax_set_preview_data();
+
+        $('.head-of-menu').html('Balance Cash');
+        $('.bcpage').html('');
+
         console.log(res_data);
        //Petty Cash Waiting for clear
        var petty_cash_balance = 0;

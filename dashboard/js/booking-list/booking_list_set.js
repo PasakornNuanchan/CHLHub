@@ -5,6 +5,11 @@ const booking_list_set = {
         $('.head-of-menu').html('Booking List');
         let res_data = await booking_list_set.ajax_set_preview_data(job_doc_pt);
         console.log(res_data);
+        //breadcrumb
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-booking-list.php" target="" style="color:white;">Booking main list</a></li>`;
+        $('.bcpage').append(html_bdpage);
         $('[name = "data_table_list"] tbody').html('');
 
         $.each(res_data['booking_list'], function (i, v) {         

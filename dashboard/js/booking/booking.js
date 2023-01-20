@@ -225,6 +225,12 @@ const booking = {
         let res_data = await booking.ajax_set_preview_data(job_number);
         console.log(res_data);
 
+         // breadcrumb
+         $('.bcpage').html('');
+         html_bc = `
+         <li class="breadcrumb-item"><a href="CHL-booking-list.php" style="color:white;">Booking List</a></li>
+         <li class="breadcrumb-item active page-item" aria-current="page">Booking (Job Number ${res_data['booking']['job_number']})</li>`;
+         $('.bcpage').append(html_bc)
         
         $('.head-of-menu').html('Booking');
         $('.inp-jobno').val(res_data['booking']['job_number']);
@@ -253,12 +259,7 @@ const booking = {
         $('.inp-cargo_gw').val(res_data['contain']['gw']);
         $('.inp-cargo_vol').val(res_data['contain']['volume']);
         $('.inp-cargo_marks').val(res_data['contain']['mark']);
-
-        $('.bcpage').html('');
-        html_bc = `
-        <li class="breadcrumb-item"><a href="CHL-booking-list.php" style="color:white;">Booking List</a></li>
-        <li class="breadcrumb-item active page-item" aria-current="page">${res_data['booking']['job_number']}</li>`;
-        $('.bcpage').append(html_bc)
+       
 
 
         let db_sel_container = $('.inp-container_type').parent().html();
@@ -291,11 +292,13 @@ const booking = {
                 </td>
             </tr>
             `;
-            
             $('[name = container-tbl] tbody').append(html_table_container);
-            $('.inp-container_type').val(v['container_type_number']);
+            $('[name = container-tbl] tbody tr:last').find($('.inp-container_type')).val(v['container_type_number']);
+            
+            
             //$(`.inp-container_type${i} > select`).val(v['container_type_number']);
         });
+        
         
         
 

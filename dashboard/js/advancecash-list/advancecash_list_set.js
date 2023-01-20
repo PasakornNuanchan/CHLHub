@@ -2,9 +2,15 @@ const advance_cash_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
         
-
-        $('.head-of-menu').html('Advance Cash List');
         let res_data = await advance_cash_list_set.ajax_set_preview_data(job_doc_pt);
+        $('.head-of-menu').html('Advance Cash List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-Advance-list.php" target="" style="color:white;">Advance Cash Main List</a></li>`;
+        $('.bcpage').append(html_bdpage);
+
+
+
         $('[name = "data_table_list"] tbody').html('');
         console.log(res_data);
         $.each(res_data['act'], function (i, v) {         

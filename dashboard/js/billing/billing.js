@@ -50,10 +50,19 @@ const billing = {
     },
     set_preview_data: async function (job_number) {
 
-        $('.head-of-menu').html('Billing');
+        
         let html_des_ar='';
         await billing.set_data_description();
         let res_data = await billing.ajax_set_preview_data(job_number);
+
+        $('.head-of-menu').html('Billing');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-billing-list.php" target="" style="color:white;">Billing List</a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Billing (Job number ${job_number})</li>`;
+        $('.bcpage').append(html_bdpage);
+        $('[name = "data_table_list"] tbody').html('');
+
         console.log(res_data);
         let sl_des = $('.sel_description_ar').parent().html();
         

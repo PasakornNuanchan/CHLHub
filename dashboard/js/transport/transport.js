@@ -114,12 +114,28 @@ const transport ={
         
     },
     set_preview_data: async function (job_number){
-        $('.head-of-menu').html('Transport');
+        
+        
         
         let res_data = await transport.ajax_set_preview_data(job_number);
+
+    
+    //head menu and breadcrumb
+    $('.head-of-menu').html('Transport');
+    $('.bcpage').html('');
+    html_bdpage = `
+    <li class="breadcrumb-item"><a href="CHL-transport-list.php" target="" style="color:white;">Transport List</a></li>
+    <li class="breadcrumb-item active page-item" aria-current="page">Transport (Job number ${res_data['booking']['job_number']})</li>`;
+    $('.bcpage').append(html_bdpage);
+    $('[name = "data_table_list"] tbody').html('');
+
+
+
         console.log(res_data);
         html_transport ='';
         
+
+
         // container&driver
         html_select_supplier = $('.sel-supplier').parent().html();
         html_select_cur = $('.sel-cur').parent().html();
@@ -393,14 +409,130 @@ const transport ={
         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly',true);
         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly',true);
 
-
-      
-
-
-
+        // driver
+        html_driver = '';
+        num_driver = 1;
+        $('.driver-part-add').html('');
+        $.each(res_data['driver'],async function(i,v){
+            if(driver_n = v['Driver_name'] == ""){
+                driver_name_val = v['Driver_name'];
+            }else{
+                driver_name_val = "";
+            }
+            if(phone_n = v['phone_number'] == ""){
+                phone_number_val = v['Driver_name'];
+            }else{
+                phone_number_val = "";
+            }
+            if(container_n = v['container_number'] == ""){
+                container_number_val = v['container_number']
+            }else{
+                container_number_val = "";
+            }
+            if(seal_n = v['seal_number'] == ""){
+                seal_number_val = v['seal_number'];
+            }else{
+                seal_number_val = "";
+            }
+            
+            
+            html_driver = `
+            <div class="driver-part-del">
+                <div class="card-body" >
+                    <h5>Driver (person ${num_driver})</h5>
+                    <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
+                        <div class="col-sm-9 col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" value="${driver_name_val}" >
+                                </div>
+                                <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control" value="${phone_number_val}" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm" value="${container_number_val}" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Seal number:</label>
+                        <div class="col-sm-9 col-lg-9">   
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="input" class="form-control form-control-sm" value="${seal_number_val}" readonly>    
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.del_driver(this);" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+                num_driver++;
+                await $('.driver-part-add').append(html_driver);
+        });
         
-
     },
+    adddriverhtml : function(e=null){
+        html_add_driver = '';
+        html_add_driver =`
+        
+        <div class="driver-part-del">
+        <div class="card-body" >
+            <h5>Driver (person ${num_driver})</h5>
+            <div class="form-group row">
+            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
+                <div class="col-sm-9 col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" value="" >
+                        </div>
+                        <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
+                        <div class="col-lg-2">
+                            <input type="text" class="form-control" value="" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
+                <div class="col-lg-4">
+                    <input type="input" class="form-control form-control-sm" value="" >
+                </div>
+            </div>
+            <div class="form-group row">
+            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Seal number:</label>
+                <div class="col-sm-9 col-lg-9">   
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm" value="" readonly>    
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.del_driver(this);" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        `;
+        num_driver++;
+        $('.driver-part-add').append(html_add_driver);
+        
+    },del_driver: function (e = null) {
+        num_driver--;
+        $(e).closest('.driver-part-del').remove();
+    },
+
     addpthtml: function (e = null) {
         
         console.log(html_select_supplier);

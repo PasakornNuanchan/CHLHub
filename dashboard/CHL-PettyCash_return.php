@@ -36,12 +36,6 @@ session_start();
 
             <div>
                 <div class="row">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" style="color:white;">Petty Cash List (Return)</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">SG202201023</li>
-                        </ol>
-                    </nav>
                     <div class="col-sm-12 col-lg-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between ">

@@ -1,11 +1,21 @@
 const transport_list_set = {
    
     set_data_rows: async function (job_doc_pt) {
-        $('.head-of-menu').html('Transport List');
+        
 
         let res_data = await transport_list_set.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Transport List');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-transport-list.php" target="" style="color:white;">Transport main list</a></li>`;
+        $('.bcpage').append(html_bdpage);
+        
+
         console.log(res_data);
         $('[name = "data_table_list"] tbody').html('');
+
+
 
         $.each(res_data['transport_list'], function (i, v) {         
             

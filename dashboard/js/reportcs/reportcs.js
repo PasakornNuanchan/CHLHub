@@ -46,12 +46,21 @@ const reportcs = {
 
     set_preview_data: async function (job_number) {
 
-        
+       
 
         let res_data = await reportcs.ajax_set_preview_data(job_number);
         console.log(res_data);
-        
+
+        // head of menu and breadcrumb
         $('.head-of-menu').html('Report Customser Service');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-reportcs-list.php" target="" style="color:white;">Report Customer service List </a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Report Customer Service (Job Number ${res_data['de']['job_number']})</li>`;
+        $('.bcpage').append(html_bdpage);
+
+
+        
         // supplier
         let html_supplier = '';
         $.each(res_data['supplier'], function (i, k) {
@@ -110,51 +119,127 @@ const reportcs = {
             il_status = 'disabled';
         }
 
+        let inv_receiv_by = res_data['dej']['INV_receiv_by'];
+        let inv_receiv_datetime = res_data['dej']['inv_receiv_datetime'];
+        let inv_check_by = res_data['dej']['INV_check_by'];
+        let inv_check_datetime = res_data['dej']['inv_check_datetime'];
+
+        if(res_data['dej']['INV_receiv_by'] == null){
+            inv_receiv_by = "";
+        }if(res_data['dej']['inv_receiv_datetime'] == null){
+            inv_receiv_datetime = "";
+        }if(res_data['dej']['INV_check_by'] == null){
+            inv_check_by = "";
+        }if(res_data['dej']['inv_check_datetime'] == null){
+            inv_check_datetime = "";
+        }
+       
+        let BL_receiv_by = res_data['dej']['BL_receiv_by'];
+        let BL_receiv_datetime = res_data['dej']['bl_receiv_datetime'];
+        let BL_check_by = res_data['dej']['BL_check_by'];
+        let BL_check_datetime = res_data['dej']['bl_check_datetime'];
+
+        if(res_data['dej']['BL_receiv_by'] == null){
+            BL_receiv_by = "";
+        }if(res_data['dej']['bl_receiv_datetime'] == null){
+            BL_receiv_datetime = "";
+        }if(res_data['dej']['BL_check_by'] == null){
+            BL_check_by = "";
+        }if(res_data['dej']['bl_check_datetime'] == null){
+            BL_check_datetime = "";
+        }
+
+        let PL_receiv_by = res_data['dej']['PL_receiv_by'];
+        let PL_receiv_datetime = res_data['dej']['pl_receiv_datetime'];
+        let PL_check_by = res_data['dej']['PL_check_by'];
+        let PL_check_datetime = res_data['dej']['pl_check_datetime'];
+
+        if(res_data['dej']['PL_receiv_by'] == null){
+            PL_receiv_by = "";
+        }if(res_data['dej']['pl_receiv_datetime'] == null){
+            PL_receiv_datetime = "";
+        }if(res_data['dej']['PL_check_by'] == null){
+            PL_check_by = "";
+        }if(res_data['dej']['pl_check_datetime'] == null){
+            PL_check_datetime = "";
+        }
+
+        let ID_receiv_by = res_data['dej']['ID_receiv_by'];
+        let ID_receiv_datetime = res_data['dej']['id_receiv_datetime'];
+        let ID_check_by = res_data['dej']['ID_check_by'];
+        let ID_check_datetime = res_data['dej']['id_check_datetime'];
+
+        if(res_data['dej']['ID_receiv_by'] == null){
+            ID_receiv_by = "";
+        }if(res_data['dej']['id_receiv_datetime'] == null){
+            ID_receiv_datetime = "";
+        }if(res_data['dej']['ID_check_by'] == null){
+            ID_check_by = "";
+        }if(res_data['dej']['id_check_datetime'] == null){
+            ID_check_datetime = "";
+        }
+
+        let IL_receiv_by = res_data['dej']['IL_receiv_by'];
+        let IL_receiv_datetime = res_data['dej']['il_receiv_datetime'];
+        let IL_check_by = res_data['dej']['IL_check_by'];
+        let IL_check_datetime = res_data['dej']['il_check_datetime'];
+
+        if(res_data['dej']['IL_receiv_by'] == null){
+            IL_receiv_by = "";
+        }if(res_data['dej']['il_receiv_datetime'] == null){
+            IL_receiv_datetime = "";
+        }if(res_data['dej']['IL_check_by'] == null){
+            IL_check_by = "";
+        }if(res_data['dej']['il_check_datetime'] == null){
+            IL_check_datetime = "";
+        }
+
+     
         html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
                         <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dej']['INV_receiv_by']}</td>
-                        <td align="center">${res_data['dej']['inv_receiv_datetime']}</td>
-                        <td align="center">${res_data['dej']['INV_check_by']}</td>
-                        <td align="center">${res_data['dej']['inv_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                        <td align="center">${inv_receiv_by}</td>
+                        <td align="center">${inv_receiv_datetime}</td>
+                        <td align="center">${inv_check_by}</td>
+                        <td align="center">${inv_check_datetime}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button></td>
                     </tr>
                     <tr>
                         <td>Bill of lading</td>
                         <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dej']['BL_receiv_by']}</td>
-                        <td align="center">${res_data['dej']['bl_receiv_datetime']}</td>
-                        <td align="center">${res_data['dej']['BL_check_by']}</td>
-                        <td align="center">${res_data['dej']['bl_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                        <td align="center">${BL_receiv_by}</td>
+                        <td align="center">${BL_receiv_datetime}</td>
+                        <td align="center">${BL_check_by}</td>
+                        <td align="center">${BL_check_datetime}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button></td>
                     </tr>
                     <tr>
                         <td>Packing list</td>
                         <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dej']['PL_receiv_by']}</td>
-                        <td align="center">${res_data['dej']['pl_receiv_datetime']}</td>
-                        <td align="center">${res_data['dej']['PL_check_by']}</td>
-                        <td align="center">${res_data['dej']['pl_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                        <td align="center">${PL_receiv_by}</td>
+                        <td align="center">${PL_receiv_datetime}</td>
+                        <td align="center">${PL_check_by}</td>
+                        <td align="center">${PL_check_datetime}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button></td>
                     </tr>
                     <tr>
                         <td>Import Declaration</td>
                         <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dej']['ID_receiv_by']}</td>
-                        <td align="center">${res_data['dej']['id_receiv_datetime']}</td>
-                        <td align="center">${res_data['dej']['ID_check_by']}</td>
-                        <td align="center">${res_data['dej']['pl_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                        <td align="center">${ID_receiv_by}</td>
+                        <td align="center">${ID_receiv_datetime}</td>
+                        <td align="center">${ID_check_by}</td>
+                        <td align="center">${ID_check_datetime}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button></td>
                     </tr>
                     <tr>
                         <td>Import Licence</td>
                         <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dej']['IL_receiv_by']}</td>
-                        <td align="center">${res_data['dej']['il_receiv_datetime']}</td>
-                        <td align="center">${res_data['dej']['IL_check_by']}</td>
-                        <td align="center">${res_data['dej']['il_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                        <td align="center">${IL_receiv_by}</td>
+                        <td align="center">${IL_receiv_datetime}</td>
+                        <td align="center">${IL_check_by}</td>
+                        <td align="center">${IL_check_datetime}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button></td>
                     </tr>
                 `;
         $('[name = tbl_job_status] tbody').html(html_detail_des);
@@ -340,29 +425,8 @@ const reportcs = {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-3">Budget:</label>
-                    <div class="col-sm-9 col-md-9">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4">
-                                <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget" value="${bud}" readonly>
-                            </div>
-                            <div class="col-lg-1 col-md-3">
-                            <div class="db-sel-cur db-sel-cur${i}">
-                                ${html_select_cur}
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier confirm</h4>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-">Sent Request Line DateTime :</label>
-                    <div class="col-sm-3 col-lg-3">
-                        <input type="input" class="form-control form-control-sm inp-sent_request_line" value="${sldt}" readonly>
-                    </div>
-                </div>
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
                     <div class="col-sm-3 col-lg-3">

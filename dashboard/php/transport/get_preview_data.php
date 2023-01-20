@@ -76,7 +76,16 @@ SELECT
       $sql_hscode = "
       SELECT * FROM hs_code ";
 
-     
+     $sql_driver = "
+     SELECT 
+     tc.ID,
+     tc.Driver_name,
+     tc.phone_number,
+     tc.container_number,
+     c.seal_number
+     FROM transport_contact as tc
+     INNER JOIN container as c ON tc.container_number = c.container_number
+     WHERE tc.job_number = '$job_number'";
 
      
 $result = $con->query($sql_payment);
@@ -143,9 +152,17 @@ if ($result->num_rows > 0) {
       $hscode[] = "0 results";
     }
 
+  $result = $con->query($sql_driver);
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $driver[] = $row;
+    }
+  } else {
+    $driver[] = "0 result";
+  }
  
  
         
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'hscode'=>$hscode));
+      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'hscode'=>$hscode,'driver'=>$driver));
 ?>

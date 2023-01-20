@@ -37,14 +37,6 @@ include 'core/conn.php';
             <!-- MAIN BODY START -->
 
             <!-- breadcrumb -->
-            <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bcpage">
-                        <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
-                        <li class="breadcrumb-item active page-item" aria-current="page"></li>
-                    </ol>
-                </nav>
-            </div>
 
             <div class="row">
                 <div class="col-md-12 col-xl-5">
@@ -364,7 +356,8 @@ include 'core/conn.php';
                                             </thead>
                                             <tbody>
                                                 <tr class="booking_container">
-                                                    <td class="td-sel-conttype"><select class="form-select form-select-sm shadow-none inp-container_type">
+                                                    <td class="td-sel-conttype">
+                                                        <select class="form-select form-select-sm shadow-none inp-container_type">
                                                             <?php
                                                             $Container_type_select = "SELECT * FROM container_type";
                                                             $result_Container_type = mysqli_query($con, $Container_type_select);

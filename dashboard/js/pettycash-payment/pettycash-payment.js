@@ -61,6 +61,16 @@ const pettycash_payment = {
         let sl_des_pettycash = $(".db-select-des");
 
         let res_data = await pettycash_payment.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Petty Cash Return');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-PettyCash_return-list.php" target="" style="color:white;">Petty Cash Return List</a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Petty Cash Return (Petty Cash Number ${job_doc_pt})</li>`;
+        $('.bcpage').append(html_bdpage);
+        
+
+
         console.log(res_data);
         
         //card 1 request petty cash

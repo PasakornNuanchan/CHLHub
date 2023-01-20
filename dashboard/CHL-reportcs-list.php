@@ -34,14 +34,6 @@ session_start();
             <!-- MAIN BODY START -->
 
             <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bcpage">
-                        <li class="breadcrumb-item"><a href="" style="color:white;">Report Customer Sevice List Main list </a></li>
-                    </ol>
-                </nav>
-            </div>
-
-            <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">

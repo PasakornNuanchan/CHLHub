@@ -30,18 +30,7 @@ session_start();
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
         </div>
-        <div class="iq-navbar-header" style="height: 100px;">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div class="row">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bcpage">
-                            <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
-                            <li class="breadcrumb-item active page-item" aria-current="page"></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div> <!-- Nav Header Component End -->
+         <!-- Nav Header Component End -->
         <!--Nav End-->
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <div class="card">
@@ -196,7 +185,9 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-secondary rounded-pill" onclick="transport.addpthtml();">Add Drop off</button>
+                        
+                        <button type="button" class="btn btn-soft-secondary" onclick="transport.addpthtml();">Add Drop off</button>
+                        
                     </div>
                 </div>
 
@@ -245,40 +236,54 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card ">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
                                         <h4 class="card-title">Driver</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Driver name:</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control" readonly>
+                                    <div class="driver-part-add">
+                                        <div class="driver-part-del">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">Driver name:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control" readonly>
+                                                        </div>
+                                                        <label class="control-label col-sm-2 align-self-center ">Phone Number :</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center ">Phone Number :</label>
-                                                <div class="col">
-                                                    <input type="text" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">Container number:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="input" class="form-control form-control-sm" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">Seal number:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="input" class="form-control form-control-sm" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Container number:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Seal number:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" readonly>
+                                        <div class="col-lg-12">
+                                        <div style="float: right">
+                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-soft-secondary" onclick="transport.adddriverhtml();">Add Drop off</button>
                             </div>
                         </div>
                     </div>
@@ -494,28 +499,6 @@ session_start();
 </body>
 
 </html>
-
-
-
-
-<script>
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-</script>
 
 <script src="js/transport/transport.js"></script>
 <script>

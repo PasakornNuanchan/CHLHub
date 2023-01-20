@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Report Customer service</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -30,18 +30,7 @@ session_start();
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
         </div>
-        <div class="iq-navbar-header" style="height: 100px;">
-            <div class="conatiner-fluid content-inner mt-n5 py-0">
-                <div class="row">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bcpage">
-                            <li class="breadcrumb-item"><a href="" style="color:white;">Petty Cash List (Return)</a></li>
-                            <li class="breadcrumb-item active page-item" aria-current="page"></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->

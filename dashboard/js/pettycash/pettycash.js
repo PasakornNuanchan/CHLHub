@@ -72,6 +72,15 @@ const petty_cash = {
         let sl_des_pettycash = $(".db-select-des");
 
         let res_data = await petty_cash.ajax_set_preview_data(job_doc_pt);
+
+        $('.head-of-menu').html('Petty Cash');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="CHL-PettyCash-list.php" target="" style="color:white;">Petty Cash List</a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Petty Cash (Petty Cash Number ${job_doc_pt})</li>`;
+        $('.bcpage').append(html_bdpage);
+        
+
         console.log(res_data);
        
         $('.inp-pt_number').val(res_data['pct']['petty_cash_number']);
