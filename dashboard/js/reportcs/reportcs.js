@@ -92,31 +92,45 @@ const reportcs = {
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
 
         //Document
-        $('[name = tbl_job_status] tbody').html('');
-        if (res_data['dej']['INV_receiv_by'] == " ") {
+        if(res_data['dej']['INV_receiv_by'] == ""){
             inv_status = '';
-        } else {
-            inv_status = 'disabled';
+            inv_status_edit ='hidden';
+
+        }else{
+            inv_status = 'hidden';
+            inv_status_edit ='';
         }
-        if (res_data['dej']['BL_receiv_by'] == " ") {
+        if(res_data['dej']['BL_receiv_by'] == "" ){
             bl_status = '';
-        } else {
-            bl_status = 'disabled';
+            bl_status_edit = 'hidden';
+
+        }else{
+            bl_status = 'hidden';
+            bl_status_edit = '';
         }
-        if (res_data['dej']['PL_receiv_by'] == " ") {
+        if(res_data['dej']['PL_receiv_by'] == "" ){
             pl_status = '';
-        } else {
-            pl_status = 'disabled';
+            pl_status_edit = 'hidden';
+
+        }else{
+            pl_status = 'hidden';
+            pl_status_edit = '';
         }
-        if (res_data['dej']['ID_receiv_by'] == " ") {
+        if(res_data['dej']['ID_receiv_by'] == "" ){
             id_status = '';
-        } else {
-            id_status = 'disabled';
+            id_status_edit = 'hidden';
+
+        }else{
+            id_status = 'hidden';
+            id_status_edit = '';
         }
-        if (res_data['dej']['IL_receiv_by'] == " ") {
+        if(res_data['dej']['IL_receiv_by'] == ""){
             il_status = '';
-        } else {
-            il_status = 'disabled';
+            il_status_edit = 'hidden';
+
+        }else{
+            il_status = 'hidden';
+            il_status_edit = '';
         }
 
         let inv_receiv_by = res_data['dej']['INV_receiv_by'];
@@ -203,7 +217,8 @@ const reportcs = {
                         <td align="center">${inv_receiv_datetime}</td>
                         <td align="center">${inv_check_by}</td>
                         <td align="center">${inv_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button></td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Bill of lading</td>
@@ -212,7 +227,8 @@ const reportcs = {
                         <td align="center">${BL_receiv_datetime}</td>
                         <td align="center">${BL_check_by}</td>
                         <td align="center">${BL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button></td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Packing list</td>
@@ -221,7 +237,8 @@ const reportcs = {
                         <td align="center">${PL_receiv_datetime}</td>
                         <td align="center">${PL_check_by}</td>
                         <td align="center">${PL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button></td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Import Declaration</td>
@@ -230,7 +247,8 @@ const reportcs = {
                         <td align="center">${ID_receiv_datetime}</td>
                         <td align="center">${ID_check_by}</td>
                         <td align="center">${ID_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button></td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Import Licence</td>
@@ -239,13 +257,14 @@ const reportcs = {
                         <td align="center">${IL_receiv_datetime}</td>
                         <td align="center">${IL_check_by}</td>
                         <td align="center">${IL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button></td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                 `;
         $('[name = tbl_job_status] tbody').html(html_detail_des);
         $('.inp-etd').val(res_data['dej']['']).attr('readonly', true);
         $('.inp-clearance_by').val(res_data['dej']['custom_by']).attr('readonly', true);
-        $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
+        $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
         //container
         var html_container = '';

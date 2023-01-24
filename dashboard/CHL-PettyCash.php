@@ -93,11 +93,9 @@ session_start();
                                                 </thead>
                                                 <tbody>
                                                     <tr class="pettycash_detail">
-                                                        <td>
-                                                                <select class="form-select form-select-sm sel-description">
-                                                                    <option value="">Plese select Congsignee</option>
-                                                                </select>
-                                                        </td>
+                                                        <td><select class="form-select form-select-sm sel-description">
+                                                                <option value="">Plese select Congsignee</option>
+                                                            </select></td>
                                                         <td><input type="input" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.amount_total();"></td>
                                                         <td>
                                                             <select name="" id="" class="form-select sel_cur">

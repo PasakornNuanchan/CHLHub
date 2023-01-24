@@ -747,7 +747,7 @@ const quartation = {
       truck_export: truck_fee_export,
       sup_service: sup_service,
     }
-    Swal.fire({
+    .fire({
       icon : 'success',
       text : 'wtf',
     })

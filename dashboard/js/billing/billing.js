@@ -64,15 +64,21 @@ const billing = {
         $('[name = "data_table_list"] tbody').html('');
 
         console.log(res_data);
+
         let sl_des = $('.sel_description_ar').parent().html();
-        
         let sl_bill = $('.db-sel-bill').parent().html();
+
+         
+
+        $('[name = billing-ar-tbl] tbody').html('');
         // account receiv
         $.each(res_data['ar'],function(i,v){
+            
             u_price = parseFloat(v['unit_price']);
             ar_amt = parseFloat(v['amount']);
             vat = parseFloat(v['vat']);
             amtincvat = parseFloat(v['amtinclvat']);
+           
 
             if(v['payble'] == 1){
                 payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
@@ -83,17 +89,14 @@ const billing = {
                 action_payble_ar = '';
                 action_del_ar = '';
             }
-
             if(v['check_status'] == 1){
                 check_status = 'disabled checked';
                 
             }else{
                 check_status = 'unchecked';
             };
-            
-
-            html_des_ar += `
-            <tr class="text-center ar_des ar_des${i}">
+            html_des_ar = `
+            <tr class="text-center">
                 <td>1</td>
                 <td><div class="db-sel-des">${sl_des}</div></td>
                 <td>${sl_bill}</td>
@@ -104,8 +107,8 @@ const billing = {
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
                 </select></td>
-                <td><input type="text" class="form-control" value="${v['qty']}"></td>
-                <td><input type="text" class="form-control" value="${number_format(v['unit_price'])}"></td>
+                <td><input type="text" class="form-control" value="${v['qty']}" style="text-align:right;"></td>
+                <td><input type="text" class="form-control" value="${number_format(v['unit_price'])}" style="text-align:right;"></td>
                 <td align="right">${number_format(ar_amt.toFixed(2))}</td>
                 <td>${vat}%</td>
                 <td align="right">${number_format(amtincvat.toFixed(2))}</td>
@@ -120,9 +123,13 @@ const billing = {
                 
             </tr>
             `;  
-            $('[name = "billing-ar-tbl"] tbody').html(html_des_ar);
-            $(`.ar_des${i} .sel_description`).val(v['billing_number']);
-            $(`.ar_des${i} .sel_cur_description`).val(v['currency']);
+            $('[name = billing-ar-tbl] tbody').append(html_des_ar);
+            // $(`.ar_des${i} .sel_description_ar`).val(v['billing_number']);
+            // $(`.ar_des${i} .db-sel-bill`).val(v['consignee_number']);
+            // $(`.ar_des${i} .sel_cur_description`).val(v['currency']);
+            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_description_ar')).val(v['billing_number']);
+            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_bill_to')).val(v['consignee_number']);
+            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_cur_description')).val(v['currency']);
 
         });
             

@@ -66,7 +66,7 @@ $job_number = $_POST['job_number'];
           IF(js.il_receiv_datetime is null,' ',js.il_receiv_datetime) as il_receiv_datetime,
           IF(concat(IL_ck.first_name,' ',IL_ck.last_name) IS null ,'',concat(IL_ck.first_name,' ',IL_ck.last_name)) as IL_check_by,
           IF(js.il_check_datetime is null,' ',js.il_check_datetime) as il_check_datetime,
-          IF(js.Cus_suc_datatime is null,' ',js.Cus_suc_datatime) as Cus_suc_datatime,
+          IF(js.Cus_suc_datetime is null,' ',js.Cus_suc_datetime) as Cus_suc_datatime,
           IF(concat(custom_by.first_name,' ',custom_by.last_name) IS null ,'',concat(custom_by.first_name,' ',custom_by.last_name)) as custom_by,
           js.Cus_status
         FROM `job_status` js

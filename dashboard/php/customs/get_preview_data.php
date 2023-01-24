@@ -2,22 +2,28 @@
 $job_number = $_POST['job_number'];
     include '../../core/conn.php';
 
-
 $sql_payment = "
-    SELECT * FROM cash_payment cp
+    SELECT 
+    cp.type,
+    bd.billing_item_name,
+    cp.amount,
+    u.first_name,
+    u.last_name
+    FROM cash_payment cp
     INNER JOIN billing_description bd ON cp.description = bd.billing_number 
     INNER JOIN user u ON cp.create_by = u.user_number
     WHERE job_number = '$job_number'
     ";
+
 $sql_detail_job = "
 SELECT 
       js.ID,
       js.job_number,
       js.INV_receiv_status,
       js.INV_picture,
-      IF(concat(INV_re.first_name,' ',INV_re.last_name) IS null ,' ',concat(INV_re.first_name,' ',INV_re.last_name))as INV_receiv_by ,
+      IF(concat(INV_re.first_name,' ',INV_re.last_name) IS null ,'',concat(INV_re.first_name,' ',INV_re.last_name))as INV_receiv_by ,
       IF(js.inv_receiv_datetime is null ,' ',js.inv_receiv_datetime) as inv_receiv_datetime,
-      IF(concat(INV_ck.first_name,' ',INV_ck.last_name) IS null ,' ',concat(INV_ck.first_name,' ',INV_ck.last_name)) as INV_check_by,
+      IF(concat(INV_ck.first_name,' ',INV_ck.last_name) IS null ,'',concat(INV_ck.first_name,' ',INV_ck.last_name)) as INV_check_by,
       IF(js.inv_check_datetime is null ,' ',js.inv_check_datetime) as inv_check_datetime,
       js.PL_receiv_status,
       js.PL_picture,
@@ -33,7 +39,7 @@ SELECT
       IF(js.bl_check_datetime is null ,' ',js.bl_check_datetime) as bl_check_datetime,
       js.ID_receiv_status,
       js.ID_picture,
-      IF(concat(ID_re.first_name,' ',ID_re.last_name) IS null ,'',concat(ID_re.first_name,' ',ID_re.last_name)) as ID_receiv_by,
+      IF(concat(ID_re.first_name,' ',ID_re.last_name) IS null ,' ',concat(ID_re.first_name,' ',ID_re.last_name)) as ID_receiv_by,
       IF(js.id_receiv_datetime is null ,' ',js.id_receiv_datetime) as id_receiv_datetime,
       IF(concat(ID_ck.first_name,' ',ID_ck.last_name) IS null ,'',concat(ID_ck.first_name,' ',ID_ck.last_name)) as ID_check_by,
       IF(js.id_check_datetime is null ,' ',js.id_check_datetime) as id_check_datetime,
@@ -43,7 +49,7 @@ SELECT
       IF(js.il_receiv_datetime is null,' ',js.il_receiv_datetime) as il_receiv_datetime,
       IF(concat(IL_ck.first_name,' ',IL_ck.last_name) IS null ,'',concat(IL_ck.first_name,' ',IL_ck.last_name)) as IL_check_by,
       IF(js.il_check_datetime is null,' ',js.il_check_datetime) as il_check_datetime,
-      IF(js.Cus_suc_datatime is null,' ',js.Cus_suc_datatime) as Cus_suc_datatime,
+      IF(js.Cus_suc_datetime is null,' ',js.Cus_suc_datetime) as Cus_suc_datetime,
       IF(concat(custom_by.first_name,' ',custom_by.last_name) IS null ,'',concat(custom_by.first_name,' ',custom_by.last_name)) as custom_by,
       js.Cus_status
     FROM `job_status` js
@@ -62,6 +68,17 @@ SELECT
 
       $sql_transport = "
       SELECT * FROM transport_booking WHERE job_number = '$job_number'";
+
+      $sql_booking = "
+      SELECT * FROM job_title WHERE job_number = '$job_number';";
+
+      $sql_cn_inform = "
+      SELECT * FROM container_information 
+      LEFT JOIN hs_code ON container_information.hs_code = hs_code.hs_code WHERE job_number = '$job_number'";
+
+
+
+     
 
 $result = $con->query($sql_payment);
 if ($result->num_rows > 0) {
@@ -88,8 +105,25 @@ if ($result->num_rows > 0) {
 } else {
   $tran[] = "0 results";
 }
-      
-        
+$result = $con->query($sql_booking);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $booking = $row;
+  }
+} else {
+  $booking = "0 results";
+}
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran));
+$result = $con -> query($sql_cn_inform);
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $cninform = $row;
+      }
+    } else {
+      $cninform = "0 results";
+    }
+
+
+
+     echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'booking'=>$booking,'cninform'=>$cninform));
 ?>

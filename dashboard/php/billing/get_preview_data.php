@@ -6,6 +6,7 @@
       b.ID,
       bd.billing_number,
       bd.billing_item_name,
+      c.consignee_number,
       c.consignee_name,
       b.payble,
       b.currency,
@@ -17,8 +18,8 @@
       b.remark,
       b.check_status
     FROM `billing` b
-      INNER JOIN billing_description bd ON b.billing_description = bd.billing_number
-      INNER JOIN consignee c ON b.bill_to = c.consignee_number
+      LEFT JOIN billing_description bd ON b.billing_description = bd.billing_number
+      LEFT JOIN consignee c ON b.bill_to = c.consignee_number
     WHERE 
       job_number = '$job_number' and 
       type = 'AR'

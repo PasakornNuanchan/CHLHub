@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Customs Clearance</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 
@@ -37,13 +37,13 @@ session_start();
                 <div class="card-body">
                     <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded active" id="pills-boooking-tab" data-bs-toggle="pill" data-bs-target="#pills-transport" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Booking Transport</button>
+                            <button class="nav-link rounded " id="pills-boooking-tab" data-bs-toggle="pill" data-bs-target="#pills-transport" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Booking Transport</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-pettycash-tab" data-bs-toggle="pill" data-bs-target="#pills-pettycash" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="false">Petty Cash & Advance</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-customs" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Customs & Document</button>
+                            <button class="nav-link rounded active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-customs" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Customs & Document</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-booking" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Booking</button>
@@ -52,7 +52,7 @@ session_start();
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
+                <div class="tab-pane fade " id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -309,7 +309,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-customs" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="tab-pane fade show active" id="pills-customs" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -418,8 +418,10 @@ session_start();
                                             <input type="input" class="form-control form-control-sm inp-datetime_success" readonly>
                                         </div>
                                     </div>
-                                    <div style="float: right">
-                                        <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
+                                    <div class="add_btn_clearance">
+                                        <div style="float: right">
+                                            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()"style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -427,8 +429,8 @@ session_start();
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12">
+                <div class="row">
+                        <div class="col-md-7 col-xl-7">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
@@ -437,299 +439,183 @@ session_start();
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Job number:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" readonly>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Job number</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="input" class="form-control form-control-sm inp-jobno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Booking number:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm" readonly>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Booking number</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="input" class="form-control form-control-sm inp-bkno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Shipper:</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-
-                                                <?php
-                                                $shipper_select = "SELECT * FROM carrier";
-
-                                                ?>
-                                            </select>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Shipment Terms</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $shipment_select = "SELECT * FROM shipment_term";
-
-                                                ?>
-
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipper</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <select class="form-select form-select-sm inp-shper">
+                                                <option value="">pleses select shipper</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Remark</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Carrier:</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $carrier_select = "SELECT * FROM carrier";
-
-                                                ?>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipment Terms</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-shptrm">
+                                                <option selected="">Please select shipment term</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Port of Receipt</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $area_select = "SELECT * FROM area";
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Remark</label>
+                                        <div class="col-sm-9 col-md-8 col-lg-7">
+                                            <input type="input" class="form-control form-control-sm inp-rmk">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier:</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-carrier">
+                                                <option selected="">Please select carrier</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                                ?>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Receipt</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-prtrecieve">
+                                                <option selected="">Please select Port of Receipt</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Port of Loading</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $area_select = "SELECT * FROM area";
-
-                                                ?>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Loading</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-prtload">
+                                                <option selected="">Please select Port of Loading</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">T/S Port</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $area_select = "SELECT * FROM area";
-
-                                                ?>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">T/S Port</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-ts_port">
+                                                <option selected="">Please select T/S Port</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Port of Delivery</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
-                                                <?php
-                                                $area_select = "SELECT * FROM area";
-
-                                                ?>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Delivery</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-delivery">
+                                                <option selected="">Please select Port of Delivery</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3  align-self-center ">Mother Vessel:</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Mother Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-M_vessel">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center ">Voy No. :</label>
-                                                <div class="col">
-                                                    <input type="text" class="form-control">
+                                                <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center ">Voy No.:</label>
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-mother-voy-no">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Feeder Vessel:</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Feeder Vessel:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_vessel">
                                                 </div>
-                                                <label class="control-label col-sm-2 align-self-center ">Voy No. :</label>
-                                                <div class="col">
-                                                    <input type="text" class="form-control">
+                                                <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.:</label>
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Voy No.:</label>
-                                        <div class="col-sm-9">
-                                            <input type="input" class="form-control form-control-sm">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETD:</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="date" class="form-control form-control-sm inp-etd">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">ETD:</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" value="2019-12-18">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">ETA:</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" value="2019-12-18">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <h4 class="card-title">Container</h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group row">
-                                            <div class="table-responsive mt-4">
-                                                <table id="basic-table" class="table table-striped " role="grid">
-                                                    <thead>
-                                                        <tr align="center">
-                                                            <th>Container type</th>
-                                                            <th>Container Quantity</th>
-                                                            <th>Single CNT Weight</th>
-                                                            <th>SOC</th>
-                                                            <th>OW</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr align="center">
-                                                            <td><select class="form-select form-select-sm shadow-none">
-                                                                    <?php
-                                                                    $Container_type_select = "SELECT * FROM container_type";
-
-                                                                    ?>
-                                                                </select></td>
-                                                            <td><input type="input" class="form-control form-control-sm"></td>
-                                                            <td><input type="input" class="form-control form-control-sm"></td>
-                                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-warning rounded-pill btn-xs"><i class="bi bi-trash"></i> Edit</button>
-                                                                <button type="button" class="btn btn-danger rounded-pill btn-xs"><i class="bi bi-pencil-fill"></i> Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <button type="submit" class="btn btn-link btn-soft-light rounded-pill">add new</button>
-
-                                            <p></p>
-                                            <label class="control-label col-sm-3 align-self-center ">CY:</label>
-                                            <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm" value="2019-12-18">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">RTN:</label>
-                                            <div class="col-sm-9">
-                                                <input type="date" class="form-control form-control-sm" value="2019-12-18">
-                                            </div>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETA:</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="date" class="form-control form-control-sm inp-eta">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-md-5 col-xl-5">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <h4 class="card-title">Container Information</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">Cargo description</label>
-                                            <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo description</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-cargodes">
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">H.S.Code:</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-select form-select-sm mb-3 shadow-none">
-                                                    <?php
-                                                    $hs_select = "SELECT * FROM hs_code";
-
-                                                    ?>
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">H.S.Code:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-hscode">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <select class="form-select form-select-sm inp-cargo_type">
+                                                    <option selected="">Please select cargo type</option>
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">Cargo Type:</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-select form-select-sm mb-3 shadow-none">
-
-                                                    <?php
-                                                    $cargo_type_select = "SELECT * FROM cargo_type";
-
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">Quantity:</label>
-                                            <div class="col-sm-9">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" aria-describedby="basic-addon2">
-                                                    <span class="input-group-text" id="basic-addon2">Package</span>
+                                                    <input type="text" class="form-control form-control-sm inp-cargo_qty">
+                                                    <span class="input-group-text">Package</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">G.W:</label>
-                                            <div class="col-sm-9">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" aria-describedby="basic-addon2">
-                                                    <span class="input-group-text" id="basic-addon2">KGS</span>
+                                                    <input type="text" class="form-control inp-cargo_gw">
+                                                    <span class="input-group-text">KGS</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">Volume:</label>
-                                            <div class="col-sm-9">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" aria-describedby="basic-addon2">
-                                                    <span class="input-group-text" id="basic-addon2">M3</span>
+                                                    <input type="text" class="form-control inp-cargo_vol">
+                                                    <span class="input-group-text">M3</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 align-self-center ">Marks:</label>
-                                            <div class="col-sm-9">
-                                                <input type="input" class="form-control form-control-sm">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-cargo_marks">
                                             </div>
-
-                                            <button class="btn btn-primary rounded-pill ">
-                                                <span class="btn-inner">
-                                                    <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12.0001 8.32739V15.6537" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        <path d="M15.6668 11.9904H8.3335" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6857 2H7.31429C4.04762 2 2 4.31208 2 7.58516V16.4148C2 19.6879 4.0381 22 7.31429 22H16.6857C19.9619 22 22 19.6879 22 16.4148V7.58516C22 4.31208 19.9619 2 16.6857 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    </svg>
-                                                </span>
-                                                Save
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -751,24 +637,6 @@ session_start();
 
 </html>
 
-<script>
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-</script>
 <script src="js/customs/customs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
