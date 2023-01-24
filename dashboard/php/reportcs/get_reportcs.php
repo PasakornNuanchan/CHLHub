@@ -1,7 +1,8 @@
 <?php
     include '../../core/conn.php';
     $arr = array();
-    
+    $sql_supplier = "
+    SELECT * FROM `transport_sup`";
 
     $sql_shipper = "
     SELECT ID, shipper_name, shipper_number FROM shipper;";
@@ -21,7 +22,14 @@
    
 
 
-
+$result = $con->query($sql_supplier);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $supplier[] = $row;
+    }
+} else {
+    $supplier[] = "0 results";
+}
 
 $result = $con->query($sql_shipper);
 if ($result->num_rows > 0) {
@@ -71,6 +79,6 @@ if ($result->num_rows > 0) {
 
 
   
-    echo json_encode(array('shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo))
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo))
 
 ?>

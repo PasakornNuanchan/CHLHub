@@ -1,5 +1,7 @@
 <?php
     include '../../core/conn.php';
+    include '../../core/con_path.php';
+
     $arr = array();
     $sql = "
     SELECT
@@ -15,6 +17,8 @@
         INNER JOIN user as u ON act.request_by = u.user_number
         INNER JOIN advance_cash_detail as acd ON act.advance_cash_number = acd.advance_cash_number
         INNER JOIN job_title as jt ON acd.job_number = jt.job_number
+    WHERE 
+        u.user_number = '$data_user'
     GROUP BY
         acd.advance_cash_number
     ";

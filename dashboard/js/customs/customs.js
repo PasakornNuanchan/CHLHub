@@ -128,6 +128,8 @@ const customs ={
 
         console.log(res_data);
 
+        await customs.set_preview_table_document(res_data)
+
         // Petty Cash&Advance
         $('[name =cash_payment_table] tbody').html('');
         html_description_payment = '';
@@ -153,107 +155,8 @@ const customs ={
             $('[name =cash_payment_table] tbody').append(html_description_payment);
         });
 
-        // sub page Customs&Document
-        $('[name = tbl_job_status] tbody').html('');
-        //status
-        
-        if(res_data['dts']['INV_receiv_by'] != "" && res_data['dts']['INV_check_by'] != "" || res_data['dts']['INV_receiv_by'] == ""){
-            inv_status = 'disabled';
-        }else{
-            inv_status = '';
 
-        }
-      
-        if(res_data['dts']['BL_receiv_by'] != "" && res_data['dts']['BL_check_by'] != "" || res_data['dts']['BL_receiv_by'] == ""){
-            bl_status = 'disabled';
-        }else{
-            bl_status = '';
-        }
-
-        
-        if(res_data['dts']['PL_receiv_by'] != "" && res_data['dts']['PL_check_by'] != "" || res_data['dts']['PL_receiv_by'] == ""){
-            pl_status = 'disabled';
-        }else{
-            pl_status = '';
-        }
-        
        
-        if(res_data['dts']['ID_receiv_by'] != "" && res_data['dts']['ID_check_by'] != "" || res_data['dts']['ID_receiv_by'] == ""){
-            id_status = 'disabled';
-        }else{
-            id_status = '';
-        }
-
-        
-        if(res_data['dts']['IL_receiv_by'] != "" && res_data['dts']['IL_check_by'] != "" || res_data['dts']['IL_receiv_by'] == ""){
-            il_status = 'disabled';
-        }else{
-            il_status = '';
-        }
-            html_detail_des = `
-                    <tr>
-                        <td>Invoice : </td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dts']['INV_receiv_by']}</td>
-                        <td align="center">${res_data['dts']['inv_receiv_datetime']}</td>
-                        <td align="center">${res_data['dts']['INV_check_by']}</td>
-                        <td align="center">${res_data['dts']['inv_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_inv()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> Confirm</button></td>
-                    </tr>
-                    <tr>
-                        <td>Bill of lading</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dts']['BL_receiv_by']}</td>
-                        <td align="center">${res_data['dts']['bl_receiv_datetime']}</td>
-                        <td align="center">${res_data['dts']['BL_check_by']}</td>
-                        <td align="center">${res_data['dts']['bl_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_bl()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
-                    </tr>
-                    <tr>
-                        <td>Packing list</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dts']['PL_receiv_by']}</td>
-                        <td align="center">${res_data['dts']['pl_receiv_datetime']}</td>
-                        <td align="center">${res_data['dts']['PL_check_by']}</td>
-                        <td align="center">${res_data['dts']['pl_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_pl()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
-                    </tr>
-                    <tr>
-                        <td>Import Declaration</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dts']['ID_receiv_by']}</td>
-                        <td align="center">${res_data['dts']['id_receiv_datetime']}</td>
-                        <td align="center">${res_data['dts']['ID_check_by']}</td>
-                        <td align="center">${res_data['dts']['id_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_id()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> Confirm</button></td>
-                    </tr>
-                    <tr>
-                        <td>Import Licence</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
-                        <td align="center">${res_data['dts']['IL_receiv_by']}</td>
-                        <td align="center">${res_data['dts']['il_receiv_datetime']}</td>
-                        <td align="center">${res_data['dts']['IL_check_by']}</td>
-                        <td align="center">${res_data['dts']['il_check_datetime']}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_il()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> Confirm</button></td>
-                    </tr>
-                `;
-                $('[name = tbl_job_status] tbody').html(html_detail_des);
-                $('.inp-etd').val(res_data['dts']['']).attr('readonly',true);
-                $('.inp-clearance_by').val(res_data['dts']['custom_by']).attr('readonly',true);
-                $('.inp-datetime_success').val(res_data['dts']['Cus_suc_datetime']).attr('readonly',true);
-        if(res_data['dts']['custom_by'] != null){
-            status_btn = 'hidden';
-        }else{
-            status_btn = '';
-        }
-
-        //clearance
-        $('.add_btn_clearance').html('');
-        html_btn = `
-        <div style="float: right">
-            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${status_btn}><i class="bi bi-check-square"></i> Clearance success</button>
-        </div>`;
-        $('.add_btn_clearance').append(html_btn);
     
         // sub Page booking transport 
         html_transport ='';
@@ -417,6 +320,7 @@ const customs ={
         $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly',true);
         $('.inp-etd').val(res_data['booking']['etd']).attr('readonly',true);
         $('.inp-eta').val(res_data['booking']['eta']).attr('readonly',true);
+        
         // sub page booking (Container Information)
         $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly',true);
 
@@ -429,6 +333,112 @@ const customs ={
 
       
     },
+
+    set_preview_table_document: function (res_data){
+        // sub page Customs&Document
+        $('[name = tbl_job_status] tbody').html('');
+        //status
+        
+        if(res_data['dts']['INV_receiv_by'] != "" && res_data['dts']['INV_check_by'] != "" || res_data['dts']['INV_receiv_by'] == ""){
+            inv_status = 'disabled';
+        }else{
+            inv_status = '';
+
+        }
+      
+        if(res_data['dts']['BL_receiv_by'] != "" && res_data['dts']['BL_check_by'] != "" || res_data['dts']['BL_receiv_by'] == ""){
+            bl_status = 'disabled';
+        }else{
+            bl_status = '';
+        }
+
+        
+        if(res_data['dts']['PL_receiv_by'] != "" && res_data['dts']['PL_check_by'] != "" || res_data['dts']['PL_receiv_by'] == ""){
+            pl_status = 'disabled';
+        }else{
+            pl_status = '';
+        }
+        
+       
+        if(res_data['dts']['ID_receiv_by'] != "" && res_data['dts']['ID_check_by'] != "" || res_data['dts']['ID_receiv_by'] == ""){
+            id_status = 'disabled';
+        }else{
+            id_status = '';
+        }
+
+        
+        if(res_data['dts']['IL_receiv_by'] != "" && res_data['dts']['IL_check_by'] != "" || res_data['dts']['IL_receiv_by'] == ""){
+            il_status = 'disabled';
+        }else{
+            il_status = '';
+        }
+            html_detail_des = `
+                    <tr>
+                        <td>Invoice : </td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center">${res_data['dts']['INV_receiv_by']}</td>
+                        <td align="center">${res_data['dts']['inv_receiv_datetime']}</td>
+                        <td align="center">${res_data['dts']['INV_check_by']}</td>
+                        <td align="center">${res_data['dts']['inv_check_datetime']}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_inv()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Bill of lading</td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center">${res_data['dts']['BL_receiv_by']}</td>
+                        <td align="center">${res_data['dts']['bl_receiv_datetime']}</td>
+                        <td align="center">${res_data['dts']['BL_check_by']}</td>
+                        <td align="center">${res_data['dts']['bl_check_datetime']}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_bl()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Packing list</td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center">${res_data['dts']['PL_receiv_by']}</td>
+                        <td align="center">${res_data['dts']['pl_receiv_datetime']}</td>
+                        <td align="center">${res_data['dts']['PL_check_by']}</td>
+                        <td align="center">${res_data['dts']['pl_check_datetime']}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_pl()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Import Declaration</td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center">${res_data['dts']['ID_receiv_by']}</td>
+                        <td align="center">${res_data['dts']['id_receiv_datetime']}</td>
+                        <td align="center">${res_data['dts']['ID_check_by']}</td>
+                        <td align="center">${res_data['dts']['id_check_datetime']}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_id()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Import Licence</td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center">${res_data['dts']['IL_receiv_by']}</td>
+                        <td align="center">${res_data['dts']['il_receiv_datetime']}</td>
+                        <td align="center">${res_data['dts']['IL_check_by']}</td>
+                        <td align="center">${res_data['dts']['il_check_datetime']}</td>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_il()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> Confirm</button></td>
+                    </tr>
+                `;
+                $('[name = tbl_job_status] tbody').html(html_detail_des);
+                $('.inp-etd').val(res_data['dts']['']).attr('readonly',true);
+                $('.inp-clearance_by').val(res_data['dts']['custom_by']).attr('readonly',true);
+                $('.inp-datetime_success').val(res_data['dts']['Cus_suc_datetime']).attr('readonly',true);
+        
+        
+        if(res_data['dts']['custom_by'] == null || res_data['dts']['custom_by'] == ""){
+            status_btn = '';
+        }else{
+            status_btn = 'hidden';
+        }
+
+        $('.add_btn_clearance').html('');
+        html_btn = `
+        <div style="float: right">
+            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${status_btn}><i class="bi bi-check-square"></i> Clearance success</button>
+        </div>`;
+        $('.add_btn_clearance').append(html_btn);
+   },
+
     // clerance
     push_action_clearance: async function (save_data){
         Swal.fire({
@@ -447,7 +457,9 @@ const customs ={
                   'saved!',
                   'Your file has been saved.',
                   'success'
+                  
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -471,6 +483,7 @@ const customs ={
                   'Your file has been saved.',
                   'success'
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -492,6 +505,7 @@ const customs ={
                   'Your file has been saved.',
                   'success'
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -513,6 +527,7 @@ const customs ={
                   'Your file has been saved.',
                   'success'
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -534,6 +549,7 @@ const customs ={
                   'Your file has been saved.',
                   'success'
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -555,6 +571,7 @@ const customs ={
                   'Your file has been saved.',
                   'success'
                 )
+                customs.set_preview_data(customs.job_number_global);
             }
           }) 
     },
@@ -644,6 +661,7 @@ const customs ={
         });
     },
 
+    
    
     
 };

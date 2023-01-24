@@ -1,6 +1,7 @@
 <?php
 
     include '../../core/conn.php';
+    include '../../core/con_path.php';
 
     $sql_pct = "
     SELECT 
@@ -13,6 +14,9 @@
 FROM petty_cash_title as pct 
 INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
 INNER JOIN job_title as jt ON pcd.job_number = jt.job_number
+INNER JOIN user u ON pct.request_by = u.user_number
+WHERE 
+        u.user_number = '$data_user'
 GROUP BY pct.petty_cash_number
 HAVING pct.return_payment_by IS NULL
 
@@ -26,15 +30,20 @@ HAVING pct.return_payment_by IS NULL
     FROM advance_cash_title  as act
 INNER JOIN advance_cash_detail as acd ON act.advance_cash_number = acd.advance_cash_number
 INNER JOIN job_title as jt ON acd.job_number = jt.job_number
+INNER JOIN user u ON act.request_by = u.user_number
+WHERE 
+        u.user_number = '$data_user'
 GROUP BY act.advance_cash_number
 HAVING act.payment_by IS NULL
 
     ";
     $sql_hnc = "
-    SELECT cp.job_number,cp.amount,cp.currency,IF(jt.clearlance_date IS NULL ,'0','1') as clearlance_status FROM cash_payment as cp
+    SELECT cp.job_number,cp.amount,cp.currency,IF(jt.clearlance_date IS NULL ,'0','1') as clearlance_status 
+    FROM cash_payment as cp
     LEFT OUTER JOIN advance_cash_detail as acd ON cp.job_number = acd.job_number
     INNER JOIN job_title as jt ON cp.job_number = jt.job_number
-    WHERE acd.job_number IS NULL
+    INNER JOIN user u ON cp.create_by = u.user_number
+    WHERE acd.job_number IS NULL 
 
     ";
 

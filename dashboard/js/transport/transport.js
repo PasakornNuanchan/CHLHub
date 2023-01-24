@@ -402,7 +402,7 @@ const transport ={
         });
         $('.inp-hscode').append(db_sel_hs);
 
-        $('.inp-hscode').val(res_data['cninform']['hs_code']).attr('disabled',true);
+        $('.inp-hscode').val(res_data['cninform']['hs_code']+' '+res_data['cninform']['hs_decription']).attr('disabled',true);
         $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled',true);
         $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly',true);
         $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly',true);

@@ -23,6 +23,7 @@ const reportcs = {
         console.log(action);
 
         if (action == 'preview') {
+            reportcs.set_data_default();
             reportcs.set_preview_data(job_number);
 
         } else {
@@ -43,7 +44,68 @@ const reportcs = {
         });
     },
 
+    ajax_set_data : function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/get_transport.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
+    set_data_default: async function (){
+        let set_data = await reportcs.ajax_set_data();
+        console.log(set_data);
+        // booking set select
+        // shipper 
+        let db_sel_shipper='';
+        $.each(set_data['shipper'], function (i, k) {
+            db_sel_shipper += `
+            <option value="${k['shipper_number']}">${k['shipper_name']}</option>
+            `;
+        });
+        $('.inp-shper').append(db_sel_shipper);
+
+        let db_sel_shipment ='';
+        $.each(set_data['shipment'], function (i, k) {
+            db_sel_shipment += `
+            <option value="${k['st_number']}">${k['st_name']}</option>
+            `;
+        });
+
+        $('.inp-shptrm').append(db_sel_shipment);
+        let db_sel_carrier ='';
+        $.each(set_data['carrier'], function (i, k) {
+            db_sel_carrier += `
+            <option value="${k['carrier_number']}">${k['carrier_name']}</option>
+            `;
+        });
+        $('.inp-carrier').append(db_sel_carrier);
+        let db_sel_area ='';
+        $.each(set_data['area'], function (i, k) {
+            db_sel_area += `
+            <option value="${k['area_number']}">${k['location_name']},${k['country']}</option>
+            `;
+        });
+        $('.inp-prtrecieve',).append(db_sel_area);
+        $('.inp-prtload',).append(db_sel_area);
+        $('.inp-ts_port',).append(db_sel_area);
+        $('.inp-delivery',).append(db_sel_area);
+
+        let db_sel_cargo ='';
+        $.each(set_data['cargo'], function (i, k) {
+            db_sel_cargo += `
+            <option value="${k['ID']}">${k['cargo_type_name']}</option>
+            `;
+        });
+        $('.inp-cargo_type',).append(db_sel_cargo);
+        
+    },
     set_preview_data: async function (job_number) {
 
        
@@ -464,9 +526,50 @@ const reportcs = {
 
 
         });
+         // booking set (booking detail)
+         $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled',true);
+         $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled',true);
+ 
+         $('.inp-carrier').val(res_data['booking']['carrier_number']).attr('disabled',true);
+         $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled',true);
+         $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled',true);
+         $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled',true);
+         $('.inp-delivery').val(res_data['booking']['port_of_delivery_number']).attr('disabled',true);
+ 
+ 
+ 
+         $('.inp-jobno').val(res_data['booking']['job_number']).attr('readonly',true);
+         $('.inp-bkno').val(res_data['booking']['booking_number']).attr('readonly',true);
+         
+         $('.inp-rmk').val(res_data['booking']['remark']).attr('readonly',true);
+        
+         $('.inp-M_vessel').val(res_data['booking']['mother_vessel']).attr('readonly',true);
+         $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']).attr('readonly',true);
+         $('.inp-feeder_vessel').val(res_data['booking']['feeder_vessel']).attr('readonly',true);
+         $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly',true);
+         $('.inp-etd').val(res_data['booking']['etd']).attr('readonly',true);
+         $('.inp-eta').val(res_data['booking']['eta']).attr('readonly',true);
+
+         $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly',true);
+
+         let db_sel_hs ='';
+         $.each(res_data['hscode'], function (i, k) {
+             db_sel_hs += `
+             <option value="${k['hs_code']}">${k['hs_code']} ${k['hs_decription']}</option>
+             `;
+         });
+         $('.inp-hscode').append(db_sel_hs);
+ 
+         $('.inp-hscode').val(res_data['cninform']['hs_code']+' '+res_data['cninform']['hs_decription']).attr('disabled',true);
+         $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled',true);
+         $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly',true);
+         $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly',true);
+         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly',true);
+         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly',true);
 
 
-    }
+
+    },
 
 };
 
