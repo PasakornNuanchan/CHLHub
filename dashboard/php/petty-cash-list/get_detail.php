@@ -1,20 +1,23 @@
 <?php
     include '../../core/conn.php';
+    include '../../core/con_path.php';
+
     $arr = array();
     $sql = "
     SELECT 
-        pct.datetime_request,
-        pct.petty_cash_number,
-        u.first_name,
-        u.last_name,
-        COUNT(pcd.job_number) as COUNT_job,
-        pct.total_amount_request
-    FROM 
-        `petty_cash_title` as pct
-        INNER JOIN user as u ON pct.request_by = u.user_number
-        INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
-    GROUP BY 
-        pcd.petty_cash_number
+    pct.datetime_request,
+    pct.petty_cash_number,
+    u.first_name,
+    u.last_name,
+    COUNT(pcd.job_number) as COUNT_job,
+    pct.total_amount_request
+FROM 
+    `petty_cash_title` as pct
+    INNER JOIN user as u ON pct.request_by = u.user_number
+    INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
+WHERE u.user_number = '$data_user'
+GROUP BY 
+    pcd.petty_cash_number
 
     ";
     

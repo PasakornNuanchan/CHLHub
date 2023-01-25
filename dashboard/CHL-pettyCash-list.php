@@ -106,4 +106,5 @@ session_start();
     $(document).ready(function() {
         petty_cash_list_set.set_data_rows();
     });
+    
 </script>

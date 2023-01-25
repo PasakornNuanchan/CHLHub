@@ -66,7 +66,7 @@ $job_number = $_POST['job_number'];
           IF(js.il_receiv_datetime is null,' ',js.il_receiv_datetime) as il_receiv_datetime,
           IF(concat(IL_ck.first_name,' ',IL_ck.last_name) IS null ,'',concat(IL_ck.first_name,' ',IL_ck.last_name)) as IL_check_by,
           IF(js.il_check_datetime is null,' ',js.il_check_datetime) as il_check_datetime,
-          IF(js.Cus_suc_datatime is null,' ',js.Cus_suc_datatime) as Cus_suc_datatime,
+          IF(js.Cus_suc_datetime is null,' ',js.Cus_suc_datetime) as Cus_suc_datatime,
           IF(concat(custom_by.first_name,' ',custom_by.last_name) IS null ,'',concat(custom_by.first_name,' ',custom_by.last_name)) as custom_by,
           js.Cus_status
         FROM `job_status` js
@@ -92,6 +92,14 @@ $job_number = $_POST['job_number'];
       $sql_supplier = "
       SELECT * FROM `transport_sup`
       ";
+
+      $sql_booking = "
+      SELECT * FROM job_title WHERE job_number = '$job_number';";
+
+      $sql_cn_inform = "
+      SELECT * FROM container_information 
+      LEFT JOIN hs_code ON container_information.hs_code = hs_code.hs_code WHERE job_number = '$job_number'";
+      
       
 
     $result = $con -> query($sql_detail);
@@ -140,9 +148,27 @@ $job_number = $_POST['job_number'];
           } else {
               $supplier[] = "0 results";
           }
+
+          $result = $con -> query($sql_booking);
+          if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                $booking = $row;
+              }
+            } else {
+              $booking = "0 results";
+            }          
+
+            $result = $con -> query($sql_cn_inform);
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $cninform = $row;
+      }
+    } else {
+      $cninform = "0 results";
+    }
       
 
-      echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier));
+      echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier,'booking'=>$booking,'cninform'=>$cninform));
 
 
 

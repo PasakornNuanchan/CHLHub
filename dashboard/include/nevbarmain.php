@@ -5,6 +5,7 @@ if (sizeof($_SESSION) > 0) {
     $depart = $_SESSION['department_name'];
 }
 
+   
 ?>
 <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar ">
     <div class="container-fluid navbar-inner">

@@ -4,7 +4,7 @@ const petty_cash = {
 
     addpthtml: function () {
         let html_select = $(".td-sel-conttype").html();
-        let sl_des_pettycash = $(".db-select-des").html();
+        let sl_des_pettycash = $('.sel-description').parent().html();
         html = `
         <tr class="pettycash_detail">
             <td>${sl_des_pettycash}</td>
@@ -79,7 +79,8 @@ const petty_cash = {
         <li class="breadcrumb-item"><a href="CHL-PettyCash-list.php" target="" style="color:white;">Petty Cash List</a></li>
         <li class="breadcrumb-item active page-item" aria-current="page">Petty Cash (Petty Cash Number ${job_doc_pt})</li>`;
         $('.bcpage').append(html_bdpage);
-        
+
+
 
         console.log(res_data);
        

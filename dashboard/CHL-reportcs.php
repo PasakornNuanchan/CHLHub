@@ -43,6 +43,9 @@ session_start();
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Driver & Container</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="pills-booking-tab" data-bs-toggle="pill" data-bs-target="#pills-booking" type="button" role="tab" aria-controls="pills-booking" aria-selected="false">Booking</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -421,6 +424,202 @@ session_start();
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
                                     <div class="col-sm-3 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-booking-tab">
+                    <div class="row">
+                        <div class="col-md-7 col-xl-7">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Booking Detail</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Job number</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="input" class="form-control form-control-sm inp-jobno">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Booking number</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="input" class="form-control form-control-sm inp-bkno">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipper</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <select class="form-select form-select-sm inp-shper">
+                                                <option value="">pleses select shipper</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipment Terms</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-shptrm">
+                                                <option selected="">Please select shipment term</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Remark</label>
+                                        <div class="col-sm-9 col-md-8 col-lg-7">
+                                            <input type="input" class="form-control form-control-sm inp-rmk">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier:</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-carrier">
+                                                <option selected="">Please select carrier</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Receipt</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-prtrecieve">
+                                                <option selected="">Please select Port of Receipt</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Loading</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-prtload">
+                                                <option selected="">Please select Port of Loading</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">T/S Port</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-ts_port">
+                                                <option selected="">Please select T/S Port</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Delivery</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                            <select class="form-select form-select-sm inp-delivery">
+                                                <option selected="">Please select Port of Delivery</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Mother Vessel:</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-M_vessel">
+                                                </div>
+                                                <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center ">Voy No.:</label>
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-mother-voy-no">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Feeder Vessel:</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_vessel">
+                                                </div>
+                                                <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.:</label>
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETD:</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="date" class="form-control form-control-sm inp-etd">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETA:</label>
+                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                            <input type="date" class="form-control form-control-sm inp-eta">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-xl-5">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <h4 class="card-title">Container Information</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo description</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-cargodes">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">H.S.Code:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-hscode">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <select class="form-select form-select-sm inp-cargo_type">
+                                                    <option selected="">Please select cargo type</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-sm inp-cargo_qty">
+                                                    <span class="input-group-text">Package</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control inp-cargo_gw">
+                                                    <span class="input-group-text">KGS</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control inp-cargo_vol">
+                                                    <span class="input-group-text">M3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
+                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                                <input type="input" class="form-control form-control-sm inp-cargo_marks">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
