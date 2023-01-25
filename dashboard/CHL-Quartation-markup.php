@@ -149,7 +149,7 @@ session_start();
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_sum_aftermarkup_thb" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
                                             </div>
@@ -164,7 +164,7 @@ session_start();
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_sum_markup_thb" placeholder="" readonly>
                                                 </div>
                                                 <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
                                             </div>
@@ -193,8 +193,8 @@ session_start();
                                 </div>
                                 <div style="color:red;">* if markup price it is null system will chage to at cost if any </div>
                                 <div style="float: right">
-                                    <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
-                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Export Document</button>
+                                    <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation_markup.save_markup();"><i class="bi bi-check-square"></i> Save</button>
+                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation_markup.export_markup_pdf();"><i class="bi bi-line"></i> Export Document</button>
                                     <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sign</button>
                                 </div>
                             </div>

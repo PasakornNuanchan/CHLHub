@@ -14,6 +14,7 @@ SELECT
     qt.commodity as 'title_commodity',
     qt.type as 'title_type',
     qt.user_sale as 'title_user_sale',
+
     qt.status as 'title_status'
 FROM
     `quartation_title` as qt
@@ -39,6 +40,9 @@ $sql_base = "
         r.container_type as 'r_container_type',
         r.price as 'r_price',
         (qdb.qty*qdb.unit_price) as 'price_qty',
+        qdb.remark as 'r_remark',
+        qdb.markup_price as 'r_markup',
+
         r.currency as 'r_curr'
     FROM
         `quartation_detail_base` as qdb
@@ -63,6 +67,8 @@ $sql_truck = "
         `pickup`,
         `dropoff`,
         `price`,
+        `remark`,
+        `markup`,
         `currency`
     FROM
         `quotation_detail_trucking` qdt
@@ -83,6 +89,8 @@ $sql_sup = "
         qds.`type`,
         qds.`price`,
         qds.`currency`,
+        qds.`markup`,
+
         qds.`remark`
     FROM
         `quotation_detail_supservice` qds 

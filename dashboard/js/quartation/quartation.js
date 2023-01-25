@@ -747,10 +747,6 @@ const quartation = {
       truck_export: truck_fee_export,
       sup_service: sup_service,
     }
-    Swal.fire({
-      icon : 'success',
-      text : 'wtf',
-    })
 
     Swal.fire({
       title: 'Are you sure?',

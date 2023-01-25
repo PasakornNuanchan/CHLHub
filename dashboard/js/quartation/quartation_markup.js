@@ -75,6 +75,7 @@ const quartation_markup = {
 
         let num = 0
         $.each(res['base'], function (i, v) { 
+            let text_remark = v['r_remark'] === "" ? v['r_container_type'] : v['r_remark'];
             num += 1;
             html = `
                 <tr class="booking_container" data_id='${v['ID']}' data_set="base">
@@ -94,16 +95,19 @@ const quartation_markup = {
                             <option value="USD">USD</option>
                             <option value="RMB">RMB</option>
                         </select></td>
-                    <td><input type="input" class="form-control form-control-sm inp_base_remark" id=""></td>
+                    <td><input type="input" class="form-control form-control-sm inp_remark" id=""></td>
                     <td><input type="input" class="form-control form-control-sm inp_markup_price"></td>
-                    <td><input type="input" class="form-control form-control-sm" readonly></td>
+                    <td><input type="input" class="form-control form-control-sm inp_markup_result" readonly></td>
                 </tr>
             `;
             $('.tbl_service_desc tbody').append(html);
             $('.tbl_service_desc tbody tr:last').find('.sel_base_type').val();            
             $('.tbl_service_desc tbody tr:last').find('.inp_base_price').val(v['price_qty']);
             $('.tbl_service_desc tbody tr:last').find('.sel_base_curr').val(v['r_curr']);
-            $('.tbl_service_desc tbody tr:last').find('.inp_base_remark').val(v['r_container_type']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_remark').val(text_remark);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_price').val(v['r_markup']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_result').val(parseFloat(v['price_qty'] + v['r_markup']));
+
         });
 
         //truck
@@ -131,20 +135,24 @@ const quartation_markup = {
                             <option value="USD">USD</option>
                             <option value="RMB">RMB</option>
                         </select></td>
-                    <td><input type="input" class="form-control form-control-sm inp_truck_remark" id=""></td>
+                    <td><input type="input" class="form-control form-control-sm inp_remark" id=""></td>
                     <td><input type="input" class="form-control form-control-sm inp_markup_price"></td>
-                    <td><input type="input" class="form-control form-control-sm" readonly></td>
+                    <td><input type="input" class="form-control form-control-sm inp_markup_result" readonly></td>
                 </tr>
             `;
             $('.tbl_service_desc tbody').append(html);
             $('.tbl_service_desc tbody tr:last').find('.sel_truck_type').val(c_type);            
             $('.tbl_service_desc tbody tr:last').find('.inp_truck_price').val(v['price']);
             $('.tbl_service_desc tbody tr:last').find('.sel_truck_curr').val(v['currency']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_remark').val(v['remark']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_price').val(v['markup']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_result').val(parseFloat(v['price'] + v['markup']));
+
+
         });
 
         //sup
         $.each(res['sup_service'], function (i, v) { 
-            
             num += 1;
             html = `
                 <tr class="booking_container" data_id='${v['ID']}' data_set="sup">
@@ -163,16 +171,19 @@ const quartation_markup = {
                             <option value="USD">USD</option>
                             <option value="RMB">RMB</option>
                         </select></td>
-                    <td><input type="input" class="form-control form-control-sm inp_sup_remark" id=""></td>
+                    <td><input type="input" class="form-control form-control-sm inp_remark" id=""></td>
                     <td><input type="input" class="form-control form-control-sm inp_markup_price"></td>
-                    <td><input type="input" class="form-control form-control-sm" readonly></td>
+                    <td><input type="input" class="form-control form-control-sm inp_markup_result" readonly></td>
                 </tr>
             `;
             $('.tbl_service_desc tbody').append(html);
             $('.tbl_service_desc tbody tr:last').find('.sel_sup_type').val(v['type']);            
             $('.tbl_service_desc tbody tr:last').find('.inp_sup_price').val(v['price']);
             $('.tbl_service_desc tbody tr:last').find('.sel_sup_curr').val(v['currency']);
-            $('.tbl_service_desc tbody tr:last').find('.inp_sup_remark').val(v['remark']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_remark').val(v['remark']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_price').val(v['markup']);
+            $('.tbl_service_desc tbody tr:last').find('.inp_markup_result').val(parseFloat(v['price'] + v['markup']));
+
         });
             $('.inp_desc_qty').val(num);
         quartation_markup.result_summary();
@@ -183,20 +194,40 @@ const quartation_markup = {
         $('.inp_markup_price').on('input', function() {
             if (isNaN(this.value)) {
                 this.value = this.value.replace(/[^0-9.]/g, ''); // clear the input
+            }else{
+                let parent = $(this).closest('.booking_container');
+                let price = $('.inp_price', parent).val();
+                let markup = isNaN($(this).val()) || $(this).val() == '' ? 0 : $(this).val();
+                $('.inp_markup_result' , parent).val(parseFloat(markup) +parseFloat(price));
             }
+
             calculate();
         });
 
         function calculate(param) {  
-            var sum_after_mark = 0;
-            var sum = 0;
+            var sum_after_mark_USD = 0;
+            var sum_after_mark_THB = 0;
+
+            var sumUSD = 0;
+            var sumTHB = 0;
+
             $('.inp_markup_price').each(function() {
                 let parent = $(this).closest('.booking_container');
-                sum_after_mark += parseFloat($('.inp_price',parent).val());
-                sum += parseFloat((!!$(this).val())? $(this).val() : 0);
+                let curr = $('.sel_curr',parent).val();
+                if (curr == 'THB') {
+                    sum_after_mark_THB += parseFloat($('.inp_price',parent).val());
+                    sumTHB += parseFloat((!!$(this).val())? $(this).val() : 0);
+                }else if (curr == 'USD'){
+                    sum_after_mark_USD += parseFloat($('.inp_price',parent).val());
+                    sumUSD += parseFloat((!!$(this).val())? $(this).val() : 0);
+                }
+                
             });
-            $('.inp_sum_markup_usd').val(sum);            
-            $('.inp_sum_aftermarkup_usd').val(parseFloat(sum_after_mark+sum));
+            $('.inp_sum_markup_usd').val(sumUSD);            
+            $('.inp_sum_aftermarkup_usd').val(parseFloat(sum_after_mark_USD+sumUSD));
+
+            $('.inp_sum_markup_thb').val(sumTHB);            
+            $('.inp_sum_aftermarkup_thb').val(parseFloat(sum_after_mark_THB+sumTHB));
 
         }
     },
@@ -213,7 +244,73 @@ const quartation_markup = {
             });
         });
     },
-    
+    save_markup :async function () {  
+        let arr_save = {};
+
+        $('.booking_container').each(function (index, element) {
+            let ID = $(this).attr('data_id');
+            let remark = $('.inp_remark',this).val();
+            let markup = $('.inp_markup_price',this).val();
+
+            let key = $(this).attr('data_set');
+            let obj = {'ID' : ID,
+                        'remark' : remark,
+                        'markup' : markup}
+
+            if (!arr_save[key]) {
+                arr_save[key] = [];
+            }
+            arr_save[key].push(obj);
+        });
+        console.log(arr_save);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res =  await quartation_markup.ajax_save_markup(arr_save);
+                console.log(res);
+                if (res['st'] == '1') {
+                    Swal.fire(
+                        'saved!',
+                        'Your data has been saved.',
+                        'success'
+                    );
+                }else{
+                    Swal.fire(
+                        'Error!',
+                        'Your data has not been saved. Please contact administrator.',
+                        'error'
+                    );
+                }
+                
+            }
+        })
+    },   
+    ajax_save_markup : function (obj = {}) {  
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/quotation_markup/save_markup.php",
+                data: obj,
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+    //export
+    export_markup_pdf :async function () {  
+        let quo_no = quartation_markup.get_quono;
+        window.open("php/quotation_markup/export_markup_pdf.php?quo_no=" + quo_no,'_blank');
+    },
 }
 
 
