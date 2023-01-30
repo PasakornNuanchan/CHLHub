@@ -1,6 +1,6 @@
 const petty_cash_list_set = {
    
-    set_data_rows: async function (job_doc_pt) {
+    set_data_rows: async function () {
         
         let res_data = await petty_cash_list_set.ajax_set_preview_data(job_doc_pt);
         

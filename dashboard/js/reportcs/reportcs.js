@@ -85,7 +85,7 @@ const reportcs = {
             <option value="${k['carrier_number']}">${k['carrier_name']}</option>
             `;
         });
-        $('.inp-carrier').append(db_sel_carrier);
+        $('.inp-carrier-sel').append(db_sel_carrier);
         let db_sel_area ='';
         $.each(set_data['area'], function (i, k) {
             db_sel_area += `
@@ -95,7 +95,7 @@ const reportcs = {
         $('.inp-prtrecieve',).append(db_sel_area);
         $('.inp-prtload',).append(db_sel_area);
         $('.inp-ts_port',).append(db_sel_area);
-        $('.inp-delivery',).append(db_sel_area);
+        $('.inp-delivery-sel-booking',).append(db_sel_area);
 
         let db_sel_cargo ='';
         $.each(set_data['cargo'], function (i, k) {
@@ -134,12 +134,12 @@ const reportcs = {
 
         //job detail
         $('.inp-job_number').val(res_data['de']['job_number']).attr('readonly', true);
-        $('.inp-inv').val(res_data['de']['inv']).attr('readonly', true);
+        $('.inp-inv').val(res_data['de']['inv']);
         $('.inp-consignee').val(res_data['de']['consignee_name']).attr('readonly', true);
-        $('.inp-mbl').val(res_data['de']['mbl']).attr('readonly', true);
-        $('.inp-eth').val(res_data['de']['etd']).attr('readonly', true);
-        $('.inp-hbl').val(res_data['de']['hbl']).attr('readonly', true);
-        $('.inp-eta').val(res_data['de']['eta']).attr('readonly', true);
+        $('.inp-mbl').val(res_data['de']['mbl']);
+        $('.inp-eth-job').val(res_data['de']['etd']);
+        $('.inp-hbl').val(res_data['de']['hbl']);
+        $('.inp-eta-job').val(res_data['de']['eta']);
         $('.inp-carrier').val(res_data['de']['carrier_name']).attr('readonly', true);
         $('.inp-pol').val(res_data['de']['pol']).attr('readonly', true);
         $('.inp-vessel').val(res_data['de']['vessel']).attr('readonly', true);
@@ -530,11 +530,11 @@ const reportcs = {
          $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled',true);
          $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled',true);
  
-         $('.inp-carrier').val(res_data['booking']['carrier_number']).attr('disabled',true);
+         $('.inp-carrier-sel').val(res_data['booking']['carrier_number']).attr('disabled',true);
          $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled',true);
          $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled',true);
          $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled',true);
-         $('.inp-delivery').val(res_data['booking']['port_of_delivery_number']).attr('disabled',true);
+         $('.inp-delivery-sel-booking').val(res_data['booking']['port_of_delivery_number']).attr('disabled',true);
  
  
  

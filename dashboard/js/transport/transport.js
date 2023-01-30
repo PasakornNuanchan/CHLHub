@@ -56,6 +56,7 @@ const transport ={
             });
         });
     },
+
     set_data_default: async function (){
         let set_data = await transport.ajax_set_data();
         console.log(set_data);
@@ -137,8 +138,9 @@ const transport ={
 
 
         // container&driver
-        html_select_supplier = $('.sel-supplier').parent().html();
-        html_select_cur = $('.sel-cur').parent().html();
+
+        let html_select_supplier = $('.sel-supplier').parent().html();
+        let html_select_cur = $('.sel-cur').parent().html();
         route =1;
         $('[name = container-tbl] tbody').html('');
 
@@ -194,6 +196,7 @@ const transport ={
             $('[name = container-tbl] tbody').append(html_container);
         }
         });
+
         // transport
         $.each(res_data['tran'],async function(i,v){
             $('.card-transport').html('');
@@ -260,11 +263,11 @@ const transport ={
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control form-control-sm inp-pick_emp" value="${pcea}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_emp" value="${pcea}" >
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control form-control-sm inp-pick_emp_remark" value="${pcer}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_emp_remark" value="${pcer}" >
                             </div>
                         </div>
                     </div>
@@ -274,11 +277,11 @@ const transport ={
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con" value="${pca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con" value="${pca}" >
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con_remark" value="${pcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con_remark" value="${pcr}" >
                             </div>
                         </div>
                     </div>
@@ -288,11 +291,11 @@ const transport ={
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con" value="${dca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con" value="${dca}" >
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con_reamrk" value="${dcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con_reamrk" value="${dcr}" >
                             </div>
                         </div>
                     </div>
@@ -302,11 +305,11 @@ const transport ={
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_emp" value="${dcea}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_emp" value="${dcea}" >
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_emp_remark" value="${dcer}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_emp_remark" value="${dcer}" >
                             </div>
                         </div>
                     </div>
@@ -316,9 +319,9 @@ const transport ={
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col-lg-3">
-                                <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget" value="${bud}" readonly>
+                                <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget" value="${bud}" >
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                             <div class="db-sel-cur db-sel-cur${i}">
                                 ${html_select_cur}
                             </div>
@@ -329,6 +332,7 @@ const transport ={
                 <div class="form-group row">
                     <div class="row-lg-11">
                         <div style="float: right">
+                            <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.del_transport(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
                             <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                             <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
                         </div>
@@ -355,16 +359,12 @@ const transport ={
                 route++;
         await $('.card-transport').append(html_transport);
 
-        $(`.db-sel-sup${i} > select`).val(sup_n).attr('disabled',true); 
-        $(`.db-sel-cur${i} > select`).val(cur_n).attr('disabled', true);
-        
-        //$('.sel-cur').val(res_data['tran']['cur']).attr('disabled',true);
-        //$('.sel-supplier').val(res_data['tran']['sup_number']).attr('disabled',true);
+        $(`.db-sel-sup${i} > select`).val(sup_n); 
+        $(`.db-sel-cur${i} > select`).val(cur_n);
+    
 
         });
 
-
-        
 
         
 
@@ -534,8 +534,9 @@ const transport ={
     },
 
     addpthtml: function (e = null) {
-        
-        console.log(html_select_supplier);
+        let html_select_supplier = $('.db-sel-sup').parent().html();
+        let html_select_cur = $('.sel-cur').parent().html();
+
         html_add_transport = `
         <div class="card-transport">
         <div class="card">
@@ -548,9 +549,9 @@ const transport ={
             <div class="form-group row">
                 <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Supplier:</label>
                 <div class="col-sm-3">
-                    <div class="db-sel-sup >
+                    
                         ${html_select_supplier}
-                    </div>
+                    
                 </div>
             </div>
             <div class="form-group row">
@@ -616,10 +617,10 @@ const transport ={
                             <div class="col-lg-3">
                                 <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget">
                             </div>
-                            <div class="col-lg-1">
-                            <div class="db-sel-cur ">
-                                ${html_select_cur}
-                            </div>
+                            <div class="col-lg-2">
+                                <div class="db-sel-cur ">
+                                    ${html_select_cur}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -627,6 +628,7 @@ const transport ={
             <div class="form-group row">
                     <div class="row-lg-11">
                         <div style="float: right">
+                            <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.del_transport(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
                             <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                             <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
                         </div>
@@ -653,6 +655,9 @@ const transport ={
         route++;
         $('.add-card-transport').append(html_add_transport);
 
+    },del_transport: function (e = null) {
+        route--;
+        $(e).closest('.card-transport').remove();
     },
     
 };

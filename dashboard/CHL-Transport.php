@@ -129,7 +129,7 @@ session_start();
                                                 <label class="control-label col-sm-3 align-self-center ">Budget:</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
-                                                        <div class="col-sm-1 col-md-3 col-lg-3">
+                                                        <div class="col-sm-1 col-md-3 col-lg-2">
                                                             <input type="number" class="form-control form-control-sm" style="text-align:right;">
                                                         </div>
                                                         <div class="col-sm-1 col-md-3 col-lg-2">
@@ -185,9 +185,6 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                        
-                        <button type="button" class="btn btn-soft-secondary" onclick="transport.addpthtml();">Add Drop off</button>
-                        
                     </div>
                 </div>
 
@@ -233,6 +230,9 @@ session_start();
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div style="float: right">
+                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>

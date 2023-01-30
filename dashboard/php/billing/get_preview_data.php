@@ -16,7 +16,7 @@
       b.vat,
       b.amtinclvat,
       b.remark,
-      b.check_status
+      b.check_by
     FROM `billing` b
       LEFT JOIN billing_description bd ON b.billing_description = bd.billing_number
       LEFT JOIN consignee c ON b.bill_to = c.consignee_number

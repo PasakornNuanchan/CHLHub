@@ -65,11 +65,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-job_number" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-job_number" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">INV NO.</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-inv" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-inv" >
                                                 </div>
                                             </div>
                                         </div>
@@ -79,11 +79,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-consignee" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-consignee" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">M B/L</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-mbl" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-mbl" >
                                                 </div>
                                             </div>
                                         </div>
@@ -93,11 +93,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-eth" readonly>
+                                                    <input type="date" class="form-control form-control-sm inp-eth-job" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">H B/L</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-hbl" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-hbl" >
                                                 </div>
                                             </div>
                                         </div>
@@ -107,11 +107,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-eta" readonly>
+                                                    <input type="date" class="form-control form-control-sm inp-eta-job" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Carrier</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-carrier" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-carrier" >
                                                 </div>
                                             </div>
                                         </div>
@@ -121,11 +121,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pol" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-pol" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Vessel</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-vessel" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-vessel" >
                                                 </div>
                                             </div>
                                         </div>
@@ -135,11 +135,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pod" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-pod" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">PORT</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-port" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-port" >
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +149,7 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-invno" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-invno" >
                                                 </div>
                                             </div>
                                         </div>
@@ -168,11 +168,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-clearance_date" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-clearance_date" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Check doc.</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-check_doc" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-check_doc" >
                                                 </div>
                                             </div>
                                         </div>
@@ -182,11 +182,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-delivery" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-delivery" >
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Enter</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-enter" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-enter" >
                                                 </div>
                                             </div>
                                         </div>
@@ -196,10 +196,13 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pick_do" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp-pick_do" >
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -317,6 +320,9 @@ session_start();
                                     </tbody>
                                 </table>
                             </div>
+                            <div style="float: right">
+                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                    </div>
                         </div>
                     </div>
 
@@ -478,7 +484,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier:</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
-                                            <select class="form-select form-select-sm inp-carrier">
+                                            <select class="form-select form-select-sm inp-carrier-sel">
                                                 <option selected="">Please select carrier</option>
                                             </select>
                                         </div>
@@ -511,7 +517,7 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Delivery</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
-                                            <select class="form-select form-select-sm inp-delivery">
+                                            <select class="form-select form-select-sm inp-delivery-sel-booking">
                                                 <option selected="">Please select Port of Delivery</option>
                                             </select>
                                         </div>

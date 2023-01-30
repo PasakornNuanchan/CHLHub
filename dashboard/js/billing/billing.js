@@ -1,5 +1,5 @@
 const billing = {
-    
+
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -22,36 +22,36 @@ const billing = {
         let action = get_action == false ? null : get_action;
 
         console.log(action);
-        
+
         if (action == 'preview') {
             billing.set_preview_data(job_number);
-           
+
         } else {
         }
     },
-    set_data_description: async function(){
+    set_data_description: async function () {
         let html_description = '';
         let set_data = await billing.ajax_set_description();
         console.log(set_data);
-        $.each(set_data['bl_description'], function (i, v) { 
+        $.each(set_data['bl_description'], function (i, v) {
             html_description += `
             <option value="${v['billing_number']}">${v['billing_item_name']}</option>
-            `;  
+            `;
         });
         let html_bill_to = '';
-        $.each(set_data['bl_bill'],function(i,v){
+        $.each(set_data['bl_bill'], function (i, v) {
             html_bill_to += `
             <option value="${v['consignee_number']}">${v['consignee_name']}</option>
-            `;   
+            `;
         });
         $('.sel_description_ar').append(html_description);
         $('.sel_bill_to').append(html_bill_to);
-        
+
     },
     set_preview_data: async function (job_number) {
 
-        
-        let html_des_ar='';
+
+        let html_des_ar = '';
         await billing.set_data_description();
         let res_data = await billing.ajax_set_preview_data(job_number);
 
@@ -68,31 +68,31 @@ const billing = {
         let sl_des = $('.sel_description_ar').parent().html();
         let sl_bill = $('.db-sel-bill').parent().html();
 
-         
+
 
         $('[name = billing-ar-tbl] tbody').html('');
         // account receiv
-        $.each(res_data['ar'],function(i,v){
-            
+        $.each(res_data['ar'], function (i, v) {
+
             u_price = parseFloat(v['unit_price']);
             ar_amt = parseFloat(v['amount']);
             vat = parseFloat(v['vat']);
             amtincvat = parseFloat(v['amtinclvat']);
-           
 
-            if(v['payble'] == 1){
+
+            if (v['payble'] == 1) {
                 payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
                 action_payble_ar = 'disabled';
                 action_del_ar = 'disabled';
-            }else{
+            } else {
                 payble_ar = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span>'
                 action_payble_ar = '';
                 action_del_ar = '';
             }
-            if(v['check_status'] == 1){
+            if (v['check_by'] == 1) {
                 check_status = 'disabled checked';
-                
-            }else{
+
+            } else {
                 check_status = 'unchecked';
             };
             html_des_ar = `
@@ -115,14 +115,14 @@ const billing = {
                 <td><input type="text" class="form-control" value="${v['remark']}"></td>
                 <td><input type="checkbox" class="form-check-input"  ${check_status}></td>
                 <td>
-                    <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
+                    <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                 </td>
                 <td onclick="billing.del_container_row(this);">
                 <button type="button" class="btn btn-danger rounded-pill btn-xs" ${action_del_ar} style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
             </td>
                 
             </tr>
-            `;  
+            `;
             $('[name = billing-ar-tbl] tbody').append(html_des_ar);
             // $(`.ar_des${i} .sel_description_ar`).val(v['billing_number']);
             // $(`.ar_des${i} .db-sel-bill`).val(v['consignee_number']);
@@ -132,17 +132,17 @@ const billing = {
             $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_cur_description')).val(v['currency']);
 
         });
-            
-        
 
-    }, 
-    
-    ajax_set_description: function (job_number){
+
+
+    },
+
+    ajax_set_description: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/billing/get_billing.php",
-                data:  {'job_number':job_number},
+                data: { 'job_number': job_number },
                 dataType: "json",
                 success: function (response) {
                     resolve(response);
@@ -152,12 +152,12 @@ const billing = {
     },
 
     ajax_set_preview_data: function (job_number) {
-        
+
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/billing/get_preview_data.php",
-                data: {'job_number':job_number},
+                data: { 'job_number': job_number },
                 dataType: "json",
                 success: function (response) {
                     resolve(response);
@@ -193,11 +193,11 @@ const billing = {
             <td></td>
             <td><input type="text" class="form-control"></td>
             <td><input type="checkbox" class="form-check-input"></td>
+            <td>
+                <button type="button" class="btn btn-primary rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Save</button>
+            </td>
             <td onclick="billing.del_container_row(this);">
                 <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-            </td>
-            <td>
-                <button type="button" class="btn btn-success rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
             </td>
             </tr>
         `;
@@ -205,7 +205,7 @@ const billing = {
     },
     del_container_row: function (e = null) {
         $(e).closest("tr").remove();
-     },
+    },
 
 
 
@@ -247,14 +247,49 @@ const billing = {
     },
     del_container_row: function (e = null) {
         $(e).closest("tr").remove();
-     },
-    
+    },
+    push_paid: async function (action_id) {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res = await billing.ajax_push_paid_action(action_id);
+                console.log(res);
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+
+                )
+               
+            }
+        })
+    },
+    ajax_push_paid_action : function (action_id) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/push_paid_action.php",
+                data: {'action_id' : action_id},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
 
 };
 
-function number_format(nStr)
-{
+function number_format(nStr) {
     nStr += '';
     x = nStr.split('.');
     x1 = x[0];

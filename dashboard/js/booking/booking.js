@@ -203,11 +203,30 @@ const booking = {
         let action = get_action==false ? null : get_action;
 
         if (action == 'preview') {
+            booking.set_default_data();
             booking.set_preview_data(job_number);
         }else{
 
         }
     },
+    set_default_data : async function(){
+        let set_data_default = await booking.ajax_set_default_data();
+        console.log(set_data_default);
+    },
+    ajax_set_default_data : function (job_number) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/booking/set_default_data.php",
+                data: {},
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
     ajax_set_preview_data : function (job_number) { 
         return new Promise(function (resolve, reject) {
             $.ajax({

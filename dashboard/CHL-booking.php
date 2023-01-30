@@ -49,19 +49,19 @@ include 'core/conn.php';
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Job number</label>
+                                <label class="control-label col-sm-3 align-self-center ">Job number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-jobno" id="" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Booking number</label>
+                                <label class="control-label col-sm-3 align-self-center ">Booking number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-bkno" id="">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center" >Shipper</label>
+                                <label class="control-label col-sm-3 align-self-center">Shipper</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-shper ">
                                         <?php
@@ -80,7 +80,7 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center" >Shipment Terms</label>
+                                <label class="control-label col-sm-3 align-self-center">Shipment Terms</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-shptrm">
                                         <?php
@@ -99,13 +99,13 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Remark</label>
+                                <label class="control-label col-sm-3 align-self-center ">Remark</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-rmk" id="">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Carrier:</label>
+                                <label class="control-label col-sm-3 align-self-center ">Carrier:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-carrier ">
                                         <?php
@@ -125,7 +125,7 @@ include 'core/conn.php';
                             </div>
 
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Port of Receipt</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Receipt</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-prtrecieve">
                                         <?php
@@ -145,7 +145,7 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Port of Loading</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Loading</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-prtload">
                                         <?php
@@ -164,7 +164,7 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >T/S Port</label>
+                                <label class="control-label col-sm-3 align-self-center ">T/S Port</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-ts_port">
                                         <?php
@@ -183,7 +183,7 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >Port of Delivery</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Delivery</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-delivery">
                                         <?php
@@ -202,13 +202,13 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center " >Mother Vessel:</label>
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Mother Vessel:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp-M_vessel">
                                         </div>
-                                        <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center " >Voy No.:</label>
+                                        <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center ">Voy No.:</label>
                                         <div class="col-lg-5 col-md-5">
                                             <input type="text" class="form-control form-control-sm inp-mother-voy-no">
                                         </div>
@@ -216,13 +216,13 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center " >Feeder Vessel:</label>
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Feeder Vessel:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                    <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-5 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm feeder_vessel">
                                         </div>
-                                        <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center " >Voy No.:</label>
+                                        <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.:</label>
                                         <div class="col-lg-5 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
                                         </div>
@@ -230,18 +230,34 @@ include 'core/conn.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >ETD:</label>
+                                <label class="control-label col-sm-3 align-self-center ">ETD:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="date" class="form-control form-control-sm inp-etd" id="" value="">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center " >ETA:</label>
+                                <label class="control-label col-sm-3 align-self-center ">ETA:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="date" class="form-control form-control-sm inp-eta" id="" value="">
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Representator </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agnet:</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                   <select class="form-select form-select-sm"></select>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -254,13 +270,13 @@ include 'core/conn.php';
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >Cargo description</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Cargo description</label>
                                     <div class="col-sm-9 col-md-7 col-lg-7">
                                         <input type="input" class="form-control form-control-sm inp-cargodes" id="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >H.S.Code:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">H.S.Code:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-6">
                                         <select class="form-select form-select-sm inp-hscode">
                                             <?php
@@ -279,7 +295,7 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >Cargo Type:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Cargo Type:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
                                         <select class="form-select form-select-sm inp-cargo_type">
                                             <?php
@@ -298,7 +314,7 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >Quantity:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Quantity:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="text" class="form-control form-control-sm inp-cargo_qty" aria-describedby="basic-addon2">
@@ -307,7 +323,7 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >G.W:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">G.W:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="text" class="form-control inp-cargo_gw" aria-describedby="basic-addon2">
@@ -316,7 +332,7 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >Volume:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Volume:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="text" class="form-control inp-cargo_vol" aria-describedby="basic-addon2">
@@ -325,13 +341,13 @@ include 'core/conn.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >Marks:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Marks:</label>
                                     <div class="col-sm-9 col-md-8 col-lg-7">
                                         <input type="input" class="form-control form-control-sm inp-cargo_marks" id="">
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <!-- container -->
@@ -370,7 +386,8 @@ include 'core/conn.php';
                                                             <?php
                                                             }
                                                             ?>
-                                                        </select></td>
+                                                        </select>
+                                                    </td>
                                                     <td><input type="input" class="form-control form-control-sm inp-contqty" id=""></td>
                                                     <td><input type="input" class="form-control form-control-sm inp-single-wieght" id=""></td>
                                                     <td><input class="form-check-input inp-soc" type="checkbox" value="" id="flexCheckDefault"></td>
@@ -389,13 +406,13 @@ include 'core/conn.php';
                                     <button type="button" class="btn btn-link btn-soft-light rounded-pill" onclick="booking.addconthtml();">add new</button>
 
                                     <p></p>
-                                    <label class="control-label col-sm-3 align-self-center " >CY:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">CY:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3 ">
                                         <input type="date" class="form-control form-control-sm inp-cy" id="" value="2019-12-18">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center " >RTN:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">RTN:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3 ">
                                         <input type="date" class="form-control form-control-sm inp-rtn" id="" value="2019-12-18">
                                     </div>
@@ -429,9 +446,10 @@ include 'core/conn.php';
 
 <script src="js/booking/booking.js"></script>
 
-<script> 
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-    booking.check_get();
-});
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        booking.check_get();
+        
+    });
 </script>
