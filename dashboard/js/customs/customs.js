@@ -339,39 +339,20 @@ const customs ={
         $('[name = tbl_job_status] tbody').html('');
         //status
         
-        if(res_data['dts']['INV_receiv_by'] != "" && res_data['dts']['INV_check_by'] != "" || res_data['dts']['INV_receiv_by'] == ""){
-            inv_status = 'disabled';
-        }else{
-            inv_status = '';
-
-        }
+        inv_status = (res_data['dts']['INV_receiv_by'] != "" && res_data['dts']['INV_check_by'] == "" ) ? '' : 'disabled' ;
+        
       
-        if(res_data['dts']['BL_receiv_by'] != "" && res_data['dts']['BL_check_by'] != "" || res_data['dts']['BL_receiv_by'] == ""){
-            bl_status = 'disabled';
-        }else{
-            bl_status = '';
-        }
+        bl_status = (res_data['dts']['BL_receiv_by'] != "" && res_data['dts']['BL_check_by'] == "") ? '' : 'disabled';
+        
 
-        
-        if(res_data['dts']['PL_receiv_by'] != "" && res_data['dts']['PL_check_by'] != "" || res_data['dts']['PL_receiv_by'] == ""){
-            pl_status = 'disabled';
-        }else{
-            pl_status = '';
-        }
-        
+        pl_status = (res_data['dts']['PL_receiv_by'] != "" && res_data['dts']['PL_check_by'] == "") ? '' : 'disabled';
+
        
-        if(res_data['dts']['ID_receiv_by'] != "" && res_data['dts']['ID_check_by'] != "" || res_data['dts']['ID_receiv_by'] == ""){
-            id_status = 'disabled';
-        }else{
-            id_status = '';
-        }
+        id_status = (res_data['dts']['ID_receiv_by'] != "" && res_data['dts']['ID_check_by'] == "") ? '' : 'disabled';
+     
 
+        il_status = (res_data['dts']['IL_receiv_by'] != "" && res_data['dts']['IL_check_by'] == "") ? '' : 'disabled';
         
-        if(res_data['dts']['IL_receiv_by'] != "" && res_data['dts']['IL_check_by'] != "" || res_data['dts']['IL_receiv_by'] == ""){
-            il_status = 'disabled';
-        }else{
-            il_status = '';
-        }
             html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
