@@ -24,6 +24,7 @@ const billing = {
         console.log(action);
 
         if (action == 'preview') {
+            
             billing.set_preview_data(job_number);
 
         } else {
@@ -32,7 +33,6 @@ const billing = {
     set_data_description: async function () {
         let html_description = '';
         let set_data = await billing.ajax_set_description();
-        console.log(set_data);
         $.each(set_data['bl_description'], function (i, v) {
             html_description += `
             <option value="${v['billing_number']}">${v['billing_item_name']}</option>
@@ -49,55 +49,64 @@ const billing = {
 
     },
     set_preview_data: async function (job_number) {
-
-
-        let html_des_ar = '';
         await billing.set_data_description();
-        let res_data = await billing.ajax_set_preview_data(job_number);
 
+      
+
+        
         $('.head-of-menu').html('Billing');
         $('.bcpage').html('');
         html_bdpage = `
         <li class="breadcrumb-item"><a href="CHL-billing-list.php" target="" style="color:white;">Billing List</a></li>
         <li class="breadcrumb-item active page-item" aria-current="page">Billing (Job number ${job_number})</li>`;
         $('.bcpage').append(html_bdpage);
-        $('[name = "data_table_list"] tbody').html('');
+        r ='1';
+        await billing.set_preview_data_ar(job_number);
 
+
+    },
+
+    set_preview_data_ar : async function (job_number){
+        
+        sl_des = $('.sel_description_ar').parent().html();
+        sl_bill = $('.db-sel-bill').parent().html();
+        
+        
+        let res_data = await billing.ajax_set_preview_ar(job_number);
         console.log(res_data);
-
-        let sl_des = $('.sel_description_ar').parent().html();
-        let sl_bill = $('.db-sel-bill').parent().html();
-
-
-
         $('[name = billing-ar-tbl] tbody').html('');
-        // account receiv
+        q_round = '1';
         $.each(res_data['ar'], function (i, v) {
+
+            
 
             u_price = parseFloat(v['unit_price']);
             ar_amt = parseFloat(v['amount']);
             vat = parseFloat(v['vat']);
             amtincvat = parseFloat(v['amtinclvat']);
 
-
-            if (v['payble'] == 1) {
-                payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
-                action_payble_ar = 'disabled';
-                action_del_ar = 'disabled';
-            } else {
+            let payble_ar = '';
+            let action_payble_ar = '';
+            let action_del_ar = '';
+            if (v['payble'] == '0') {
                 payble_ar = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span>'
                 action_payble_ar = '';
                 action_del_ar = '';
-            }
-            if (v['check_by'] == 1) {
-                check_status = 'disabled checked';
-
             } else {
+                payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
+                action_payble_ar = 'disabled';
+                action_del_ar = 'disabled';
+            }
+
+            if (v['check_by'] == null) {
                 check_status = 'unchecked';
+            } else {
+                check_status = 'checked disabled';
             };
+
             html_des_ar = `
             <tr class="text-center">
-                <td>1</td>
+                <td>${q_round}</td>
                 <td><div class="db-sel-des">${sl_des}</div></td>
                 <td>${sl_bill}</td>
                 <td>${payble_ar}</td>
@@ -113,7 +122,7 @@ const billing = {
                 <td>${vat}%</td>
                 <td align="right">${number_format(amtincvat.toFixed(2))}</td>
                 <td><input type="text" class="form-control" value="${v['remark']}"></td>
-                <td><input type="checkbox" class="form-check-input"  ${check_status}></td>
+                <td><input type="checkbox" class="form-check-input" onclick="billing.push_check(${v['ID']});" ${check_status}></td>
                 <td>
                     <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                 </td>
@@ -124,16 +133,15 @@ const billing = {
             </tr>
             `;
             $('[name = billing-ar-tbl] tbody').append(html_des_ar);
-            // $(`.ar_des${i} .sel_description_ar`).val(v['billing_number']);
-            // $(`.ar_des${i} .db-sel-bill`).val(v['consignee_number']);
-            // $(`.ar_des${i} .sel_cur_description`).val(v['currency']);
             $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_description_ar')).val(v['billing_number']);
             $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_bill_to')).val(v['consignee_number']);
             $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_cur_description')).val(v['currency']);
-
+            q_round++;
         });
+       
+    },
 
-
+    set_preview_data_ap : function (job_number){
 
     },
 
@@ -151,12 +159,27 @@ const billing = {
         });
     },
 
-    ajax_set_preview_data: function (job_number) {
+    ajax_set_preview_ar: function (job_number) {
 
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/billing/get_preview_data.php",
+                url: "php/billing/get_data_ar.php",
+                data: { 'job_number': job_number },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+    ajax_set_preview_ap: function (job_number) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/get_data_ar.php",
                 data: { 'job_number': job_number },
                 dataType: "json",
                 success: function (response) {
@@ -186,8 +209,8 @@ const billing = {
                 <option value="">USD</option>
                 <option value="">RMB</option>
             </select></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
+            <td><input type="text" class="form-control" style="text-align:right;"></td>
+            <td><input type="text" class="form-control" style="text-align:right;"></td>
             <td></td>
             <td></td>
             <td></td>
@@ -248,6 +271,11 @@ const billing = {
     del_container_row: function (e = null) {
         $(e).closest("tr").remove();
     },
+
+    set_vat_description : function (){
+
+    },
+
     push_paid: async function (action_id) {
 
         Swal.fire({
@@ -268,7 +296,7 @@ const billing = {
                     'success'
 
                 )
-               
+                billing.set_preview_data_ar();
             }
         })
     },
@@ -277,6 +305,44 @@ const billing = {
             $.ajax({
                 type: "post",
                 url: "php/billing/push_paid_action.php",
+                data: {'action_id' : action_id},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    push_check: async function (action_id) {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res = await billing.ajax_push_check_action(action_id);
+                console.log(res);
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+
+                )
+                billing.check_get();
+            }
+        })
+    },
+    ajax_push_check_action : function (action_id) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/push_check_action.php",
                 data: {'action_id' : action_id},
                 dataType: "json",
                 success: function (res) {

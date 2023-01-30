@@ -29,7 +29,7 @@
 
     
     $sql_inv_query = "
-    UPDATE `billing` SET `action_paid_by` = '$data_user', `action_paid_date_time` = '$t_time_save' , `payble` = '1' WHERE ID = '$action_id';";
+    UPDATE `billing` SET `check_by` = '$data_user', `check_date_time` = '$t_time_save' WHERE ID = '$action_id';";
     
     
      

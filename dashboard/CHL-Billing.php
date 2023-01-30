@@ -74,7 +74,7 @@ session_start();
                                                             <tr class="text-center ar_des">
                                                                 <td>1</td>
                                                                 <td><div class="db-sel-des">
-                                                                        <select name="" id="" class="form-select shadow-none sel_description_ar">
+                                                                        <select name="" id="" class="form-select shadow-none sel_description_ar" onchange="billing.set_vat_description();">
                                                                             <option value="" selected>Plese select description</option>
                                                                         </select>
                                                                     </div>
