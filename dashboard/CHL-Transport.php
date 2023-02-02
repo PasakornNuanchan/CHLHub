@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Transport</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
@@ -30,7 +30,7 @@ session_start();
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
         </div>
-         <!-- Nav Header Component End -->
+        <!-- Nav Header Component End -->
         <!--Nav End-->
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <div class="card">
@@ -126,6 +126,24 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Type Truck:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <select class="form-select form-select-sm sel-type_truck">
+                                                               <option value="">plese select type truck</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <label class="control-label col-sm-2 align-self-center ">Remark</label>
+                                                            <div class="col">
+                                                                <input type="text" class="form-control form-control-sm inp-remark_truck">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Budget:</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
@@ -136,7 +154,7 @@ session_start();
                                                             <select class="form-select form-select-sm shadow-none sel-cur">
                                                                 <option value=""></option>
                                                                 <option value="THB">THB</option>
-                                                                <option value="RMB">AMB</option>
+                                                                <option value="RMB">RMB</option>
                                                                 <option value="USD">USD</option>
                                                             </select>
                                                         </div>
@@ -189,7 +207,7 @@ session_start();
                 </div>
 
 
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -232,7 +250,7 @@ session_start();
                                         </table>
                                     </div>
                                     <div style="float: right">
-                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                        <button class="btn btn-primary rounded-pill " onclick="transport.save_container()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -245,6 +263,13 @@ session_start();
                                 <div class="card-body">
                                     <div class="driver-part-add">
                                         <div class="driver-part-del">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
+                                                <div class="col-lg-4">
+                                                    <select class="form-select form-select-sm sel-route-driver">
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Driver name:</label>
                                                 <div class="col-sm-9">
@@ -277,7 +302,7 @@ session_start();
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-lg-12">
-                                        <div style="float: right">
+                                            <div style="float: right">
                                                 <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                             </div>
                                         </div>
@@ -289,7 +314,7 @@ session_start();
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-booking-tab">
+                <div class="tab-pane fade " id="pills-booking" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-md-7 col-xl-7">
                             <div class="card">
@@ -501,8 +526,10 @@ session_start();
 </html>
 
 <script src="js/transport/transport.js"></script>
+<script src="js/transport//set_default_data.js"></script>
 <script>
     $(document).ready(function() {
         transport.check_get();
+        transport_set_default.set_data_default();
     });
 </script>

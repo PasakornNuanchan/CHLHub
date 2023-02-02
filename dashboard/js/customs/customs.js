@@ -278,6 +278,43 @@ const customs ={
                         </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0"  >Type Truck:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                            <select class="form-select form-select-sm inp-type_truck" disabled>
+                                <option value="">plese select type of truck</option>
+                                <option value="">Truck 4W</option>
+                                <option value="">Box Truck 4W</option>
+                                <option value="">Box Truck 4W (refrigerated truck)</option>
+                                <option value="">Truck 6W</option>
+                                <option value="">Truck 6W (refrigerated truck)</option>
+                                <option value="">Truck 10W</option>
+                                <option value="">Tractor</option>
+                            </select>
+                            </div>
+                            <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-remark_truck" disabled> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                    <div class="col-sm-3 col-lg-1">
+                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" disabled>
+                    </div>
+                </div>  
+                <hr class="mb-4">
+                <h4 class="mb-4">Driver detail</h4>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver :</label>
+                    <div class="col-sm-3 col-lg-3">
+                        <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${scf}" readonly>
+                    </div>
+                </div>
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier detail</h4>
                 <div class="form-group row">

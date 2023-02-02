@@ -20,6 +20,9 @@
     $sql_cargo ="
     SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";
 
+    $sql_truck_type = "
+    SELECT ID,type_truck_number,truck_name FROM type_truck";
+
    
 
     $result = $con->query($sql_supplier);
@@ -31,6 +34,14 @@
         $supplier[] = "0 results";
     }
 
+    $result = $con->query($sql_truck_type);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $truck[] = $row;
+        }
+    } else {
+        $truck[] = "0 results";
+    }
 
 $result = $con->query($sql_shipper);
 if ($result->num_rows > 0) {
@@ -80,6 +91,6 @@ if ($result->num_rows > 0) {
 
 
   
-    echo json_encode(array('shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'supplier'=>$supplier))
+    echo json_encode(array('shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'supplier'=>$supplier,'truck'=>$truck))
 
 ?>

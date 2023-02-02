@@ -140,11 +140,12 @@ const billing = {
         });
        
     },
-
+   
     set_preview_data_ap : function (job_number){
 
     },
 
+    
     ajax_set_description: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({

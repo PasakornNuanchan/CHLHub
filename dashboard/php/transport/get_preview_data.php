@@ -61,7 +61,11 @@ SELECT
       WHERE job_number ='$job_number'";
 
       $sql_transport = "
-      SELECT * FROM transport_booking WHERE job_number = '$job_number'";
+      SELECT *
+      FROM transport_booking as tb
+      LEFT JOIN transport_sup as ts ON tb.sup_number = ts.transport_sup_number
+      LEFT JOIN type_truck as tt ON tb.type_truck = tt.type_truck_number
+      WHERE tb.job_number = '$job_number'";
 
       $sql_container = "
       SELECT * FROM container WHERE job_number = '$job_number';";

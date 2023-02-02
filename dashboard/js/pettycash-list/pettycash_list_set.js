@@ -2,7 +2,7 @@ const petty_cash_list_set = {
    
     set_data_rows: async function () {
         
-        let res_data = await petty_cash_list_set.ajax_set_preview_data(job_doc_pt);
+        let res_data = await petty_cash_list_set.ajax_set_preview_data();
         
 
         $('.head-of-menu').html('Petty Cash List');
@@ -36,7 +36,7 @@ const petty_cash_list_set = {
     }, 
     
 
-    ajax_set_preview_data: function (job_doc_pt) {
+    ajax_set_preview_data: function () {
         
         return new Promise(function (resolve, reject) {
             $.ajax({

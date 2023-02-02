@@ -1,7 +1,7 @@
 <?php
     include '../../core/conn.php';
     include '../../core/con_path.php';
-
+    
     $arr = array();
     $sql = "
     SELECT 

@@ -23,7 +23,6 @@ const transport ={
         console.log(action);
         
         if (action == 'preview') {
-            transport.set_data_default();
             transport.set_preview_data(job_number);
            
         } else {
@@ -43,77 +42,9 @@ const transport ={
             });
         });
     },
-    ajax_set_data : function(){
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/transport/get_transport.php",
-                data: {},
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
+    
 
-    set_data_default: async function (){
-        let set_data = await transport.ajax_set_data();
-        console.log(set_data);
-        //transport supplier
-        let html_supplier = '';
-        $.each(set_data['supplier'], function (i, k) { 
-            html_supplier += `
-            <option value="${k['transport_sup_number']}">${k['transport_sup_name']}</option>
-            `;  
-        });
-        $('.sel-supplier').append(html_supplier);
-
-        // booking set select
-        // shipper 
-        let db_sel_shipper='';
-        $.each(set_data['shipper'], function (i, k) {
-            db_sel_shipper += `
-            <option value="${k['shipper_number']}">${k['shipper_name']}</option>
-            `;
-        });
-        $('.inp-shper').append(db_sel_shipper);
-
-        let db_sel_shipment ='';
-        $.each(set_data['shipment'], function (i, k) {
-            db_sel_shipment += `
-            <option value="${k['st_number']}">${k['st_name']}</option>
-            `;
-        });
-
-        $('.inp-shptrm').append(db_sel_shipment);
-        let db_sel_carrier ='';
-        $.each(set_data['carrier'], function (i, k) {
-            db_sel_carrier += `
-            <option value="${k['carrier_number']}">${k['carrier_name']}</option>
-            `;
-        });
-        $('.inp-carrier').append(db_sel_carrier);
-        let db_sel_area ='';
-        $.each(set_data['area'], function (i, k) {
-            db_sel_area += `
-            <option value="${k['area_number']}">${k['location_name']},${k['country']}</option>
-            `;
-        });
-        $('.inp-prtrecieve',).append(db_sel_area);
-        $('.inp-prtload',).append(db_sel_area);
-        $('.inp-ts_port',).append(db_sel_area);
-        $('.inp-delivery',).append(db_sel_area);
-
-        let db_sel_cargo ='';
-        $.each(set_data['cargo'], function (i, k) {
-            db_sel_cargo += `
-            <option value="${k['ID']}">${k['cargo_type_name']}</option>
-            `;
-        });
-        $('.inp-cargo_type',).append(db_sel_cargo);
-        
-    },
+    
     set_preview_data: async function (job_number){
         
         
@@ -133,7 +64,7 @@ const transport ={
 
 
         console.log(res_data);
-        html_transport ='';
+        
         
 
 
@@ -141,7 +72,9 @@ const transport ={
 
         let html_select_supplier = $('.sel-supplier').parent().html();
         let html_select_cur = $('.sel-cur').parent().html();
+        let html_select_truck = $('.sel-type_truck').parent().html();
         route =1;
+        rows_c = 1;
         $('[name = container-tbl] tbody').html('');
 
         $.each(res_data['cont'], function (i, v) {
@@ -180,68 +113,59 @@ const transport ={
             cbm = parseFloat(v['cbm']);
             sng = parseFloat(v['single_cnt']);
             html_container = `
-                <tr>
-                    <td>1</td>
+                <tr container_data_id=${v['ID']}>
+                    <td>${rows_c}</td>
                     <td>${container_type_name} (${v['container_type']})</td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['container_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['seal_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
-                    <td><input type="text" class="form-control form-control-sm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${v['container_number']}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${v['seal_number']}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
                     <td><input type="checkbox" class="form-check-input" ${soc} disabled></td>
                     <td><input type="checkbox" class="form-check-input" ${ow} disabled></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['cy']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['rtn']}"></td>
+                    <td><input type="text" class="form-control form-control-sm" disabled value="${v['cy']}"></td>
+                    <td><input type="text" class="form-control form-control-sm" disabled  value="${v['rtn']}"></td>
                 </tr>
                 `;
+                rows_c++;
             $('[name = container-tbl] tbody').append(html_container);
+
+            
+            
         }
         });
 
         // transport
-        $.each(res_data['tran'],async function(i,v){
-            $('.card-transport').html('');
-            budget = parseFloat(v['budget']);
-            if((pcea=v['pick_con_empty_address']) == null){
-                pcea = '';
-            }
-            if((pcer=v['pick_con_empty_remark'])== null){
-                pcer = '';
-            }
-            if((pca=v['pick_con_address'])== null){
-                pca = '';
-            }
-            if((pcr=v['pick_con_remark'])== null){
-                pcr = '';
-            }
-            if((dca=v['drop_con_address'])== null){
-                dca = '';
-            }
-            if((dcr=v['drop_con_remark'])== null){
-                dcr = '';
-            }
-            if((dcea=v['drop_con_empty_address'])== null){
-                dcea = '';
-            }
-            if((dcer=v['drop_con_empty_remark'])== null){
-                dcer = '';
-            }
-            if((sldt=v['sent_line_datetime'])== null){
-                sldt = '';
-            }
-            if((scf=v['sup_confirm'])== null){
-                scf = '';
-            }
-            if((bud=v['budget'])== null){
-                bud = '';
-            }
-            if((sup_n=v['sup_number'])== null){
-                sup_n = '';
-            }
-            if((cur_n=v['cur'])== null){
-                cur_n = '';
-            }
+        $('.add-card-transport').html('');
+        let html_transport ='';   
+        
+        $.each(res_data['tran'],async function(i , v){
+             
+            let budget = parseFloat(v['budget']);
+            let pcea = v['pick_con_empty_address'] || '';
+            let pcer = v['pick_con_empty_remark'] || '';
+            let pca = v['pick_con_address'] || '';
+            let pcr = v['pick_con_remark'] || '';
+            let dca = v['drop_con_address'] || '';
+            let dcr = v['drop_con_remark'] || '';
+            let dcea = v['drop_con_empty_address']  || '';
+            let dcer = v['drop_con_empty_remark'] || '';
+            let sldt = v['drop_con_empty_remark'] || '';
+            let scf = v['sup_confirm'] || '';
+            let bud = v['budget'] || '';
+            let type_truck = !! v['type_truck'] ? v['type_truck'] : '';
+            let remark = v['remark'] || '';
+            
+            let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
+            let cur_n = !!v['cur'] ? v['cur'] : '';
+            let truck_quantity = !! v['truck_quantity'] ? v['truck_quantity'] : '';
 
-            html_transport += `
+           
+            
+            
+            
+            
+
+            html_transport = `
         <div class="card-transport">
             <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -315,16 +239,41 @@ const transport ={
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <div class="db-sel-truck db-sel-truck${i}">
+                                    ${html_select_truck}
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-remark_truck" value="${remark}"> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                    <div class="col-sm-3 col-lg-1">
+                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" value="${truck_quantity}">
+                    </div>
+                </div>       
+                <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
                     <div class="col-sm-9">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget" value="${bud}" >
                             </div>
                             <div class="col-lg-2">
-                            <div class="db-sel-cur db-sel-cur${i}">
-                                ${html_select_cur}
+                                <div class="db-sel-cur db-sel-cur${i}">
+                                    ${html_select_cur} 
+                                </div>
                             </div>
+                            <div class="col-lg-2">
+                                <label class="control-label"></label>
                             </div>
                         </div>
                     </div>
@@ -357,12 +306,15 @@ const transport ={
     </div>    
                 `;
                 route++;
-        await $('.card-transport').append(html_transport);
-
+                
+        await $('.add-card-transport').append(html_transport);
+        
+        
         $(`.db-sel-sup${i} > select`).val(sup_n); 
         $(`.db-sel-cur${i} > select`).val(cur_n);
-    
-
+        $(`.db-sel-truck${i} > select`).val(type_truck);
+        
+        
         });
 
 
@@ -409,27 +361,44 @@ const transport ={
         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly',true);
         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly',true);
 
+
+        // driver set route
+        let html_tran_sel = '';
+        let route_truck = '1';
+        $.each(res_data['tran'], function (i, k) { 
+            html_tran_sel += `
+            <option value="${k['ID']}">Route ${route_truck} ${k['transport_sup_name']} / ${k['truck_quantity']} ${k['truck_name']}</option>
+            `;  
+            route_truck++;
+        })
+        
+        $('.sel-route-driver').append(html_tran_sel);
+        let route_driver = $('.sel-route-driver').parent().html();
+
         // driver
         html_driver = '';
         num_driver = 1;
         $('.driver-part-add').html('');
         $.each(res_data['driver'],async function(i,v){
-            if(driver_n = v['Driver_name'] == ""){
+
+            
+            if(driver_n = v['Driver_name'] != ""){
                 driver_name_val = v['Driver_name'];
             }else{
                 driver_name_val = "";
             }
-            if(phone_n = v['phone_number'] == ""){
-                phone_number_val = v['Driver_name'];
+            console.log(driver_name_val)
+            if(phone_n = v['phone_number'] != ""){
+                phone_number_val = v['phone_number'];
             }else{
                 phone_number_val = "";
             }
-            if(container_n = v['container_number'] == ""){
+            if(container_n = v['container_number'] != ""){
                 container_number_val = v['container_number']
             }else{
                 container_number_val = "";
             }
-            if(seal_n = v['seal_number'] == ""){
+            if(seal_n = v['seal_number'] != ""){
                 seal_number_val = v['seal_number'];
             }else{
                 seal_number_val = "";
@@ -440,6 +409,12 @@ const transport ={
             <div class="driver-part-del">
                 <div class="card-body" >
                     <h5>Driver (person ${num_driver})</h5>
+                    <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
+                        <div class="col-lg-4">
+                           ${route_driver}
+                        </div>
+                    </div>
                     <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
                         <div class="col-sm-9 col-lg-9">
@@ -481,7 +456,7 @@ const transport ={
         });
         
     },
-    adddriverhtml : function(e=null){
+    adddriverhtml : function(e = null){
         html_add_driver = '';
         html_add_driver =`
         
@@ -659,6 +634,54 @@ const transport ={
         route--;
         $(e).closest('.card-transport').remove();
     },
+
+   
+    save_container : async function(i, e){
+        let container_arr = [];
+        let container_arr_tmp = {};
+
+        $('[name = container-tbl] tbody > tr').each(function(i ,e ){
+
+        let ID = $(this).attr('container_data_id');
+        let container_nubmer = $('.inp-container_number', this).val();
+        let seal_number = $('.inp-seal_number', this).val();
+        let gw = $('.inp-gw', this).val();
+        let cbm = $('.inp-cbm', this).val();
+
+        container_arr_tmp = {
+            ID:ID,
+            container_nubmer: container_nubmer,
+            seal_number: seal_number,
+            gw: gw,
+            cbm: cbm,
+          }
+
+          container_arr.push(container_arr_tmp)
+        });
+
+        //console.log(container_arr);
+        await transport.ajax_save_container(container_arr);
+    },
+    ajax_save_container : function(container_arr){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/save_container.php",
+                data: {'container_arr' : container_arr},
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+    save_driver : async function(i, e){
+        let driver_arr = [];
+        let driver_arr_tmp ={};
+
+    },
     
 };
 
@@ -675,3 +698,5 @@ function number_format(nStr)
     }
     return x1 + x2;
 }
+
+
