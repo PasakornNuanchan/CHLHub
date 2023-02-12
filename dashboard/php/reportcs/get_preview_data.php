@@ -87,7 +87,24 @@ $job_number = $_POST['job_number'];
       SELECT * FROM container WHERE job_number = '$job_number';";
 
       $sql_transport = "
-      SELECT * FROM transport_booking WHERE job_number = '$job_number'";
+      SELECT
+        tb.ID,
+        tb.sup_number,
+        tb.truck_quantity,
+        tb.pick_con_empty_address,
+        tb.pick_con_empty_remark,
+        tb.pick_con_address,
+        tb.pick_con_remark,
+        tb.drop_con_address,
+        tb.drop_con_remark,
+        tb.drop_con_empty_address,
+        tb.drop_con_empty_remark,
+        tb.sup_confirm,
+        tb.type_truck,
+        tb.remark
+      FROM
+          `transport_booking` as tb
+      WHERE job_number = '$job_number'";
 
       $sql_supplier = "
       SELECT * FROM `transport_sup`
@@ -99,76 +116,134 @@ $job_number = $_POST['job_number'];
       $sql_cn_inform = "
       SELECT * FROM container_information 
       LEFT JOIN hs_code ON container_information.hs_code = hs_code.hs_code WHERE job_number = '$job_number'";
+
+      $sql_dem = "
+      SELECT  
+        dem.ID,
+        dem.container_id,
+        dem.old_dem_time,
+        dem.new_dem_time,
+        dem.file_add,
+        c.container_number,
+        c.job_number,
+        c.ID as head_of_container,
+        c.RTN,
+        c.CY
+      FROM demurrage as dem
+        LEFT JOIN container as c ON dem.container_id = c.ID
+      WHERE 
+        c.job_number = '$job_number'
+      ORDER BY 
+        dem.ID ASC
+      ";
+
+
+
+$result = $con->query($sql_detail);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $de = $row;
+  }
+} else {
+  $de = "0 results";
+}
+
+$result = $con->query($sql_detail_job);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $dej = $row;
+  }
+} else {
+  $dej = "0 results";
+}
+
+$result = $con->query($sql_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $cont[] = $row;
+  }
+} else {
+  $cont[] = "0 results";
+}
+
+$result = $con->query($sql_transport);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $tran[] = $row;
+    $get_tran[] = $row['ID'];
+  }
+} else {
+  $tran[] = "0 results";
+}
+
+$imp_set_tran_drive = implode(',', $get_tran);
+$sql_tran_drive = "
+      SELECT 
+      tc.ID,
+      tc.Driver_name,
+      tc.phone_number,
+      tc.container_id,
+      tc.job_number,
+      tc.route_id,
+      c.container_number,
+      c.seal_number
+      FROM transport_contact as tc
+      LEFT JOIN container as c ON tc.container_id = c.ID
+      WHERE route_id IN($imp_set_tran_drive)
+      ";
+
+$result = $con->query($sql_tran_drive);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $transport_driver[] = $row;
+  }
+} else {
+  $transport_driver[] = "0 results";
+}
+
+foreach ($transport_driver as $k => $v) {
+  $transport_driver_arr[$v['route_id']][] = $v;
+}
+
+
+$result = $con->query($sql_supplier);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $supplier[] = $row;
+  }
+} else {
+  $supplier[] = "0 results";
+}
+
+$result = $con->query($sql_booking);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $booking = $row;
+  }
+} else {
+  $booking = "0 results";
+}
+
+$result = $con->query($sql_cn_inform);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $cninform = $row;
+  }
+} else {
+  $cninform = "0 results";
+}
+
+$result = $con->query($sql_dem);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $dem[] = $row;
+  }
+} else {
+  $dem[] = "0 results";
+}
       
-      
 
-    $result = $con -> query($sql_detail);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $de = $row;
-        }
-      } else {
-        $de = "0 results";
-      }
-
-      $result = $con -> query($sql_detail_job);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $dej = $row;
-        }
-      } else {
-        $dej = "0 results";
-      }
-
-      $result = $con -> query($sql_container);
-      if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {
-            $cont[] = $row;
-          }
-        } else {
-          $cont[] = "0 results";
-        }
-
-        $result = $con -> query($sql_transport);
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              $tran[] = $row;
-            }
-          } else {
-            $tran[] = "0 results";
-          }
-      
-         
-          
-          $result = $con -> query($sql_supplier);
-          if ($result->num_rows > 0) {
-              while($row = $result->fetch_assoc()) {
-                  $supplier[] = $row;
-              }
-          } else {
-              $supplier[] = "0 results";
-          }
-
-          $result = $con -> query($sql_booking);
-          if ($result->num_rows > 0) {
-              while($row = $result->fetch_assoc()) {
-                $booking = $row;
-              }
-            } else {
-              $booking = "0 results";
-            }          
-
-            $result = $con -> query($sql_cn_inform);
-  if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $cninform = $row;
-      }
-    } else {
-      $cninform = "0 results";
-    }
-      
-
-      echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier,'booking'=>$booking,'cninform'=>$cninform));
+     echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier,'booking'=>$booking,'cninform'=>$cninform,'transport_driver_arr'=>$transport_driver_arr,'dem'=>$dem));
 
 
 

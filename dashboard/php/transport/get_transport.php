@@ -20,28 +20,25 @@
     $sql_cargo ="
     SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";
 
-    $sql_truck_type = "
-    SELECT ID,type_truck_number,truck_name FROM type_truck";
+    $sql_truck ="
+    SELECT
+    `ID`,
+    `type_truck_number`,
+    `truck_name`
+FROM
+    `type_truck`";
 
-   
 
-    $result = $con->query($sql_supplier);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $supplier[] = $row;
-        }
-    } else {
-        $supplier[] = "0 results";
+
+$result = $con->query($sql_supplier);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $supplier[] = $row;
     }
+} else {
+    $supplier[] = "0 results";
+}
 
-    $result = $con->query($sql_truck_type);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $truck[] = $row;
-        }
-    } else {
-        $truck[] = "0 results";
-    }
 
 $result = $con->query($sql_shipper);
 if ($result->num_rows > 0) {
@@ -87,6 +84,18 @@ if ($result->num_rows > 0) {
 } else {
     $cargo[] = "0 results";
 }
+
+
+
+$result = $con->query($sql_truck);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $truck[] = $row;
+    }
+} else {
+    $truck[] = "0 results";
+}
+
 
 
 

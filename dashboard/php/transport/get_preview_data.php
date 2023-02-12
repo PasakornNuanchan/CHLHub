@@ -11,7 +11,7 @@ $sql_payment = "
     ";
 $sql_detail_job = "
 SELECT 
-      js.ID,
+js.ID,
       js.job_number,
       js.INV_receiv_status,
       js.INV_picture,
@@ -43,7 +43,7 @@ SELECT
       IF(js.il_receiv_datetime is null,' ',js.il_receiv_datetime) as il_receiv_datetime,
       IF(concat(IL_ck.first_name,' ',IL_ck.last_name) IS null ,'',concat(IL_ck.first_name,' ',IL_ck.last_name)) as IL_check_by,
       IF(js.il_check_datetime is null,' ',js.il_check_datetime) as il_check_datetime,
-      IF(js.Cus_suc_datatime is null,' ',js.Cus_suc_datatime) as Cus_suc_datatime,
+      IF(js.Cus_suc_datetime is null,' ',js.Cus_suc_datetime) as Cus_suc_datatime,
       IF(concat(custom_by.first_name,' ',custom_by.last_name) IS null ,'',concat(custom_by.first_name,' ',custom_by.last_name)) as custom_by,
       js.Cus_status
     FROM `job_status` js
@@ -61,11 +61,31 @@ SELECT
       WHERE job_number ='$job_number'";
 
       $sql_transport = "
-      SELECT *
+      SELECT
+        tb.ID,
+        tb.sup_number,
+        tb.truck_quantity,
+        tb.pick_con_empty_address,
+        tb.pick_con_empty_remark,
+        tb.pick_con_address,
+        tb.pick_con_remark,
+        tb.drop_con_address,
+        tb.drop_con_remark,
+        tb.drop_con_empty_address,
+        tb.drop_con_empty_remark,
+        tb.budget,
+        tb.cur,
+        tb.sent_line_datetime,
+        tb.sup_confirm,
+        tb.type_truck,
+        tb.remark,
+        ts.transport_sup_name,
+        tt.truck_name
       FROM transport_booking as tb
       LEFT JOIN transport_sup as ts ON tb.sup_number = ts.transport_sup_number
       LEFT JOIN type_truck as tt ON tb.type_truck = tt.type_truck_number
-      WHERE tb.job_number = '$job_number'";
+      WHERE tb.job_number = '$job_number'
+      ORDER BY tb.ID ASC";
 
       $sql_container = "
       SELECT * FROM container WHERE job_number = '$job_number';";
@@ -75,20 +95,33 @@ SELECT
 
 
       $sql_cn_inform = "
-      SELECT * FROM container_information WHERE job_number = '$job_number';";
+      SELECT 
+        `cn`.`cargo`,
+        `hs`.`hs_code`,
+        `hs`.`hs_decription`,
+        `cn`.`cargo_type`,
+        `cn`.`quantity`,
+        `cn`.`gw`,
+        `cn`.`volume`,
+        `cn`.`mark` 
+      FROM 
+        container_information as cn 
+        LEFT JOIN hs_code as hs ON cn.hs_code = hs.hs_code
+        WHERE cn.job_number = '$job_number';";
 
-      $sql_hscode = "
-      SELECT * FROM hs_code ";
+   
 
      $sql_driver = "
      SELECT 
      tc.ID,
      tc.Driver_name,
      tc.phone_number,
-     tc.container_number,
-     c.seal_number
+     c.ID as container_id,
+     c.seal_number,
+     tc.route_id
+     
      FROM transport_contact as tc
-     INNER JOIN container as c ON tc.container_number = c.container_number
+     LEFT JOIN container as c ON tc.container_id = c.ID
      WHERE tc.job_number = '$job_number'";
 
      
@@ -147,14 +180,7 @@ if ($result->num_rows > 0) {
       $cninform = "0 results";
     }
 
-    $result = $con -> query($sql_hscode);
-  if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $hscode[] = $row;
-      }
-    } else {
-      $hscode[] = "0 results";
-    }
+  
 
   $result = $con->query($sql_driver);
   if ($result->num_rows > 0) {
@@ -168,5 +194,4 @@ if ($result->num_rows > 0) {
  
         
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'hscode'=>$hscode,'driver'=>$driver));
-?>
+      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'driver'=>$driver));

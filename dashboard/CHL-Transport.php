@@ -250,7 +250,7 @@ session_start();
                                         </table>
                                     </div>
                                     <div style="float: right">
-                                        <button class="btn btn-primary rounded-pill " onclick="transport.save_container()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                        <button class="btn btn-primary rounded-pill " onclick="transport.push_action_save_container()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -267,6 +267,7 @@ session_start();
                                                 <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
                                                 <div class="col-lg-4">
                                                     <select class="form-select form-select-sm sel-route-driver">
+                                                        <option value="">pleses select route</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -287,7 +288,9 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Container number:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="input" class="form-control form-control-sm" readonly>
+                                                    <select class="form-select form-select-sm sel-container-for-driver" onchange="transport.driver_seal_number_change(this);">
+                                                        <option value="">plese select driver</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -303,12 +306,12 @@ session_start();
                                     <div class="form-group row">
                                         <div class="col-lg-12">
                                             <div style="float: right">
-                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                                <button class="btn btn-primary rounded-pill " onclick="transport.push_action_save_driver()"style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-soft-secondary" onclick="transport.adddriverhtml();">Add Drop off</button>
+                                <button type="button" class="btn btn-soft-secondary" onclick="transport.adddriverhtml();">Add Driver</button>
                             </div>
                         </div>
                     </div>
@@ -459,9 +462,7 @@ session_start();
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 col-lg-3 align-self-center ">H.S.Code:</label>
                                             <div class="col-sm-9 col-md-7 col-lg-7">
-                                                <select class="form-select form-select-sm inp-hscode">
-                                                    <option selected="">Please select H.S Code</option>
-                                                </select>
+                                                <input type="input" class="form-control form-control-sm inp-hscode">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -527,6 +528,7 @@ session_start();
 
 <script src="js/transport/transport.js"></script>
 <script src="js/transport//set_default_data.js"></script>
+
 <script>
     $(document).ready(function() {
         transport.check_get();

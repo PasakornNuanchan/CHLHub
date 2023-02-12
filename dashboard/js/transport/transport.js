@@ -53,7 +53,7 @@ const transport ={
 
     
     //head menu and breadcrumb
-    $('.head-of-menu').html('Transport');
+    $('.head-of-menu').html(`Transport`);
     $('.bcpage').html('');
     html_bdpage = `
     <li class="breadcrumb-item"><a href="CHL-transport-list.php" target="" style="color:white;">Transport List</a></li>
@@ -65,9 +65,7 @@ const transport ={
 
         console.log(res_data);
         
-        
-
-
+        job_global = res_data['booking']['job_number'];
         // container&driver
 
         let html_select_supplier = $('.sel-supplier').parent().html();
@@ -149,7 +147,7 @@ const transport ={
             let dcr = v['drop_con_remark'] || '';
             let dcea = v['drop_con_empty_address']  || '';
             let dcer = v['drop_con_empty_remark'] || '';
-            let sldt = v['drop_con_empty_remark'] || '';
+            let sldt = v['sent_line_datetime'] || '';
             let scf = v['sup_confirm'] || '';
             let bud = v['budget'] || '';
             let type_truck = !! v['type_truck'] ? v['type_truck'] : '';
@@ -346,13 +344,8 @@ const transport ={
         
         $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly',true);
 
-        let db_sel_hs ='';
-        $.each(res_data['hscode'], function (i, k) {
-            db_sel_hs += `
-            <option value="${k['hs_code']}">${k['hs_code']} ${k['hs_decription']}</option>
-            `;
-        });
-        $('.inp-hscode').append(db_sel_hs);
+     
+        
 
         $('.inp-hscode').val(res_data['cninform']['hs_code']+' '+res_data['cninform']['hs_decription']).attr('disabled',true);
         $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled',true);
@@ -374,8 +367,19 @@ const transport ={
         
         $('.sel-route-driver').append(html_tran_sel);
         let route_driver = $('.sel-route-driver').parent().html();
-
+        
         // driver
+
+        let db_sel_container_for_driver ='';
+        $.each(res_data['cont'], function (i, k) {
+            db_sel_container_for_driver += `
+            <option value="${k['ID']}">${k['container_type']} ${k['container_number']}</option>
+            `;
+        });
+        $('.sel-container-for-driver').append(db_sel_container_for_driver);
+        let container_for_driver = $('.sel-container-for-driver').parent().html();
+
+
         html_driver = '';
         num_driver = 1;
         $('.driver-part-add').html('');
@@ -387,7 +391,7 @@ const transport ={
             }else{
                 driver_name_val = "";
             }
-            console.log(driver_name_val)
+            
             if(phone_n = v['phone_number'] != ""){
                 phone_number_val = v['phone_number'];
             }else{
@@ -404,15 +408,17 @@ const transport ={
                 seal_number_val = "";
             }
             
-            
+
             html_driver = `
-            <div class="driver-part-del">
+            <div class="driver-part-del driver-part-del${v['ID']}" driver-part-del=${v['ID']}>
                 <div class="card-body" >
                     <h5>Driver (person ${num_driver})</h5>
                     <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
                         <div class="col-lg-4">
+                            <div class="db-sel-route db-sel-route${i}">
                            ${route_driver}
+                           </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -420,11 +426,11 @@ const transport ={
                         <div class="col-sm-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <input type="text" class="form-control" value="${driver_name_val}" >
+                                    <input type="text" class="form-control inp-driver_name_val" value="${driver_name_val}" >
                                 </div>
                                 <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
                                 <div class="col-lg-2">
-                                    <input type="text" class="form-control" value="${phone_number_val}" >
+                                    <input type="text" class="form-control inp-driver_phone_val" value="${phone_number_val}" >
                                 </div>
                             </div>
                         </div>
@@ -432,7 +438,9 @@ const transport ={
                     <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
                         <div class="col-lg-4">
-                            <input type="input" class="form-control form-control-sm" value="${container_number_val}" >
+                            <div class="db-sel-route db-sel-con_drive${i}">
+                            ${container_for_driver}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -440,7 +448,7 @@ const transport ={
                         <div class="col-sm-9 col-lg-9">   
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <input type="input" class="form-control form-control-sm" value="${seal_number_val}" readonly>    
+                                    <input type="input" class="form-control form-control-sm inp-seal_number_driver" value="${seal_number_val}" readonly>    
                                 </div>
                                 <div class="col-lg-2">
                                     <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.del_driver(this);" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
@@ -453,59 +461,105 @@ const transport ={
         `;
                 num_driver++;
                 await $('.driver-part-add').append(html_driver);
+                $(`.db-sel-route${i} > select`).val(v['route_id']); 
+                $(`.db-sel-con_drive${i} > select`).val(v['container_id']); 
         });
         
     },
     adddriverhtml : function(e = null){
+        let route_driver = $('.sel-route-driver').parent().html();
+        let container_for_driver = $('.sel-container-for-driver').parent().html();
         html_add_driver = '';
         html_add_driver =`
         
         <div class="driver-part-del">
-        <div class="card-body" >
+            <div class="card-body" >
             <h5>Driver (person ${num_driver})</h5>
-            <div class="form-group row">
-            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
-                <div class="col-sm-9 col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" value="" >
-                        </div>
-                        <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
-                        <div class="col-lg-2">
-                            <input type="text" class="form-control" value="" >
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
+                    <div class="col-lg-4">
+                        <div class="db-sel-route ">
+                        ${route_driver}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
-            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
-                <div class="col-lg-4">
-                    <input type="input" class="form-control form-control-sm" value="" >
-                </div>
-            </div>
-            <div class="form-group row">
-            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Seal number:</label>
-                <div class="col-sm-9 col-lg-9">   
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <input type="input" class="form-control form-control-sm" value="" readonly>    
+                <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
+                    <div class="col-sm-9 col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control inp-driver_name_val" >
+                            </div>
+                            <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control inp-driver_phone_val" >
+                            </div>
                         </div>
-                        <div class="col-lg-2">
-                            <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.del_driver(this);" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
+                    <div class="col-lg-4">
+                        <div class="db-sel-route">
+                        ${container_for_driver}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Seal number:</label>
+                    <div class="col-sm-9 col-lg-9">   
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="input" class="form-control form-control-sm inp-seal_number_driver" readonly>    
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.del_driver(this);" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
         
         `;
         num_driver++;
         $('.driver-part-add').append(html_add_driver);
         
-    },del_driver: function (e = null) {
+    },del_driver: function (e=null) {
         num_driver--;
+        let driver_arr_del = [];
+        let driver_arr_tep_del = {};
+        let val = $(e).closest('.driver-part-del');
+        test = val.find('.driver-part-del');
+        
+        console.log(test)
+        
+       
         $(e).closest('.driver-part-del').remove();
+
+        
+    },
+
+    driver_seal_number_change : async function(e){
+        let val = $(e).val();
+        let parent = $(e).closest('.driver-part-del');
+
+        let res_data_container = await transport.ajax_seal_change(val);
+        console.log(res_data_container['seal_number'])
+        $('.inp-seal_number_driver',parent).val(res_data_container['seal_number']); 
+    },
+    ajax_seal_change : function(val){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/get_value_seal.php",
+                data: {'val' : val},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
 
     addpthtml: function (e = null) {
@@ -524,9 +578,7 @@ const transport ={
             <div class="form-group row">
                 <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Supplier:</label>
                 <div class="col-sm-3">
-                    
                         ${html_select_supplier}
-                    
                 </div>
             </div>
             <div class="form-group row">
@@ -630,12 +682,33 @@ const transport ={
         route++;
         $('.add-card-transport').append(html_add_transport);
 
-    },del_transport: function (e = null) {
+    },del_transport: function (e) {
         route--;
-        $(e).closest('.card-transport').remove();
+        $(e).closest('.add-card-transport').remove();
+        console.log
     },
 
-   
+    push_action_save_container: async function (){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await transport.save_container()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+               
+            }
+          }) 
+    },
     save_container : async function(i, e){
         let container_arr = [];
         let container_arr_tmp = {};
@@ -660,7 +733,13 @@ const transport ={
         });
 
         //console.log(container_arr);
-        await transport.ajax_save_container(container_arr);
+       let res = await transport.ajax_save_container(container_arr);
+    //    if(res){
+    //     alert("testd");
+    //    }else{
+    //     alert("แตก");
+    //    }
+       
     },
     ajax_save_container : function(container_arr){
         return new Promise(function (resolve, reject) {
@@ -670,18 +749,79 @@ const transport ={
                 data: {'container_arr' : container_arr},
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
+                    
                     resolve(res);
                     
                 },
             });
         });
     },
-    save_driver : async function(i, e){
-        let driver_arr = [];
-        let driver_arr_tmp ={};
-
+    push_action_save_driver: async function (){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await transport.save_driver()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+               
+            }
+          }) 
     },
+
+    save_driver : async function(i,e){
+        let driver_arr = [];
+        let driver_arr_tmp = {};
+        
+        $('.driver-part-del').each(function (i,e){
+            
+            let ID = $(this).attr('driver-part-del');
+            let route_number = $('.sel-route-driver',this).val();
+            let name_val = $('.inp-driver_name_val',this).val();
+            let phone_val = $('.inp-driver_phone_val',this).val();
+            let container_val = $('.sel-container-for-driver',this).val(); 
+            
+            driver_arr_tmp = {
+                ID : ID,
+                job_global : job_global,
+                route_number : route_number,
+                name_val : name_val,
+                phone_val : phone_val,
+                container_val : container_val
+            }
+
+            driver_arr.push(driver_arr_tmp)
+        })
+       console.log(driver_arr);
+       await transport.ajax_save_driver(driver_arr)
+    },
+    ajax_save_driver : function(driver_arr){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/save_driver.php",
+                data: {'driver_arr' : driver_arr},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
+
+
     
 };
 

@@ -30,7 +30,7 @@ session_start();
             <?php include 'include/nevbarmain.php'; ?>
             <!--Nav End-->
         </div>
-        
+
 
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->
@@ -38,10 +38,13 @@ session_start();
                 <div class="card-body">
                     <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Job Detail</button>
+                            <button class="nav-link rounded active" id="pills-jobdetail-tab" data-bs-toggle="pill" data-bs-target="#pills-jobdetail" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Job Detail</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Driver & Container</button>
+                            <button class="nav-link rounded" id="pills-container-tab" data-bs-toggle="pill" data-bs-target="#pills-container" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Container</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="pills-driver-tab" data-bs-toggle="pill" data-bs-target="#pills-driver" type="button" role="tab" aria-controls="pills-booking" aria-selected="false">Driver</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-booking-tab" data-bs-toggle="pill" data-bs-target="#pills-booking" type="button" role="tab" aria-controls="pills-booking" aria-selected="false">Booking</button>
@@ -50,7 +53,7 @@ session_start();
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="tab-pane fade" id="pills-jobdetail" role="tabpanel" aria-labelledby="pills-jobdetail-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -65,11 +68,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-job_number" >
+                                                    <input type="text" class="form-control form-control-sm inp-job_number">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">INV NO.</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-inv" >
+                                                    <input type="text" class="form-control form-control-sm inp-inv">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,11 +82,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-consignee" >
+                                                    <input type="text" class="form-control form-control-sm inp-consignee">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">M B/L</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-mbl" >
+                                                    <input type="text" class="form-control form-control-sm inp-mbl">
                                                 </div>
                                             </div>
                                         </div>
@@ -93,11 +96,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="date" class="form-control form-control-sm inp-eth-job" >
+                                                    <input type="date" class="form-control form-control-sm inp-eth-job">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">H B/L</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-hbl" >
+                                                    <input type="text" class="form-control form-control-sm inp-hbl">
                                                 </div>
                                             </div>
                                         </div>
@@ -107,11 +110,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="date" class="form-control form-control-sm inp-eta-job" >
+                                                    <input type="date" class="form-control form-control-sm inp-eta-job">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Carrier</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-carrier" >
+                                                    <input type="text" class="form-control form-control-sm inp-carrier">
                                                 </div>
                                             </div>
                                         </div>
@@ -121,11 +124,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pol" >
+                                                    <input type="text" class="form-control form-control-sm inp-pol">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Vessel</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-vessel" >
+                                                    <input type="text" class="form-control form-control-sm inp-vessel">
                                                 </div>
                                             </div>
                                         </div>
@@ -135,11 +138,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pod" >
+                                                    <input type="text" class="form-control form-control-sm inp-pod">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">PORT</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-port" >
+                                                    <input type="text" class="form-control form-control-sm inp-port">
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +152,7 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-invno" >
+                                                    <input type="text" class="form-control form-control-sm inp-invno">
                                                 </div>
                                             </div>
                                         </div>
@@ -168,11 +171,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-clearance_date" >
+                                                    <input type="text" class="form-control form-control-sm inp-clearance_date">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Check doc.</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-check_doc" >
+                                                    <input type="text" class="form-control form-control-sm inp-check_doc">
                                                 </div>
                                             </div>
                                         </div>
@@ -182,11 +185,11 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-delivery" >
+                                                    <input type="text" class="form-control form-control-sm inp-delivery">
                                                 </div>
                                                 <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Enter</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-enter" >
+                                                    <input type="text" class="form-control form-control-sm inp-enter">
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +199,7 @@ session_start();
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pick_do" >
+                                                    <input type="text" class="form-control form-control-sm inp-pick_do">
                                                 </div>
                                             </div>
                                         </div>
@@ -280,8 +283,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="tab-pane fade  show active" id="pills-container" role="tabpanel" aria-labelledby="pills-container-tab">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
@@ -321,11 +323,77 @@ session_start();
                                 </table>
                             </div>
                             <div style="float: right">
-                                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
-                                    </div>
+                                <button class="btn btn-primary rounded-pill" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="reportcs.push_action_save_container();"><i class="bi bi-check-square"></i> Save </button>
+                            </div>
                         </div>
                     </div>
-
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Demurrage Charge</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="Demurrage-part-add">
+                                <div class="Demurrage-part-del">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2">Container number:</label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="db-sel-dem">
+                                                        <select class="form-select form-select-sm sel-dem-container" onchange="reportcs.container_dem_change(this)">
+                                                            <option value="">pleses select route</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2">CY :</label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <input type="input" class="form-control form-control-sm inp-dem-cy" readonly>
+                                                </div>
+                                                <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
+                                                <div class="col-lg-4">
+                                                    <input type="date" class="form-control form-control-sm inp-dem-rtn" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2">Demurrage To :</label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <input type="date" class="form-control form-control-sm ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-2">Document :</label>
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <input type="file" class="form-control form-control-sm ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right">
+                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="reportcs.save_dem();"><i class="bi bi-check-square"></i> Save </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-soft-secondary" onclick="reportcs.adddemhtml();">Add Demurrage Charge</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-driver" role="tabpanel" aria-labelledby="pills-driver-tab">
                     <div class="card-transport">
                         <div class="card ">
                             <div class="card-header d-flex justify-content-between">
@@ -418,16 +486,39 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="mb-4">
-                                <h4 class="mb-4">Supplier confirm</h4>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-">Sent Request Line DateTime :</label>
-                                    <div class="col-sm-3 col-lg-3">
-                                        <input type="input" class="form-control form-control-sm inp-sent_request_line" readonly>
+                                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col">
+                                                <select class="form-select form-select-sm inp-type_truck">
+                                                </select>
+                                            </div>
+                                            <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm inp-remark_truck">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
+                                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                                    <div class="col-sm-3 col-lg-1">
+                                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;">
+                                    </div>
+                                </div>
+                                <hr class="mb-4">
+                                <h4 class="mb-4">Driver detail</h4>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver 1:</label>
+                                    <div class="col-sm-3 col-lg-3">
+                                        <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                    </div>
+                                </div>
+                                <hr class="mb-4">
+                                <h4 class="mb-4">Supplier confirm</h4>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
                                     <div class="col-sm-3 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
                                     </div>
@@ -436,7 +527,6 @@ session_start();
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-md-7 col-xl-7">
@@ -649,8 +739,11 @@ session_start();
 
 </html>
 <script src="js/reportcs/reportcs.js"></script>
+<script src="js/reportcs/set_default_data.js"></script>
 <script>
     $(document).ready(function() {
+
         reportcs.check_get();
+
     });
 </script>

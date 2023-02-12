@@ -37,13 +37,13 @@ session_start();
                 <div class="card-body">
                     <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded " id="pills-boooking-tab" data-bs-toggle="pill" data-bs-target="#pills-transport" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Booking Transport</button>
+                            <button class="nav-link rounded active" id="pills-boooking-tab" data-bs-toggle="pill" data-bs-target="#pills-transport" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Booking Transport</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-pettycash-tab" data-bs-toggle="pill" data-bs-target="#pills-pettycash" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="false">Petty Cash & Advance</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-customs" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Customs & Document</button>
+                            <button class="nav-link rounded " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-customs" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Customs & Document</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-booking" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Booking</button>
@@ -52,7 +52,7 @@ session_start();
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade " id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
+                <div class="tab-pane fade show active" id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -78,110 +78,113 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-transport">
-                                <div class="card ">
-                                    <div class="card-header d-flex justify-content-between">
-                                        <div class="header-title">
-                                            <h4 class="card-title">Booking Transport Detail</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Supplier:</label>
-                                            <div class="col-sm-3">
-                                                <div class="db-sel-sup">
-                                                    <select class="form-select form-select-sm mb-3 shadow-none sel-supplier">
-                                                        <option value="">plese select supplier</option>
-                                                    </select>
-                                                </div>
+                            <div class="card-transport-add">
+                                <div class="card-transport-del">
+                                    <div class="card ">
+                                        <div class="card-header d-flex justify-content-between">
+                                            <div class="header-title">
+                                                <h4 class="card-title">Booking Transport Detail</h4>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control form-control-sm inp-pick_emp">
-                                                    </div>
-                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control form-control-sm inp-pick_emp_remark">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-pick_con">
-                                                    </div>
-                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-pick_con_remark">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-drop_con">
-                                                    </div>
-                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-drop_con_reamrk">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-drop_emp">
-                                                    </div>
-                                                    <label class="control-label col-sm-2 align-self-center ">Remark :</label>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control inp-drop_emp_remark">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
-                                            <div class="col-sm-9">
-                                                <div class="row">
-                                                    <div class="col-lg-3">
-                                                        <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget">
-                                                    </div>
-                                                    <div class="col-lg-1">
-                                                        <select class="form-select form-select-sm sel-cur">
-                                                            <option value=""></option>
-                                                            <option value="THB">THB</option>
-                                                            <option value="USD">USD</option>
-                                                            <option value="RMB">RMB</option>
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Supplier:</label>
+                                                <div class="col-sm-3">
+                                                    <div class="db-sel-sup">
+                                                        <select class="form-select form-select-sm  shadow-none sel-supplier">
+                                                            <option value="">plese select supplier</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <hr class="mb-4">
-                                        <h4 class="mb-4">Supplier confirm</h4>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Sent Request Line DateTime :</label>
-                                            <div class="col-sm-3 col-lg-3">
-                                                <input type="input" class="form-control form-control-sm inp-sent_request_line" readonly>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control form-control-sm inp-pick_emp">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control form-control-sm inp-pick_emp_remark">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
-                                            <div class="col-sm-3 col-lg-3">
-                                                <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-pick_con">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-pick_con_remark">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-drop_con">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-drop_con_reamrk">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-drop_emp">
+                                                        </div>
+                                                        <label class="control-label col-sm-2 align-self-center ">Remark :</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control inp-drop_emp_remark">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <select class="form-select form-select-sm inp-type_truck">
+                                                            </select>
+                                                        </div>
+                                                        <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control form-control-sm inp-remark_truck">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-4">
+                                            <h4 class="mb-4">Driver detail</h4>
+                                            <div class="add_driver">
+                                                <div class="form-group row">
+                                                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver 1:</label>
+                                                    <div class="col-sm-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mb-4">
+                                            <h4 class="mb-4">Supplier confirm</h4>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Supplier Confirm DateTime :</label>
+                                                <div class="col-sm-3 col-lg-3">
+                                                    <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +193,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-pettycash" role="tabpanel" aria-labelledby="pills-pettycash-tab">
+                <div class="tab-pane fade " id="pills-pettycash" role="tabpanel" aria-labelledby="pills-pettycash-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -203,34 +206,38 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Type :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm  shadow-none " onchange="customs_set_sub_cash.type_change_cash(this);">
                                                 <option selected>Please select type</option>
-                                                <option value="">Petty Cash</option>
-                                                <option value="">Advance Cash</option>
+                                                <option value="1">Petty Cash</option>
+                                                <option value="2">Advance Cash</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">description :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm  shadow-none sel-des-cash">
                                                 <option selected>Please select shipper</option>
-                                                <option value="">Cargo rent</option>
-                                                <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Pay to :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm mb-3 shadow-none">
+                                            <select class="form-select form-select-sm  shadow-none">
                                                 <option selected>Please select shipper</option>
                                                 <option value="">Cargo rent</option>
                                                 <option value="">OT Customs Department Officer </option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Picture :</label>
                                         <div class="col-sm-9">
-                                            <div class="mb-3">
                                                 <input type="file" class="form-control form-select-sm" id="customFile">
-                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Amount :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
@@ -238,26 +245,45 @@ session_start();
                                                     <input type="text" class="form-control form-control-sm">
                                                 </div>
                                                 <div class="col-3">
-                                                    <select class="form-select form-select-sm mb-3 shadow-none">
-                                                        <option value="" selected>THB</option>
-                                                        <option value="">AMB</option>
-                                                        <option value="">USD</option>
+                                                    <select class="form-select form-select-sm  shadow-none">
+                                                        <option value="THB" selected>THB</option>
+                                                        <option value="RMB">RMB</option>
+                                                        <option value="USD">USD</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="add_pcn">
+                                        <div class="del_pcn">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">Petty Cash number :</label>
+                                                <div class="col-sm-3 col-lg-3">
+                                                    <select class="form-select form-select-sm  shadow-none">
+                                                        <option selected>Please select shipper</option>
+                                                        <option value="">Cargo rent</option>
+                                                        <option value="">OT Customs Department Officer </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Petty Cash Balance :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
-                                                <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control form-control-sm inp-cash-balance">
                                                 </div>
-                                                <div class="col-3">
-                                                    <select class="form-select form-select-sm mb-3 shadow-none">
-                                                        <option value="" selected>THB</option>
-                                                        <option value="">AMB</option>
-                                                        <option value="">USD</option>
+                                                <div class="col-lg-2">
+                                                    <select class="form-select form-select-sm  shadow-none sel-cur-balance">
+                                                        <option value="THB" selected>THB</option>
+                                                        <option value="RMB">RMB</option>
+                                                        <option value="USD">USD</option>
                                                     </select>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                   <input type="text" class="form-control form-control-sm inp-req-cash" >
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +335,7 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show active" id="pills-customs" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="tab-pane fade" id="pills-customs" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -420,7 +446,7 @@ session_start();
                                     </div>
                                     <div class="add_btn_clearance">
                                         <div style="float: right">
-                                            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()"style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
+                                            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
                                         </div>
                                     </div>
                                 </div>
@@ -429,7 +455,7 @@ session_start();
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-booking" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="row">
+                    <div class="row">
                         <div class="col-md-7 col-xl-7">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
@@ -638,10 +664,16 @@ session_start();
 </html>
 
 <script src="js/customs/customs.js"></script>
+<script src="js/customs/customs_set_data_default.js"></script>
+<script src="js/customs/customs_set_sub_booking.js"></script>
+<script src="js/customs/customs_set_sub_customs.js"></script>
+<script src="js/customs/customs_set_sub_transport.js"></script>
+<script src="js/customs/customs_set_sub_cash.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
+
         customs.check_get();
     });
 </script>

@@ -18,6 +18,14 @@
 
     $sql_cargo ="
     SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";
+
+    $sql_type_truck ="
+    SELECT ID,truck_name FROM type_truck";
+
+    $sql_description_cash = "
+    SELECT ID,billing_item_name
+    FROM billing_description
+    WHERE ID IN (20,21)";
     
     $result = $con -> query($sql_supplier);
     if ($result->num_rows > 0) {
@@ -73,7 +81,26 @@ if ($result->num_rows > 0) {
     $cargo[] = "0 results";
 }
 
+$result = $con->query($sql_type_truck);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $type_truck[] = $row;
+    }
+} else {
+    $type_truck[] = "0 results";
+}
+
+$result = $con->query($sql_description_cash);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $des_cash[] = $row;
+    }
+} else {
+    $des_cash[] = "0 results";
+}
+
+
   
-    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo))
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'type_truck'=>$type_truck,'des_cash'=>$des_cash))
 
 ?>

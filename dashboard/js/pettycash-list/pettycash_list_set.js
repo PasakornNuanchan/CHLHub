@@ -15,7 +15,7 @@ const petty_cash_list_set = {
         $('[name = "data_table_list"] tbody').html('');
 
         $.each(res_data['pct'], function (i, v) {         
-            pf_amount = parseFloat(v['total_amount_request']);
+            pf_amount = parseFloat(v['amount']);
             // console.log(pf_amount);
             html_set_pct = `
             <tr>

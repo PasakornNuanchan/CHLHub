@@ -1,6 +1,8 @@
 <?php
     include '../../core/conn.php';
     $arr = array();
+    $job_number = $_POST['job_number'];
+    
     $sql_supplier = "
     SELECT * FROM `transport_sup`";
 
@@ -19,8 +21,23 @@
     $sql_cargo ="
     SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";
 
-   
+    $sql_type_truck = "
+    SELECT
+    `ID`,
+    `type_truck_number`,
+    `truck_name`
+FROM
+    `type_truck`";
 
+    $sql_container = "
+    SELECT 
+        `ID`,
+        `container_type`,
+        `cy`,
+        `rtn`,
+        `container_number`
+    FROM container 
+     WHERE job_number = '$job_number';";
 
 $result = $con->query($sql_supplier);
 if ($result->num_rows > 0) {
@@ -76,9 +93,26 @@ if ($result->num_rows > 0) {
     $cargo[] = "0 results";
 }
 
+$result = $con->query($sql_type_truck);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $truck[] = $row;
+    }
+} else {
+    $truck[] = "0 results";
+}
+
+$result = $con->query($sql_container);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $container[] = $row;
+    }
+} else {
+    $container[] = "0 results";
+}
 
 
   
-    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo))
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'truck'=>$truck,'container'=>$container))
 
 ?>

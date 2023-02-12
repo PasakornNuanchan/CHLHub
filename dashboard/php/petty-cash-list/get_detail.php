@@ -10,7 +10,7 @@
     u.first_name,
     u.last_name,
     COUNT(pcd.job_number) as COUNT_job,
-    pct.total_amount_request
+    SUM(pcd.amount) as amount
 FROM 
     `petty_cash_title` as pct
     INNER JOIN user as u ON pct.request_by = u.user_number

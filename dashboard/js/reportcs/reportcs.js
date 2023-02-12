@@ -23,9 +23,8 @@ const reportcs = {
         console.log(action);
 
         if (action == 'preview') {
-            reportcs.set_data_default();
             reportcs.set_preview_data(job_number);
-
+            reportcs_set_default.set_data_default(job_number);
         } else {
 
         }
@@ -44,71 +43,11 @@ const reportcs = {
         });
     },
 
-    ajax_set_data : function(){
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/transport/get_transport.php",
-                data: {},
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
 
-    set_data_default: async function (){
-        let set_data = await reportcs.ajax_set_data();
-        console.log(set_data);
-        // booking set select
-        // shipper 
-        let db_sel_shipper='';
-        $.each(set_data['shipper'], function (i, k) {
-            db_sel_shipper += `
-            <option value="${k['shipper_number']}">${k['shipper_name']}</option>
-            `;
-        });
-        $('.inp-shper').append(db_sel_shipper);
 
-        let db_sel_shipment ='';
-        $.each(set_data['shipment'], function (i, k) {
-            db_sel_shipment += `
-            <option value="${k['st_number']}">${k['st_name']}</option>
-            `;
-        });
-
-        $('.inp-shptrm').append(db_sel_shipment);
-        let db_sel_carrier ='';
-        $.each(set_data['carrier'], function (i, k) {
-            db_sel_carrier += `
-            <option value="${k['carrier_number']}">${k['carrier_name']}</option>
-            `;
-        });
-        $('.inp-carrier-sel').append(db_sel_carrier);
-        let db_sel_area ='';
-        $.each(set_data['area'], function (i, k) {
-            db_sel_area += `
-            <option value="${k['area_number']}">${k['location_name']},${k['country']}</option>
-            `;
-        });
-        $('.inp-prtrecieve',).append(db_sel_area);
-        $('.inp-prtload',).append(db_sel_area);
-        $('.inp-ts_port',).append(db_sel_area);
-        $('.inp-delivery-sel-booking',).append(db_sel_area);
-
-        let db_sel_cargo ='';
-        $.each(set_data['cargo'], function (i, k) {
-            db_sel_cargo += `
-            <option value="${k['ID']}">${k['cargo_type_name']}</option>
-            `;
-        });
-        $('.inp-cargo_type',).append(db_sel_cargo);
-        
-    },
     set_preview_data: async function (job_number) {
 
-       
+
 
         let res_data = await reportcs.ajax_set_preview_data(job_number);
         console.log(res_data);
@@ -122,7 +61,7 @@ const reportcs = {
         $('.bcpage').append(html_bdpage);
 
 
-        
+
         // supplier
         let html_supplier = '';
         $.each(res_data['supplier'], function (i, k) {
@@ -154,43 +93,43 @@ const reportcs = {
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
 
         //Document
-        if(res_data['dej']['INV_receiv_by'] == ""){
+        if (res_data['dej']['INV_receiv_by'] == "") {
             inv_status = '';
-            inv_status_edit ='hidden';
+            inv_status_edit = 'hidden';
 
-        }else{
+        } else {
             inv_status = 'hidden';
-            inv_status_edit ='';
+            inv_status_edit = '';
         }
-        if(res_data['dej']['BL_receiv_by'] == "" ){
+        if (res_data['dej']['BL_receiv_by'] == "") {
             bl_status = '';
             bl_status_edit = 'hidden';
 
-        }else{
+        } else {
             bl_status = 'hidden';
             bl_status_edit = '';
         }
-        if(res_data['dej']['PL_receiv_by'] == "" ){
+        if (res_data['dej']['PL_receiv_by'] == "") {
             pl_status = '';
             pl_status_edit = 'hidden';
 
-        }else{
+        } else {
             pl_status = 'hidden';
             pl_status_edit = '';
         }
-        if(res_data['dej']['ID_receiv_by'] == "" ){
+        if (res_data['dej']['ID_receiv_by'] == "") {
             id_status = '';
             id_status_edit = 'hidden';
 
-        }else{
+        } else {
             id_status = 'hidden';
             id_status_edit = '';
         }
-        if(res_data['dej']['IL_receiv_by'] == ""){
+        if (res_data['dej']['IL_receiv_by'] == "") {
             il_status = '';
             il_status_edit = 'hidden';
 
-        }else{
+        } else {
             il_status = 'hidden';
             il_status_edit = '';
         }
@@ -200,28 +139,28 @@ const reportcs = {
         let inv_check_by = res_data['dej']['INV_check_by'];
         let inv_check_datetime = res_data['dej']['inv_check_datetime'];
 
-        if(res_data['dej']['INV_receiv_by'] == null){
+        if (res_data['dej']['INV_receiv_by'] == null) {
             inv_receiv_by = "";
-        }if(res_data['dej']['inv_receiv_datetime'] == null){
+        } if (res_data['dej']['inv_receiv_datetime'] == null) {
             inv_receiv_datetime = "";
-        }if(res_data['dej']['INV_check_by'] == null){
+        } if (res_data['dej']['INV_check_by'] == null) {
             inv_check_by = "";
-        }if(res_data['dej']['inv_check_datetime'] == null){
+        } if (res_data['dej']['inv_check_datetime'] == null) {
             inv_check_datetime = "";
         }
-       
+
         let BL_receiv_by = res_data['dej']['BL_receiv_by'];
         let BL_receiv_datetime = res_data['dej']['bl_receiv_datetime'];
         let BL_check_by = res_data['dej']['BL_check_by'];
         let BL_check_datetime = res_data['dej']['bl_check_datetime'];
 
-        if(res_data['dej']['BL_receiv_by'] == null){
+        if (res_data['dej']['BL_receiv_by'] == null) {
             BL_receiv_by = "";
-        }if(res_data['dej']['bl_receiv_datetime'] == null){
+        } if (res_data['dej']['bl_receiv_datetime'] == null) {
             BL_receiv_datetime = "";
-        }if(res_data['dej']['BL_check_by'] == null){
+        } if (res_data['dej']['BL_check_by'] == null) {
             BL_check_by = "";
-        }if(res_data['dej']['bl_check_datetime'] == null){
+        } if (res_data['dej']['bl_check_datetime'] == null) {
             BL_check_datetime = "";
         }
 
@@ -230,13 +169,13 @@ const reportcs = {
         let PL_check_by = res_data['dej']['PL_check_by'];
         let PL_check_datetime = res_data['dej']['pl_check_datetime'];
 
-        if(res_data['dej']['PL_receiv_by'] == null){
+        if (res_data['dej']['PL_receiv_by'] == null) {
             PL_receiv_by = "";
-        }if(res_data['dej']['pl_receiv_datetime'] == null){
+        } if (res_data['dej']['pl_receiv_datetime'] == null) {
             PL_receiv_datetime = "";
-        }if(res_data['dej']['PL_check_by'] == null){
+        } if (res_data['dej']['PL_check_by'] == null) {
             PL_check_by = "";
-        }if(res_data['dej']['pl_check_datetime'] == null){
+        } if (res_data['dej']['pl_check_datetime'] == null) {
             PL_check_datetime = "";
         }
 
@@ -245,13 +184,13 @@ const reportcs = {
         let ID_check_by = res_data['dej']['ID_check_by'];
         let ID_check_datetime = res_data['dej']['id_check_datetime'];
 
-        if(res_data['dej']['ID_receiv_by'] == null){
+        if (res_data['dej']['ID_receiv_by'] == null) {
             ID_receiv_by = "";
-        }if(res_data['dej']['id_receiv_datetime'] == null){
+        } if (res_data['dej']['id_receiv_datetime'] == null) {
             ID_receiv_datetime = "";
-        }if(res_data['dej']['ID_check_by'] == null){
+        } if (res_data['dej']['ID_check_by'] == null) {
             ID_check_by = "";
-        }if(res_data['dej']['id_check_datetime'] == null){
+        } if (res_data['dej']['id_check_datetime'] == null) {
             ID_check_datetime = "";
         }
 
@@ -260,17 +199,17 @@ const reportcs = {
         let IL_check_by = res_data['dej']['IL_check_by'];
         let IL_check_datetime = res_data['dej']['il_check_datetime'];
 
-        if(res_data['dej']['IL_receiv_by'] == null){
+        if (res_data['dej']['IL_receiv_by'] == null) {
             IL_receiv_by = "";
-        }if(res_data['dej']['il_receiv_datetime'] == null){
+        } if (res_data['dej']['il_receiv_datetime'] == null) {
             IL_receiv_datetime = "";
-        }if(res_data['dej']['IL_check_by'] == null){
+        } if (res_data['dej']['IL_check_by'] == null) {
             IL_check_by = "";
-        }if(res_data['dej']['il_check_datetime'] == null){
+        } if (res_data['dej']['il_check_datetime'] == null) {
             IL_check_datetime = "";
         }
 
-     
+
         html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
@@ -333,10 +272,10 @@ const reportcs = {
         var container_type_check = '';
         var container_type_name = '';
         $('[name = container-tbl] tbody').html('');
-
+        var num_container_rows = '1';
         $.each(res_data['cont'], function (i, v) {
 
-            if((container_type_check = v['container_type']) == null) {
+            if ((container_type_check = v['container_type']) == null) {
                 $('[name = container-tbl] tbody').html('');
             } else {
                 sub_container = container_type_check.substring(2);
@@ -355,83 +294,98 @@ const reportcs = {
                 } if (sub_container == "TK") {
                     container_type_name = "ISO Tank";
                 }
-            
-            if ((soc = v['soc']) == 1) {
-                soc = "checked";
-            } else {
-                soc = "";
-            } if ((ow = v['ow']) == 1) {
-                ow = "checked";
-            } else {
-                ow = "";
-            }
-            pcs = parseFloat(v['pcs']);
-            gross_weight = parseFloat(v['gross_weight']);
-            cbm = parseFloat(v['cbm']);
-            sng = parseFloat(v['single_cnt']);
-            html_container = `
-                <tr>
-                    <td>1</td>
+
+                if ((soc = v['soc']) == 1) {
+                    soc = "checked";
+                } else {
+                    soc = "";
+                } if ((ow = v['ow']) == 1) {
+                    ow = "checked";
+                } else {
+                    ow = "";
+                }
+                pcs = parseFloat(v['pcs']);
+                gross_weight = parseFloat(v['gross_weight']);
+                cbm = parseFloat(v['cbm']);
+                sng = parseFloat(v['single_cnt']);
+                html_container = `
+                <tr container_data_id=${v['ID']}>
+                    <td>${num_container_rows}</td>
                     <td>${container_type_name} (${v['container_type']})</td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['container_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['seal_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
-                    <td><input type="text" class="form-control form-control-sm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${v['container_number']}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${v['seal_number']}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
                     <td><input type="checkbox" class="form-check-input" ${soc} disabled></td>
                     <td><input type="checkbox" class="form-check-input" ${ow} disabled></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['cy']}"></td>
-                    <td><input type="text" class="form-control form-control-sm" value="${v['rtn']}"></td>
+                    <td><input type="text" class="form-control form-control-sm" value="${v['cy']}" readonly></td>
+                    <td><input type="text" class="form-control form-control-sm" value="${v['rtn']}" readonly></td>
                 </tr>
                 `;
-            $('[name = container-tbl] tbody').append(html_container);
-        }
+                num_container_rows++;
+                $('[name = container-tbl] tbody').append(html_container);
+            }
         });
         html_transport = '';
         var html_select_supplier = $('.sel-supplier').parent().html();
         var html_select_cur = $('.sel-cur').parent().html();
+        var html_select_truck = $('.inp-type_truck').parent().html();
+
         route = 1;
+
+
+
         $.each(res_data['tran'], async function (i, v) {
             $('.card-transport').html('');
-            budget = parseFloat(v['budget']);
-            if ((pcea = v['pick_con_empty_address']) == null) {
-                pcea = '';
-            }
-            if ((pcer = v['pick_con_empty_remark']) == null) {
-                pcer = '';
-            }
-            if ((pca = v['pick_con_address']) == null) {
-                pca = '';
-            }
-            if ((pcr = v['pick_con_remark']) == null) {
-                pcr = '';
-            }
-            if ((dca = v['drop_con_address']) == null) {
-                dca = '';
-            }
-            if ((dcr = v['drop_con_remark']) == null) {
-                dcr = '';
-            }
-            if ((dcea = v['drop_con_empty_address']) == null) {
-                dcea = '';
-            }
-            if ((dcer = v['drop_con_empty_remark']) == null) {
-                dcer = '';
-            }
-            if ((sldt = v['sent_line_datetime']) == null) {
-                sldt = '';
-            }
-            if ((scf = v['sup_confirm']) == null) {
-                scf = '';
-            }
-            if ((bud = v['budget']) == null) {
-                bud = '';
-            }
-            if ((sup_n = v['sup_number']) == null) {
-                sup_n = '';
-            }
-            if ((cur_n = v['cur']) == null) {
-                cur_n = '';
-            }
+            //budget = parseFloat(v['budget']);
+
+
+            //let budget = parseFloat(v['budget']);
+            let pcea = v['pick_con_empty_address'] || '';
+            let pcer = v['pick_con_empty_remark'] || '';
+            let pca = v['pick_con_address'] || '';
+            let pcr = v['pick_con_remark'] || '';
+            let dca = v['drop_con_address'] || '';
+            let dcr = v['drop_con_remark'] || '';
+            let dcea = v['drop_con_empty_address'] || '';
+            let dcer = v['drop_con_empty_remark'] || '';
+            //let sldt = v['sent_line_datetime'] || '';
+            let scf = v['sup_confirm'] || '';
+            let type_truck = !!v['type_truck'] ? v['type_truck'] : '';
+            let remark = v['remark'] || '';
+
+            let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
+            let cur_n = !!v['cur'] ? v['cur'] : '';
+            let truck_quantity = !!v['truck_quantity'] ? v['truck_quantity'] : '';
+
+            let ID_test = v['ID'];
+            html_driver_transport = '';
+            let num_tran_driver = '1';
+            $.each(res_data['transport_driver_arr'][ID_test], async function (i1, v1) {
+                html_driver_transport += `
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver ${num_tran_driver}:</label>
+                    <div class="col-sm-9 col-lg-10">
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-2">
+                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['Driver_name']}" readonly>
+                            </div>
+                            <div class="col-sm-3 col-lg-2">
+                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['phone_number']}" readonly>
+                            </div>
+                            <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0">container_number :</label>
+                            <div class="col-sm-3 col-lg-2">
+                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['container_number']}" readonly>
+                            </div>
+                            <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0">seal_number :</label>
+                            <div class="col-sm-3 col-lg-2">
+                            <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['seal_number']}" readonly>
+                        </div>
+                        </div>
+                    </div>
+                </div>`;
+                num_tran_driver++;
+            })
 
             html_transport += `
         <div class="card-transport">
@@ -511,20 +465,13 @@ const reportcs = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                            <select class="form-select form-select-sm inp-type_truck">
-                                <option value="">plese select type of truck</option>
-                                <option value="">Truck 4W</option>
-                                <option value="">Box Truck 4W</option>
-                                <option value="">Box Truck 4W (refrigerated truck)</option>
-                                <option value="">Truck 6W</option>
-                                <option value="">Truck 6W (refrigerated truck)</option>
-                                <option value="">Truck 10W</option>
-                                <option value="">Tractor</option>
-                            </select>
+                            <div class="db-sel-truck db-sel-truck${i}">
+                           ${html_select_truck}
+                           </div>
                             </div>
                             <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
                             <div class="col">
-                                <input type="text" class="form-control form-control-sm inp-remark_truck"> 
+                                <input type="text" class="form-control form-control-sm inp-remark_truck" value="${remark}" readonly> 
                             </div>
                         </div>
                     </div>
@@ -532,23 +479,12 @@ const reportcs = {
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
                     <div class="col-sm-3 col-lg-1">
-                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;">
+                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" value="${truck_quantity}" readonly>
                     </div>
                 </div>  
                 <hr class="mb-4">
                 <h4 class="mb-4">Driver detail</h4>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver 1:</label>
-                    <div class="col-sm-3 col-lg-3">
-                        <input type="input" class="form-control form-control-sm inp-supplier_firm" value="นาย บี" readonly>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver 2:</label>
-                    <div class="col-sm-3 col-lg-3">
-                        <input type="input" class="form-control form-control-sm inp-supplier_firm" value="นาย เอ" readonly>
-                    </div>
-                </div>
+                ${html_driver_transport}
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier confirm</h4>
                 <div class="form-group row">
@@ -564,55 +500,376 @@ const reportcs = {
             route++;
             await $('.card-transport').append(html_transport);
 
+            $(`.db-sel-truck${i} > select`).val(type_truck).attr('disabled', true);
             $(`.db-sel-sup${i} > select`).val(sup_n).attr('disabled', true);
             $(`.db-sel-cur${i} > select`).val(cur_n).attr('disabled', true);
 
 
         });
-         // booking set (booking detail)
-         $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled',true);
-         $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled',true);
- 
-         $('.inp-carrier-sel').val(res_data['booking']['carrier_number']).attr('disabled',true);
-         $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled',true);
-         $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled',true);
-         $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled',true);
-         $('.inp-delivery-sel-booking').val(res_data['booking']['port_of_delivery_number']).attr('disabled',true);
- 
- 
- 
-         $('.inp-jobno').val(res_data['booking']['job_number']).attr('readonly',true);
-         $('.inp-bkno').val(res_data['booking']['booking_number']).attr('readonly',true);
-         
-         $('.inp-rmk').val(res_data['booking']['remark']).attr('readonly',true);
-        
-         $('.inp-M_vessel').val(res_data['booking']['mother_vessel']).attr('readonly',true);
-         $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']).attr('readonly',true);
-         $('.inp-feeder_vessel').val(res_data['booking']['feeder_vessel']).attr('readonly',true);
-         $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly',true);
-         $('.inp-etd').val(res_data['booking']['etd']).attr('readonly',true);
-         $('.inp-eta').val(res_data['booking']['eta']).attr('readonly',true);
+        // booking set (booking detail)
+        $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled', true);
+        $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled', true);
 
-         $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly',true);
+        $('.inp-carrier-sel').val(res_data['booking']['carrier_number']).attr('disabled', true);
+        $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled', true);
+        $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled', true);
+        $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled', true);
+        $('.inp-delivery-sel-booking').val(res_data['booking']['port_of_delivery_number']).attr('disabled', true);
 
-         let db_sel_hs ='';
-         $.each(res_data['hscode'], function (i, k) {
-             db_sel_hs += `
+
+
+        $('.inp-jobno').val(res_data['booking']['job_number']).attr('readonly', true);
+        $('.inp-bkno').val(res_data['booking']['booking_number']).attr('readonly', true);
+
+        $('.inp-rmk').val(res_data['booking']['remark']).attr('readonly', true);
+
+        $('.inp-M_vessel').val(res_data['booking']['mother_vessel']).attr('readonly', true);
+        $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']).attr('readonly', true);
+        $('.inp-feeder_vessel').val(res_data['booking']['feeder_vessel']).attr('readonly', true);
+        $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly', true);
+        $('.inp-etd').val(res_data['booking']['etd']).attr('readonly', true);
+        $('.inp-eta').val(res_data['booking']['eta']).attr('readonly', true);
+
+        $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly', true);
+
+        let db_sel_hs = '';
+        $.each(res_data['hscode'], function (i, k) {
+            db_sel_hs += `
              <option value="${k['hs_code']}">${k['hs_code']} ${k['hs_decription']}</option>
              `;
-         });
-         $('.inp-hscode').append(db_sel_hs);
- 
-         $('.inp-hscode').val(res_data['cninform']['hs_code']+' '+res_data['cninform']['hs_decription']).attr('disabled',true);
-         $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled',true);
-         $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly',true);
-         $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly',true);
-         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly',true);
-         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly',true);
+        });
+        $('.inp-hscode').append(db_sel_hs);
 
+        $('.inp-hscode').val(res_data['cninform']['hs_code'] + ' ' + res_data['cninform']['hs_decription']).attr('disabled', true);
+        $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled', true);
+        $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly', true);
+        $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly', true);
+        $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly', true);
+        $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly', true);
+
+    
+
+        html_dem_charge = '';
+         db_dem_container = $('.sel-dem-container').parent().html()
+        let db_dem_cy = $('.inp-dem-cy').parent().html()
+        let db_dem_rtn = $('.inp-dem-rtn').parent().html()
+        $('.Demurrage-part-add').html('');
+
+        num_dem = '1';
+        $.each(res_data['dem'], async function (i, v) {
+
+            container_id = v['container_id']
+
+            html_dem_charge = `    
+        <div class="Demurrage-part-del Demurrage-part-del${v['ID']}" Demurrage_part_del="${v['ID']}">
+        <br>
+            <h5>Demurrage No.${num_dem}</h5>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">Container number:</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="db-sel-dem db-sel-dem${i}">
+                                ${db_dem_container}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">CY :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm inp-cy-dem" value="${v['CY']}" readonly>
+                        </div>
+                        <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm inp-rtn-dem" value="${v['RTN']}"readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">Demurrage To :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="date" class="form-control form-control-sm inp-rtn-new-dem" value="${v['new_dem_time']}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">Document :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="file" class="form-control form-control-sm inp-doc-dem">
+                        </div>
+                        <div class="col-lg-4">
+                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.del_dem(${v['ID']},this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+            num_dem++;
+            $('.Demurrage-part-add').append(html_dem_charge);
+            $(`.db-sel-dem${i} > select`).val(container_id)
+
+
+
+        })
+        //get value delete
+        delete_dem_arr = [];
+        delete_dem_arr_tmp = {};
 
 
     },
+
+    adddemhtml: function (e = null) {
+        
+        html_add_dem = '';
+        html_add_dem = `
+        <div class="Demurrage-part-del Demurrage-part-del" Demurrage-part-del="">
+        <br>
+            <h5>Demurrage No.${num_dem}</h5>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">Container number:</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="db-sel-dem">
+                                ${db_dem_container}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">CY :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm inp-cy-dem"  readonly>
+                        </div>
+                        <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
+                        <div class="col-lg-4">
+                            <input type="input" class="form-control form-control-sm inp-rtn-dem" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2 ">Demurrage To :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="date" class="form-control form-control-sm inp-rtn-new-dem">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3 col-lg-2">Document :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="file" class="form-control form-control-sm inp-doc-dem">
+                        </div>
+                        <div class="col-lg-4">
+                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.del_dem(null,this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        
+        $('.Demurrage-part-add').append(html_add_dem);
+        num_dem++;
+        num_count_del_delete = '1';
+    }, 
+    
+    
+    del_dem: function (dem_del_list,e = null) {
+        num_dem--;
+        
+        delete_dem_arr_tmp = {
+            dem_del_list: dem_del_list,
+        }
+
+        delete_dem_arr.push(delete_dem_arr_tmp)
+        console.log(delete_dem_arr)
+        $(e).closest('.Demurrage-part-del').remove();
+    },
+    
+    push_action_save_container: async function (){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.save_container()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+               
+            }
+          }) 
+    },
+    save_container : async function(i, e){
+        let container_arr = [];
+        let container_arr_tmp = {};
+
+        $('[name = container-tbl] tbody > tr').each(function(i ,e ){
+
+        let ID = $(this).attr('container_data_id');
+        let container_nubmer = $('.inp-container_number', this).val();
+        let seal_number = $('.inp-seal_number', this).val();
+        let gw = $('.inp-gw', this).val();
+        let cbm = $('.inp-cbm', this).val();
+
+        container_arr_tmp = {
+            ID:ID,
+            container_nubmer: container_nubmer,
+            seal_number: seal_number,
+            gw: gw,
+            cbm: cbm,
+          }
+
+          container_arr.push(container_arr_tmp)
+        });
+
+
+        //console.log(container_arr);
+       let res = await reportcs.ajax_save_container(container_arr);
+    //    if(res){
+    //     alert("testd");
+    //    }else{
+    //     alert("แตก");
+    //    }
+       
+    },
+    ajax_save_container : function(container_arr){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/save_container.php",
+                data: {'container_arr' : container_arr},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
+
+
+    container_dem_change: async function (e) {
+        let val = $(e).val();
+        let parent = $(e).closest('.Demurrage-part-del');
+        let res_data_dem = await reportcs.ajax_dem_change(val);
+        $('.inp-cy-dem', parent).val(res_data_dem['CY']);
+        $('.inp-rtn-dem', parent).val(res_data_dem['RTN']);
+    },
+
+    ajax_dem_change: function (val) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/get_value_dem.php",
+                data: { 'val': val },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    save_dem : async function(i, e){
+        let dem_arr = [];
+        let dem_arr_tmp = {};
+
+        $('.Demurrage-part-del').each(function (i,e){
+            
+            let ID_dem = $(this).attr('demurrage_part_del')
+            let containe_ID = $('.sel-dem-container',this).val();
+            let old_dem = $('.inp-rtn-dem',this).val();
+            let new_dem = $('.inp-rtn-new-dem',this).val();
+            let doc = $('.inp-doc-dem',this).val(); 
+
+            
+            dem_arr_tmp = {
+            ID_dem : ID_dem,
+            containe_ID:containe_ID,
+            old_dem: old_dem,
+            new_dem:new_dem,
+            doc:doc,
+          }
+
+          dem_arr.push(dem_arr_tmp)
+        });
+        console.log(delete_dem_arr)
+        console.log(dem_arr)
+
+        //console.log(container_arr);
+       let res = await reportcs.ajax_save_dem(dem_arr,delete_dem_arr);
+    //    if(res){
+    //     alert("testd");
+    //    }else{
+    //     alert("แตก");
+    //    }
+       
+    },
+    ajax_save_dem : function(dem_arr,delete_dem_arr){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/save_dem.php",
+                data: {'dem_arr' : dem_arr , 'delete_dem_arr' : delete_dem_arr},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
+    ajax_save_container : function(container_arr){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/save_container.php",
+                data: {'container_arr' : container_arr},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
+
+
+
+
 
 };
 
