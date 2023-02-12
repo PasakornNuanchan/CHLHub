@@ -6,39 +6,44 @@
 
     try {
         // begin transaction
-        $con->beginTransaction();
+        $con->begin_transaction();
+        $all_queries_success = true;
+
         foreach($container_data as $k => $v){
             $ID = isset($v['ID']) ? $v['ID'] : '';
             $container_number = isset($v['container_nubmer']) ? $v['container_nubmer'] : '';
             $gw = isset($v['gw']) ? $v['gw'] : '';
             $cbm = isset($v['cbm']) ? $v['cbm'] : '';
             $seal_number = isset($v['seal_number']) ? $v['seal_number'] : '';
-    
-            $sql_query = "
+
+           $sql_query = "
             UPDATE
-                `container`
+                container
             SET
-                `container_number` = '$container_number',
-                `seal_number` = '$seal_number',
-                `gross_weight` = '$gw',
-                `cbm` = '$cbm'
+                container_number = '$container_number',
+                seal_number = '$seal_number',
+                gross_weight = '$gw',
+                cbm = '$cbm'
             WHERE ID = '$ID'";
-            if($con->query($sql_query)== 1){
-                $arr_suc['st'] = '1';
-            }else{
+            if($con->query($sql_query) != 1){
+                $all_queries_success = false;
                 $arr_suc['st'] = '0';
-                
+            }else{
+                $arr_suc['st'] = '1';
+
             }
-        }   
+        }
         // commit the transaction
-        $con->commit();
-        echo "Transaction committed successfully.";
+        if ($all_queries_success) {
+            $con->commit();
+          } else {
+            $con->rollback();
+          }
     } catch (Exception $e) {
         // rollback the transaction
         $con->rollback();
-        echo "Transaction rolled back: " . $e->getMessage();
+        echo $e;
     }
-    
-   
+
+
         echo json_encode($arr_suc);
-?>
