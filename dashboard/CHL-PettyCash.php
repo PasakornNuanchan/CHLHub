@@ -60,7 +60,7 @@ session_start();
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Bank Name:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-bankname">
@@ -71,7 +71,7 @@ session_start();
                                     <div class="col-sm-9 col-md-4 col-lg-3">
                                         <input type="input" class="form-control form-control-sm inp-banknumber">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="card">

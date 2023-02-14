@@ -50,6 +50,6 @@ VALUES(
  }
 
  $status = $con->query($sql_add_list);
- echo json_encode($status);
+ print_r($status);
 
 ?>
