@@ -1,6 +1,6 @@
 const customs ={
     job_number_global :  '' ,
-    check_get: function () {
+    check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -26,12 +26,12 @@ const customs ={
         console.log(action);
         
         if (action == 'preview') {
-            customs_set_data_default.set_data_default();
-            customs.head_bcpage(job_number);
-            customs_set_sub_booking.set_sub_booking_preview_data(job_number);
-            customs_set_sub_customs.set_preview_table_document(job_number);
-            customs_set_sub_transport.set_sub_transport_preview_data(job_number);
-            customs_set_sub_cash.set_sub_cash_preview_data(job_number);
+           await customs_set_data_default.set_data_default();
+           await customs.head_bcpage(job_number);
+           await customs_set_sub_booking.set_sub_booking_preview_data(job_number);
+           await customs_set_sub_customs.set_preview_table_document(job_number);
+           await customs_set_sub_transport.set_sub_transport_preview_data(job_number);
+           await customs_set_sub_cash.set_sub_cash_preview_data(job_number);
         } else {
 
         }

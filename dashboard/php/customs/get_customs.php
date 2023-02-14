@@ -25,7 +25,7 @@
     $sql_description_cash = "
     SELECT ID,billing_item_name
     FROM billing_description
-    WHERE ID IN (20,21)";
+    WHERE ID IN (20,21,22)";
     
     $result = $con -> query($sql_supplier);
     if ($result->num_rows > 0) {

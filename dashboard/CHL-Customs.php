@@ -206,10 +206,10 @@ session_start();
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Type :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm  shadow-none " onchange="customs_set_sub_cash.type_change_cash(this);">
-                                                <option selected>Please select type</option>
-                                                <option value="1">Petty Cash</option>
-                                                <option value="2">Advance Cash</option>
+                                            <select class="form-select form-select-sm  shadow-none inp-pcn-type" onchange="customs_set_sub_cash.type_change_cash(this);">
+                                                <option value="">Please select type</option>
+                                                <option value="Petty Cash">Petty Cash</option>
+                                                <option value="Advance Cash">Advance Cash</option>
                                             </select>
                                         </div>
                                     </div>
@@ -217,24 +217,24 @@ session_start();
                                         <label class="control-label col-sm-3 align-self-center ">description :</label>
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm  shadow-none sel-des-cash">
-                                                <option selected>Please select shipper</option>
+                                                <option value="">Please select shipper</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Pay to :</label>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm  shadow-none">
-                                                <option selected>Please select shipper</option>
-                                                <option value="">Cargo rent</option>
-                                                <option value="">OT Customs Department Officer </option>
+                                            <select class="form-select form-select-sm  shadow-none inp-pcn-pay">
+                                                <option value="">Please select shipper</option>
+                                                <option value="1">Cargo rent</option>
+                                                <option value="1">OT Customs Department Officer </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 align-self-center ">Picture :</label>
                                         <div class="col-sm-9">
-                                                <input type="file" class="form-control form-select-sm" id="customFile">
+                                            <input type="file" class="form-control form-select-sm inp-pcn-pic" id="customFile">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -242,16 +242,22 @@ session_start();
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" class="form-control form-control-sm">
+                                                    <input type="text" class="form-control form-control-sm inp-pcn-amount">
                                                 </div>
                                                 <div class="col-3">
-                                                    <select class="form-select form-select-sm  shadow-none">
+                                                    <select class="form-select form-select-sm  shadow-none inp-pcn-amount-cur">
                                                         <option value="THB" selected>THB</option>
                                                         <option value="RMB">RMB</option>
                                                         <option value="USD">USD</option>
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Remark :</label>
+                                        <div class="col-sm-9 col-lg-3">
+                                            <input type="text" class="form-control form-select-sm inp-pcn-remark">
                                         </div>
                                     </div>
                                     <div class="add_pcn">
@@ -259,38 +265,40 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Petty Cash number :</label>
                                                 <div class="col-sm-3 col-lg-3">
-                                                    <select class="form-select form-select-sm  shadow-none">
+                                                    <select class="form-select form-select-sm  shadow-none sel-pcn sel-pcn-pcn">
                                                         <option selected>Please select shipper</option>
-                                                        <option value="">Cargo rent</option>
-                                                        <option value="">OT Customs Department Officer </option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Petty Cash Balance :</label>
-                                        <div class="col-sm-9">
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <input type="text" class="form-control form-control-sm inp-cash-balance">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <select class="form-select form-select-sm  shadow-none sel-cur-balance">
-                                                        <option value="THB" selected>THB</option>
-                                                        <option value="RMB">RMB</option>
-                                                        <option value="USD">USD</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                   <input type="text" class="form-control form-control-sm inp-req-cash" >
+                                    <div class="pcb-add">
+                                        <div class="pcb-del">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">Petty Cash Balance :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <input type="text" class="form-control form-control-sm inp-cash-balance">
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <select class="form-select form-select-sm  shadow-none sel-cur-balance" disabled>
+                                                                <option value="THB">THB</option>
+                                                                <option value="RMB">RMB</option>
+                                                                <option value="USD">USD</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <input type="text" class="form-control form-control-sm inp-req-cash">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div style="float: right">
-                                        <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-square"></i> Save</button>
-                                        <button class="btn btn-warning rounded-pill btn-sm"><i class="bi bi-arrow-clockwise"></i> Reset</button>
+                                        <button class="btn btn-success rounded-pill btn-sm " onclick="customs_set_sub_cash.push_save_cash_list()"><i class="bi bi-check-square"></i> Save</button>
+                                        <button class="btn btn-warning rounded-pill btn-sm" onclick="customs_set_sub_cash.reset_val_cash()"> <i class="bi bi-arrow-clockwise"></i> Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +316,7 @@ session_start();
                                                     <th>Pay to</th>
                                                     <th>picture</th>
                                                     <th>amount</th>
-                                                    <th>create by.</th>
+                                                    <th>remark</th>
                                                     <th>action</th>
                                                 </tr>
                                             </thead>
@@ -318,8 +326,6 @@ session_start();
                                                     <td>Advance Cash</td>
                                                     <td>Rent cargo</td>
                                                     <td></td>
-                                                    <td>32,000.00</td>
-                                                    <td>Apichat Pilalee</td>
                                                     <td></td>
                                                     <td>
 
