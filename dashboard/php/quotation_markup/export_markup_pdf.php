@@ -29,6 +29,7 @@
     $sql_base = "
         SELECT DISTINCT
             qdb.`ID`,
+            qdb.`qty`,
             r.carrier_number as 'r_number',
             cr.carrier_name as 'r_carrier_name',
             r.pol as 'r_pol',
@@ -40,7 +41,6 @@
             (qdb.qty*qdb.unit_price) as 'price_qty',
             qdb.remark as 'r_remark',
             qdb.markup_price as 'r_markup',
-
             r.currency as 'r_curr'
         FROM
             `quartation_detail_base` as qdb
@@ -128,6 +128,7 @@
     {
         function Header()
         {
+            $title = $result_title_array;
             $this->AddFont('THSarabunNew','','THSarabunNew.php');
             $this->AddFont('THSarabunNew','B','THSarabunNew_b.php');
             $this->SetFont('THSarabunNew','B',16);
@@ -161,6 +162,13 @@
         function Footer()
         {
             // Code to create the footer
+
+            $this->SetY(-80);
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', ' This ') ,1,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', ' Is ') ,1,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', ' Footer ') ,1,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', ' Testing ') ,1,1,'L');
+
             $this->SetY(-15);
             $this->SetFont('Arial', 'I', 8);
             $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
@@ -169,17 +177,108 @@
 
     $pdf = new PDF();
     $pdf->AliasNbPages();
-    // $pdf->AddPage();
+    $pdf->AddPage();
     
 
     $num = 0;
+    // print_r($result_base_array);
     foreach ($result_base_array as $k => $v) {
+        if($pdf->GetY() >= 200){
+            $pdf->AddPage();
+        }
         $num += 1;
-        $pdf->AddPage();
 
-        $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,1,'C');
+        $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,0,'C');
+        $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', $v['r_carrier_name'] .' : '. $v['r_container_type']) ,1,0,'L');
+        $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', number_format($v['r_markup'] * $v['qty'],2).'.-') ,1,0,'R');
+        $pdf->Cell(40, 6, iconv('UTF-8', 'cp874', $v['qty']) ,1,1,'C');
 
     }
+
+
+    $array_import = array();
+    $array_export = array();
+
+    foreach ($result_truck_array as $k => $v) {
+        if($v['type'] == 'import') {
+            $array_import['truck'][] = $v;
+        }else if($v['type'] == 'export'){
+            $array_export['truck'][] = $v;
+        }
+
+    }
+    foreach ($result_sup_array as $k => $v) {
+        $num += 1;
+        if($v['type'] == 'Import') {
+            $array_import['sup'][] = $v;
+        }else if($v['type'] == 'Export'){
+            $array_export['sup'][] = $v;
+        }
+    }
+
+    // print_r($array_import);
+    #Import
+    if(!empty($array_import)){
+        if(array_key_exists('truck',$array_import)){
+            $pdf->Cell(190, 6, iconv('UTF-8', 'cp874', ' Import ') ,1,1,'L');
+            foreach ($array_import['truck'] as $k => $v) {
+                if($pdf->GetY() >= 200){
+                    $pdf->AddPage();
+                }
+                $num += 1;
+                $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,0,'C');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', $v['type'].' : ' .$v['pickup'].'-'.$v['dropoff']) ,1,0,'L');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', number_format($v['markup'],2).'.-') ,1,0,'R');
+                $pdf->Cell(40, 6, iconv('UTF-8', 'cp874', ' - ') ,1,1,'C');
+            }
+        }
+        if(array_key_exists('sup',$array_import)){
+            foreach ($array_import['sup'] as $k => $v) {
+                if($pdf->GetY() >= 200){
+                    $pdf->AddPage();
+                }
+                $num += 1;
+                $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,0,'C');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', $v['type'] . " : " . $v['description']) ,1,0,'L');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', number_format($v['markup'],2).'.-') ,1,0,'R');
+                $pdf->Cell(40, 6, iconv('UTF-8', 'cp874', ' - ') ,1,1,'C');
+            }
+            
+           
+        }
+    }
+   
+    
+    #Export
+    if(!empty($array_export)){
+        $pdf->Cell(190, 6, iconv('UTF-8', 'cp874', ' Export ') ,1,1,'L');
+        if(array_key_exists('truck',$array_export)){
+            foreach ($array_export['truck'] as $k => $v) {
+                if($pdf->GetY() >= 200){
+                    $pdf->AddPage();
+                }
+                $num += 1;
+                $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,0,'C');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', $v['type'].' : ' .$v['pickup'].'-'.$v['dropoff']) ,1,0,'L');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', number_format($v['markup'],2).'.-') ,1,0,'R');
+                $pdf->Cell(40, 6, iconv('UTF-8', 'cp874', ' - ') ,1,1,'C');
+            }
+        }
+        if(array_key_exists('sup',$array_export)){
+            foreach ($array_export['sup'] as $k => $v) {
+                if($pdf->GetY() >= 200){
+                    $pdf->AddPage();
+                }
+                $num += 1;
+                $pdf->Cell(20, 6, iconv('UTF-8', 'cp874', $num) ,1,0,'C');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', $v['type'] . " : " . $v['description']) ,1,0,'L');
+                $pdf->Cell(65, 6, iconv('UTF-8', 'cp874', number_format($v['markup'],2).'.-') ,1,0,'R');
+                $pdf->Cell(40, 6, iconv('UTF-8', 'cp874', ' - ') ,1,1,'C');
+            }
+        }
+    }
+    
+ 
     
     $pdf->Output('I','example.pdf');
     

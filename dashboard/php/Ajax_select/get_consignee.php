@@ -7,7 +7,7 @@
             `consignee_number`,
             `consignee_name`,
             `tel`,
-            `e-mail`,
+            `email`,
             `user_sale`,
             `tax`,
             `bank_account_name`,
