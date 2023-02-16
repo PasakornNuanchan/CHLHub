@@ -259,6 +259,12 @@ const customs_set_sub_cash = {
                         )
                         customs_set_sub_cash.set_sub_cash_preview_data(customs.job_number_global);
                     }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'May be data type , description , pay to or amount is missing',
+                    })
                 }
 
 

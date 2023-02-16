@@ -93,13 +93,14 @@ session_start();
                                                 </thead>
                                                 <tbody>
                                                     <tr class="pettycash_detail">
-                                                        <td><select class="form-select form-select-sm sel-description">
+                                                        <td>
+                                                            <select class="form-select form-select-sm sel-description">
                                                                 <option value="">Plese select Congsignee</option>
-                                                            </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.amount_total();"></td>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="number" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.change_amount();" ></td>
                                                         <td>
                                                             <select name="" id="" class="form-select sel_cur">
-                                                                <option value=""></option>
                                                                 <option value="THB">THB</option>
                                                                 <option value="USD">USD</option>
                                                                 <option value="RMB">RMB</option>
@@ -110,7 +111,12 @@ session_start();
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="petty_cash.addpthtml();">add new</button>
+                                        <div class=" btn_add_new_list">
+                                            <button type="button" class="btn btn-block btn-link btn-soft-light rounded-pill w-100 " onclick="petty_cash.addpthtml();">add new</button>
+                                        </div> 
+                                        <div style="float: right" class="btn_save_list" >
+                                        <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="petty_cash.save_petty_cash();"  style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -125,13 +131,13 @@ session_start();
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Job quantity:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                        <input type="input" class="form-control form-control-sm inp-count" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Amount:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                        <input type="input" class="form-control form-control-sm inp-total-amt" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -166,3 +172,11 @@ session_start();
 </html>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/pettycash/pettycash.js"></script>
+<script src="js/pettycash/pettycash_set_sel_job.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        petty_cash.check_get();
+    })
+</script>
