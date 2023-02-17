@@ -318,7 +318,9 @@ require 'function/auth/get_session.php';
                                                     <th>picture</th>
                                                     <th>amount</th>
                                                     <th>remark</th>
+                                                    <div class="th_for_preview">
                                                     <th>action</th>
+                                                    </div>
                                                 </tr>
                                             </thead>
                                             <tbody>
