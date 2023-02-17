@@ -1,5 +1,6 @@
 <?php
-session_start();
+require 'function/auth/get_session.php';
+ 
 require '../../core/conn.php';
 
 $arr_base = array_key_exists('base', $_POST) ? $_POST['base'] : array();

@@ -23,8 +23,8 @@
     $stmt = $con->prepare($sql);
     $stmt->bind_param("s", $quotation_number);
     $stmt->execute();
-    $result = $stmt->get_result();
 
+    $result = $stmt->get_result();
     //base
     $sql_base = "
         SELECT DISTINCT
@@ -128,7 +128,8 @@
     {
         function Header()
         {
-            $title = $result_title_array;
+            global $result_title_array;
+            print_r($result_title_array);
             $this->AddFont('THSarabunNew','','THSarabunNew.php');
             $this->AddFont('THSarabunNew','B','THSarabunNew_b.php');
             $this->SetFont('THSarabunNew','B',16);
@@ -141,14 +142,14 @@
             $this->Cell(190, 7, iconv('UTF-8', 'cp874', 'บริการขาออก-ขาเข้า (EXPORT-IMPORT Service)') ,0,1,'C');
 
             $this->SetXY(10,60);
-            $this->Cell(95, 6, iconv('UTF-8', 'cp874', 'Make by : ') ,0,0,'L');
-            $this->Cell(95, 6, iconv('UTF-8', 'cp874', 'Date by : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'CTC : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'POL : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'POD : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Destination : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Term : ') ,0,1,'L');
-            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Commodity : ') ,0,1,'L');
+            $this->Cell(95, 6, iconv('UTF-8', 'cp874', 'Make by : '.$result_title_array['title_user_sale']) ,0,0,'L');
+            $this->Cell(95, 6, iconv('UTF-8', 'cp874', 'Date by : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'CTC : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'POL : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'POD : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Destination : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Term : '.$result_title_array['title_user_sale']) ,0,1,'L');
+            $this->Cell(190, 6, iconv('UTF-8', 'cp874', 'Commodity : '.$result_title_array['title_user_sale']) ,0,1,'L');
 
             //table header
             $this->SetXY(10,$this->GetY() + 10);

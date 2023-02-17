@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  require 'function/auth/get_session.php';
+ 
  $action_id = $_POST['action_id'];
 
  $emi = ($_SESSION['email']);

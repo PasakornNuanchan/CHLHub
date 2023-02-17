@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  require 'function/auth/get_session.php';
+ 
  $job_number = $_POST['job_number'];
 
  $emi = ($_SESSION['email']);

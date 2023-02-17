@@ -1,7 +1,6 @@
 <?php
-session_start();
 include 'core/conn.php';
-
+require 'function/auth/get_session.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">

@@ -4,10 +4,6 @@ $con->begin_transaction();
 $con->autocommit(FALSE);
 try {
 
-
-
-
-    // print_r($_POST);
     $err_msg = "";
     $inst_st = "1";
     $job_number = '0002';
@@ -90,7 +86,7 @@ try {
 
         $sqlcontainer = "
         INSERT INTO `container`(
-            `job_nubmer`,
+            `job_number`,
             `container_type`,
             `single_cnt`,
             `soc`,
