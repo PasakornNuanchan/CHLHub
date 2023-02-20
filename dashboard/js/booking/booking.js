@@ -299,8 +299,8 @@ const booking = {
             html_table_container = `
             <tr class="booking_container">
                 <td>${db_sel_container}</td>
-                <td><input type="input" class="form-control form-control-sm inp-contqty" value="${v['container_count']}"></td>
-                <td><input type="input" class="form-control form-control-sm inp-single-wieght" style="text-align:right;" value="${v['single_cnt']}"></td>
+                <td><input type="number" class="form-control form-control-sm inp-contqty" style="text-align:right;" value="${v['container_count']}"></td>
+                <td><input type="number" class="form-control form-control-sm inp-single-wieght" style="text-align:right;" value="${v['single_cnt']}"></td>
                 <td><input class="form-check-input inp-soc" type="checkbox" ${soc_status} ></td> 
                 <td><input class="form-check-input inp-ow" type="checkbox"${ow_status} ></td>
                 <td onclick="">

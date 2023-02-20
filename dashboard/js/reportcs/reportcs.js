@@ -1,4 +1,5 @@
 const reportcs = {
+    job_number_global : '',
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -19,7 +20,7 @@ const reportcs = {
 
         let job_number = get_job_number == false ? null : get_job_number;
         let action = get_action == false ? null : get_action;
-
+        reportcs.job_number_global = job_number
         console.log(action);
 
         if (action == 'preview') {
@@ -549,83 +550,89 @@ const reportcs = {
 
     
 
-        html_dem_charge = '';
-         db_dem_container = $('.sel-dem-container').parent().html()
-        let db_dem_cy = $('.inp-dem-cy').parent().html()
-        let db_dem_rtn = $('.inp-dem-rtn').parent().html()
-        $('.Demurrage-part-add').html('');
+        // html_dem_charge = '';
+        //  db_dem_container = $('.sel-dem-container').parent().html()
+        // let db_dem_cy = $('.inp-dem-cy').parent().html()
+        // let db_dem_rtn = $('.inp-dem-rtn').parent().html()
+        // $('.Demurrage-part-add').html('');
 
-        num_dem = '1';
-        $.each(res_data['dem'], async function (i, v) {
+        // num_dem = '1';
+        // $.each(res_data['dem'], async function (i, v) {
 
-            container_id = v['container_id']
+        //     container_id = v['container_id']
 
-            html_dem_charge = `    
-        <div class="Demurrage-part-del Demurrage-part-del${v['ID']}" Demurrage_part_del="${v['ID']}">
-        <br>
-            <h5>Demurrage No.${num_dem}</h5>
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2">Container number:</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="db-sel-dem db-sel-dem${i}">
-                                ${db_dem_container}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2">CY :</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <input type="input" class="form-control form-control-sm inp-cy-dem" value="${v['CY']}" readonly>
-                        </div>
-                        <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
-                        <div class="col-lg-4">
-                            <input type="input" class="form-control form-control-sm inp-rtn-dem" value="${v['RTN']}"readonly>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2">Demurrage To :</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <input type="date" class="form-control form-control-sm inp-rtn-new-dem" value="${v['new_dem_time']}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2">Document :</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <input type="file" class="form-control form-control-sm inp-doc-dem">
-                        </div>
-                        <div class="col-lg-4">
-                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.del_dem(${v['ID']},this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-            num_dem++;
-            $('.Demurrage-part-add').append(html_dem_charge);
-            $(`.db-sel-dem${i} > select`).val(container_id)
+        //     $html_dem_rum = '';
+
+        //     if(num_dem == 1){
+        //         $html_dem_rum =  `<button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.push_action_del_dem(${v['ID']},this);" disabled><i class="bi bi-dash-lg"></i> Delete Driver</button>`;
+        //     }else{
+        //         $html_dem_rum = `<button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.push_action_del_dem(${v['ID']},this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>`;
+        //     }
 
 
+        //     html_dem_charge = `    
+        // <div class="Demurrage-part-del Demurrage-part-del${v['ID']}" Demurrage_part_del="${v['ID']}">
+        // <br>
+        //     <h5>Demurrage No.${num_dem}</h5>
+        //     <div class="form-group row">
+        //         <label class="control-label col-sm-3 col-lg-2">Container number:</label>
+        //         <div class="col-lg-10">
+        //             <div class="row">
+        //                 <div class="col-lg-4">
+        //                     <div class="db-sel-dem db-sel-dem${i}">
+        //                         ${db_dem_container}
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        //     <div class="form-group row">
+        //         <label class="control-label col-sm-3 col-lg-2">CY :</label>
+        //         <div class="col-lg-10">
+        //             <div class="row">
+        //                 <div class="col-lg-4">
+        //                     <input type="input" class="form-control form-control-sm inp-cy-dem" value="${v['CY']}" readonly>
+        //                 </div>
+        //                 <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
+        //                 <div class="col-lg-4">
+        //                     <input type="input" class="form-control form-control-sm inp-rtn-dem" value="${v['RTN']}"readonly>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        //     <div class="form-group row">
+        //         <label class="control-label col-sm-3 col-lg-2">Demurrage To :</label>
+        //         <div class="col-lg-10">
+        //             <div class="row">
+        //                 <div class="col-lg-4">
+        //                     <input type="date" class="form-control form-control-sm inp-rtn-new-dem" value="${v['new_dem_time']}">
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        //     <div class="form-group row">
+        //         <label class="control-label col-sm-3 col-lg-2">Document :</label>
+        //         <div class="col-lg-10">
+        //             <div class="row">
+        //                 <div class="col-lg-4">
+        //                     <input type="file" class="form-control form-control-sm inp-doc-dem">
+        //                 </div>
+        //                 <div class="col-lg-4">
+        //                 ${$html_dem_rum}
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>`;
+        //     num_dem++;
+        //     $('.Demurrage-part-add').append(html_dem_charge);
+        //     $(`.db-sel-dem${i} > select`).val(container_id)
 
-        })
-        //get value delete
-        delete_dem_arr = [];
-        delete_dem_arr_tmp = {};
 
 
+        // })
+
+        await reportcs_sub_container_dem.set_preview_data(job_number)
     },
 
     adddemhtml: function (e = null) {
@@ -679,7 +686,7 @@ const reportcs = {
                             <input type="file" class="form-control form-control-sm inp-doc-dem">
                         </div>
                         <div class="col-lg-4">
-                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.del_dem(null,this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>
+                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.push_action_del_dem();" ><i class="bi bi-dash-lg"></i> Delete Driver</button>
                         </div>
                     </div>
                 </div>
@@ -690,19 +697,43 @@ const reportcs = {
         $('.Demurrage-part-add').append(html_add_dem);
         num_dem++;
         num_count_del_delete = '1';
+        
     }, 
     
-    
-    del_dem: function (dem_del_list,e = null) {
-        num_dem--;
-        
-        delete_dem_arr_tmp = {
-            dem_del_list: dem_del_list,
-        }
+    push_action_del_dem: async function (ID){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.ajax_del_dem(ID)
+                await Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+               await reportcs_sub_container_dem.set_preview_data(reportcs.job_number_global)
+            }
+          }) 
+    },
 
-        delete_dem_arr.push(delete_dem_arr_tmp)
-        console.log(delete_dem_arr)
-        $(e).closest('.Demurrage-part-del').remove();
+    ajax_del_dem : async function(dem_arr_del){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/del_dem.php",
+                data: {'dem_arr_del' : dem_arr_del},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
     
     push_action_save_container: async function (){
@@ -799,6 +830,28 @@ const reportcs = {
         });
     },
 
+    push_action_save_dem : async function (){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.save_dem()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+               
+            }
+          }) 
+    },
+
     save_dem : async function(i, e){
         let dem_arr = [];
         let dem_arr_tmp = {};
@@ -822,24 +875,17 @@ const reportcs = {
 
           dem_arr.push(dem_arr_tmp)
         });
-        console.log(delete_dem_arr)
+        
         console.log(dem_arr)
-
-        //console.log(container_arr);
-       let res = await reportcs.ajax_save_dem(dem_arr,delete_dem_arr);
-    //    if(res){
-    //     alert("testd");
-    //    }else{
-    //     alert("แตก");
-    //    }
-       
+       let res = await reportcs.ajax_save_dem(dem_arr);
+   
     },
-    ajax_save_dem : function(dem_arr,delete_dem_arr){
+    ajax_save_dem : function(dem_arr){
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/save_dem.php",
-                data: {'dem_arr' : dem_arr , 'delete_dem_arr' : delete_dem_arr},
+                data: {'dem_arr' : dem_arr},
                 dataType: "json",
                 success: function (res) {
                     

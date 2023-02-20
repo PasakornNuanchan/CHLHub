@@ -3,10 +3,8 @@
     $arr = array();
     $arr_suc = array();
     $dem_save = $_POST['dem_arr'];
-    $dem_delete = $_POST['delete_dem_arr'];
+   
 
-    print_r($dem_delete);
-    print_r($dem_save);
 
     try {
         // begin transaction
@@ -66,7 +64,7 @@
     } catch (Exception $e) {
         // rollback the transaction
         $con->rollback();
-        echo $e;
+        //echo $e;
     }
 
 

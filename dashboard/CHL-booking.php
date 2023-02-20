@@ -316,7 +316,7 @@ require 'function/auth/get_session.php';
                                     <label class="control-label col-sm-3 align-self-center ">Quantity:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm inp-cargo_qty" aria-describedby="basic-addon2">
+                                            <input type="number" class="form-control form-control-sm inp-cargo_qty" aria-describedby="basic-addon2">
                                             <span class="input-group-text" id="basic-addon2">Package</span>
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@ require 'function/auth/get_session.php';
                                     <label class="control-label col-sm-3 align-self-center ">G.W:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
-                                            <input type="text" class="form-control inp-cargo_gw" aria-describedby="basic-addon2">
+                                            <input type="number" class="form-control inp-cargo_gw" aria-describedby="basic-addon2">
                                             <span class="input-group-text" id="basic-addon2">KGS</span>
                                         </div>
                                     </div>
@@ -334,7 +334,7 @@ require 'function/auth/get_session.php';
                                     <label class="control-label col-sm-3 align-self-center ">Volume:</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
-                                            <input type="text" class="form-control inp-cargo_vol" aria-describedby="basic-addon2">
+                                            <input type="number" class="form-control inp-cargo_vol" aria-describedby="basic-addon2">
                                             <span class="input-group-text" id="basic-addon2">M3</span>
                                         </div>
                                     </div>
@@ -387,8 +387,8 @@ require 'function/auth/get_session.php';
                                                             ?>
                                                         </select>
                                                     </td>
-                                                    <td><input type="input" class="form-control form-control-sm inp-contqty" id=""></td>
-                                                    <td><input type="input" class="form-control form-control-sm inp-single-wieght" id=""></td>
+                                                    <td><input type="number" class="form-control form-control-sm inp-contqty" id=""></td>
+                                                    <td><input type="number" class="form-control form-control-sm inp-single-wieght" id=""></td>
                                                     <td><input class="form-check-input inp-soc" type="checkbox" value="" id="flexCheckDefault"></td>
                                                     <td><input class="form-check-input inp-ow" type="checkbox" value="" id="flexCheckDefault"></td>
                                                     <td onclick="">

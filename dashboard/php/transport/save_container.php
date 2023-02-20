@@ -46,8 +46,4 @@
     }
 
 
-<<<<<<< HEAD
-        echo json_encode($all_queries_success);
-=======
         echo json_encode($arr_suc);
->>>>>>> 4b1999eae86a9927db3bfac474003d1c95d03243

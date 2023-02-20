@@ -54,7 +54,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade" id="pills-jobdetail" role="tabpanel" aria-labelledby="pills-jobdetail-tab">
+                <div class="tab-pane fade show active" id="pills-jobdetail" role="tabpanel" aria-labelledby="pills-jobdetail-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="card">
@@ -284,7 +284,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade  show active" id="pills-container" role="tabpanel" aria-labelledby="pills-container-tab">
+                <div class="tab-pane fade" id="pills-container" role="tabpanel" aria-labelledby="pills-container-tab">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
@@ -388,7 +388,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="reportcs.save_dem();"><i class="bi bi-check-square"></i> Save </button>
+                                <button class="btn btn-primary rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="reportcs.push_action_save_dem();"><i class="bi bi-check-square"></i> Save </button>
                             </div>
                         </div>
                         <button type="button" class="btn btn-soft-secondary" onclick="reportcs.adddemhtml();">Add Demurrage Charge</button>
@@ -741,6 +741,7 @@ require 'function/auth/get_session.php';
 </html>
 <script src="js/reportcs/reportcs.js"></script>
 <script src="js/reportcs/set_default_data.js"></script>
+<script src="js/reportcs/reportcs_sub_container_dem.js"></script>
 <script>
     $(document).ready(function() {
 

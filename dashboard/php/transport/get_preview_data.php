@@ -60,32 +60,7 @@ js.ID,
   LEFT OUTER JOIN user custom_by ON js.cus_by = custom_by.user_number
       WHERE job_number ='$job_number'";
 
-      $sql_transport = "
-      SELECT
-        tb.ID,
-        tb.sup_number,
-        tb.truck_quantity,
-        tb.pick_con_empty_address,
-        tb.pick_con_empty_remark,
-        tb.pick_con_address,
-        tb.pick_con_remark,
-        tb.drop_con_address,
-        tb.drop_con_remark,
-        tb.drop_con_empty_address,
-        tb.drop_con_empty_remark,
-        tb.budget,
-        tb.cur,
-        tb.sent_line_datetime,
-        tb.sup_confirm,
-        tb.type_truck,
-        tb.remark,
-        ts.transport_sup_name,
-        tt.truck_name
-      FROM transport_booking as tb
-      LEFT JOIN transport_sup as ts ON tb.sup_number = ts.transport_sup_number
-      LEFT JOIN type_truck as tt ON tb.type_truck = tt.type_truck_number
-      WHERE tb.job_number = '$job_number'
-      ORDER BY tb.ID ASC";
+      
 
       $sql_container = "
       SELECT * FROM container WHERE job_number = '$job_number';";
@@ -111,19 +86,7 @@ js.ID,
 
    
 
-     $sql_driver = "
-     SELECT 
-     tc.ID,
-     tc.Driver_name,
-     tc.phone_number,
-     c.ID as container_id,
-     c.seal_number,
-     tc.route_id
-     
-     FROM transport_contact as tc
-     LEFT JOIN container as c ON tc.container_id = c.ID
-     WHERE tc.job_number = '$job_number'";
-
+    
      
 $result = $con->query($sql_payment);
 if ($result->num_rows > 0) {
@@ -142,14 +105,7 @@ if ($result->num_rows > 0) {
 } else {
   $dts = "0 results";
 }
-$result = $con->query($sql_transport);
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    $tran[] = $row;
-  }
-} else {
-  $tran[] = "0 results";
-}
+
 
 $result = $con -> query($sql_container);
 if ($result->num_rows > 0) {
@@ -182,16 +138,8 @@ if ($result->num_rows > 0) {
 
   
 
-  $result = $con->query($sql_driver);
-  if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-      $driver[] = $row;
-    }
-  } else {
-    $driver[] = "0 result";
-  }
- 
+  
  
         
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform,'driver'=>$driver));
+      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform));

@@ -75,11 +75,11 @@ require 'function/auth/get_session.php';
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_peca">
                                                         </div>
                                                         <label class="control-label col-sm-2 align-self-center ">Remark</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_peca_remark">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,11 +89,11 @@ require 'function/auth/get_session.php';
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_pca">
                                                         </div>
                                                         <label class="control-label col-sm-2 align-self-center ">Remark</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_pca_remark">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -103,11 +103,11 @@ require 'function/auth/get_session.php';
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_doca">
                                                         </div>
                                                         <label class="control-label col-sm-2 align-self-center ">Remark</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_doca_remark">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -117,11 +117,11 @@ require 'function/auth/get_session.php';
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_doeca">
                                                         </div>
                                                         <label class="control-label col-sm-2 align-self-center ">Remark</label>
                                                         <div class="col">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                            <input type="text" class="form-control form-control-sm inp_doeca_remark">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -149,10 +149,10 @@ require 'function/auth/get_session.php';
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col-sm-1 col-md-3 col-lg-2">
-                                                            <input type="number" class="form-control form-control-sm" style="text-align:right;">
+                                                            <input type="number" class="form-control form-control-sm inp_bg" style="text-align:right;">
                                                         </div>
                                                         <div class="col-sm-1 col-md-3 col-lg-2">
-                                                            <select class="form-select form-select-sm shadow-none sel-cur">
+                                                            <select class="form-select form-select-sm shadow-none sel_cur">
                                                                 <option value=""></option>
                                                                 <option value="THB">THB</option>
                                                                 <option value="RMB">RMB</option>
@@ -173,7 +173,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div style="float: right">
-                                                <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                                                <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                                 <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
                                             </div>
                                         </div>
@@ -204,6 +204,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-soft-secondary" onclick="transport.addpthtml();">Add route</button>
                     </div>
                 </div>
 
@@ -528,7 +529,9 @@ require 'function/auth/get_session.php';
 </html>
 
 <script src="js/transport/transport.js"></script>
-<script src="js/transport//set_default_data.js"></script>
+<script src="js/transport/set_default_data.js"></script>
+<script src="js/transport/transport_sub_driver_container.js"></script>
+<script src="js/transport/transport_sub_transport.js"></script>
 
 <script>
     $(document).ready(function() {
