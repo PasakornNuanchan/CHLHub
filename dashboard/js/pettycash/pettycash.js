@@ -71,13 +71,15 @@ const petty_cash = {
         <tr class="pettycash_detail">
             <td>${sl_des_pettycash}</td>
         <td><input type="number" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.change_amount();" ></td>
-        <td><select name="" id="" class="form-select sel_cur">
+        <td><select name="" id="" class="form-select sel_cur" onchange="petty_cash.change_amount();">
             <option value="THB">THB</option>
             <option value="USD">USD</option>
             <option value="RMB">RMB</option>
         </select></td>
-        <td onclick="petty_cash.del_pettycash_row(this);" align="center">
+        <td onclick="petty_cash.del_pettycash_row(this);"  align="center">
+        <div class="del_action_tr">
             <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+        </div>
         </td>
         </tr>
         `;
@@ -147,25 +149,56 @@ const petty_cash = {
             $(`.pettycash_detail${i} .sel_cur`).val(v['currency']).attr('disabled', true);
         });
 
+
+      
     },
 
     change_amount: async function () {
         let val_total = 0;
         var inputs = $('.inp-amount');
+        var currency = $('.sel_cur');
+        let thb_cur = 0;
+        let usd_cur = 0;
+        let rmb_cur = 0;
 
         for (var i = 0; i < inputs.length; i++) {
-            let testtest = $(inputs[i]).val() == '' ? 0 : $(inputs[i]).val();
-            val_total = parseFloat(val_total) + parseFloat(testtest);
-        }
-        //val_total = parseFloat(val_total = null ? 0 : val_total)
+            let amount = $(inputs[i]).val();
+            let currencyz = $(currency[i]).val();
 
+            if (currencyz == "THB") {
+                thb_cur = parseFloat(thb_cur) + parseFloat(amount)
+            } else if (currencyz == "USD") {
+                usd_cur = parseFloat(usd_cur) + parseFloat(amount)
+            } else if (currencyz == "RMB") {
+                rmb_cur = parseFloat(rmb_cur) + parseFloat(amount)
+            }
+
+        }
+
+        now_usd = 1;
+        now_thb = 34.42;
+        now_rmb = 6.86;
 
         var rowCount = $('[name = "petty-cash-tbl-description"] tr').length;
-
         let count_row = (rowCount - 1);
 
-        $('.inp-total-amt').val(number_format(val_total.toFixed(2)))
+        total_val_usd = usd_cur + thb_cur / now_thb + rmb_cur / now_rmb
+        total_val_thb = thb_cur + usd_cur * now_thb + (rmb_cur / now_rmb) * now_thb
+        total_val_rmb = rmb_cur + usd_cur * now_rmb + (thb_cur / now_thb) * now_rmb
+
+
+        console.log(thb_cur)
+        $('.inp-amt-thb').val(number_format(thb_cur))
+        $('.inp-amt-usd').val(number_format(usd_cur))
+        $('.inp-amt-rmb').val(number_format(rmb_cur))
+
+        $('.inp-total-amt-thb').val(number_format(total_val_thb.toFixed(2)))
+        $('.inp-total-amt-usd').val(number_format(total_val_usd.toFixed(2)))
+        $('.inp-total-amt-rmb').val(number_format(total_val_rmb.toFixed(2)))
+
+
         $('.inp-count').val(count_row)
+        
     },
 
 
@@ -183,6 +216,40 @@ const petty_cash = {
             });
         });
     },
+    push_action_save: async function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            let check_val = '';
+            if (result.isConfirmed) {
+                $('[name = petty-cash-tbl-description] tbody > tr').each(async function (i, e) {
+                    if($('.sel-description', this).val() == "" || $('.inp-amount', this).val() == ""){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Data Description or Amount is missing ',
+                        })
+                        check_val = 1;
+                        return false; 
+                    }
+                })
+                if(check_val != 1){
+                    Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                      )
+                } 
+                //await petty_cash.save_petty_cash()
+            }
+        })
+    },
 
     save_petty_cash: async function () {
 
@@ -191,9 +258,6 @@ const petty_cash = {
 
         let save_arr_title = [];
         let save_arr_title_tmp = {};
-
-
-        let tranfer_method = $('.sel_tranfer_mt').val();
 
         $('[name = petty-cash-tbl-description] tbody > tr').each(function (i, e) {
 
@@ -214,24 +278,38 @@ const petty_cash = {
         let sel_tranfer_mt = $('.sel_tranfer_mt').val()
 
         save_arr_title_tmp = {
-            sel_tranfer_mt : sel_tranfer_mt,
+            sel_tranfer_mt: sel_tranfer_mt,
         }
         save_arr_title.push(save_arr_title_tmp)
+        pcn_doc = '';
+        await petty_cash.ajax_save_list(save_arr_detail, save_arr_title)
 
-        await petty_cash.ajax_save_list(save_arr_detail,save_arr_title)
+        //after save
+        $('.inp-pt_number').val(pcn_doc)
+        $('.inp-amount').attr('disabled',true)
+        $('.sel_cur').attr('disabled',true)
+        $('.sel-description').attr('disabled',true)
+        $('.btn_add_new_list').html('');
+        $('.btn_save_list').html('');
+        $('.del_action_tr').html('');
+        $('.sel_tranfer_mt').attr('disabled',true);
+
     },
 
-    ajax_save_list: async function (save_arr_detail,save_arr_title) {
+    ajax_save_list: async function (save_arr_detail, save_arr_title) {
 
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/pettycash/save_list.php",
-                data: { 'save_arr_detail': save_arr_detail,
-                        'save_arr_title' : save_arr_title},
+                data: {
+                    'save_arr_detail': save_arr_detail,
+                    'save_arr_title': save_arr_title
+                },
                 dataType: "json",
                 success: function (response) {
                     resolve(response);
+                    pcn_doc = response;
                 }
             });
         });

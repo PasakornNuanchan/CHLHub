@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -127,9 +127,9 @@ require 'function/auth/get_session.php';
                                                 <div class="col-lg-4 col-md-5">
                                                     <input type="text" class="form-control form-control-sm inp-pol">
                                                 </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Vessel</label>
+                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Mother Vessel</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-vessel">
+                                                    <input type="text" class="form-control form-control-sm inp-mother-vessel-job">
                                                 </div>
                                             </div>
                                         </div>
@@ -141,19 +141,9 @@ require 'function/auth/get_session.php';
                                                 <div class="col-lg-4 col-md-5">
                                                     <input type="text" class="form-control form-control-sm inp-pod">
                                                 </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">PORT</label>
+                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Feeder vessel</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-port">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">INV NO.</label>
-                                        <div class="col-sm-12 col-md-10">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-invno">
+                                                    <input type="text" class="form-control form-control-sm inp-vessel-job">
                                                 </div>
                                             </div>
                                         </div>
@@ -283,6 +273,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="tab-pane fade" id="pills-container" role="tabpanel" aria-labelledby="pills-container-tab">
                     <div class="card">

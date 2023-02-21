@@ -2,7 +2,8 @@
   require 'function/auth/get_session.php';
  
   include '../../core/conn.php';
-  include '../../core/con_path.php';
+  require '../../function/auth/get_session.php';
+    include '../../core/con_path.php';
  $list_data = $_POST['arr_get_val_cash'];
 
  

@@ -1,5 +1,4 @@
 <?php
-$job_number = $_POST['job_number'];
     include '../../core/conn.php';
 
     $sql_ab = "

@@ -1,7 +1,10 @@
 <?php
     include '../../core/conn.php';
+    
+    require '../../function/auth/get_session.php';
     include '../../core/con_path.php';
     
+
     $arr = array();
     $sql = "
     SELECT 
@@ -9,8 +12,7 @@
     pct.petty_cash_number,
     u.first_name,
     u.last_name,
-    COUNT(pcd.job_number) as COUNT_job,
-    SUM(pcd.amount) as amount
+    COUNT(pcd.job_number) as COUNT_job
 FROM 
     `petty_cash_title` as pct
     INNER JOIN user as u ON pct.request_by = u.user_number
@@ -18,7 +20,6 @@ FROM
 WHERE u.user_number = '$data_user'
 GROUP BY 
     pcd.petty_cash_number
-
     ";
     
     $result = $con -> query($sql);
@@ -28,7 +29,7 @@ GROUP BY
             $pct[] = $row;
         }
     } else {
-        $pct[] = "0 results";
+        $pct = "0 results";
     }
     echo json_encode(array('pct'=>$pct));
 

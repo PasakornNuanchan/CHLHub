@@ -1,5 +1,5 @@
 <?php
-  require 'function/auth/get_session.php';
+  require '../../function/auth/get_session.php';
  
  $job_number = $_POST['job_number'];
 

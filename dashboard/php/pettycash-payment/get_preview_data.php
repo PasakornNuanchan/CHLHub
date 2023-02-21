@@ -10,7 +10,14 @@ $petty_number = $_POST['petty_number'];
 
 
    $sql_pcd = "
-   SELECT * FROM petty_cash_detail as pcd
+   SELECT  
+   pcd.ID,
+   pcd.petty_cash_number,
+   pcd.job_number,
+   pcd.amount,
+   pcd.currency,
+   c.consignee_name
+   FROM petty_cash_detail as pcd
    INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
    INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
     ";

@@ -82,7 +82,8 @@ const reportcs = {
         $('.inp-eta-job').val(res_data['de']['eta']);
         $('.inp-carrier').val(res_data['de']['carrier_name']).attr('readonly', true);
         $('.inp-pol').val(res_data['de']['pol']).attr('readonly', true);
-        $('.inp-vessel').val(res_data['de']['vessel']).attr('readonly', true);
+        $('.inp-mother-vessel-job').val(res_data['de']['mvessel']).attr('readonly', true);
+        $('.inp-vessel-job').val(res_data['de']['fvessel']).attr('readonly', true);
         $('.inp-pod').val(res_data['de']['pod']).attr('readonly', true);
         $('.inp-port').val(res_data['de']['port']).attr('readonly', true);
         $('.inp-invno').val(res_data['de']['inv']).attr('readonly', true);
@@ -219,7 +220,7 @@ const reportcs = {
                         <td align="center">${inv_receiv_datetime}</td>
                         <td align="center">${inv_check_by}</td>
                         <td align="center">${inv_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('inv')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button>
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
@@ -229,7 +230,7 @@ const reportcs = {
                         <td align="center">${BL_receiv_datetime}</td>
                         <td align="center">${BL_check_by}</td>
                         <td align="center">${BL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('bl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button>
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
@@ -239,7 +240,7 @@ const reportcs = {
                         <td align="center">${PL_receiv_datetime}</td>
                         <td align="center">${PL_check_by}</td>
                         <td align="center">${PL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('pl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button>
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
@@ -249,7 +250,7 @@ const reportcs = {
                         <td align="center">${ID_receiv_datetime}</td>
                         <td align="center">${ID_check_by}</td>
                         <td align="center">${ID_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('id')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button>
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
@@ -259,7 +260,7 @@ const reportcs = {
                         <td align="center">${IL_receiv_datetime}</td>
                         <td align="center">${IL_check_by}</td>
                         <td align="center">${IL_check_datetime}</td>
-                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button>
+                        <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('il')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button>
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                 `;
@@ -912,7 +913,58 @@ const reportcs = {
         });
     },
 
+    modal_doc: function (val_get) {
+        if ($('#add_moda').length >= 1) {
+          $('#add_moda').remove()
+        }
+            console.log(val_get)
+        let head_modal = '';
+        if(val_get == "inv"){
+            head_modal = "invoice"
+        }else if(val_get == "bl"){
+            head_modal = "Bill of landing"
+        }else if(val_get == "pl"){
+            head_modal = "Packing list"
+        }else if(val_get == "id"){
+            head_modal = "Import Declaratio"
+        }else if(val_get == "il"){
+            head_modal = "Import Licence"
+        }
 
+        html = `
+            <div class="modal fade" id="add_moda">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">${head_modal}</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body ps-5">
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">upload file :</label>
+                                    <div class="col-sm-11 col-lg-8 col-md-6">
+                                        <input type="file" class="form-control form-control-sm inp-quo_no" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>`
+    
+        $('body').append(html)
+        $('#add_moda').modal('show')
+      },
 
 
 

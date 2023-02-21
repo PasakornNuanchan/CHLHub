@@ -18,6 +18,7 @@ const customs_set_sub_customs = {
         $('[name = tbl_job_status] tbody').html('');
         //status
         let res_data = await customs_set_sub_customs.ajax_set_preview_booking(job_number)
+        console.log(res_data)
         inv_status = (res_data['dts']['INV_receiv_by'] != "" && res_data['dts']['INV_check_by'] == "") ? '' : 'disabled';
 
 

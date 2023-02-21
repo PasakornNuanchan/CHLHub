@@ -26,7 +26,7 @@ $job_number = $_POST['job_number'];
           IF(js.bl_check_datetime is null ,' ',js.bl_check_datetime) as bl_check_datetime,
           js.ID_receiv_status,
           js.ID_picture,
-          IF(concat(ID_re.first_name,' ',ID_re.last_name) IS null ,' ',concat(ID_re.first_name,' ',ID_re.last_name)) as ID_receiv_by,
+          IF(concat(ID_re.first_name,' ',ID_re.last_name) IS null ,'',concat(ID_re.first_name,' ',ID_re.last_name)) as ID_receiv_by,
           IF(js.id_receiv_datetime is null ,' ',js.id_receiv_datetime) as id_receiv_datetime,
           IF(concat(ID_ck.first_name,' ',ID_ck.last_name) IS null ,'',concat(ID_ck.first_name,' ',ID_ck.last_name)) as ID_check_by,
           IF(js.id_check_datetime is null ,' ',js.id_check_datetime) as id_check_datetime,

@@ -1,6 +1,4 @@
 <?php
-    require 'function/auth/get_session.php';
- 
     $emi = ($_SESSION['email']);
     $sql_user_query = "
     SELECT user_number FROM user WHERE email = '$emi'";

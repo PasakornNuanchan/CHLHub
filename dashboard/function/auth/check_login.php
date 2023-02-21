@@ -30,7 +30,7 @@
             $_SESSION['department_name'] = $row['department_name'];
             $_SESSION['Session_start'] = time();
             $_SESSION['Session_exp'] = $_SESSION['Session_start'] + (60 * 30);
-
+            
         }
     }
    

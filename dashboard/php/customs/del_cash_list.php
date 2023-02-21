@@ -1,5 +1,5 @@
 <?php
-  require 'function/auth/get_session.php';
+  require '../../function/auth/get_session.php';
  
  $del_id = $_POST['del_id'];
 

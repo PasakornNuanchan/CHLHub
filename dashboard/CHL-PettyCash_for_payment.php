@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -12,6 +12,7 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
+
 <body class="  ">
     <!-- loader Start -->
     <div id="loading">
@@ -64,7 +65,7 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2 align-self-center">Tranfer Method:</label>
                                     <div class="col-sm-9">
-                                    <select class="form-select form-select-sm mb-3 shadow-none sel_tranfer_mt" disabled>
+                                        <select class="form-select form-select-sm mb-3 shadow-none sel_tranfer_mt" disabled>
                                             <option value="">Plese select tranfer mehthod</option>
                                             <option value="Cash">Cash</option>
                                             <option value="Tranfer">Tranfer</option>
@@ -72,7 +73,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center" >Bank Name</label>
+                                    <label class="control-label col-sm-2 align-self-center">Bank Name</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
@@ -84,63 +85,6 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center">Job Quantity</label>
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="number" class="form-control form-control-sm inp-job_quantity"  readonly>
-                                            </div>
-                                            <label class="control-label col-sm-3 align-self-center" >Total Amount:</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-total_amount" style="text-align: right;" readonly>
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <select name="" id="" class="form-select form-select-sm shadow-none sel_total_amount_req" disabled>
-                                                    <option value="THB" selected>THB</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="RMB">RMB</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Tranfer</h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                            <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center">Amount Tranfer</label>
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col col-sm-4">
-                                                <input type="number" class="form-control form-control-sm inp-total_amount_tranfer">
-                                            </div>
-                                            <div class="col col-sm-2">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none sel_total_amount_tranfer_req">
-                                                    <option value="THB" selected>THB</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="RMB">RMB</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
-                                    <div class="col-sm-9">
-                                        <input type="file" class="form-control form-control-sm" readonly>
-                                    </div>
-                                </div>
-                                <div style="float: right">
-                                    <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-circle-fill"></i> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +110,7 @@ require 'function/auth/get_session.php';
                                                                 <option value="" selected>Plese select description</option>
                                                             </select></td>
                                                         <td><input type="input" class="form-control form-control-sm" readonly></td>
-                                                        <td><select name="" id="" class="form-select shadow-none" disabled>
+                                                        <td><select name="" id="" class="form-select shadow-none sel_cur" disabled>
                                                                 <option value="THB" selected>THB</option>
                                                                 <option value="USD">USD</option>
                                                                 <option value="RMB">RMB</option>
@@ -175,6 +119,113 @@ require 'function/auth/get_session.php';
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Total</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center">Job quantity:</label>
+                                    <div class="col-sm-9 col-md-4 col-lg-1">
+                                        <input type="input" class="form-control form-control-sm inp-count" style="text-align:right;" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center">Amount:</label>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-2 align-self-center">Total amount by currency:</label>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add_card_tranfer">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Tranfer</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center">Amount Request :</label>
+                                        <div class="col-sm-9 col-lg-9">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-lg-3">
+                                                    <input type="text" class="form-control form-control-sm" readonly>
+                                                </div>
+                                                <div class="col-sm-3 col-lg-2">
+                                                    <select name="" id="" class="form-select form-select-sm shadow-none sel_amt_req_tranfer">
+                                                        <option value="THB">THB</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="RMB">RMB</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center">Amount Tranfer</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col col-sm-4 col-sm-3">
+                                                    <input type="number" class="form-control form-control-sm inp_amount_tranfer">
+                                                </div>
+                                                <div class="col col-sm-2">
+                                                    <select name="" id="" class="form-select form-select-sm shadow-none sel_amount_tranfer">
+                                                        <option value="THB" selected>THB</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="RMB">RMB</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" class="form-control form-control-sm" readonly>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-circle-fill"></i> Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -211,14 +262,14 @@ require 'function/auth/get_session.php';
 
 
 
-             
+
 
             <!-- MAIN BODY END -->
         </div>
 
         <!-- Footer Section Start -->
         <?php include 'include/footermain.php'; ?>
-        
+
         <!-- Footer Section End -->
     </main>
 
@@ -226,16 +277,16 @@ require 'function/auth/get_session.php';
     <!-- offcanvas start -->
     <?php include 'include/offcanvas.php'; ?>
     <?php include '../assets/include/theme_include_js.php'; ?>
-    
+
 </body>
 
 </html>
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="js/pettycash-payment/pettycash-payment.js"></script>
-    <script> 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="js/pettycash-payment/pettycash-payment.js"></script>
+<script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
         pettycash_payment.check_get();
     });
-    </script>
+</script>

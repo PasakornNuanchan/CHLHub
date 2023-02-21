@@ -3,15 +3,14 @@ const petty_cash_list_set = {
     set_data_rows: async function () {
         
         let res_data = await petty_cash_list_set.ajax_set_preview_data();
-        
-
+        console.log(res_data)
         $('.head-of-menu').html('Petty Cash List');
         $('.bcpage').html('');
         html_bdpage = `
         <li class="breadcrumb-item"><a href="CHL-PettyCash-list.php" target="" style="color:white;">Petty Cash main list</a></li>`;
         $('.bcpage').append(html_bdpage);
 
-        console.log(res_data);
+        
         $('[name = "data_table_list"] tbody').html('');
 
         $.each(res_data['pct'], function (i, v) {         
@@ -19,13 +18,12 @@ const petty_cash_list_set = {
             // console.log(pf_amount);
             html_set_pct = `
             <tr>
-            <td>${v['datetime_request']}</td>
-            <td>${v['petty_cash_number']}</td>
-            <td>${v['first_name']} ${v['last_name']}</td>
-            <td>${v['COUNT_job']}</td>
-            <td>${number_format(pf_amount.toFixed(2))}</td>
-            <td><button type="button" onclick="pettycash_list.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
-        </tr>
+                <td>${v['datetime_request']}</td>
+                <td>${v['petty_cash_number']}</td>
+                <td>${v['first_name']} ${v['last_name']}</td>
+                <td>${v['COUNT_job']}</td>
+                <td><button type="button" onclick="pettycash_list.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+            </tr>
             `;
 
             $('[name = "data_table_list"] tbody').append(html_set_pct);

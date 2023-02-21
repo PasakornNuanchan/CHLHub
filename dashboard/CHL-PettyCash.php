@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -96,12 +96,12 @@ require 'function/auth/get_session.php';
                                                     <tr class="pettycash_detail">
                                                         <td>
                                                             <select class="form-select form-select-sm sel-description">
-                                                                <option value="">Plese select Congsignee</option>
+                                                                <option value="">Plese select job number</option>
                                                             </select>
                                                         </td>
-                                                        <td><input type="number" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.change_amount();" ></td>
+                                                        <td><input type="number" class="form-control form-control-sm inp-amount" style="text-align:right;" onchange="petty_cash.change_amount();"></td>
                                                         <td>
-                                                            <select name="" id="" class="form-select sel_cur">
+                                                            <select name="" id="" class="form-select sel_cur" onchange="petty_cash.change_amount();">
                                                                 <option value="THB">THB</option>
                                                                 <option value="USD">USD</option>
                                                                 <option value="RMB">RMB</option>
@@ -114,10 +114,10 @@ require 'function/auth/get_session.php';
                                         </div>
                                         <div class=" btn_add_new_list">
                                             <button type="button" class="btn btn-block btn-link btn-soft-light rounded-pill w-100 " onclick="petty_cash.addpthtml();">add new</button>
-                                        </div> 
-                                        <div style="float: right" class="btn_save_list" >
-                                        <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="petty_cash.save_petty_cash();"  style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
-                                        </div> 
+                                        </div>
+                                        <div style="float: right" class="btn_save_list">
+                                            <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="petty_cash.push_action_save();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -131,14 +131,46 @@ require 'function/auth/get_session.php';
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Job quantity:</label>
-                                    <div class="col-sm-9 col-md-4 col-lg-3">
-                                        <input type="input" class="form-control form-control-sm inp-count" readonly>
+                                    <div class="col-sm-9 col-md-4 col-lg-2">
+                                        <input type="input" class="form-control form-control-sm inp-count" style="text-align:right;" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Amount:</label>
-                                    <div class="col-sm-9 col-md-4 col-lg-3">
-                                        <input type="input" class="form-control form-control-sm inp-total-amt" readonly>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 align-self-center">Total amount by currency:</label>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +206,7 @@ require 'function/auth/get_session.php';
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/pettycash/pettycash.js"></script>
 <script src="js/pettycash/pettycash_set_sel_job.js"></script>
-
+<script src="js/pettycash-list/pettycash_list.js"></script>
 
 <script>
     $(document).ready(function() {

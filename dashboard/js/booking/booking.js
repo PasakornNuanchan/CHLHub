@@ -212,12 +212,20 @@ const booking = {
     set_default_data : async function(){
         let set_data_default = await booking.ajax_set_default_data();
         console.log(set_data_default);
+
+        let html_represent = '';
+        $.each(set_data_default['ab'], function (i, k) {
+            html_represent += `
+            <option value="${k['ID']}">${k['agent_name_corp']}</option>
+            `;
+        });
+        $('.db-sel-represent',).append(html_represent);
     },
-    ajax_set_default_data : function (job_number) { 
+    ajax_set_default_data : async function () { 
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/booking/set_default_data.php",
+                url: "php/booking/set_defualt_data.php",
                 data: {},
                 dataType: "json",
                 success: function (response) {
