@@ -1,5 +1,5 @@
 <?php
-require 'function/auth/get_session.php';
+require '../../function/auth/get_session.php';
  
 require '../../core/conn.php';
 

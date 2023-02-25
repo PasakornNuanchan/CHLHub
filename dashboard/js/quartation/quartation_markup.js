@@ -305,7 +305,52 @@ const quartation_markup = {
             });
         });
     },
-
+    sign_markup :async function (obj = {}) { 
+        arr_save = {
+            'quo_no' : $('.inp_quono').val(),
+        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res =  await quartation_markup.ajax_sign_markup(arr_save);
+                console.log(res);
+                if (res['st'] == '1') {
+                    Swal.fire(
+                        'saved!',
+                        'Your data has been saved.',
+                        'success'
+                    );
+                }else{
+                    Swal.fire(
+                        'Error!',
+                        'Your data has not been saved. Please contact administrator.',
+                        'error'
+                    );
+                }
+                
+            }
+        })
+    },
+    ajax_sign_markup : function (data = {}) {  
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/quotation_markup/sign_markup.php",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
     //export
     export_markup_pdf :async function () {  
         let quo_no = quartation_markup.get_quono;

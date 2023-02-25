@@ -23,7 +23,7 @@
     }else{
         while ($row = mysqli_fetch_array($result)) {
             session_start();
- 
+            $_SESSION['ID'] = $row['ID'];
             $_SESSION['name'] = $row['first_name'];
             $_SESSION['lastname'] = $row['last_name'];
             $_SESSION['email'] = $row['email'];

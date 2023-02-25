@@ -3,10 +3,11 @@
 $con->begin_transaction();
 $con->autocommit(FALSE);
 try {
+    print_r($_POST['cargo_desc']);
 
-    $err_msg = "";
-    $inst_st = "1";
-    $job_number = '0002';
+    // $err_msg = "";
+    // $inst_st = "1";
+    // $job_number = '0002';
     $bk_no = $_POST['bk_no'];
     $shipper = $_POST['shipper'];
     $shipterm = $_POST['shipterm'];

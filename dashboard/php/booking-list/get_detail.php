@@ -15,7 +15,7 @@
         job_title as jt
     INNER JOIN carrier as c ON jt.carrier_number = c.carrier_number
     INNER JOIN consignee as co ON jt.consignee_number = co.consignee_number
-    INNER JOIN area as a ON jt.port_of_receipt_number = a.area_number    ";
+    LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number";
     
     $result = $con -> query($sql);
 

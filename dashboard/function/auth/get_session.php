@@ -18,7 +18,7 @@ $s_name = session_name();
 //Check the session exists or not
 if(isset( $_COOKIE[ $s_name ] )) {
     setcookie( $s_name, $_COOKIE[ $s_name ], time() + $timeout, '/' );
-    //echo "Session is created for $s_name.<br/>";
+    // echo "Session is created for $s_name.<br/>";
 } else {
     ?>
     <script>

@@ -50,6 +50,9 @@ require 'function/auth/get_session.php';
                                        </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-8">
+                                    <button type="button" onclick="booking_list.modal_quotation();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
+                                </div>
                             </div>
                             <div class="bd-example table-responsive">
                             <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">

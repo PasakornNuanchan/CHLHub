@@ -196,7 +196,7 @@ require 'function/auth/get_session.php';
                                 <div style="float: right">
                                     <button class="btn btn-primary rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation_markup.save_markup();"><i class="bi bi-check-square"></i> Save</button>
                                     <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation_markup.export_markup_pdf();"><i class="bi bi-line"></i> Export Document</button>
-                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sign</button>
+                                    <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation_markup.sign_markup();"><i class="bi bi-line"></i> Sign</button>
                                 </div>
                             </div>
                         </div>

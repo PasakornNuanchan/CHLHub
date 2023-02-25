@@ -129,7 +129,6 @@
         function Header()
         {
             global $result_title_array;
-            print_r($result_title_array);
             $this->AddFont('THSarabunNew','','THSarabunNew.php');
             $this->AddFont('THSarabunNew','B','THSarabunNew_b.php');
             $this->SetFont('THSarabunNew','B',16);
