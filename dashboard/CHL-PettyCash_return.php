@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -110,32 +110,41 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="control-label col-sm-2 align-self-center">Job Number</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm inp-all_job" placeholder="" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
                                     <label class="control-label col-sm-2 align-self-center">Job Quantity</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp-job_q" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 align-self-center">Total Tranfer :</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-tranf_total" style="text-align: right;" readonly>
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                    <option value="THB" selected>THB</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="RMB">RMB</option>
-                                                </select>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2 align-self-center">Job Number</label>
-                                    <div class="col-sm-9">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm inp-all_job" placeholder="" readonly>
+                                <div class="add_tranfer_tran">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 align-self-center">Tranfer By.</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control form-control-sm col-sm-2 inp-tranf_total" style="text-align: right;" readonly>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <select name="" id="" class="form-select form-select-sm shadow-none cur_tran" disabled>
+                                                        <option value="THB">THB</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="RMB">RMB</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -246,13 +255,13 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
                                         <div class="col-sm-3 col-md-7 col-lg-3">
-                                            <input type="text" class="form-control form-control-sm  inp-payment-by"  readonly>
+                                            <input type="text" class="form-control form-control-sm  inp-payment-by" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
                                         <div class="col-sm-3 col-md-7 col-lg-3">
-                                            <input type="datetime" class="form-control form-control-sm inp-payment-d-time"  readonly>
+                                            <input type="datetime" class="form-control form-control-sm inp-payment-d-time" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -286,7 +295,7 @@ require 'function/auth/get_session.php';
                                         <div class="form-group row">
                                             <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Job number x :</label>
                                             <div class="col col-md-3 col-lg-3">
-                                                <input type="input" class="form-control form-control-sm"  readonly>
+                                                <input type="input" class="form-control form-control-sm" readonly>
                                             </div>
                                         </div>
                                         <div class="table-responsive">

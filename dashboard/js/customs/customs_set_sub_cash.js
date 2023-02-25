@@ -16,14 +16,21 @@ const customs_set_sub_cash = {
 
     set_sub_cash_preview_data: async function (job_number) {
         let res_data = await customs_set_sub_cash.ajax_set_preview_data(job_number);
-        $('.sel-pcn').html('');
+        console.log(res_data);
+
+        
+        //$('.sel-pcn').html('');
         let db_sel_pc_number = '';
+        
+        if(res_data['pcn'] != "0 results"){
         $.each(res_data['pcn'], function (i, k) {
             db_sel_pc_number += `
             <option value="${k['ID']}">${k['petty_cash_number']}</option>
             `;
         });
         $('.sel-pcn').append(db_sel_pc_number);
+        }
+
         html_petty_cash_nubmer = $('.del_pcn').parent().html();
         html_select_cur = $('.sel-cur-balance').parent().html();
         $('.add_pcn').html('');
@@ -32,7 +39,7 @@ const customs_set_sub_cash = {
         await customs_set_sub_cash.type_change_cash()
 
 
-        console.log(res_data);
+        
 
 
 
@@ -96,6 +103,7 @@ const customs_set_sub_cash = {
         console.log(res_data_cbl)
         $('.pcb-add').html('');
         html_pcb = '';
+        if(res_data_cbl['cbl'] != "0 results"){
         $.each(res_data_cbl['cbl'], function (i, v) {
             html_pcb =
                 `<div class="pcb-del">
@@ -121,6 +129,7 @@ const customs_set_sub_cash = {
             $('.pcb-add').append(html_pcb);
             $(`.db-sel-cur-pcn${i} > select`).val(v['currency']);
         })
+    }
 
     },
 
@@ -206,22 +215,38 @@ const customs_set_sub_cash = {
                 let description = $('.sel-des-cash').val();
                 let pay_to = $('.inp-pcn-pay').val();
                 let amount = parseFloat($('.inp-pcn-amount').val());
-
+                let currency_get = $('.inp-pcn-amount-cur').val();
                 if (type == "Petty Cash") {
                     let get_val_amount = $('.sel-pcn').val();
                     console.log(get_val_amount)
+                    if(get_val_amount == ""){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Plese select petty cash number!',
+                        })
+                    }else{
 
                     let amount_balance = '';
 
                     var result = res_data_cbl.cbl.find(obj => obj.ID == get_val_amount);
                     amount_balance = result['cash_balance']
+                    currency = result['currency']
 
+
+                  
 
                     if (amount_balance <= amount) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Petty Cash less than is amount in use!',
+                        })
+                    }else if(currency != currency_get) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Currency not match plese change currency request',
                         })
                     } else if (type == "" || description == "" || pay_to == "" || amount == "") {
                         Swal.fire({
@@ -240,6 +265,7 @@ const customs_set_sub_cash = {
                             'success'
                         )
                         customs_set_sub_cash.set_sub_cash_preview_data(customs.job_number_global);
+                    }
                     }
                 }else if(type == "Advance Cash"){
                     if (type == "" || description == "" || pay_to == "" || amount == "") {

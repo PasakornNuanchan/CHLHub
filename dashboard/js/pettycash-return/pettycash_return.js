@@ -62,8 +62,10 @@ const pettycash_return = {
         $('.inp-job_q').val(res_data['scd']['c_qty']);
         $('.inp-all_job').val(res_data['imp_set']);
 
-        pf_tranfer_total = parseFloat(res_data['pct']['tranfer_amount']);
-        $('.inp-tranf_total').val(number_format(pf_tranfer_total.toFixed(2)));
+
+        let cur_tran = $('.cur_tran').parent().html();
+        $('.add_tranfer_tran').html('');
+        
         
         // start Description Petty cash request 
         let no_des ='1';
@@ -121,12 +123,16 @@ const pettycash_return = {
             let num1 = 0;
             let html_check = '';
             var Cash = parseFloat(Cash_arr[i]);
+
             Sum_Cash = parseFloat(Cash) + parseFloat(Sum_Cash);
+
+            let currency = '';
+            
             let Pay = 0;
             $.each(v, function (i1, v1) {
                 Pay += parseFloat(v1['amount']);
                 Sum_Pay = parseFloat(Sum_Pay) + parseFloat(v1['amount']);
-               
+                currency = v1['currency']
                 pf_amount = parseFloat(v1['amount']);
                 num1++; 
                 html_check +=
@@ -175,13 +181,13 @@ const pettycash_return = {
                             <div class="small">
                                 <label class="control-label col-sm-0 align-self-center fw-bold">Petty Cash :</label>
                                 <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
-                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                <label class="control-label col-sm-0 align-self-center text-center">${currency}</label>
                                 <label class="control-label col-sm-1 align-self-center fw-bold">Pay :</label>
                                 <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Pay.toFixed(2))}</label>
-                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                <label class="control-label col-sm-0 align-self-center text-center">${currency}</label>
                                 <label class="control-label col-sm-2 align-self-center fw-bold">Pay Return :</label>
                                 <label class="control-label col-sm-2 align-self-center" align="right">${number_format((parseFloat(Cash) - parseFloat(Pay)).toFixed(2))}</label>
-                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                <label class="control-label col-sm-0 align-self-center text-center">${currency}</label>
                             </div>
                         </div>
                 </div>

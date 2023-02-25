@@ -3,6 +3,7 @@ $petty_number = $_POST['petty_number'];
     include '../../core/conn.php';
     $sql_pct = "
     SELECT 
+    
       pct.petty_cash_number,
       pct.datetime_request,
       rqn.first_name as rq_by_first,
@@ -28,13 +29,19 @@ $petty_number = $_POST['petty_number'];
     ";
 
    $sql_pcd = "
-   SELECT * FROM petty_cash_detail as pcd
+   SELECT 
+   pcd.ID,
+   c.consignee_name,
+   pcd.job_number,
+   pcd.amount,
+   pcd.currency 
+   FROM petty_cash_detail as pcd
    INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
    INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
     ";
 
    $sql_count_des = "
-   SELECT count(job_number) as c_qty FROM `petty_cash_detail` where `petty_cash_number` ='$petty_number'
+   SELECT COUNT(job_number) as c_qty FROM `petty_cash_detail` WHERE petty_cash_number = '$petty_number'
     ";
 
     $job_number = 0;
@@ -58,6 +65,7 @@ $petty_number = $_POST['petty_number'];
         while($row = $result->fetch_assoc()) {
             $pcd[] = $row;
             $pcdjn[] = $row['job_number'];
+            $pcdjn2[] = $row['ID'];
         }
       } else {
         $pcd = "0 results";
@@ -72,11 +80,12 @@ $petty_number = $_POST['petty_number'];
         $scd = "0 results";
       }
   
+      $pcn_id = implode(',' , $pcdjn2);
       $imp_set = implode(',' , $pcdjn);
-      $sql_pcdr = "
-      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
+     $sql_pcdr = "
+      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.ID 
       
-      WHERE cp.type = 'Petty_Cash' AND cp.job_number IN($imp_set)";
+      WHERE cp.type = 'Petty Cash' AND cp.job_number IN($imp_set) AND cp.ID_petty_cash IN ($pcn_id) AND cp.status = 0";
       
       $result = $con -> query($sql_pcdr);
     if ($result->num_rows > 0) {
@@ -84,13 +93,13 @@ $petty_number = $_POST['petty_number'];
           $dtpc[] = $row;
         }
       } else {
-        $scd = "0 results";
+        $dtpc = "0 results";
       }
 
       foreach ($dtpc as $k => $v) {
         $dtpc_arr[$v['job_number']][] = $v;
       }
-       echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
+     echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
     
 
 

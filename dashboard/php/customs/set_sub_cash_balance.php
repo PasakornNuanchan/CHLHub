@@ -11,9 +11,11 @@ SELECT
 pcd.ID,
 pcd.petty_cash_number,
 pcd.job_number, 
-pcd.amount - (SELECT SUM(cp.amount) FROM petty_cash_detail as pcd1 
+pcd.amount - IF((SELECT SUM(cp.amount) FROM petty_cash_detail as pcd1 
 LEFT JOIN cash_payment as cp ON pcd1.ID = cp.ID_petty_cash
-WHERE cp.type = 'Petty Cash' AND pcd.ID = pcd1.ID AND cp.status = 0) as cash_balance,
+WHERE cp.type = 'Petty Cash' AND pcd.ID = pcd1.ID AND cp.status = 0) IS NULL ,0,(SELECT SUM(cp.amount) FROM petty_cash_detail as pcd1 
+LEFT JOIN cash_payment as cp ON pcd1.ID = cp.ID_petty_cash
+WHERE cp.type = 'Petty Cash' AND pcd.ID = pcd1.ID AND cp.status = 0)) as cash_balance,
 pcd.currency 
 FROM 
 petty_cash_detail as pcd

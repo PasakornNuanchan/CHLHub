@@ -267,7 +267,7 @@ require 'function/auth/get_session.php';
                                                 <label class="control-label col-sm-3 align-self-center ">Petty Cash number :</label>
                                                 <div class="col-sm-3 col-lg-3">
                                                     <select class="form-select form-select-sm  shadow-none sel-pcn sel-pcn-pcn">
-                                                        <option selected>Please select shipper</option>
+                                                        <option value="">Please select petty cash</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -3,7 +3,7 @@ $job_number = $_POST['job_number'];
     include '../../core/conn.php';
 
 
-    $sql_transport = "
+   $sql_transport = "
     SELECT
       tb.ID,
       tb.sup_number,
@@ -31,9 +31,10 @@ if ($result->num_rows > 0) {
     $get_tran[] = $row['ID'];
   }
 } else {
-  $tran[] = "0 results";
+  $tran = "0 results";
 }
 
+if($tran != "0 results"){
 $imp_set_tran_drive = implode(',', $get_tran);
 $sql_tran_drive = "
       SELECT 
@@ -55,15 +56,21 @@ $sql_tran_drive = "
         while ($row = $result->fetch_assoc()) {
           $transport_driver[] = $row;
         }
+
+        foreach ($transport_driver as $k => $v) {
+          $transport_driver_arr[$v['route_id']][] = $v;
+        }
       } else {
-        $transport_driver[] = "0 results";
+        $transport_driver_arr = "0 results";
       }
-      
-      foreach ($transport_driver as $k => $v) {
-        $transport_driver_arr[$v['route_id']][] = $v;
-      }
+  echo json_encode(array('tran'=>$tran,'transport_driver_arr'=>$transport_driver_arr));
+}else{
+  $transport_driver_arr = "0 results";
+  echo json_encode(array('tran'=>$tran,'transport_driver_arr'=>$transport_driver_arr));
+}
+     
 
 
 
 
-     echo json_encode(array('tran'=>$tran,'transport_driver_arr'=>$transport_driver_arr));
+    

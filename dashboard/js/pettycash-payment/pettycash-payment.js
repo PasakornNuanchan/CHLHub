@@ -1,6 +1,6 @@
 const pettycash_payment = {
    
-
+    petty_cash_number_global : '',
 
     // addpthtml: function () {
     //     let html_select = $(".td-sel-conttype").html();
@@ -45,7 +45,7 @@ const pettycash_payment = {
 
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
-        
+        pettycash_payment.petty_cash_number_global = job_doc_pt;
         console.log(action);
         
         if (action == 'preview') {
@@ -62,11 +62,11 @@ const pettycash_payment = {
 
         let res_data = await pettycash_payment.ajax_set_preview_data(job_doc_pt);
 
-        $('.head-of-menu').html('Petty Cash Return');
+        $('.head-of-menu').html('Petty Cash Payment');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="CHL-PettyCash_return-list.php" target="" style="color:white;">Petty Cash Return List</a></li>
-        <li class="breadcrumb-item active page-item" aria-current="page">Petty Cash Return (Petty Cash Number ${job_doc_pt})</li>`;
+        <li class="breadcrumb-item"><a href="CHL-PettyCash_return-list.php" target="" style="color:white;">Petty Cash payment List</a></li>
+        <li class="breadcrumb-item active page-item" aria-current="page">Petty Cash Payment (Petty Cash Number ${job_doc_pt})</li>`;
         $('.bcpage').append(html_bdpage);
         
 
@@ -145,12 +145,17 @@ const pettycash_payment = {
         $('.add_card_tranfer').html('');
         html_tranfer = '';
         
-        $.each(arr_get_am,function(i,v){
-            let amt_request = parseFloat(v['pf_amount'])
-            let cur_amount = v['cur_amount']
-        html_test = 
+        
+        $.each(res_data['pcdt'],function (i, v){
+            
+            let amt_request = parseFloat(v['amount_all']);
+            let cur_amount = v['currency'];
+            
+            console.log(v['amount_tranfer'])
+            if(v['amount_tranfer'] == null){
+                html_test = 
         `
-        <div class="card card-ptn${i}">
+        <div class="card card-ptn card-ptn${i}">
             <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
                     <h4 class="card-title">Tranfer</h4>
@@ -162,7 +167,7 @@ const pettycash_payment = {
                     <div class="col-sm-9 col-lg-9">
                         <div class="row">
                             <div class="col-sm-3 col-lg-3">
-                                <input type="text" class="form-control form-control-sm" style="text-align:right;" value="${number_format(amt_request.toFixed(2))}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-amount_request" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
                             </div>
                             <div class="col-sm-3 col-lg-2">
                                 ${tranfer_cur_sel}
@@ -186,11 +191,11 @@ const pettycash_payment = {
                 <div class="form-group row">
                     <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
                     <div class="col-sm-9 col-lg-6">
-                        <input type="file" class="form-control form-control-sm" readonly>
+                        <input type="file" class="form-control form-control-sm inp-receipt" readonly>
                     </div>
                 </div>
                 <div style="float: right">
-                    <button class="btn btn-success rounded-pill btn-sm "><i class="bi bi-check-circle-fill"></i> Save</button>
+                    <button class="btn btn-success rounded-pill btn-sm " onclick="pettycash_payment.push_action_save();"><i class="bi bi-check-circle-fill"></i> Save</button>
                 </div>
             </div>
         </div>
@@ -199,6 +204,63 @@ const pettycash_payment = {
         $('.add_card_tranfer').append(html_test);
         $(`.card-ptn${i} .sel_amt_req_tranfer`).val(cur_amount).attr('disabled', true);
         $(`.card-ptn${i} .sel_amount_tranfer`).val(cur_amount);
+            }else{
+                let amt_tf = parseFloat(v['amount_tranfer']);
+                let cur_tf = v['currency_tranfer'];
+
+                html_test = 
+                `
+                <div class="card card-ptn card-ptn${i}">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Tranfer</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="control-label col-sm-2 align-self-center">Amount Request :</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <div class="row">
+                                    <div class="col-sm-3 col-lg-3">
+                                        <input type="text" class="form-control form-control-sm inp-amount_request" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-lg-2">
+                                        ${tranfer_cur_sel}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-2 align-self-center">Amount Tranfer</label>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col col-sm-4 col-lg-3">
+                                        <input type="number" class="form-control form-control-sm inp_amount_tranfer" style="text-align:right;" value="${amt_tf.toFixed(2)}" readonly>
+                                    </div>
+                                    <div class="col col-sm-2">
+                                        ${sel_amount_tranfer}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
+                            <div class="col-sm-9 col-lg-6">
+                                <input type="file" class="form-control form-control-sm inp-receipt" disabled>
+                            </div>
+                        </div>
+                        <div style="float: right">
+                            <button class="btn btn-success rounded-pill btn-sm " onclick="pettycash_payment.push_action_save();"><i class="bi bi-check-circle-fill"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+                `;
+                    
+                $('.add_card_tranfer').append(html_test);
+                $(`.card-ptn${i} .sel_amt_req_tranfer`).val(cur_amount).attr('disabled', true);
+                $(`.card-ptn${i} .sel_amount_tranfer`).val(cur_tf).attr('disabled', true);
+            }
+        
         })
     },
 
@@ -261,7 +323,84 @@ const pettycash_payment = {
 
         $('.inp-count').val(count_row)
     },
-    
+    push_action_save: async function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            
+            if (result.isConfirmed) {
+                card_pass= '';
+                $('.card-ptn').each(async function (i, e) {
+                    let get_req_amount = parseFloat($('.inp-amount_request', this).val());
+                    let get_req_currency = $('.sel_amt_req_tranfer', this).val();
+                    let get_tf_amount = parseFloat($('.inp_amount_tranfer', this).val());
+                    let get_tf_currency = $('.sel_amount_tranfer', this).val();
+                    let inp_receipt = $('.inp-receipt', this).val();
+
+                    if(get_req_amount != get_tf_amount || get_req_currency != get_tf_currency ){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Data Amount or currency not match ',
+                        })
+                        card_pass = 1;
+                        return false;
+                    }
+                })
+
+                if(card_pass != 1){
+                    await pettycash_payment.save_pc_payment()
+                }
+                
+                
+            }
+        })
+    },
+
+    save_pc_payment : async function(){
+        let arr_pc_payment = []
+        let arr_pc_payment_temp = {}
+        
+        $('.card-ptn').each(async function (i, e) {
+            let get_tf_amount = parseFloat($('.inp_amount_tranfer', this).val());
+            let get_tf_currency = $('.sel_amount_tranfer', this).val();
+            let inp_receipt = $('.inp-receipt', this).val();
+
+            arr_pc_payment_temp = {
+                get_tf_amount: get_tf_amount,
+                get_tf_currency: get_tf_currency,
+                inp_receipt: inp_receipt,
+                doc_number: pettycash_payment.petty_cash_number_global
+            }
+            arr_pc_payment.push(arr_pc_payment_temp);
+        })
+
+        await pettycash_payment.ajax_save_pc_payment(arr_pc_payment)
+        $('.inp_amount_tranfer').attr('disabled',true)
+        $('.sel_amount_tranfer').attr('disabled',true)
+        $('.inp-receipt').attr('disabled',true)
+    },
+
+    ajax_save_pc_payment: function (arr_pc_payment) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/pettycash-payment/save_list.php",
+                data: { 'arr_pc_payment': arr_pc_payment },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
 };
 
 function number_format(nStr)

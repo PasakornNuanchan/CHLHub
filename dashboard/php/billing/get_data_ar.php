@@ -23,7 +23,8 @@
       LEFT JOIN consignee c ON b.bill_to = c.consignee_number
     WHERE 
       job_number = '$job_number' and 
-      type = 'AR'
+      type = 'AR' and
+      status = '0'
     ";
 
     $result = $con -> query( $sql_ar);

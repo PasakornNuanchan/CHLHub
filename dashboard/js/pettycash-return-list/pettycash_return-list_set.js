@@ -15,7 +15,7 @@ const petty_cash_return_list_set = {
         $('[name = "data_table_list"] tbody').html('');
 
         $.each(res_data['pct'], function (i, v) {         
-            pf_amount = parseFloat(v['total_amount_request']);
+            //pf_amount = parseFloat(v['total_amount_request']);
             // console.log(pf_amount);
 
             res_clearance = v['clearlance_status'];
@@ -38,7 +38,7 @@ const petty_cash_return_list_set = {
             <td>${v['petty_cash_number']}</td>
             <td>${v['first_name']} ${v['last_name']}</td>
             <td>${v['COUNT_job']}</td>
-            <td>${number_format(pf_amount.toFixed(2))}</td>
+            
             <td>${set_clearance}</td>
             <td>${set_payble}</td>
             <td><button type="button" onclick="pettycash_return_list.preview('${v['petty_cash_number']}');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>

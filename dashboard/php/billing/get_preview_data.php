@@ -23,10 +23,11 @@
       LEFT JOIN consignee c ON b.bill_to = c.consignee_number
     WHERE 
       job_number = '$job_number' and 
-      type = 'AR'
+      type = 'AR' and
+      status = '0'
     ";
     $sql_ap = "
-    SELECT * FROM `billing` WHERE job_number = '$job_number' and type = 'AP'
+    SELECT * FROM `billing` WHERE job_number = '$job_number' and type = 'AP' 
     ";
 
 

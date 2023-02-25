@@ -59,7 +59,7 @@ require 'function/auth/get_session.php';
                                         <th>Petty number</th>
                                         <th>Create By</th>
                                         <th>Job Quantity</th>
-                                        <th>Total amount</th>
+                                        
                                         <th>Payble</th>
                                         <th>Action</th>
                                     </tr>
@@ -70,7 +70,7 @@ require 'function/auth/get_session.php';
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
+                                            
                                             <td></td>
                                             <td><button type="button" onclick="pettycash_payment_list.preview('<?=$pettycash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>

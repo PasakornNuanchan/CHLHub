@@ -1,11 +1,11 @@
-const customs_set_sub_transport ={
-    
-    ajax_set_preview_data : function (job_number) { 
+const customs_set_sub_transport = {
+
+    ajax_set_preview_data: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/customs/set_sub_transport.php",
-                data: {'job_number' : job_number},
+                data: { 'job_number': job_number },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -13,44 +13,46 @@ const customs_set_sub_transport ={
             });
         });
     },
-    
-    set_sub_transport_preview_data: async function (job_number){
+
+    set_sub_transport_preview_data: async function (job_number) {
         let res_data = await customs_set_sub_transport.ajax_set_preview_data(job_number)
-        
+        console.log(res_data)
         // sub Page booking transport 
-        html_transport ='';
+        html_transport = '';
         var html_select_supplier = $('.sel-supplier').parent().html();
         var html_select_cur = $('.sel-cur').parent().html();
         var html_select_type = $('.inp-type_truck').parent().html();
-        
-        route =1;
+
+        route = 1;
         $('.card-transport-add').html('');
         $('.add_driver').html('');
-        $.each(res_data['tran'],async function(i,v){
-            
-            budget = parseFloat(v['budget']);
-            let pcea = v['pick_con_empty_address'] || '';
-            let pcer = v['pick_con_empty_remark'] || '';
-            let pca = v['pick_con_address'] || '';
-            let pcr = v['pick_con_remark'] || '';
-            let dca = v['drop_con_address'] || '';
-            let dcr = v['drop_con_remark'] || '';
-            let dcea = v['drop_con_empty_address'] || '';
-            let dcer = v['drop_con_empty_remark'] || '';
+        if (res_data['tran'] != "0 results") {
+            $.each(res_data['tran'], async function (i, v) {
 
-            let scf = v['sup_confirm'] || '';
-            let type_truck = !!v['type_truck'] ? v['type_truck'] : '';
-            let remark = v['remark'] || '';
+                budget = parseFloat(v['budget']);
+                let pcea = v['pick_con_empty_address'] || '';
+                let pcer = v['pick_con_empty_remark'] || '';
+                let pca = v['pick_con_address'] || '';
+                let pcr = v['pick_con_remark'] || '';
+                let dca = v['drop_con_address'] || '';
+                let dcr = v['drop_con_remark'] || '';
+                let dcea = v['drop_con_empty_address'] || '';
+                let dcer = v['drop_con_empty_remark'] || '';
 
-            let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
-            let truck_quantity = !!v['truck_quantity'] ? v['truck_quantity'] : '';
+                let scf = v['sup_confirm'] || '';
+                let type_truck = !!v['type_truck'] ? v['type_truck'] : '';
+                let remark = v['remark'] || '';
 
-            let ID_test = v['ID'];
-            html_driver_transport = '';
-            let num_tran_driver = '1';
-            
-            $.each(res_data['transport_driver_arr'][ID_test], async function (i1, v1) {
-                html_driver_transport += `
+                let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
+                let truck_quantity = !!v['truck_quantity'] ? v['truck_quantity'] : '';
+
+                let ID_test = v['ID'];
+                html_driver_transport = '';
+                let num_tran_driver = '1';
+
+                if (res_data['transport_driver_arr'] != "0 results") {
+                    $.each(res_data['transport_driver_arr'][ID_test], async function (i1, v1) {
+                        html_driver_transport += `
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver ${num_tran_driver}:</label>
                     <div class="col-sm-9 col-lg-10">
@@ -72,12 +74,14 @@ const customs_set_sub_transport ={
                         </div>
                     </div>
                 </div>`;
-                num_tran_driver++;
-            })
+                        num_tran_driver++;
+                    })
+                }
+                
 
 
 
-            html_transport = `
+                html_transport = `
         <div class="card-transport-del">
             <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -190,18 +194,31 @@ const customs_set_sub_transport ={
     </div>    
                 `;
                 route++;
-        await $('.card-transport-add').append(html_transport);
+                await $('.card-transport-add').append(html_transport);
 
-        $(`.db_sel_sup${i} > select`).val(sup_n).attr('disabled',true); 
-        $(`.db_sel_truck${i} > select`).val(type_truck).attr('disabled',true); 
-        });
+                $(`.db_sel_sup${i} > select`).val(sup_n).attr('disabled', true);
+                $(`.db_sel_truck${i} > select`).val(type_truck).attr('disabled', true);
+            });
 
 
-       
+        }else{
+            
+            html_transport = `
+            <div class="card">
+                <div class="card-body">
+                    <h4 align="center" style="color: hsl(0, 100%, 50%);">No information transport plese contact to transport team for booking transport</h4>
+                </div>
+            </div>
+            
+
+            `;
+
+            await $('.card-transport-add').append(html_transport);
+        }
     },
 
-    
 
-    
-    
+
+
+
 };

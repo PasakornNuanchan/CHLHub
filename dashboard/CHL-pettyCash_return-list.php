@@ -58,7 +58,7 @@ require 'function/auth/get_session.php';
                                         <th>Petty number</th>
                                         <th>Create By</th>
                                         <th>Job Quantity</th>
-                                        <th>Total amount</th>
+                                        
                                         <th>Customs Clearance</th>
                                         <th>Petty Cash Clear</th>
                                         <th>Action</th>
@@ -69,7 +69,7 @@ require 'function/auth/get_session.php';
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
+                                            
                                             <td></td>
                                             <td></td>
                                             <td></td>

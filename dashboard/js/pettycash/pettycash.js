@@ -1,4 +1,5 @@
 const petty_cash = {
+    
     check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -149,7 +150,7 @@ const petty_cash = {
             $(`.pettycash_detail${i} .sel_cur`).val(v['currency']).attr('disabled', true);
         });
 
-
+        $('.btn_save_list').html('');
       
     },
 
@@ -240,13 +241,14 @@ const petty_cash = {
                     }
                 })
                 if(check_val != 1){
+                    await petty_cash.save_petty_cash()
                     Swal.fire(
                         'saved!',
                         'Your file has been saved.',
                         'success'
                       )
                 } 
-                //await petty_cash.save_petty_cash()
+                
             }
         })
     },

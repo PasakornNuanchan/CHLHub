@@ -1,6 +1,6 @@
 const billing = {
-
-    check_get: function () {
+    job_number_global : '',
+    check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -22,11 +22,12 @@ const billing = {
         let action = get_action == false ? null : get_action;
 
         console.log(action);
-
+        billing.job_number_global = job_number;
         if (action == 'preview') {
             
-            billing.set_preview_data(job_number);
-
+            await billing.set_preview_data(job_number);
+            await billing.ar_total_currency();
+            await billing_ap.ap_total_currency();
         } else {
         }
     },
@@ -35,117 +36,195 @@ const billing = {
         let set_data = await billing.ajax_set_description();
         $.each(set_data['bl_description'], function (i, v) {
             html_description += `
-            <option value="${v['billing_number']}">${v['billing_item_name']}</option>
+            <option value="${v['ID']}">${v['billing_item_name']}</option>
             `;
         });
+        $('.sel_description_ar').append(html_description);
+
+
         let html_bill_to = '';
         $.each(set_data['bl_bill'], function (i, v) {
             html_bill_to += `
             <option value="${v['consignee_number']}">${v['consignee_name']}</option>
             `;
         });
-        $('.sel_description_ar').append(html_description);
-        $('.sel_bill_to').append(html_bill_to);
+        
+        $('.sel_bill_to_ar').append(html_bill_to);
 
     },
-    set_preview_data: async function (job_number) {
-        await billing.set_data_description();
-
-      
-
+    
+    set_preview_data : async function (job_number) {
         
+
         $('.head-of-menu').html('Billing');
         $('.bcpage').html('');
         html_bdpage = `
         <li class="breadcrumb-item"><a href="CHL-billing-list.php" target="" style="color:white;">Billing List</a></li>
         <li class="breadcrumb-item active page-item" aria-current="page">Billing (Job number ${job_number})</li>`;
         $('.bcpage').append(html_bdpage);
-        r ='1';
+        
+        await billing.set_data_description();
         await billing.set_preview_data_ar(job_number);
+        await billing_ap.set_preview_data_ap(job_number);
 
 
     },
 
     set_preview_data_ar : async function (job_number){
-        
+        let html_des_ar = '';
         sl_des = $('.sel_description_ar').parent().html();
-        sl_bill = $('.db-sel-bill').parent().html();
-        
+        sl_bill = $('.sel_bill_to_ar').parent().html();
+        sl_cur = $('.sel_cur_description_ar').parent().html();
         
         let res_data = await billing.ajax_set_preview_ar(job_number);
         console.log(res_data);
         $('[name = billing-ar-tbl] tbody').html('');
-        q_round = '1';
+    
         $.each(res_data['ar'], function (i, v) {
-
-            
-
-            u_price = parseFloat(v['unit_price']);
-            ar_amt = parseFloat(v['amount']);
-            vat = parseFloat(v['vat']);
-            amtincvat = parseFloat(v['amtinclvat']);
-
+            let u_price = parseFloat(v['unit_price']);
+            let ar_amt = parseFloat(v['amount']);
+            let vat = parseFloat(v['vat']);
+            let amtincvat = parseFloat(v['amtinclvat']);
+            let id_val = v['ID'];
+            //let payblecheck = parseInt(v['payble']);
             let payble_ar = '';
             let action_payble_ar = '';
             let action_del_ar = '';
+
             if (v['payble'] == '0') {
                 payble_ar = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span>'
                 action_payble_ar = '';
                 action_del_ar = '';
+                action_readonly = '';
             } else {
                 payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
                 action_payble_ar = 'disabled';
-                action_del_ar = 'disabled';
+                action_del_ar = 'hidden';
+                action_readonly = 'readonly';
             }
 
             if (v['check_by'] == null) {
                 check_status = 'unchecked';
             } else {
                 check_status = 'checked disabled';
-            };
+            }
 
             html_des_ar = `
-            <tr class="text-center">
-                <td>${q_round}</td>
-                <td><div class="db-sel-des">${sl_des}</div></td>
-                <td>${sl_bill}</td>
+            <tr class="text-center des_ar${i}">
+                <td><div class="db_sel_des sel_des${i}">${sl_des}</div></td>
+                <td><div class="db_sel_bill sel_bill${i}">${sl_bill}</div></td>
                 <td>${payble_ar}</td>
-                <td><select name="" id="" class="form-select shadow-none sel_cur_description">
-                    <option value="" selected>Plsese select currency</option>
-                    <option value="THB">THB</option>
-                    <option value="USD">USD</option>
-                    <option value="RMB">RMB</option>
-                </select></td>
-                <td><input type="text" class="form-control" value="${v['qty']}" style="text-align:right;"></td>
-                <td><input type="text" class="form-control" value="${number_format(v['unit_price'])}" style="text-align:right;"></td>
-                <td align="right">${number_format(ar_amt.toFixed(2))}</td>
-                <td>${vat}%</td>
-                <td align="right">${number_format(amtincvat.toFixed(2))}</td>
-                <td><input type="text" class="form-control" value="${v['remark']}"></td>
+                <td><div class="db_sel_cur sel_cur${i}">${sl_cur}</div></td>
+                <td><input type="text" class="form-control inp_qty_ar" onchange="billing.change_amount_qty_ar(this);" value="${v['qty']}" style="text-align:right;" ${action_readonly}></td>
+                <td><input type="number" class="form-control inp_unit_price_ar" onchange="billing.change_amount_unit_ar(this);" value="${u_price.toFixed(2)}" style="text-align:right;" ${action_readonly}></td>
+                <td><input type="text" class="form-control inp_amt_ar" value="${number_format(ar_amt.toFixed(2))}" style="text-align:right;" readonly></td>
+                <td><input type="text" class="form-control vat_change vat_cal inp_vat" value="${vat}%" style="text-align:right;" readonly></td>
+                <td><input type="text" class="form-control inp_amt_icv_ar"  value="${number_format(amtincvat.toFixed(2))}" style="text-align:right;" readonly></td>
+                <td><input type="text" class="form-control inp_remark" value="${v['remark']}"></td>
                 <td><input type="checkbox" class="form-check-input" onclick="billing.push_check(${v['ID']});" ${check_status}></td>
                 <td>
                     <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                 </td>
-                <td onclick="billing.del_container_row(this);">
-                <button type="button" class="btn btn-danger rounded-pill btn-xs" ${action_del_ar} style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-            </td>
-                
+                <td>
+                <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this,${id_val});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
+                <button type="button" class="btn btn-danger rounded-pill btn-xs" ${action_del_ar} onclick="billing.push_del_ar_row(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+                </td>
             </tr>
             `;
             $('[name = billing-ar-tbl] tbody').append(html_des_ar);
-            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_description_ar')).val(v['billing_number']);
-            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_bill_to')).val(v['consignee_number']);
-            $('[name = billing-ar-tbl] tbody tr:last').find($('.sel_cur_description')).val(v['currency']);
-            q_round++;
+
+            if (v['payble'] == '0') {
+                $(`.sel_des${i} > select`).val(v['billing_number']);
+                $(`.sel_bill${i} > select`).val(v['consignee_number']);
+                $(`.sel_cur${i} > select`).val(v['currency']);
+
+            } else {
+                $(`.sel_des${i} > select`).val(v['billing_number']).attr('disabled',true);
+                $(`.sel_bill${i} > select`).val(v['consignee_number']).attr('disabled',true);
+                $(`.sel_cur${i} > select`).val(v['currency']).attr('disabled',true);
+            }
+            
         });
        
     },
-   
+    push_save_ar_row : async function (e,val_id) {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await billing.save_ar_row(e,val_id)
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+                )
+                billing.set_preview_data_ar(billing.job_number_global);
+            }
+        })
+    },
+  
+
+    save_ar_row : async function (e,val_id) {
+    
+    let parse = $(e).closest('tr')
+    let sel_des = $(parse).find('.sel_description_ar').val();
+    let sel_bill_to = $(parse).find('.sel_bill_to').val();
+    let sel_cur_description = $(parse).find('.sel_cur_description').val();
+    let inp_qty_ar = $(parse).find('.inp_qty_ar').val();
+    let inp_unit_price_ar = $(parse).find('.inp_unit_price_ar').val();
+    let inp_amt_ar = $(parse).find('.inp_amt_ar').val();
+    let inp_vat = $(parse).find('.inp_vat').val();
+    let inp_amt_icv_ar = $(parse).find('.inp_amt_icv_ar').val();
+    let inp_remark = $(parse).find('.inp_remark').val();
+    
+
+    arr_save_ar = []
+    arr_save_ar_tmp = {}
+
+    arr_save_ar_tmp = {
+        val_id : val_id,
+        sel_des : sel_des,
+        job_number : billing.job_number_global,
+        sel_bill_to : sel_bill_to,
+        sel_cur_description : sel_cur_description,
+        inp_qty_ar : inp_qty_ar,
+        inp_unit_price_ar : inp_unit_price_ar,
+        inp_amt_ar : inp_amt_ar,
+        inp_vat : inp_vat,
+        inp_amt_icv_ar : inp_amt_icv_ar,
+        inp_remark : inp_remark
+    }
+
+    arr_save_ar.push(arr_save_ar_tmp)
+    await billing.ajax_save_ar(arr_save_ar)
+    
+    },
+
+    ajax_save_ar : async function (arr_save_ar) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/save_list_ar.php",
+                data: { 'arr_save_ar': arr_save_ar },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
     set_preview_data_ap : function (job_number){
 
     },
 
-    
     ajax_set_description: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -190,90 +269,201 @@ const billing = {
         });
     },
 
-    addarhtml: function () {
-        let html_select = $(".td-sel-conttype").html();
+    addaphtml: function () {
+        
         html = `
         <tr class="text-center">
-            <td>1</td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>Plese select description</option>
-                <option value=""></option>
-            </select></td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>Plese select description</option>
-                <option value=""></option>
-            </select></td>
+            <td><div class="db-sel-des">${sl_des}</div></td>
+            <td>${sl_bill}</td>
             <td><span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span></td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected></option>
-                <option value="">THB</option>
-                <option value="">USD</option>
-                <option value="">RMB</option>
-            </select></td>
-            <td><input type="text" class="form-control" style="text-align:right;"></td>
-            <td><input type="text" class="form-control" style="text-align:right;"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="checkbox" class="form-check-input"></td>
+            <td>${sl_cur}</td>
+            <td><input type="text" class="form-control inp_qty_ap" onchange="billing.change_amount_qty_ar(this);" style="text-align:right;"></td>
+            <td><input type="number" class="form-control inp_unit_price_ap" onchange="billing.change_amount_unit_ar(this);"  style="text-align:right;" ></td>
+            <td><input type="text" class="form-control inp_amt_ap" style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control vat_change vat_cal inp_vat" style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control inp_amt_icv_ap"  style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control inp_remark" ></td>
+            <td><input type="checkbox" class="form-check-input" disabled></td>
             <td>
-                <button type="button" class="btn btn-primary rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Save</button>
+                <button type="button" class="btn btn-success rounded-pill btn-xs" onclick ="billing.push_paid()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" hidden><i class="bi bi-cash-coin"></i> Paid</button>
             </td>
-            <td onclick="billing.del_container_row(this);">
-                <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-            </td>
-            </tr>
+            <td>
+            <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
+            <button type="button" class="btn btn-danger rounded-pill btn-xs"  onclick="billing.push_del_ar_row();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+        </td>
         `;
         $('[name="billing-ar-tbl"]>tbody').append(html);
-    },
-    del_container_row: function (e = null) {
-        $(e).closest("tr").remove();
+        
     },
 
+    push_del_ar_row : async function (id_des) {
 
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await billing.ajax_push_del_action_ar(id_des)
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+                )
+                await billing.set_preview_data_ar(billing.job_number_global);
+            }
+        })
+    },
+    ajax_push_del_action_ar : function (id_des) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/del_list.php",
+                data: {'id_des' : id_des},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
-    addaphtml: function () {
-        let html_select = $(".td-sel-conttype").html();
+    addarhtml: function () {
+        
         html = `
         <tr class="text-center">
-            <td>1</td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>Plese select description</option>
-                <option value=""></option>
-            </select></td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>Plese select description</option>
-                <option value=""></option>
-            </select></td>
+            <td><div class="db-sel-des">${sl_des}</div></td>
+            <td>${sl_bill}</td>
             <td><span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span></td>
-            <td><select name="" id="" class="form-select shadow-none">
-                <option value="" selected>THB</option>
-                <option value="">USD</option>
-                <option value="">RMB</option>
-            </select></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="checkbox" class="form-check-input"></td>
-            <td onclick="billing.del_container_row(this);">
-                <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+            <td>${sl_cur}</td>
+            <td><input type="text" class="form-control inp_qty_ar" onchange="billing.change_amount_qty_ar(this);" style="text-align:right;"></td>
+            <td><input type="number" class="form-control inp_unit_price_ar" onchange="billing.change_amount_unit_ar(this);"  style="text-align:right;" ></td>
+            <td><input type="text" class="form-control inp_amt_ar" style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control vat_change vat_cal inp_vat" style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control inp_amt_icv_ar"  style="text-align:right;" readonly></td>
+            <td><input type="text" class="form-control inp_remark" ></td>
+            <td><input type="checkbox" class="form-check-input" disabled></td>
+            <td>
+                <button type="button" class="btn btn-success rounded-pill btn-xs" onclick ="billing.push_paid()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" hidden><i class="bi bi-cash-coin"></i> Paid</button>
             </td>
             <td>
-                <button type="button" class="btn btn-success rounded-pill btn-xs" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
-            </td>
-            </tr>
+            <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
+            <button type="button" class="btn btn-danger rounded-pill btn-xs"  onclick="billing.push_del_ar_row();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+        </td>
         `;
         $('[name="billing-ap-tbl"]>tbody').append(html);
+        
     },
     del_container_row: function (e = null) {
         $(e).closest("tr").remove();
     },
 
-    set_vat_description : function (){
+    set_vat_description_ar : async function (e){
+        let parent = $(e).closest('tr')
+        let des_number = $(e).val()
+        let vat_res = await billing.get_vat_description(des_number);
+
+        let vat_cal = vat_res['vat']
+        let ap_amt = $(e).closest('tr').find('.inp_unit_price_ar').val();
+        let qty = $(e).closest('tr').find('.inp_qty_ar').val();
+
+        let amt_total = parseFloat((qty*ap_amt));
+        let amt_total_icv = parseFloat((qty*ap_amt) + ((qty*ap_amt)*vat_cal/100))
+
+
+        $('.vat_change',parent).val(vat_res['vat']+"%");
+
+        $('.inp_amt_ar',parent).val(number_format(amt_total.toFixed(2)));
+        $('.inp_amt_icv_ar',parent).val(number_format(amt_total_icv.toFixed(2)));
+        await billing.ar_total_currency()
+    },
+
+    change_amount_qty_ar: async function(e){
+        let parent = $(e).closest('tr')
+        let ap_amt = $(e).closest('tr').find('.inp_unit_price_ar').val();
+        let vat_cal = $(e).closest('tr').find('.vat_cal').val();
+        let qty = $(e).val()
+        vat_cal =  parseFloat(vat_cal.replace("%",'')); 
+        let amt_total = parseFloat((qty*ap_amt));
+        let amt_total_icv = parseFloat((qty*ap_amt) + ((qty*ap_amt)*vat_cal/100))
+       
+        $('.inp_amt_ar',parent).val(number_format(amt_total.toFixed(2)));
+        $('.inp_amt_icv_ar',parent).val(number_format(amt_total_icv.toFixed(2)));
+        await billing.ar_total_currency()
+
+    },
+
+    change_amount_unit_ar: async function(e){
+        let parent = $(e).closest('tr')
+        let qty = $(e).closest('tr').find('.inp_qty_ar').val();
+        let vat_cal = $(e).closest('tr').find('.vat_cal').val();
+        let ap_amt = $(e).val()
+        vat_cal =  parseFloat(vat_cal.replace("%",'')); 
+        let amt_total = parseFloat((qty*ap_amt));
+        let amt_total_icv = parseFloat((qty*ap_amt) + ((qty*ap_amt)*vat_cal/100))
+       
+        $('.inp_amt_ar',parent).val(number_format(amt_total.toFixed(2)));
+        $('.inp_amt_icv_ar',parent).val(number_format(amt_total_icv.toFixed(2)));
+        await billing.ar_total_currency()
+
+    },
+
+    get_vat_description: async function (des_number) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/get_des_vat.php",
+                data: {'des_number': des_number},
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+    ar_total_currency : async function(){
+        
+        var inputs = $('.inp_amt_icv_ar');
+        
+        var currency = $('.sel_cur_description_ar');
+        let thb_cur = 0;
+        let usd_cur = 0;
+        let rmb_cur = 0;
+
+        for (var i = 0; i < inputs.length; i++) {
+            let amount =  $(inputs[i]).val().replace(",",'');
+            let currencyz = $(currency[i]).val();
+            
+            if (currencyz == "THB") {
+                thb_cur = parseFloat(thb_cur) + parseFloat(amount)
+            } else if (currencyz == "USD") {
+                usd_cur = parseFloat(usd_cur) + parseFloat(amount)
+            } else if (currencyz == "RMB") {
+                rmb_cur = parseFloat(rmb_cur) + parseFloat(amount)
+            }
+        }
+
+        now_usd = 1;
+        now_thb = 34.42;
+        now_rmb = 6.86;
+
+        total_val_usd = usd_cur + thb_cur / now_thb + rmb_cur / now_rmb
+        total_val_thb = thb_cur + usd_cur * now_thb + (rmb_cur / now_rmb) * now_thb
+        total_val_rmb = rmb_cur + usd_cur * now_rmb + (thb_cur / now_thb) * now_rmb
+
+        $('.inp_thb_total_ar').val(number_format(thb_cur))
+        $('.inp_usd_total_ar').val(number_format(usd_cur))
+        $('.inp_rmb_total_ar').val(number_format(rmb_cur))
+
+        $('.inp_thb_total_cur_ar').val(number_format(total_val_thb.toFixed(2)))
+        $('.inp_usd_total_cur_ar').val(number_format(total_val_usd.toFixed(2)))
+        $('.inp_rmb_total_cur_ar').val(number_format(total_val_rmb.toFixed(2)))
 
     },
 
@@ -290,14 +480,14 @@ const billing = {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 let res = await billing.ajax_push_paid_action(action_id);
-                console.log(res);
+                
                 Swal.fire(
                     'saved!',
                     'Your file has been saved.',
                     'success'
 
                 )
-                billing.set_preview_data_ar();
+                billing.set_preview_data_ar(billing.job_number_global);
             }
         })
     },
