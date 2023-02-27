@@ -187,7 +187,7 @@ require 'function/auth/get_session.php';
                                                         <tr class="text-center ap_des">
                                                             <td>
                                                                 <div class="db-sel-des">
-                                                                    <select name="" id="" class="form-select shadow-none sel_description_ap" onchange="billing.set_vat_description_ar(this);">
+                                                                    <select name="" id="" class="form-select shadow-none sel_description_ap" onchange="billing_ap.set_vat_description_ap(this)">
                                                                         <option value="" selected>Plese select description</option>
                                                                     </select>
                                                                 </div>
@@ -220,7 +220,7 @@ require 'function/auth/get_session.php';
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing.addarhtml();">add new</button>
+                                            <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="billing_ap.addaphtml();">add new</button>
                                         </div>
                                     </div>
                                 </div>
@@ -284,6 +284,7 @@ require 'function/auth/get_session.php';
 </html>
 <script src="js/billing/billing.js"></script>
 <script src="js/billing/billing_ap.js"></script>
+<script src="js/billing/billing_all.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {

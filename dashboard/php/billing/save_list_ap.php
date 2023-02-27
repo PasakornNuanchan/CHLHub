@@ -4,7 +4,7 @@ include '../../core/conn.php';
 include '../../core/con_path.php';
 
 
- $arr_save_ar = $_POST['arr_save_ar'];
+$arr_save_ar = $_POST['arr_save_ap'];
  
 
 
@@ -51,11 +51,11 @@ foreach($arr_save_ar as $k => $v){
           '$inp_vat_s',
           '$inp_amt_icv_ar_s',
           '$inp_remark',
-          'AR'
+          'AP'
       )
         ";
       $status = $con->query($query_insert);
-      echo json_encode($status);
+      
 
       }else{
    $sql_update = 
@@ -76,7 +76,8 @@ foreach($arr_save_ar as $k => $v){
           ID = '$val_id'
     ";
     $status = $con->query($sql_update);
-    echo json_encode($status);
+
     }
+    echo json_encode($status);
 }
     

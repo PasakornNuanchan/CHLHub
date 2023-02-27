@@ -54,32 +54,25 @@ const billing = {
     },
     
     set_preview_data : async function (job_number) {
-        
-
         $('.head-of-menu').html('Billing');
         $('.bcpage').html('');
         html_bdpage = `
         <li class="breadcrumb-item"><a href="CHL-billing-list.php" target="" style="color:white;">Billing List</a></li>
         <li class="breadcrumb-item active page-item" aria-current="page">Billing (Job number ${job_number})</li>`;
         $('.bcpage').append(html_bdpage);
-        
         await billing.set_data_description();
+        await billing_ap.set_data_description_ap();
         await billing.set_preview_data_ar(job_number);
         await billing_ap.set_preview_data_ap(job_number);
-
-
     },
-
     set_preview_data_ar : async function (job_number){
         let html_des_ar = '';
         sl_des = $('.sel_description_ar').parent().html();
         sl_bill = $('.sel_bill_to_ar').parent().html();
         sl_cur = $('.sel_cur_description_ar').parent().html();
-        
         let res_data = await billing.ajax_set_preview_ar(job_number);
         console.log(res_data);
         $('[name = billing-ar-tbl] tbody').html('');
-    
         $.each(res_data['ar'], function (i, v) {
             let u_price = parseFloat(v['unit_price']);
             let ar_amt = parseFloat(v['amount']);
@@ -102,13 +95,11 @@ const billing = {
                 action_del_ar = 'hidden';
                 action_readonly = 'readonly';
             }
-
             if (v['check_by'] == null) {
                 check_status = 'unchecked';
             } else {
                 check_status = 'checked disabled';
             }
-
             html_des_ar = `
             <tr class="text-center des_ar${i}">
                 <td><div class="db_sel_des sel_des${i}">${sl_des}</div></td>
@@ -121,7 +112,7 @@ const billing = {
                 <td><input type="text" class="form-control vat_change vat_cal inp_vat" value="${vat}%" style="text-align:right;" readonly></td>
                 <td><input type="text" class="form-control inp_amt_icv_ar"  value="${number_format(amtincvat.toFixed(2))}" style="text-align:right;" readonly></td>
                 <td><input type="text" class="form-control inp_remark" value="${v['remark']}"></td>
-                <td><input type="checkbox" class="form-check-input" onclick="billing.push_check(${v['ID']});" ${check_status}></td>
+                <td><input type="checkbox" class="form-check-input" onclick="billing_all.push_check(${v['ID']});" ${check_status}></td>
                 <td>
                     <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                 </td>
@@ -132,7 +123,6 @@ const billing = {
             </tr>
             `;
             $('[name = billing-ar-tbl] tbody').append(html_des_ar);
-
             if (v['payble'] == '0') {
                 $(`.sel_des${i} > select`).val(v['billing_number']);
                 $(`.sel_bill${i} > select`).val(v['consignee_number']);
@@ -142,13 +132,10 @@ const billing = {
                 $(`.sel_des${i} > select`).val(v['billing_number']).attr('disabled',true);
                 $(`.sel_bill${i} > select`).val(v['consignee_number']).attr('disabled',true);
                 $(`.sel_cur${i} > select`).val(v['currency']).attr('disabled',true);
-            }
-            
+            } 
         });
-       
     },
     push_save_ar_row : async function (e,val_id) {
-
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -169,10 +156,7 @@ const billing = {
             }
         })
     },
-  
-
     save_ar_row : async function (e,val_id) {
-    
     let parse = $(e).closest('tr')
     let sel_des = $(parse).find('.sel_description_ar').val();
     let sel_bill_to = $(parse).find('.sel_bill_to').val();
@@ -183,11 +167,8 @@ const billing = {
     let inp_vat = $(parse).find('.inp_vat').val();
     let inp_amt_icv_ar = $(parse).find('.inp_amt_icv_ar').val();
     let inp_remark = $(parse).find('.inp_remark').val();
-    
-
     arr_save_ar = []
     arr_save_ar_tmp = {}
-
     arr_save_ar_tmp = {
         val_id : val_id,
         sel_des : sel_des,
@@ -201,12 +182,9 @@ const billing = {
         inp_amt_icv_ar : inp_amt_icv_ar,
         inp_remark : inp_remark
     }
-
     arr_save_ar.push(arr_save_ar_tmp)
     await billing.ajax_save_ar(arr_save_ar)
-    
     },
-
     ajax_save_ar : async function (arr_save_ar) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -220,11 +198,6 @@ const billing = {
             });
         });
     },
-
-    set_preview_data_ap : function (job_number){
-
-    },
-
     ajax_set_description: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -238,9 +211,7 @@ const billing = {
             });
         });
     },
-
     ajax_set_preview_ar: function (job_number) {
-
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -253,9 +224,7 @@ const billing = {
             });
         });
     },
-
     ajax_set_preview_ap: function (job_number) {
-
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -268,72 +237,7 @@ const billing = {
             });
         });
     },
-
-    addaphtml: function () {
-        
-        html = `
-        <tr class="text-center">
-            <td><div class="db-sel-des">${sl_des}</div></td>
-            <td>${sl_bill}</td>
-            <td><span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span></td>
-            <td>${sl_cur}</td>
-            <td><input type="text" class="form-control inp_qty_ap" onchange="billing.change_amount_qty_ar(this);" style="text-align:right;"></td>
-            <td><input type="number" class="form-control inp_unit_price_ap" onchange="billing.change_amount_unit_ar(this);"  style="text-align:right;" ></td>
-            <td><input type="text" class="form-control inp_amt_ap" style="text-align:right;" readonly></td>
-            <td><input type="text" class="form-control vat_change vat_cal inp_vat" style="text-align:right;" readonly></td>
-            <td><input type="text" class="form-control inp_amt_icv_ap"  style="text-align:right;" readonly></td>
-            <td><input type="text" class="form-control inp_remark" ></td>
-            <td><input type="checkbox" class="form-check-input" disabled></td>
-            <td>
-                <button type="button" class="btn btn-success rounded-pill btn-xs" onclick ="billing.push_paid()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" hidden><i class="bi bi-cash-coin"></i> Paid</button>
-            </td>
-            <td>
-            <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
-            <button type="button" class="btn btn-danger rounded-pill btn-xs"  onclick="billing.push_del_ar_row();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-        </td>
-        `;
-        $('[name="billing-ar-tbl"]>tbody').append(html);
-        
-    },
-
-    push_del_ar_row : async function (id_des) {
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, save it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await billing.ajax_push_del_action_ar(id_des)
-                Swal.fire(
-                    'saved!',
-                    'Your file has been saved.',
-                    'success'
-                )
-                await billing.set_preview_data_ar(billing.job_number_global);
-            }
-        })
-    },
-    ajax_push_del_action_ar : function (id_des) { 
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/billing/del_list.php",
-                data: {'id_des' : id_des},
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
-
     addarhtml: function () {
-        
         html = `
         <tr class="text-center">
             <td><div class="db-sel-des">${sl_des}</div></td>
@@ -352,36 +256,63 @@ const billing = {
             </td>
             <td>
             <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
-            <button type="button" class="btn btn-danger rounded-pill btn-xs"  onclick="billing.push_del_ar_row();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+            <button type="button" class="btn btn-danger rounded-pill btn-xs"  onclick="billing.push_del_ar_row(this,'create');" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
         </td>
         `;
-        $('[name="billing-ap-tbl"]>tbody').append(html);
-        
+        $('[name="billing-ar-tbl"]>tbody').append(html);
     },
-    del_container_row: function (e = null) {
-        $(e).closest("tr").remove();
+    push_del_ar_row : async function (id_des,check) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                if(check == "create"){
+                    $(id_des).closest("tr").remove()
+                }else{
+                await billing.ajax_push_del_action_ar(id_des)
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+                )
+                await billing.set_preview_data_ar(billing.job_number_global);
+                }
+            }
+        })
     },
-
+    ajax_push_del_action_ar : function (id_des) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/del_list.php",
+                data: {'id_des' : id_des},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
     set_vat_description_ar : async function (e){
         let parent = $(e).closest('tr')
         let des_number = $(e).val()
         let vat_res = await billing.get_vat_description(des_number);
-
         let vat_cal = vat_res['vat']
         let ap_amt = $(e).closest('tr').find('.inp_unit_price_ar').val();
         let qty = $(e).closest('tr').find('.inp_qty_ar').val();
-
         let amt_total = parseFloat((qty*ap_amt));
         let amt_total_icv = parseFloat((qty*ap_amt) + ((qty*ap_amt)*vat_cal/100))
-
-
         $('.vat_change',parent).val(vat_res['vat']+"%");
-
         $('.inp_amt_ar',parent).val(number_format(amt_total.toFixed(2)));
         $('.inp_amt_icv_ar',parent).val(number_format(amt_total_icv.toFixed(2)));
         await billing.ar_total_currency()
     },
-
     change_amount_qty_ar: async function(e){
         let parent = $(e).closest('tr')
         let ap_amt = $(e).closest('tr').find('.inp_unit_price_ar').val();
@@ -396,7 +327,6 @@ const billing = {
         await billing.ar_total_currency()
 
     },
-
     change_amount_unit_ar: async function(e){
         let parent = $(e).closest('tr')
         let qty = $(e).closest('tr').find('.inp_qty_ar').val();
@@ -411,9 +341,7 @@ const billing = {
         await billing.ar_total_currency()
 
     },
-
     get_vat_description: async function (des_number) {
-
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -426,20 +354,15 @@ const billing = {
             });
         });
     },
-
     ar_total_currency : async function(){
-        
         var inputs = $('.inp_amt_icv_ar');
-        
         var currency = $('.sel_cur_description_ar');
         let thb_cur = 0;
         let usd_cur = 0;
         let rmb_cur = 0;
-
         for (var i = 0; i < inputs.length; i++) {
             let amount =  $(inputs[i]).val().replace(",",'');
             let currencyz = $(currency[i]).val();
-            
             if (currencyz == "THB") {
                 thb_cur = parseFloat(thb_cur) + parseFloat(amount)
             } else if (currencyz == "USD") {
@@ -448,27 +371,20 @@ const billing = {
                 rmb_cur = parseFloat(rmb_cur) + parseFloat(amount)
             }
         }
-
         now_usd = 1;
         now_thb = 34.42;
         now_rmb = 6.86;
-
         total_val_usd = usd_cur + thb_cur / now_thb + rmb_cur / now_rmb
         total_val_thb = thb_cur + usd_cur * now_thb + (rmb_cur / now_rmb) * now_thb
         total_val_rmb = rmb_cur + usd_cur * now_rmb + (thb_cur / now_thb) * now_rmb
-
         $('.inp_thb_total_ar').val(number_format(thb_cur))
         $('.inp_usd_total_ar').val(number_format(usd_cur))
         $('.inp_rmb_total_ar').val(number_format(rmb_cur))
-
         $('.inp_thb_total_cur_ar').val(number_format(total_val_thb.toFixed(2)))
         $('.inp_usd_total_cur_ar').val(number_format(total_val_usd.toFixed(2)))
         $('.inp_rmb_total_cur_ar').val(number_format(total_val_rmb.toFixed(2)))
-
     },
-
     push_paid: async function (action_id) {
-
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -479,8 +395,7 @@ const billing = {
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                let res = await billing.ajax_push_paid_action(action_id);
-                
+                let res = await billing.ajax_push_paid_action(action_id);  
                 Swal.fire(
                     'saved!',
                     'Your file has been saved.',
@@ -504,46 +419,6 @@ const billing = {
             });
         });
     },
-
-    push_check: async function (action_id) {
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, save it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                let res = await billing.ajax_push_check_action(action_id);
-                console.log(res);
-                Swal.fire(
-                    'saved!',
-                    'Your file has been saved.',
-                    'success'
-
-                )
-                billing.check_get();
-            }
-        })
-    },
-    ajax_push_check_action : function (action_id) { 
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/billing/push_check_action.php",
-                data: {'action_id' : action_id},
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
-
-
 };
 
 function number_format(nStr) {
