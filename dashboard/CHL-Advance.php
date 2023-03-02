@@ -45,22 +45,22 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center">Advance Number:</label>
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center">Advance Number:</label>
                                     <div class="col-sm-9">
                                         <input type="input" class="form-control form-control-sm inp-ac_number">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center" >Method request payment:</label>
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center" >Method request payment:</label>
                                     <div class="col-sm-9">
                                         <select class="form-select form-select-sm shadow-none sel_tranfer_mt">
                                             <option value="">Plese select tranfer mehthod</option>
                                             <option value="Cash">Cash</option>
-                                            <option value="Tranfer"></option>
+                                            <option value="Tranfer">Tranfer</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Bank Name:</label>
                                     <div class="col-sm-9">
                                         <input type="input" class="form-control form-control-sm inp-bankname">
@@ -71,7 +71,7 @@ require 'function/auth/get_session.php';
                                     <div class="col-sm-9">
                                         <input type="input" class="form-control form-control-sm inp-banknumber">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="card">
@@ -86,7 +86,7 @@ require 'function/auth/get_session.php';
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>Description</th>
-                                                        <th>Amount</th>
+                                                        <th>Amount Request</th>
                                                         <th>Curency</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -94,12 +94,12 @@ require 'function/auth/get_session.php';
                                                 <tbody>
                                                     <tr class="advance_detail">
                                                         <td class="db-select-des">
-                                                            <select name="" id="" class="form-select form-select-sm row-of-description">
-                                                            <option selected value="">Please select container type</option>
+                                                            <select class="form-select form-select-sm row-of-description">
+                                                            <option value="">Please select container type</option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm"></td>
-                                                        <td><select name="" id="" class="form-select form-select-sm sel_currency">
-                                                                <option value="THB" selected>THB</option>
+                                                        <td><input type="input" class="form-control form-control-sm inp-amount"></td>
+                                                        <td><select class="form-select form-select-sm sel_currency">
+                                                                <option value="THB">THB</option>
                                                                 <option value="USD">USD</option>
                                                                 <option value="RMB">RMB</option>
                                                             </select></td>
@@ -108,7 +108,7 @@ require 'function/auth/get_session.php';
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill" onclick="advance_cash.addadhtml();">add new</button>
+                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill btn-add-adhtml" onclick="advance_cash.addadhtml();">Add new list Advance</button>
                                     </div>
                                 </div>
                             </div>
@@ -122,14 +122,46 @@ require 'function/auth/get_session.php';
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Job quantity:</label>
-                                    <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                    <div class="col-sm-9 col-md-4 col-lg-2">
+                                        <input type="input" class="form-control form-control-sm inp-count" style="text-align:right;" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center">Amount:</label>
-                                    <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm" readonly>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 align-self-center">Total amount by currency:</label>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-usd" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">USD</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-thb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1  align-self-center">THB:</label>
+                                            <div class="col-sm-9 col-md-4 col-lg-2">
+                                                <input type="input" class="form-control form-control-sm inp-total-amt-rmb" style="text-align:right;" readonly>
+                                            </div>
+                                            <label class="control-label col-sm-3 col-lg-1 align-self-center">RMB:</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -164,3 +196,9 @@ require 'function/auth/get_session.php';
 </html>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="js/advance/advance.js"></script>
+
+<script>
+    $(document).ready(function(){
+        advance_cash.check_get();
+    })
+</script>

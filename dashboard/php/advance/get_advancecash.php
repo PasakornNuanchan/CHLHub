@@ -10,8 +10,6 @@
         job_title as jt
     INNER 
         JOIN consignee as c on jt.consignee_number = c.consignee_number
-    WHERE 
-        jt.status_job = '0'
     ";
     
     $result = $con -> query($sql);

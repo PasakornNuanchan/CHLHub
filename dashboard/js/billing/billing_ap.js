@@ -8,7 +8,7 @@ const billing_ap = {
         let res_data = await billing_ap.ajax_set_preview_ap(job_number);
         console.log(res_data);
         $('[name = billing-ap-tbl] tbody').html('');
-
+        if (res_data['ap'] != "0 results") {
         $.each(res_data['ap'], function (i, v) {
             let u_price_ap = parseFloat(v['unit_price']);
             let ar_amt_ap = parseFloat(v['amount']);
@@ -72,6 +72,7 @@ const billing_ap = {
                 $(`.sel_cur_ap${i} > select`).val(v['currency']).attr('disabled', true);
             }
         });
+    }
 
     },
 

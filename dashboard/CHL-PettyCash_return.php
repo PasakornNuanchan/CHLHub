@@ -194,92 +194,94 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title fw-normal">Petty Cash Return</h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Petty Cash :</label>
-                                        <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm  inp-petty_cash_req" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-md-3 col-lg-1">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                <option value="THB" selected>THB</option>
-                                                <option value="USD">USD</option>
-                                                <option value="RMB">RMB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Pay :</label>
-                                        <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-md-3 col-lg-1">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                <option value="THB" selected>THB</option>
-                                                <option value="USD">USD</option>
-                                                <option value="RMB">RMB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Petty Cash return :</label>
-                                        <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-md-3 col-lg-1">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                <option value="THB" selected>THB</option>
-                                                <option value="USD">USD</option>
-                                                <option value="RMB">RMB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment medthod :</label>
-                                        <div class="col-sm-3 col-md-7 col-lg-3">
-                                            <select name="" id="" class="form-select form-select-sm sel-mt-return">
-                                                <option value="" selected>-- plese select method return amount --</option>
-                                                <option value="Tranfer">Tranfer</option>
-                                                <option value="Cash">Cash</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
-                                        <div class="col-sm-3 col-md-7 col-lg-3">
-                                            <input type="text" class="form-control form-control-sm  inp-payment-by" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
-                                        <div class="col-sm-3 col-md-7 col-lg-3">
-                                            <input type="datetime" class="form-control form-control-sm inp-payment-d-time" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Payment Return Amount :</label>
-                                        <div class="col col-md-4 col-lg-2">
-                                            <input type="text" class="form-control form-control-sm inp-payment-re-amount" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-md-3 col-lg-1">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none inp-payment-re-amount_cur" disabled>
-                                                <option value="THB" selected>THB</option>
-                                                <option value="USD">USD</option>
-                                                <option value="RMB">RMB</option>
-                                            </select>
-                                        </div>
+                        <div class="card_add_return">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title fw-normal">Petty Cash Return</h4>
                                     </div>
                                 </div>
-                                <div style="float: right">
-                                    <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Petty Cash :</label>
+                                            <div class="col col-md-4 col-lg-2">
+                                                <input type="text" class="form-control form-control-sm  inp-petty_cash_req" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-md-3 col-lg-1">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Pay :</label>
+                                            <div class="col col-md-4 col-lg-2">
+                                                <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-md-3 col-lg-1">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Petty Cash return :</label>
+                                            <div class="col col-md-4 col-lg-2">
+                                                <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-md-3 col-lg-1">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment medthod :</label>
+                                            <div class="col-sm-3 col-md-7 col-lg-3">
+                                                <select name="" id="" class="form-select form-select-sm sel-mt-return">
+                                                    <option value="" selected>-- plese select method return amount --</option>
+                                                    <option value="Tranfer">Tranfer</option>
+                                                    <option value="Cash">Cash</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
+                                            <div class="col-sm-3 col-md-7 col-lg-3">
+                                                <input type="text" class="form-control form-control-sm  inp-payment-by" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
+                                            <div class="col-sm-3 col-md-7 col-lg-3">
+                                                <input type="datetime" class="form-control form-control-sm inp-payment-d-time" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Payment Return Amount :</label>
+                                            <div class="col col-md-4 col-lg-2">
+                                                <input type="text" class="form-control form-control-sm inp-payment-re-amount" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-md-3 col-lg-1">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none inp-payment-re-amount_cur" disabled>
+                                                    <option value="THB" selected>THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
