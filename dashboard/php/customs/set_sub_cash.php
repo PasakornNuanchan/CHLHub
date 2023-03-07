@@ -12,11 +12,12 @@ $sql_payment = "
     u.last_name,
     cp.job_number,
     cp.datetime_create,
-    cp.remark
+    cp.remark,
+    cp.status
     FROM cash_payment cp
     INNER JOIN billing_description bd ON cp.description = bd.ID 
     INNER JOIN user u ON cp.create_by = u.user_number
-    WHERE cp.job_number = '$job_number' AND status = 0
+    WHERE cp.job_number = '$job_number' AND status IN ('0','2')
     ";
 
 

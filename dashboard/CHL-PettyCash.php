@@ -115,7 +115,7 @@ require 'function/auth/get_session.php';
                                         <div class=" btn_add_new_list">
                                             <button type="button" class="btn btn-block btn-link btn-soft-light rounded-pill w-100 " onclick="petty_cash.addpthtml();">add new</button>
                                         </div>
-                                        <div style="float: right" class="btn_save_list">
+                                        <div style="float: right;" class="btn_save_list">
                                             <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="petty_cash.push_action_save();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
                                         </div>
                                     </div>

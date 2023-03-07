@@ -3,7 +3,11 @@ $advance_number = $_POST['advance_number'];
     include '../../core/conn.php';
 
     $sql_pct = "
-    SELECT * FROM `advance_cash_title` as act
+    SELECT 
+      act.advance_cash_number,
+      u.user_number,
+      act.tranfer_method_request
+    FROM `advance_cash_title` as act
     INNER JOIN user as u ON act.request_by = u.user_number
     WHERE advance_cash_number = '$advance_number'
     ";

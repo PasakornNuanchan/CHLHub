@@ -47,7 +47,7 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-3 align-self-center">Advance Number:</label>
                                     <div class="col-sm-9">
-                                        <input type="input" class="form-control form-control-sm inp-ac_number">
+                                        <input type="input" class="form-control form-control-sm inp-ac_number" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -94,11 +94,12 @@ require 'function/auth/get_session.php';
                                                 <tbody>
                                                     <tr class="advance_detail">
                                                         <td class="db-select-des">
-                                                            <select class="form-select form-select-sm row-of-description">
+                                                            <select class="form-select form-select-sm row-of-description" onchange="advance_cash.get_advance(this);" >
                                                             <option value="">Please select container type</option>
                                                             </select></td>
-                                                        <td><input type="input" class="form-control form-control-sm inp-amount"></td>
-                                                        <td><select class="form-select form-select-sm sel_currency">
+                                                        <td><input type="number" class="form-control form-control-sm inp-amount inp-amount-req" onchange="advance_cash.change_amount();" style="text-align:right;">
+                                                        <input type="hidden" class="inp_check_id" value=""></td>
+                                                        <td><select class="form-select form-select-sm sel_currency" onchange="advance_cash.change_amount();">
                                                                 <option value="THB">THB</option>
                                                                 <option value="USD">USD</option>
                                                                 <option value="RMB">RMB</option>
@@ -108,7 +109,12 @@ require 'function/auth/get_session.php';
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button type="submit" class="btn btn-link btn-soft-light rounded-pill btn-add-adhtml" onclick="advance_cash.addadhtml();">Add new list Advance</button>
+                                        <div class=" btn_add_new_list">
+                                            <button type="button" class="btn btn-block btn-link btn-soft-light rounded-pill w-100 " onclick="advance_cash.addadhtml(); advance_cash.change_amount();">Add new list Advance</button>
+                                        </div>
+                                        <div style="float: right" class="btn_save_list">
+                                            <button class="btn btn-success rounded-pill bg-gradient btn-sm" onclick="advance_cash.push_action_save();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

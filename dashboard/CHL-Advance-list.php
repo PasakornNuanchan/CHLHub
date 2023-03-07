@@ -52,7 +52,7 @@ require 'function/auth/get_session.php';
                                         </div>
                                         <div class="col-lg-7"></div>
                                         <div class="col-lg-2">
-                                        <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Advance Cash</button>
+                                        <button type="button" target="_blank" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="advancecash_list.preview()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Advance Cash</button>
                                         </div>
                                     </div>
                                 </div>

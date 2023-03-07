@@ -62,6 +62,14 @@ const customs_set_sub_cash = {
                 let ID = v['ID'] || '';
                 //let datetime_create = v['datetime_create'] || '';
                 let remark = v['remark'] || '';
+                let status_pcb = v['status']
+                
+                if(status_pcb == 2){
+                    status_del = 'disabled';
+                }else{
+                    status_del = '';
+                }
+                
                 html_description_payment = `
             <tr>
                 <td>${num}</td>
@@ -73,7 +81,7 @@ const customs_set_sub_cash = {
                 <td>${remark}</td>
                 
                 <td>
-                    <button type="button" class="btn btn-danger rounded-pill btn-xs" onclick="customs_set_sub_cash.push_del_cash(${ID});"><i class="bi bi-pencil-fill"></i> Delete</button>
+                    <button type="button" class="btn btn-danger rounded-pill btn-xs" ${status_del} onclick="customs_set_sub_cash.push_del_cash(${ID});"><i class="bi bi-pencil-fill"></i> Delete</button>
                 </td>
             </tr>
             `;

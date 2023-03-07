@@ -238,6 +238,8 @@ const petty_cash = {
                         })
                         check_val = 1;
                         return false; 
+                    }else{
+                        check_val = 0;
                     }
                 })
                 if(check_val != 1){

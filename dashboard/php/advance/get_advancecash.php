@@ -1,16 +1,25 @@
 <?php
     include '../../core/conn.php';
+    require '../../function/auth/get_session.php';
+    include '../../core/con_path.php';
     $arr = array();
     $sql = "
-    SELECT 
-        jt.ID,
-        consignee_name,
-        job_number 
-    FROM 
-        job_title as jt
-    INNER 
-        JOIN consignee as c on jt.consignee_number = c.consignee_number
+    SELECT
+        cp.job_number,
+        c.consignee_name,
+        cp.currency
+    FROM
+        `cash_payment` AS cp
+        LEFT JOIN job_title as jt ON cp.job_number = jt.job_number
+        LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+    WHERE
+        cp.type = 'Advance Cash' AND 
+        cp.create_by = '$data_user'
+    GROUP BY
+        cp.job_number , cp.currency
     ";
+    
+    
     
     $result = $con -> query($sql);
 

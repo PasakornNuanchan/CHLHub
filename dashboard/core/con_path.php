@@ -1,7 +1,7 @@
 <?php
     $emi = ($_SESSION['email']);
     $sql_user_query = "
-    SELECT user_number FROM user WHERE email = '$emi'";
+    SELECT user_number,bank_number,bank_name FROM user WHERE email = '$emi'";
 
     $result = $con->query($sql_user_query);
     if ($result->num_rows > 0) {
@@ -14,6 +14,8 @@
 
     json_encode(array('user_number'=>$user_number));
     $data_user =$user_number['user_number'];
+    $data_bank_number =$user_number['bank_number'];
+    $data_bank_name =$user_number['bank_name'];
     
     date_default_timezone_set("Asia/Bangkok");
 

@@ -5,8 +5,6 @@ const advance_cash = {
     get_description_sel : async function () { 
         let res_description = await advance_cash.ajax_get_description();
         return res_description;
-        
-       
     },
     ajax_get_description : function () { 
         
@@ -24,12 +22,41 @@ const advance_cash = {
     },
     html_description : async function (data) { 
         
-        let res = await advance_cash.get_description_sel();
+        res_select = await advance_cash.get_description_sel();
         let html = '';
-        
-        $.each(res, function (i, v) { 
+        console.log(res_select)
+        $.each(res_select, function (i, v) { 
             html += `
-            <option value="${v['job_number']}">${v['job_number']} / ${v['consignee_name']} </option>
+            <option value="${v['job_number']}${v['currency']}">${v['job_number']}(${v['currency']}) / ${v['consignee_name']} </option>
+            `;  
+        });
+        
+        $('.row-of-description').append(html);
+    },
+
+    ajax_get_description_create : async function () { 
+        
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/advance/get_advance_amt.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    html_description_for_create : async function (data) { 
+        
+        res_select = await advance_cash.ajax_get_description_create();
+        let html = '';
+        console.log(res_select)
+        $.each(res_select, function (i, v) { 
+            html += `
+            <option value="${v['job_number']}${v['currency']}">${v['job_number']}(${v['currency']}) / ${v['consignee_name']} </option>
             `;  
         });
         
@@ -37,24 +64,17 @@ const advance_cash = {
     },
 
 
-
-
-
-
     addadhtml: function () {
-        let html_select = $(".td-sel-conttype").html();
-        let sl_des_pettycash = $(".db-select-des").html();
+        let sel_des = $('.row-of-description').parent().html();
+        let sel_cur = $('.sel_currency').parent().html();
         html = `
-        <tr class="pettycash_detail">
-            <td>${sl_des_pettycash}</td>
-        <td><input type="input" class="form-control form-control-sm"></td>
-        <td><select name="" id="" class="form-select">
-            <option value="" selected>THB</option>
-            <option value="">USD</option>
-            <option value="">RMB</option>
-        </select></td>
-        <td onclick="petty_cash.del_pettycash_row(this);" align="center">
-            <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+        <tr class="advance_detail advance_detail">
+            <td>${sel_des}</td>
+        <td><input type="number" class="form-control form-control-sm inp-amount inp-amount-req" onchange="advance_cash.change_amount();" style="text-align:right;">
+            <input type="hidden" class="inp_check_id" value=""></td>
+        <td>${sel_cur}</td>
+        <td align="center" class="td-delete">
+            <button type="button" class="btn btn-danger rounded-pill btn-xs " onclick="advance_cash.del_advancecash_row(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
         </td>
         </tr>
         `;
@@ -62,7 +82,7 @@ const advance_cash = {
     
         },
         
-    del_pettycash_row: function (e = null) {
+    del_advancecash_row: function (e = null) {
         $(e).closest("tr").remove();
      },
 
@@ -87,13 +107,13 @@ const advance_cash = {
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
         
-        if (action == 'preview') {
+        if (job_doc_pt != 'undefined') {
             await advance_cash.html_description();
             await advance_cash.set_preview_data(job_doc_pt);
             await advance_cash.change_amount();
             await advance_cash.main_preview();
         } else {
-
+            await advance_cash.html_description_for_create();
         }
     },
     set_preview_data: async function (job_doc_pt) {
@@ -110,35 +130,40 @@ const advance_cash = {
         $('.bcpage').append(html_bdpage);
 
         console.log(res_data);
-       
+       if(res_data['act'] != "0 results"){
         $('.inp-ac_number').val(res_data['act']['advance_cash_number']).attr('disabled',true);
         $('.sel_tranfer_mt').val(res_data['act']['tranfer_method_request']).attr('disabled',true);
         // $('.inp-bankname').val(res_data['act']['tranfer_bank_name']);
         // $('.inp-banknumber').val(res_data['act']['tranfer_bank_number']);
+        }
 
 
         let sel_des = $('.row-of-description').parent().html();
         let sel_cur = $('.sel_currency').parent().html();
+        if(res_data['acd'] != "0 results"){
         $('[name = "advance-cash-tbl"] tbody').html('');
-        $.each(res_data['acd'], function (i, v) { 
+            $.each(res_data['acd'], function (i, v) { 
 
-            let amt = parseFloat(v['amount'])
-            
-            html_check =
-            `
-            <tr class="advance_detail advance_detail${i}">
-            <td class="db-select-des ">
-                 ${sel_des}</td>
-            <td><input type="number" class="form-control form-control-sm inp-amount-req inp-amount" value="${amt.toFixed(2)}" style="text-align:right;" readonly></td>
-            <td>${sel_cur}</td>
-           <td></td>
-            </tr>
-            `;
-            $('[name = "advance-cash-tbl"] tbody').append(html_check);
-            
-            $(`.advance_detail${i} .row-of-description`).val(v['job_number']).attr('disabled',true);
-            $(`.advance_detail${i} .sel_currency`).val(v['currency']).attr('disabled',true);;
-        });
+                let amt = parseFloat(v['amount'])
+                
+                html_check =
+                `
+                <tr class="advance_detail advance_detail${i}">
+                <td class="db-select-des ">
+                    ${sel_des}</td>
+                <td><input type="number" class="form-control form-control-sm inp-amount-req inp-amount" value="${amt.toFixed(2)}" style="text-align:right;" readonly>
+                    
+                </td>
+                <td>${sel_cur}</td>
+            <td></td>
+                </tr>
+                `;
+                $('[name = "advance-cash-tbl"] tbody').append(html_check);
+                
+                $(`.advance_detail${i} .row-of-description`).val(v['job_number']+v['currency']).attr('disabled',true);
+                $(`.advance_detail${i} .sel_currency`).val(v['currency']).attr('disabled',true);;
+            });
+        }
       
     }, 
     ajax_set_preview_data: function (job_doc_pt) {
@@ -157,7 +182,8 @@ const advance_cash = {
     },
 
     main_preview : async function(){
-        $('.btn-add-adhtml').html('');
+        $('.btn_add_new_list').html('');
+        $('.btn_save_list').html('');
     },
 
     change_amount: async function () {
@@ -172,8 +198,10 @@ const advance_cash = {
         for (var i = 0; i < inputs.length; i++) {
             let amount = $(inputs[i]).val();
             let currencyz = $(currency[i]).val();
-            console.log(amount)
-            console.log(currencyz)
+            if(amount == "" ){
+                amount = 0;
+            }
+
             if (currencyz == "THB") {
                 thb_cur = parseFloat(thb_cur) + parseFloat(amount)
             } else if (currencyz == "USD") {
@@ -211,7 +239,135 @@ const advance_cash = {
         
     },
 
+    push_action_save: async function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            let check_val = '';
+            if (result.isConfirmed) {
+                let check_val = 0;
+                let sel_met = $('.sel_tranfer_mt').val()
+
+                if(sel_met == ""){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Plese select method Cash ot Tranfer',
+                    })
+                    return false;
+                }
+                
+                $('[name="advance-cash-tbl"] tbody > tr').each(function (i,e){
+                    let get_description = $('.row-of-description', this).val();
+                    let get_amount = $('.inp-amount-req', this).val();
+                    let get_currency = $('.sel_currency', this).val();
+                    if(get_description == ""|| get_amount == "" || get_currency == ""){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Data Description or Amount is missing ',
+                        })
+                        check_val = 1;
+                        return false;
+                    }else{
+                        check_val = 0;
+                    }
+                })
+                if(check_val == 0){
+                    await advance_cash.save_advance_cash();
+                }
+                
+            }
+        })
+    },
+
+    save_advance_cash : async function(){
+        let arr_adc_detail = [];
+        let arr_adc_detail_temp = {};
+        
+        
+        let arr_adc_title = [];
+        let arr_adc_title_temp = {};
+
+        get_doc = $('.inp-ac_number').val();
+        get_method = $('.sel_tranfer_mt').val();
+
+        arr_adc_title_temp = {
+            get_doc : get_doc,
+            get_method : get_method,
+        }
+        arr_adc_title.push(arr_adc_title_temp)
+
+        $('[name="advance-cash-tbl"] tbody > tr').each(function (i, e) {
+            let get_description = $('.row-of-description', this).val();
+            let get_des = get_description.substr(0,10)
+            let get_amount = $('.inp-amount-req', this).val();
+            let get_currency = $('.sel_currency', this).val();
+            let get_check_id = $('.inp_check_id', this).val();
+            
+            arr_adc_detail_temp = {
+                get_description: get_des,
+                get_amount: get_amount,
+                get_currency: get_currency,
+                get_check_id: get_check_id,
+            }
+            arr_adc_detail.push(arr_adc_detail_temp)
+        });
+        
+       let run_doc = await advance_cash.ajax_save_list(arr_adc_title,arr_adc_detail)
+        $('.sel_tranfer_mt').attr('disabled',true)
+        $('.inp-ac_number').val(run_doc)
+        $('.row-of-description').attr('disabled',true)
+        $('.sel_currency').attr('disabled',true)
+        $('.btn_add_new_list').html('');
+        $('.btn_save_list').html('');
+        $('.td-delete').html('');
+        
+
+    },
+
+    ajax_save_list: async function (arr_adc_title, arr_adc_detail) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/advance/save_list.php",
+                data: {
+                    'arr_adc_title': arr_adc_title,
+                    'arr_adc_detail': arr_adc_detail,
+                },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+    get_advance: async function (e) {
+        let val = $(e).closest('tr')
+        let valjob = $(val).find('.row-of-description').val();
+        var currency = valjob.substr(valjob.length - 3);
+        var job = valjob.substr(0, 10);
+
+        $.each(res_select, function (i, v) {
+            if (v['job_number'] == job && v['currency'] == currency) {
+                $('.inp-amount', val).val(v['amount_total']).attr('disabled', true);
+                $('.sel_currency', val).val(v['currency']).attr('disabled', true);
+                $('.inp_check_id', val).val(v['check_id']).attr('disabled', true);
+            }
+        })
+        await advance_cash.change_amount();
+    },
+
    
+
 };
 
 function number_format(nStr) {
