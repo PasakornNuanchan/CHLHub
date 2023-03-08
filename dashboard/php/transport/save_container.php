@@ -1,9 +1,12 @@
 <?php
     include '../../core/conn.php';
+    require '../../function/auth/get_session.php';
+    include '../../core/con_path.php';
     $arr = array();
     $arr_suc = array();
     $container_data = $_POST['container_arr'];
 
+    
     try {
         // begin transaction
         $con->begin_transaction();
@@ -16,7 +19,7 @@
             $cbm = isset($v['cbm']) ? $v['cbm'] : '';
             $seal_number = isset($v['seal_number']) ? $v['seal_number'] : '';
 
-           $sql_query = "
+            $sql_query = "
             UPDATE
                 container
             SET
@@ -25,6 +28,7 @@
                 gross_weight = '$gw',
                 cbm = '$cbm'
             WHERE ID = '$ID'";
+
             if($con->query($sql_query) != 1){
                 $all_queries_success = false;
                 $arr_suc['st'] = '0';

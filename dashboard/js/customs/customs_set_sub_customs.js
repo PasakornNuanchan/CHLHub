@@ -95,7 +95,7 @@ const customs_set_sub_customs = {
         $('.add_btn_clearance').html('');
         html_btn = `
         <div style="float: right">
-            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${status_btn}><i class="bi bi-check-square"></i> Clearance success</button>
+            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs_set_sub_customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${status_btn}><i class="bi bi-check-square"></i> Clearance success</button>
         </div>`;
         $('.add_btn_clearance').append(html_btn);
     },

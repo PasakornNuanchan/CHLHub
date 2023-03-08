@@ -153,7 +153,6 @@ require 'function/auth/get_session.php';
                                                         </div>
                                                         <div class="col-sm-1 col-md-3 col-lg-2">
                                                             <select class="form-select form-select-sm shadow-none sel_cur">
-                                                                <option value=""></option>
                                                                 <option value="THB">THB</option>
                                                                 <option value="RMB">RMB</option>
                                                                 <option value="USD">USD</option>
@@ -204,7 +203,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-soft-secondary" onclick="transport.addpthtml();">Add route</button>
+                        <button type="button" class="btn btn-soft-secondary" onclick="transport.addtransporthtml();">Add route</button>
                     </div>
                 </div>
 
@@ -330,42 +329,42 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Job number</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Job number</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <input type="input" class="form-control form-control-sm inp-jobno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Booking number</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Booking number</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <input type="input" class="form-control form-control-sm inp-bkno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipper</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Shipper</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-shper">
                                                 <option value="">pleses select shipper</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipment Terms</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Shipment Terms</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-shptrm">
                                                 <option selected="">Please select shipment term</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Remark</label>
-                                        <div class="col-sm-9 col-md-8 col-lg-7">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Remark</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <input type="input" class="form-control form-control-sm inp-rmk">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Carrier:</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-carrier">
                                                 <option selected="">Please select carrier</option>
                                             </select>
@@ -373,74 +372,74 @@ require 'function/auth/get_session.php';
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Receipt</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Port of Receipt</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-prtrecieve">
                                                 <option selected="">Please select Port of Receipt</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Loading</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Port of Loading</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-prtload">
                                                 <option selected="">Please select Port of Loading</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">T/S Port</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">T/S Port</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-ts_port">
                                                 <option selected="">Please select T/S Port</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Delivery</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Port of Delivery</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <select class="form-select form-select-sm inp-delivery">
                                                 <option selected="">Please select Port of Delivery</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Mother Vessel:</label>
-                                        <div class="col-sm-9">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Mother Vessel:</label>
+                                        <div class="col-sm-12 col-md-8 col-lg-9">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-5">
+                                                <div class="col-lg-4 col-md-12">
                                                     <input type="text" class="form-control form-control-sm inp-M_vessel">
                                                 </div>
-                                                <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center ">Voy No.:</label>
-                                                <div class="col-lg-4 col-md-5">
+                                                <label class="control-label col-sm-12 col-md-5 col-lg-2 align-self-center "><span> Voy No.:</span></label>
+                                                <div class="col-lg-4 col-md-12">
                                                     <input type="text" class="form-control form-control-sm inp-mother-voy-no">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Feeder Vessel:</label>
-                                        <div class="col-sm-9">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center ">Feeder Vessel:</label>
+                                        <div class="col-sm-12 col-md-8 col-lg-9">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-5">
+                                                <div class="col-lg-4 col-md-12">
                                                     <input type="text" class="form-control form-control-sm inp-feeder_vessel">
                                                 </div>
-                                                <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.:</label>
-                                                <div class="col-lg-4 col-md-5">
+                                                <label class="control-label col-sm-12 col-md-5 col-lg-2 align-self-center ">Voy No.:</label>
+                                                <div class="col-lg-4 col-md-12">
                                                     <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETD:</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2  align-self-center ">ETD:</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <input type="date" class="form-control form-control-sm inp-etd">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETA:</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-4 col-lg-2  align-self-center ">ETA:</label>
+                                        <div class="col-sm-9 col-md-7 col-lg-9">
                                             <input type="date" class="form-control form-control-sm inp-eta">
                                         </div>
                                     </div>
@@ -456,8 +455,8 @@ require 'function/auth/get_session.php';
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo description</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-5 col-lg-3 align-self-center "><span>Cargo description</span> </label>
+                                            <div class="col-sm-9 col-md-6 col-lg-7">
                                                 <input type="input" class="form-control form-control-sm inp-cargodes">
                                             </div>
                                         </div>
@@ -536,6 +535,6 @@ require 'function/auth/get_session.php';
 <script>
     $(document).ready(function() {
         transport.check_get();
-        transport_set_default.set_data_default();
+        
     });
 </script>

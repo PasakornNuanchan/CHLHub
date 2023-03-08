@@ -142,4 +142,4 @@ if ($result->num_rows > 0) {
  
         
 
-      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'tran'=>$tran,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform));
+      echo json_encode(array('pay'=>$pay,'dts'=>$dts,'cont'=>$cont,'booking'=>$booking,'cninform'=>$cninform));

@@ -2,8 +2,8 @@ const petty_cash_list_set = {
    
     set_data_rows: async function () {
         
-        let res_data = await petty_cash_list_set.ajax_set_preview_data();
-        console.log(res_data)
+        //let res_data = await petty_cash_list_set.ajax_set_preview_data();
+        // console.log(res_data)
         $('.head-of-menu').html('Petty Cash List');
         $('.bcpage').html('');
         html_bdpage = `
@@ -11,43 +11,44 @@ const petty_cash_list_set = {
         $('.bcpage').append(html_bdpage);
 
         
-        $('[name = "data_table_list"] tbody').html('');
-
-        $.each(res_data['pct'], function (i, v) {         
-            pf_amount = parseFloat(v['amount']);
-            // console.log(pf_amount);
-            html_set_pct = `
-            <tr>
-                <td>${v['datetime_request']}</td>
-                <td>${v['petty_cash_number']}</td>
-                <td>${v['first_name']} ${v['last_name']}</td>
-                <td>${v['COUNT_job']}</td>
-                <td><button type="button" onclick="pettycash_list.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
-            </tr>
-            `;
-
-            $('[name = "data_table_list"] tbody').append(html_set_pct);
-           
-        });
+        //  $('[name = "data_table_list"] tbody').html('');
+        // let html_set_pct = '';
+        // $.each(res_data['pct'], function (i, v) {         
+        //     pf_amount = parseFloat(v['amount']);
+        //     console.log(pf_amount);
+        //     html_set_pct = `
+        //     <tr>
+        //         <td>${v['datetime_request']}</td>
+        //         <td>${v['petty_cash_number']}</td>
+        //         <td>${v['first_name']} ${v['last_name']}</td>
+        //         <td>${v['COUNT_job']}</td>
+        //         <td><button type="button" onclick="pettycash_list.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+        //     </tr>
+        //     `;
+        //     $('[name = "data_table_list"] tbody').append(html_set_pct);   
+        //     console.log(html_set_pct)
+        // });
+        
       
       
     }, 
     
+    
 
-    ajax_set_preview_data: function () {
+    // ajax_set_preview_data: function () {
         
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/petty-cash-list/get_detail.php",
-                data: {},
-                dataType: "json",
-                success: function (response) {
-                    resolve(response);
-                }
-            });
-        });
-    },
+    //     return new Promise(function (resolve, reject) {
+    //         $.ajax({
+    //             type: "post",
+    //             url: "php/petty-cash-list/get_detail.php",
+    //             data: {},
+    //             dataType: "json",
+    //             success: function (response) {
+    //                 resolve(response);
+    //             }
+    //         });
+    //     });
+    // },
 
 };
 

@@ -56,7 +56,7 @@ require 'function/auth/get_session.php';
                 <div class="tab-pane fade show active" id="pills-transport" role="tabpanel" aria-labelledby="pills-booking-tab">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
                                         <h4 class="card-title">Transport</h4>
@@ -78,7 +78,7 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card-transport-add">
                                 <div class="card-transport-del">
                                     <div class="card ">

@@ -23,15 +23,15 @@
 
     ";
     
-    $result = $con -> query($sql);
+    // $result = $con -> query($sql);
 
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $pct[] = $row;
-        }
-    } else {
-        $pct[] = "0 results";
-    }
-    echo json_encode(array('pct'=>$pct));
+    // if ($result->num_rows > 0) {
+    //     while($row = $result->fetch_assoc()) {
+    //         $pct[] = $row;
+    //     }
+    // } else {
+    //     $pct[] = "0 results";
+    // }
+    // echo json_encode(array('pct'=>$pct));
 
 ?>

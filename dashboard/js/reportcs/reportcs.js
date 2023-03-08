@@ -72,6 +72,7 @@ const reportcs = {
         });
         $('.sel-supplier').append(html_supplier);
 
+       
         //job detail
         $('.inp-job_number').val(res_data['de']['job_number']).attr('readonly', true);
         $('.inp-inv').val(res_data['de']['inv']);
@@ -82,8 +83,10 @@ const reportcs = {
         $('.inp-eta-job').val(res_data['de']['eta']);
         $('.inp-carrier').val(res_data['de']['carrier_name']).attr('readonly', true);
         $('.inp-pol').val(res_data['de']['pol']).attr('readonly', true);
-        $('.inp-mother-vessel-job').val(res_data['de']['mvessel']).attr('readonly', true);
-        $('.inp-vessel-job').val(res_data['de']['fvessel']).attr('readonly', true);
+        $('.inp-mother-vessel-job').val(res_data['de']['mother_vessel']);
+        $('.inp-vessel-mother-job-voy').val(res_data['de']['voy_no_mother']);
+        $('.inp-feeder-vessel-job').val(res_data['de']['feeder_vessel']);
+        $('.inp-vessel-job-voy').val(res_data['de']['voy_no_feeder']);
         $('.inp-pod').val(res_data['de']['pod']).attr('readonly', true);
         $('.inp-port').val(res_data['de']['port']).attr('readonly', true);
         $('.inp-invno').val(res_data['de']['inv']).attr('readonly', true);
@@ -266,7 +269,7 @@ const reportcs = {
                 `;
         $('[name = tbl_job_status] tbody').html(html_detail_des);
         $('.inp-etd').val(res_data['dej']['']).attr('readonly', true);
-        $('.inp-clearance_by').val(res_data['dej']['custom_by']).attr('readonly', true);
+        $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
         //container
@@ -549,90 +552,6 @@ const reportcs = {
         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly', true);
         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly', true);
 
-    
-
-        // html_dem_charge = '';
-        //  db_dem_container = $('.sel-dem-container').parent().html()
-        // let db_dem_cy = $('.inp-dem-cy').parent().html()
-        // let db_dem_rtn = $('.inp-dem-rtn').parent().html()
-        // $('.Demurrage-part-add').html('');
-
-        // num_dem = '1';
-        // $.each(res_data['dem'], async function (i, v) {
-
-        //     container_id = v['container_id']
-
-        //     $html_dem_rum = '';
-
-        //     if(num_dem == 1){
-        //         $html_dem_rum =  `<button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.push_action_del_dem(${v['ID']},this);" disabled><i class="bi bi-dash-lg"></i> Delete Driver</button>`;
-        //     }else{
-        //         $html_dem_rum = `<button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="reportcs.push_action_del_dem(${v['ID']},this);" ><i class="bi bi-dash-lg"></i> Delete Driver</button>`;
-        //     }
-
-
-        //     html_dem_charge = `    
-        // <div class="Demurrage-part-del Demurrage-part-del${v['ID']}" Demurrage_part_del="${v['ID']}">
-        // <br>
-        //     <h5>Demurrage No.${num_dem}</h5>
-        //     <div class="form-group row">
-        //         <label class="control-label col-sm-3 col-lg-2">Container number:</label>
-        //         <div class="col-lg-10">
-        //             <div class="row">
-        //                 <div class="col-lg-4">
-        //                     <div class="db-sel-dem db-sel-dem${i}">
-        //                         ${db_dem_container}
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <div class="form-group row">
-        //         <label class="control-label col-sm-3 col-lg-2">CY :</label>
-        //         <div class="col-lg-10">
-        //             <div class="row">
-        //                 <div class="col-lg-4">
-        //                     <input type="input" class="form-control form-control-sm inp-cy-dem" value="${v['CY']}" readonly>
-        //                 </div>
-        //                 <label class="control-label col-sm-3 col-lg-1" style="text-align:center;">OLD RTN :</label>
-        //                 <div class="col-lg-4">
-        //                     <input type="input" class="form-control form-control-sm inp-rtn-dem" value="${v['RTN']}"readonly>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <div class="form-group row">
-        //         <label class="control-label col-sm-3 col-lg-2">Demurrage To :</label>
-        //         <div class="col-lg-10">
-        //             <div class="row">
-        //                 <div class="col-lg-4">
-        //                     <input type="date" class="form-control form-control-sm inp-rtn-new-dem" value="${v['new_dem_time']}">
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <div class="form-group row">
-        //         <label class="control-label col-sm-3 col-lg-2">Document :</label>
-        //         <div class="col-lg-10">
-        //             <div class="row">
-        //                 <div class="col-lg-4">
-        //                     <input type="file" class="form-control form-control-sm inp-doc-dem">
-        //                 </div>
-        //                 <div class="col-lg-4">
-        //                 ${$html_dem_rum}
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>`;
-        //     num_dem++;
-        //     $('.Demurrage-part-add').append(html_dem_charge);
-        //     $(`.db-sel-dem${i} > select`).val(container_id)
-
-
-
-        // })
-
         await reportcs_sub_container_dem.set_preview_data(job_number)
     },
 
@@ -853,6 +772,117 @@ const reportcs = {
           }) 
     },
 
+    push_action_pickdo : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.ajax_save_pickdo()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+                reportcs.set_preview_data(reportcs.job_number_global);
+            }
+          }) 
+    },
+
+    ajax_save_pickdo : function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/push_do.php",
+                data: {'job_number' : reportcs.job_number_global},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+    push_action_checkdoc : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.ajax_save_checkdoc()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+                reportcs.set_preview_data(reportcs.job_number_global);
+               
+            }
+          }) 
+    },
+    ajax_save_checkdoc : function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/push_checkdoc.php",
+                data: {'job_number' : reportcs.job_number_global},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+    push_action_enter : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await reportcs.ajax_save_enter()
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+                reportcs.set_preview_data(reportcs.job_number_global);
+            }
+          }) 
+    },
+    ajax_save_enter : function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/push_enter.php",
+                data: {'job_number' : reportcs.job_number_global},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
     save_dem : async function(i, e){
         let dem_arr = [];
         let dem_arr_tmp = {};
@@ -966,9 +996,80 @@ const reportcs = {
         $('#add_moda').modal('show')
       },
 
+      arr_detail_sbtn_detail_svave_function : async function(){
+        arr_detail = [];
+        arr_detail_temp = {};
 
+        let inv = $('.inp-inv').val();
+        let mbl = $('.inp-mbl').val();
+        let hbl = $('.inp-hbl').val();
+        let etd = $('.inp-eth-job').val();
+        let eta = $('.inp-eta-job').val();
+        let mother = $('.inp-mother-vessel-job').val();
+        let motherv = $('.inp-vessel-mother-job-voy').val();
+        let feeder = $('.inp-feeder-vessel-job').val();
+        let feederv = $('.inp-vessel-job-voy').val();
+        
+        arr_detail_temp = {
+            inv : inv,
+            mbl : mbl,
+            hbl : hbl,
+            etd : etd,
+            eta : eta,
+            mother : mother,
+            motherv : motherv,
+            feeder : feeder,
+            feederv : feederv,
+            job_number : reportcs.job_number_global
+        };
 
+        arr_detail.push(arr_detail_temp);
+        let res = await reportcs.ajax_sv_detail(arr_detail)
+        return res['st'];
+      },
 
+    job_detail_container_sv : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                let st = await reportcs.arr_detail_sbtn_detail_svave_function()
+                if(st != 1){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Necessary information is missing. Please input',
+                    })
+                }else{
+                    Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                    )
+                }
+            }
+          }) 
+    },
+    ajax_sv_detail : function(arr_detail){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/save_job_detail.php",
+                data: {'arr_detail' : arr_detail},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                    return(res)
+                },
+            });
+        });
+    },
 };
 
 

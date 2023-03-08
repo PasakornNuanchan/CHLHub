@@ -10,7 +10,8 @@
         job_title as jt
     INNER JOIN 
         consignee as c on jt.consignee_number = c.consignee_number
-   
+    ORDER BY jt.ID DESC
+    LIMIT 100
     ";
     
     $result = $con -> query($sql);
@@ -20,7 +21,7 @@
             $arr[] = $row;
         }
     } else {
-        $arr[] = "0 results";
+        $arr = "0 results";
     }
     echo json_encode($arr)
 

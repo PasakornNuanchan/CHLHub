@@ -1,6 +1,7 @@
 <?php
 $job_number = $_POST['job_number'];
-    include '../../core/conn.php';
+include '../../core/conn.php';
+
     
      $sql_driver = "
      SELECT 
@@ -21,7 +22,7 @@ $job_number = $_POST['job_number'];
       $driver[] = $row;
     }
   } else {
-    $driver[] = "0 result";
+    $driver = "0 result";
   }
  
  

@@ -192,14 +192,14 @@ const advance_return = {
                                         </div>
                                     </div>
                                     <div class="cal_des_detail">
-                                        <div class="alert alert-solid col-sm-11 " style="background: #10929A; color:white; text-align:center;">
+                                        <div class="alert alert-solid col-sm-12 " style="background: #10929A; color:white; text-align:center;">
                                             <div class="small">
-                                                <label class="control-label col-sm-0 align-self-center fw-bold">Advance Cash :</label>
-                                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
-                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
-                                                <label class="control-label col-sm-4 align-self-center fw-bold">Advance Cash Return :</label>
-                                                <label class="control-label col-sm-2 align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
-                                                <label class="control-label col-sm-0 align-self-center text-center">THB</label>
+                                                <label class="control-label col align-self-center fw-bold">Total Advance Cash : &nbsp&nbsp</label>
+                                                <label class="control-label col align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
+                                                <label class="control-label col align-self-center text-center">&nbsp&nbspTHB&nbsp&nbsp</label>
+                                                <label class="control-label col align-self-center fw-bold">Advance Cash Return : &nbsp&nbsp</label>
+                                                <label class="control-label col align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
+                                                <label class="control-label col align-self-center text-center">&nbsp&nbspTHB&nbsp&nbsp</label>
                                             </div>
                                         </div>
                                     </div>

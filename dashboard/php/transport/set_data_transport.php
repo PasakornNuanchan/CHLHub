@@ -35,7 +35,7 @@ $job_number = $_POST['job_number'];
           $tran[] = $row;
         }
       } else {
-        $tran[] = "0 results";
+        $tran = "0 results";
       }
  
  

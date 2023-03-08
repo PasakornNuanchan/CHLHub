@@ -127,26 +127,43 @@ require 'function/auth/get_session.php';
                                                 <div class="col-lg-4 col-md-5">
                                                     <input type="text" class="form-control form-control-sm inp-pol">
                                                 </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Mother Vessel</label>
+                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">POD</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-mother-vessel-job">
+                                                    <input type="text" class="form-control form-control-sm  inp-pod ">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">POD</label>
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center "> Mother Vessel</label>
                                         <div class="col-sm-12 col-md-10">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pod">
+                                                    <input type="text" class="form-control form-control-sm inp-mother-vessel-job">
                                                 </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Feeder vessel</label>
+                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center "> Voy No.</label>
                                                 <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-vessel-job">
+                                                    <input type="text" class="form-control form-control-sm inp-vessel-mother-job-voy">
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center "> Feeder vessel</label>
+                                        <div class="col-sm-12 col-md-10">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-feeder-vessel-job">
+                                                </div>
+                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center "> Voy No.</label>
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-vessel-job-voy">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success rounded-pill " onclick="reportcs.job_detail_container_sv()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>
@@ -158,45 +175,63 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Clearlance Date</label>
-                                        <div class="col-sm-12 col-md-10">
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Pick up D/O</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-pick_do">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    <button class="btn btn-success rounded-pill btn-sm " onclick="reportcs.push_action_pickdo()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save date </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Check doc.</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-check_doc">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    <button class="btn btn-success rounded-pill btn-sm " onclick="reportcs.push_action_checkdoc()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save date </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Enter</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="text" class="form-control form-control-sm inp-enter">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    <button class="btn btn-success rounded-pill btn-sm " onclick="reportcs.push_action_enter()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save date </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Clearlance Date Finish</label>
+                                        <div class="col">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
                                                     <input type="text" class="form-control form-control-sm inp-clearance_date">
-                                                </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Check doc.</label>
-                                                <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-check_doc">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Delivery</label>
-                                        <div class="col-sm-12 col-md-10">
+                                        <div class="col">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-5">
                                                     <input type="text" class="form-control form-control-sm inp-delivery">
                                                 </div>
-                                                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center ">Enter</label>
-                                                <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-enter">
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Pick up D/O</label>
-                                        <div class="col-sm-12 col-md-10">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-5">
-                                                    <input type="text" class="form-control form-control-sm inp-pick_do">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="float: right">
-                                        <button class="btn btn-success rounded-pill " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
                                     </div>
                                 </div>
                             </div>

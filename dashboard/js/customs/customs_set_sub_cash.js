@@ -18,17 +18,17 @@ const customs_set_sub_cash = {
         let res_data = await customs_set_sub_cash.ajax_set_preview_data(job_number);
         console.log(res_data);
 
-        
+
         //$('.sel-pcn').html('');
         let db_sel_pc_number = '';
-        
-        if(res_data['pcn'] != "0 results"){
-        $.each(res_data['pcn'], function (i, k) {
-            db_sel_pc_number += `
+
+        if (res_data['pcn'] != "0 results") {
+            $.each(res_data['pcn'], function (i, k) {
+                db_sel_pc_number += `
             <option value="${k['ID']}">${k['petty_cash_number']}</option>
             `;
-        });
-        $('.sel-pcn').append(db_sel_pc_number);
+            });
+            $('.sel-pcn').append(db_sel_pc_number);
         }
 
         html_petty_cash_nubmer = $('.del_pcn').parent().html();
@@ -39,7 +39,7 @@ const customs_set_sub_cash = {
         await customs_set_sub_cash.type_change_cash()
 
 
-        
+
 
 
 
@@ -63,13 +63,13 @@ const customs_set_sub_cash = {
                 //let datetime_create = v['datetime_create'] || '';
                 let remark = v['remark'] || '';
                 let status_pcb = v['status']
-                
-                if(status_pcb == 2){
+
+                if (status_pcb == 2) {
                     status_del = 'disabled';
-                }else{
+                } else {
                     status_del = '';
                 }
-                
+
                 html_description_payment = `
             <tr>
                 <td>${num}</td>
@@ -111,10 +111,10 @@ const customs_set_sub_cash = {
         console.log(res_data_cbl)
         $('.pcb-add').html('');
         html_pcb = '';
-        if(res_data_cbl['cbl'] != "0 results"){
-        $.each(res_data_cbl['cbl'], function (i, v) {
-            html_pcb =
-                `<div class="pcb-del">
+        if (res_data_cbl['cbl'] != "0 results") {
+            $.each(res_data_cbl['cbl'], function (i, v) {
+                html_pcb =
+                    `<div class="pcb-del">
             <div class="form-group row">
                 <label class="control-label col-sm-3 align-self-center ">Petty Cash Balance :</label>
                 <div class="col-sm-9">
@@ -134,10 +134,10 @@ const customs_set_sub_cash = {
                 </div>
             </div>
         </div>`;
-            $('.pcb-add').append(html_pcb);
-            $(`.db-sel-cur-pcn${i} > select`).val(v['currency']);
-        })
-    }
+                $('.pcb-add').append(html_pcb);
+                $(`.db-sel-cur-pcn${i} > select`).val(v['currency']);
+            })
+        }
 
     },
 
@@ -227,62 +227,59 @@ const customs_set_sub_cash = {
                 if (type == "Petty Cash") {
                     let get_val_amount = $('.sel-pcn').val();
                     console.log(get_val_amount)
-                    if(get_val_amount == ""){
+                    if (get_val_amount == "") {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Plese select petty cash number!',
                         })
-                    }else{
+                    } else {
 
-                    let amount_balance = '';
+                        let amount_balance = '';
 
-                    var result = res_data_cbl.cbl.find(obj => obj.ID == get_val_amount);
-                    amount_balance = result['cash_balance']
-                    currency = result['currency']
+                        var result = res_data_cbl.cbl.find(obj => obj.ID == get_val_amount);
+                        amount_balance = result['cash_balance']
+                        currency = result['currency']
 
+                        if (amount_balance <= amount) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Petty Cash less than is amount in use!',
+                            })
+                        } else if (currency != currency_get) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Currency not match plese change currency request',
+                            })
+                        } else if (type == "" || description == "" || pay_to == "" || amount == "") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'May be data type , description , pay to or amount is missing',
+                            })
+                        }
+                        else {
 
-                  
-
-                    if (amount_balance <= amount) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Petty Cash less than is amount in use!',
-                        })
-                    }else if(currency != currency_get) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Currency not match plese change currency request',
-                        })
-                    } else if (type == "" || description == "" || pay_to == "" || amount == "") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'May be data type , description , pay to or amount is missing',
-                        })
+                            let res = await customs_set_sub_cash.get_val_cash()
+                            console.log(res);
+                            Swal.fire(
+                                'saved!',
+                                'Your file has been saved.',
+                                'success'
+                            )
+                            customs_set_sub_cash.set_sub_cash_preview_data(customs.job_number_global);
+                        }
                     }
-                    else {
-
-                        let res = await customs_set_sub_cash.get_val_cash()
-                        console.log(res);
-                        Swal.fire(
-                            'saved!',
-                            'Your file has been saved.',
-                            'success'
-                        )
-                        customs_set_sub_cash.set_sub_cash_preview_data(customs.job_number_global);
-                    }
-                    }
-                }else if(type == "Advance Cash"){
+                } else if (type == "Advance Cash") {
                     if (type == "" || description == "" || pay_to == "" || amount == "") {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'May be data type , description , pay to or amount is missing',
                         })
-                    }else {
+                    } else {
 
                         let res = await customs_set_sub_cash.get_val_cash()
                         console.log(res);
@@ -293,7 +290,7 @@ const customs_set_sub_cash = {
                         )
                         customs_set_sub_cash.set_sub_cash_preview_data(customs.job_number_global);
                     }
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -306,7 +303,7 @@ const customs_set_sub_cash = {
             }
         })
     },
-    reset_val_cash: function () {
+    reset_val_cash: async function () {
         $('.inp-pcn-type').val('');
         $('.sel-des-cash').val('');
         $('.inp-pcn-pay').val('');

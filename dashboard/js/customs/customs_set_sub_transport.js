@@ -117,11 +117,11 @@ const customs_set_sub_transport = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con" value="${pca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con" value="${pca}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con_remark" value="${pcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con_remark" value="${pcr}" readonly>
                             </div>
                         </div>
                     </div>
@@ -131,11 +131,11 @@ const customs_set_sub_transport = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con" value="${dca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con" value="${dca}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con_reamrk" value="${dcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con_reamrk" value="${dcr}" readonly>
                             </div>
                         </div>
                     </div>
@@ -144,12 +144,12 @@ const customs_set_sub_transport = {
                     <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
                     <div class="col-sm-9">
                         <div class="row">
-                            <div class="col">
-                                <input type="text" class="form-control inp-drop_emp" value="${dcea}" readonly>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control form-control-sm inp-drop_emp" value="${dcea}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_emp_remark" value="${dcer}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_emp_remark" value="${dcer}" readonly>
                             </div>
                         </div>
                     </div>
@@ -158,12 +158,12 @@ const customs_set_sub_transport = {
                     <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0"  >Type Truck:</label>
                     <div class="col-sm-9">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-lg-5">
                                 <div class="db-sel-truck db_sel_truck${i}">
                                     ${html_select_type}
                                 </div>
                             </div>
-                            <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                            <label class="control-label col-sm-2 col-lg-2 align-self-center ">Remark</label>
                             <div class="col">
                                 <input type="text" class="form-control form-control-sm inp-remark_truck" value="${remark}" disabled> 
                             </div>

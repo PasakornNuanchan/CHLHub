@@ -1,6 +1,6 @@
 const transport = {
     job_number_global: '',
-    check_get: function () {
+    check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -24,6 +24,7 @@ const transport = {
         console.log(action);
 
         if (action == 'preview') {
+            await transport_set_default.set_data_default();
             transport.set_preview_data(job_number);
 
         } else {
@@ -68,7 +69,7 @@ const transport = {
 
         job_global = res_data['booking']['job_number'];
         // container&driver
-        
+
         rows_c = 1;
         $('[name = container-tbl] tbody').html('');
 
@@ -103,18 +104,23 @@ const transport = {
                 } else {
                     ow = "";
                 }
-                pcs = parseFloat(v['pcs']);
-                gross_weight = parseFloat(v['gross_weight']);
-                cbm = parseFloat(v['cbm']);
-                sng = parseFloat(v['single_cnt']);
+                let gw = parseFloat(v['gross_weight']);
+                let cb = parseFloat(v['cbm']);
+                gross_weight = gw ? gw.toFixed(2) : '';
+                cbm = cb ? cb.toFixed(2) : '';
+                
+
+                let container_number = v['container_number']  ? v['container_number'] : '';
+                let seal_number = v['seal_number']  ? v['seal_number'] : '';
+
                 html_container = `
                 <tr container_data_id=${v['ID']}>
                     <td>${rows_c}</td>
                     <td>${container_type_name} (${v['container_type']})</td>
-                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${v['container_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${v['seal_number']}"></td>
-                    <td><input type="number" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
-                    <td><input type="number" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${container_number}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${seal_number}"></td>
+                    <td><input type="number" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight}"></td>
+                    <td><input type="number" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm}"></td>
                     <td><input type="checkbox" class="form-check-input" ${soc} disabled></td>
                     <td><input type="checkbox" class="form-check-input" ${ow} disabled></td>
                     <td><input type="text" class="form-control form-control-sm" disabled value="${v['cy']}"></td>
@@ -177,7 +183,7 @@ const transport = {
 
 
         // driver set route
-        
+
         //let route_driver = $('.sel-route-driver').parent().html();
 
         // driver
@@ -195,9 +201,9 @@ const transport = {
 
 
     },
-    adddriverhtml: function (e = null) {
-        let route_driver = $('.sel-route-driver').parent().html();
-        let container_for_driver = $('.sel-container-for-driver').parent().html();
+    adddriverhtml: async function (e = null) {
+        let route_driver = transport_sub_driver_container.route_driver
+        let container_for_driver = transport_sub_driver_container.container_for_driver
         html_add_driver = '';
         html_add_driver = `
         
@@ -299,6 +305,7 @@ const transport = {
 
         let res_data_container = await transport.ajax_seal_change(val);
         $('.inp-seal_number_driver', parent).val(res_data_container['seal_number']);
+        console.log(res_data_container['seal_number'])
     },
     ajax_seal_change: function (val) {
         return new Promise(function (resolve, reject) {
@@ -314,10 +321,10 @@ const transport = {
         });
     },
 
-    addpthtml: function (e = null) {
-        let html_select_supplier = $('.db-sel-sup').parent().html();
-        let html_select_cur = $('.sel_cur').parent().html();
-        let html_select_type = $('.sel-type_truck').parent().html();
+    addtransporthtml: function (e = null) {
+        html_select_supplier = $('.db-sel-sup').parent().html();
+        html_select_cur = $('.sel_cur').parent().html();
+        html_select_type = $('.sel-type_truck').parent().html();
 
         html_add_transport = `
         <div class="card-transport">
@@ -458,8 +465,8 @@ const transport = {
         $('.add-card-transport').append(html_add_transport);
 
     }, del_transport: function () {
-       
-      
+
+
     },
 
     push_action_save_container: async function () {
@@ -473,12 +480,35 @@ const transport = {
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await transport.save_container()
-                Swal.fire(
-                    'saved!',
-                    'Your file has been saved.',
-                    'success'
-                )
+                check_val_container = 0;
+                $('[name = container-tbl] tbody > tr').each(async function (i, e) {
+                    let container_number = $('.inp-container_number', this).val()
+                    let seal_number = $('.inp-seal_number', this).val()
+                    let gw = $('.inp-gw', this).val();
+                    let cbm = $('.inp-cbm', this).val();
+
+                    if( container_number == '' ||  seal_number == '' ||  gw == '' ||  cbm == ''){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Necessary information is missing. Please input',
+                        })
+                        check_val_container = 0;
+                        return false; 
+                    }else{
+                        check_val_container = 1;
+                    }
+                })
+
+                if (check_val_container == 1) {
+                    await transport.save_container();
+                    Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                    )
+                }
+
             }
         })
     },
@@ -504,15 +534,10 @@ const transport = {
 
             container_arr.push(container_arr_tmp)
         });
-        console.log(container_arr)
-        //console.log(container_arr);
+        
+       
         let res = await transport.ajax_save_container(container_arr);
-        //    if(res){
-        //     alert("testd");
-        //    }else{
-        //     alert("แตก");
-        //    }
-
+       
     },
     ajax_save_container: function (container_arr) {
         return new Promise(function (resolve, reject) {
@@ -603,32 +628,34 @@ const transport = {
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-
+                let val_check = 0;
                 $('.card-transport').each(async function (i, e) {
-                let sel_supplier = $('.sel-supplier', this).val();
-                let inp_peca = $('.inp-pick_emp', this).val();
-                let inp_pca = $('.inp-pick_con', this).val();
-                let inp_doca = $('.inp-drop_con', this).val();
-                let inp_doeca = $('.inp-drop_emp', this).val();
-                let truck_type = $('.sel-type_truck', this).val();
-                let truck_quantity = $('.inp-truck_quantity', this).val();
-                let inp_bg = $('.inp-budget', this).val();
-                let sel_cur = $('.sel_cur', this).val();
 
-                console.log(sel_supplier)
-                console.log(inp_peca)
-                console.log(inp_pca)
-                console.log(inp_doca)
-                console.log(truck_type)
-
-                if(sel_supplier == '' || inp_peca == '' || inp_pca == '' || inp_doca == '' || inp_doeca == '' || truck_type == '' || truck_quantity == '' || inp_bg == '' || sel_cur == ''){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'May be data type , description , pay to or amount is missing',
-                    })
-                    return false;
-                }else{
+                    
+                    let sel_supplier = $('.sel-supplier', this).val();
+                    let inp_peca = $('.inp-pick_emp', this).val();
+                    let inp_pca = $('.inp-pick_con', this).val();
+                    let inp_doca = $('.inp-drop_con', this).val();
+                    let inp_doeca = $('.inp-drop_emp', this).val();
+                    let truck_type = $('.sel-type_truck', this).val();
+                    let truck_quantity = $('.inp-truck_quantity', this).val();
+                    let inp_bg = $('.inp-budget', this).val();
+                    let sel_cur = $('.sel_cur', this).val();
+                    
+                    if (sel_supplier == '' || inp_peca == '' || inp_pca == '' || inp_doca == '' || inp_doeca == '' || truck_type == '' || truck_quantity == '' || inp_bg == '' || sel_cur == '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Necessary information is missing. Please input',
+                        })
+                        val_check = 0
+                        return false;
+                    }else{
+                        val_check = 1
+                    }
+                })
+                
+                if (val_check == 1) {
                     await transport.save_transport();
                     Swal.fire(
                         'saved!',
@@ -636,7 +663,6 @@ const transport = {
                         'success'
                     )
                 }
-                })
             }
         })
     },
@@ -662,6 +688,7 @@ const transport = {
             let truck_quantity = $('.inp-truck_quantity', this).val();
             let inp_bg = $('.inp-budget', this).val();
             let sel_cur = $('.sel_cur', this).val();
+        
 
             transport_arr_tmp = {
                 ID: ID,
@@ -684,6 +711,7 @@ const transport = {
 
             transport_arr.push(transport_arr_tmp)
         })
+        
         await transport.ajax_save_transport(transport_arr)
     },
     ajax_save_transport: function (transport_arr) {
@@ -700,7 +728,7 @@ const transport = {
                 },
             });
         });
-    },push_del_transport: async function (del_id) {
+    }, push_del_transport: async function (del_id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",

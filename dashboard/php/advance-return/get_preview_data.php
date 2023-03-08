@@ -16,9 +16,10 @@ $advance_number = $_POST['advance_number'];
     ";
 
    $sql_pcd = "
-   SELECT * FROM advance_cash_detail as acd
-   INNER JOIN job_title as jt ON jt.job_number = acd.job_number
-   INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE acd.advance_cash_number ='$advance_number'
+   SELECT acd.job_number,acd.amount,acd.currency,c.consignee_name FROM advance_cash_detail as acd 
+LEFT JOIN job_title as jt ON acd.job_number = jt.job_number
+LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+WHERE acd.advance_cash_number = '$advance_number'
     ";
 
    $sql_payment  ="
@@ -88,7 +89,7 @@ $advance_number = $_POST['advance_number'];
       $imp_set = implode(',' , $pcdjn);
       $sql_pcdr = "
       SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
-      WHERE cp.type = 'Advance_Cash' AND cp.job_number IN($imp_set)";
+      WHERE cp.type = 'Advance Cash' AND cp.job_number IN($imp_set)";
       
       $result = $con -> query($sql_pcdr);
     if ($result->num_rows > 0) {

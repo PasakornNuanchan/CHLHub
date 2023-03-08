@@ -45,26 +45,7 @@ const petty_cash = {
         }
     },
 
-    // set_create : async function(){
-    //     first_sl_des_pettycash = $('.sel-description').parent().html();
-    //     $('[name = "petty-cash-tbl-description"] tbody').html('');
-    //     html = `
-    //     <tr class="pettycash_detail">
-    //         <td>${first_sl_des_pettycash}</td>
-    //     <td><input type="input" class="form-control form-control-sm" onchange="petty_cash.amount_total();"></td>
-    //     <td><select name="" id="" class="form-select">
-    //         <option value="" selected>THB</option>
-    //         <option value="">USD</option>
-    //         <option value="">RMB</option>
-    //     </select></td>
-    //     <td onclick="petty_cash.del_pettycash_row(this);" align="center">
-    //         <button type="button" class="btn btn-danger rounded-pill btn-xs " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
-    //     </td>
-    //     </tr>
-    //     `;
-    //     $('[name="petty-cash-tbl-description"]>tbody').append(html);
-    // },
-
+    
     addpthtml: async function () {
         let html_select = $(".td-sel-conttype").html();
         let sl_des_pettycash = $('.sel-description').parent().html();

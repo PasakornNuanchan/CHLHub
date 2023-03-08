@@ -131,12 +131,6 @@ const pettycash_payment = {
         });
        
         
-        
-        
-        $('.inp-prtload').val(res_data['port_of_loading_number']).attr('disabled',true);
-        $('.inp-ts_port').val(res_data['ts_port_number']).attr('disabled',true);
-        $('.inp-etd').val(res_data['etd']).attr('readonly',true);
-        $('.inp-eta').val(res_data['eta']).attr('readonly',true);
 
         await pettycash_payment.change_amount();
         var tranfer_cur_sel = $('.sel_amt_req_tranfer').parent().html();
@@ -150,8 +144,7 @@ const pettycash_payment = {
             
             let amt_request = parseFloat(v['amount_all']);
             let cur_amount = v['currency'];
-            
-            console.log(v['amount_tranfer'])
+                        
             if(v['amount_tranfer'] == null){
                 html_test = 
         `
@@ -167,9 +160,9 @@ const pettycash_payment = {
                     <div class="col-sm-9 col-lg-9">
                         <div class="row">
                             <div class="col-sm-3 col-lg-3">
-                                <input type="text" class="form-control form-control-sm inp-amount_request" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-amount_request inp-amount_request${i}" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
                             </div>
-                            <div class="col-sm-3 col-lg-2">
+                            <div class="col-sm-3 col-lg-2 ">
                                 ${tranfer_cur_sel}
                             </div>
                         </div>
@@ -180,9 +173,9 @@ const pettycash_payment = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col col-sm-4 col-lg-3">
-                                <input type="number" class="form-control form-control-sm inp_amount_tranfer" style="text-align:right;" value="${amt_request.toFixed(2)}">
+                                <input type="number" class="form-control form-control-sm inp_amount_tranfer inp_amount_tranfer${i}" style="text-align:right;" value="${amt_request.toFixed(2)}">
                             </div>
-                            <div class="col col-sm-2">
+                            <div class="col col-sm-2 sel_currecy_amt_tf${i}">
                                 ${sel_amount_tranfer}
                             </div>
                         </div>
@@ -191,11 +184,11 @@ const pettycash_payment = {
                 <div class="form-group row">
                     <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
                     <div class="col-sm-9 col-lg-6">
-                        <input type="file" class="form-control form-control-sm inp-receipt" readonly>
+                        <input type="file" class="form-control form-control-sm inp-receipt inp-receipt${i}" readonly>
                     </div>
                 </div>
                 <div style="float: right">
-                    <button class="btn btn-success rounded-pill btn-sm " onclick="pettycash_payment.push_action_save();"><i class="bi bi-check-circle-fill"></i> Save</button>
+                    <button class="btn btn-success rounded-pill btn-sm btn_push_sv${i}" onclick="pettycash_payment.push_action_save(this,${i});"><i class="bi bi-check-circle-fill"></i> Save</button>
                 </div>
             </div>
         </div>
@@ -222,9 +215,9 @@ const pettycash_payment = {
                             <div class="col-sm-9 col-lg-9">
                                 <div class="row">
                                     <div class="col-sm-3 col-lg-3">
-                                        <input type="text" class="form-control form-control-sm inp-amount_request" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
+                                        <input type="text" class="form-control form-control-sm inp-amount_request inp-amount_request${i}" style="text-align:right;" value="${amt_request.toFixed(2)}" readonly>
                                     </div>
-                                    <div class="col-sm-3 col-lg-2">
+                                    <div class="col-sm-3 col-lg-2 ">
                                         ${tranfer_cur_sel}
                                     </div>
                                 </div>
@@ -235,9 +228,9 @@ const pettycash_payment = {
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col col-sm-4 col-lg-3">
-                                        <input type="number" class="form-control form-control-sm inp_amount_tranfer" style="text-align:right;" value="${amt_tf.toFixed(2)}" readonly>
+                                        <input type="number" class="form-control form-control-sm inp_amount_tranfer inp_amount_tranfer${i}" style="text-align:right;" value="${amt_tf.toFixed(2)}" readonly>
                                     </div>
-                                    <div class="col col-sm-2">
+                                    <div class="col col-sm-2 sel_currecy_amt_tf${i}">
                                         ${sel_amount_tranfer}
                                     </div>
                                 </div>
@@ -246,11 +239,11 @@ const pettycash_payment = {
                         <div class="form-group row">
                             <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
                             <div class="col-sm-9 col-lg-6">
-                                <input type="file" class="form-control form-control-sm inp-receipt" disabled>
+                                <input type="file" class="form-control form-control-sm inp-receipt inp-receipt${i}" disabled>
                             </div>
                         </div>
                         <div style="float: right">
-                            <button class="btn btn-success rounded-pill btn-sm " onclick="pettycash_payment.push_action_save();"><i class="bi bi-check-circle-fill"></i> Save</button>
+                            <button class="btn btn-success rounded-pill btn-sm btn_push_sv${i}" onclick="pettycash_payment.push_action_save(this,${i});" disabled><i class="bi bi-check-circle-fill"></i> Save</button>
                         </div>
                     </div>
                 </div>
@@ -323,7 +316,7 @@ const pettycash_payment = {
 
         $('.inp-count').val(count_row)
     },
-    push_action_save: async function () {
+    push_action_save: async function (e,val) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -336,41 +329,41 @@ const pettycash_payment = {
             
             if (result.isConfirmed) {
                 card_pass= '';
-                $('.card-ptn').each(async function (i, e) {
-                    let get_req_amount = parseFloat($('.inp-amount_request', this).val());
-                    let get_req_currency = $('.sel_amt_req_tranfer', this).val();
-                    let get_tf_amount = parseFloat($('.inp_amount_tranfer', this).val());
-                    let get_tf_currency = $('.sel_amount_tranfer', this).val();
-                    let inp_receipt = $('.inp-receipt', this).val();
+                
+                let get_req_amount = $(`.card-ptn${val}`).find('.inp-amount_request').val()
+                let get_req_currency = $(`.card-ptn${val}`).find('.sel_amt_req_tranfer').val()
+                let get_tf_amount = $(`.card-ptn${val}`).find('.inp_amount_tranfer').val()
+                let get_tf_currency = $(`.card-ptn${val}`).find('.sel_amount_tranfer').val()
+                //let inp_receipt = $(`.card-ptn${val}`).find('.inp-receipt').val()
 
-                    if(get_req_amount != get_tf_amount || get_req_currency != get_tf_currency ){
+                if(get_req_amount == '' ||get_req_currency == '' || get_tf_amount == '' || get_tf_currency == '' ){
                     Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Data Amount or currency not match ',
-                        })
-                        card_pass = 1;
-                        return false;
-                    }
-                })
-
-                if(card_pass != 1){
-                    await pettycash_payment.save_pc_payment()
-                }
-                
-                
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Missing data plese check your data input',
+                    })
+                    
+                }else{
+                    await pettycash_payment.save_pc_payment(val)
+                    $(`.inp_amount_tranfer${val}`).attr('disabled',true)
+                    $(`.sel_amount_tranfer${val}`).attr('disabled',true)
+                    $(`.inp-receipt${val}`).attr('disabled',true)
+                    $(`.btn_push_sv${val}`).attr('disabled',true)
+                    $(`.sel_currecy_amt_tf${val} select`).attr('disabled',true)
+                    
+                }  
             }
         })
     },
 
-    save_pc_payment : async function(){
+    save_pc_payment : async function(val){
         let arr_pc_payment = []
         let arr_pc_payment_temp = {}
         
-        $('.card-ptn').each(async function (i, e) {
-            let get_tf_amount = parseFloat($('.inp_amount_tranfer', this).val());
-            let get_tf_currency = $('.sel_amount_tranfer', this).val();
-            let inp_receipt = $('.inp-receipt', this).val();
+        
+        let get_tf_amount = $(`.card-ptn${val}`).find('.inp_amount_tranfer').val()
+        let get_tf_currency = $(`.card-ptn${val}`).find('.sel_amount_tranfer').val()
+        let inp_receipt = $(`.card-ptn${val}`).find('.inp-receipt').val()
 
             arr_pc_payment_temp = {
                 get_tf_amount: get_tf_amount,
@@ -379,12 +372,10 @@ const pettycash_payment = {
                 doc_number: pettycash_payment.petty_cash_number_global
             }
             arr_pc_payment.push(arr_pc_payment_temp);
-        })
+        console.log(arr_pc_payment)
 
         await pettycash_payment.ajax_save_pc_payment(arr_pc_payment)
-        $('.inp_amount_tranfer').attr('disabled',true)
-        $('.sel_amount_tranfer').attr('disabled',true)
-        $('.inp-receipt').attr('disabled',true)
+        
     },
 
     ajax_save_pc_payment: function (arr_pc_payment) {

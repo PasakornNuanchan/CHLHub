@@ -13,8 +13,10 @@ $job_number = $_POST['job_number'];
     jt.eta,
     cr.carrier_name,
     concat(an.country,' ,',an.location_name) as pol,
-    concat(jt.mother_vessel,' ,',jt.voy_no_mother) as mvessel,
-    concat(jt.feeder_vessel,' ,',jt.voy_no_feeder) as fvessel,
+    jt.mother_vessel,
+    jt.voy_no_mother,
+    jt.feeder_vessel,
+    jt.voy_no_feeder,
     concat(av.country,' ,',av.location_name) as pod,
     concat(ab.country,' ,',ab.location_name) as port,
     jt.clearlance_date,
@@ -164,7 +166,7 @@ if ($result->num_rows > 0) {
     $cont[] = $row;
   }
 } else {
-  $cont[] = "0 results";
+  $cont = "0 results";
 }
 
 $result = $con->query($sql_transport);
@@ -174,7 +176,7 @@ if ($result->num_rows > 0) {
     $get_tran[] = $row['ID'];
   }
 } else {
-  $tran[] = "0 results";
+  $tran = "0 results";
 }
 
 $imp_set_tran_drive = implode(',', $get_tran);
@@ -199,7 +201,7 @@ if ($result->num_rows > 0) {
     $transport_driver[] = $row;
   }
 } else {
-  $transport_driver[] = "0 results";
+  $transport_driver = "0 results";
 }
 
 foreach ($transport_driver as $k => $v) {
@@ -213,7 +215,7 @@ if ($result->num_rows > 0) {
     $supplier[] = $row;
   }
 } else {
-  $supplier[] = "0 results";
+  $supplier = "0 results";
 }
 
 $result = $con->query($sql_booking);
@@ -240,7 +242,7 @@ if ($result->num_rows > 0) {
     $dem[] = $row;
   }
 } else {
-  $dem[] = "0 results";
+  $dem = "0 results";
 }
       
 
