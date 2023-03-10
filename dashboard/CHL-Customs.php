@@ -317,6 +317,7 @@ require 'function/auth/get_session.php';
                                                     <th>Pay to</th>
                                                     <th>picture</th>
                                                     <th>amount</th>
+                                                    <th>currency</th>
                                                     <th>remark</th>
                                                     <div class="th_for_preview">
                                                     <th>action</th>
@@ -328,6 +329,7 @@ require 'function/auth/get_session.php';
                                                     <td>1</td>
                                                     <td>Advance Cash</td>
                                                     <td>Rent cargo</td>
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td>

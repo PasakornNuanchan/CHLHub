@@ -14,20 +14,24 @@ foreach ($list_data as $k => $v) {
     $doc_number = isset($v['doc_number']) ? $v['doc_number'] : '';
 
 
- $sql_insert_detail = "
+$sql_insert_detail = "
     INSERT INTO `transac_recript_petty_cash`(
         `tranfer_by`,
         `doc_number`,
         `amount`,
-        `currency`
+        `currency`,
+        `paid_date_time`
     )
     VALUES(
         '$data_user',
         '$doc_number',
         '$get_tf_amount',
-        '$get_tf_currency'
+        '$get_tf_currency',
+        '$t_time_save'
     )
 ";
+
+
 
 $status = $con->query($sql_insert_detail);
 }

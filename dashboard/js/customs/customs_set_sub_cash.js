@@ -14,22 +14,45 @@ const customs_set_sub_cash = {
         });
     },
 
-    set_sub_cash_preview_data: async function (job_number) {
-        let res_data = await customs_set_sub_cash.ajax_set_preview_data(job_number);
-        console.log(res_data);
+    ajax_set_preview_data_pcn : function (job_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/customs/set_sub_cash_pcn.php",
+                data: { 'job_number': job_number },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
-
-        //$('.sel-pcn').html('');
-        let db_sel_pc_number = '';
-
-        if (res_data['pcn'] != "0 results") {
-            $.each(res_data['pcn'], function (i, k) {
+    set_sel_ptc : async function(job_number){
+        let res_data_pcn = await customs_set_sub_cash.ajax_set_preview_data_pcn(job_number);
+        console.log(res_data_pcn)
+         db_sel_pc_number = '';
+        if (res_data_pcn['pcn'] != "0 results") {
+            $.each(res_data_pcn['pcn'], function (i, k) {
                 db_sel_pc_number += `
             <option value="${k['ID']}">${k['petty_cash_number']}</option>
             `;
             });
             $('.sel-pcn').append(db_sel_pc_number);
         }
+    },
+
+    set_sub_cash_preview_data: async function (job_number) {
+        let res_data = await customs_set_sub_cash.ajax_set_preview_data(job_number);
+        
+        console.log(res_data);
+
+
+        //$('.sel-pcn').html('');
+       
+        
+
+       
 
         html_petty_cash_nubmer = $('.del_pcn').parent().html();
         html_select_cur = $('.sel-cur-balance').parent().html();
@@ -62,6 +85,7 @@ const customs_set_sub_cash = {
                 let ID = v['ID'] || '';
                 //let datetime_create = v['datetime_create'] || '';
                 let remark = v['remark'] || '';
+                let currency = v['currency'] || '';
                 let status_pcb = v['status']
 
                 if (status_pcb == 2) {
@@ -78,8 +102,8 @@ const customs_set_sub_cash = {
                 <td>${pay_to}</td>
                 <td></td>
                 <td align="right">${number_format(amount.toFixed(2))}</td>
+                <td>${currency}</td>
                 <td>${remark}</td>
-                
                 <td>
                     <button type="button" class="btn btn-danger rounded-pill btn-xs" ${status_del} onclick="customs_set_sub_cash.push_del_cash(${ID});"><i class="bi bi-pencil-fill"></i> Delete</button>
                 </td>
@@ -226,7 +250,7 @@ const customs_set_sub_cash = {
                 let currency_get = $('.inp-pcn-amount-cur').val();
                 if (type == "Petty Cash") {
                     let get_val_amount = $('.sel-pcn').val();
-                    console.log(get_val_amount)
+                    
                     if (get_val_amount == "") {
                         Swal.fire({
                             icon: 'error',
@@ -263,7 +287,7 @@ const customs_set_sub_cash = {
                         else {
 
                             let res = await customs_set_sub_cash.get_val_cash()
-                            console.log(res);
+                            
                             Swal.fire(
                                 'saved!',
                                 'Your file has been saved.',
@@ -282,7 +306,7 @@ const customs_set_sub_cash = {
                     } else {
 
                         let res = await customs_set_sub_cash.get_val_cash()
-                        console.log(res);
+                        
                         Swal.fire(
                             'saved!',
                             'Your file has been saved.',
@@ -340,7 +364,7 @@ const customs_set_sub_cash = {
         };
 
         arr_get_val_cash.push(arr_get_val_cash_tmp)
-        console.log(arr_get_val_cash)
+        
         await customs_set_sub_cash.ajax_save_pcn(arr_get_val_cash)
         await customs_set_sub_cash.reset_val_cash()
 

@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -39,19 +39,35 @@ require 'function/auth/get_session.php';
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title text-center">Petty Cash Balance</h4>
-                                <h4 class="card-title text-center txt-head-pet"></h4>
-                                <h4 class="card-title text-center">THB</h4>
+                                <div class="col-lg-12 text-center mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-4" >
+                                            <div class="card" >
+                                                <h5 class="card-title text-center txt-head-pet-th" ></h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <h5 class="card-title text-center txt-head-pet-us"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <h5 class="card-title text-center txt-head-pet-ch"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <p>Petty Cash Waiting for clear</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-3 " name="pc_wfc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                    <table id="basic-table" class="table table-hover mb-3 " name="pc_wfc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                         <thead>
                                             <tr align="center" class="bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                 <th>PT. Number</th>
-                                                <th>Customs Clearance</th>
                                                 <th>Amount</th>
                                                 <th>Curency</th>
                                                 <th>Action</th>
@@ -60,7 +76,6 @@ require 'function/auth/get_session.php';
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>PT220902</td>
-                                                <td>2</td>
                                                 <td>18,000.00</td>
                                                 <td><span class="badge rounded-pill bg-success">Success</span></td>
                                                 <td><button class="btn btn-primary rounded-pill btn-xs "><i class="bi bi-eye"></i> Check</button></td>
@@ -83,7 +98,7 @@ require 'function/auth/get_session.php';
                             <div class="card-body">
                                 <p>Advance Waiting tranfer</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-3" name="ad_wfc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                    <table id="basic-table" class="table table-hover mb-3" name="ad_wfc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                         <thead>
                                             <tr align="center" class="bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                 <th>AD. Number</th>
@@ -109,7 +124,7 @@ require 'function/auth/get_session.php';
                             <div class="card-body">
                                 <p>Job Not Have Create Advance Cash</p>
                                 <div class="table-responsive mt-4">
-                                    <table id="basic-table" class="table table-striped mb-3 text-center" name="ad_nhc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                    <table id="basic-table" class="table table-hover mb-3 text-center" name="ad_nhc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                         <thead>
                                             <tr class="bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                 <th>Job Nubmer</th>

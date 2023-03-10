@@ -24,7 +24,6 @@ const advance_cash = {
         
         res_select = await advance_cash.get_description_sel();
         let html = '';
-        console.log(res_select)
         $.each(res_select, function (i, v) { 
             html += `
             <option value="${v['job_number']}${v['currency']}">${v['job_number']}(${v['currency']}) / ${v['consignee_name']} </option>

@@ -1,5 +1,5 @@
 const billing_all = {
-    push_check: async function (action_id) {
+    push_check: async function (action_id,val) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -12,12 +12,18 @@ const billing_all = {
             if (result.isConfirmed) {
                 let res = await billing_all.ajax_push_check_action(action_id);
                 console.log(res);
+                
                 Swal.fire(
                     'saved!',
                     'Your file has been saved.',
                     'success'
                 )
-                billing.check_get();
+                if(val == 'tp'){
+                    billing_ap.set_preview_data_ap(billing.job_number_global);
+                }else if(val == 'tr'){
+                    billing.set_preview_data_ar(billing.job_number_global);
+                }
+                
             }
         })
     },

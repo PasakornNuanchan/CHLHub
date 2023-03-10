@@ -5,21 +5,20 @@
     include '../../core/con_path.php';
 
     $sql_pct = "
-    SELECT 
-	pct.ID,
-	pct.petty_cash_number,
-    SUM(pcd.amount) as total_amount ,
-    IF(count(jt.job_number) = COUNT(jt.clearlance_date),'1','0') as customs_clear,
-    pct.return_payment_by as check_payment,
-    pct.total_amount_request_cur
-FROM petty_cash_title as pct 
-INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
-INNER JOIN job_title as jt ON pcd.job_number = jt.job_number
-INNER JOIN user u ON pct.request_by = u.user_number
-WHERE 
-        u.user_number = '$data_user'
-GROUP BY pct.petty_cash_number
-HAVING pct.return_payment_by IS NULL
+    SELECT
+    trpc.doc_number,
+    trpc.amount,
+    trpc.currency
+FROM
+    transac_recript_petty_cash AS trpc
+LEFT JOIN transac_return_petty_cash AS trepc
+ON
+    trpc.ID = trepc.transac_id_tranfer
+LEFT JOIN petty_cash_title AS pct
+ON
+    trpc.doc_number = pct.petty_cash_number
+WHERE
+    trepc.ID IS NULL AND pct.request_by = '$data_user'
 
     ";
     $sql_awt = "

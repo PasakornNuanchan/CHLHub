@@ -18,32 +18,48 @@ const balance = {
         $('[name = "ad_nhc_table"] tbody').html('');
         $('[name = "ad_wfc_table"] tbody').html('');
     
+        let pct_total_th = 0;
+        let pct_total_us = 0;
+        let pct_total_ch = 0;
     if(res_data['pc_wfc'] == 0){
         
     }else{
         $.each(res_data['pc_wfc'], function (i, v) { 
-            petty_cash_balance += parseFloat(v['total_amount']);
-            pf_ptc = parseFloat(v['total_amount']);
+            petty_cash_balance += parseFloat(v['amount']);
+            pf_ptc = parseFloat(v['amount']);
             st_clearance = v['customs_clear'];
-            if(st_clearance == '1'){
-                sta_clear = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Success</span>';
-            }else if(st_clearance = '0'){
-                sta_clear = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">fail</span>'
+           
+
+            if(v['currency'] == "THB"){
+                pct_total_th = parseFloat(pct_total_th) + parseFloat(v['amount'])
+            }else if(v['currency'] == "USD"){
+                pct_total_us = parseFloat(pct_total_us) + parseFloat(v['amount'])
+            }else if(v['currency'] == "RMB"){
+                pct_total_ch = parseFloat(pct_total_ch) + parseFloat(v['amount'])
             }
+
             html_set_pc_wfc = `
             <tr class="text-center">
-                <td>${v['petty_cash_number']}</td>
-                <td>${sta_clear}</td>
-                <td>${number_format(pf_ptc.toFixed(2))}</td>
-                <td>${v['total_amount_request_cur']}</td>
-                <td><button onclick="petty_cash_con.preview('${v['petty_cash_number']}');" class="btn btn-primary rounded-pill btn-xs bg-gradient" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-eye"></i> Check</button></td>
+                <td>${v['doc_number']}</td>
+                <td style="text-align:right;">${number_format(pf_ptc.toFixed(2))}</td>
+                <td>${v['currency']}</td>
+                <td><button onclick="petty_cash_con.preview('${v['doc_number']}');" class="btn btn-primary rounded-pill btn-xs bg-gradient" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ><i class="bi bi-eye"></i> Check</button></td>
             </tr>
             `;
             $('[name = "pc_wfc_table"] tbody').append(html_set_pc_wfc);
         });
     };
-        result_pc = petty_cash_balance.toFixed(2);
-        $('.txt-head-pet').html(number_format(result_pc));
+
+        console.log(pct_total_th)
+        console.log(pct_total_us)
+        console.log(pct_total_ch)
+
+        result_pc_th = `${pct_total_th} THB`;
+        result_pc_us = `${pct_total_us} USD`;
+        result_pc_ch = `${pct_total_ch} RMB`;
+        $('.txt-head-pet-th').html(number_format(result_pc_th));
+        $('.txt-head-pet-us').html(number_format(result_pc_us));
+        $('.txt-head-pet-ch').html(number_format(result_pc_ch));
 
         //advance cash waiting for clear
         var advance_cash_balance =0;

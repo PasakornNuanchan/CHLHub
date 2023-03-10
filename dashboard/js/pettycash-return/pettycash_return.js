@@ -1,5 +1,5 @@
 const pettycash_return = {
-
+    ptc_global: '',
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -20,7 +20,7 @@ const pettycash_return = {
 
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
-
+        pettycash_return.ptc_global = job_doc_pt;
         console.log(action);
 
         if (action == 'preview') {
@@ -51,14 +51,20 @@ const pettycash_return = {
 
         //card 1 request petty cash
         $('.inp-pettycash_number').val(res_data['pct']['petty_cash_number']);
-        $('.inp-req_by').val(res_data['pct']['rq_by_first'] + ' ' + res_data['pct']['rq_by_last']);
+        $('.inp-req_by').val(res_data['pct']['freq'] + ' ' + res_data['pct']['lreq']);
         $('.inp-req_datet').val(res_data['pct']['datetime_request']);
         // hr
+        if (res_data['pct']['tranfer_method'] == "Tranfer") {
+            $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
+            $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
+        } else {
+            $('.inp-bankname').val();
+            $('.inp-banknumber').val();
+        }
         $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']);
-        $('.inp-bankname').val(res_data['pct']['tranfer_bank_name']);
-        $('.inp-banknumber').val(res_data['pct']['tranfer_bank_number']);
-        $('.inp-tranf_by').val(res_data['pct']['tf_by_first'] + ' ' + res_data['pct']['tf_by_last']);
-        $('.inp-tranf_time').val(res_data['pct']['tranfer_datetime']);
+
+        $('.inp-tranf_by').val(res_data['name']);
+        $('.inp-tranf_time').val(res_data['pdt']);
         $('.inp-job_q').val(res_data['scd']['c_qty']);
         $('.inp-all_job').val(res_data['imp_set']);
 
@@ -71,8 +77,7 @@ const pettycash_return = {
         let no_des = '1';
         $('[name = "des-req"] tbody').html('');
         let Cash_arr = [];
-        let arr_ptc_return = []
-        let arr_ptc_return_tmp = {}
+        
         let thb_cur = 0;
         let usd_cur = 0;
         let rmb_cur = 0;
@@ -237,143 +242,157 @@ const pettycash_return = {
         console.log(dtpc_val_rmb)
 
 
-        arr_ptc_return_tmp = {
-            val: thb_cur,
-            pay: dtpc_val_thb,
-            cur: "THB"
-        }
-        arr_ptc_return.push(arr_ptc_return_tmp)
-        arr_ptc_return_tmp = {
-            val: usd_cur,
-            pay: dtpc_val_usd,
-            cur: "USD",
-        }
-        arr_ptc_return.push(arr_ptc_return_tmp)
-        arr_ptc_return_tmp = {
-            val: rmb_cur,
-            pay: dtpc_val_rmb,
-            cur: "RMB",
-        }
-        arr_ptc_return.push(arr_ptc_return_tmp)
-        console.log(arr_ptc_return)
+     
 
         $('.card_add_return').html('');
 
-        $.each(arr_ptc_return, function (i, v) {
-            let val_re = (v['val'])
-            let pay_re = (v['pay'])
-            let cur_re = (v['cur'])
 
-            let total = parseFloat(val_re) - parseFloat(pay_re)
+        let list_return = await this.ajax_get_list_return(job_doc_pt);
+        console.log(list_return)
 
+        html_by_currency = '';
+        $.each(list_return['list_return'], function (i, v) {
 
+            let val_petty_cash = parseFloat(v['amount']);
+            let currency = v['currency']
 
-            if (val_re != 0) {
-
-                html_by_currency = `
-   <div class="card card${i}">
-   <div class="card-header d-flex justify-content-between">
-       <div class="header-title">
-           <h4 class="card-title fw-normal">Petty Cash Return</h4>
-       </div>
-   </div>
-   <div class="card-body">
-       <div class="row">
-           <div class="form-group row">
-               <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Petty Cash :</label>
-               <div class="col col-md-4 col-lg-2">
-                   <input type="text" class="form-control form-control-sm  inp-petty_cash_req" style="text-align: right;" value="${number_format(val_re.toFixed(2))}" readonly>
-               </div>
-               <div class="col col-md-3 col-lg-1">
-                   <select name="" id="" class="form-select form-select-sm shadow-none currency_val_re${i}" disabled>
-                       <option value="THB">THB</option>
-                       <option value="USD">USD</option>
-                       <option value="RMB">RMB</option>
-                   </select>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Pay :</label>
-               <div class="col col-md-4 col-lg-2">
-                   <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" value="${number_format(pay_re.toFixed(2))}"readonly>
-               </div>
-               <div class="col col-md-3 col-lg-1">
-                   <select name="" id="" class="form-select form-select-sm shadow-none currency_pay_re${i}" disabled>
-                       <option value="THB">THB</option>
-                       <option value="USD">USD</option>
-                       <option value="RMB">RMB</option>
-                   </select>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Petty Cash return :</label>
-               <div class="col col-md-4 col-lg-2">
-                   <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" value="${number_format(total.toFixed(2))}" readonly>
-               </div>
-               <div class="col col-md-3 col-lg-1">
-                   <select name="" id="" class="form-select form-select-sm shadow-none currency_total_re${i}" disabled>
-                       <option value="THB">THB</option>
-                       <option value="USD">USD</option>
-                       <option value="RMB">RMB</option>
-                   </select>
-               </div>
-           </div>
-           <hr>
-           <div class="form-group row">
-               <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment medthod :</label>
-               <div class="col-sm-3 col-md-7 col-lg-3">
-                   <select name="" id="" class="form-select form-select-sm sel-mt-return">
-                       <option value="" selected>-- plese select method return amount --</option>
-                       <option value="Tranfer">Tranfer</option>
-                       <option value="Cash">Cash</option>
-                   </select>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
-               <div class="col-sm-3 col-md-7 col-lg-3">
-                   <input type="text" class="form-control form-control-sm  inp-payment-by" readonly>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
-               <div class="col-sm-3 col-md-7 col-lg-3">
-                   <input type="datetime" class="form-control form-control-sm inp-payment-d-time" readonly>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Payment Return Amount :</label>
-               <div class="col col-md-4 col-lg-2">
-                   <input type="number" class="form-control form-control-sm inp-payment-re-amount" value="${(total.toFixed(2))}" style="text-align: right;" >
-               </div>
-               <div class="col col-md-3 col-lg-1">
-                   <select name="" id="" class="form-select form-select-sm shadow-none inp-payment-re-amount_cur currency_return_re${i}" disabled>
-                       <option value="THB" selected>THB</option>
-                       <option value="USD">USD</option>
-                       <option value="RMB">RMB</option>
-                   </select>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">receipt :</label>
-               <div class="col-sm-3 col-md-7 col-lg-3">
-                   <input type="file" class="form-control form-control-sm  inp-recep-by" >
-               </div>
-           </div>
-       </div>
-       <div style="float: right">
-           <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="pettycash_return.push_action_save()"><i class="bi bi-check-square"></i> Save</button>
-       </div>
-   </div>
-</div>`;
-                console.log(cur_re)
-                $('.card_add_return').append(html_by_currency)
-                $(`.currency_val_re${i}`).val(cur_re)
-                $(`.currency_pay_re${i}`).val(cur_re)
-                $(`.currency_total_re${i}`).val(cur_re)
-                $(`.currency_return_re${i}`).val(cur_re)
+            if(currency == "THB"){
+                pay_val = parseFloat(dtpc_val_thb)
+            }else if(currency == "USD"){
+                pay_val = parseFloat(dtpc_val_usd)
+            }else if(currency == "RMB"){
+                pay_val = parseFloat(dtpc_val_rmb)
             }
+
+            let fname = v['first_name'];
+            let lname = v['last_name'];
+            
+            if(fname == null || lname == null){
+                fname = '';
+                lname = '';
+            }
+
+            let return_date_time = v['return_datetime']
+            if(return_date_time == null){
+                return_date_time = '';
+            }
+            
+            
+
+            let petty_cash_return = val_petty_cash - pay_val;
+
+            html_by_currency = `
+            <div class="card card${i}">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title fw-normal">Petty Cash Return</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Petty Cash :</label>
+                        <div class="col col-md-4 col-lg-2">
+                            <input type="text" class="form-control form-control-sm  inp-petty_cash_req" style="text-align: right;" value="${number_format(val_petty_cash.toFixed(2))}" readonly>
+                        </div>
+                        <div class="col col-md-3 col-lg-1">
+                            <select name="" id="" class="form-select form-select-sm shadow-none currency_val_re${i}" disabled>
+                                <option value="THB">THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Pay :</label>
+                        <div class="col col-md-4 col-lg-2">
+                            <input type="text" class="form-control form-control-sm inp_pay" style="text-align: right;" value="${number_format(pay_val.toFixed(2))}"readonly>
+                        </div>
+                        <div class="col col-md-3 col-lg-1">
+                            <select name="" id="" class="form-select form-select-sm shadow-none currency_pay_re${i}" disabled>
+                                <option value="THB">THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Petty Cash return :</label>
+                        <div class="col col-md-4 col-lg-2">
+                            <input type="text" class="form-control form-control-sm inp_cash_return" style="text-align: right;" value="${number_format(petty_cash_return.toFixed(2))}" readonly>
+                        </div>
+                        <div class="col col-md-3 col-lg-1">
+                            <select name="" id="" class="form-select form-select-sm shadow-none currency_total_re${i}" disabled>
+                                <option value="THB">THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment medthod :</label>
+                        <div class="col-sm-3 col-md-7 col-lg-3">
+                            <select name="" id="" class="form-select form-select-sm sel-mt-return${i}">
+                                <option value="">-- plese select method return amount --</option>
+                                <option value="Tranfer">Tranfer</option>
+                                <option value="Cash">Cash</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment By. :</label>
+                        <div class="col-sm-3 col-md-7 col-lg-3">
+                            <input type="text" class="form-control form-control-sm  inp-payment-by${i}" value="${fname+" "+lname}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">Payment datetime :</label>
+                        <div class="col-sm-3 col-md-7 col-lg-3">
+                            <input type="datetime" class="form-control form-control-sm inp-payment-d-time${i}" value="${return_date_time}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-1 col-md-4 col-lg-2 align-self-center">Payment Return Amount :</label>
+                        <div class="col col-md-4 col-lg-2">
+                            <input type="number" class="form-control form-control-sm inp-payment-re-amount${i}" value="${(petty_cash_return.toFixed(2))}" style="text-align: right;" >
+                        </div>
+                        <div class="col col-md-3 col-lg-1">
+                            <select name="" id="" class="form-select form-select-sm shadow-none inp-payment-re-amount_cur currency_return_re${i}" disabled>
+                                <option value="THB" selected>THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">receipt :</label>
+                        <div class="col-sm-3 col-md-7 col-lg-3">
+                            <input type="file" class="form-control form-control-sm  inp-recep-by${i}" >
+                        </div>
+                    </div>
+                </div>
+                <div style="float: right">
+                    <button class="btn btn-success btn-savelist${i}" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="pettycash_return.push_action_save('${i}',${v['ID']})"><i class="bi bi-check-square"></i> Save</button>
+                </div>
+            </div>
+         </div>`;
+            $('.card_add_return').append(html_by_currency)
+
+            if(v['method_tranfer'] != null){
+                $(`.sel-mt-return${i}`).val(v['method_tranfer']).attr('disabled',true)
+                $(`.inp-payment-re-amount${i}`).attr('disabled',true)
+                $(`.inp-recep-by${i}`).attr('disabled',true)
+                $(`.btn-savelist${i}`).attr('hidden',true)
+            }
+
+            $(`.currency_val_re${i}`).val(currency)
+            $(`.currency_pay_re${i}`).val(currency)
+            $(`.currency_total_re${i}`).val(currency)
+            $(`.currency_return_re${i}`).val(currency)
         })
+
+
     },
 
     ajax_set_preview_data: function (job_doc_pt) {
@@ -390,7 +409,7 @@ const pettycash_return = {
         });
     },
 
-    push_action_save: async function () {
+    push_action_save: async function (val,val_id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -401,18 +420,93 @@ const pettycash_return = {
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await pettycash_return.save_petty_cash()
-                Swal.fire(
-                    'saved!',
-                    'Your file has been saved.',
-                    'success'
-            )}
+
+                
+                let sel_mt_return = $(`.sel-mt-return${val}`).val();
+                let inp_payment_val = $(`.inp-payment-re-amount${val}`).val();
+                let sel_currency_rt = $(`.currency_return_re${val}`).val()
+
+                if (sel_mt_return == '' || inp_payment_val == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Necessary information is missing. Please input !',
+                    })
+                } else {
+                    let res_sv = await pettycash_return.save_petty_cash(val,val_id)
+                    if(res_sv == '1'){
+                        Swal.fire(
+                                'saved!',
+                                'Your file has been saved.',
+                                'success'
+                            )
+                        await this.set_preview_data(pettycash_return.ptc_global)
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'This data save has error pleses inform to tech team !',
+                        })
+                    }
+                }
+            }
         })
     },
 
-    save_petty_cash: async function(){
-        
-    }
+    save_petty_cash: async function (val,val_id) {
+
+        arr_sv_ptc = []
+        arr_sv_ptc_temp = {}
+
+        let sel_mt_return = $(`.sel-mt-return${val}`).val();
+        let inp_payment_val = $(`.inp-payment-re-amount${val}`).val();
+        let sel_currency_rt = $(`.currency_return_re${val}`).val();
+        let inp_rec_by = $(`.inp-recep-by${val}`).val();
+        arr_sv_ptc_temp = {
+            sel_mt_return: sel_mt_return,
+            inp_payment_val: inp_payment_val,
+            sel_currency_rt: sel_currency_rt,
+            inp_rec_by: inp_rec_by,
+            petty_cash_number: pettycash_return.ptc_global,
+            val_id : val_id
+        }
+
+        arr_sv_ptc.push(arr_sv_ptc_temp)
+        let val_re = await pettycash_return.ajax_sv_ptc_number(arr_sv_ptc)
+        return(val_re)
+    },
+
+
+    ajax_sv_ptc_number: async function (arr_sv_ptc) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/pettycash-return/sv_ptc_list.php",
+                data: { 'arr_sv_ptc': arr_sv_ptc },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                    return(response)
+                }
+            });
+        });
+    },
+
+    ajax_get_list_return: async function (job_doc_pt) {
+
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/pettycash-return/get_transac_ptc.php",
+                data: { 'job_doc_pt': job_doc_pt },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
 }
 
 

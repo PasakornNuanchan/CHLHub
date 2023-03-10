@@ -87,10 +87,13 @@ WHERE acd.advance_cash_number = '$advance_number'
       }
   
       $imp_set = implode(',' , $pcdjn);
-      $sql_pcdr = "
-      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.billing_number 
-      WHERE cp.type = 'Advance Cash' AND cp.job_number IN($imp_set)";
+       $sql_pcdr = "
       
+      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.id 
+      WHERE cp.type = 'Advance Cash' AND cp.job_number IN($imp_set) AND cp.status = '2'";
+    
+
+
       $result = $con -> query($sql_pcdr);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -99,14 +102,44 @@ WHERE acd.advance_cash_number = '$advance_number'
       } else {
         $scd = "0 results";
       }
-      
+
       foreach ($dtpc as $k => $v) {
         $dtpc_arr[$v['job_number']][] = $v;
       }
 
+      $sql_ex = "
+      SELECT acd.id_job_req FROM advance_cash_detail as acd
+      LEFT JOIN cash_payment as cp ON acd.id_job_req = cp.ID
+      WHERE acd.advance_cash_number = 'AD2303006'
+      ";
+      
+      $result = $con -> query($sql_ex);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $ex[] = $row['id_job_req'];
+        }
+      } else {
+        $ex = "0 results";
+      }
+      $im_set_pay = implode(',',$ex);
+      
+      
+      $sql_main_return = "
+        SELECT SUM(cp.amount) as amount, cp.currency,GROUP_CONCAT(cp.id) as ref_id FROM cash_payment as cp
+        WHERE cp.ID IN ($im_set_pay) AND cp.status = '2'
+        GROUP BY cp.currency
+      ";
 
+      $result = $con -> query($sql_main_return);
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+            $main_return[] = $row;
+          }
+        } else {
+          $main_return = "0 results";
+        }
 
-      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn,'payment'=>$payment));
+      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn,'payment'=>$payment,'ex'=>$ex,'im_set_pay'=>$im_set_pay,'main_return'=>$main_return));
     
 
 

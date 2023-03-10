@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -149,68 +149,69 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title fw-normal">Advance Cash Payment</h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center">Total Advance Cash For Return :</label>
-                                        <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2 inp-advance_cash_req" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-sm-2">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
-                                                <option value="" selected>THB</option>
-                                                <option value="">USD</option>
-                                                <option value="">RMB</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center">Payment medthod :</label>
-                                        <div class="col col-sm-3">
-                                            <select name="" id="" class="form-select form-select-sm sel-mt-return" disabled>
-                                                <option value="" selected></option>
-                                                <option value="Tranfer">Tranfer</option>
-                                                <option value="Cash">Cash</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center">Payment By. :</label>
-                                        <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-by" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center">Payment datetime :</label>
-                                        <div class="col col-sm-3">
-                                            <input type="datetime" class="form-control form-control-sm col-sm-2 inp-payment-d-time" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center">Payment Amount :</label>
-                                        <div class="col col-sm-3">
-                                            <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-re-amount" style="text-align: right;" readonly>
-                                        </div>
-                                        <div class="col col-sm-2">
-                                            <select name="" id="" class="form-select form-select-sm shadow-none sel-payment-re-amount_cur" disabled>
-                                                <option value="" selected></option>
-                                                <option value="THB">THB</option>
-                                                <option value="USD">USD</option>
-                                                <option value="RMB">RMB</option>
-                                            </select>
-                                        </div>
+                        <div class="card-add-advance-cash-payment">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title fw-normal">Advance Cash Payment</h4>
                                     </div>
                                 </div>
-                                <div style="float: right">
-                                    <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 align-self-center">Total Advance Cash For Return :</label>
+                                            <div class="col col-sm-3">
+                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-advance_cash_req" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-sm-2">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none" disabled>
+                                                    <option value="" selected>THB</option>
+                                                    <option value="">USD</option>
+                                                    <option value="">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 align-self-center">Payment medthod :</label>
+                                            <div class="col col-sm-3">
+                                                <select name="" id="" class="form-select form-select-sm sel-mt-return" disabled>
+                                                    <option value="" selected></option>
+                                                    <option value="Tranfer">Tranfer</option>
+                                                    <option value="Cash">Cash</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 align-self-center">Payment By. :</label>
+                                            <div class="col col-sm-3">
+                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-by" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 align-self-center">Payment datetime :</label>
+                                            <div class="col col-sm-3">
+                                                <input type="datetime" class="form-control form-control-sm col-sm-2 inp-payment-d-time" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 align-self-center">Payment Amount :</label>
+                                            <div class="col col-sm-3">
+                                                <input type="text" class="form-control form-control-sm col-sm-2 inp-payment-re-amount" style="text-align: right;" readonly>
+                                            </div>
+                                            <div class="col col-sm-2">
+                                                <select name="" id="" class="form-select form-select-sm shadow-none sel-payment-re-amount_cur" disabled>
+                                                    <option value="" selected></option>
+                                                    <option value="THB">THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

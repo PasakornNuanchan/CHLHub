@@ -54,9 +54,6 @@ foreach($arr_save_ar as $k => $v){
           'AR'
       )
         ";
-      $status = $con->query($query_insert);
-      echo json_encode($status);
-
       }else{
    $sql_update = 
     "
@@ -76,7 +73,8 @@ foreach($arr_save_ar as $k => $v){
           ID = '$val_id'
     ";
     $status = $con->query($sql_update);
-    echo json_encode($status);
+    
     }
+    echo json_encode($status);
 }
     

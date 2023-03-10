@@ -62,14 +62,19 @@ const billing = {
         $('.bcpage').append(html_bdpage);
         await billing.set_data_description();
         await billing_ap.set_data_description_ap();
+        await billing.get_sl_ar();
         await billing.set_preview_data_ar(job_number);
+        await billing_ap.get_sl_ap();
         await billing_ap.set_preview_data_ap(job_number);
     },
-    set_preview_data_ar: async function (job_number) {
-        let html_des_ar = '';
+    get_sl_ar : async function(){
         sl_des = $('.sel_description_ar').parent().html();
         sl_bill = $('.sel_bill_to_ar').parent().html();
         sl_cur = $('.sel_cur_description_ar').parent().html();
+    },
+
+    set_preview_data_ar: async function (job_number) {
+        let html_des_ar = '';
         let res_data = await billing.ajax_set_preview_ar(job_number);
         console.log(res_data);
         $('[name = billing-ar-tbl] tbody').html('');
@@ -82,44 +87,33 @@ const billing = {
                 let id_val = v['ID'];
                 //let payblecheck = parseInt(v['payble']);
                 let payble_ar = '';
-                let action_payble_ar = '';
-                let action_del_ar = '';
+               
 
                 if (v['payble'] == '0') {
                     payble_ar = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Unpaid</span>'
-                    action_payble_ar = '';
-                    action_del_ar = '';
-                    action_readonly = '';
                 } else {
                     payble_ar = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span>'
-                    action_payble_ar = 'disabled';
-                    action_del_ar = 'hidden';
-                    action_readonly = 'readonly';
                 }
-                if (v['check_by'] == null) {
-                    check_status = 'unchecked';
-                } else {
-                    check_status = 'checked disabled';
-                }
+               
                 html_des_ar = `
             <tr class="text-center des_ar${i}">
                 <td><div class="db_sel_des sel_des${i}">${sl_des}</div></td>
                 <td><div class="db_sel_bill sel_bill${i}">${sl_bill}</div></td>
                 <td>${payble_ar}</td>
                 <td><div class="db_sel_cur sel_cur${i}">${sl_cur}</div></td>
-                <td><input type="text" class="form-control inp_qty_ar" onchange="billing.change_amount_qty_ar(this);" value="${v['qty']}" style="text-align:right;" ${action_readonly}></td>
-                <td><input type="number" class="form-control inp_unit_price_ar" onchange="billing.change_amount_unit_ar(this);" value="${u_price.toFixed(2)}" style="text-align:right;" ${action_readonly}></td>
+                <td><input type="text" class="form-control inp_qty_ar action_qty_ar${i}" onchange="billing.change_amount_qty_ar(this);" value="${v['qty']}" style="text-align:right;" ></td>
+                <td><input type="number" class="form-control inp_unit_price_ar action_up_ar${i}" onchange="billing.change_amount_unit_ar(this);" value="${u_price.toFixed(2)}" style="text-align:right;"></td>
                 <td><input type="text" class="form-control inp_amt_ar" value="${number_format(ar_amt.toFixed(2))}" style="text-align:right;" readonly></td>
                 <td><input type="text" class="form-control vat_change vat_cal inp_vat" value="${vat}%" style="text-align:right;" readonly></td>
                 <td><input type="text" class="form-control inp_amt_icv_ar"  value="${number_format(amtincvat.toFixed(2))}" style="text-align:right;" readonly></td>
                 <td><input type="text" class="form-control inp_remark" value="${v['remark']}"></td>
-                <td><input type="checkbox" class="form-check-input" onclick="billing_all.push_check(${v['ID']});" ${check_status}></td>
+                <td><input type="checkbox" class="form-check-input check_status_ar${i}" onclick="billing_all.push_check(${v['ID']},'tr');" ></td>
                 <td>
-                    <button type="button" class="btn btn-success rounded-pill btn-xs" ${action_payble_ar} onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
+                    <button type="button" class="btn btn-success rounded-pill btn-xs action_payble_ar${i}" onclick ="billing.push_paid(${v['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-cash-coin"></i> Paid</button>
                 </td>
                 <td>
                 <button type="button" class="btn btn-primary rounded-pill btn-xs" onclick="billing.push_save_ar_row(this,${id_val});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> save</button>
-                <button type="button" class="btn btn-danger rounded-pill btn-xs" ${action_del_ar} onclick="billing.push_del_ar_row(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
+                <button type="button" class="btn btn-danger rounded-pill btn-xs action_del_ar${i}"  onclick="billing.push_del_ar_row(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-trash"></i> Delete</button>
                 </td>
             </tr>
             `;
@@ -133,6 +127,14 @@ const billing = {
                     $(`.sel_des${i} > select`).val(v['billing_number']).attr('disabled', true);
                     $(`.sel_bill${i} > select`).val(v['consignee_number']).attr('disabled', true);
                     $(`.sel_cur${i} > select`).val(v['currency']).attr('disabled', true);
+                    $(`.action_payble_ar${i}`).attr('disabled',true)
+                    $(`.action_del_ar${i}`).attr('hidden',true)
+                    $(`.action_qty_ar${i}`).attr('disabled',true)
+                    $(`.action_up_ar${i}`).attr('disabled',true)
+                }
+
+                if (v['check_by'] != null) {
+                    $(`.check_status_ar${i}`).prop('checked',true).attr('disabled',true)
                 }
             });
         }
@@ -159,10 +161,13 @@ const billing = {
         })
     },
     save_ar_row: async function (e, val_id) {
+
+        
+
         let parse = $(e).closest('tr')
         let sel_des = $(parse).find('.sel_description_ar').val();
-        let sel_bill_to = $(parse).find('.sel_bill_to').val();
-        let sel_cur_description = $(parse).find('.sel_cur_description').val();
+        let sel_bill_to = $(parse).find('.sel_bill_to_ar').val();
+        let sel_cur_description = $(parse).find('.sel_cur_description_ar').val();
         let inp_qty_ar = $(parse).find('.inp_qty_ar').val();
         let inp_unit_price_ar = $(parse).find('.inp_unit_price_ar').val();
         let inp_amt_ar = $(parse).find('.inp_amt_ar').val();
@@ -184,6 +189,7 @@ const billing = {
             inp_amt_icv_ar: inp_amt_icv_ar,
             inp_remark: inp_remark
         }
+        
         arr_save_ar.push(arr_save_ar_tmp)
         await billing.ajax_save_ar(arr_save_ar)
     },

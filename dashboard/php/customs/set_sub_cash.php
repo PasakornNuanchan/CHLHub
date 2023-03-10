@@ -8,6 +8,7 @@ $sql_payment = "
     cp.type,
     bd.billing_item_name,
     cp.amount,
+    cp.currency,
     u.first_name,
     u.last_name,
     cp.job_number,

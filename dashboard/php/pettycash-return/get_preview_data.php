@@ -2,30 +2,12 @@
 $petty_number = $_POST['petty_number'];
     include '../../core/conn.php';
     $sql_pct = "
-    SELECT 
-    
-      pct.petty_cash_number,
-      pct.datetime_request,
-      rqn.first_name as rq_by_first,
-      rqn.last_name as rq_by_last,
-      rqt.first_name as tf_by_first,
-      rqt.last_name as tf_by_last,
-      pct.total_amount_request,
-      pct.total_amount_request_cur,
-      pct.tranfer_method,
-      pct.tranfer_bank_name,
-      pct.tranfer_bank_number,
-      pct.tranfer_amount,
-      pct.tranfer_datetime,
-      pct.tranfer_amount_cur,
-      pct.return_payment_datetime,
-      pct.amount_return,
-      pct.amount_return_cur,
-      pct.return_payment_method
-      FROM `petty_cash_title` as pct
-        INNER JOIN user rqn ON (pct.request_by = rqn.user_number)
-        INNER JOIN user rqt ON (pct.tranfer_by = rqt.user_number)
-        WHERE petty_cash_number = '$petty_number'
+    SELECT act.*,trpc.*,
+req.first_name as freq,
+req.last_name as lreq FROM petty_cash_title as act 
+LEFT JOIN transac_recript_petty_cash as trpc ON act.petty_cash_number = trpc.doc_number
+LEFT JOIN user as req ON act.request_by = req.user_number
+WHERE act.petty_cash_number = '$petty_number' 
     ";
 
    $sql_pcd = "
@@ -46,10 +28,24 @@ $petty_number = $_POST['petty_number'];
 
     $job_number = 0;
 
-
-
-
+  $sql_tranfer = "
+  SELECT trpc.paid_date_time,u.first_name,u.last_name FROM `transac_recript_petty_cash` as trpc 
+  LEFT JOIN user as u ON trpc.tranfer_by = u.user_number WHERE trpc.doc_number = '$petty_number'
+  ";
  
+
+    $result = $con -> query($sql_tranfer);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $pdt[] = $row['paid_date_time'];
+          $name[] = $row['first_name']." ".$row['last_name'];
+
+        } 
+      } else {
+        $pct = "0 results";
+      }
+      $imp_pdt = implode(',',$pdt);
+      $imp_name = implode(',',$name);
     
     $result = $con -> query($sql_pct);
     if ($result->num_rows > 0) {
@@ -99,7 +95,7 @@ $petty_number = $_POST['petty_number'];
       foreach ($dtpc as $k => $v) {
         $dtpc_arr[$v['job_number']][] = $v;
       }
-     echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn));
+     echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn,'pdt'=>$imp_pdt,'name'=>$imp_name));
     
 
 

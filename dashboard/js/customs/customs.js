@@ -31,7 +31,9 @@ const customs ={
            await customs_set_sub_booking.set_sub_booking_preview_data(job_number);
            await customs_set_sub_customs.set_preview_table_document(job_number);
            await customs_set_sub_transport.set_sub_transport_preview_data(job_number);
+           await customs_set_sub_cash.set_sel_ptc(job_number);
            await customs_set_sub_cash.set_sub_cash_preview_data(job_number);
+           
         } else {
 
         }

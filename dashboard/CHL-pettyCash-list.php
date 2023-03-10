@@ -73,20 +73,23 @@ include 'core/con_path.php';
                                         <?php
                                          $sql_table_list = "
                                           SELECT 
+                                                pct.id,
                                                 pct.datetime_request,
                                                 pct.petty_cash_number,
                                                 u.first_name,
                                                 u.last_name,
                                                 COUNT(pcd.job_number) as COUNT_job,
-                                                pct.total_amount_request,
                                                 IF(tranfer_by IS NOT NULL ,1,0) as payble_check
                                             FROM 
                                                 `petty_cash_title` as pct
                                                 INNER JOIN user as u ON pct.request_by = u.user_number
                                                 INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
-                                            WHERE u.user_number = '$data_user'
+                                            WHERE u.user_number = '$data_user'                  
                                             GROUP BY 
-                                                pcd.petty_cash_number                                     
+                                                pcd.petty_cash_number   
+                                            ORDER BY 
+                                                pcd.id DESC      
+                                            
                                             ";
                                         $fetch_sql = mysqli_query($con, $sql_table_list);
                                         while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
@@ -96,7 +99,7 @@ include 'core/con_path.php';
                                                 <td><?= $result_table_list['petty_cash_number']; ?></td>
                                                 <td><?= $result_table_list['first_name']; ?> <?= $result_table_list['last_name']; ?></td>
                                                 <td><?= $result_table_list['COUNT_job']; ?></td>
-                                                <td><button type="button" onclick="pettycash_list.preview(<?= $result_table_list['petty_cash_number']; ?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                                <td><button type="button" onclick="pettycash_list.preview('<?= $result_table_list['petty_cash_number']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
 
                                             </tr>
                                         <?php }; ?>

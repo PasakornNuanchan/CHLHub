@@ -16,7 +16,7 @@ foreach ($list_data as $k => $v) {
     $job_number_pcn = isset($v['job_number_pcn']) ? $v['job_number_pcn'] : '';
     $petty_cash_number_cash = isset($v['petty_cash_number_cash']) ? $v['petty_cash_number_cash'] : '';
 
-    $sql_add_list =
+    echo $sql_add_list =
         "INSERT INTO `cash_payment`(
             `type`,
             `description`,
