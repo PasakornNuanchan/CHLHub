@@ -48,13 +48,13 @@ WHERE
 
     $sql_continfo = "
     SELECT 
- ci.cargo,
- ci.cargo_type,
- ci.quantity,
- ci.gw,
- ci.mark,
- ci.volume,
- hs.ID as hs
+      ci.cargo,
+      ci.cargo_type,
+      ci.quantity,
+      ci.gw,
+      ci.mark,
+      ci.volume,
+      hs.ID as hs
  FROM `container_information` as ci
     INNER JOIN hs_code as hs ON ci.hs_code = hs.hs_code
     where `job_number` ='$job_number'
@@ -104,4 +104,3 @@ WHERE
 
 
       echo json_encode(array('booking'=>$booking,'contain'=>$contain,'container_table'=>$container_table));
-?>

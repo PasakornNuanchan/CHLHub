@@ -338,7 +338,8 @@ const quartation_markup = {
             }
         })
     },
-    ajax_sign_markup : function (data = {}) {  
+    ajax_sign_markup : function (data = {}) { 
+        console.log(data); 
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",

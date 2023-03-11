@@ -4,7 +4,6 @@
 
     $st = array('st'=>'1','err'=>'');
     $quo_no = $_POST['quo_no'];
-
     function create_job_no(){
         include '../../core/conn.php';
         $date = date("Ym");
@@ -51,7 +50,7 @@
             $creator = $_SESSION['ID'];
             $sql_job = "
             INSERT INTO `job_title`(
-                `quo_no`,
+                `quartation_number`,
                 `job_number`,
                 `consignee_number`,
                 `carrier_number`,
@@ -99,17 +98,63 @@
         $stmt->execute();
         
         //Cargo Information
-         $sql_cargo_info = "
-         INSERT INTO `container_information`(
-            `job_number`
-         )
-         VALUES(
-            ?
-         )
-         ";
-         $stmt = $con->prepare($sql_cargo_info);
-         $stmt->bind_param("s", $job_no);
-         $stmt->execute();
+        $sql_cargo_info = "
+        INSERT INTO `container_information`(
+        `job_number`
+        )
+        VALUES(
+        ?
+        )
+        ";
+        $stmt = $con->prepare($sql_cargo_info);
+        $stmt->bind_param("s", $job_no);
+        $stmt->execute();
+
+        //Container
+        $sql_container = "
+        SELECT
+            container_type.container_type_number as 'container_type',
+            quartation_detail_base.qty
+        FROM
+            `quartation_detail_base`
+        INNER JOIN route ON route.route_number = quartation_detail_base.base_service_route
+        LEFT JOIN container_type ON container_type.container_type_name = route.container_type
+            where quartation_detail_base.quartation_number = ? AND quartation_detail_base.ID = ?
+        ";
+        $stmt = $con->prepare($sql_container);
+        $stmt->bind_param("ss",$quo_no,$qdb_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $i = 1;
+        while ($row = $result->fetch_assoc()) {
+            // print_r($row);
+            while ($i <= $row['qty']) {
+                $container = $row['container_type'];
+                $sql_insert = "
+                INSERT INTO `container`(
+                    `job_number`,
+                    `container_type`
+                )
+                VALUES(
+                    ?,
+                    ?
+                )";
+                $stmt = $con->prepare($sql_insert);
+                $stmt->bind_param("ss",$job_no,$container);
+                $stmt->execute();
+                $i++;
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         // Job number +1
         // Prevent loop query 

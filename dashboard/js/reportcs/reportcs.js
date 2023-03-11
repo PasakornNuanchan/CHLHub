@@ -218,7 +218,7 @@ const reportcs = {
         html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('inv');"></i></div></td>
                         <td align="center">${inv_receiv_by}</td>
                         <td align="center">${inv_receiv_datetime}</td>
                         <td align="center">${inv_check_by}</td>
@@ -228,7 +228,7 @@ const reportcs = {
                     </tr>
                     <tr>
                         <td>Bill of lading</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('bl');"></i></div></td>
                         <td align="center">${BL_receiv_by}</td>
                         <td align="center">${BL_receiv_datetime}</td>
                         <td align="center">${BL_check_by}</td>
@@ -238,7 +238,7 @@ const reportcs = {
                     </tr>
                     <tr>
                         <td>Packing list</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('pl');"></i></div></td>
                         <td align="center">${PL_receiv_by}</td>
                         <td align="center">${PL_receiv_datetime}</td>
                         <td align="center">${PL_check_by}</td>
@@ -248,7 +248,7 @@ const reportcs = {
                     </tr>
                     <tr>
                         <td>Import Declaration</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('id');"></i></div></td>
                         <td align="center">${ID_receiv_by}</td>
                         <td align="center">${ID_receiv_datetime}</td>
                         <td align="center">${ID_check_by}</td>
@@ -258,7 +258,7 @@ const reportcs = {
                     </tr>
                     <tr>
                         <td>Import Licence</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('il');"></i></div></td>
                         <td align="center">${IL_receiv_by}</td>
                         <td align="center">${IL_receiv_datetime}</td>
                         <td align="center">${IL_check_by}</td>
@@ -947,7 +947,6 @@ const reportcs = {
         if ($('#add_moda').length >= 1) {
           $('#add_moda').remove()
         }
-            console.log(val_get)
         let head_modal = '';
         if(val_get == "inv"){
             head_modal = "invoice"
@@ -962,7 +961,7 @@ const reportcs = {
         }
 
         html = `
-            <div class="modal fade" id="add_moda">
+            <div class="modal fade" id="add_moda" docs_type="${val_get}">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- Modal Header -->
@@ -977,7 +976,7 @@ const reportcs = {
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">upload file :</label>
                                     <div class="col-sm-11 col-lg-8 col-md-6">
-                                        <input type="file" class="form-control form-control-sm inp-quo_no" >
+                                        <input type="file" class="form-control form-control-sm inp_file_cs" >
                                     </div>
                                 </div>
                             </div>
@@ -985,6 +984,7 @@ const reportcs = {
                 
                         <!-- Modal footer -->
                         <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="reportcs.save_doc_image(this)">Save Docs</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                 
@@ -1070,9 +1070,84 @@ const reportcs = {
             });
         });
     },
+    },
+
+    save_doc_image :async function (e=null) {  
+        const job_no = $('.inp-job_number').val();
+        const Base_64_file = await convert_file();
+        let type = $(e).closest('#add_moda').attr('docs_type');
+        let data = {
+            'file_64' : Base_64_file,
+            'type' : type,
+            'job_no' : job_no}
+        let res = await reportcs.ajax_save_docs(data);
+        if(res['st'] == '1'){
+            Swal.fire(
+                'saved!',
+                'Your file has been saved.',
+                'success'
+            )
+            $('#add_moda').modal('hide');
+        }else{
+            Swal.fire(
+                'Error!',
+                'Your file has not been saved.',
+                'error'
+
+            )
+        }
+    },
+
+    ajax_save_docs : function (data) {  
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/save_docs.php",
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    resolve(response)
+                }
+            });
+        });
+    },
+    download_file : function (e=null) {  
+        let type = e;
+        let job_no = $('.inp-job_number').val();
+        let data = {
+            'type' : type,
+            'job_no' : job_no
+        }
+        $.ajax({
+            type: "post",
+            url: "php/reportcs/download_file.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
+        });
+    },
+    
 };
 
+async function convert_file(e = null) {  
+    let myFile = $('.inp_file_cs').prop('files')[0];
+    
+    const base64String = await toBase64(myFile);
+    return(base64String);
+}
 
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 function number_format(nStr) {
     nStr += '';
     x = nStr.split('.');
