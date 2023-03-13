@@ -154,7 +154,7 @@ const billing_ap = {
         let html_bill_to = '';
         $.each(set_data['bl_bill'], function (i, v) {
             html_bill_to += `
-            <option value="${v['consignee_number']}">${v['consignee_name']}</option>
+            <option bill_to_type="${v['bill_to_type']}" value="${v['ID']}">${v['bill_to_name']}</option>
             `;
         });
 
@@ -165,7 +165,7 @@ const billing_ap = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/billing/get_billing.php",
+                url: "php/billing/get_billing_ap.php",
                 data: { 'job_number': job_number },
                 dataType: "json",
                 success: function (response) {
@@ -264,6 +264,7 @@ const billing_ap = {
         let parse = $(e).closest('tr')
         let sel_des = $(parse).find('.sel_description_ap').val();
         let sel_bill_to = $(parse).find('.sel_bill_to_ap').val();
+        let sel_bill_to_type = $(parse).find('.sel_bill_to_ap option:selected').attr('bill_to_type');
         let sel_cur_description = $(parse).find('.sel_cur_description_ap').val();
         let inp_qty_ar = $(parse).find('.inp_qty_ap').val();
         let inp_unit_price_ar = $(parse).find('.inp_unit_price_ap').val();
@@ -278,6 +279,7 @@ const billing_ap = {
             sel_des: sel_des,
             job_number: billing.job_number_global,
             sel_bill_to: sel_bill_to,
+            sel_bill_to_type: sel_bill_to_type,
             sel_cur_description: sel_cur_description,
             inp_qty_ar: inp_qty_ar,
             inp_unit_price_ar: inp_unit_price_ar,
