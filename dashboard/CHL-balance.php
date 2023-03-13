@@ -102,7 +102,7 @@ require 'function/auth/get_session.php';
                                         <thead>
                                             <tr align="center" class="bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                 <th>AD. Number</th>
-                                                <th>Customs Clearance</th>
+                                                
                                                 <th>Amount</th>
                                                 <th>Curency</th>
                                                 <th>Action</th>
@@ -112,7 +112,7 @@ require 'function/auth/get_session.php';
                                             <tr class="text-center">
                                                 <td>PT220902</td>
                                                 <td>18,000.00</td>
-                                                <td><span class="badge rounded-pill bg-success">Success</span></td>
+                                                
                                                 <td><button class="btn btn-primary rounded-pill btn-xs "><i class="bi bi-eye"></i> Check</button></td>
                                             </tr>
                                         </tbody>
@@ -126,9 +126,8 @@ require 'function/auth/get_session.php';
                                 <div class="table-responsive mt-4">
                                     <table id="basic-table" class="table table-hover mb-3 text-center" name="ad_nhc_table" role="grid" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                         <thead>
-                                            <tr class="bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                            <tr class="bg-gradient" style="background-color :#FF0000; color :aliceblue;">
                                                 <th>Job Nubmer</th>
-                                                <th>Customs Clearance</th>
                                                 <th>Amount</th>
                                                 <th>Curency</th>
                                             </tr>
@@ -137,7 +136,7 @@ require 'function/auth/get_session.php';
                                             <tr class="text-center">
                                                 <td>PT220902</td>
                                                 <td>17,000.00</td>
-                                                <td><span class="badge rounded-pill bg-success">Success</span></td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>

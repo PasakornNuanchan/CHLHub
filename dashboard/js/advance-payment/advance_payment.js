@@ -1,5 +1,5 @@
 const advance_return = {
-    advance_cash_global : '',
+    advance_cash_global: '',
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -20,7 +20,7 @@ const advance_return = {
 
         let job_doc_ad = get_doc_ad == false ? null : get_doc_ad;
         let action = get_action == false ? null : get_action;
-        
+
         this.advance_cash_global = job_doc_ad;
         console.log(action);
 
@@ -32,6 +32,8 @@ const advance_return = {
 
         }
     },
+
+    
 
     set_preview_data: async function (job_doc_pt) {
 
@@ -102,6 +104,7 @@ const advance_return = {
         console.log(currency_th)
         console.log(currency_us)
         console.log(currency_ch)
+
         // end Description Petty cash request 
 
         // petty cash return
@@ -116,7 +119,6 @@ const advance_return = {
         html_adcp = '';
         $('.card-add-advance-cash-payment').html('');
         $.each(res_data['main_return'], function (i, v) {
-
             let total_advance = parseFloat(v['amount']);
             let currency = v['currency'];
 
@@ -180,14 +182,14 @@ const advance_return = {
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-3 align-self-center">Payment datetime :</label>
+                        <label class="control-label col-sm-3 align-self-center">upload receipt :</label>
                         <div class="col col-sm-3">
                             <input type="file" class="form-control form-control-sm col-sm-2 inp-pic${i}" >
                         </div>
                     </div>
                 </div>
-                <div style="float: right">
-                    <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="advance_return.save_list_payment('${i}',${v['ref_id']})"><i class="bi bi-check-square"></i> Save</button>
+                <div style="float: right" class="btn_save_list${i}">
+                    <button class="btn btn-success" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="advance_return.save_list_payment('${i}','${v['id_job_req']}','${v['ID']}')"><i class="bi bi-check-square"></i> Save</button>
                 </div>
             </div>
         </div>
@@ -196,6 +198,15 @@ const advance_return = {
 
             $(`.sel-currency-total${i}`).val(currency)
             $(`.sel-payment-re-amount_cur${i}`).val(currency)
+
+            if(v['first_name'] != null){
+            $(`.sel-mt-return${i}`).attr('disabled',true)
+            $(`.inp-payment-by${i}`).attr('disabled',true).val(v['first_name']+' ' +v['last_name']);
+            $(`.inp-payment-d-time${i}`).attr('disabled',true).val(v['payment_date_time']);
+            $(`.inp-payment-re-amount${i}`).attr('disabled',true).val(v['payment_amount']);
+            $(`.inp-pic${i}`).attr('disabled',true)
+            $(`.btn_save_list${i}`).attr('hidden',true)
+            }
         })
 
 
@@ -224,31 +235,37 @@ const advance_return = {
             $('[name = "des-check"] tbody').append(html_check);
             no_des_petty_return++;
         });
-
+        $('.des_ad').html('');
         $('[name = "des-check"] tbody').html('');
         $('.des_hide').html('');
 
-        $.each(res_data['dtpc'], function (i, v) {
-            let num1 = 0;
-            let html_des = '';
+        $.each(res_data['dtpc'], function (i, v) { // job
+            
             var Cash = parseFloat(cash_arr[i]);
+            let main_html = '';
 
-            $.each(v, function (i1, v1) {
-                pf_amount_dtpc_arr = parseFloat(v1['amount']);
+            $.each(v, function (i1, v1) { // currency
+                let html_des = '';     
+                let num1 = 0;   
+                
+                $.each(v1, function (i2, v2) {    // list
+                
+                pf_amount_dtpc_arr = parseFloat(v2['amount']);
                 num1++;
                 html_des +=
                     `
-            <tr class="text-center">
-                <td>${num1}</td>
-                <td><input type="input" class="form-control form-control-sm" value="${v1['billing_item_name']}" readonly></td>
-                <td><input type="input" class="form-control form-control-sm" value="${number_format(pf_amount_dtpc_arr.toFixed(2))}" style="text-align:right;" readonly></td>
-                <td><input type="input" class="form-control form-control-sm" value="${v1['currency']}" readonly></td>
-                <td></td>
-                <td><input type="input" class="form-control form-control-sm" value="${v1['remark']}" readonly></td>
-            </tr>
-            `
-            });
-            let main_html = `
+                    <tr class="text-center">
+                        <td>${num1}</td>
+                        <td><input type="input" class="form-control form-control-sm" value="${v2['billing_item_name']}" readonly></td>
+                        <td><input type="input" class="form-control form-control-sm" value="${number_format(pf_amount_dtpc_arr.toFixed(2))}" style="text-align:right;" readonly></td>
+                        <td><input type="input" class="form-control form-control-sm" value="${v2['currency']}" readonly></td>
+                        <td></td>
+                        <td><input type="input" class="form-control form-control-sm" value="${v2['remark']}" readonly></td>
+                    </tr>
+                    `
+                
+                })
+                 main_html += `
             <div class="form-group row">
                 <div class="form-group row job_des_title">
                     <label class="control-label col-sm-2 align-self-center">Job number :</label>
@@ -277,16 +294,16 @@ const advance_return = {
             <div class="cal_des_detail">
                 <div class="alert alert-solid col-sm-12 " style="background: #10929A; color:white; text-align:center;">
                     <div class="small">
-                        <label class="control-label col align-self-center fw-bold">Total Advance Cash : &nbsp&nbsp</label>
-                        <label class="control-label col align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
-                        <label class="control-label col align-self-center text-center">&nbsp&nbspTHB&nbsp&nbsp</label>
                         <label class="control-label col align-self-center fw-bold">Advance Cash Return : &nbsp&nbsp</label>
                         <label class="control-label col align-self-center" align="right">${number_format(Cash.toFixed(2))}</label>
-                        <label class="control-label col align-self-center text-center">&nbsp&nbspTHB&nbsp&nbsp</label>
+                        <label class="control-label col align-self-center text-center">&nbsp&nbsp${i1}&nbsp&nbsp</label>
                     </div>
                 </div>
-            </div>
+            </div> <br>
             `;
+            
+            
+            });
             $('.des_ad').append(main_html);
         });
 
@@ -307,7 +324,7 @@ const advance_return = {
     },
 
 
-    save_list_payment : async function (val,val_id) {
+    save_list_payment: async function (val, ref_cp_id , ref_id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -317,20 +334,21 @@ const advance_return = {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
-
-
-            await this.set_arr_sv_list(val,val_id)
+            
             if (result.isConfirmed) {
-                Swal.fire(
+                await this.set_arr_sv_list(val, ref_cp_id , ref_id)
+                await Swal.fire(
                     'saved!',
                     'Your file has been saved.',
                     'success'
                 )
+                await this.set_preview_data(this.advance_cash_global)
             }
+
         })
     },
 
-    set_arr_sv_list : async function(val,val_id){
+    set_arr_sv_list: async function (val, ref_cp_id , ref_id) {
 
         let sel_mt = $(`.sel-mt-return${val}`).val()
         let inp_payment_amount = $(`.inp-payment-re-amount${val}`).val()
@@ -341,15 +359,32 @@ const advance_return = {
         arr_sv_list_temp = {}
 
         arr_sv_list_temp = {
-            sel_mt : sel_mt,
-            inp_payment_amount : inp_payment_amount,
-            sel_payment_currency : sel_payment_currency,
-            inp_file : inp_file,
-            advance_number : this.advance_cash_global
+            sel_mt: sel_mt,
+            inp_payment_amount: inp_payment_amount,
+            sel_payment_currency: sel_payment_currency,
+            inp_file: inp_file,
+            advance_number: this.advance_cash_global,
+            ref_cp_id: ref_cp_id,
+            ref_id : ref_id
+
         }
 
         arr_sv_list.push(arr_sv_list_temp)
-        console.log(arr_sv_list)
+        await this.ajax_sv_adc_list(arr_sv_list)
+    },
+
+    ajax_sv_adc_list: function (arr_sv_list) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/advance-return/sv_adc_list.php",
+                data: { 'arr_sv_list': arr_sv_list },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
     },
 
 };

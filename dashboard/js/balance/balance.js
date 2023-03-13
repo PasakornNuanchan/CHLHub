@@ -69,21 +69,15 @@ const balance = {
     }else{
         $.each(res_data['ad_wfc'], function (i, v) { 
             advance_cash_balance += parseFloat(v['total_amount']);
-            pf_adw = parseFloat(v['total_amount']);
-            let sta_cleat = '';
-            st_clearance = v['clearance_status'];
-            if(st_clearance == '1'){
-                sta_clear = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Success</span>';
-            }else if(st_clearance = '0'){
-                sta_clear = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">fail</span>'
-            }
+            pf_adw = parseFloat(v['amount']);
+           
+           
 
             html_set_ad_wfc = `
             <tr class="text-center">
                 <td>${v['advance_cash_number']}</td>
-                <td>${sta_clear}</td>
-                <td>${number_format(pf_adw.toFixed(2))}</td>
-                <td>${v['total_amount_request_cur']}</td>
+                <td style="text-align:right;">${number_format(pf_adw.toFixed(2))}</td>
+                <td>${v['currency']}</td>
                 <td><button onclick="advance_cash_con.preview('${v['advance_cash_number']}');" class="btn btn-primary rounded-pill btn-xs bg-gradient" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Check</button></td>
             </tr>
             `;
@@ -98,20 +92,12 @@ const balance = {
 
     }else{
         $.each(res_data['ad_hnc'], function (i, v) { 
-            advance_cash_balance += parseFloat(v['amount']);
+            advance_cash_balance = parseFloat(v['amount']);
             pf_adnc = parseFloat(v['amount']);
-
-            st_clearance = v['clearlance_status'];
-            if(st_clearance == '1'){
-                sta_clear = '<span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Success</span>';
-            }else if(st_clearance = '0'){
-                sta_clear = '<span class="badge rounded-pill bg-danger" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">fail</span>'
-            }
 
             html_set_ad_nhc = `
             <tr class="text-center">
                 <td>${v['job_number']}</td>
-                <td>${sta_clear}</td>
                 <td>${number_format(pf_adnc.toFixed(2))}</td>
                 <td>${v['currency']}</td>
             </tr>

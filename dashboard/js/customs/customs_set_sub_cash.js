@@ -305,7 +305,7 @@ const customs_set_sub_cash = {
                         })
                     } else {
 
-                        let res = await customs_set_sub_cash.get_val_cash()
+                        await customs_set_sub_cash.get_val_cash()
                         
                         Swal.fire(
                             'saved!',
@@ -364,9 +364,11 @@ const customs_set_sub_cash = {
         };
 
         arr_get_val_cash.push(arr_get_val_cash_tmp)
-        
+        console.log("test")
         await customs_set_sub_cash.ajax_save_pcn(arr_get_val_cash)
+        console.log("test")
         await customs_set_sub_cash.reset_val_cash()
+        console.log("test")
 
 
     },
@@ -381,9 +383,7 @@ const customs_set_sub_cash = {
                 data: { 'arr_get_val_cash': arr_get_val_cash },
                 dataType: "json",
                 success: function (res) {
-
                     resolve(res);
-
                 },
             });
         });

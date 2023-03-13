@@ -22,28 +22,16 @@ WHERE
 
     ";
     $sql_awt = "
-    SELECT act.advance_cash_number,
-    SUM(acd.amount) as total_amount ,
-    IF(COUNT(acd.job_number) = COUNT(jt.clearlance_date),'1','0') as clearance_status  ,
-    act.payment_by,
-    act.total_amount_request_cur
-    FROM advance_cash_title  as act
-INNER JOIN advance_cash_detail as acd ON act.advance_cash_number = acd.advance_cash_number
-INNER JOIN job_title as jt ON acd.job_number = jt.job_number
-INNER JOIN user u ON act.request_by = u.user_number
-WHERE 
-        u.user_number = '$data_user'
-GROUP BY act.advance_cash_number
-HAVING act.payment_by IS NULL
-
+    SELECT acd.* FROM advance_cash_detail as acd
+    LEFT JOIN transac_return_advance_cash as trac ON acd.ID = trac.ref_id
+    LEFT JOIN advance_cash_title as act ON act.advance_cash_number = acd.advance_cash_number
+    WHERE act.request_by = '$data_user' AND trac.ref_id IS  NULL
     ";
+
+
     $sql_hnc = "
-    SELECT cp.job_number,cp.amount,cp.currency,IF(jt.clearlance_date IS NULL ,'0','1') as clearlance_status 
-    FROM cash_payment as cp
-    LEFT OUTER JOIN advance_cash_detail as acd ON cp.job_number = acd.job_number
-    INNER JOIN job_title as jt ON cp.job_number = jt.job_number
-    INNER JOIN user u ON cp.create_by = u.user_number
-    WHERE acd.job_number IS NULL 
+   SELECT cp.job_number,cp.amount,cp.currency FROM cash_payment as cp
+WHERE cp.type = 'Advance Cash' AND cp.status = '0' AND cp.create_by = '$data_user'
 
     ";
 

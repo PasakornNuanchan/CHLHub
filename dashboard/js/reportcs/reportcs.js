@@ -1070,7 +1070,7 @@ const reportcs = {
             });
         });
     },
-    },
+    
 
     save_doc_image :async function (e=null) {  
         const job_no = $('.inp-job_number').val();
