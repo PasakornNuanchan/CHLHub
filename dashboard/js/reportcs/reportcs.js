@@ -96,7 +96,7 @@ const reportcs = {
         $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
         $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
-
+        console.log(res_data)
         //Document
         if (res_data['dej']['INV_receiv_by'] == "") {
             inv_status = '';
@@ -218,60 +218,78 @@ const reportcs = {
         html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('inv');"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image inv_pic_show download_file" onclick="reportcs.download_file('inv');"></i></div></td>
                         <td align="center">${inv_receiv_by}</td>
                         <td align="center">${inv_receiv_datetime}</td>
                         <td align="center">${inv_check_by}</td>
                         <td align="center">${inv_check_datetime}</td>
                         <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('inv')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status}><i class="bi bi-check-square"></i> receiv</button>
-                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient inv_btn_edit" onclick="reportcs.modal_doc('inv')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${inv_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Bill of lading</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('bl');"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image bl_pic_show download_file" onclick="reportcs.download_file('bl');"></i></div></td>
                         <td align="center">${BL_receiv_by}</td>
                         <td align="center">${BL_receiv_datetime}</td>
                         <td align="center">${BL_check_by}</td>
                         <td align="center">${BL_check_datetime}</td>
                         <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('bl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status}><i class="bi bi-check-square"></i> receiv</button>
-                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient bl_btn_edit" onclick="reportcs.modal_doc('bl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${bl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Packing list</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('pl');"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 "><i class="bi bi-file-earmark-image pl_pic_show download_file" onclick="reportcs.download_file('pl');"></i></div></td>
                         <td align="center">${PL_receiv_by}</td>
                         <td align="center">${PL_receiv_datetime}</td>
                         <td align="center">${PL_check_by}</td>
                         <td align="center">${PL_check_datetime}</td>
                         <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('pl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status}><i class="bi bi-check-square"></i> receiv</button>
-                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient pl_btn_edit" onclick="reportcs.modal_doc('pl')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${pl_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Import Declaration</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('id');"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 id_pic_show"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('id');"></i></div></td>
                         <td align="center">${ID_receiv_by}</td>
                         <td align="center">${ID_receiv_datetime}</td>
                         <td align="center">${ID_check_by}</td>
                         <td align="center">${ID_check_datetime}</td>
                         <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('id')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status}><i class="bi bi-check-square"></i> receiv</button>
-                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient id_btn_edit" onclick="reportcs.modal_doc('id')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${id_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                     <tr>
                         <td>Import Licence</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image download_file" onclick="reportcs.download_file('il');"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image il_pic_show download_file" onclick="reportcs.download_file('il');"></i></div></td>
                         <td align="center">${IL_receiv_by}</td>
                         <td align="center">${IL_receiv_datetime}</td>
                         <td align="center">${IL_check_by}</td>
                         <td align="center">${IL_check_datetime}</td>
                         <td align="center"><button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="reportcs.modal_doc('il')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status}><i class="bi bi-check-square"></i> receiv</button>
-                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
+                        <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient il_btn_edit" onclick="reportcs.modal_doc('il')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                 `;
+        
+
+
         $('[name = tbl_job_status] tbody').html(html_detail_des);
         $('.inp-etd').val(res_data['dej']['']).attr('readonly', true);
         $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
+        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').hide('hidden',true) : '';
+        res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
+        res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden',true) : '';
+        res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden',true) : '';
+        res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden',true) : '';
+
+
+        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').hide('hidden',true) : '';
+        res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden',true) : '';
+        res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden',true) : '';
+        res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden',true) : '';
+        res_data['dej']['IL_check_by'] != '' ? $('.il_btn_edit').attr('hidden',true) : '';
+
+        
+        
         //container
         var html_container = '';
         var container_type_check = '';
@@ -1096,6 +1114,7 @@ const reportcs = {
 
             )
         }
+        this.set_preview_data(this.job_number_global)
     },
 
     ajax_save_docs : function (data) {  
@@ -1148,6 +1167,7 @@ function toBase64(file) {
     reader.onerror = error => reject(error);
   });
 }
+
 function number_format(nStr) {
     nStr += '';
     x = nStr.split('.');
