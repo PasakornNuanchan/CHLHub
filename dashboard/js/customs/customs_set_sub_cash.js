@@ -345,7 +345,9 @@ const customs_set_sub_cash = {
         let type = $('.inp-pcn-type').val();
         let description = $('.sel-des-cash').val();
         let pay_to = $('.inp-pcn-pay').val();
-        let pic = $('.inp-pcn-pic').val();
+        // let pic = $('.inp-pcn-pic').val();
+
+        let pic = await convert_file('.inp-pcn-pic');
         let amount = $('.inp-pcn-amount').val();
         let amount_cur = $('.inp-pcn-amount-cur').val();
         let petty_cash_number_cash = $('.sel-pcn-pcn').val();
@@ -391,6 +393,21 @@ const customs_set_sub_cash = {
 };
 
 
+async function convert_file(c_name) {  
+    let myFile = $(c_name).prop('files')[0];
+    
+    const base64String = await toBase64(myFile);
+    return(base64String);
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 function number_format(nStr) {
     nStr += '';
     x = nStr.split('.');

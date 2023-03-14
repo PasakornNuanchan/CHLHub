@@ -4,7 +4,6 @@
   include '../../core/con_path.php';
 
  $list_data = $_POST['arr_get_val_cash'];
-
 foreach ($list_data as $k => $v) {
     $type = isset($v['type']) ? $v['type'] : '';
     $description = isset($v['description']) ? $v['description'] : '';

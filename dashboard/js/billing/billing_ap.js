@@ -60,12 +60,11 @@ const billing_ap = {
             if (v['payble'] == '0') {
                 
                 $(`.sel_des_ap${i} > select`).val(v['billing_number']);
-                $(`.sel_bill_ap${i} > select`).val(v['consignee_number']);
+                $('.sel_bill_ap' + i + ' > select option[value="' + v['bill_to'] + '"][bill_to_type="' + v['bill_to_type'] + '"]').prop('selected', true);
                 $(`.sel_cur_ap${i} > select`).val(v['currency']);
             } else if(v['payble'] == '1'){
-                
                 $(`.sel_des_ap${i} > select`).val(v['billing_number']).attr('disabled', true);
-                $(`.sel_bill_ap${i} > select`).val(v['consignee_number']).attr('disabled', true);
+                $('.sel_bill_ap' + i + ' > select option[value="' + v['bill_to'] + '"][bill_to_type="' + v['bill_to_type'] + '"]').prop('selected', true);
                 $(`.sel_cur_ap${i} > select`).val(v['currency']).attr('disabled', true);
                 $(`.action_payble_ap${i}`).attr('disabled',true)
                 $(`.action_del_ap${i}`).attr('hidden',true)

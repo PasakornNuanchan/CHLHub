@@ -1,7 +1,5 @@
 const quartation = {
   get_quono : '',
-
-
   set_preview_data: async function (quartation_number = null) {
     let res_data = await quartation.ajax_set_preview_data(quartation_number)
     console.log(res_data)
@@ -276,7 +274,7 @@ const quartation = {
                 <div class="base-add">
                 <H5>Route ${num}</H5>
                     <div class="form-group row">
-                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Carrier :</label>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center"  for="pwd2">Carrier :</label>
                             <div class="col-lg-5 col-md-5">
                                 ${sl_carrier}
                             </div>
@@ -833,16 +831,29 @@ const quartation = {
         data = []
         $(
           $('select:not(.select-currency), input:not(.inp_budget)', parent),
-        ).each(function (i, e) {
+        ).each(async function (i, e) {
           if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
             data_st = 1
+            var carrier = $('.inp-carrier' ,parent).val();
+            var carrier_type = $('.inp-carrier-type' ,parent).val();
+            var pol = $('.inp-port_load' ,parent).val();
+            var pod = $('.inp-port_del' ,parent).val();
+
             // data
+            var data = {
+              'carrier' : carrier,
+              'carrier_type' : carrier_type,
+              'pol' : pol,
+              'pod' : pod}
+
+              let res = await quartation.check_base_route(data)
+
           } else {
             data_st = 0
           }
         })
         if (data_st === 1) {
-          let res = await quartation.check_base_route(data)
+
         }
       },
     )
@@ -852,7 +863,7 @@ const quartation = {
       $.ajax({
         type: 'post',
         url: 'php/quotation/check_route_input.php',
-        data: JSON.stringify(data),
+        data: data,
         dataType: 'json',
         success: function (response) {
           resolve(response)
@@ -866,7 +877,6 @@ const quartation = {
   del_truck_fee_import: function (e = null) {
     $(e).closest('.truck_fee_import_row').remove()
   },
-
   quick_markup: function (e = null) { 
     let url_get = '?quartation_number='+quartation.get_quono;
     let url_get_action = '&action='+'preview';
@@ -875,8 +885,14 @@ const quartation = {
   },
 }
 
-$(function () {
+
+
+
+$(async function () {
+  
   quartation.html_consignee()
   quartation.check_get()
   quartation.check_base_input()
+
+
 })
