@@ -21,7 +21,6 @@ const reportcs = {
         let job_number = get_job_number == false ? null : get_job_number;
         let action = get_action == false ? null : get_action;
         reportcs.job_number_global = job_number
-        console.log(action);
 
         if (action == 'preview') {
             reportcs.set_preview_data(job_number);
@@ -52,6 +51,7 @@ const reportcs = {
 
         let res_data = await reportcs.ajax_set_preview_data(job_number);
         console.log(res_data);
+
 
         // head of menu and breadcrumb
         $('.head-of-menu').html('Report Customser Service');
@@ -96,7 +96,7 @@ const reportcs = {
         $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
         $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
-        console.log(res_data)
+        
         //Document
         if (res_data['dej']['INV_receiv_by'] == "") {
             inv_status = '';
@@ -275,14 +275,14 @@ const reportcs = {
         $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
-        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').hide('hidden',true) : '';
+        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden',true) : '';
         res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
         res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden',true) : '';
         res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden',true) : '';
         res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden',true) : '';
 
 
-        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').hide('hidden',true) : '';
+        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden',true) : '';
         res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden',true) : '';
         res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden',true) : '';
         res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden',true) : '';
@@ -925,7 +925,7 @@ const reportcs = {
           dem_arr.push(dem_arr_tmp)
         });
         
-        console.log(dem_arr)
+        
        let res = await reportcs.ajax_save_dem(dem_arr);
    
     },
@@ -1143,7 +1143,6 @@ const reportcs = {
             data: data,
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 var newTab = window.open();
                 newTab.document.write('<html><body><img src="' + response + '"></body></html>');
             }

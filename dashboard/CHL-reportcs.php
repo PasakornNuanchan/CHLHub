@@ -770,7 +770,7 @@ require 'function/auth/get_session.php';
 <script src="js/reportcs/reportcs_sub_container_dem.js"></script>
 <script>
     $(document).ready(function() {
-
+        sidebar_main.set_data_rows();
         reportcs.check_get();
 
     });

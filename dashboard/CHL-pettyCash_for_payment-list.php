@@ -67,6 +67,16 @@ include 'core/con_path.php';
                                     </thead>
                                     <tbody align="center">
                                         <?php
+
+                                            if ($_SESSION['department_name'] == "support" || $_SESSION['department_name'] == "Account") {
+                                                $sql_where = '';
+                                            } else {
+                                                $sql_where = "
+                                            WHERE 
+                                            u.user_number = '$data_user'
+                                            ";
+                                            };
+
                                             $sql = "
                                             SELECT
                                             pct.datetime_request,
@@ -81,8 +91,7 @@ include 'core/con_path.php';
                                             `petty_cash_title` AS pct
                                         LEFT JOIN USER AS u ON pct.request_by = u.user_number
                                         LEFT JOIN petty_cash_detail AS pcd ON pct.petty_cash_number = pcd.petty_cash_number
-                                        WHERE
-                                            u.user_number = '1'
+                                        $sql_where
                                         GROUP BY
                                             pcd.petty_cash_number
                                             ";
@@ -91,10 +100,10 @@ include 'core/con_path.php';
                                                 $st_ptc = '';
                                                 if($result_table_list['payble_st'] != '1'){
                                                     $color = 'bg-danger';
-                                                    $st_txt = "Paid";
+                                                    $st_txt = "Unaid";
                                                 }else{
                                                     $color = 'bg-success';
-                                                    $st_txt = "Unpaid";
+                                                    $st_txt = "paid";
                                                 }
                                         ?>
                                         <tr>
@@ -134,6 +143,7 @@ include 'core/con_path.php';
 
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         petty_cash_payment_list_set.set_data_rows();
     });
 </script>

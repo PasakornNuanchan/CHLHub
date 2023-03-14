@@ -449,6 +449,7 @@ require 'function/auth/get_session.php';
 
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         $('.js-example-basic-single').select2();
         booking.check_get();
         

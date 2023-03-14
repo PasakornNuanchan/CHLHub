@@ -432,3 +432,8 @@ require 'function/auth/get_session.php';
 </script>
 
 <script src="js/quartation/quartation.js"></script>
+<script>
+    $(document).ready(function(){
+        sidebar_main.set_data_rows();
+    });
+</script>

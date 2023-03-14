@@ -1,5 +1,7 @@
 const transport_sub_transport = {
-
+    html_sel_supplier : '',
+    html_sel_cur : '',
+    html_sel_truck : '',
     ajax_set_preview_data: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -38,6 +40,10 @@ const transport_sub_transport = {
         let html_select_cur = $('.sel_cur').parent().html();
         let html_select_truck = $('.sel-type_truck').parent().html();
         
+        
+        transport_sub_transport.html_sel_supplier = html_select_supplier
+        transport_sub_transport.html_sel_cur = html_select_cur
+        transport_sub_transport.html_sel_truck = html_select_truck
         // transport
         $('.add-card-transport').html('');
         let html_transport = '';
@@ -212,19 +218,14 @@ const transport_sub_transport = {
     </div>    
                 `;
                 route++;
-
                 await $('.add-card-transport').append(html_transport);
-
                 $(`.db-sel-sup${i} > select`).val(sup_n);
                 $(`.db-sel-cur${i} > select`).val(cur_n);
                 $(`.db-sel-truck${i} > select`).val(type_truck);
-
-
             });
        
         }else{
-
-           
+           transport.addtransporthtml()
         }
 
         

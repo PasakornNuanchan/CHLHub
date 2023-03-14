@@ -534,6 +534,7 @@ require 'function/auth/get_session.php';
 
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         transport.check_get();
         
     });

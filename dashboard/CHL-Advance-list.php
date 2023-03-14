@@ -1,6 +1,7 @@
 <?php
+include 'core/conn.php';
 require 'function/auth/get_session.php';
- 
+include 'core/con_path.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -65,19 +66,47 @@ require 'function/auth/get_session.php';
                                         <th>Petty number</th>
                                         <th>Create By</th>
                                         <th>Job Quantity</th>
-                                        <th>Total amount</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
+                                    <?php 
+                                    if ($_SESSION['department_name'] == "support" || $_SESSION['department_name'] == "Account") {
+                                        $sql_where = '';
+                                    } else {
+                                        $sql_where = "
+                                    WHERE 
+                                    u.user_number = '$data_user'
+                                    ";
+                                    };
+
+                                    $sql = "
+                                    SELECT
+                                        act.datetime_request,
+                                        act.advance_cash_number,
+                                        u.first_name,
+                                        u.last_name,
+                                        COUNT(acd.job_number) as COUNT_job,
+                                        act.total_amount_request
+                                    FROM `advance_cash_title` as act
+                                        INNER JOIN user as u ON act.request_by = u.user_number
+                                        INNER JOIN advance_cash_detail as acd ON act.advance_cash_number = acd.advance_cash_number
+                                        $sql_where
+                                    GROUP BY
+                                        acd.advance_cash_number
+                                    ";
+                                    $fetch_sql = mysqli_query($con, $sql);
+                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+    
+                                    ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><button type="button" onclick="advancecash_list.preview('<?=$advancecash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><?= $result_table_list['datetime_request']; ?></td>
+                                            <td><?= $result_table_list['advance_cash_number']; ?></td>
+                                            <td><?= $result_table_list['first_name']; ?> <?= $result_table_list['last_name']; ?></td>
+                                            <td><?= $result_table_list['COUNT_job']; ?></td>
+                                            <td><button type="button" onclick="advancecash_list.preview('<?= $result_table_list['advance_cash_number']; ?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
+                                    <?php };?>
                                 </tbody>
                             </table>
                         </div>
@@ -139,6 +168,7 @@ require 'function/auth/get_session.php';
 
 
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         advance_cash_list_set.set_data_rows();
     });
     

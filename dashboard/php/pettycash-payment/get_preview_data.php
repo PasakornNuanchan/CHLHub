@@ -33,7 +33,8 @@ $petty_number = $_POST['petty_number'];
     pcd.currency,
     c.consignee_name,
     (SELECT SUM(trpc.amount) FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) amount_tranfer,
-     (SELECT trpc.currency FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) currency_tranfer
+    (SELECT trpc.currency FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) currency_tranfer,
+    (SELECT trpc.pic FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) pic_file
  FROM petty_cash_detail as pcd
     INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
     INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'

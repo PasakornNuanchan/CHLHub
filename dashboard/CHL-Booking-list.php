@@ -40,19 +40,19 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-2 ">Booking Status :</label>
+                                <!-- <label class="control-label col-sm-2 col-lg-2 ">Booking Status :</label> -->
                                 <div class="col-sm-2">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                        <select name="" class="form form-select form-select-sm" id="">
                                         <option value="">All</option>
                                         <option value="">False</option>
                                         <option value="">Done</option>
                                        </select>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="col-lg-8">
+                                <!-- <div class="col-lg-8">
                                     <button type="button" onclick="booking_list.modal_quotation();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="bd-example table-responsive">
                             <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
@@ -109,6 +109,7 @@ require 'function/auth/get_session.php';
 <script src="js/booking-list//booking_list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         booking_list_set.set_data_rows();
     });
 </script>

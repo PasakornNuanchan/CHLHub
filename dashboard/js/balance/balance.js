@@ -21,7 +21,7 @@ const balance = {
         let pct_total_th = 0;
         let pct_total_us = 0;
         let pct_total_ch = 0;
-    if(res_data['pc_wfc'] == 0){
+    if(res_data['pc_wfc'] == '0'){
         
     }else{
         $.each(res_data['pc_wfc'], function (i, v) { 
@@ -50,9 +50,7 @@ const balance = {
         });
     };
 
-        console.log(pct_total_th)
-        console.log(pct_total_us)
-        console.log(pct_total_ch)
+       
 
         result_pc_th = `${pct_total_th} THB`;
         result_pc_us = `${pct_total_us} USD`;
@@ -64,14 +62,21 @@ const balance = {
         //advance cash waiting for clear
         var advance_cash_balance =0;
 
-    if(res_data['ad_wfc'] == 0){
+        thb_cur_ad = 0;
+        usd_cur_ad = 0;
+        rmb_cur_ad = 0;
+    if(res_data['ad_wfc'] == '0'){
         
     }else{
+        
         $.each(res_data['ad_wfc'], function (i, v) { 
             advance_cash_balance += parseFloat(v['total_amount']);
             pf_adw = parseFloat(v['amount']);
            
-           
+            v['currency'] == "THB" ? thb_cur_ad = thb_cur_ad+pf_adw :'';
+            v['currency'] == "USD" ? usd_cur_ad = usd_cur_ad+pf_adw :'';
+            v['currency'] == "RMB" ? rmb_cur_ad = rmb_cur_ad+pf_adw :'';
+
 
             html_set_ad_wfc = `
             <tr class="text-center">
@@ -85,15 +90,20 @@ const balance = {
             $('[name = "ad_wfc_table"] tbody').append(html_set_ad_wfc);
            
         });
+        
     };
 
         //advance not have create 
-    if(res_data['ad_hnc'] == 0){
+    if(res_data['ad_hnc'] == '0'){
 
     }else{
         $.each(res_data['ad_hnc'], function (i, v) { 
             advance_cash_balance = parseFloat(v['amount']);
             pf_adnc = parseFloat(v['amount']);
+
+            v['currency'] == "THB" ? thb_cur_ad = thb_cur_ad+pf_adw :'';
+            v['currency'] == "USD" ? usd_cur_ad = usd_cur_ad+pf_adw :'';
+            v['currency'] == "RMB" ? rmb_cur_ad = rmb_cur_ad+pf_adw :'';
 
             html_set_ad_nhc = `
             <tr class="text-center">
@@ -109,6 +119,12 @@ const balance = {
         result_ad = advance_cash_balance.toFixed(2);
         $('.txt-header-ad').html(number_format(result_ad));
         };
+
+      
+        $('.txt-head-adc-th').html(number_format(thb_cur_ad) +' THB');
+        $('.txt-head-adc-us').html(number_format(usd_cur_ad) +' USD');
+        $('.txt-head-adc-ch').html(number_format(rmb_cur_ad) +' RMB');
+
     }, 
 
     ajax_set_preview_data: function () {

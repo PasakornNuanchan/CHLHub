@@ -350,7 +350,11 @@ const pettycash_payment = {
                     $(`.inp-receipt${val}`).attr('disabled',true)
                     $(`.btn_push_sv${val}`).attr('disabled',true)
                     $(`.sel_currecy_amt_tf${val} select`).attr('disabled',true)
-                    
+                    Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                      )
                 }  
             }
         })

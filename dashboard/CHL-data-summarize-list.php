@@ -105,6 +105,7 @@ require 'function/auth/get_session.php';
 <script src="js/data-summarize-list/data_summarize_list_set.js"></script>
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         data_summarize_list_set.set_data_rows();
     });
     

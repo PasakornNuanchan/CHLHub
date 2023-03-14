@@ -137,6 +137,7 @@ require 'function/auth/get_session.php';
 <script src="js/reportcs-list/reportcs_list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         reportcs_list_set.set_data_rows();
     });
 </script>

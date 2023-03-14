@@ -156,6 +156,7 @@ require 'function/auth/get_session.php';
 <script>
 
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         transport_list_set.set_data_rows();
     });
 </script>

@@ -98,3 +98,10 @@ include 'core/con_path.php';
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        sidebar_main.set_data_rows();
+       
+    });
+</script>

@@ -246,7 +246,7 @@ if ($result->num_rows > 0) {
 }
       
 
-     echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier,'booking'=>$booking,'cninform'=>$cninform,'transport_driver_arr'=>$transport_driver_arr,'dem'=>$dem));
+echo json_encode(array('de'=>$de,'dej'=>$dej,'cont'=>$cont,'tran'=>$tran,'supplier'=>$supplier,'booking'=>$booking,'cninform'=>$cninform,'transport_driver_arr'=>$transport_driver_arr,'dem'=>$dem));
 
 
 

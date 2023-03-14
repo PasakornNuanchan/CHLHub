@@ -1,6 +1,7 @@
 <?php
+include 'core/conn.php';
 require 'function/auth/get_session.php';
- 
+include 'core/con_path.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -58,23 +59,80 @@ require 'function/auth/get_session.php';
                                         <th>Petty number</th>
                                         <th>Create By</th>
                                         <th>Job Quantity</th>
-                                        
                                         <th>Customs Clearance</th>
                                         <th>Petty Cash Clear</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
+
+
+                                <?php
+                                    
+                                    if($_SESSION['department_name'] == "support" || $_SESSION['department_name'] == "Account" ){
+                                        $sql_where = '';
+                                    }else{
+                                        $sql_where = "
+                                        WHERE 
+                                        u.user_number = '$data_user'
+                                        ";
+                                    };
+
+                                    $sql = "
+                                    SELECT 
+                                    pct.datetime_request,
+                                    pct.petty_cash_number,
+                                    u.first_name,
+                                    u.last_name,
+                                    COUNT(pcd.job_number) as COUNT_job,
+                                    IF((SELECT count(trpc.doc_number) FROM `transac_recript_petty_cash` as trpc WHERE trpc.doc_number = pct.petty_cash_number) =
+                                    (SELECT count(DISTINCT pcd1.currency) FROM `petty_cash_detail` as pcd1 WHERE pcd1.petty_cash_number = pct.petty_cash_number),1,0) as payment_check,
+                                       IF((SELECT COUNT(trac.doc_number) FROM transac_return_petty_cash as trac WHERE trac.doc_number = pct.petty_cash_number) = 
+                                    (SELECT count(DISTINCT pcd1.currency) FROM `petty_cash_detail` as pcd1 WHERE pcd1.petty_cash_number = pct.petty_cash_number),1,0)as check_return
+                                FROM 
+                                    `petty_cash_title` as pct
+                                    LEFT JOIN user as u ON pct.request_by = u.user_number
+                                    LEFT JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
+                                    LEFT JOIN job_title as jt ON pcd.job_number = jt.job_number
+                                $sql_where
+                                GROUP BY 
+                                    pcd.petty_cash_number
+                                    ";
+
+
+                                    $fetch_sql = mysqli_query($con, $sql);
+                                    while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                        
+                                        $status_pc = '';
+                                    
+                                    if ($result_table_list['payment_check'] != '1') {
+                                        $color_pc = 'bg-danger';
+                                        $st_txt_pc = "Unpaid";
+                                        $status_pc = 'disabled';
+                                    } else {
+                                        $color_pc = 'bg-success';
+                                        $st_txt_pc = "Paid";
+                                    }
+
+                                    if ($result_table_list['check_return'] != '1') {
+                                        $color_cr = 'bg-danger';
+                                        $st_txt_cr = "Unpaid";
+                                    } else {
+                                        $color_cr = 'bg-success';
+                                        $st_txt_cr = "paid";
+                                    }
+                                        
+                                ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><button type="button" onclick="pettycash_return_list.preview('<?=$pettycash_nubmer?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><?= $result_table_list['datetime_request']; ?></td>
+                                            <td><?= $result_table_list['petty_cash_number']; ?></td>
+                                            <td><?= $result_table_list['first_name']; ?> <?= $result_table_list['last_name']; ?></td>
+                                            <td><?= $result_table_list['COUNT_job']; ?></td>
+                                            <td><span class="badge rounded-pill <?= $color_pc ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_pc ?></span></td>
+                                            <td><span class="badge rounded-pill <?= $color_cr ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_cr ?></span></td>
+                                            <td><button type="button" onclick="pettycash_return_list.preview('<?= $result_table_list['petty_cash_number']; ?>');" <?= $status_pc ?> target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
+                                <?php }; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -82,38 +140,6 @@ require 'function/auth/get_session.php';
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- MAIN BODY END -->
         </div>
@@ -134,6 +160,7 @@ require 'function/auth/get_session.php';
 <script src="js/pettycash-return-list/pettycash_return-list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         petty_cash_return_list_set.set_data_rows();
     });
 </script>

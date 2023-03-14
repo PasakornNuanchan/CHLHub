@@ -2,6 +2,9 @@
 include('core/conn.php');
 require_once 'lang_lib.php';
 ?>
+<script src="js/sidebar_main/side_main.js"></script>
+
+
 <aside class="sidebar sidebar-default navs-rounded-all">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         <a href="../dashboard/main.php" class="navbar-brand">
@@ -54,7 +57,7 @@ require_once 'lang_lib.php';
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </i>
-                    </a>
+                    </a> 
                     <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="../dashboard/app/user-profile.html">
@@ -96,26 +99,15 @@ require_once 'lang_lib.php';
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li>  -->
+                <div class="side_bar_main_add">
+                    
+                </div>
 
-                <?php
-                $menu_sidemain1 = "SELECT * FROM menu ORDER BY menu_number ASC;";                
-                $menu_fetch1 = mysqli_query($con, $menu_sidemain1);
-                $x = 1;
-                while ($menu_res = mysqli_fetch_assoc($menu_fetch1)) {
-                ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $menu_res['link'] ?>">
-                                <i class="<?php echo $menu_res['menu_icon'] ?>"></i>
-                                <span class="item-name"> <?php echo $menu_res['menu_name'] ?></span>
-                            </a>
-                        </li>
-                    <?php
-                }
-                ?>
             </ul>
             <!-- Sidebar Menu End -->
         </div>
     </div>
     <div class="sidebar-footer"></div>
 </aside>
+

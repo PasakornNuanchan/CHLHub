@@ -3,7 +3,7 @@ const petty_cash_payment_list_set = {
     set_data_rows: async function (job_doc_pt) {
         
         
-        let res_data = await petty_cash_payment_list_set.ajax_set_preview_data(job_doc_pt);
+        //let res_data = await petty_cash_payment_list_set.ajax_set_preview_data(job_doc_pt);
 
         $('.head-of-menu').html('Petty Cash Payment List');
         $('.bcpage').html('');

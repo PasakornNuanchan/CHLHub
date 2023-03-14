@@ -104,6 +104,7 @@ require 'function/auth/get_session.php';
 <script src="js/billing-list/billing_list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         billing_list_set.set_data_rows();
     });
 </script>

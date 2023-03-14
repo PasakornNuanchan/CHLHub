@@ -88,7 +88,7 @@ const customs_set_sub_cash = {
                 let currency = v['currency'] || '';
                 let status_pcb = v['status']
 
-                if (status_pcb == 2) {
+                if (status_pcb >= 2) {
                     status_del = 'disabled';
                 } else {
                     status_del = '';
