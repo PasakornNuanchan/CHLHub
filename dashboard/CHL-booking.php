@@ -115,7 +115,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
                                         ?>
-                                            <option value="<?= $result_carrier_total['ID'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
+                                            <option value="<?= $result_carrier_total['carrier_number'] ?>"><?php echo $result_carrier_total['carrier_name'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -253,12 +253,12 @@ require 'function/auth/get_session.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agnet:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                   <select class="form-select form-select-sm db-sel-represent">
-                                    <option value=""></option>
-                                   </select>
+                                    <select class="form-select form-select-sm db-sel-represent">
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -307,7 +307,7 @@ require 'function/auth/get_session.php';
                                             <?php
                                             while ($result_cargo_type_total = mysqli_fetch_assoc($result_cargo_type)) {
                                             ?>
-                                                <option value="<?php echo $result_cargo_type_total['cargo_type_number'] ?>"><?php echo $result_cargo_type_total['cargo_type_name'] ?></option>
+                                                <option value="<?php echo $result_cargo_type_total['ID'] ?>"><?php echo $result_cargo_type_total['cargo_type_name'] ?></option>
                                             <?php
                                             }
                                             ?>
@@ -348,7 +348,9 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
-
+                            <div style="float: right">
+                                <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_booking();"><i class="bi bi-check-square"></i> Save</button>
+                            </div>
                         </div>
                     </div>
                     <!-- container -->
@@ -403,9 +405,7 @@ require 'function/auth/get_session.php';
                                             </tbody>
                                         </table>
                                     </div>
-
                                     <button type="button" class="btn btn-link btn-soft-light rounded-pill" onclick="booking.addconthtml();">add new</button>
-
                                     <p></p>
                                     <label class="control-label col-sm-3 align-self-center ">CY:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3 ">
@@ -420,7 +420,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                                <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_booking();"><i class="bi bi-check-square"></i> Save</button>
+                                <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_container_function()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -452,6 +452,6 @@ require 'function/auth/get_session.php';
         sidebar_main.set_data_rows();
         $('.js-example-basic-single').select2();
         booking.check_get();
-        
+
     });
 </script>

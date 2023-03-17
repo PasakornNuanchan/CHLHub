@@ -227,8 +227,6 @@ require 'function/auth/get_session.php';
                                         <div class="col-sm-9">
                                             <select class="form-select form-select-sm  shadow-none inp-pcn-pay">
                                                 <option value="">Please select shipper</option>
-                                                <option value="1">Cargo rent</option>
-                                                <option value="1">OT Customs Department Officer </option>
                                             </select>
                                         </div>
                                     </div>

@@ -17,7 +17,7 @@ foreach ($list_data as $k => $v) {
     $petty_cash_number = isset($v['petty_cash_number']) ? $v['petty_cash_number'] : '';
     $val_id = isset($v['val_id']) ? $v['val_id'] : '';
 
-     $sql_insert_detail = "
+      $sql_insert_detail = "
 INSERT INTO `transac_return_petty_cash`(
     `return_by`,
     `return_amount`,
@@ -39,33 +39,52 @@ VALUES(
     '$sel_mt_return'
 )
 
-
 ";
 
     
 
-    $sql = "SELECT ID FROM `petty_cash_title` WHERE petty_cash_number = '$petty_cash_number'";
+    $sql = "SELECT pcd.ID FROM `petty_cash_title` as pct 
+    LEFT JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
+    WHERE pct.petty_cash_number = '$petty_cash_number' AND pcd.currency = '$sel_currency_rt'
+    ";
+
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $sql_id = $row['ID'];
+            $sql_id[] = $row['ID'];
         }
     } else {
         $sql_id = "0 results";
     }
-
-    $sql_update = "
+    
+    $imp_sql_id = implode(',' , $sql_id);
+     $sql_update = "
     UPDATE
         `cash_payment`
     SET
         `status` = '2'
     WHERE
-        ID_petty_cash = '$sql_id' AND status <> '1' ";
+        ID_petty_cash IN ($imp_sql_id) AND status <> '1' ";
 
+    $sql_update_pcd = "
+    UPDATE
+        `petty_cash_detail`
+    SET
+        `pcd_status` = '1'
+    WHERE
+        ID IN ($imp_sql_id)
+    ";
+    
     if ($con->query($sql_update) != 1) {
         $arr_suc['up'] = '0';
     } else {
         $arr_suc['up'] = '1';
+    }
+
+    if ($con->query($sql_update_pcd) != 1) {
+        $arr_suc['pcd'] = '0';
+    } else {
+        $arr_suc['pcd'] = '1';
     }
 
     if ($con->query($sql_insert_detail) != 1) {
@@ -76,7 +95,7 @@ VALUES(
 }
 
 
-echo json_encode($arr_suc['st'],$arr_suc['up']);
+echo json_encode($arr_suc['st'],$arr_suc['up'],$arr_suc['pcd']);
 
  //$status = $con->query($sql_add_list);
  //print_r($status);

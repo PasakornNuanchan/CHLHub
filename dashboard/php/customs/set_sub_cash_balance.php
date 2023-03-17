@@ -19,7 +19,7 @@ WHERE cp.type = 'Petty Cash' AND pcd.ID = pcd1.ID AND cp.status = 0)) as cash_ba
 pcd.currency 
 FROM 
 petty_cash_detail as pcd
-WHERE pcd.job_number = '$job_number'
+WHERE pcd.job_number = '$job_number' AND pcd.pcd_status = '0'
 
 ";
 

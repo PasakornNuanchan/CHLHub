@@ -79,9 +79,8 @@ WHERE act.petty_cash_number = '$petty_number'
       $pcn_id = implode(',' , $pcdjn2);
       $imp_set = implode(',' , $pcdjn);
      $sql_pcdr = "
-      SELECT * FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.ID 
-      
-      WHERE cp.type = 'Petty Cash' AND cp.job_number IN($imp_set) AND cp.ID_petty_cash IN ($pcn_id) AND cp.status = 0";
+      SELECT cp.*,bd.billing_item_name FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.ID 
+      WHERE cp.type = 'Petty Cash' AND cp.job_number IN($imp_set) AND cp.ID_petty_cash IN ($pcn_id) AND cp.status IN ('0','2')";
       
       $result = $con -> query($sql_pcdr);
     if ($result->num_rows > 0) {

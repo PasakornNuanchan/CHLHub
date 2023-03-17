@@ -62,11 +62,10 @@ require 'function/auth/get_session.php';
 </body>
 
 </html>
-<script src="js/billing-list/billing_list.js"></script>
-<script src="js/billing-list/billing_list_set.js"></script>
+<script src="js/home/home.js"></script>
 <script>
     $(document).ready(function(){
         sidebar_main.set_data_rows();
-        billing_list_set.set_data_rows();
+        home.set_preview_data();
     });
 </script>

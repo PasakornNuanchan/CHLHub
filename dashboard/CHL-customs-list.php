@@ -1,6 +1,7 @@
 <?php
+include 'core/conn.php';
 require 'function/auth/get_session.php';
- 
+include 'core/con_path.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -39,15 +40,15 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                         <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-1 ">Type :</label>
+                                <!-- <label class="control-label col-sm-2 col-lg-1 ">Type :</label> -->
                                 <div class="col-sm-2">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                        <select name="" class="form form-select form-select-sm" id="">
                                         <option value="">All</option>
                                         <option value="">Success</option>
                                         <option value="">False</option>
                                        </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             
@@ -67,17 +68,62 @@ require 'function/auth/get_session.php';
                                     </tr>
                                 </thead>
                                 <tbody align="center">
+
+                                <?php 
+                                $sql = "
+                                SELECT 
+                                jt.create_date,
+                                jt.job_number,
+                                jt.type_import_export,
+                                c.consignee_name,
+                                jt.eta,
+                                a.location_name,
+                                a.country,
+                                IF((js.INV_check_by AND
+                                    js.PL_check_by AND
+                                    js.BL_check_by AND
+                                    js.ID_check_by AND 
+                                    js.IL_check_by) IS null , 0 ,1) as document_status,
+                               IF(COUNT(tb.job_number) >0 ,1,0) as transport_status
+                                   FROM job_title as jt 
+                                   LEFT OUTER JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                   LEFT OUTER JOIN area as a ON jt.ts_port_number = a.area_number
+                                   LEFT OUTER JOIN transport_booking as tb ON jt.job_number = tb.job_number
+                                   LEFT OUTER JOIN job_status as js ON jt.job_number = js.job_number
+                                   GROUP BY jt.job_number
+                                ";
+
+                                $fetch_sql = mysqli_query($con, $sql);
+                                while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+
+                                    if ($result_table_list['document_status'] != '1') {
+                                        $color_dt = 'bg-danger';
+                                        $st_txt_dt = "Unpaid";
+                                    } else {
+                                        $color_dt = 'bg-success';
+                                        $st_txt_dt = "Paid";
+                                    }
+
+                                    if ($result_table_list['transport_status'] != '1') {
+                                        $color_ts = 'bg-danger';
+                                        $st_txt_ts = "Unpaid";
+                                    } else {
+                                        $color_ts = 'bg-success';
+                                        $st_txt_ts = "paid";
+                                    }
+                                ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?= $result_table_list['create_date']; ?></td>
+                                            <td><?= $result_table_list['job_number']; ?></td>
+                                            <td><?= $result_table_list['type_import_export']; ?></td>
+                                            <td><?= $result_table_list['consignee_name']; ?></td>
+                                            <td><?= $result_table_list['eta']; ?></td>
+                                            <td><?= $result_table_list['location_name']; ?> ,<?= $result_table_list['country']; ?></td>
+                                            <td><span class="badge rounded-pill <?= $color_dt ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_dt ?></span></td>
+                                            <td><span class="badge rounded-pill <?= $color_ts ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_ts ?></span></td>
+                                            <td><button type="button" onclick="customs_list.preview('<?= $result_table_list['job_number']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
+                                        <?php }; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -85,38 +131,6 @@ require 'function/auth/get_session.php';
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- MAIN BODY END -->
         </div>

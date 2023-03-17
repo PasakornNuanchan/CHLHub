@@ -113,7 +113,6 @@ include 'core/con_path.php';
 
                                             </tr>
                                         <?php }; ?>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -138,7 +137,7 @@ include 'core/con_path.php';
 
 </html>
 <script src="js/pettycash-list/pettycash_list.js"></script>
-<script src="js/pettycash-list//pettycash_list_set.js"></script>
+<script src="js/pettycash-list/pettycash_list_set.js"></script>
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();

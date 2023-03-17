@@ -160,6 +160,11 @@ const pettycash_return = {
 
                 pf_amount = parseFloat(v1['amount']);
                 num1++;
+                let html_pic = ''
+                if(v1['picture'] != ""){
+                   html_pic = `<div class="fs-5 mb-1 pic_show_dt"><i class="bi bi-file-earmark-image download_file" onclick="pettycash_return.download_file('${v1['ID']}');"></i></div>`;
+                }
+
                 html_check +=
                     `
                         <tr class="text-center">
@@ -168,11 +173,13 @@ const pettycash_return = {
                             </select></td>
                             <td><input type="input" class="form-control form-control-sm inp-amount" value="${number_format(pf_amount.toFixed(2))}" style="text-align:right;" readonly></td>
                             <td><input type="input" class="form-control form-control-sm inp-amount" value="${v1['currency']}" readonly></td>
-                            </td>
-                            <td></td>
+                            <td align="center">${html_pic}</td>
                             <td><input type="input" class="form-control form-control-sm inp-amount" value="${v1['remark']}" readonly></td>
                         </tr>
                     `;
+                
+
+
             });
             let main_html = `
             <br><br>
@@ -236,11 +243,6 @@ const pettycash_return = {
         //    $('.inp-petty_cash_req').val(number_format(Sum_Cash.toFixed(2)));
         //    $('.inp_pay').val(number_format(Sum_Pay.toFixed(2)));
         //    $('.inp_cash_return').val(number_format(Sum_cash_return.toFixed(2)));
-
-        console.log(dtpc_val_thb)
-        console.log(dtpc_val_usd)
-        console.log(dtpc_val_rmb)
-
 
      
 
@@ -505,6 +507,26 @@ const pettycash_return = {
                     resolve(response);
                 }
             });
+        });
+    },
+
+    download_file : function (e=null) {  
+
+        
+        let ID_req = e;
+        let data = {
+            'id_req' : ID_req
+        }
+
+        $.ajax({
+            type: "post",
+            url: "php/pettycash-return/download_file.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
         });
     },
 }
