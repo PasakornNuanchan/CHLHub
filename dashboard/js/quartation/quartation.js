@@ -316,9 +316,9 @@ const quartation = {
                                         </div>
                                         <div class="col-lg-3 col-md-3">
                                             <select name="" class="form-select form-select-sm select-currency" id="" disabled >
-                                                <option value="" selected>THB</option>
-                                                <option value="">USD</option>
-                                                <option value="">RMB</option>
+                                                <option value="THB">THB</option>
+                                                <option value="USD">USD</option>
+                                                <option value="RMB">RMB</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
@@ -826,33 +826,40 @@ const quartation = {
       'change',
       '.base-add select, .base-add input',
       async function (e) {
-        let parent = $(this).closest('.base-add')
+        var parent = $(this).closest('.base-add')
         let data_st = null
+        var d_carrier = '';
+        var d_carrier_type = '';
+        var d_pol = '';
+        var d_pod = '';
+        var d_qty = '';
         data = []
         $(
           $('select:not(.select-currency), input:not(.inp_budget)', parent),
         ).each(async function (i, e) {
           if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
             data_st = 1
-            var carrier = $('.inp-carrier' ,parent).val();
-            var carrier_type = $('.inp-carrier-type' ,parent).val();
-            var pol = $('.inp-port_load' ,parent).val();
-            var pod = $('.inp-port_del' ,parent).val();
-
-            // data
-            var data = {
-              'carrier' : carrier,
-              'carrier_type' : carrier_type,
-              'pol' : pol,
-              'pod' : pod}
-
-              let res = await quartation.check_base_route(data)
-
+            d_carrier = $('.inp-carrier' ,parent).val();
+            d_carrier_type = $('.inp-carrier-type' ,parent).val();
+            d_pol = $('.inp-port_load' ,parent).val();
+            d_pod = $('.inp-port_del' ,parent).val();
+            d_qty = $('.inp_qty' ,parent).val();
           } else {
             data_st = 0
           }
         })
         if (data_st === 1) {
+          var data = {
+            'carrier' : d_carrier,
+            'carrier_type' : d_carrier_type,
+            'pol' : d_pol,
+            'pod' : d_pod,
+            'total' : d_qty,}
+          let res = await quartation.check_base_route(data)
+          let total_budget = (d_qty * res[0]['price']);
+          let curr = res[0]['currency']
+          $('.inp_budget' , parent).val(total_budget);
+           $('.select-currency' , parent).val(curr);
 
         }
       },
