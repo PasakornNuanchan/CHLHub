@@ -40,16 +40,16 @@ include 'core/con_path.php';
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <!-- <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-1 ">Type :</label>
+                            <div class="form-group row">
+                                <!-- <label class="control-label col-sm-2 col-lg-1 ">Type :</label> -->
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <select name="" class="form form-select form-select-sm">
+                                            <!-- <select name="" class="form form-select form-select-sm">
                                                 <option value="">All</option>
                                                 <option value="">Paid</option>
                                                 <option value="">Unpaid</option>
-                                            </select>
+                                            </select> -->
                                         </div>
                                         <div class="col-lg-7"></div>
                                         <div class="col-lg-2">
@@ -57,7 +57,7 @@ include 'core/con_path.php';
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="bd-example table-responsive">
                                 <table class="table table-hover" name="data_table_list" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                     <thead>
@@ -71,6 +71,16 @@ include 'core/con_path.php';
                                     </thead>
                                     <tbody align="center">
                                         <?php
+
+                                            if ($_SESSION['department_name'] == "support" || $_SESSION['department_name'] == "Account") {
+                                                $sql_where = '';
+                                            } else {
+                                                $sql_where = "
+                                            WHERE 
+                                            u.user_number = '$data_user'
+                                            ";
+                                            };
+
                                          $sql_table_list = "
                                           SELECT 
                                                 pct.id,
@@ -84,7 +94,7 @@ include 'core/con_path.php';
                                                 `petty_cash_title` as pct
                                                 INNER JOIN user as u ON pct.request_by = u.user_number
                                                 INNER JOIN petty_cash_detail as pcd ON pct.petty_cash_number = pcd.petty_cash_number
-                                            WHERE u.user_number = '$data_user'                  
+                                                $sql_where               
                                             GROUP BY 
                                                 pcd.petty_cash_number   
                                             ORDER BY 
@@ -103,7 +113,6 @@ include 'core/con_path.php';
 
                                             </tr>
                                         <?php }; ?>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -128,9 +137,10 @@ include 'core/con_path.php';
 
 </html>
 <script src="js/pettycash-list/pettycash_list.js"></script>
-<script src="js/pettycash-list//pettycash_list_set.js"></script>
+<script src="js/pettycash-list/pettycash_list_set.js"></script>
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         petty_cash_list_set.set_data_rows();
     });
 </script>

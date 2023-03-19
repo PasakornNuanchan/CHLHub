@@ -298,6 +298,7 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_js.php'; ?>
     <script>
         $(document).ready(function() {
+            sidebar_main.set_data_rows();
             $('.js-example-basic-single').select2();
             advance_return.check_get();
         });

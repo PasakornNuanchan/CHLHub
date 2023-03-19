@@ -21,7 +21,7 @@ $job_number = $_POST['job_number'];
       tb.remark
     FROM
         `transport_booking` as tb
-    WHERE job_number = '$job_number'";
+    WHERE job_number = '$job_number' AND status = '0'"; 
 
 
 $result = $con->query($sql_transport);

@@ -79,7 +79,7 @@ const customs_set_sub_cash = {
                 let amount = parseFloat(v['amount']);
                 let type = v['type'] || '';
                 let billing_item_name = v['billing_item_name'] || '';
-                let pay_to = v['pay_to'] || '';
+                let pay_to = v['name'] || '';
                 //let first_name = v['first_name'] || '';
                 //let last_name = v['last_name'] || '';
                 let ID = v['ID'] || '';
@@ -88,11 +88,13 @@ const customs_set_sub_cash = {
                 let currency = v['currency'] || '';
                 let status_pcb = v['status']
 
-                if (status_pcb == 2) {
+                if (status_pcb >= 2) {
                     status_del = 'disabled';
                 } else {
                     status_del = '';
                 }
+
+               
 
                 html_description_payment = `
             <tr>
@@ -100,7 +102,7 @@ const customs_set_sub_cash = {
                 <td>${type}</td>
                 <td>${billing_item_name}</td>
                 <td>${pay_to}</td>
-                <td></td>
+                <td align="center"><div class="fs-5 mb-1 pic_show_pay"><i class="bi bi-file-earmark-image download_file" onclick="customs_set_sub_cash.download_file('${ID}');"></i></div></td>
                 <td align="right">${number_format(amount.toFixed(2))}</td>
                 <td>${currency}</td>
                 <td>${remark}</td>
@@ -112,6 +114,10 @@ const customs_set_sub_cash = {
 
                 num++;
                 $('[name =cash_payment_table] tbody').append(html_description_payment);
+
+                if(v['picture'] == ""){
+                    $('.pic_show_pay').attr('hidden',true)
+                }
             });
 
 
@@ -265,7 +271,7 @@ const customs_set_sub_cash = {
                         amount_balance = result['cash_balance']
                         currency = result['currency']
 
-                        if (amount_balance <= amount) {
+                        if (amount_balance < amount) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -348,6 +354,7 @@ const customs_set_sub_cash = {
         // let pic = $('.inp-pcn-pic').val();
 
         let pic = await convert_file('.inp-pcn-pic');
+        //let pic ='';
         let amount = $('.inp-pcn-amount').val();
         let amount_cur = $('.inp-pcn-amount-cur').val();
         let petty_cash_number_cash = $('.sel-pcn-pcn').val();
@@ -366,11 +373,10 @@ const customs_set_sub_cash = {
         };
 
         arr_get_val_cash.push(arr_get_val_cash_tmp)
-        console.log("test")
+        console.log(arr_get_val_cash)
         await customs_set_sub_cash.ajax_save_pcn(arr_get_val_cash)
-        console.log("test")
         await customs_set_sub_cash.reset_val_cash()
-        console.log("test")
+        
 
 
     },
@@ -388,6 +394,27 @@ const customs_set_sub_cash = {
                     resolve(res);
                 },
             });
+        });
+    },
+
+    download_file : function (e=null) {  
+
+        
+        let ID_req = e;
+        
+        let data = {
+            'id_req' : ID_req
+        }
+
+        $.ajax({
+            type: "post",
+            url: "php/customs/download_file.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
         });
     },
 };

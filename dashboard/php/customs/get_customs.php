@@ -26,6 +26,9 @@
     SELECT ID,billing_item_name
     FROM billing_description
     WHERE ID IN (20,21,22)";
+
+    $sql_gover = "
+    SELECT ID,name FROM Goverment_contact";
     
     $result = $con -> query($sql_supplier);
     if ($result->num_rows > 0) {
@@ -99,8 +102,15 @@ if ($result->num_rows > 0) {
     $des_cash[] = "0 results";
 }
 
+$result = $con->query($sql_gover);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $gover[] = $row;
+    }
+} else {
+    $gover = "0 results";
+}
 
   
-    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'type_truck'=>$type_truck,'des_cash'=>$des_cash))
-
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'type_truck'=>$type_truck,'des_cash'=>$des_cash,'gover'=>$gover))
 ?>

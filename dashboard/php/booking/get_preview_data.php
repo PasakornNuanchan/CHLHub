@@ -56,7 +56,7 @@ WHERE
       ci.volume,
       hs.ID as hs
  FROM `container_information` as ci
-    INNER JOIN hs_code as hs ON ci.hs_code = hs.hs_code
+    LEFT JOIN hs_code as hs ON ci.hs_code = hs.ID
     where `job_number` ='$job_number'
     ";
 

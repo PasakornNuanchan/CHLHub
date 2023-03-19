@@ -36,7 +36,7 @@ const customs_set_sub_customs = {
         html_detail_des = `
                     <tr>
                         <td>Invoice : </td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 inv_pic_show"><i class="bi bi-file-earmark-image" onclick="customs_set_sub_customs.download_file('INV_picture','${res_data['dts']['ID']}')"></i></div></td>
                         <td align="center">${res_data['dts']['INV_receiv_by']}</td>
                         <td align="center">${res_data['dts']['inv_receiv_datetime']}</td>
                         <td align="center">${res_data['dts']['INV_check_by']}</td>
@@ -45,7 +45,7 @@ const customs_set_sub_customs = {
                     </tr>
                     <tr>
                         <td>Bill of lading</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 bl_pic_show"><i class="bi bi-file-earmark-image" onclick="customs_set_sub_customs.download_file('BL_picture','${res_data['dts']['ID']}')"></i></div></td>
                         <td align="center">${res_data['dts']['BL_receiv_by']}</td>
                         <td align="center">${res_data['dts']['bl_receiv_datetime']}</td>
                         <td align="center">${res_data['dts']['BL_check_by']}</td>
@@ -54,7 +54,7 @@ const customs_set_sub_customs = {
                     </tr>
                     <tr>
                         <td>Packing list</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 pl_pic_show"><i class="bi bi-file-earmark-image" onclick="customs_set_sub_customs.download_file('PL_picture','${res_data['dts']['ID']}')"></i></div></td>
                         <td align="center">${res_data['dts']['PL_receiv_by']}</td>
                         <td align="center">${res_data['dts']['pl_receiv_datetime']}</td>
                         <td align="center">${res_data['dts']['PL_check_by']}</td>
@@ -63,7 +63,7 @@ const customs_set_sub_customs = {
                     </tr>
                     <tr>
                         <td>Import Declaration</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 id_pic_show"><i class="bi bi-file-earmark-image" onclick="customs_set_sub_customs.download_file('ID_picture','${res_data['dts']['ID']}')"></i></div></td>
                         <td align="center">${res_data['dts']['ID_receiv_by']}</td>
                         <td align="center">${res_data['dts']['id_receiv_datetime']}</td>
                         <td align="center">${res_data['dts']['ID_check_by']}</td>
@@ -72,7 +72,7 @@ const customs_set_sub_customs = {
                     </tr>
                     <tr>
                         <td>Import Licence</td>
-                        <td align="center"><div class="fs-5 mb-1"><i class="bi bi-file-earmark-image"></i></div></td>
+                        <td align="center"><div class="fs-5 mb-1 il_pic_show"><i class="bi bi-file-earmark-image" onclick="customs_set_sub_customs.download_file('IL_picture','${res_data['dts']['ID']}')"></i></div></td>
                         <td align="center">${res_data['dts']['IL_receiv_by']}</td>
                         <td align="center">${res_data['dts']['il_receiv_datetime']}</td>
                         <td align="center">${res_data['dts']['IL_check_by']}</td>
@@ -85,6 +85,11 @@ const customs_set_sub_customs = {
         $('.inp-clearance_by').val(res_data['dts']['custom_by']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dts']['Cus_suc_datetime']).attr('readonly', true);
 
+        res_data['dts']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden',true) : '';
+        res_data['dts']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
+        res_data['dts']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden',true) : '';
+        res_data['dts']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden',true) : '';
+        res_data['dts']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden',true) : '';
 
         if (res_data['dts']['custom_by'] == null || res_data['dts']['custom_by'] == "") {
             status_btn = '';
@@ -319,6 +324,32 @@ const customs_set_sub_customs = {
                     resolve(res);
                 },
             });
+        });
+    },
+
+    download_file : function (e=null,valid) {  
+
+        
+        let type = e;
+        
+
+        console.log(type)
+        console.log(valid)
+        
+        let data = {
+            'type' : type,
+            'valid' : valid
+        }
+
+        $.ajax({
+            type: "post",
+            url: "php/customs/download_file_sub_custom.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
         });
     },
 

@@ -90,8 +90,25 @@ require 'function/auth/get_session.php';
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title text-center">Advance Cash Balance</h4>
-                                <h4 class="card-title text-center txt-header-ad"></h4>
-                                <h4 class="card-title text-center">THB</h4>
+                                <div class="col-lg-12 text-center mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-4" >
+                                            <div class="card" >
+                                                <h5 class="card-title text-center txt-head-adc-th" ></h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <h5 class="card-title text-center txt-head-adc-us"></h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card">
+                                                <h5 class="card-title text-center txt-head-adc-ch"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -166,6 +183,7 @@ require 'function/auth/get_session.php';
 <script src="js/balance/advance_cash_con.js"></script>
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         $('.js-example-basic-single').select2();
         balance.set_preview_data();
     });

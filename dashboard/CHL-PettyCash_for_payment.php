@@ -286,6 +286,7 @@ require 'function/auth/get_session.php';
 <script src="js/pettycash-payment/pettycash-payment.js"></script>
 <script>
     $(document).ready(function() {
+        sidebar_main.set_data_rows();
         $('.js-example-basic-single').select2();
         pettycash_payment.check_get();
     });

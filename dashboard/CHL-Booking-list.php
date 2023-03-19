@@ -1,6 +1,7 @@
 <?php
+include 'core/conn.php';
 require 'function/auth/get_session.php';
-
+include 'core/con_path.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -40,19 +41,19 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-2 ">Booking Status :</label>
+                                <!-- <label class="control-label col-sm-2 col-lg-2 ">Booking Status :</label> -->
                                 <div class="col-sm-2">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                        <select name="" class="form form-select form-select-sm" id="">
                                         <option value="">All</option>
                                         <option value="">False</option>
                                         <option value="">Done</option>
                                        </select>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="col-lg-8">
+                                <!-- <div class="col-lg-8">
                                     <button type="button" onclick="booking_list.modal_quotation();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="bd-example table-responsive">
                             <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
@@ -69,16 +70,40 @@ require 'function/auth/get_session.php';
                                     </tr>
                                 </thead>
                                 <tbody align="center">
+                                <?php 
+
+                                $sql = "
+                                SELECT 
+                                    jt.create_date,
+                                    jt.job_number,
+                                    jt.mbl,
+                                    c.carrier_name,
+                                    co.consignee_name,
+                                    a.location_name,
+                                    a.country,
+                                    jt.eta
+                                FROM
+                                    job_title as jt
+                                INNER JOIN carrier as c ON jt.carrier_number = c.carrier_number
+                                INNER JOIN consignee as co ON jt.consignee_number = co.consignee_number
+                                LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number
+                                ORDER BY jt.ID ASC";
+
+                                $fetch_sql = mysqli_query($con, $sql);
+                                while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?= $result_table_list['create_date']; ?></td>
+                                            <td><?= $result_table_list['job_number']; ?></td>
+                                            <td><?= $result_table_list['mbl']; ?></td>
+                                            <td><?= $result_table_list['carrier_name']; ?></td>
+                                            <td><?= $result_table_list['consignee_name']; ?></td>
+                                            <td><?= $result_table_list['location_name']; ?> ,<?= $result_table_list['country']; ?></td>
+                                            <td><?= $result_table_list['eta']; ?></td>
+                                            <td><button type="button" onclick="booking_list.preview('<?= $result_table_list['job_number']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+
                                         </tr>
+                                <?php }; ?>
                                 </tbody>
                             </table>
                             </div>
@@ -106,9 +131,10 @@ require 'function/auth/get_session.php';
 
 </html>
 <script src="js/booking-list/booking_list.js"></script>
-<script src="js/booking-list//booking_list_set.js"></script>
+<script src="js/booking-list/booking_list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         booking_list_set.set_data_rows();
     });
 </script>

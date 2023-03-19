@@ -205,6 +205,7 @@ require 'function/auth/get_session.php';
 
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         advance_cash.check_get();
     })
 </script>

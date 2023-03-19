@@ -39,15 +39,15 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                         <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-1 ">Type :</label>
+                                <!-- <label class="control-label col-sm-2 col-lg-1 ">Type :</label> -->
                                 <div class="col-sm-2">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                        <select name="" class="form form-select form-select-sm" id="">
                                         <option value="">All</option>
                                         <option value="">Import</option>
                                         <option value="">Export</option>
                                        </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         <div class="bd-example table-responsive">
@@ -137,6 +137,7 @@ require 'function/auth/get_session.php';
 <script src="js/reportcs-list/reportcs_list_set.js"></script>
 <script>
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         reportcs_list_set.set_data_rows();
     });
 </script>

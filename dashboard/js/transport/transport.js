@@ -322,9 +322,10 @@ const transport = {
     },
 
     addtransporthtml: function (e = null) {
-        html_select_supplier = $('.db-sel-sup').parent().html();
-        html_select_cur = $('.sel_cur').parent().html();
-        html_select_type = $('.sel-type_truck').parent().html();
+        html_select_supplier = transport_sub_transport.html_sel_supplier
+        console.log(html_select_supplier)
+        html_select_cur = transport_sub_transport.html_sel_cur
+        html_select_type = transport_sub_transport.html_sel_truck
 
         html_add_transport = `
         <div class="card-transport">

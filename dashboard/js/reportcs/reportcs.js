@@ -21,7 +21,6 @@ const reportcs = {
         let job_number = get_job_number == false ? null : get_job_number;
         let action = get_action == false ? null : get_action;
         reportcs.job_number_global = job_number
-        console.log(action);
 
         if (action == 'preview') {
             reportcs.set_preview_data(job_number);
@@ -52,6 +51,7 @@ const reportcs = {
 
         let res_data = await reportcs.ajax_set_preview_data(job_number);
         console.log(res_data);
+
 
         // head of menu and breadcrumb
         $('.head-of-menu').html('Report Customser Service');
@@ -96,7 +96,7 @@ const reportcs = {
         $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
         $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
-        console.log(res_data)
+        
         //Document
         if (res_data['dej']['INV_receiv_by'] == "") {
             inv_status = '';
@@ -275,14 +275,14 @@ const reportcs = {
         $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
-        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').hide('hidden',true) : '';
+        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden',true) : '';
         res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
         res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden',true) : '';
         res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden',true) : '';
         res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden',true) : '';
 
 
-        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').hide('hidden',true) : '';
+        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden',true) : '';
         res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden',true) : '';
         res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden',true) : '';
         res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden',true) : '';
@@ -327,18 +327,26 @@ const reportcs = {
                 } else {
                     ow = "";
                 }
-                pcs = parseFloat(v['pcs']);
-                gross_weight = parseFloat(v['gross_weight']);
-                cbm = parseFloat(v['cbm']);
-                sng = parseFloat(v['single_cnt']);
+                // pcs = parseFloat(v['pcs']);
+                //gross_weight = parseFloat();
+                //cbm = parseFloat(v['cbm']);
+                // sng = parseFloat(v['single_cnt']);
+
+            
+
+                let container_number = v['container_number'] != null ? v['container_number'] : '';
+                let seal_number = v['seal_number'] != null ? v['seal_number'] : '';
+                let gross_weight = v['gross_weight'] != null ? (v['gross_weight']) : '';
+                let cbm = v['cbm'] != null ? (v['cbm']) : '';
+
                 html_container = `
                 <tr container_data_id=${v['ID']}>
                     <td>${num_container_rows}</td>
                     <td>${container_type_name} (${v['container_type']})</td>
-                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${v['container_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${v['seal_number']}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight.toFixed(1)}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm.toFixed(2)}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-container_number" value="${container_number}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-seal_number" value="${seal_number}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-gw" style="text-align:right;" value="${gross_weight}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp-cbm" style="text-align:right;" value="${cbm}"></td>
                     <td><input type="checkbox" class="form-check-input" ${soc} disabled></td>
                     <td><input type="checkbox" class="form-check-input" ${ow} disabled></td>
                     <td><input type="text" class="form-control form-control-sm" value="${v['cy']}" readonly></td>
@@ -586,7 +594,7 @@ const reportcs = {
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="db-sel-dem">
-                                ${db_dem_container}
+                                ${reportcs_sub_container_dem.db_dem_container_global}
                             </div>
                         </div>
                     </div>
@@ -685,12 +693,35 @@ const reportcs = {
             confirmButtonText: 'Yes, save it!'
           }).then(async (result) => {
             if (result.isConfirmed) {
+
+                let val_num = 0;
+                $('[name = container-tbl] tbody > tr').each(function(i ,e ){
+                    
+                    let ID = $(this).attr('container_data_id');
+                    let container_nubmer = $('.inp-container_number', this).val();
+                    let seal_number = $('.inp-seal_number', this).val();
+                    let gw = $('.inp-gw', this).val();
+                    let cbm = $('.inp-cbm', this).val();
+
+                    if(container_nubmer == '' || seal_number == '' || gw == '' || cbm == ''){
+                        Swal.fire(
+                            'Error!',
+                            'Your file has not been saved.',
+                            'error'
+                        )
+                        val_num++
+                    }
+                })         
+
+                if(val_num == 0){
+                    
                 await reportcs.save_container()
                 Swal.fire(
                   'saved!',
                   'Your file has been saved.',
                   'success'
                 )
+                }
                
             }
           }) 
@@ -925,7 +956,7 @@ const reportcs = {
           dem_arr.push(dem_arr_tmp)
         });
         
-        console.log(dem_arr)
+        
        let res = await reportcs.ajax_save_dem(dem_arr);
    
     },
@@ -1143,7 +1174,6 @@ const reportcs = {
             data: data,
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 var newTab = window.open();
                 newTab.document.write('<html><body><img src="' + response + '"></body></html>');
             }

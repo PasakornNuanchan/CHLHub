@@ -1,5 +1,5 @@
 const reportcs_sub_container_dem = {
-    
+    db_dem_container_global : '',
     ajax_set_preview_data: function (job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -20,12 +20,14 @@ const reportcs_sub_container_dem = {
         console.log(res_data);
 
         html_dem_charge = '';
-         db_dem_container = $('.sel-dem-container').parent().html()
+        db_dem_container = $('.sel-dem-container').parent().html()
+        reportcs_sub_container_dem.db_dem_container_global = db_dem_container
         let db_dem_cy = $('.inp-dem-cy').parent().html()
         let db_dem_rtn = $('.inp-dem-rtn').parent().html()
         $('.Demurrage-part-add').html('');
 
         num_dem = '1';
+        if(res_data['dem'] != "0 results"){
         $.each(res_data['dem'], async function (i, v) {
 
             container_id = v['container_id']
@@ -100,5 +102,6 @@ const reportcs_sub_container_dem = {
 
 
         })
+    }
     },
 };

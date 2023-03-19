@@ -3,22 +3,26 @@ $job_number = $_POST['job_number'];
     include '../../core/conn.php';
 
 $sql_payment = "
-    SELECT 
-    cp.ID,
-    cp.type,
-    bd.billing_item_name,
-    cp.amount,
-    cp.currency,
-    u.first_name,
-    u.last_name,
-    cp.job_number,
-    cp.datetime_create,
-    cp.remark,
-    cp.status
-    FROM cash_payment cp
-    INNER JOIN billing_description bd ON cp.description = bd.ID 
-    INNER JOIN user u ON cp.create_by = u.user_number
-    WHERE cp.job_number = '$job_number' AND status IN ('0','2')
+SELECT 
+cp.ID,
+cp.type,
+cp.pay_to,
+bd.billing_item_name,
+cp.amount,
+cp.currency,
+u.first_name,
+u.last_name,
+cp.job_number,
+cp.datetime_create,
+cp.remark,
+cp.status,
+cp.picture,
+g.name
+FROM cash_payment cp
+LEFT JOIN billing_description bd ON cp.description = bd.ID 
+LEFT JOIN user u ON cp.create_by = u.user_number
+LEFT JOIN Goverment_contact as g ON cp.pay_to = g.ID
+WHERE cp.job_number = '$job_number' AND cp.status IN ('0','2')
     ";
 
 

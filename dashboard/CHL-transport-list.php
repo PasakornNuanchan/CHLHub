@@ -40,15 +40,15 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-2 col-lg-2 ">Transport Status :</label>
+                                <!-- <label class="control-label col-sm-2 col-lg-2 ">Transport Status :</label> -->
                                 <div class="col-sm-2">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <select name="" class="form form-select form-select-sm" >
                                             <option value="">All</option>
                                             <option value="">Success</option>
                                             <option value="">False</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="bd-example table-responsive">
@@ -156,6 +156,7 @@ require 'function/auth/get_session.php';
 <script>
 
     $(document).ready(function(){
+        sidebar_main.set_data_rows();
         transport_list_set.set_data_rows();
     });
 </script>
