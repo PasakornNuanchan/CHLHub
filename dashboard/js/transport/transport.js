@@ -254,12 +254,6 @@ const transport = {
         // $('.inp-seal_number_driver', parent).val(res_data_container['seal_number']);
         // console.log(res_data_container['seal_number'])
     },
-   
-
-    add_driver : function (e=null){
-
-    },
-
 
     addtransporthtml: function (e = null) {
         html_select_supplier = transport_sub_transport.html_sel_supplier
@@ -368,7 +362,7 @@ const transport = {
                                 <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget">
                             </div>
                             <div class="col-lg-2">
-                                <div class="db-sel-cur ">
+                                <div class="db-sel-cur">
                                     ${html_select_cur}
                                 </div>
                             </div>
@@ -707,7 +701,8 @@ const transport = {
     },
 
     add_driver_fn : function (e=null,val){
-
+        
+        let html_select_cont = transport_sub_transport.sel_cont_driver
         
         html_add_driver = `
         <div class="driver_transport">
@@ -731,14 +726,15 @@ const transport = {
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="db_sel_container">
-                                    <select class="form-select form-select-sm ">
+                                    <select class="form-select form-select-sm sel_container_driver" onchange="transport.driver_seal_number_change(this)">
                                         <option value="">Plese select container number</option>
+                                        ${html_select_cont}
                                     </select>
                                 </div>
                             </div>
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm " readonly>
+                                <input type="text" class="form-control form-control-sm inp_seal_number " readonly>
                             </div>
                             <div class="col-lg-2">
                             <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>

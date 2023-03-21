@@ -69,7 +69,7 @@ const transport_sub_transport = {
             
         }
         
-
+        this.sel_cont_driver = html_sel_container_driver
 
         transport_sub_transport.html_sel_supplier = html_select_supplier
         transport_sub_transport.html_sel_cur = html_select_cur
