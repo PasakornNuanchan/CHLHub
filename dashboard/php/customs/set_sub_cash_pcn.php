@@ -1,16 +1,20 @@
 <?php
 $job_number = $_POST['job_number'];
-    include '../../core/conn.php';
+include '../../core/conn.php';
+require '../../function/auth/get_session.php';
+include '../../core/con_path.php';
 
 
 $sql_sel_pcn = "
 SELECT
-    ID,
-    petty_cash_number
+    pcd.ID,
+    pcd.petty_cash_number
 FROM
-    `petty_cash_detail`
+    `petty_cash_detail` as pcd
+LEFT JOIN petty_cash_title as pct ON pcd.petty_cash_number = pct.petty_cash_number
 WHERE
-    job_number = '$job_number'
+    pcd.job_number = '$job_number' AND pct.request_by = '$data_user' AND pcd.pcd_status = '0'
+
     ";
 
 $result = $con->query($sql_sel_pcn);

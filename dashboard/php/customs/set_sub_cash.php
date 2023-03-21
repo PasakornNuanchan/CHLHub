@@ -23,6 +23,8 @@ LEFT JOIN billing_description bd ON cp.description = bd.ID
 LEFT JOIN user u ON cp.create_by = u.user_number
 LEFT JOIN Goverment_contact as g ON cp.pay_to = g.ID
 WHERE cp.job_number = '$job_number' AND cp.status IN ('0','2')
+ORDER BY
+cp.ID ASC
     ";
 
 

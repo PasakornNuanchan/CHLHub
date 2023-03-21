@@ -95,7 +95,7 @@ VALUES(
 }
 
 
-echo json_encode($arr_suc['st'],$arr_suc['up'],$arr_suc['pcd']);
+echo json_encode($arr_suc);
 
  //$status = $con->query($sql_add_list);
  //print_r($status);
