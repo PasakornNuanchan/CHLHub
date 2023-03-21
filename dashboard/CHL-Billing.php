@@ -50,7 +50,7 @@ require 'function/auth/get_session.php';
                                     <div class="des-ar-del">
                                         <div class="form-group row">
                                             <div class="table-responsive mt-4">
-                                                <table id="basic-table" class="table table-hover " name="billing-ar-tbl" role="grid" style="border-radius: 12px;">
+                                                <table id="basic-table" class="table table-hover"  name="billing-ar-tbl" role="grid" style="border-radius: 12px;">
                                                     <thead>
                                                         <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                                             <th>Description</th>

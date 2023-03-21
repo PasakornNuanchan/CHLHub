@@ -30,6 +30,8 @@
       job_number = '$job_number' and 
       type = 'AP' and
       status = '0'
+    ORDER BY
+      b.ID ASC
     ";
     $result = $con -> query( $sql_ar);
     if ($result->num_rows > 0) {

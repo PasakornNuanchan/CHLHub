@@ -7,7 +7,10 @@
       bd.billing_number,
       bd.billing_item_name,
       c.consignee_number,
+      b.bill_to_type,
+      b.bill_to,
       c.consignee_name,
+      c.ID as consingee_id,
       b.payble,
       b.currency,
       b.qty,
@@ -25,6 +28,8 @@
       job_number = '$job_number' and 
       type = 'AR' and
       status = '0'
+    ORDER BY
+      b.ID ASC
     ";
 
     $result = $con -> query( $sql_ar);

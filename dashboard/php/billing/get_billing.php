@@ -5,7 +5,7 @@
     SELECT * FROM `billing_description`
     ";
     $sql_bill_to = "
-    SELECT consignee_number,consignee_name FROM consignee
+    SELECT c.ID,c.consignee_name as bill_to_name,'1' as bill_to_type FROM consignee as c
     ";
     
     $result = $con -> query($sql_description);

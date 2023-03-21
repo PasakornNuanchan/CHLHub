@@ -34,6 +34,7 @@ const billing = {
     set_data_description: async function () {
         let html_description = '';
         let set_data = await billing.ajax_set_description();
+        console.log(set_data)
         $.each(set_data['bl_description'], function (i, v) {
             html_description += `
             <option value="${v['ID']}">${v['billing_item_name']}</option>
@@ -45,7 +46,7 @@ const billing = {
         let html_bill_to = '';
         $.each(set_data['bl_bill'], function (i, v) {
             html_bill_to += `
-            <option value="${v['consignee_number']}">${v['consignee_name']}</option>
+            <option bill_to_type="${v['bill_to_type']}" value="${v['ID']}">${v['bill_to_name']}</option>
             `;
         });
 
@@ -118,14 +119,16 @@ const billing = {
             </tr>
             `;
                 $('[name = billing-ar-tbl] tbody').append(html_des_ar);
+
+                
                 if (v['payble'] == '0') {
                     $(`.sel_des${i} > select`).val(v['billing_number']);
-                    $(`.sel_bill${i} > select`).val(v['consignee_number']);
+                    $('.sel_bill' + i + ' > select option[bill_to_type="' + v['bill_to_type'] + '"][value="' + v['bill_to'] + '"]').prop('selected', true);
                     $(`.sel_cur${i} > select`).val(v['currency']);
 
                 } else {
                     $(`.sel_des${i} > select`).val(v['billing_number']).attr('disabled', true);
-                    $(`.sel_bill${i} > select`).val(v['consignee_number']).attr('disabled', true);
+                    $('.sel_bill' + i + ' > select option[bill_to_type="' + v['bill_to_type'] + '"][value="' + v['consingee_id'] + '"]').prop('disabled', true);
                     $(`.sel_cur${i} > select`).val(v['currency']).attr('disabled', true);
                     $(`.action_payble_ar${i}`).attr('disabled',true)
                     $(`.action_del_ar${i}`).attr('hidden',true)
@@ -167,6 +170,7 @@ const billing = {
         let parse = $(e).closest('tr')
         let sel_des = $(parse).find('.sel_description_ar').val();
         let sel_bill_to = $(parse).find('.sel_bill_to_ar').val();
+        let sel_bill_to_type = $(parse).find('.sel_bill_to_ar option:selected').attr('bill_to_type');
         let sel_cur_description = $(parse).find('.sel_cur_description_ar').val();
         let inp_qty_ar = $(parse).find('.inp_qty_ar').val();
         let inp_unit_price_ar = $(parse).find('.inp_unit_price_ar').val();
@@ -180,6 +184,7 @@ const billing = {
             val_id: val_id,
             sel_des: sel_des,
             job_number: billing.job_number_global,
+            sel_bill_to_type : sel_bill_to_type,
             sel_bill_to: sel_bill_to,
             sel_cur_description: sel_cur_description,
             inp_qty_ar: inp_qty_ar,
