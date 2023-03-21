@@ -240,26 +240,21 @@ const transport = {
     },
 
     driver_seal_number_change: async function (e) {
-        let val = $(e).val();
-        let parent = $(e).closest('.driver-part-del');
-
-        let res_data_container = await transport.ajax_seal_change(val);
-        $('.inp-seal_number_driver', parent).val(res_data_container['seal_number']);
-        console.log(res_data_container['seal_number'])
+        let val_id_seal = $(e).val();
+        let parent = $(e).closest('.driver_transport');
+        
+        // const data = this.cont_global.find('ID' => "ID" > val;
+        let test = this.cont_global.filter(x => x.ID === val_id_seal);
+        let seal_number = '';
+        $.each(test,function(i,v){
+            seal_number = (v['seal_number'])
+        })
+        $('.inp_seal_number',parent).val(seal_number)
+        // let res_data_container = await transport.ajax_seal_change(val);
+        // $('.inp-seal_number_driver', parent).val(res_data_container['seal_number']);
+        // console.log(res_data_container['seal_number'])
     },
-    ajax_seal_change: function (val) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/transport/get_value_seal.php",
-                data: { 'val': val },
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
+   
 
     add_driver : function (e=null){
 

@@ -112,7 +112,7 @@ const transport_sub_transport = {
                 $.each(res_data_driver['driver'][v['ID']],async function(i1,v1){
                     let cont_id = v1['container_id'];
                     html_driver += `
-                <div class="driver_transport${i1}">
+                <div class="driver_transport driver_transport${i1}">
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
                     <div class="col-sm-9">
@@ -133,7 +133,7 @@ const transport_sub_transport = {
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="db_sel_container db_sel_container">
-                                    <select class="form-select form-select-sm sel_container_driver${i}${i1}">
+                                    <select class="form-select form-select-sm sel_container_driver${i}${i1}" onchange="transport.driver_seal_number_change(this)">
                                         <option value="">plese select container</option>
                                         ${html_sel_container_driver}
                                     </select>
@@ -141,7 +141,7 @@ const transport_sub_transport = {
                             </div>
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm " value="${v1['seal_number']}" readonly>
+                                <input type="text" class="form-control form-control-sm inp_seal_number" value="${v1['seal_number']}" readonly>
                             </div>
                             <div class="col-lg-2">
                             <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
@@ -310,14 +310,11 @@ const transport_sub_transport = {
     </div>    
                 `;
                 route++;
-               console.log("cut")
+               
                 await $('.add-card-transport').append(html_transport);
                 $(`.db-sel-sup${i} > select`).val(sup_n);
                 $(`.db-sel-cur${i} > select`).val(cur_n);
                 $(`.db-sel-truck${i} > select`).val(type_truck);
-
-                console.log(arr_tran)    
-
                 $.each(arr_tran ,async function (i,v){
                     let data_sel = (v['data_sel'])
                     await $(`.sel_container_driver${v['main']}${v['sub_main']} `).val(data_sel)
