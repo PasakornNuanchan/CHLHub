@@ -144,7 +144,7 @@ const transport_sub_transport = {
                                 <input type="text" class="form-control form-control-sm inp_seal_number" value="${v1['seal_number']}" readonly>
                             </div>
                             <div class="col-lg-2">
-                            <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                            <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_driver(${v1['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
                             </div>
                         </div>
                     </div>
