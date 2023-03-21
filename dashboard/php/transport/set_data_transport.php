@@ -25,7 +25,7 @@ $job_number = $_POST['job_number'];
         tt.truck_name
       FROM transport_booking as tb
       LEFT JOIN transport_sup as ts ON tb.sup_number = ts.transport_sup_number
-      LEFT JOIN type_truck as tt ON tb.type_truck = tt.type_truck_number
+      LEFT JOIN type_truck as tt ON tb.type_truck = tt.ID
       WHERE tb.job_number = '$job_number' AND status = '0'
       ORDER BY tb.ID ASC";
 

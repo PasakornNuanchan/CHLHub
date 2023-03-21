@@ -1,5 +1,6 @@
 const transport_set_default ={
     
+    cont_global : '',
     set_data_default: async function (){
         let set_data = await transport_set_default.ajax_set_data();
         
