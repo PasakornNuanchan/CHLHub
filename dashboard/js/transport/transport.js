@@ -135,6 +135,8 @@ const transport = {
             }
         });
 
+        this.cont_global = res_data['cont'];
+
         await transport_sub_transport.set_preview_data(job_number);
 
         // booking set (booking detail)
@@ -188,77 +190,16 @@ const transport = {
 
         // driver
 
-        let db_sel_container_for_driver = '';
-        $.each(res_data['cont'], function (i, k) {
-            db_sel_container_for_driver += `
-            <option value="${k['ID']}">${k['container_type']} ${k['container_number']}</option>
-            `;
-        });
-        $('.sel-container-for-driver').append(db_sel_container_for_driver);
+       
         //let container_for_driver = $('.sel-container-for-driver').parent().html();
 
-        await transport_sub_driver_container.set_preview_data(job_number)
-
-
-    },
-    adddriverhtml: async function (e = null) {
-        let route_driver = transport_sub_driver_container.route_driver
-        let container_for_driver = transport_sub_driver_container.container_for_driver
-        html_add_driver = '';
-        html_add_driver = `
-        
-        <div class="driver-part-del">
-            <div class="card-body" >
-            <h5>Driver (person ${num_driver})</h5>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
-                    <div class="col-lg-4">
-                        <div class="db-sel-route ">
-                        ${route_driver}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Driver name:</label>
-                    <div class="col-sm-9 col-lg-9">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control inp-driver_name_val" >
-                            </div>
-                            <label class="control-label col-sm-2 col-lg-2 align-self-center ">Phone Number :</label>
-                            <div class="col-lg-2">
-                                <input type="text" class="form-control inp-driver_phone_val" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Container number:</label>
-                    <div class="col-lg-4">
-                        <div class="db-sel-route">
-                        ${container_for_driver}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Seal number:</label>
-                    <div class="col-sm-9 col-lg-9">   
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <input type="input" class="form-control form-control-sm inp-seal_number_driver" readonly>    
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="transport.push_del_driver();" style=""><i class="bi bi-dash-lg"></i> Delete Driver</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        `;
-        num_driver++;
-        $('.driver-part-add').append(html_add_driver);
+        // let db_sel_container_for_driver = '';
+        // $.each(res_data['cont'], function (i, k) {
+        //     db_sel_container_for_driver += `
+        //     <option value="${k['ID']}">${k['container_type']} ${k['container_number']}</option>
+        //     `;
+        // });
+        // $('.sel_container_driver').append(db_sel_container_for_driver);
 
     },
 
@@ -280,7 +221,6 @@ const transport = {
                     'success'
                 )
                 // transport.set_sub_cash_preview_data(customs.job_number_global);
-                await transport_sub_driver_container.set_preview_data(transport.job_number_global);
             }
         })
     },
@@ -320,6 +260,11 @@ const transport = {
             });
         });
     },
+
+    add_driver : function (e=null){
+
+    },
+
 
     addtransporthtml: function (e = null) {
         html_select_supplier = transport_sub_transport.html_sel_supplier
@@ -766,6 +711,50 @@ const transport = {
         });
     },
 
+    add_driver_fn : function (e=null,val){
+
+        
+        html_add_driver = `
+        <div class="driver_transport">
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm "  >
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm " >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Container number:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="db_sel_container">
+                                    <select class="form-select form-select-sm ">
+                                        <option value="">Plese select container number</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm " readonly>
+                            </div>
+                            <div class="col-lg-2">
+                            <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        `;
+        $(`.add_html_driver${val}`).append(html_add_driver)
+    },
 
 
 

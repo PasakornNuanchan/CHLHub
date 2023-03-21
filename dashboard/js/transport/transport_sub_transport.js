@@ -16,10 +16,27 @@ const transport_sub_transport = {
         });
     },
 
+    ajax_set_data_driver : function (job_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport/set_data_driver.php",
+                data: { 'job_number': job_number },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
 
 
     set_preview_data: async function (job_number) {
         let res_data = await transport_sub_transport.ajax_set_preview_data(job_number);
+        let res_data_driver = await transport_sub_transport.ajax_set_data_driver(job_number);
+        console.log(res_data)
+        console.log(res_data_driver)
         
         //get transport page
         route = 1;
@@ -41,6 +58,19 @@ const transport_sub_transport = {
         let html_select_truck = $('.sel-type_truck').parent().html();
         
         
+        //console.log(transport.cont_global)
+        html_sel_container_driver = '';
+        if (transport.cont_global != "0 results") {
+            $.each(transport.cont_global, function (i, k) {
+                html_sel_container_driver += `
+                <option value="${k['ID']}">${k['container_type']} ${k['container_number']}</option>
+                `;
+            })
+            
+        }
+        
+
+
         transport_sub_transport.html_sel_supplier = html_select_supplier
         transport_sub_transport.html_sel_cur = html_select_cur
         transport_sub_transport.html_sel_truck = html_select_truck
@@ -51,6 +81,8 @@ const transport_sub_transport = {
         if(res_data['tran'] != "0 results"){
             $.each(res_data['tran'], async function (i, v) {
 
+                let arr_tran_temp = {}
+                let arr_tran = []
 
                 let pcea = v['pick_con_empty_address'] || '';
                 let pcer = v['pick_con_empty_remark'] || '';
@@ -75,6 +107,58 @@ const transport_sub_transport = {
                 } else {
                     sql_del_hide = `<button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_transport(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>`
                 }
+                let html_driver = '';
+
+                $.each(res_data_driver['driver'][v['ID']],async function(i1,v1){
+                    let cont_id = v1['container_id'];
+                    html_driver += `
+                <div class="driver_transport${i1}">
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm " value="${v1['Driver_name']}" >
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm " value="${v1['phone_number']}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Container number:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="db_sel_container db_sel_container">
+                                    <select class="form-select form-select-sm sel_container_driver${i}${i1}">
+                                        <option value="">plese select container</option>
+                                        ${html_sel_container_driver}
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control form-control-sm " value="${v1['seal_number']}" readonly>
+                            </div>
+                            <div class="col-lg-2">
+                            <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                    `;
+                    arr_tran_temp = {
+                        main : i,
+                        sub_main : i1,
+                        data_sel : v1['container_id'],
+                        card_tran : v['ID']
+                    }
+                    arr_tran.push(arr_tran_temp)
+                })
 
                 
                 html_transport = `
@@ -190,15 +274,14 @@ const transport_sub_transport = {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="row-lg-11">
-                        <div style="float: right">
-                            ${sql_del_hide}
-                            <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
-                        </div>
-                    </div>
+                
+                <hr class="mb-4">
+                <h4 class="mb-4">Driver</h4>
+                <div class="add_html_driver${i}">
+                ${html_driver}
                 </div>
+                <button type="button" class="btn btn-soft-secondary col-lg-12" onclick="transport.add_driver_fn(this,'${i}')" >Add driver</button>
+                
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier detail</h4>
                 <div class="form-group row">
@@ -213,17 +296,39 @@ const transport_sub_transport = {
                         <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${scf}" readonly>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <div class="row-lg-11">
+                        <div style="float: right">
+                            ${sql_del_hide}
+                            <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport(${v['ID']});" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>  
     </div>    
                 `;
                 route++;
+               console.log("cut")
                 await $('.add-card-transport').append(html_transport);
                 $(`.db-sel-sup${i} > select`).val(sup_n);
                 $(`.db-sel-cur${i} > select`).val(cur_n);
                 $(`.db-sel-truck${i} > select`).val(type_truck);
+
+                console.log(arr_tran)    
+
+                $.each(arr_tran ,async function (i,v){
+                    let data_sel = (v['data_sel'])
+                    await $(`.sel_container_driver${v['main']}${v['sub_main']} `).val(data_sel)
+                })
+
+             
             });
        
+            
+             
+
         }else{
            transport.addtransporthtml()
         }

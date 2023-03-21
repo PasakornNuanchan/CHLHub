@@ -20,12 +20,16 @@ include '../../core/conn.php';
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
       $driver[] = $row;
+      //$route[] = $row['route_id'];
     }
   } else {
     $driver = "0 result";
   }
  
+  foreach ($driver as $k => $v) {
+    $driver_arr[$v['route_id']][] = $v;
+  }
  
         
 
-      echo json_encode(array('driver'=>$driver));
+      echo json_encode(array('driver'=>$driver_arr));
