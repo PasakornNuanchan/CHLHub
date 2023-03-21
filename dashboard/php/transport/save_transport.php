@@ -6,6 +6,7 @@ include '../../core/con_path.php';
 $arr = array();
 $arr_suc = array();
 $transport_arr = $_POST['transport_arr'];
+$driver_arr = $_POST['driver_arr'];
 
 
 foreach ($transport_arr as $k => $v) {
@@ -93,12 +94,54 @@ foreach ($transport_arr as $k => $v) {
         $arr_suc['st'] = '1';
     }
 }
-echo json_encode($arr_suc);
-?>
-        
-        
-        
-       
-        
-        
+foreach ($driver_arr as $k => $v) {
+
+
+    $number_route_id = isset($v['number_route_id']) ? $v['number_route_id'] : '';
+    $job_number = isset($v['job_number']) ? $v['job_number'] : '';
+    $driver_id = isset($v['driver_id']) ? $v['driver_id'] : '';
+    $inp_driver_name = isset($v['inp_driver_name']) ? $v['inp_driver_name'] : '';
+    $inp_phone_number = isset($v['inp_phone_number']) ? $v['inp_phone_number'] : '';
+    $inp_container_number = isset($v['inp_container_number']) ? $v['inp_container_number'] : '';
     
+    if ($driver_id != '') {
+
+        $sql_driver = "
+        UPDATE
+            `transport_contact`
+        SET
+            `Driver_name` = '$inp_driver_name',
+            `phone_number` = '$inp_phone_number',
+            `container_id` = '$inp_container_number'
+        WHERE
+            ID = $driver_id
+        ";
+        
+    }else{
+        $sql_driver = "
+        INSERT INTO `transport_contact`(
+            `Driver_name`,
+            `phone_number`,
+            `container_id`,
+            `job_number`,
+            `route_id`,
+            `status`
+        )
+        VALUES(
+            '$inp_driver_name',
+            '$inp_phone_number',
+            '$inp_container_number',
+            '$job_number',
+            '$number_route_id',
+            '0'
+        )
+        ";
+    }
+    if ($con->query($sql_driver) != 1) {
+        $arr_suc['sta'] = '0';
+    } else {
+        $arr_suc['sta'] = '1';
+    }
+}
+
+echo json_encode($arr_suc);

@@ -243,16 +243,13 @@ const transport = {
         let val_id_seal = $(e).val();
         let parent = $(e).closest('.driver_transport');
         
-        // const data = this.cont_global.find('ID' => "ID" > val;
         let test = this.cont_global.filter(x => x.ID === val_id_seal);
         let seal_number = '';
         $.each(test,function(i,v){
             seal_number = (v['seal_number'])
         })
         $('.inp_seal_number',parent).val(seal_number)
-        // let res_data_container = await transport.ajax_seal_change(val);
-        // $('.inp-seal_number_driver', parent).val(res_data_container['seal_number']);
-        // console.log(res_data_container['seal_number'])
+       
     },
 
     addtransporthtml: function (e = null) {
@@ -606,6 +603,8 @@ const transport = {
         let transport_arr = [];
         let transport_arr_tmp = {};
 
+        let driver_arr = [];
+        let driver_arr_temp = {};
         $('.card-transport').each(function (i, e) {
 
             let ID = $(this).attr('card-transport');
@@ -623,7 +622,6 @@ const transport = {
             let truck_quantity = $('.inp-truck_quantity', this).val();
             let inp_bg = $('.inp-budget', this).val();
             let sel_cur = $('.sel_cur', this).val();
-        
 
             transport_arr_tmp = {
                 ID: ID,
@@ -646,18 +644,36 @@ const transport = {
 
             transport_arr.push(transport_arr_tmp)
         })
-        
-        await transport.ajax_save_transport(transport_arr)
+
+        $(`.driver_transport`).each(function (i1,v1){
+            //let number_route_id = ($('.driver_transport').find('#driver_transport_no').val())
+            let number_route_id = $(this).attr('driver_transport_no')
+            let driver_id = $(this).attr('driver_id')
+            let inp_driver_name = $('.inp_driver_name', this).val();
+            let inp_phone_number = $('.inp_phone_number', this).val();
+            let inp_container_number = $('.inp_container_number', this).val();
+            driver_arr_temp = {
+                job_number : transport.job_number_global,
+                number_route_id: number_route_id,
+                driver_id : driver_id,
+                inp_driver_name : inp_driver_name,
+                inp_phone_number : inp_phone_number,
+                inp_container_number : inp_container_number
+            }
+            driver_arr.push(driver_arr_temp)
+        })
+        console.log(driver_arr)
+        await transport.ajax_save_transport(transport_arr,driver_arr)
     },
-    ajax_save_transport: function (transport_arr) {
+    ajax_save_transport: function (transport_arr,driver_arr) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/save_transport.php",
-                data: { 'transport_arr': transport_arr },
+                data: { 'transport_arr': transport_arr,
+                        'driver_arr' : driver_arr},
                 dataType: "json",
                 success: function (res) {
-
                     resolve(res);
 
                 },
@@ -703,19 +719,19 @@ const transport = {
     add_driver_fn : function (e=null,val){
         
         let html_select_cont = transport_sub_transport.sel_cont_driver
-        
+        console.log(val)
         html_add_driver = `
-        <div class="driver_transport">
+        <div class="driver_transport" driver_transport_no = ${val}>
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm "  >
+                                <input type="text" class="form-control form-control-sm inp_driver_name"  >
                             </div>
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm " >
+                                <input type="text" class="form-control form-control-sm inp_phone_number " >
                             </div>
                         </div>
                     </div>
@@ -726,7 +742,7 @@ const transport = {
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="db_sel_container">
-                                    <select class="form-select form-select-sm sel_container_driver" onchange="transport.driver_seal_number_change(this)">
+                                    <select class="form-select form-select-sm sel_container_driver inp_container_number" onchange="transport.driver_seal_number_change(this)">
                                         <option value="">Plese select container number</option>
                                         ${html_select_cont}
                                     </select>

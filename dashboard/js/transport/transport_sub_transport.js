@@ -112,17 +112,17 @@ const transport_sub_transport = {
                 $.each(res_data_driver['driver'][v['ID']],async function(i1,v1){
                     let cont_id = v1['container_id'];
                     html_driver += `
-                <div class="driver_transport driver_transport${i1}">
+                <div class="driver_transport driver_transport${v['ID']}" driver_transport_no = ${v['ID']} driver_id = ${v1['ID']}>
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm " value="${v1['Driver_name']}" >
+                                <input type="text" class="form-control form-control-sm inp_driver_name" value="${v1['Driver_name']}" >
                             </div>
                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
                             <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm " value="${v1['phone_number']}" >
+                                <input type="text" class="form-control form-control-sm inp_phone_number " value="${v1['phone_number']}" >
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ const transport_sub_transport = {
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="db_sel_container db_sel_container">
-                                    <select class="form-select form-select-sm sel_container_driver${i}${i1}" onchange="transport.driver_seal_number_change(this)">
+                                    <select class="form-select form-select-sm sel_container_driver${i}${i1} inp_container_number" onchange="transport.driver_seal_number_change(this)">
                                         <option value="">plese select container</option>
                                         ${html_sel_container_driver}
                                     </select>
@@ -162,7 +162,7 @@ const transport_sub_transport = {
 
                 
                 html_transport = `
-        <div class="card-transport card-transport${v['ID']}" card-transport="${v['ID']}">
+        <div class="card-transport card-transport${v['ID']}" card-transport="${v['ID']}" >
             <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
@@ -277,10 +277,10 @@ const transport_sub_transport = {
                 
                 <hr class="mb-4">
                 <h4 class="mb-4">Driver</h4>
-                <div class="add_html_driver${i}">
+                <div class="add_html_driver add_html_driver${v['ID']}">
                 ${html_driver}
                 </div>
-                <button type="button" class="btn btn-soft-secondary col-lg-12" onclick="transport.add_driver_fn(this,'${i}')" >Add driver</button>
+                <button type="button" class="btn btn-soft-secondary col-lg-12" onclick="transport.add_driver_fn(this,'${v['ID']}')" >Add driver</button>
                 
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier detail</h4>
