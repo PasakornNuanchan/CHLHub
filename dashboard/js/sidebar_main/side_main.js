@@ -9,8 +9,6 @@ const sidebar_main = {
         let url_get_check = $(location).attr('pathname').split("/")[3]
         
 
-        arr_menu = []
-        arr_menu_temp = {}
         html_side = '';
         let check_val_data_page = 0;
         $.each(side_menu['menu_list_main'], function (i, v) {   
@@ -18,8 +16,6 @@ const sidebar_main = {
           
             $.each(v,function(i1,v1){
             
-               
-               
                 let num_r = 0;
                 if(num_r == 0){
                 sub_html += `
@@ -33,117 +29,24 @@ const sidebar_main = {
                 num_r++
                 }
 
-                arr_menu_temp = {
-                    link : v1['link']
-                }
-                arr_menu.push(arr_menu_temp)
-
             })
 
             $('.side_bar_main_add').append(sub_html)
             
         });
 
-
-        
-        $.each(arr_menu,function (i,v){
-            if(v['link'] == "CHL-Advance_payment-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Advance_payment.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-Advance-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Advance.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-Billing-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Billing.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-Booking-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-booking.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-customs-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Customs.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-customs-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Customs.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-pettyCash_for_payment-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-PettyCash_for_payment.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-pettyCash_return-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-PettyCash_return.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-pettyCash-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-PettyCash.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-Quartation-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Quartation.php'
-                }
-                arr_menu.push(arr_menu_temp)
-                arr_menu_temp = {
-                    link : 'CHL-Quartation-markup.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-reportcs-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-reportcs.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-
-            if(v['link'] == "CHL-transport-list.php"){
-                arr_menu_temp = {
-                    link : 'CHL-Transport.php'
-                }
-                arr_menu.push(arr_menu_temp)
-            }
-        })
        
-        $.each(arr_menu,function (i,v){
+        
+        $.each(side_menu['link_check'],function(i,v){
             if(url_get_check == v['link']){
-                check_val_data_page = 1;
+                check_val_data_page = '1';
             }
         })
+      
+        console.log(check_val_data_page)
 
         if(check_val_data_page == '0'){
-           window.location = 'CHL-home.php';
+          window.location = 'CHL-home.php';
         }
        
     }, 

@@ -25,6 +25,10 @@
 ORDER BY menu_number ASC
     ";
     
+    $sql_data_check = "
+    SELECT link FROM `menu` WHERE ID IN ($menu_row) UNION SELECT link FROM sub_menu WHERE main_menu IN ($menu_row) ORDER BY `link` ASC
+    ";
+
     $result = $con -> query($sql_quotation);
 
     if ($result->num_rows > 0) {
@@ -40,6 +44,19 @@ ORDER BY menu_number ASC
         $menu_list_main_arr[$v['menu_name']][] = $v;
       }
       
-    echo json_encode(array('menu_list_main'=>$menu_list_main_arr));
+    
+      $result = $con -> query($sql_data_check);
+
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              $link_check[] = $row;
+          }
+      } else {
+          $link_check = "0 results";
+      }
+  
+     
+      
+    echo json_encode(array('menu_list_main'=>$menu_list_main_arr,'link_check'=>$link_check));
 
 ?>
