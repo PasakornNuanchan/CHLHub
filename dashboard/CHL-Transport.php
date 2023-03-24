@@ -255,65 +255,6 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
-                            <div class="card ">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Driver</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="driver-part-add">
-                                        <div class="driver-part-del">
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2 align-self-center ">Route number:</label>
-                                                <div class="col-lg-4">
-                                                    <select class="form-select form-select-sm sel-route-driver">
-                                                        <option value="">pleses select route</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-3 align-self-center ">Driver name:</label>
-                                                <div class="col-sm-9">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <input type="text" class="form-control" readonly>
-                                                        </div>
-                                                        <label class="control-label col-sm-2 align-self-center ">Phone Number :</label>
-                                                        <div class="col">
-                                                            <input type="text" class="form-control" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-3 align-self-center ">Container number:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-select form-select-sm sel-container-for-driver" onchange="transport.driver_seal_number_change(this);">
-                                                        <option value="">plese select driver</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-sm-3 align-self-center ">Seal number:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="input" class="form-control form-control-sm" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <div class="col-lg-12">
-                                            <div style="float: right">
-                                                <button class="btn btn-primary rounded-pill " onclick="transport.push_action_save_driver()"style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-soft-secondary" onclick="transport.adddriverhtml();">Add Driver</button>
-                            </div>
                         </div>
                     </div>
                 </div>

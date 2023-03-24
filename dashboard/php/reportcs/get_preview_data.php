@@ -22,6 +22,7 @@ $job_number = $_POST['job_number'];
     jt.clearlance_date,
     jt.check_document,
     jt.delivery_date,
+    js.cus_suc_datetime,
     jt.enter_date,
     jt.pickup_DO_date,
     jt.inv
@@ -118,7 +119,7 @@ $job_number = $_POST['job_number'];
 
       $sql_cn_inform = "
       SELECT * FROM container_information 
-      LEFT JOIN hs_code ON container_information.hs_code = hs_code.hs_code WHERE job_number = '$job_number'";
+      LEFT JOIN hs_code ON container_information.hs_code = hs_code.ID WHERE job_number = '$job_number'";
 
       $sql_dem = "
       SELECT  
@@ -192,7 +193,7 @@ $sql_tran_drive = "
       c.seal_number
       FROM transport_contact as tc
       LEFT JOIN container as c ON tc.container_id = c.ID
-      WHERE route_id IN($imp_set_tran_drive)
+      WHERE tc.route_id IN($imp_set_tran_drive) AND tc.status = '0'
       ";
 
 $result = $con->query($sql_tran_drive);

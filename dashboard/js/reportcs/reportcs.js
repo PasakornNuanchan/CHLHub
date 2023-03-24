@@ -91,11 +91,12 @@ const reportcs = {
         $('.inp-port').val(res_data['de']['port']).attr('readonly', true);
         $('.inp-invno').val(res_data['de']['inv']).attr('readonly', true);
         // Document date
-        $('.inp-clearance_date').val(res_data['de']['clearlance_date']).attr('readonly', true);
+        $('.inp-clearance_date').val(res_data['de']['cus_suc_datetime']).attr('readonly', true);
         $('.inp-check_doc').val(res_data['de']['check_document']).attr('readonly', true);
         $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
         $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
+        $('.inp-clearance_date_for_customs').val(res_data['de']['clearlance_date'])
         
         //Document
         if (res_data['dej']['INV_receiv_by'] == "") {
@@ -429,7 +430,7 @@ const reportcs = {
             <div class="card-body">
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Supplier:</label>
-                    <div class="col-sm-3 col-md-5">
+                    <div class="col-sm-3 col-md-5 col-lg-3">
                         <div class="db-sel-sup db-sel-sup${i}">
                             ${html_select_supplier}
                         </div>
@@ -454,11 +455,11 @@ const reportcs = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con" value="${pca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con" value="${pca}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-pick_con_remark" value="${pcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-pick_con_remark" value="${pcr}" readonly>
                             </div>
                         </div>
                     </div>
@@ -468,11 +469,11 @@ const reportcs = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con" value="${dca}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con" value="${dca}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_con_reamrk" value="${dcr}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_con_reamrk" value="${dcr}" readonly>
                             </div>
                         </div>
                     </div>
@@ -482,11 +483,11 @@ const reportcs = {
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_emp" value="${dcea}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_emp" value="${dcea}" readonly>
                             </div>
                             <label class="control-label col-sm-2 align-self-center mb-0">Remark :</label>
                             <div class="col">
-                                <input type="text" class="form-control inp-drop_emp_remark" value="${dcer}" readonly>
+                                <input type="text" class="form-control form-control-sm inp-drop_emp_remark" value="${dcer}" readonly>
                             </div>
                         </div>
                     </div>
@@ -500,7 +501,7 @@ const reportcs = {
                            ${html_select_truck}
                            </div>
                             </div>
-                            <label class="control-label col-sm-2 col-lg-1 align-self-center ">Remark</label>
+                            <label class="control-label col-sm-2  align-self-center ">Remark</label>
                             <div class="col">
                                 <input type="text" class="form-control form-control-sm inp-remark_truck" value="${remark}" readonly> 
                             </div>
@@ -916,6 +917,47 @@ const reportcs = {
             }
           }) 
     },
+
+    push_action_plan_clear : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                let clearance_plan = $('.inp-clearance_date_for_customs').val()
+                
+                await reportcs.ajax_save_plan_clearance(clearance_plan)
+                Swal.fire(
+                  'saved!',
+                  'Your file has been saved.',
+                  'success'
+                )
+                //reportcs.set_preview_data(reportcs.job_number_global);
+            }
+          }) 
+    },
+
+    ajax_save_plan_clearance : function(clearance_plan){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/push_clear_plan.php",
+                data: {'job_number' : reportcs.job_number_global, 'clearance_plan' : clearance_plan},
+                dataType: "json",
+                success: function (res) {
+                    
+                    resolve(res);
+                    
+                },
+            });
+        });
+    },
+
     ajax_save_enter : function(){
         return new Promise(function (resolve, reject) {
             $.ajax({

@@ -2,15 +2,25 @@ const sidebar_main = {
    
     set_data_rows: async function () {
         
-        let side_menu = await this.ajax_set_side_main()
         
+
+        let side_menu = await this.ajax_set_side_main()
+        console.log(side_menu)
+        let url_get_check = $(location).attr('pathname').split("/")[3]
+        
+
         html_side = '';
+        let check_val_data_page = 0;
         $.each(side_menu['menu_list_main'], function (i, v) {   
             let sub_html = '';
           
-            
             $.each(v,function(i1,v1){
             
+                if(url_get_check == v1['link']){
+                    check_val_data_page = 1;
+                    
+                }
+                
                 let num_r = 0;
                 if(num_r == 0){
                 sub_html += `
@@ -22,27 +32,19 @@ const sidebar_main = {
                 </li>
                 `;
                 num_r++
-                }else{
-
                 }
-
-           
-                
             })
 
             $('.side_bar_main_add').append(sub_html)
-
-          
-
-            
-            
-
             
         });
-        
-      
-      
+        if(check_val_data_page == '0'){
+            window.location = 'CHL-home.php';
+        }
+       
     }, 
+
+
 
     ajax_set_side_main: async function () {
         return new Promise(function (resolve, reject) {
@@ -57,6 +59,7 @@ const sidebar_main = {
             });
         });
     },
+
 
 };
 

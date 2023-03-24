@@ -53,6 +53,10 @@ $job_number = $_POST['job_number'];
       LEFT OUTER JOIN user custom_by ON js.cus_by = custom_by.user_number
           WHERE job_number ='$job_number'";
  
+          $sql_jt = "
+          SELECT jt.clearlance_date FROM job_title as jt WHERE job_number ='$job_number'
+          ";
+
 $result = $con->query($sql_detail_job);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -62,8 +66,17 @@ if ($result->num_rows > 0) {
   $dts = "0 results";
 }
 
+$result = $con->query($sql_jt);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $dtsa = $row;
+  }
+} else {
+  $dtsa = "0 results";
+}
 
 
 
-     echo json_encode(array('dts'=>$dts));
+
+     echo json_encode(array('dts'=>$dts,'dtsa'=>$dtsa));
 ?>

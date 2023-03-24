@@ -436,9 +436,9 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Clearance Date Plan :</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center  ">Clearance Date Plan :</label>
                                         <div class="col-sm-9 col-lg-3">
-                                            <input type="input" class="form-control form-control-sm " readonly>
+                                            <input type="input" class="form-control form-control-sm inp_clearance_date_plan" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -533,7 +533,7 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">T/S Port</label>
+                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Discharge Port</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
                                             <select class="form-select form-select-sm inp-ts_port">
                                                 <option selected="">Please select T/S Port</option>

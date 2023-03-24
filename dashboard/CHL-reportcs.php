@@ -214,6 +214,19 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Clearlance Date</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <input type="date" class="form-control form-control-sm inp-clearance_date_for_customs">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    <button class="btn btn-success rounded-pill btn-sm " onclick="reportcs.push_action_plan_clear()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save date </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Clearlance Date Finish</label>
                                         <div class="col">
                                             <div class="row">

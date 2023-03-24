@@ -2,6 +2,8 @@
 include 'core/conn.php';
 require 'function/auth/get_session.php';
 include 'core/con_path.php';
+
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">

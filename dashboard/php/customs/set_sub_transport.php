@@ -48,7 +48,7 @@ $sql_tran_drive = "
       c.seal_number
       FROM transport_contact as tc
       LEFT JOIN container as c ON tc.container_id = c.ID
-      WHERE route_id IN($imp_set_tran_drive)
+      WHERE tc.route_id IN($imp_set_tran_drive) AND tc.status = '0'
       ";
 
       $result = $con->query($sql_tran_drive);

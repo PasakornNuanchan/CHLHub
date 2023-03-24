@@ -24,7 +24,6 @@
     $sql_type_truck = "
     SELECT
     `ID`,
-    `type_truck_number`,
     `truck_name`
 FROM
     `type_truck`";

@@ -84,6 +84,7 @@ const customs_set_sub_customs = {
         $('.inp-etd').val(res_data['dts']['']).attr('readonly', true);
         $('.inp-clearance_by').val(res_data['dts']['custom_by']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dts']['Cus_suc_datetime']).attr('readonly', true);
+        $('.inp_clearance_date_plan').val(res_data['dtsa']['clearlance_date'])
 
         res_data['dts']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden',true) : '';
         res_data['dts']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
