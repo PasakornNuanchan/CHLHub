@@ -24,4 +24,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">    
 
  
+    <style>
+        body{
+            zoom: 75%;
+        }
 
+    </style>
