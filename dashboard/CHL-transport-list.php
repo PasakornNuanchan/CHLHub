@@ -67,12 +67,20 @@ require 'function/auth/get_session.php';
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,IF(jt.type_import_export=1,'Export','Import') as import_export,c.consignee_name,a.location_name,a.country,jt.eta,
-                                        (SELECT COUNT(*) FROM transport_booking WHERE job_number = jt.job_number) AS status 
+                                    $sql_table_list = "
+                                    SELECT 
+                                        jt.create_date,
+                                        jt.job_number,
+                                        IF(jt.type_import_export=1,'Export','Import') as import_export,
+                                        c.consignee_name,
+                                        a.location_name,
+                                        a.country,
+                                        jt.eta,
+                                        (SELECT COUNT(*) FROM transport_booking as tb1 WHERE job_number = jt.job_number AND tb1.status IN (0,2)) AS status_data                                         
                                         FROM job_title as jt 
-                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                        WHERE jt.status_job ='0'";
+                                        LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                        LEFT JOIN area as a ON jt.ts_port_number = a.area_number
+                                        ";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
@@ -86,11 +94,13 @@ require 'function/auth/get_session.php';
                                             <td><?= $result_table_list['import_export'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
                                             <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
-                                            <td><?php if ($result_table_list['status'] == '1') {
+                                            <td><?php
+                                                 if ($result_table_list['status_data'] > 1) {
                                                     echo "<span class='badge rounded-pill bg-success'>Success</span>";
                                                 } else {
                                                     echo "<span class='badge rounded-pill bg-danger'>False</span>";
-                                                } ?></td>
+                                                } 
+                                                ?></td>
                                             <td><button type="button" onclick="transport_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php

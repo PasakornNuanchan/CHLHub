@@ -42,8 +42,6 @@ const sidebar_main = {
                 check_val_data_page = '1';
             }
         })
-      
-        console.log(check_val_data_page)
 
         if(check_val_data_page == '0'){
           window.location = 'CHL-home.php';
