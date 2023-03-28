@@ -204,7 +204,7 @@ const transport = {
     },
 
     push_del_driver: async function (del_id) {
-        Swal.fire({
+            Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -214,13 +214,13 @@ const transport = {
             confirmButtonText: 'Yes, save it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                let res = await transport.ajax_del_driver(del_id)
+             let res = await transport.ajax_del_driver(del_id)
                 Swal.fire(
                     'saved!',
                     'Your file has been saved.',
                     'success'
                 )
-                 transport.set_sub_cash_preview_data(customs.job_number_global);
+                transport_sub_transport.set_preview_data(customs.job_number_global);
             }
         })
     },
@@ -238,6 +238,7 @@ const transport = {
             });
         });
     },
+   
 
     driver_seal_number_change: async function (e) {
         let val_id_seal = $(e).val();
@@ -254,14 +255,162 @@ const transport = {
 
     addtransporthtml: function (e = null) {
         html_select_supplier = transport_sub_transport.html_sel_supplier
-        console.log(html_select_supplier)
         html_select_cur = transport_sub_transport.html_sel_cur
         html_select_type = transport_sub_transport.html_sel_truck
 
-       
+
+        html_driver = ``;
+
+        if (route == 1) {
+            sql_del_hide = `<button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" disabled><i class="bi bi-check-square"></i> Delete </button>`;
+        } else {
+            sql_del_hide = `<button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>`
+        }
+
+        html_transport = `
+        <div class="card-transport card-transport" card-transport="" >
+            <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Booking Transport Detail (Route ${route})</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Supplier:</label>
+                    <div class="col-sm-3">
+                        <div class="db-sel-sup">
+                            ${html_select_supplier}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-pick_emp">
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-1 align-self-center mb-0">Remark :</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-pick_emp_remark" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Container Address:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-pick_con" >
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-1 align-self-center mb-0">Remark :</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-pick_con_remark" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Container Address:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-drop_con" >
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-1 align-self-center mb-0">Remark :</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-drop_con_reamrk" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-drop_emp" >
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-1 align-self-center mb-0">Remark :</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-drop_emp_remark" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <div class="db-sel-truck ">
+                                    ${html_select_type}
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-1 align-self-center ">Remark</label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm inp-remark_truck" > 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                    <div class="col-sm-3 col-lg-1">
+                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" >
+                    </div>
+                </div>       
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
+                    <div class="col-sm-9 col-md-9 col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-3">
+                                <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget"  >
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <div class="db-sel-cur">
+                                    ${html_select_cur} 
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="control-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="mb-4">
+                <h4 class="mb-4">Supplier detail</h4>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0"  >Sent Request Line :</label>
+                    <div class="col-sm-3 col-lg-3">
+                        <input type="input" class="form-control form-control-sm" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
+                    <div class="col-sm-3 col-lg-3">
+                        <input type="input" class="form-control form-control-sm inp-supplier_firm" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="row-lg-11">
+                        <div style="float: right">
+                            ${sql_del_hide}
+                            <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
+                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>    
+                `;
     
         route++;
-        $('.add-card-transport').append(html_add_transport);
+        $('.add-card-transport').append(html_transport);
 
     }, del_transport: function () {
 
@@ -461,6 +610,7 @@ const transport = {
                         'Your file has been saved.',
                         'success'
                     )
+                    transport_sub_transport.set_preview_data(this.job_number_global)
                 }
             }
         })
@@ -473,8 +623,9 @@ const transport = {
         let driver_arr = [];
         let driver_arr_temp = {};
         $('.card-transport').each(function (i, e) {
-
+            
             let ID = $(this).attr('card-transport');
+            console.log(ID)
             let sel_supplier = $('.sel-supplier', this).val();
             let inp_peca = $('.inp-pick_emp', this).val();
             let inp_peca_remark = $('.inp-pick_emp_remark', this).val();
@@ -583,12 +734,12 @@ const transport = {
         });
     },
 
-    add_driver_fn : function (e=null,val){
+    add_driver_fn : function (e=null,val,val_id){
         
         let html_select_cont = transport_sub_transport.sel_cont_driver
         console.log(val)
         html_add_driver = `
-        <div class="driver_transport" driver_transport_no = ${val}>
+        <div class="driver_transport driver_transport${val_id}" driver_transport_no="${val_id}">
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
                     <div class="col-sm-9">
@@ -620,16 +771,19 @@ const transport = {
                                 <input type="text" class="form-control form-control-sm inp_seal_number " readonly>
                             </div>
                             <div class="col-lg-2">
-                            <button class="btn btn-danger rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                            <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_after_save(this)" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 </div>
         `;
-        $(`.add_html_driver${val}`).append(html_add_driver)
+        $(`.add_html_route${val}`).append(html_add_driver)
     },
 
+    push_del_after_save : async function(e=null){
+        $(e).closest('div .driver_transport').remove()
+    },
 
 
 };

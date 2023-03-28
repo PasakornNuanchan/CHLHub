@@ -136,6 +136,7 @@ foreach ($driver_arr as $k => $v) {
             '0'
         )
         ";
+
     }
     if ($con->query($sql_driver) != 1) {
         $arr_suc['sta'] = '0';
