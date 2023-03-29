@@ -1,4 +1,5 @@
 const user_list_set = {
+    user_number_global : '',
     check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -17,7 +18,7 @@ const user_list_set = {
         let get_user_number = getUrlParameter('user_number');
 
         let user_number = get_user_number == false ? null : get_user_number;
-
+        this.user_number_global = user_number;
         if(get_user_number != undefined){
         await this.set_head_page();
         await user_list_set_default.set_data_default();
@@ -103,7 +104,16 @@ const user_list_set = {
                 let inp_bn = $('.inp-bank_number').val()
 
                 let check_val = 0;
-                if(un == "" || inp_fn == "" || inp_ln == "" || inp_mp == "" || inp_em == "" || inp_ad == "" || sel_de == "" || sel_st == ""){
+                let res_save_raw_data = 0;
+                if( sel_de == 0 || sel_st == 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Detail data is missing plese check your data !',
+                    })
+                    check_val = 1;
+                }
+                else if(un == "" || inp_fn == "" || inp_ln == "" || inp_mp == "" || inp_em == "" || inp_ad == "" ){
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -128,6 +138,7 @@ const user_list_set = {
 
                 if(check_val == 0){
                    uset_arr_temp = {
+                    user_number : this.user_number_global,
                     un : un,
                     inp_fn : inp_fn,
                     inp_ln : inp_ln,
@@ -144,9 +155,34 @@ const user_list_set = {
                    }
 
                     let res_save_raw_data  = await this.ajax_save_raw_data(uset_arr_temp)
+                    if(res_save_raw_data['st'] == '1'){
+                        Swal.fire(
+                            'saved!',
+                            'Your file has been saved.',
+                            'success'
+                        )
+                    }else if(res_save_raw_data['st'] == '0'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Save is false plese contact to support tech team',
+                        })
+                    }else if(res_save_raw_data['st'] == '3'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Cannot has save your data because username login is duplicate please change username login',
+                        })
+                    }else if(res_save_raw_data['st'] == '4'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Cannot has save your data because username number is duplicate please change username number',
+                        })
+                    }
                 }
                 
-            
+                
             }
         })
     },

@@ -50,7 +50,7 @@ require 'function/auth/get_session.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">User number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-un" id="" readonly>
+                                    <input type="number" class="form-control form-control-sm inp-un" id="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -87,7 +87,6 @@ require 'function/auth/get_session.php';
                                 <label class="control-label col-sm-3 align-self-center ">Department</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm sel_department">
-                                        <option value="">plese select department</option>
                                     </select>
                                 </div>
                             </div>
@@ -95,8 +94,7 @@ require 'function/auth/get_session.php';
                                 <label class="control-label col-sm-3 align-self-center ">Status</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm sel_st">
-                                        <option>plese select status</option>
-                                        <option value="1">Active</option>
+                                        <option value="1" selected>Active</option>
                                         <option value="2">In Active</option>
                                     </select>
                                 </div>
