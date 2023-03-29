@@ -8,7 +8,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Consignee Management</title>
+    <title>Supplier Transport Management</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -47,11 +47,11 @@ require 'function/auth/get_session.php';
                             <!-- <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Consignee number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control form-control-sm inp-consignee_number" id="">
+                                    <input type="number" class="form-control form-control-sm inp-suptransport_number" id="">
                                 </div>
                             </div> -->
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Corporate name</label>
+                                <label class="control-label col-sm-3 align-self-center ">Supplier name</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-cname">
                                 </div>
@@ -81,6 +81,12 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="control-label col-sm-3 align-self-center ">Line</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <input type="input" class="form-control form-control-sm inp-line">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">fax</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-fax">
@@ -99,7 +105,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="consignee_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="suptransport_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -123,12 +129,12 @@ require 'function/auth/get_session.php';
 
 </html>
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<script src="js/consignee_management/consignee_management_set.js"></script>
+<script src="js/suptransport_management/suptransport_management_set.js"></script>
 
 
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
-        consignee_list_set.check_get();
+        suptransport_list_set.check_get();
     });
 </script>
