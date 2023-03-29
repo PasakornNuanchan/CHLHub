@@ -131,6 +131,14 @@ const consignee_list_set = {
                             'Your file has been saved.',
                             'success'
                         )
+                        $('.inp-cname').val('')
+                        $('.inp-address').val('')
+                        $('.inp-tax_id').val('')
+                        $('.inp-email').val('')
+                        $('.inp-phone_number').val('')
+                        $('.inp-fax').val('')
+                        $('.inp-linkman').val('')
+                        $('.inp-contact').val('')
                     }else if(res_save_raw_data['st'] == '0'){
                         Swal.fire({
                             icon: 'error',

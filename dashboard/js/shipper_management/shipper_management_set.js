@@ -1,5 +1,5 @@
-const carrier_list_set = {
-    carrier_number_global : '',
+const shipper_list_set = {
+    shipper_number_global : '',
     check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -15,49 +15,52 @@ const carrier_list_set = {
             }
             return false;
         };
-        let get_carrier_number = getUrlParameter('carrier_number');
+        let get_shipper_number = getUrlParameter('shipper_number');
+        
+        let shipper_number = get_shipper_number == false ? null : get_shipper_number;
+        
+        this.shipper_number_global = shipper_number;
 
-        let carrier_number = get_carrier_number == false ? null : get_carrier_number;
-
-        this.carrier_number_global = carrier_number;
-
-        if(get_carrier_number != undefined){
+        if(get_shipper_number != 'undefined'){
         await this.set_head_page();
-        await this.set_raw_data(carrier_number);
+        await this.set_raw_data(shipper_number);
         }else{
-
+        await this.set_head_page();
         }
     },
 
     set_head_page : async function () {
     
-        $('.head-of-menu').html('Carrier');
+        $('.head-of-menu').html('Supplier Transport');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="CHL-carrier_list.php" target="" style="color:white;">Carrier main list</a></li>`;
+        <li class="breadcrumb-item"><a href="CHL-shipper_list.php" target="" style="color:white;">Supplier transport main list</a></li>`;
         $('.bcpage').append(html_bdpage);
 
     }, 
 
-    set_raw_data : async function (carrier_number){
-        let rrd = await carrier_list_set.ajax_request_raw_data(carrier_number)
-
-        //$('.inp-carrier_number').val(rrd['sqrc']['carrier_number'])
-        $('.inp-cname').val(rrd['sqrc']['carrier_name'])
-        $('.inp-csname').val(rrd['sqrc']['carrier_sub_name'])
+    set_raw_data : async function (shipper_number){
+        let rrd = await shipper_list_set.ajax_request_raw_data(shipper_number)
+       
+        //$('.inp-shipper_number').val(rrd['sqrc']['shipper_number'])
+        $('.inp-cname').val(rrd['sqrc']['shipper_name']).attr('readonly',true)
+        $('.inp-address').val(rrd['sqrc']['address'])
+        $('.inp-tax_id').val(rrd['sqrc']['tax'])
         $('.inp-email').val(rrd['sqrc']['email'])
-        $('.inp-phone_number').val(rrd['sqrc']['phone_number'])
-        $('.inp-contact').val(rrd['sqrc']['contact_name'])
+        $('.inp-phone_number').val(rrd['sqrc']['tel'])
+        $('.inp-fax').val(rrd['sqrc']['fax'])
+        $('.inp-linkman').val(rrd['sqrc']['linkman'])
+        $('.inp-contact').val(rrd['sqrc']['linkman_tel'])
         
 
     },
 
-    ajax_request_raw_data : async function(carrier_number){
+    ajax_request_raw_data : async function(shipper_number){
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/carrier-management/request_raw_data.php",
-                data: {'carrier_number' : carrier_number},
+                url: "php/shipper-management/request_raw_data.php",
+                data: {'shipper_number' : shipper_number},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -78,16 +81,20 @@ const carrier_list_set = {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 
-                //let carrier_number = $('.inp-carrier_number').val()
-                let corp_name = $('.inp-cname').val()
-                let corp_sub_name = $('.inp-csname').val()
-                let corp_em = $('.inp-email').val()
+                //let shipper_number = $('.inp-shipper_number').val()
+                
+                let cname = $('.inp-cname').val()
+                let address = $('.inp-address').val()
+                let tax = $('.inp-tax_id').val()
+                let email = $('.inp-email').val()
                 let phone_number = $('.inp-phone_number').val()
-                let contact = $('.inp-contact').val()
+                let fax = $('.inp-fax').val()
+                let linkman = $('.inp-linkman').val()
+                let linkman_tel = $('.inp-contact').val()
 
                 let check_val = 0;
 
-                if(corp_name == "" || corp_sub_name == "" || corp_em == "" || phone_number == "" || contact == "" ){
+                if(cname == ""){
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -98,29 +105,41 @@ const carrier_list_set = {
 
                 if(check_val == 0){
                    uset_arr_temp = {
-                    carrier_id : this.carrier_number_global,
-                    corp_name : corp_name,
-                    corp_sub_name : corp_sub_name,
-                    corp_em : corp_em,
+                    shipper_id : this.shipper_number_global,
+                    cname : cname,
+                    address : address,
+                    tax : tax,
+                    email : email,
                     phone_number : phone_number,
-                    contact : contact,
-                    
+                    fax : fax,
+                    linkman : linkman,
+                    linkman_tel : linkman_tel,
                    }
 
                     let res_save_raw_data  = await this.ajax_save_raw_data(uset_arr_temp)
                     console.log(res_save_raw_data)
-                    if(res_save_raw_data['st'] == '1'){
+                    if(res_save_raw_data['st'] == '4'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Cannot has save your data because corporate name is duplicate please change corporate name',
+                        })
+                    }else if(res_save_raw_data['st'] == '1'){
                         Swal.fire(
                             'saved!',
                             'Your file has been saved.',
                             'success'
                         )
-                        $('.inp-cname').val('')
-                        $('.inp-csname').val('')
-                        $('.inp-email').val('')
-                        $('.inp-phone_number').val('')
-                        $('.inp-contact').val('')
-
+                        
+                    $('.inp-cname').val('')
+                    $('.inp-address').val('')
+                    $('.inp-tax_id').val('')
+                    $('.inp-email').val('')
+                    $('.inp-phone_number').val('')
+                    $('.inp-fax').val('')
+                    $('.inp-linkman').val('')
+                    $('.inp-contact').val('')
+                        
                     }else if(res_save_raw_data['st'] == '0'){
                         Swal.fire({
                             icon: 'error',
@@ -137,7 +156,7 @@ const carrier_list_set = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/carrier-management/save_raw_data_user.php",
+                url: "php/shipper-management/save_raw_data_user.php",
                 data: {'uset_arr_temp' : uset_arr_temp},
                 dataType: "json",
                 success: function (res) {
