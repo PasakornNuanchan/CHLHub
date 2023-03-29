@@ -888,7 +888,7 @@ const quartation = {
     let url_get = '?quartation_number='+quartation.get_quono;
     let url_get_action = '&action='+'preview';
 
-    window.location.href = "CHL-quartation-markup.php"+url_get+url_get_action;  
+    window.location.href = "CHL-Quartation-markup.php"+url_get+url_get_action;  
   },
 }
 
