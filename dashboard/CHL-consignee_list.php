@@ -43,7 +43,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3"></div>
                                         <div class="col-lg-7"></div>
                                         <div class="col-lg-2">
-                                            <button type="button" target="_blank" onclick="carrier_sent_create.create_carrier()" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Carrier</button>
+                                            <button type="button" target="_blank" onclick="consignee_sent_create.create_carrier()" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add consignee</button>
                                         </div>
                                     </div>
                                 </div>
@@ -53,29 +53,29 @@ require 'function/auth/get_session.php';
                                     <thead>
                                         <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                             <th>Carrier Name</th>
-                                            <th>Carrier Sub Name</th>
                                             <th>Email</th>
                                             <th>Phone number</th>
-                                            <th>Contact</th>
+                                            <th>Contact person</th>
+                                            <th>Contact tel</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody align="center">
                                         <?php
                                         $sql_table_list = "
-                                        SELECT * FROM `carrier`
+                                        SELECT * FROM `consignee`
                                         ";
                                         $fetch_sql = mysqli_query($con, $sql_table_list);
                                         while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
 
                                         ?>
                                             <tr>
-                                                <td><?= $result_table_list['carrier_name'] ?></td>
-                                                <td><?= $result_table_list['carrier_sub_name'] ?></td>
+                                                <td><?= $result_table_list['consignee_name'] ?></td>
                                                 <td><?= $result_table_list['email'] ?></td>
-                                                <td><?= $result_table_list['phone_number'] ?></td>
-                                                <td><?= $result_table_list['contact_name'] ?></td>
-                                                <td><button type="button" onclick="carrier_sent.preview('<?= $result_table_list['ID']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                                <td><?= $result_table_list['tel'] ?></td>
+                                                <td><?= $result_table_list['contact_person_name'] ?></td>
+                                                <td><?= $result_table_list['contact_person_tel'] ?></td>
+                                                <td><button type="button" onclick="consignee_sent.preview('<?= $result_table_list['ID']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                             </tr>
                                         <?php
                                         }
@@ -103,12 +103,12 @@ require 'function/auth/get_session.php';
 </body>
 
 </html>
-<script src="js/carrier_list/carrier_list_sent.js"></script>
-<script src="js/carrier_list/carrier_list_sent_create.js"></script>
-<script src="js/carrier_list/carrier_list_set.js"></script>
+<script src="js/consignee_list/consignee_list_sent.js"></script>
+<script src="js/consignee_list/consignee_list_sent_create.js"></script>
+<script src="js/consignee_list/consignee_list_set.js"></script>
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
-        carrier_list_set.set_data_head();
+        consignee_list_set.set_data_head();
     });
 </script>
