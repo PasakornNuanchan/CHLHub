@@ -8,7 +8,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Quotation Markup</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
 </head>
