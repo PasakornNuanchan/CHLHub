@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -8,14 +8,13 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hope UI | Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title>Quotation</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
-<style>
-    #add_consignee_moda .modal-dialog{
-        max-width: 1000px;
-    }
-
-</style>
+    <style>
+        #add_consignee_moda .modal-dialog {
+            max-width: 1000px;
+        }
+    </style>
 </head>
 
 <body class="  ">
@@ -68,7 +67,7 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Consignee</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
-                                        <select class="form-select form-select-sm sel_consignee" >
+                                        <select class="form-select form-select-sm sel_consignee">
                                             <option value="" selected>Plese select Congsignee</option>
                                         </select>
                                     </div>
@@ -105,7 +104,7 @@ require 'function/auth/get_session.php';
                         <div class="card">
                             <div class="card-header">
                                 <h4> BASE SERVICE </h4>
-                                <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button>
+                                <!-- <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" onclick="quartation.addhtmlbase_server(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Route</button> -->
 
                             </div>
                             <hr>
@@ -118,7 +117,7 @@ require 'function/auth/get_session.php';
                                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
-                                                    <select class="form-select form-select-sm inp-carrier" onchange ="quartation.fillter_route_carrier(this);">
+                                                    <select class="form-select form-select-sm inp-carrier" onchange="quartation.fillter_route_carrier(this);">
                                                         <?php
                                                         $carrier_select = "SELECT * FROM carrier";
                                                         $result_carrier = mysqli_query($con, $carrier_select);
@@ -227,12 +226,15 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                        <button type="button" class="btn btn-link btn-soft-light rounded-pill btn-block" onclick="quartation.addhtmlbase_server(this);"> Add Base service</button>
+                                    </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
                                 <h5> Trucking Fee (Import) </h5>
-                                <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Import</button>
+                                <!-- <button onclick="quartation.add_truck_fee_import(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Import</button> -->
 
                             </div>
                             <hr>
@@ -277,12 +279,15 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <button type="button" class="btn btn-link btn-soft-light rounded-pill btn-block" onclick="quartation.add_truck_fee_import(this);"> Add Import</button>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
                                 <h5> Trucking Fee (Export) </h5>
-                                <button onclick="quartation.add_truck_fee_export(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add Export</button>
+                                <!-- <button onclick="quartation.add_truck_fee_export(this);" type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i>Add Export</button> -->
                             </div>
                             <hr>
                             <div class="card-body">
@@ -325,10 +330,14 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <button type="button" class="btn btn-link btn-soft-light rounded-pill btn-block" onclick="quartation.add_truck_fee_export(this);">Add Export</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group row">
@@ -433,7 +442,7 @@ require 'function/auth/get_session.php';
 
 <script src="js/quartation/quartation.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         sidebar_main.set_data_rows();
     });
 </script>

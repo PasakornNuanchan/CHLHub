@@ -1,5 +1,5 @@
 const quartation = {
-  get_quono : '',
+  get_quono: '',
   set_preview_data: async function (quartation_number = null) {
     let res_data = await quartation.ajax_set_preview_data(quartation_number)
     console.log(res_data)
@@ -9,6 +9,8 @@ const quartation = {
     $('.inp-quo_no').val(title['quartation_number'])
     $('.inp-sign_st').val(title['status'] == '1' ? 'Signed' : 'Not Sign')
     $('.sel_consignee').val(title['consignee_number'])
+    $('.sel_term').val(title['term'])
+
     $('.inp-commodity').val(title['commodity'])
     $('.sel-type-title').val(title['type'])
     // ขาด type
@@ -115,24 +117,21 @@ const quartation = {
     $('.truck_fee_import_row').parent().html('')
     $.each(res_data['truck_fee']['import'], async function (i, v) {
       html = `
-                <div class="truck_fee_import_row" data_truck_import_id = '${
-                  v['ID']
-                }'>                    
+                <div class="truck_fee_import_row" data_truck_import_id = '${v['ID']
+        }'>                    
                     <h5> Import ${i + 1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${
-                                      v['pickup']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${v['pickup']
+        }">
                                 </div>
                                 <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${
-                                      v['dropoff']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${v['dropoff']
+        }">
                                 </div>
                             </div>
                         </div>
@@ -143,14 +142,12 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${
-                                      v['price']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']
+        }">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_import_currency tr_fee_import_currency${i}" id="" value="${
-        v['currency']
-      }">
+                                    <select name="" class="form-select form-select-sm sel-tr_fee_import_currency tr_fee_import_currency${i}" id="" value="${v['currency']
+        }">
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -174,24 +171,18 @@ const quartation = {
     $('.truck_fee_export_row').parent().html('')
     $.each(res_data['truck_fee']['export'], async function (i, v) {
       html = `
-                <div class="truck_fee_export_row" data_truck_export_id = '${
-                  v['ID']
-                }'>                    
+                <div class="truck_fee_export_row" data_truck_export_id = '${v['ID']}'>                    
                     <h5>Export ${i + 1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${
-                                      v['pickup']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${v['pickup']}">
                                 </div>
                                 <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${
-                                      v['dropoff']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${v['dropoff']}">
                                 </div>
                             </div>
                         </div>
@@ -202,14 +193,10 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${
-                                      v['price']
-                                    }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_export_currency sel-tr_fee_export_currency${i}" id="" value="${
-        v['currency']
-      }">
+                                    <select name="" class="form-select form-select-sm sel-tr_fee_export_currency sel-tr_fee_export_currency${i}" id="" value="${v['currency']}">
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -370,7 +357,7 @@ const quartation = {
       $(e).closest('tr').remove()
     }
   },
-  check_get: function () {
+  check_get: async function () {
     var getUrlParameter = function getUrlParameter(sParam) {
       var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -397,8 +384,10 @@ const quartation = {
     if (action == 'preview') {
       quartation.set_preview_data(quartation_number)
     } else {
+
     }
   },
+
   ajax_set_preview_data: function (quartation_number) {
     return new Promise(function (resolve, reject) {
       $.ajax({
@@ -429,6 +418,21 @@ const quartation = {
       })
     })
   },
+
+  ajax_get_shipment : function () {
+    return new Promise(function (resolve, reject) {
+      $.ajax({
+        type: 'post',
+        url: 'php/Ajax_select/get_shipment.php',
+        data: {},
+        dataType: 'json',
+        success: function (res) {
+          resolve(res)
+        },
+      })
+    })
+  },
+
   html_consignee: async function (data) {
     let res = await quartation.get_consignee_sel()
     let html = ''
@@ -440,10 +444,24 @@ const quartation = {
 
     $('.sel_consignee').append(html)
   },
+
+  html_shipment:async function(){
+    let res_data = await this.ajax_get_shipment();
+    console.log(res_data)
+    let html = ''
+    $.each(res_data, function (i, k) {
+      html += `
+            <option value="${k['ID']}">${k['st_name']}</option>
+            `
+    })
+
+    $('.sel_term').append(html)
+  },
+
   del_base: function (e = null) {
-    if($('.base-add').length <= 1){
+    if ($('.base-add').length <= 1) {
       alert('should be atleast 1');
-    }else{
+    } else {
       $(e).closest('.base-add').remove();
     }
   },
@@ -727,7 +745,7 @@ const quartation = {
       let remark = $('.inp_sup_remark', this).val()
 
       sup_service_tmp = {
-        ID : ID,
+        ID: ID,
         service: service,
         type: type,
         unit_price: unit_price,
@@ -756,13 +774,13 @@ const quartation = {
       confirmButtonText: 'Yes, save it!'
     }).then(async (result) => {
       if (result.isConfirmed) {
-          let res = await quartation.ajax_save_quotation(save_data)
-          console.log(res);
-          Swal.fire(
-            'saved!',
-            'Your file has been saved.',
-            'success'
-          )
+        let res = await quartation.ajax_save_quotation(save_data)
+        console.log(res);
+        Swal.fire(
+          'saved!',
+          'Your file has been saved.',
+          'success'
+        )
       }
     })
   },
@@ -839,27 +857,28 @@ const quartation = {
         ).each(async function (i, e) {
           if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
             data_st = 1
-            d_carrier = $('.inp-carrier' ,parent).val();
-            d_carrier_type = $('.inp-carrier-type' ,parent).val();
-            d_pol = $('.inp-port_load' ,parent).val();
-            d_pod = $('.inp-port_del' ,parent).val();
-            d_qty = $('.inp_qty' ,parent).val();
+            d_carrier = $('.inp-carrier', parent).val();
+            d_carrier_type = $('.inp-carrier-type', parent).val();
+            d_pol = $('.inp-port_load', parent).val();
+            d_pod = $('.inp-port_del', parent).val();
+            d_qty = $('.inp_qty', parent).val();
           } else {
             data_st = 0
           }
         })
         if (data_st === 1) {
           var data = {
-            'carrier' : d_carrier,
-            'carrier_type' : d_carrier_type,
-            'pol' : d_pol,
-            'pod' : d_pod,
-            'total' : d_qty,}
+            'carrier': d_carrier,
+            'carrier_type': d_carrier_type,
+            'pol': d_pol,
+            'pod': d_pod,
+            'total': d_qty,
+          }
           let res = await quartation.check_base_route(data)
           let total_budget = (d_qty * res[0]['price']);
           let curr = res[0]['currency']
-          $('.inp_budget' , parent).val(total_budget);
-           $('.select-currency' , parent).val(curr);
+          $('.inp_budget', parent).val(total_budget);
+          $('.select-currency', parent).val(curr);
 
         }
       },
@@ -884,11 +903,11 @@ const quartation = {
   del_truck_fee_import: function (e = null) {
     $(e).closest('.truck_fee_import_row').remove()
   },
-  quick_markup: function (e = null) { 
-    let url_get = '?quartation_number='+quartation.get_quono;
-    let url_get_action = '&action='+'preview';
+  quick_markup: function (e = null) {
+    let url_get = '?quartation_number=' + quartation.get_quono;
+    let url_get_action = '&action=' + 'preview';
 
-    window.location.href = "CHL-Quartation-markup.php"+url_get+url_get_action;  
+    window.location.href = "CHL-Quartation-markup.php" + url_get + url_get_action;
   },
 }
 
@@ -896,10 +915,11 @@ const quartation = {
 
 
 $(async function () {
-  
-  quartation.html_consignee()
-  quartation.check_get()
-  quartation.check_base_input()
+
+  await quartation.html_consignee()
+  await quartation.html_shipment()
+  await quartation.check_get()
+  await quartation.check_base_input()
 
 
 })
