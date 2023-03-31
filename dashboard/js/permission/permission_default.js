@@ -29,6 +29,12 @@ const permission_default = {
             `;
         })
         $('.add_menu_select').append(menu_data)
+
+        $('.check_clear').attr('disabled',true)
+
+        // $.each(ulsd['menu_select'],function(i,v){
+
+        // })
     },
   
     ajax_request_data_default : function (){

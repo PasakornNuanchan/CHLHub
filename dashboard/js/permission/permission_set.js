@@ -16,9 +16,7 @@ const permission_set = {
 
     }, 
 
-    set_raw_data : async function(i,v){
-
-    },
+    
 
     change_department : async function(i,v){
 
@@ -31,7 +29,7 @@ const permission_set = {
         arr_inp_temp = {}
        let request_data = await this.ajax_change_data(data_department)
         console.log(request_data)
-
+        $('.check_clear').attr('disabled',false)
         $.each(request_data['srrdl'],function(i,v){
             if(v == '20'){
                 $(`.inp_${v}`).prop('checked',true).attr('disabled',true)
@@ -43,6 +41,7 @@ const permission_set = {
     },
 
     clear_check : async function(){
+        
         $('.add_menu_select').find('.check_clear').prop('checked',false)
     },
 
