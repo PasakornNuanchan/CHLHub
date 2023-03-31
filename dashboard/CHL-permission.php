@@ -52,7 +52,7 @@ require 'function/auth/get_session.php';
                                 <label class="control-label col-sm-3 lg-3 align-self-center ">Department</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select name="" id="" class="form-select form-select-sm sel_department" onchange="permission_set.change_department()">
-                                        <option value=""></option>
+                                        <option value="">pleses select department</option>
                                     </select>
                                 </div>
                             </div>

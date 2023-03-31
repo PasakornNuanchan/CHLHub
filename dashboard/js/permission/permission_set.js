@@ -65,15 +65,7 @@ const permission_set = {
         let arr_save_temp = {}
         let arr_save = []
 
-        $.each(save_check,function (i,v){
-            let ninp = $(this).attr('ninp')
-            let save_check = $(`.inp_${ninp}`).is(":checked") ? 1 : 0
-            arr_save_temp = {
-                id_menu : ninp,
-                save_check : save_check
-            }
-            arr_save.push(arr_save_temp)
-        })
+       
         
         let department = $('.sel_department').val()
         if(department == ''){
@@ -81,6 +73,16 @@ const permission_set = {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'plese select department',
+            })
+        }else{
+            $.each(save_check,function (i,v){
+                let ninp = $(this).attr('ninp')
+                let save_check = $(`.inp_${ninp}`).is(":checked") ? 1 : 0
+                arr_save_temp = {
+                    id_menu : ninp,
+                    save_check : save_check
+                }
+                arr_save.push(arr_save_temp)
             })
         }
 
