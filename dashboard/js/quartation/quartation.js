@@ -40,7 +40,7 @@ const quartation = {
                     <div class="base-add" data_base_id="${v['base_id']}">
                         <H5 class="mb-3">Route ${num}</H5>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" >Carrier :</label>
                             <div class="col-lg-5 col-md-5">
                                 <div class="db-select-carrier db-select-carrier${i}">
                                        ${html_select_carrier}
@@ -48,13 +48,13 @@ const quartation = {
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Container size :</label>
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-4 db-select-carrier_type db-select-carrier_type${i}">
                                         ${carrier_type}
                                     </div>
-                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
+                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" >Container Quantity</label>
                                     <div class="col-lg-2 col-md-2 ">
                                         <input type="text" class="form-control form-control-sm inp_qty "value='${v['qty']}'>
                                     </div>
@@ -62,7 +62,7 @@ const quartation = {
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Port of loading</label>
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-4">
@@ -70,7 +70,7 @@ const quartation = {
                                             ${select_pod}
                                         </div>
                                     </div>
-                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
+                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" >Port of Delivery</label>
                                     <div class=" col-md-4  col-lg-4">
                                         <div class="db-select-pod db-select-pod${i}">
                                             ${select_del}
@@ -80,7 +80,7 @@ const quartation = {
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Budget :</label>
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4">
@@ -117,21 +117,18 @@ const quartation = {
     $('.truck_fee_import_row').parent().html('')
     $.each(res_data['truck_fee']['import'], async function (i, v) {
       html = `
-                <div class="truck_fee_import_row" data_truck_import_id = '${v['ID']
-        }'>                    
+                <div class="truck_fee_import_row" data_truck_import_id = '${v['ID']}'>                    
                     <h5> Import ${i + 1}</h5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " on>Pickup :</label>
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${v['pickup']
-        }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="${v['pickup']}">
                                 </div>
                                 <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${v['dropoff']
-        }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="${v['dropoff']}">
                                 </div>
                             </div>
                         </div>
@@ -142,12 +139,10 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']
-        }">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_import_currency tr_fee_import_currency${i}" id="" value="${v['currency']
-        }">
+                                    <select  class="form-select form-select-sm sel-tr_fee_import_currency tr_fee_import_currency${i}"  value="${v['currency']}">
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -196,7 +191,7 @@ const quartation = {
                                     <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_export_currency sel-tr_fee_export_currency${i}" id="" value="${v['currency']}">
+                                    <select  class="form-select form-select-sm sel-tr_fee_export_currency sel-tr_fee_export_currency${i}"  value="${v['currency']}">
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -225,18 +220,18 @@ const quartation = {
                     <tr class="sub_des sub_des${i}" data_sup_id="${v['ID']}">
                         <td class="select_des_sup">
                             ${sel_sup_service}</td>
-                        <td><select name="" id="" class="form-select form-select-sm sel_type_sup_service">
+                        <td><select   class="form-select form-select-sm sel_type_sup_service">
                                 <option value="Import">Import</option>
                                 <option value="Export">Export</option>
                                 <option value="Other">Other service</option>
                             </select></td>
-                        <td><input type="input" class="form-control form-control-sm inp_price_sup_service" id="" placeholder="" value="${v['price']}"></td>
-                        <td><select name="" class="form-select form-select-sm sel_currency_sup_service" id="" >
+                        <td><input type="input" class="form-control form-control-sm inp_price_sup_service"  placeholder="" value="${v['price']}"></td>
+                        <td><select  class="form-select form-select-sm sel_currency_sup_service"  >
                                 <option value="THB">THB</option>
                                 <option value="USD">USD</option>
                                 <option value="RMB">RMB</option>
                             </select></td>
-                        <td><input type="input" class="form-control form-control-sm inp_sup_remark" id="" placeholder="" value="${v['remark']}"></td>
+                        <td><input type="input" class="form-control form-control-sm inp_sup_remark"  placeholder="" value="${v['remark']}"></td>
                         
                         <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
@@ -252,28 +247,28 @@ const quartation = {
     })
   },
   addhtmlbase_server: function (e = null) {
-    let sl_carrier = $('.db-select-carrier').html()
-    let sl_pol = $('.db-select-pol').html()
-    let sl_pod = $('.db-select-pod').html()
-    let sl_carrier_type = $('.db-select-carrier_type').html()
+    // let sl_carrier = $('.db-select-carrier').html()
+    // let sl_pol = $('.db-select-pol').html()
+    // let sl_pod = $('.db-select-pod').html()
+    // let sl_carrier_type = $('.db-select-container-size').html()
     let num = $('.base-add').length + 1
     html = `
                 <div class="base-add">
                 <H5>Route ${num}</H5>
                     <div class="form-group row">
-                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center"  for="pwd2">Carrier :</label>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center"  >Carrier :</label>
                             <div class="col-lg-5 col-md-5">
                                 ${sl_carrier}
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Container size :</label>
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-4">
                                             ${sl_carrier_type}
                                         </div>
-                                        <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="pwd2">Container Quantity</label>
+                                        <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" >Container Quantity</label>
                                         <div class="col-lg-2 col-md-2">
                                             <input type="text" class="form-control form-control-sm inp_qty">
                                     </div>
@@ -281,13 +276,13 @@ const quartation = {
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Port of loading</label>
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-md-4">
                                             ${sl_pol}
                                         </div>
-                                        <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
+                                        <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" >Port of Delivery</label>
                                         <div class="col-lg-4">
                                             ${sl_pod}
                                         </div>
@@ -295,14 +290,14 @@ const quartation = {
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Budget :</label>
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4">
                                             <input type="text" class="form-control form-control-sm inp_budget" readonly>
                                         </div>
                                         <div class="col-lg-3 col-md-3">
-                                            <select name="" class="form-select form-select-sm select-currency" id="" disabled >
+                                            <select  class="form-select form-select-sm select-currency"  disabled >
                                                 <option value="THB">THB</option>
                                                 <option value="USD">USD</option>
                                                 <option value="RMB">RMB</option>
@@ -335,9 +330,9 @@ const quartation = {
                 <td>
                     ${sel_type_sup_service}
                 </td>
-                <td><input type="input" class="form-control form-control-sm inp_price_sup_service" id="" placeholder=""></td>
+                <td><input type="input" class="form-control form-control-sm inp_price_sup_service"  placeholder=""></td>
                 <td>${sel_currency_sup_service}</td>
-                <td><input type="input" class="form-control form-control-sm inp_sup_remark" id="" placeholder=""></td>
+                <td><input type="input" class="form-control form-control-sm inp_sup_remark"  placeholder=""></td>
                 <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
                         <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="red"></path>
@@ -384,8 +379,21 @@ const quartation = {
     if (action == 'preview') {
       quartation.set_preview_data(quartation_number)
     } else {
-
+      this.set_started()
     }
+  },
+
+  set_started : async function(){
+
+    $(`.inp-quo_no`).val('Waiting first save')
+    $(`.inp-sign_st`).val('Waiting first save')
+    //$(`.base-add`).html('')
+    //this.addhtmlbase_server()
+
+    sl_carrier = $('.db-select-carrier').html()
+    sl_pol = $('.db-select-pol').html()
+    sl_pod = $('.db-select-pod').html()
+    sl_carrier_type = $('.db-select-container-size').html()
   },
 
   ajax_set_preview_data: function (quartation_number) {
@@ -475,11 +483,11 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " >
                                 </div>
                                 <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" >
                                 </div>
                             </div>
                         </div>
@@ -490,10 +498,10 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" >
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_import_currency" id="" value="">
+                                    <select  class="form-select form-select-sm sel-tr_fee_import_currency"  >
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -521,11 +529,11 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_pickup " >
                                 </div>
                                 <label class="control-label col-sm-2 col-md-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                 <div class="col-lg-3 col-md-5">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_drop" >
                                 </div>
                             </div>
                         </div>
@@ -536,10 +544,10 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="">
+                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" >
                                 </div>
                                 <div class="col-lg-2 col-md-3">
-                                    <select name="" class="form-select form-select-sm sel-tr_fee_export_currency" id="" value="">
+                                    <select  class="form-select form-select-sm sel-tr_fee_export_currency"  >
                                         <option value="THB">THB</option>
                                         <option value="USD">USD</option>
                                         <option value="RMB">RMB</option>
@@ -576,55 +584,55 @@ const quartation = {
                     <div class="modal-body ps-5">
                         <div class="form-group">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">Consignee Name:</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >Consignee Name:</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">e-mail:</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >e-mail:</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">user_sale :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >user_sale :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">tax :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >tax :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">bank_account_name :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >bank_account_name :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">bank_number :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >bank_number :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">address :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >address :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">contact_person_name :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >contact_person_name :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="">contact_person_tel :</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >contact_person_tel :</label>
                                 <div class="col-sm-11 col-lg-8 col-md-6">
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
@@ -798,8 +806,11 @@ const quartation = {
     })
   },
   fillter_route_carrier: async function (e) {
+    
     let parent = $(e).closest('.base-add')
+    console.log(parent)
     let val = $(e).val()
+    console.log(val)
     $('.inp-carrier-type', parent).val('')
     $(
       'select.inp-port_load, select.inp-port_del ,input.inp_budget, select.select-currency',
@@ -809,6 +820,7 @@ const quartation = {
     let res = await quartation.ajax_get_containner_by_route({
       carrier_no: val,
     })
+    
     $('.inp-carrier-type>option', parent).hide()
     $('.inp-port_load>option', parent).hide()
     $('.inp-port_del>option', parent).hide()

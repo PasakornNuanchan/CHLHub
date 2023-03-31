@@ -51,7 +51,7 @@ require 'function/auth/get_session.php';
                                         </div>
                                         <div class="col-lg-7"></div>
                                         <div class="col-lg-2">
-                                            <button type="button" target="_blank" onclick="" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Quotation</button>
+                                            <button type="button" target="_blank" onclick="quartation_list_create.create();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Quotation</button>
                                         </div>
                                     </div>
                                 </div>
@@ -137,6 +137,7 @@ require 'function/auth/get_session.php';
 
 <script src="js/quotation-list/quotation_list.js"></script>
 <script src="js/quotation-list/quotation_list_set.js"></script>
+<script src="js/quotation-list/quotation_list_create.js"></script>
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();

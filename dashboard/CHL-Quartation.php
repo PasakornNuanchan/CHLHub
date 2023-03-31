@@ -51,13 +51,13 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Quartation number</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Quartation number</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-4">
                                                 <input type="text" class="form-control form-control-sm inp-quo_no" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status</label>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">sign status</label>
                                             <div class="col-lg-2 col-md-3">
                                                 <input type="text" class="form-control form-control-sm inp-sign_st" readonly>
                                             </div>
@@ -78,7 +78,7 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Term :</label>
                                     <div class="col-sm-1 col-md-4 col-lg-4">
-                                        <select class="select form-select form-select-sm sel_term" id="">
+                                        <select class="select form-select form-select-sm sel_term">
                                             <option value="" selected>Plese select Term</option>
                                         </select>
                                     </div>
@@ -114,7 +114,7 @@ require 'function/auth/get_session.php';
                                     <div class="base-add">
                                         <H4>Base Service</H4>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" for="pwd2">Carrier :</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
                                                     <select class="form-select form-select-sm inp-carrier" onchange="quartation.fillter_route_carrier(this);">
@@ -135,26 +135,28 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Container size :</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Container size :</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-5 col-md-4">
-                                                        <select class="form-select form-select-sm inp-carrier-type ">
-                                                            <?php
-                                                            $carrier_select = "SELECT DISTINCT `container_type` FROM `route`";
-                                                            $result_carrier = mysqli_query($con, $carrier_select);
-                                                            ?>
-                                                            <option selected value="">Please select carrier</option>
-                                                            <?php
-                                                            while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
-                                                            ?>
-                                                                <option value="<?= $result_carrier_total['container_type'] ?>"><?php echo $result_carrier_total['container_type'] ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
+                                                        <div class="db-select-container-size">
+                                                            <select class="form-select form-select-sm inp-carrier-type ">
+                                                                <?php
+                                                                $carrier_select = "SELECT DISTINCT `container_type` FROM `route`";
+                                                                $result_carrier = mysqli_query($con, $carrier_select);
+                                                                ?>
+                                                                <option selected value="">Please select carrier</option>
+                                                                <?php
+                                                                while ($result_carrier_total = mysqli_fetch_assoc($result_carrier)) {
+                                                                ?>
+                                                                    <option value="<?= $result_carrier_total['container_type'] ?>"><?php echo $result_carrier_total['container_type'] ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" for="">Container Quantity</label>
+                                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0">Container Quantity</label>
                                                     <div class="col-lg-2 col-md-2 ">
                                                         <input type="text" class="form-control form-control-sm inp_qty">
                                                     </div>
@@ -162,7 +164,7 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Port of loading</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Port of loading</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-md-4 col-lg-4">
@@ -183,7 +185,7 @@ require 'function/auth/get_session.php';
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" for="pwd2">Port of Delivery</label>
+                                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0">Port of Delivery</label>
                                                     <div class="col-md-4 col-lg-4 ">
                                                         <div class="db-select-pod">
                                                             <select class="form-select form-select-sm inp-port_del">
@@ -206,14 +208,14 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Budget :</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
                                                         <input type="text" class="form-control form-control-sm inp-budget" readonly>
                                                     </div>
                                                     <div class="col-lg-3 col-md-3">
-                                                        <select name="" class="form-select form-select-sm" id="" disabled>
+                                                        <select class="form-select form-select-sm" disabled>
                                                             <option value="">THB</option>
                                                             <option value="">USD</option>
                                                             <option value="">RMB</option>
@@ -227,8 +229,8 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                        <button type="button" class="btn btn-link btn-soft-light rounded-pill btn-block" onclick="quartation.addhtmlbase_server(this);"> Add Base service</button>
-                                    </div>
+                                    <button type="button" class="btn btn-link btn-soft-light rounded-pill btn-block" onclick="quartation.addhtmlbase_server(this);"> Add Base service</button>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -265,7 +267,7 @@ require 'function/auth/get_session.php';
                                                         <input type="text" class="form-control form-control-sm inp-truck_fee_budget">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
-                                                        <select name="" class="form-select form-select-sm sel-tr_fee_import_currency " id="">
+                                                        <select class="form-select form-select-sm sel-tr_fee_import_currency ">
                                                             <option value="THB" selected>THB</option>
                                                             <option value="USD">USD</option>
                                                             <option value="RMB">RMB</option>
@@ -295,13 +297,13 @@ require 'function/auth/get_session.php';
                                     <div class="truck_fee_export_row">
                                         <h5>Export 1</h5>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Pickup :</label>
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Pickup :</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-5">
                                                         <input type="text" class="form-control form-control-sm inp-truck_exp_pickup">
                                                     </div>
-                                                    <label class="control-label col-sm-2 col-lg-1 align-self-center mb-0" for="pwd2">Dropoff :</label>
+                                                    <label class="control-label col-sm-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                                     <div class="col-lg-3 col-md-5">
                                                         <input type="text" class="form-control form-control-sm inp-truck_exp_dropoff">
                                                     </div>
@@ -309,14 +311,14 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">Budget :</label>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center ">Budget :</label>
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
                                                         <input type="text" class="form-control form-control-sm">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
-                                                        <select name="" class="form-select form-select-sm select-currency sel-tr_fee_export_currency" id="">
+                                                        <select class="form-select form-select-sm select-currency sel-tr_fee_export_currency">
                                                             <option value="THB" selected>THB</option>
                                                             <option value="USD">USD</option>
                                                             <option value="RMB">RMB</option>
@@ -357,7 +359,7 @@ require 'function/auth/get_session.php';
                                     <tbody align="center">
                                         <tr class="sub_des">
                                             <td class="select_des_sup">
-                                                <select name="" class="form-select form-select-sm sel-sup_des_service" id="">
+                                                <select class="form-select form-select-sm sel-sup_des_service">
                                                     <?php
                                                     $sup_service_sql = "SELECT * FROM quotation_sup_service";
                                                     $result_sup_service = mysqli_query($con, $sup_service_sql);
@@ -372,16 +374,16 @@ require 'function/auth/get_session.php';
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><select name="" id="" class="form-select form-select-sm">
+                                            <td><select class="form-select form-select-sm">
                                                     <option value="Import">Import</option>
                                                     <option value="Export">Export</option>
                                                     <option value="Other" selected>Other service</option>
                                                 </select></td>
-                                            <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
-                                            <td><select name="" class="form-select form-select-sm" id="">
+                                            <td><input type="input" class="form-control form-control-sm " placeholder=""></td>
+                                            <td><select class="form-select form-select-sm">
                                                     <option value="">THB</option>
                                                 </select></td>
-                                            <td><input type="input" class="form-control form-control-sm " id="" placeholder=""></td>
+                                            <td><input type="input" class="form-control form-control-sm " placeholder=""></td>
                                             <td onclick="">
                                                 <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.7688 8.71387H16.2312C18.5886 8.71387 20.5 10.5831 20.5 12.8885V17.8254C20.5 20.1308 18.5886 22 16.2312 22H7.7688C5.41136 22 3.5 20.1308 3.5 17.8254V12.8885C3.5 10.5831 5.41136 8.71387 7.7688 8.71387ZM11.9949 17.3295C12.4928 17.3295 12.8891 16.9419 12.8891 16.455V14.2489C12.8891 13.772 12.4928 13.3844 11.9949 13.3844C11.5072 13.3844 11.1109 13.772 11.1109 14.2489V16.455C11.1109 16.9419 11.5072 17.3295 11.9949 17.3295Z" fill="currentColor"></path>
