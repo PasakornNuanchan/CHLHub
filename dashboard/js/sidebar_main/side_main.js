@@ -2,12 +2,10 @@ const sidebar_main = {
    
     set_data_rows: async function () {
         
-        
 
         let side_menu = await this.ajax_set_side_main()
         
         let url_get_check = $(location).attr('pathname').split("/")[3]
-        
 
         html_side = '';
         let check_val_data_page = 0;
@@ -44,7 +42,7 @@ const sidebar_main = {
         })
 
         if(check_val_data_page == '0'){
-          window.location = 'CHL-home.php';
+        //   window.location = 'CHL-home.php';
         }
        
     }, 

@@ -382,7 +382,6 @@ const quartation = {
       this.set_started()
     }
   },
-
   set_started : async function(){
 
     $(`.inp-quo_no`).val('Waiting first save')
@@ -395,7 +394,6 @@ const quartation = {
     sl_pod = $('.db-select-pod').html()
     sl_carrier_type = $('.db-select-container-size').html()
   },
-
   ajax_set_preview_data: function (quartation_number) {
     return new Promise(function (resolve, reject) {
       $.ajax({
@@ -426,7 +424,6 @@ const quartation = {
       })
     })
   },
-
   ajax_get_shipment : function () {
     return new Promise(function (resolve, reject) {
       $.ajax({
@@ -440,7 +437,6 @@ const quartation = {
       })
     })
   },
-
   html_consignee: async function (data) {
     let res = await quartation.get_consignee_sel()
     let html = ''
@@ -452,7 +448,6 @@ const quartation = {
 
     $('.sel_consignee').append(html)
   },
-
   html_shipment:async function(){
     let res_data = await this.ajax_get_shipment();
     console.log(res_data)
@@ -465,7 +460,6 @@ const quartation = {
 
     $('.sel_term').append(html)
   },
-
   del_base: function (e = null) {
     if ($('.base-add').length <= 1) {
       alert('should be atleast 1');
@@ -867,7 +861,9 @@ const quartation = {
         $(
           $('select:not(.select-currency), input:not(.inp_budget)', parent),
         ).each(async function (i, e) {
+          console.log(e);
           if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
+            console.log('1');
             data_st = 1
             d_carrier = $('.inp-carrier', parent).val();
             d_carrier_type = $('.inp-carrier-type', parent).val();
@@ -876,6 +872,7 @@ const quartation = {
             d_qty = $('.inp_qty', parent).val();
           } else {
             data_st = 0
+            console.log('0');
           }
         })
         if (data_st === 1) {
@@ -932,6 +929,8 @@ $(async function () {
   await quartation.html_shipment()
   await quartation.check_get()
   await quartation.check_base_input()
-
-
 })
+
+$(document).ready(function () {
+  quartation.check_base_input();
+});

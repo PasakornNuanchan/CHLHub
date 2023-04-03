@@ -212,13 +212,13 @@ require 'function/auth/get_session.php';
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
-                                                        <input type="text" class="form-control form-control-sm inp-budget" readonly>
+                                                        <input type="text" class="form-control form-control-sm inp_budget" readonly>
                                                     </div>
                                                     <div class="col-lg-3 col-md-3">
-                                                        <select class="form-select form-select-sm" disabled>
-                                                            <option value="">THB</option>
-                                                            <option value="">USD</option>
-                                                            <option value="">RMB</option>
+                                                        <select class="form-select form-select-sm select-currency" disabled>
+                                                            <option value="THB">THB</option>
+                                                            <option value="USD">USD</option>
+                                                            <option value="RMB">RMB</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-9 col-md-5 col-lg-4">
