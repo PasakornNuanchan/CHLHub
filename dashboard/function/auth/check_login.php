@@ -13,7 +13,7 @@
 
     $user = $_POST['user'];
     $pass = $_POST['pass'];
-    $query = "SELECT * FROM user left join department on department.department_number = user.department_number where sec_user_id = '$user' and sec_user_pass = '$pass'" ;
+    $query = "SELECT * FROM user left join department on department.department_number = user.department_number where sec_user_id = '$user' and sec_user_pass = '$pass' and status_user = '1' " ;
     // $query = "SELECT * FROM user where 1" ;
 
     $result = mysqli_query($con, $query) or die(mysqli_error($con));
