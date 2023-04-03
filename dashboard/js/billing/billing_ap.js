@@ -1,4 +1,5 @@
 const billing_ap = {
+    data_import : '',
     get_sl_ap : async function(){
         sl_des_ap = $('.sel_description_ap').parent().html();
         sl_bill_ap = $('.sel_bill_to_ap').parent().html();
@@ -59,11 +60,11 @@ const billing_ap = {
 
             if (v['payble'] == '0') {
                 
-                $(`.sel_des_ap${i} > select`).val(v['billing_number']);
+                $(`.sel_des_ap${i} > select`).val(v['db_des_id']);
                 $('.sel_bill_ap' + i + ' > select option[value="' + v['bill_to'] + '"][bill_to_type="' + v['bill_to_type'] + '"]').prop('selected', true);
                 $(`.sel_cur_ap${i} > select`).val(v['currency']);
             } else if(v['payble'] == '1'){
-                $(`.sel_des_ap${i} > select`).val(v['billing_number']).attr('disabled', true);
+                $(`.sel_des_ap${i} > select`).val(v['db_des_id']).attr('disabled', true);
                 $('.sel_bill_ap' + i + ' > select option[value="' + v['bill_to'] + '"][bill_to_type="' + v['bill_to_type'] + '"]').prop('selected', true);
                 $(`.sel_cur_ap${i} > select`).val(v['currency']).attr('disabled', true);
                 $(`.action_payble_ap${i}`).attr('disabled',true)
@@ -271,8 +272,8 @@ const billing_ap = {
         let inp_vat = $(parse).find('.inp_vat_ap').val();
         let inp_amt_icv_ar = $(parse).find('.inp_amt_icv_ap').val();
         let inp_remark = $(parse).find('.inp_remark_ap').val();
-        arr_save_ap = []
-        arr_save_ap_tmp = {}
+        let arr_save_ap = []
+        let arr_save_ap_tmp = {}
         arr_save_ap_tmp = {
             val_id: val_id,
             sel_des: sel_des,
@@ -397,6 +398,151 @@ const billing_ap = {
                 type: "post",
                 url: "php/billing/push_paid_action.php",
                 data: {'action_id' : action_id},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+
+    modal_billing_import_pcac: async function () {
+        if ($('#pcad_modal').length >= 1) {
+            $('#pcad_modal').remove()
+        }
+
+
+        let data_result = await billing_ap.ajax_get_pcad_modal(billing.job_number_global);
+
+
+        if (data_result['dtpcad'] != "data_error") {
+            billing_ap.data_import = data_result
+            let html_data_in_modal = '';
+            $.each(data_result['dtpcad'], function (i, v) {
+                html_data_in_modal += `
+            <tr>
+                <td>${v['type']}</td>
+                <td>${v['name']}</td>
+                <td>${v['billing_item_name']}</td>
+                <td style="text-align: right;">${v['amount']}</td>
+                <td style="text-align: center;">${v['currency']}</td>
+                <td>${v['remark']}</td>
+            </tr>
+            `;
+            })
+
+            html = `
+            <div class="modal fade" id="pcad_modal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Petty cash and Advance cash paid successful</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="table-responsive ">
+                            <table id="basic-table" class="table table-hover " name="billing-ap-tbl" role="grid" style="border-radius: 12px;">
+                                <thead>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                        <th>Type</th>
+                                        <th>Bill to</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Currency</th>
+                                        <th>remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                ${html_data_in_modal}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="billing_ap.import_save_data()">import</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
+            $('body').append(html)
+            $('#pcad_modal').modal('show')
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'There is no information to search for.',
+            })
+        }
+
+      },
+
+      import_save_data : async function(){
+        let data_save = billing_ap.data_import
+
+        let arr_save_data = []
+        let arr_save_data_tmp = {}
+        $.each(data_save['dtpcad'],function(i,v){
+            arr_save_data_tmp = {
+                sel_des: v['description'],
+                job_number: billing.job_number_global,
+                sel_bill_to: v['pay_to'],
+                sel_bill_to_type: '3',
+                sel_cur_description: v['currency'],
+                inp_qty_ar: '1',
+                inp_unit_price_ar: v['amount'],
+                inp_amt_ar: v['amount'],
+                inp_vat: 0,
+                inp_amt_icv_ar: v['amount'],
+                inp_remark: v['remark'],
+                id_cash_payment : v['ID']
+            }
+            arr_save_data.push(arr_save_data_tmp)
+        })
+        
+        
+        let res_save = await billing_ap.ajax_save_ap_import(arr_save_data)
+        if(res_save == true){
+            Swal.fire(
+                'saved!',
+                'Your file has been saved.',
+                'success'
+            )
+        }
+        await $('#pcad_modal').modal('hide')
+        await this.set_preview_data_ap(billing.job_number_global)
+    
+        
+
+      },
+
+      ajax_save_ap_import: async function (arr_save_data) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/save_list_ap_import.php",
+                data: { 'arr_save_data': arr_save_data },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+      ajax_get_pcad_modal : async function (job_number) { 
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/billing/get_pcad.php",
+                data: {'job_number' : job_number},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
