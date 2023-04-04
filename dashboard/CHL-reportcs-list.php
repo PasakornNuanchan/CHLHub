@@ -1,6 +1,5 @@
 <?php
 require 'function/auth/get_session.php';
- 
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">

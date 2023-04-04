@@ -301,11 +301,11 @@ require 'function/auth/get_session.php';
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-5">
-                                                        <input type="text" class="form-control form-control-sm inp-truck_exp_pickup">
+                                                        <input type="text" class="form-control form-control-sm inp-truck_fee_pickup">
                                                     </div>
                                                     <label class="control-label col-sm-2 col-lg-1 align-self-center mb-0">Dropoff :</label>
                                                     <div class="col-lg-3 col-md-5">
-                                                        <input type="text" class="form-control form-control-sm inp-truck_exp_dropoff">
+                                                        <input type="text" class="form-control form-control-sm inp-truck_fee_drop">
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,16 +374,19 @@ require 'function/auth/get_session.php';
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><select class="form-select form-select-sm">
+                                            <td><select class="form-select form-select-sm sel_type_sup_service">
                                                     <option value="Import">Import</option>
                                                     <option value="Export">Export</option>
                                                     <option value="Other" selected>Other service</option>
                                                 </select></td>
-                                            <td><input type="input" class="form-control form-control-sm " placeholder=""></td>
-                                            <td><select class="form-select form-select-sm">
-                                                    <option value="">THB</option>
+                                            <td><input type="input" class="form-control form-control-sm inp_price_sup_service" placeholder=""></td>
+                                            <td><select class="form-select form-select-sm sel_currency_sup_service">
+                                                    <option value="THB">THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+
                                                 </select></td>
-                                            <td><input type="input" class="form-control form-control-sm " placeholder=""></td>
+                                            <td><input type="input" class="form-control form-control-sm inp_sup_remark" placeholder=""></td>
                                             <td onclick="">
                                                 <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.7688 8.71387H16.2312C18.5886 8.71387 20.5 10.5831 20.5 12.8885V17.8254C20.5 20.1308 18.5886 22 16.2312 22H7.7688C5.41136 22 3.5 20.1308 3.5 17.8254V12.8885C3.5 10.5831 5.41136 8.71387 7.7688 8.71387ZM11.9949 17.3295C12.4928 17.3295 12.8891 16.9419 12.8891 16.455V14.2489C12.8891 13.772 12.4928 13.3844 11.9949 13.3844C11.5072 13.3844 11.1109 13.772 11.1109 14.2489V16.455C11.1109 16.9419 11.5072 17.3295 11.9949 17.3295Z" fill="currentColor"></path>

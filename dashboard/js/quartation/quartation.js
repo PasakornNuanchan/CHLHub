@@ -933,4 +933,5 @@ $(async function () {
 
 $(document).ready(function () {
   quartation.check_base_input();
+  
 });

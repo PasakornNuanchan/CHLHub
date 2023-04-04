@@ -2,13 +2,13 @@
 require '../../function/auth/get_session.php';
  
 require '../../core/conn.php';
-
 $arr_base = array_key_exists('base', $_POST) ? $_POST['base'] : array();
 $arr_truck = array_key_exists('truck', $_POST) ? $_POST['truck'] : array();
 $arr_sup = array_key_exists('sup', $_POST) ? $_POST['sup'] : array();
 
 try{
-        
+    
+    
     $con->begin_transaction();
     $stmt = $con->prepare("UPDATE `quartation_detail_base` SET `markup_price` = ?, `markup_result` = ? + (`unit_price` * qty), `remark` = ? WHERE ID = ?");
     if($stmt){
@@ -23,6 +23,7 @@ try{
     }else{
         throw new Exception("Error occurred while preparing the statement");
     }
+
 
     $stmt_truck = $con->prepare("
         UPDATE
@@ -66,6 +67,26 @@ try{
         foreach ($arr_sup as $k => $v) {
             $stmt_sup->bind_param("ddss", $v['markup'],$v['markup'], $v['remark'], $v['ID']);
             if($stmt_sup->execute()){
+                //query executed successfully
+            }else{
+                throw new Exception("Error occurred while executing the statement");
+            }
+        }
+    }else{
+        throw new Exception("Error occurred while preparing the statement");
+    }
+
+
+    
+    $stmt_remark_pdf = $con->prepare("
+        INSERT INTO `quotation_markup_remark`(`quotation_number`, `remark`)
+        VALUES(?, ?)
+        ON DUPLICATE KEY UPDATE remark = VALUES(remark)
+    ");
+    if($stmt_remark_pdf){
+        foreach ($arr_truck as $k => $v) {
+            $stmt_remark_pdf->bind_param("ss", $_POST['quo_no'], $_POST['pdf_remark']);
+            if($stmt_remark_pdf->execute()){
                 //query executed successfully
             }else{
                 throw new Exception("Error occurred while executing the statement");

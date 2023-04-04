@@ -1,3 +1,4 @@
+var PDF_REMARK = '';
 const quartation_markup = {
     get_quono : '',
 
@@ -246,23 +247,26 @@ const quartation_markup = {
     },
     save_markup :async function () {  
         let arr_save = {};
+        let pdf_remark = PDF_REMARK;
 
         $('.booking_container').each(function (index, element) {
             let ID = $(this).attr('data_id');
             let remark = $('.inp_remark',this).val();
             let markup = $('.inp_markup_price',this).val();
-
             let key = $(this).attr('data_set');
             let obj = {'ID' : ID,
                         'remark' : remark,
-                        'markup' : markup}
+                        'markup' : markup,
+                        }
 
             if (!arr_save[key]) {
                 arr_save[key] = [];
             }
             arr_save[key].push(obj);
         });
-        console.log(arr_save);
+        arr_save['pdf_remark'] = pdf_remark;
+        arr_save['quo_no'] = quartation_markup.get_quono;
+        console.log(arr_save);        
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -362,4 +366,5 @@ const quartation_markup = {
 
 $(document).ready(function () {
     quartation_markup.init();
+
 });

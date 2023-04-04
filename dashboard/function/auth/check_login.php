@@ -13,7 +13,13 @@
 
     $user = $_POST['user'];
     $pass = $_POST['pass'];
-    $query = "SELECT * FROM user left join department on department.department_number = user.department_number where sec_user_id = '$user' and sec_user_pass = '$pass'" ;
+    $query = "
+    SELECT
+        *,
+        USER.user_number as 'user_ses_id'
+    FROM USER
+        LEFT JOIN department ON department.department_number = USER.department_number
+    where sec_user_id = '$user' and sec_user_pass = '$pass'" ;
     // $query = "SELECT * FROM user where 1" ;
 
     $result = mysqli_query($con, $query) or die(mysqli_error($con));
@@ -23,7 +29,7 @@
     }else{
         while ($row = mysqli_fetch_array($result)) {
             session_start();
-            $_SESSION['ID'] = $row['ID'];
+            $_SESSION['ID'] = $row['user_ses_id'];
             $_SESSION['name'] = $row['first_name'];
             $_SESSION['lastname'] = $row['last_name'];
             $_SESSION['email'] = $row['email'];

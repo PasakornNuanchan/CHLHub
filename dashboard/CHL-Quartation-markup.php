@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -10,6 +10,7 @@ require 'function/auth/get_session.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Quotation Markup</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 </head>
 
@@ -119,11 +120,22 @@ require 'function/auth/get_session.php';
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                               
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <H4>Remark</H4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="remark_pdf"></div>
+
                             </div>
                         </div>
                         <div class="card">
@@ -216,8 +228,9 @@ require 'function/auth/get_session.php';
 
 </html>
 
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
-
+<script src="js/quartation/quartation_markup.js"></script>
 
 <script>
     function openCity(evt, cityName) {
@@ -233,11 +246,29 @@ require 'function/auth/get_session.php';
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-
 </script>
-<script src="js/quartation/quartation_markup.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         sidebar_main.set_data_rows();
+
+        var MAX_ROWS = 12;
+        var quill = new Quill('.remark_pdf', {
+            theme: 'snow'
+        });
+
+        quill.on('text-change', function(delta, oldDelta, source) {
+            var text = quill.getText();
+            var numLines = text.split('\n').length;
+            if (numLines > MAX_ROWS) {
+                // Remove the last line if the number of rows exceeds the limit
+                quill.deleteText(text.length - 1, 1);
+            }
+            var html = quill.root.innerHTML;
+            console.log(html);
+
+            // Get the content of the editor and save it to PDF_REMARK
+            var remark = quill.getText();
+            PDF_REMARK = html;
+        });
     });
 </script>

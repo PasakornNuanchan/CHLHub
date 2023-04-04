@@ -36,8 +36,8 @@
     $sup_service = isset($_POST['sup_service'])? $_POST['sup_service'] : array();
     $quo_no = isset($_POST['quo_no'])? $_POST['quo_no'] : '';
     $con->autocommit(FALSE);
-
-    if ($quo_no == '') {
+    print_r($_POST);
+    if ($quo_no == '' || $quo_no == 'Waiting first save') {
 
         $quo_no = create_quo_no();
         $consignee = $detail['consignee'];
@@ -210,7 +210,7 @@
                 ";
                 $resule_base_save[] = $con -> query($sql_save_truck_import);
                 if ($con->affected_rows == 1) {
-                    $updated_id[] = $id;
+                    $updated_import_id[] = $id;
                 }
             }else{
                 $sql_save_truck_import = "
@@ -233,7 +233,7 @@
                 ";
                 $resule_base_save[] = $con -> query($sql_save_truck_import);
                 if ($con->affected_rows == 1) {
-                    $updated_id[] = $con->insert_id;
+                    $updated_import_id[] = $con->insert_id;
                 }
             }
             $resule_base_save[] = $con -> query($sql_save_truck_import);
@@ -291,7 +291,7 @@
                 ";
                 $resule_base_save[] = $con -> query($sql_save_truck_export);
                 if ($con->affected_rows == 1) {
-                    $updated_id[] = $id;
+                    $updated_export_id[] = $id;
                 }
             }else{
                 $sql_save_truck_export = "
@@ -314,7 +314,7 @@
                 ";
                 $resule_base_save[] = $con -> query($sql_save_truck_export);
                 if ($con->affected_rows == 1) {
-                    $updated_id[] = $con->insert_id;
+                    $updated_export_id[] = $con->insert_id;
                 }
             }
         }
