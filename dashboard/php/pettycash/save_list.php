@@ -4,6 +4,7 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 include '../../core/con_path.php';
 include '../../function/auth/run_petty_cash_number.php';
+
 $list_data = $_POST['save_arr_detail'];
 $data_title = $_POST['save_arr_title'];
 
@@ -28,27 +29,27 @@ $bank_number = $dat_u['bank_number'];
 $bank_name = $dat_u['bank_name'];
 
 
-
-
 foreach ($list_data as $k => $v) {
     $get_amount = isset($v['get_amount']) ? $v['get_amount'] : '';
     $get_currency = isset($v['get_currency']) ? $v['get_currency'] : '';
     $get_description = isset($v['get_description']) ? $v['get_description'] : '';
 
 
-    $sql_insert_detail =
+$sql_insert_detail =
         "
 INSERT INTO `petty_cash_detail`(
     `petty_cash_number`,
     `job_number`,
     `amount`,
-    `currency`
+    `currency`,
+    `pcd_status`
 )
 VALUES(
     '$run_doc',
     '$get_description',
     '$get_amount',
-    '$get_currency'
+    '$get_currency',
+    '0'
 )
 ";
 

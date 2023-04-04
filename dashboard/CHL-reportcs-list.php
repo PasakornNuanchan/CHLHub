@@ -63,7 +63,8 @@ require 'function/auth/get_session.php';
                                     $sql_table_list = "
                                         SELECT jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,jt.mother_vessel,jt.voy_no_mother,jt.inv,jt.mbl
                                         FROM job_title as jt 
-                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                        LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                        WHERE jt.status_job = '0'
                                         ";
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {

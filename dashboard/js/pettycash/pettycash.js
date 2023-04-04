@@ -92,12 +92,12 @@ const petty_cash = {
     set_preview_data: async function (job_doc_pt) {
 
         let res_data = await petty_cash.ajax_set_preview_data(job_doc_pt);
-
+        console.log(res_data);
         $('.btn_add_new_list').html('')
 
 
 
-        console.log(res_data);
+        
 
         $('.inp-pt_number').val(res_data['pct']['petty_cash_number']).attr('disabled', true);
         $('.sel_tranfer_mt').val(res_data['pct']['tranfer_method']).attr('disabled', true);

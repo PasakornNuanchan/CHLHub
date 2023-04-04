@@ -436,7 +436,7 @@ const pettycash_return = {
                     })
                 } else {
                     let res_sv = await pettycash_return.save_petty_cash(val,val_id)
-                    if(res_sv == '1'){
+                    if(res_sv['pcd'] == '1'&&res_sv['st'] == '1'&&res_sv['up'] == '1'){
                         Swal.fire(
                                 'saved!',
                                 'Your file has been saved.',

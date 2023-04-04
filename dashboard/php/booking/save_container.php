@@ -43,10 +43,12 @@ foreach ($container_arr as $k => $v) {
         )
         ";
             $status = $con->query($sql);
-            echo json_encode($status);
+            
         }
     }
+    
 }
+echo json_encode($status);
 
 // $sql_user_query = "
 //     SELECT * FROM user WHERE ID = '$data_user'";

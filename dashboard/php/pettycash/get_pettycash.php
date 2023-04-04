@@ -8,7 +8,7 @@
         job_number 
     FROM 
         job_title as jt
-    INNER JOIN 
+    LEFT JOIN 
         consignee as c on jt.consignee_number = c.consignee_number
     ORDER BY jt.ID DESC
     LIMIT 100

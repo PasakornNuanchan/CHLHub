@@ -76,98 +76,86 @@ const booking = {
         let cargo_marks = $(".inp-cargo_marks").val();
 
 
-        //container section
-        let container = [];
-        $(".booking_container").each(function (e) {
-            let cont_tmp = {};
+        if (shipper == "" || shipterm == "" || port_recieve == "" || port_load == "" || ts_port == "" || port_delivery == "" || etd == "" || eta == ""
+            || hs_code == "" || cargo_type == "" || cargo_qty == "" || cargo_vol == "" || cargo_gw == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Detail data is missing plese check your data !',
+            })
+        } else {
+            //container section
+            let container = [];
+            $(".booking_container").each(function (e) {
+                let cont_tmp = {};
 
-            let type = $(".inp-container_type option:selected", this).val();
-            let qty = $(".inp-contqty", this).val();
-            let weight = $(".inp-single-wieght", this).val();
-            let soc = $(".inp-soc:checked", this).length > 0 ? "1" : "0";
-            let ow = $(".inp-ow:checked", this).length > 0 ? "1" : "0";
-            let count = qty;
-            while (count > 0) {
-                cont_tmp = {
-                    type: type,
-                    weight: weight,
-                    soc: soc,
-                    ow: ow,
-                    cy: cy,
-                    rtn: rtn,
-                };
-                container.push(cont_tmp);
-                count--;
-            }
-        });
+                let type = $(".inp-container_type option:selected", this).val();
+                let qty = $(".inp-contqty", this).val();
+                let weight = $(".inp-single-wieght", this).val();
+                let soc = $(".inp-soc:checked", this).length > 0 ? "1" : "0";
+                let ow = $(".inp-ow:checked", this).length > 0 ? "1" : "0";
+                let count = qty;
+                while (count > 0) {
+                    cont_tmp = {
+                        type: type,
+                        weight: weight,
+                        soc: soc,
+                        ow: ow,
+                        cy: cy,
+                        rtn: rtn,
+                    };
+                    container.push(cont_tmp);
+                    count--;
+                }
+            });
 
-        datavalid = [
-            ".inp-bkno",
-            ".inp-shptrm",
-            ".inp-carrier",
-            ".inp-prtload",
-            ".inp-ts_port",
-            ".inp-etd",
-            ".inp-cy",
-            ".inp-rtn",
-            ".inp-eta",
-        ];
-        // valid = await booking.validate_input(datavalid,container);
-        // if (valid === false) {
-        //     Swal.fire({
-        //         icon: "warning",
-        //         title: "Warning!",
-        //         text: "some of the inputs are blank please fill",
-        //     });
-        //     return;
-        // }
+            datavalid = [
+                ".inp-bkno",
+                ".inp-shptrm",
+                ".inp-carrier",
+                ".inp-prtload",
+                ".inp-ts_port",
+                ".inp-etd",
+                ".inp-cy",
+                ".inp-rtn",
+                ".inp-eta",
+            ];
 
-
-
-        //end container section
-        let data = {
-            'bk_no': bk_no,
-            'shipper': shipper,
-            'shipterm': shipterm,
-            'remark': remark,
-            'carrier': carrier,
-            'port_recieve': port_recieve,
-            'port_load': port_load,
-            'ts_port': ts_port,
-            'port_delivery': port_delivery,
-            'mother_vessel': mother_vessel,
-            'mother_voy_no': mother_voy_no,
-            'feeder_vessel': feeder_vessel,
-            'feeder_voy_no': feeder_voy_no,
-            'etd': etd,
-            'eta': eta,
-            'container': container,
-            'cargo_desc': cargo_desc,
-            'hs_code': hs_code,
-            'cargo_type': cargo_type,
-            'cargo_qty': cargo_qty,
-            'cargo_gw': cargo_gw,
-            'cargo_vol': cargo_vol,
-            'cargo_marks': cargo_marks,
-            'valid': this.data_id,
-            'job_number': this.job_number_global
-        };
-
-        //let res = await booking.ajax_save_booking(data);
-        await booking.ajax_save_booking(data);
-
-        // console.log(res.st);
-        // if (res['st'] == '1') {
+            let data = {
+                'bk_no': bk_no,
+                'shipper': shipper,
+                'shipterm': shipterm,
+                'remark': remark,
+                'carrier': carrier,
+                'port_recieve': port_recieve,
+                'port_load': port_load,
+                'ts_port': ts_port,
+                'port_delivery': port_delivery,
+                'mother_vessel': mother_vessel,
+                'mother_voy_no': mother_voy_no,
+                'feeder_vessel': feeder_vessel,
+                'feeder_voy_no': feeder_voy_no,
+                'etd': etd,
+                'eta': eta,
+                'container': container,
+                'cargo_desc': cargo_desc,
+                'hs_code': hs_code,
+                'cargo_type': cargo_type,
+                'cargo_qty': cargo_qty,
+                'cargo_gw': cargo_gw,
+                'cargo_vol': cargo_vol,
+                'cargo_marks': cargo_marks,
+                'valid': this.data_id,
+                'job_number': this.job_number_global
+            };
 
 
-        // }else{
+            await booking.ajax_save_booking(data);
 
-        //     Swal.fire(
-        //         'Error',
-        //         'Insert failed!' + res['err'],
-        //         'error'
-        //       );
-        // }
+        }
+
+
+
 
     },
 
@@ -213,7 +201,7 @@ const booking = {
 
         let job_number = get_job == false ? null : get_job;
         let action = get_action == false ? null : get_action;
-
+        this.job_number_global = job_number;
         if (action == 'preview') {
             booking.set_default_data();
             booking.set_preview_data(job_number);
@@ -321,7 +309,7 @@ const booking = {
                 }
 
                 html_table_container = `
-            <tr class="booking_container${i}">
+            <tr class="booking_container${i}" booking_container="${v['ID']}">
                 <td>${db_sel_container}</td>
                 <td><input type="number" class="form-control form-control-sm inp-contqty" style="text-align:right;" value="${v['container_count']}"></td>
                 <td><input type="number" class="form-control form-control-sm inp-single-wieght" style="text-align:right;" value="${v['single_cnt']}"></td>
@@ -329,10 +317,7 @@ const booking = {
                 <td><input class="form-check-input inp-ow" type="checkbox"${ow_status} >
                  <input type="hidden" class="form-control form-control-sm inp_number_container" style="text-align:right;" value="1"></td>
                 <td onclick="">
-                    <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.7688 8.71387H16.2312C18.5886 8.71387 20.5 10.5831 20.5 12.8885V17.8254C20.5 20.1308 18.5886 22 16.2312 22H7.7688C5.41136 22 3.5 20.1308 3.5 17.8254V12.8885C3.5 10.5831 5.41136 8.71387 7.7688 8.71387ZM11.9949 17.3295C12.4928 17.3295 12.8891 16.9419 12.8891 16.455V14.2489C12.8891 13.772 12.4928 13.3844 11.9949 13.3844C11.5072 13.3844 11.1109 13.772 11.1109 14.2489V16.455C11.1109 16.9419 11.5072 17.3295 11.9949 17.3295Z" fill="currentColor"></path>
-                        <path opacity="0.4" d="M17.523 7.39595V8.86667C17.1673 8.7673 16.7913 8.71761 16.4052 8.71761H15.7447V7.39595C15.7447 5.37868 14.0681 3.73903 12.0053 3.73903C9.94257 3.73903 8.26594 5.36874 8.25578 7.37608V8.71761H7.60545C7.20916 8.71761 6.83319 8.7673 6.47754 8.87661V7.39595C6.4877 4.41476 8.95692 2 11.985 2C15.0537 2 17.523 4.41476 17.523 7.39595Z" fill="currentColor"></path>
-                    </svg>
+                    
                 </td>
             </tr>
             `;
@@ -386,6 +371,7 @@ const booking = {
             'Your file has been saved.',
             'success'
         )
+        await this.set_preview_data(booking.job_number_global)
 
     },
 
@@ -403,5 +389,119 @@ const booking = {
         });
     },
 
+
+    modal_del_container: async function () {
+        if ($('#pcad_modal').length >= 1) {
+            $('#pcad_modal').remove()
+        }
+
+        console.log(booking.job_number_global)
+        let data_result = await booking.ajax_get_delete(booking.job_number_global);
+
+
+        if (data_result['sql_sel_del'] != "data_error") {
+            let html_data_in_modal = '';
+            $.each(data_result['sql_sel_del'], function (i, v) {
+                html_data_in_modal += `
+            <tr>
+                <td>${v['container_type']}</td>
+                <td>${v['single_cnt']}</td>
+                <td>${v['cy']}</td>
+                <td>${v['rtn']}</td>
+            </tr>
+            `;
+            })
+
+            html = `
+            <div class="modal fade" id="pcad_modal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Delete data</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="table-responsive ">
+                            <table id="basic-table" class="table table-hover " name="billing-ap-tbl" role="grid" style="border-radius: 12px;">
+                                <thead>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                        <th>container type</th>
+                                        <th>single_cnt</th>
+                                        <th>cy</th>
+                                        <th>rtn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                ${html_data_in_modal}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="booking.sv_delete_container()">Delete</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
+            $('body').append(html)
+            $('#pcad_modal').modal('show')
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'There is no information to search for.',
+            })
+        }
+
+    },
+
+    ajax_get_delete: async function (job_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/booking/get_delete_container.php",
+                data: { 'job_number': job_number },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
+    sv_delete_container : async function(){
+        let res = await this.ajax_sv_delete_container()
+        
+        if(res == '1'){
+            Swal.fire(
+                'saved!',
+                'Your file has been saved.',
+                'success'
+            )
+        }
+        await $('#pcad_modal').modal('hide')
+        await this.set_preview_data(booking.job_number_global)
+    },
+
+    ajax_sv_delete_container : async function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/booking/delete_container.php",
+                data: { 'job_number': booking.job_number_global },
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    }
 };
 

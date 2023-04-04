@@ -42,23 +42,22 @@ require 'function/auth/get_session.php';
                             <table id="datatable" class="table table-hover" name="data_table_list" data-toggle="data-table" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
-                                        <th>Create Date</th>
+                                        <th>CreateDate</th>
                                         <th>Job number</th>
+                                        <th>Consignee</th>
                                         <th>Sale</th>
-                                        <th>AR</th>
-                                        <th>AP</th>
                                         <th>Shipped</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody align="center">
                                     <?php
-                                    $sql_table_list = "SELECT * 
-                                                        FROM job_title as jt 
-                                                        INNER JOIN consignee as c ON jt.consignee_number = c.consignee_number
-                                                        INNER JOIN area as a ON jt.ts_port_number = a.area_number
-                                                        INNER JOIN carrier as cr ON jt.carrier_number = cr.carrier_number
-                                                        
+                                    $sql_table_list = "SELECT jt.create_date,jt.job_number,u.first_name,u.last_name,c.consignee_name,s.shipper_name
+                                    FROM job_title as jt 
+                                    LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
+                                    LEFT JOIN shipper as s ON jt.shipper_number = s.ID
+                                    LEFT JOIN user as u ON jt.sale_support = u.ID
+                                    WHERE jt.status_job = '0'
                                                        ";
 
 
@@ -68,10 +67,9 @@ require 'function/auth/get_session.php';
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>
                                             <td><?= $result_table_list['job_number'] ?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?= $result_table_list['consignee_name'] ?></td>
+                                            <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
+                                            <td><?= $result_table_list['shipper_name'] ?></td>
                                             <td><button type="button" onclick="location.href='CHL-Billing.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php

@@ -86,10 +86,12 @@ include 'core/con_path.php';
                                     jt.eta
                                 FROM
                                     job_title as jt
-                                INNER JOIN carrier as c ON jt.carrier_number = c.carrier_number
-                                INNER JOIN consignee as co ON jt.consignee_number = co.consignee_number
-                                LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number
-                                ORDER BY jt.ID ASC";
+                                    LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
+                                    LEFT JOIN consignee as co ON jt.consignee_number = co.consignee_number
+                                    LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number
+                                WHERE jt.status_job = '0'
+                                ORDER BY jt.ID ASC
+                                    ";
 
                                 $fetch_sql = mysqli_query($con, $sql);
                                 while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {

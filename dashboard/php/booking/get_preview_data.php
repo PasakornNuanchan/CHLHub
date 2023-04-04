@@ -38,7 +38,7 @@ $job_number = $_POST['job_number'];
     jt.create_date,
     jt.status_job
 FROM `job_title` as jt
-INNER JOIN carrier as c ON jt.carrier_number = c.carrier_number
+LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
 WHERE
             job_number = '$job_number'
     ";
@@ -68,7 +68,7 @@ WHERE
         c.soc,
         c.ow
     FROM `container` as c
-    INNER JOIN container_type as ct ON c.container_type = ct.container_type_name
+    LEFT JOIN container_type as ct ON c.container_type = ct.container_type_name
     WHERE 
         c.job_number ='$job_number'
     GROUP BY 

@@ -39,7 +39,7 @@ include '../../core/con_path.php';
     $cargo_vol = $_POST['cargo_vol'];
     $cargo_marks = $_POST['cargo_marks'];
 
-     $sql = "
+    $sql = "
     UPDATE
         `job_title`
     SET

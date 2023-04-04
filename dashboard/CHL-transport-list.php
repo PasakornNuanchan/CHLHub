@@ -71,7 +71,7 @@ require 'function/auth/get_session.php';
                                     SELECT 
                                         jt.create_date,
                                         jt.job_number,
-                                        IF(jt.type_import_export=1,'Export','Import') as import_export,
+                                        jt.type_import_export as import_export,
                                         c.consignee_name,
                                         a.location_name,
                                         a.country,
@@ -80,12 +80,14 @@ require 'function/auth/get_session.php';
                                         FROM job_title as jt 
                                         LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                         LEFT JOIN area as a ON jt.ts_port_number = a.area_number
+                                        WHERE jt.status_job = '0'
                                         ";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
                                         $job_numer = $result_table_list['job_number'];
+
                                     ?>
                                         <tr>
                                             <td><?= $result_table_list['create_date'] ?></td>

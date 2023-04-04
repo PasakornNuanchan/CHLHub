@@ -18,8 +18,8 @@ WHERE act.petty_cash_number = '$petty_number'
    pcd.amount,
    pcd.currency 
    FROM petty_cash_detail as pcd
-   INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
-   INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
+   LEFT JOIN job_title as jt ON jt.job_number = pcd.job_number
+   LEFT JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
     ";
 
    $sql_count_des = "
@@ -79,7 +79,7 @@ WHERE act.petty_cash_number = '$petty_number'
       $pcn_id = implode(',' , $pcdjn2);
       $imp_set = implode(',' , $pcdjn);
      $sql_pcdr = "
-      SELECT cp.*,bd.billing_item_name FROM Cash_payment as cp INNER JOIN billing_description as bd on cp.description = bd.ID 
+      SELECT cp.*,bd.billing_item_name FROM Cash_payment as cp LEFT JOIN billing_description as bd on cp.description = bd.ID 
       WHERE cp.type = 'Petty Cash' AND cp.job_number IN($imp_set) AND cp.ID_petty_cash IN ($pcn_id) AND cp.status IN ('0','2')";
       
       $result = $con -> query($sql_pcdr);
@@ -95,9 +95,3 @@ WHERE act.petty_cash_number = '$petty_number'
         $dtpc_arr[$v['job_number']][] = $v;
       }
      echo json_encode(array('pcd'=>$pcd,'pct'=>$pct,'scd'=>$scd,'dtpc'=>$dtpc_arr,'imp_set'=>$imp_set,'$pcdjn'=>$pcdjn,'pdt'=>$imp_pdt,'name'=>$imp_name));
-    
-
-
-
-
-?>

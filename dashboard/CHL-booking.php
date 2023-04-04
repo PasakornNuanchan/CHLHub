@@ -251,7 +251,7 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agnet:</label>
+                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agent:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm db-sel-represent">
                                         <option value=""></option>
@@ -420,6 +420,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
+                                <button class="btn btn-danger rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.modal_del_container()"><i class="bi bi-check-square"></i> delete</button>
                                 <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_container_function()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>

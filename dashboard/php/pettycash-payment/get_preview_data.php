@@ -11,15 +11,16 @@ $petty_number = $_POST['petty_number'];
 
    $sql_pcd = "
    SELECT  
-   pcd.ID,
-   pcd.petty_cash_number,
-   pcd.job_number,
-   pcd.amount,
-   pcd.currency,
-   c.consignee_name
+      pcd.ID,
+      pcd.petty_cash_number,
+      pcd.job_number,
+      pcd.amount,
+      pcd.currency,
+      c.consignee_name
    FROM petty_cash_detail as pcd
-   INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
-   INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
+   LEFT JOIN job_title as jt ON jt.job_number = pcd.job_number
+   LEFT JOIN consignee as c ON c.consignee_number = jt.consignee_number 
+   WHERE pcd.petty_cash_number ='$petty_number'
     ";
 
    $sql_count_des = "
@@ -36,8 +37,8 @@ $petty_number = $_POST['petty_number'];
     (SELECT trpc.currency FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) currency_tranfer,
     (SELECT trpc.pic FROM transac_recript_petty_cash as trpc WHERE trpc.doc_number = '$petty_number' AND trpc.currency = pcd.currency) pic_file
  FROM petty_cash_detail as pcd
-    INNER JOIN job_title as jt ON jt.job_number = pcd.job_number
-    INNER JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
+    LEFT JOIN job_title as jt ON jt.job_number = pcd.job_number
+    LEFT JOIN consignee as c ON c.consignee_number = jt.consignee_number WHERE pcd.petty_cash_number ='$petty_number'
  GROUP BY 
     pcd.currency
     ";
