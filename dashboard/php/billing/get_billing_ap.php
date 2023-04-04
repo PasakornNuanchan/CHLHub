@@ -4,6 +4,8 @@
     $sql_description = "
     SELECT * FROM `billing_description`
     ";
+
+    
     $sql_bill_to = "
     SELECT
         c.ID,
@@ -19,7 +21,17 @@
             '2' as 'bill_to_type'
         FROM
             transport_sup ts
-    );
+    )
+    UNION
+        (
+        SELECT 
+            gc.ID,
+            gc.name as 'bill_to_name',
+            '3' as 'bill_to_type'
+        FROM
+            Goverment_contact gc
+    )
+    ;
     ";
     
     $result = $con -> query($sql_description);

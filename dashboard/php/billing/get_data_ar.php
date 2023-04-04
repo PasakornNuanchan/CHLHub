@@ -4,7 +4,7 @@
     $sql_ar = "
     SELECT 
       b.ID,
-      bd.billing_number,
+      bd.ID as db_des_id,
       bd.billing_item_name,
       c.consignee_number,
       b.bill_to_type,
@@ -22,7 +22,7 @@
       b.check_by,
       b.action_paid_by
     FROM `billing` b
-      LEFT JOIN billing_description bd ON b.billing_description = bd.billing_number
+      LEFT JOIN billing_description bd ON b.billing_description = bd.ID
       LEFT JOIN consignee c ON b.bill_to = c.consignee_number
     WHERE 
       job_number = '$job_number' and 

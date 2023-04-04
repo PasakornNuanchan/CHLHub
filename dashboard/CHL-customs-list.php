@@ -98,18 +98,18 @@ include 'core/con_path.php';
 
                                     if ($result_table_list['document_status'] != '1') {
                                         $color_dt = 'bg-danger';
-                                        $st_txt_dt = "Unpaid";
+                                        $st_txt_dt = "fasle";
                                     } else {
                                         $color_dt = 'bg-success';
-                                        $st_txt_dt = "Paid";
+                                        $st_txt_dt = "done";
                                     }
 
                                     if ($result_table_list['transport_status'] != '1') {
                                         $color_ts = 'bg-danger';
-                                        $st_txt_ts = "Unpaid";
+                                        $st_txt_ts = "false";
                                     } else {
                                         $color_ts = 'bg-success';
-                                        $st_txt_ts = "paid";
+                                        $st_txt_ts = "done";
                                     }
                                 ?>
                                         <tr>

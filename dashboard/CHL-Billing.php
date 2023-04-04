@@ -155,6 +155,7 @@ require 'function/auth/get_session.php';
                         <div class="card-header d-flex justify-content-between">
                             <h3 class="card-title">Account Payble</h3>
                             <div style="float: right">
+                                <button class="btn btn-info rounded-pill bg-secondary bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="billing_ap.modal_billing_import_pcac();"><i class="bi bi-filetype-xlsx"></i> Import petty cash and advance cash</button>
                                 <button class="btn btn-info rounded-pill bg-info bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-filetype-xlsx"></i> Export</button>
                                 <button class="btn btn-warning rounded-pill bg-warning bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-printer"></i> Print</button>
                             </div>

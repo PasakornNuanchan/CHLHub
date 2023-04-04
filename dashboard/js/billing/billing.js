@@ -122,12 +122,12 @@ const billing = {
 
                 
                 if (v['payble'] == '0') {
-                    $(`.sel_des${i} > select`).val(v['billing_number']);
+                    $(`.sel_des${i} > select`).val(v['db_des_id']);
                     $('.sel_bill' + i + ' > select option[bill_to_type="' + v['bill_to_type'] + '"][value="' + v['bill_to'] + '"]').prop('selected', true);
                     $(`.sel_cur${i} > select`).val(v['currency']);
 
                 } else {
-                    $(`.sel_des${i} > select`).val(v['billing_number']).attr('disabled', true);
+                    $(`.sel_des${i} > select`).val(v['db_des_id']).attr('disabled', true);
                     $('.sel_bill' + i + ' > select option[bill_to_type="' + v['bill_to_type'] + '"][value="' + v['consingee_id'] + '"]').prop('disabled', true);
                     $(`.sel_cur${i} > select`).val(v['currency']).attr('disabled', true);
                     $(`.action_payble_ar${i}`).attr('disabled',true)
