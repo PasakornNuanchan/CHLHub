@@ -238,8 +238,9 @@ const pettycash_payment = {
                         </div>
                         <div class="form-group row">
                             <label class="control-label col-sm-2 align-self-center">Trust Receipt :</label>
-                            <div class="col-sm-9 col-lg-6">
+                            <div class="col col-sm-4 col-lg-3">
                                 <input type="file" class="form-control form-control-sm inp-receipt inp-receipt${i}" disabled>
+                                <div class="fs-5 mb-1 pic_show_pay"><i class="bi bi-file-earmark-image download_file" onclick="pettycash_payment.download_file('${v['ID']}');"></i></div> 
                             </div>
                         </div>
                         <div style="float: right">
@@ -368,11 +369,18 @@ const pettycash_payment = {
         let get_tf_amount = $(`.card-ptn${val}`).find('.inp_amount_tranfer').val()
         let get_tf_currency = $(`.card-ptn${val}`).find('.sel_amount_tranfer').val()
         let inp_receipt = $(`.card-ptn${val}`).find('.inp-receipt').val()
+        
 
+        let pic = '';
+        let file = $(`.inp-receipt${val}`).prop('files')[0];
+        if(file != undefined){
+            pic = await convert_file(`.inp-receipt${val}`);
+        }
+        
             arr_pc_payment_temp = {
                 get_tf_amount: get_tf_amount,
                 get_tf_currency: get_tf_currency,
-                inp_receipt: inp_receipt,
+                inp_receipt: pic,
                 doc_number: pettycash_payment.petty_cash_number_global
             }
             arr_pc_payment.push(arr_pc_payment_temp);
@@ -396,7 +404,45 @@ const pettycash_payment = {
             });
         });
     },
+
+    download_file : function (e=null) {  
+
+        
+        let ID_req = e;
+        console.log(ID_req)
+        let data = {
+            'id_req' : ID_req
+        }
+
+        $.ajax({
+            type: "post",
+            url: "php/customs/download_file.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
+        });
+    },
 };
+
+
+async function convert_file(c_name) {  
+    let myFile = $(c_name).prop('files')[0];
+    
+    const base64String = await toBase64(myFile);
+    return(base64String);
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 
 function number_format(nStr)
 {

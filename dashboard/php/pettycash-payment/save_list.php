@@ -20,14 +20,16 @@ $sql_insert_detail = "
         `doc_number`,
         `amount`,
         `currency`,
-        `paid_date_time`
+        `paid_date_time`,
+        `pic`
     )
     VALUES(
         '$data_user',
         '$doc_number',
         '$get_tf_amount',
         '$get_tf_currency',
-        '$t_time_save'
+        '$t_time_save',
+        '$inp_receipt'
     )
 ";
 
