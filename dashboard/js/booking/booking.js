@@ -75,6 +75,8 @@ const booking = {
         let cargo_vol = $(".inp-cargo_vol").val();
         let cargo_marks = $(".inp-cargo_marks").val();
 
+        let represent = $(".db-sel-represent").val();
+
 
         if (shipper == "" || shipterm == "" || port_recieve == "" || port_load == "" || ts_port == "" || port_delivery == "" || etd == "" || eta == ""
             || hs_code == "" || cargo_type == "" || cargo_qty == "" || cargo_vol == "" || cargo_gw == "") {
@@ -146,7 +148,8 @@ const booking = {
                 'cargo_vol': cargo_vol,
                 'cargo_marks': cargo_marks,
                 'valid': this.data_id,
-                'job_number': this.job_number_global
+                'job_number': this.job_number_global,
+                'represent' : represent
             };
 
 
@@ -288,7 +291,7 @@ const booking = {
         $('.inp-cargo_gw').val(res_data['contain']['gw']);
         $('.inp-cargo_vol').val(res_data['contain']['volume']);
         $('.inp-cargo_marks').val(res_data['contain']['mark']);
-
+        $('.inp-sel-booking-agent').val(res_data['booking']['booking_agent'])
 
 
         let db_sel_container = $('.inp-container_type').parent().html();

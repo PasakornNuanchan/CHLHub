@@ -38,7 +38,7 @@ include '../../core/con_path.php';
     $cargo_gw = $_POST['cargo_gw'];
     $cargo_vol = $_POST['cargo_vol'];
     $cargo_marks = $_POST['cargo_marks'];
-
+    $represent = $_POST['represent'];
     $sql = "
     UPDATE
         `job_title`
@@ -58,7 +58,8 @@ include '../../core/con_path.php';
         `voy_no_feeder` = '$feeder_voy_no',
         `etd` = '$etd',
         `eta` = '$eta',
-        `remark` = '$remark'
+        `remark` = '$remark',
+        `booking_agent` = '$represent'
     WHERE
         ID = $val_id
     ";

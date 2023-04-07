@@ -36,7 +36,8 @@ $job_number = $_POST['job_number'];
     jt.type_import_export,
     jt.remark,
     jt.create_date,
-    jt.status_job
+    jt.status_job,
+    jt.booking_agent
 FROM `job_title` as jt
 LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
 WHERE

@@ -253,7 +253,7 @@ require 'function/auth/get_session.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agent:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <select class="form-select form-select-sm db-sel-represent">
+                                    <select class="form-select form-select-sm db-sel-represent inp-sel-booking-agent">
                                         <option value=""></option>
                                     </select>
                                 </div>
