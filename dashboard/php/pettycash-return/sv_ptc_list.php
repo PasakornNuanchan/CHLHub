@@ -16,8 +16,9 @@ foreach ($list_data as $k => $v) {
     $inp_rec_by = isset($v['inp_rec_by']) ? $v['inp_rec_by'] : '';
     $petty_cash_number = isset($v['petty_cash_number']) ? $v['petty_cash_number'] : '';
     $val_id = isset($v['val_id']) ? $v['val_id'] : '';
+    $pic = isset($v['pic']) ? $v['pic'] : '';
 
-      $sql_insert_detail = "
+     $sql_insert_detail = "
 INSERT INTO `transac_return_petty_cash`(
     `return_by`,
     `return_amount`,
@@ -58,7 +59,7 @@ VALUES(
     }
     
     $imp_sql_id = implode(',' , $sql_id);
-     $sql_update = "
+    $sql_update = "
     UPDATE
         `cash_payment`
     SET

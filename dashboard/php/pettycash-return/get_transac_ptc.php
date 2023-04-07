@@ -12,15 +12,12 @@ $petty_number = $_POST['job_doc_pt'];
     trepc.return_currency,
     trepc.method_tranfer,
     re_by.first_name,
-    re_by.last_name
+    re_by.last_name,
+    trepc.ID as ID_pic
 FROM
     `transac_recript_petty_cash` AS trpc
-LEFT JOIN transac_return_petty_cash AS trepc
-ON
-    trpc.ID = trepc.transac_id_tranfer
-LEFT JOIN USER AS re_by
-ON
-    trepc.return_by = re_by.user_number
+LEFT JOIN transac_return_petty_cash AS trepc ON trpc.ID = trepc.transac_id_tranfer
+LEFT JOIN USER AS re_by ON trepc.return_by = re_by.user_number
 WHERE
     trpc.doc_number = '$petty_number' 
     ";

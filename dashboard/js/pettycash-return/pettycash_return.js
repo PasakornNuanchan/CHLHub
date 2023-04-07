@@ -21,7 +21,6 @@ const pettycash_return = {
         let job_doc_pt = get_doc_pt == false ? null : get_doc_pt;
         let action = get_action == false ? null : get_action;
         pettycash_return.ptc_global = job_doc_pt;
-        console.log(action);
 
         if (action == 'preview') {
 
@@ -46,7 +45,7 @@ const pettycash_return = {
         $('.bcpage').append(html_bdpage);
 
 
-        console.log(res_data);
+        
 
 
         //card 1 request petty cash
@@ -250,7 +249,7 @@ const pettycash_return = {
 
 
         let list_return = await this.ajax_get_list_return(job_doc_pt);
-        console.log(list_return)
+        
 
         html_by_currency = '';
         $.each(list_return['list_return'], function (i, v) {
@@ -370,7 +369,8 @@ const pettycash_return = {
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-4 col-lg-2 align-self-center">receipt :</label>
                         <div class="col-sm-3 col-md-7 col-lg-3">
-                            <input type="file" class="form-control form-control-sm  inp-recep-by${i}" >
+                            <input type="file" class="form-control form-control-sm  inp-recep-by${i}" > 
+                            <div class="fs-5 mb-1 pic_show_pay"><i class="bi bi-file-earmark-image download_file" onclick="pettycash_return.download_file('${v['ID_pic']}');"></i></div> 
                         </div>
                     </div>
                 </div>
@@ -463,17 +463,26 @@ const pettycash_return = {
         let sel_mt_return = $(`.sel-mt-return${val}`).val();
         let inp_payment_val = $(`.inp-payment-re-amount${val}`).val();
         let sel_currency_rt = $(`.currency_return_re${val}`).val();
-        let inp_rec_by = $(`.inp-recep-by${val}`).val();
+        //let inp_rec_by = $(`.inp-recep-by${val}`).val();
+
+        let pic = '';
+        let file = $(`.inp-recep-by${val}`).prop('files')[0];
+        if(file != undefined){
+            pic = await convert_file(`.inp-recep-by${val}`);
+        }
+        
         arr_sv_ptc_temp = {
             sel_mt_return: sel_mt_return,
             inp_payment_val: inp_payment_val,
             sel_currency_rt: sel_currency_rt,
-            inp_rec_by: inp_rec_by,
+            inp_rec_by: pic,
             petty_cash_number: pettycash_return.ptc_global,
-            val_id : val_id
+            val_id : val_id,
+            
         }
 
         arr_sv_ptc.push(arr_sv_ptc_temp)
+        
         let val_re = await pettycash_return.ajax_sv_ptc_number(arr_sv_ptc)
         return(val_re)
     },
@@ -514,6 +523,7 @@ const pettycash_return = {
 
         
         let ID_req = e;
+        
         let data = {
             'id_req' : ID_req
         }
@@ -531,6 +541,21 @@ const pettycash_return = {
     },
 }
 
+async function convert_file(c_name) {  
+    let myFile = $(c_name).prop('files')[0];
+    
+    const base64String = await toBase64(myFile);
+    return(base64String);
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 
 
 
