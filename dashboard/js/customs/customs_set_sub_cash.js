@@ -310,7 +310,6 @@ const customs_set_sub_cash = {
                             text: 'May be data type , description , pay to or amount is missing',
                         })
                     } else {
-
                         await customs_set_sub_cash.get_val_cash()
                         
                         Swal.fire(
@@ -353,13 +352,25 @@ const customs_set_sub_cash = {
         let pay_to = $('.inp-pcn-pay').val();
         // let pic = $('.inp-pcn-pic').val();
 
-        let pic = await convert_file('.inp-pcn-pic');
+        //let pic = 
+        // console.log($('.inp-pcn-pic').prop('files')[0])
+        // if($('.inp-pcn-pic').prop('files')[0] != "" ){
+        //     
+        // }
+        let pic = '';
+        let file = $('.inp-pcn-pic').prop('files')[0];
+        if(file != undefined){
+            pic = await convert_file('.inp-pcn-pic');
+        }
+        
+
+        
         //let pic ='';
         let amount = $('.inp-pcn-amount').val();
         let amount_cur = $('.inp-pcn-amount-cur').val();
         let petty_cash_number_cash = $('.sel-pcn-pcn').val();
         let remark = $('.inp-pcn-remark').val();
-
+        
         arr_get_val_cash_tmp = {
             type: type,
             description: description,

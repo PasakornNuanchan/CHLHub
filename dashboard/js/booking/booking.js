@@ -8,8 +8,8 @@ const booking = {
         html = `
         <tr class="booking_container">
             <td>${db_sel_container}</td>
-            <td><input type="input" class="form-control form-control-sm inp-contqty" id="pwd2" placeholder=""></td>
-            <td><input type="input" class="form-control form-control-sm inp-single-wieght" id="pwd2" placeholder=""></td>
+            <td><input type="number" class="form-control form-control-sm inp-contqty" id="pwd2" placeholder=""></td>
+            <td><input type="number" class="form-control form-control-sm inp-single-wieght" id="pwd2" placeholder=""></td>
             <td><input class="form-check-input inp-soc" type="checkbox"  id="flexCheckDefault"></td>
             <td><input class="form-check-input inp-ow" type="checkbox" id="flexCheckDefault"></td>
             <td onclick="booking.del_container_row(this);"><svg class="del-tr" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

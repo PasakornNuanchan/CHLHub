@@ -220,7 +220,7 @@ const transport = {
                     'Your file has been saved.',
                     'success'
                 )
-                transport_sub_transport.set_preview_data(customs.job_number_global);
+                transport_sub_transport.set_preview_data(this.job_number_global);
             }
         })
     },
@@ -715,7 +715,8 @@ const transport = {
                     'success'
                 )
                 // transport.set_sub_cash_preview_data(customs.job_number_global);
-                await transport_sub_transport.set_preview_data(transport.job_number_global);
+                await transport_sub_transport.set_preview_data(this.job_number_global)
+                
             }
         })
     },

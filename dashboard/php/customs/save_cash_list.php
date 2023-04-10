@@ -8,14 +8,22 @@ foreach ($list_data as $k => $v) {
     $type = isset($v['type']) ? $v['type'] : '';
     $description = isset($v['description']) ? $v['description'] : '';
     $pay_to = isset($v['pay_to']) ? $v['pay_to'] : '';
-    $pic = isset($v['pic']) ? $v['pic'] : '';
+    $pic = isset($v['pic']) ? $v['pic'] : 'NULL';
     $amount = isset($v['amount']) ? $v['amount'] : '';
     $amount_cur = isset($v['amount_cur']) ? $v['amount_cur'] : '';
     $remark = isset($v['remark']) ? $v['remark'] : '';
     $job_number_pcn = isset($v['job_number_pcn']) ? $v['job_number_pcn'] : '';
-    $petty_cash_number_cash = isset($v['petty_cash_number_cash']) ? $v['petty_cash_number_cash'] : '';
+    $petty_cash_number_cash_ic = isset($v['petty_cash_number_cash']) ? $v['petty_cash_number_cash'] : NULL;
 
-   $sql_add_list =
+    //echo $petty_cash_number_cash_ic;
+
+    if($petty_cash_number_cash_ic == NULL){
+        $petty_cash_number_cash = 'NULL';
+    }else{
+        $petty_cash_number_cash = "'".$petty_cash_number_cash_ic."'";
+    }
+    
+        $sql_add_list =
         "INSERT INTO `cash_payment`(
             `type`,
             `description`,
@@ -42,10 +50,10 @@ foreach ($list_data as $k => $v) {
             '$t_time_save',
             '$remark',
             '0',
-            '$petty_cash_number_cash'
+            $petty_cash_number_cash
         )
         ";
-
+    
         if($con->query($sql_add_list) != 1){
             $arr_suc['st'] = '0';
         } else {

@@ -1,9 +1,54 @@
 const quartation = {
   get_quono: '',
+
+  check_get: async function () {
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=')
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined
+            ? true
+            : decodeURIComponent(sParameterName[1])
+        }
+      }
+      return false
+    }
+    let get_quo = getUrlParameter('quartation_number')
+    quartation.get_quono = getUrlParameter('quartation_number')
+    let get_action = getUrlParameter('action')
+
+    let quartation_number = get_quo == false ? null : get_quo
+    let action = get_action == false ? null : get_action
+
+    if (action == 'preview') {
+      quartation.set_preview_data(quartation_number)
+    }else if(action == 'create'){
+      
+      this.set_started()
+    }
+  },
+
+
+  set_started : async function(){
+    title_d = '';
+    sl_carrier = $('.db-select-carrier').html()
+    sl_pol = $('.db-select-pol').html()
+    sl_pod = $('.db-select-pod').html()
+    sl_carrier_type = $('.db-select-container-size').html()
+  },
+
+
   set_preview_data: async function (quartation_number = null) {
     let res_data = await quartation.ajax_set_preview_data(quartation_number)
     console.log(res_data)
     title = res_data['title']
+    title_d = res_data['title']['ID']
+    
 
     // Quartation Detail
     $('.inp-quo_no').val(title['quartation_number'])
@@ -352,48 +397,8 @@ const quartation = {
       $(e).closest('tr').remove()
     }
   },
-  check_get: async function () {
-    var getUrlParameter = function getUrlParameter(sParam) {
-      var sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i
-      for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=')
+  
 
-        if (sParameterName[0] === sParam) {
-          return sParameterName[1] === undefined
-            ? true
-            : decodeURIComponent(sParameterName[1])
-        }
-      }
-      return false
-    }
-    let get_quo = getUrlParameter('quartation_number')
-    quartation.get_quono = getUrlParameter('quartation_number')
-    let get_action = getUrlParameter('action')
-
-    let quartation_number = get_quo == false ? null : get_quo
-    let action = get_action == false ? null : get_action
-
-    if (action == 'preview') {
-      quartation.set_preview_data(quartation_number)
-    } else {
-      this.set_started()
-    }
-  },
-  set_started : async function(){
-
-    $(`.inp-quo_no`).val('Waiting first save')
-    $(`.inp-sign_st`).val('Waiting first save')
-    //$(`.base-add`).html('')
-    //this.addhtmlbase_server()
-
-    sl_carrier = $('.db-select-carrier').html()
-    sl_pol = $('.db-select-pol').html()
-    sl_pod = $('.db-select-pod').html()
-    sl_carrier_type = $('.db-select-container-size').html()
-  },
   ajax_set_preview_data: function (quartation_number) {
     return new Promise(function (resolve, reject) {
       $.ajax({
@@ -661,6 +666,7 @@ const quartation = {
   },
   quotation_save: async function (param) {
     data = {}
+    let title_id = title_d ? title_d : '';
     let quo_no = $('.inp-quo_no').val()
     let sign_st = $('.inp-sign_st').val()
     let consignee = $('.sel_consignee').val()
@@ -756,15 +762,18 @@ const quartation = {
       }
       sup_service.push(sup_service_tmp)
     })
+    
 
     let save_data = {
       quo_no: quo_no,
+      title_id : title_id,
       detail: detail,
       base: base_arr,
       truck_import: truck_fee_import,
       truck_export: truck_fee_export,
       sup_service: sup_service,
     }
+    console.log(save_data)
 
     Swal.fire({
       title: 'Are you sure?',

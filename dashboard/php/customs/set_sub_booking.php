@@ -7,7 +7,7 @@ $job_number = $_POST['job_number'];
 
       $sql_cn_inform = "
       SELECT * FROM container_information 
-      LEFT JOIN hs_code ON container_information.hs_code = hs_code.hs_code WHERE job_number = '$job_number'";
+      LEFT JOIN hs_code ON container_information.hs_code = hs_code.ID WHERE job_number = '$job_number'";
  
 $result = $con->query($sql_booking);
 if ($result->num_rows > 0) {

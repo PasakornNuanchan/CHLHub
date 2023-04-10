@@ -78,10 +78,11 @@ js.ID,
         `cn`.`quantity`,
         `cn`.`gw`,
         `cn`.`volume`,
-        `cn`.`mark` 
+        `cn`.`mark`
+
       FROM 
         container_information as cn 
-        LEFT JOIN hs_code as hs ON cn.hs_code = hs.hs_code
+        LEFT JOIN hs_code as hs ON cn.hs_code = hs.ID
         WHERE cn.job_number = '$job_number';";
 
    
