@@ -84,14 +84,14 @@ try{
         ON DUPLICATE KEY UPDATE remark = VALUES(remark)
     ");
     if($stmt_remark_pdf){
-        foreach ($arr_truck as $k => $v) {
+        
             $stmt_remark_pdf->bind_param("ss", $_POST['quo_no'], $_POST['pdf_remark']);
             if($stmt_remark_pdf->execute()){
                 //query executed successfully
             }else{
                 throw new Exception("Error occurred while executing the statement");
             }
-        }
+        
     }else{
         throw new Exception("Error occurred while preparing the statement");
     }

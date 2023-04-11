@@ -74,6 +74,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         $sql_query = "
                                 SELECT 
+                                qt.ID,
                                     qt.create_datetime,
                                     qt.quartation_number,
                                     sale.first_name,
@@ -83,8 +84,9 @@ require 'function/auth/get_session.php';
                                     qt.status
                                 FROM 
                                 quartation_title as qt
-                                INNER JOIN user as sale ON qt.user_sale = sale.user_number
-                                INNER JOIN consignee as c ON qt.consignee_number = c.consignee_number
+                                LEFT JOIN user as sale ON qt.user_sale = sale.user_number
+                                LEFT JOIN consignee as c ON qt.consignee_number = c.consignee_number
+                                ORDER BY `qt`.`ID` ASC
                                 ";
 
                                         $fetch_sql = mysqli_query($con, $sql_query);
