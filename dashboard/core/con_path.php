@@ -23,5 +23,5 @@
 
  $t_time = (date("Y-m-d H:i:sa"));
  $t_time_save =substr($t_time,0,19);
-
+ $t_time_date =substr($t_time,0,10)
 ?>

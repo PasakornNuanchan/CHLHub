@@ -47,13 +47,13 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " for="pwd2">Quartation number :</label>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Quartation number :</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-lg-5 col-md-5">
                                                 <input type="text" class="form-control form-control-sm inp_quono" readonly>
                                             </div>
-                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " for="pwd2">sign status :</label>
+                                            <label class="control-label col-sm-3 col-lg-2 align-self-center " >sign status :</label>
                                             <div class="col-lg-2 col-md-3">
                                                 <input type="text" class="form-control form-control-sm inp_sign_st" readonly>
                                             </div>
@@ -89,6 +89,7 @@ require 'function/auth/get_session.php';
                                             <option value="" selected>-- Plese select type --</option>
                                             <option value="Import">Import</option>
                                             <option value="Export">Export</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -106,7 +107,7 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <H4>Service Description</H4>
                                     <div class="table-responsive mt-4">
-                                        <table id="basic-table" name="container-tbl" class="table table-striped mb-10 tbl_service_desc" role="grid">
+                                        <table id="basic-table" name="container-tbl" class="table table mb-10 tbl_service_desc" role="grid">
                                             <thead>
                                                 <tr align="center">
                                                     <th>Item NO.</th>
@@ -154,50 +155,81 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Unit price after markup:</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" >Unit price before markup:</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_sum_beforemarkup_usd" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >USD</label>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_sum_beforemarkup_thb" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >THB</label>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_sum_beforemarkup_rmb" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >RMB</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" >Unit price after markup:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm inp_sum_aftermarkup_usd" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >USD</label>
                                                 <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm inp_sum_aftermarkup_thb" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >THB</label>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_sum_aftermarkup_rmb" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >RMB</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Markup total:</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" >Markup total:</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm inp_sum_markup_usd" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >USD</label>
                                                 <div class="col-lg-2 col-md-4">
                                                     <input type="text" class="form-control form-control-sm inp_sum_markup_thb" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >THB</label>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_sum_markup_rmb" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >RMB</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" for="pwd2">Percentage :</label>
+                                        <label class="control-label col-lg-2 col-md-3 align-self-center mb-0" >Percentage :</label>
                                         <div class="col-sm-9">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_per_usd" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">USD</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >USD</label>
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_per_thb" placeholder="" readonly>
                                                 </div>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">THB</label>
-                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" for="pwd2">Total</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >THB</label>
                                                 <div class="col-lg-2 col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm inp_per_rmb" placeholder="" readonly>
+                                                </div>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >RMB</label>
+                                                <label class="control-label col-lg-1 col-md-2 align-self-center mb-0" >Total</label>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <input type="text" class="form-control form-control-sm inp_per_tt" placeholder="" readonly>
                                                 </div>
                                             </div>
                                         </div>

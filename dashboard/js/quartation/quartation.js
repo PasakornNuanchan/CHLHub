@@ -26,20 +26,28 @@ const quartation = {
     let action = get_action == false ? null : get_action
 
     if (action == 'preview') {
-      quartation.set_preview_data(quartation_number)
-    }else if(action == 'create'){
-      
-      this.set_started()
+      await this.set_started()
+      await quartation.set_preview_data(quartation_number)
+
+    } else if (action == 'create') {
+
+      await this.set_started()
+      await this.addhtmlbase_server()
     }
   },
 
 
-  set_started : async function(){
+  set_started: async function () {
     title_d = '';
-    sl_carrier = $('.db-select-carrier').html()
-    sl_pol = $('.db-select-pol').html()
-    sl_pod = $('.db-select-pod').html()
-    sl_carrier_type = $('.db-select-container-size').html()
+
+    sl_carrier = $('.db-select-carrier').parent().html()
+    sl_pol = $('.db-select-pol').parent().html()
+    sl_pod = $('.db-select-pod').parent().html()
+    sl_carrier_type = $('.db-select-container-size').parent().html()
+
+    ss_description = $('.sel-sup_des_service').parent().html()
+    ss_type = $('.sel_type_sup_service').parent().html()
+    ss_cur = $('.sel_currency_sup_service').parent().html()
   },
 
 
@@ -48,7 +56,7 @@ const quartation = {
     console.log(res_data)
     title = res_data['title']
     title_d = res_data['title']['ID']
-    
+
 
     // Quartation Detail
     $('.inp-quo_no').val(title['quartation_number'])
@@ -70,98 +78,101 @@ const quartation = {
     var select_currency = $('.select-currency').parent().html()
     var html_select_carrier = $('.inp-carrier').parent().html()
 
+    var inp_qty = $('.inp_qty').parent().html()
+
+
     $('.base-row').html('')
     let base_data = []
 
-    $.each(res_data['detail'], function (i, v) {
-      if (v['type'] === 'base_service') {
-        base_data.push(v)
-      }
-    })
-    let html = ''
-    let num = 1
-    $.each(base_data, function (i, v) {
-      html = `
-                    <div class="base-add" data_base_id="${v['base_id']}">
-                        <H5 class="mb-3">Route ${num}</H5>
-                        <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" >Carrier :</label>
-                            <div class="col-lg-5 col-md-5">
-                                <div class="db-select-carrier db-select-carrier${i}">
-                                       ${html_select_carrier}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Container size :</label>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-lg-5 col-md-4 db-select-carrier_type db-select-carrier_type${i}">
-                                        ${carrier_type}
-                                    </div>
-                                    <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" >Container Quantity</label>
-                                    <div class="col-lg-2 col-md-2 ">
-                                        <input type="text" class="form-control form-control-sm inp_qty "value='${v['qty']}'>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Port of loading</label>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-4">
-                                        <div class="db-select-pol db-select-pol${i}">
-                                            ${select_pod}
-                                        </div>
-                                    </div>
-                                    <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" >Port of Delivery</label>
-                                    <div class=" col-md-4  col-lg-4">
-                                        <div class="db-select-pod db-select-pod${i}">
-                                            ${select_del}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Budget :</label>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4">
-                                        <input type="text" class="form-control form-control-sm inp_budget" value="${v['price'] * v['qty']}" readonly>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 db-select-currency db-select-currency${i}">
-                                        ${select_currency}
-                                    </div>
-                                    <div class="col-sm-9 col-md-5 col-lg-4">
-                                        <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_base(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-dash-lg"></i> Delete Route</button>
+    if (res_data['detail'] != "0 results") {
+      let html = ''
+      num_base_service = 1
+      $.each(res_data['detail'], function (i, v) {
+        html = `
+                      <div class="base-add" data_base_id="${v['base_id']}">
+                          <H5 class="mb-3">Route ${num_base_service}</H5>
+                          <div class="form-group row">
+                              <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier" >Carrier :</label>
+                              <div class="col-lg-5 col-md-5">
+                                  <div class="db-select-carrier db-select-carrier${i}">
+                                         ${html_select_carrier}
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                              <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Container size :</label>
+                              <div class="col-sm-9">
+                                  <div class="row">
+                                      <div class="col-lg-5 col-md-4 db-select-carrier_type db-select-carrier_type${i}">
+                                          ${carrier_type}
+                                      </div>
+                                      <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" >Container Quantity</label>
+                                      <div class="col-lg-2 col-md-2 ">
+                                          <input type="number" class="form-control form-control-sm inp_qty "value='${v['qty']}' onchange="quartation.fillter_route(this);">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                              <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Port of loading</label>
+                              <div class="col-sm-9">
+                                  <div class="row">
+                                      <div class="col-md-4 col-lg-4">
+                                          <div class="db-select-pol db-select-pol${i}">
+                                              ${select_pod}
+                                          </div>
+                                      </div>
+                                      <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0" >Port of Delivery</label>
+                                      <div class=" col-md-4  col-lg-4">
+                                          <div class="db-select-pod db-select-pod${i}">
+                                              ${select_del}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                              <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center " >Budget :</label>
+                              <div class="col-sm-9">
+                                  <div class="row">
+                                      <div class="col-lg-3 col-md-4">
+                                          <input type="number" class="form-control form-control-sm inp_budget" value="${v['price'] * v['qty']}" readonly>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3 db-select-currency db-select-currency${i}">
+                                          ${select_currency}
+                                      </div>
+                                      <div class="col-sm-9 col-md-5 col-lg-4">
+                                          <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_base(this);" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-dash-lg"></i> Delete Route</button>
+  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr>
+                      </div>
+                   `
+        num_base_service++
+        $('.base-row').append(html)
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-
-                    </div>
-                 `
-      num++
-      $('.base-row').append(html)
-
-      $(`.db-select-carrier${i} > select`).val(v['carrier_number'])
-      $(`.db-select-carrier_type${i} > select`).val(v['container_type'])
-      $(`.db-select-pol${i} > select`).val(v['pol'])
-      $(`.db-select-pod${i} > select`).val(v['pod'])
-      $(`.db-select-currency${i} > select`)
-        .val(v['currency'])
-        .attr('disabled', 'disabled')
-    })
+        $(`.db-select-carrier${i} > select`).val(v['carrier_number'])
+        $(`.db-select-carrier_type${i} > select`).val(v['container_type'])
+        $(`.db-select-pol${i} > select`).val(v['pol'])
+        $(`.db-select-pod${i} > select`).val(v['pod'])
+        $(`.db-select-currency${i} > select`)
+          .val(v['currency'])
+          .attr('disabled', 'disabled')
+      })
+    } else {
+      console.log(2)
+    }
     // END Base service
 
     // trucking fee (import)
     $('.truck_fee_import_row').parent().html('')
-    $.each(res_data['truck_fee']['import'], async function (i, v) {
-      html = `
+
+    if (res_data['truck_fee']['import'] != "0 results") {
+      $.each(res_data['truck_fee']['import'], async function (i, v) {
+        html = `
                 <div class="truck_fee_import_row" data_truck_import_id = '${v['ID']}'>                    
                     <h5> Import ${i + 1}</h5>
                     <div class="form-group row">
@@ -184,7 +195,7 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
+                                    <input type="number" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
                                     <select  class="form-select form-select-sm sel-tr_fee_import_currency tr_fee_import_currency${i}"  value="${v['currency']}">
@@ -203,14 +214,16 @@ const quartation = {
 
                 </div>
             `
-      await $('.truck_fee_import').append(html)
-      $(`.sel-tr_fee_export_currency${i}`).val(v['currency'])
-    })
+        await $('.truck_fee_import').append(html)
+        $(`.sel-tr_fee_export_currency${i}`).val(v['currency'])
+      })
+    }
 
     // trucking fee (export)
     $('.truck_fee_export_row').parent().html('')
-    $.each(res_data['truck_fee']['export'], async function (i, v) {
-      html = `
+    if (res_data['truck_fee']['export'] != "0 results") {
+      $.each(res_data['truck_fee']['export'], async function (i, v) {
+        html = `
                 <div class="truck_fee_export_row" data_truck_export_id = '${v['ID']}'>                    
                     <h5>Export ${i + 1}</h5>
                     <div class="form-group row">
@@ -233,7 +246,7 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
+                                    <input type="number" class="form-control form-control-sm inp-truck_fee_budget" value="${v['price']}">
                                 </div>
                                 <div class="col-lg-2 col-md-3">
                                     <select  class="form-select form-select-sm sel-tr_fee_export_currency sel-tr_fee_export_currency${i}"  value="${v['currency']}">
@@ -252,32 +265,24 @@ const quartation = {
                 </div>
                
             `
-      await $('.truck_fee_export').append(html)
-      $(`.sel-tr_fee_export_currency${i}`).val(v['currency'])
-    })
+        await $('.truck_fee_export').append(html)
+        $(`.sel-tr_fee_export_currency${i}`).val(v['currency'])
+      })
+    }
 
     // Sup service
     let sel_sup_service = $('.sel-sup_des_service').parent().html()
-
     $('[name = "sub-tbl"] tbody').html('')
-    $.each(res_data['sup_service'], function (i, v) {
-      html = `
+    if (res_data['sup_service'] != "0 results") {
+      $.each(res_data['sup_service'], function (i, v) {
+        html = `
                     <tr class="sub_des sub_des${i}" data_sup_id="${v['ID']}">
                         <td class="select_des_sup">
-                            ${sel_sup_service}</td>
-                        <td><select   class="form-select form-select-sm sel_type_sup_service">
-                                <option value="Import">Import</option>
-                                <option value="Export">Export</option>
-                                <option value="Other">Other service</option>
-                            </select></td>
+                            ${ss_description}</td>
+                        <td>${ss_type}</td>
                         <td><input type="input" class="form-control form-control-sm inp_price_sup_service"  placeholder="" value="${v['price']}"></td>
-                        <td><select  class="form-select form-select-sm sel_currency_sup_service"  >
-                                <option value="THB">THB</option>
-                                <option value="USD">USD</option>
-                                <option value="RMB">RMB</option>
-                            </select></td>
+                        <td>${ss_cur}</td>
                         <td><input type="input" class="form-control form-control-sm inp_sup_remark"  placeholder="" value="${v['remark']}"></td>
-                        
                         <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
                                 <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="red"></path>
@@ -285,21 +290,25 @@ const quartation = {
                         </td>
                     </tr>
                 `
-      $('[name = "sub-tbl"] tbody').append(html)
-      $(`.sub_des${i} .sel_type_sup_service`).val(v['type'])
-      $(`.sub_des${i} .sel-sup_des_service`).val(v['description'])
-      $(`.sub_des${i} .sel_currency_sup_service`).val(v['currency'])
-    })
+        $('[name = "sub-tbl"] tbody').append(html)
+        $(`.sub_des${i} .sel_type_sup_service`).val(v['type'])
+        $(`.sub_des${i} .sel-sup_des_service`).val(v['description'])
+        $(`.sub_des${i} .sel_currency_sup_service`).val(v['currency'])
+      })
+    }
   },
+
+
   addhtmlbase_server: function (e = null) {
     // let sl_carrier = $('.db-select-carrier').html()
     // let sl_pol = $('.db-select-pol').html()
     // let sl_pod = $('.db-select-pod').html()
     // let sl_carrier_type = $('.db-select-container-size').html()
-    let num = $('.base-add').length + 1
-    html = `
+    //let num = $('.base-add').length + 1
+
+    html_base_service = `
                 <div class="base-add">
-                <H5>Route ${num}</H5>
+                <H5>Route </H5>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center"  >Carrier :</label>
                             <div class="col-lg-5 col-md-5">
@@ -315,7 +324,7 @@ const quartation = {
                                         </div>
                                         <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0" >Container Quantity</label>
                                         <div class="col-lg-2 col-md-2">
-                                            <input type="text" class="form-control form-control-sm inp_qty">
+                                            <input type="text" class="form-control form-control-sm inp_qty" onchange="quartation.fillter_route(this);">
                                     </div>
                                     </div>
                                 </div>
@@ -339,7 +348,7 @@ const quartation = {
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4">
-                                            <input type="text" class="form-control form-control-sm inp_budget" readonly>
+                                            <input type="number" class="form-control form-control-sm inp_budget" readonly>
                                         </div>
                                         <div class="col-lg-3 col-md-3">
                                             <select  class="form-select form-select-sm select-currency"  disabled >
@@ -359,24 +368,19 @@ const quartation = {
                     </div>
                 </div>
             `
-    $('.base-row').append(html)
+    $('.base-row').append(html_base_service)
   },
   addhtmlsub_tbl: function () {
-    let sel_sup_service = $('.sel-sup_des_service').parent().html()
-    let sel_type_sup_service = $('.sel_type_sup_service').parent().html()
-    let sel_currency_sup_service = $('.sel_currency_sup_service')
-      .parent()
-      .html()
 
     html = `
             <tr class="sub_des">
                 <td class="">
-                ${sel_sup_service}</td>
+                ${ss_description}</td>
                 <td>
-                    ${sel_type_sup_service}
+                    ${ss_type}
                 </td>
-                <td><input type="input" class="form-control form-control-sm inp_price_sup_service"  placeholder=""></td>
-                <td>${sel_currency_sup_service}</td>
+                <td><input type="number" class="form-control form-control-sm inp_price_sup_service"  placeholder=""></td>
+                <td>${ss_cur}</td>
                 <td><input type="input" class="form-control form-control-sm inp_sup_remark"  placeholder=""></td>
                 <td  onclick="quartation.del_sup_row(this);"><svg class="del-tr"  width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="red"></path>
@@ -397,7 +401,7 @@ const quartation = {
       $(e).closest('tr').remove()
     }
   },
-  
+
 
   ajax_set_preview_data: function (quartation_number) {
     return new Promise(function (resolve, reject) {
@@ -429,7 +433,7 @@ const quartation = {
       })
     })
   },
-  ajax_get_shipment : function () {
+  ajax_get_shipment: function () {
     return new Promise(function (resolve, reject) {
       $.ajax({
         type: 'post',
@@ -453,7 +457,7 @@ const quartation = {
 
     $('.sel_consignee').append(html)
   },
-  html_shipment:async function(){
+  html_shipment: async function () {
     let res_data = await this.ajax_get_shipment();
     console.log(res_data)
     let html = ''
@@ -497,7 +501,7 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" >
+                                    <input type="number" class="form-control form-control-sm inp-truck_fee_budget" >
                                 </div>
                                 <div class="col-lg-2 col-md-3">
                                     <select  class="form-select form-select-sm sel-tr_fee_import_currency"  >
@@ -543,7 +547,7 @@ const quartation = {
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
-                                    <input type="text" class="form-control form-control-sm inp-truck_fee_budget" >
+                                    <input type="number" class="form-control form-control-sm inp-truck_fee_budget" >
                                 </div>
                                 <div class="col-lg-2 col-md-3">
                                     <select  class="form-select form-select-sm sel-tr_fee_export_currency"  >
@@ -636,19 +640,6 @@ const quartation = {
                                     <input type="text" class="form-control form-control-sm inp-quo_no" >
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                            
                         </div>
                     </div>
             
@@ -686,7 +677,7 @@ const quartation = {
     $('.base-add').each(function (i, e) {
       // element == this
       let base_arr_tmp = {}
-      let base_id = $(this).attr('data_base_id') == '' ? '' : $(this).attr('data_base_id')
+      let base_id = $(this).attr('data_base_id') == '' ? base_id = $('.inp_route_id_save', this).val() : $(this).attr('data_base_id')
 
       let carrier = $('.inp-carrier', this).val()
       let carrier_type = $('.inp-carrier-type', this).val()
@@ -762,11 +753,11 @@ const quartation = {
       }
       sup_service.push(sup_service_tmp)
     })
-    
+
 
     let save_data = {
       quo_no: quo_no,
-      title_id : title_id,
+      title_id: title_id,
       detail: detail,
       base: base_arr,
       truck_import: truck_fee_import,
@@ -808,39 +799,96 @@ const quartation = {
       })
     })
   },
-  fillter_route_carrier: async function (e) {
-    
+  // fillter_route_carrier: async function (e) {
+
+  //   let parent = $(e).closest('.base-add')
+  //   console.log(parent)
+  //   let val = $(e).val()
+  //   console.log(val)
+  //   $('.inp-carrier-type', parent).val('')
+  //   $(
+  //     'select.inp-port_load, select.inp-port_del ,input.inp_budget, select.select-currency',
+  //     parent,
+  //   ).val('')
+
+  //   let res = await quartation.ajax_get_containner_by_route({
+  //     carrier_no: val,
+  //   })
+
+  //   $('.inp-carrier-type>option', parent).hide()
+  //   $('.inp-port_load>option', parent).hide()
+  //   $('.inp-port_del>option', parent).hide()
+
+  //   $.each(res, function (i, v) {
+  //     container_type = v['container_type']
+  //     pol = v['pol']
+  //     pod = v['pod']
+
+  //     $(
+  //       '.inp-carrier-type>option[value="' + container_type + '"]',
+  //       parent,
+  //     ).show()
+  //     $('.inp-port_load>option[value="' + pol + '"]', parent).show()
+  //     $('.inp-port_del>option[value="' + pod + '"]', parent).show()
+  //   })
+  // },
+
+  fillter_route: async function (e) {
     let parent = $(e).closest('.base-add')
-    console.log(parent)
-    let val = $(e).val()
-    console.log(val)
-    $('.inp-carrier-type', parent).val('')
-    $(
-      'select.inp-port_load, select.inp-port_del ,input.inp_budget, select.select-currency',
-      parent,
-    ).val('')
-
-    let res = await quartation.ajax_get_containner_by_route({
-      carrier_no: val,
-    })
+    let carrier = $('.inp-carrier', parent).val()
+    let carrier_type = $('.inp-carrier-type', parent).val()
+    let carrier_pl = $('.inp-port_load', parent).val()
+    let carrier_pd = $('.inp-port_del', parent).val()
+    let carrier_qty =  $('.inp_qty',parent).val();
     
-    $('.inp-carrier-type>option', parent).hide()
-    $('.inp-port_load>option', parent).hide()
-    $('.inp-port_del>option', parent).hide()
 
-    $.each(res, function (i, v) {
-      container_type = v['container_type']
-      pol = v['pol']
-      pod = v['pod']
+    let res_data = await quartation.ajax_get_route()
 
-      $(
-        '.inp-carrier-type>option[value="' + container_type + '"]',
-        parent,
-      ).show()
-      $('.inp-port_load>option[value="' + pol + '"]', parent).show()
-      $('.inp-port_del>option[value="' + pod + '"]', parent).show()
+    let carrier_rs = res_data['route_set'].filter(res_data => res_data.carrier_number == carrier)
+    let container_size_rs = '';
+
+    if (carrier_type != '') {
+      container_size_rs = carrier_rs.filter(res_data => res_data.container_type == carrier_type)
+    } else {
+      container_size_rs = carrier_rs.filter(res_data => res_data.container_type != '')
+    }
+    if (carrier_pl != '') {
+      pol_rs = container_size_rs.filter(res_data => res_data.pol == carrier_pl)
+    } else {
+      pol_rs = container_size_rs.filter(res_data => res_data.pol != '')
+    }
+    if (carrier_pd != '') {
+      pod_rs = pol_rs.filter(res_data => res_data.pod == carrier_pd)
+    } else {
+      pod_rs = pol_rs.filter(res_data => res_data.pod != '')
+    }
+
+    if(pod_rs.length == 1){
+      $('.inp_budget',parent).val(pod_rs[0]['price']*carrier_qty)
+      $('.select-currency'.parent).val(pod_rs[0]['currency'])
+      $('.inp_route_id_save',parent).val(pod_rs[0]['ID'])
+    }else{
+      $('.inp_budget',parent).val('')
+
+    }
+
+  },
+
+
+  ajax_get_route: async function (data_get) {
+    return new Promise(function (resolve, reject) {
+      $.ajax({
+        type: 'post',
+        url: 'php/quotation/get_route.php',
+        data: data_get,
+        dataType: 'json',
+        success: function (response) {
+          resolve(response)
+        },
+      })
     })
   },
+
   ajax_get_containner_by_route: function (data) {
     return new Promise(function (resolve, reject) {
       $.ajax({
@@ -855,51 +903,50 @@ const quartation = {
     })
   },
   check_base_input: async function () {
-    $(document).on(
-      'change',
-      '.base-add select, .base-add input',
-      async function (e) {
-        var parent = $(this).closest('.base-add')
-        let data_st = null
-        var d_carrier = '';
-        var d_carrier_type = '';
-        var d_pol = '';
-        var d_pod = '';
-        var d_qty = '';
-        data = []
-        $(
-          $('select:not(.select-currency), input:not(.inp_budget)', parent),
-        ).each(async function (i, e) {
-          console.log(e);
-          if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
-            console.log('1');
-            data_st = 1
-            d_carrier = $('.inp-carrier', parent).val();
-            d_carrier_type = $('.inp-carrier-type', parent).val();
-            d_pol = $('.inp-port_load', parent).val();
-            d_pod = $('.inp-port_del', parent).val();
-            d_qty = $('.inp_qty', parent).val();
-          } else {
-            data_st = 0
-            console.log('0');
-          }
-        })
-        if (data_st === 1) {
-          var data = {
-            'carrier': d_carrier,
-            'carrier_type': d_carrier_type,
-            'pol': d_pol,
-            'pod': d_pod,
-            'total': d_qty,
-          }
-          let res = await quartation.check_base_route(data)
-          let total_budget = (d_qty * res[0]['price']);
-          let curr = res[0]['currency']
-          $('.inp_budget', parent).val(total_budget);
-          $('.select-currency', parent).val(curr);
-
+    $(document).on('change', '.base-add select, .base-add input', async function (e) {
+      var parent = $(this).closest('.base-add')
+      let data_st = null
+      var d_carrier = '';
+      var d_carrier_type = '';
+      var d_pol = '';
+      var d_pod = '';
+      var d_qty = '';
+      data = []
+      $(
+        $('select:not(.select-currency), input:not(.inp_budget)', parent),
+      ).each(async function (i, e) {
+        // console.log(e);
+        if (!!$(this).val() && $('input.inp_qty', parent).val() >= 1) {
+          console.log('1');
+          data_st = 1
+          d_carrier = $('.inp-carrier', parent).val();
+          d_carrier_type = $('.inp-carrier-type', parent).val();
+          d_pol = $('.inp-port_load', parent).val();
+          d_pod = $('.inp-port_del', parent).val();
+          d_qty = $('.inp_qty', parent).val();
+        } else {
+          data_st = 0
+          // console.log('0');
         }
-      },
+      })
+      if (data_st === 1) {
+        var data = {
+          'carrier': d_carrier,
+          'carrier_type': d_carrier_type,
+          'pol': d_pol,
+          'pod': d_pod,
+          'total': d_qty,
+        }
+        let res = await quartation.check_base_route(data)
+        let total_budget = (d_qty * res[0]['price']);
+        let curr = res[0]['currency']
+        $('.inp_budget', parent).val(total_budget);
+        $('.select-currency', parent).val(curr);
+
+      }
+
+      // console.log(4)
+    },
     )
   },
   check_base_route: function (data) {
@@ -942,5 +989,5 @@ $(async function () {
 
 $(document).ready(function () {
   quartation.check_base_input();
-  
+
 });

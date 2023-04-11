@@ -1,4 +1,5 @@
 <?php
+
 require 'function/auth/get_session.php';
 
 ?>
@@ -117,7 +118,7 @@ require 'function/auth/get_session.php';
                                             <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center sel-carrier">Carrier :</label>
                                             <div class="col-lg-5 col-md-5">
                                                 <div class="db-select-carrier">
-                                                    <select class="form-select form-select-sm inp-carrier" onchange="quartation.fillter_route_carrier(this);">
+                                                    <select class="form-select form-select-sm inp-carrier" onchange="quartation.fillter_route(this);">
                                                         <?php
                                                         $carrier_select = "SELECT * FROM carrier";
                                                         $result_carrier = mysqli_query($con, $carrier_select);
@@ -140,7 +141,7 @@ require 'function/auth/get_session.php';
                                                 <div class="row">
                                                     <div class="col-lg-5 col-md-4">
                                                         <div class="db-select-container-size">
-                                                            <select class="form-select form-select-sm inp-carrier-type ">
+                                                            <select class="form-select form-select-sm inp-carrier-type " onchange="quartation.fillter_route(this);">
                                                                 <?php
                                                                 $carrier_select = "SELECT DISTINCT `container_type` FROM `route`";
                                                                 $result_carrier = mysqli_query($con, $carrier_select);
@@ -158,7 +159,7 @@ require 'function/auth/get_session.php';
                                                     </div>
                                                     <label class="control-label col-sm-2 col-md-4 col-lg-2 align-self-center mb-0">Container Quantity</label>
                                                     <div class="col-lg-2 col-md-2 ">
-                                                        <input type="text" class="form-control form-control-sm inp_qty">
+                                                        <input type="number" class="form-control form-control-sm inp_qty" onchange="quartation.fillter_route(this);">
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +170,7 @@ require 'function/auth/get_session.php';
                                                 <div class="row">
                                                     <div class="col-md-4 col-lg-4">
                                                         <div class="db-select-pol">
-                                                            <select class="form-select form-select-sm inp-port_load">
+                                                            <select class="form-select form-select-sm inp-port_load" onchange="quartation.fillter_route(this);">
                                                                 <?php
                                                                 $area_select = "SELECT * FROM area";
                                                                 $result_area = mysqli_query($con, $area_select);
@@ -188,7 +189,7 @@ require 'function/auth/get_session.php';
                                                     <label class="control-label col-sm-2 col-md-3 col-lg-2 align-self-center mb-0">Port of Delivery</label>
                                                     <div class="col-md-4 col-lg-4 ">
                                                         <div class="db-select-pod">
-                                                            <select class="form-select form-select-sm inp-port_del">
+                                                            <select class="form-select form-select-sm inp-port_del" onchange="quartation.fillter_route(this);">
                                                                 <?php
                                                                 $area_select = "SELECT * FROM area";
                                                                 $result_area = mysqli_query($con, $area_select);
@@ -212,7 +213,8 @@ require 'function/auth/get_session.php';
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
-                                                        <input type="text" class="form-control form-control-sm inp_budget" readonly>
+                                                        <input type="number" class="form-control form-control-sm inp_budget" readonly>
+                                                        <input type="hidden" class="inp_route_id_save">
                                                     </div>
                                                     <div class="col-lg-3 col-md-3">
                                                         <select class="form-select form-select-sm select-currency" disabled>
@@ -264,7 +266,7 @@ require 'function/auth/get_session.php';
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
-                                                        <input type="text" class="form-control form-control-sm inp-truck_fee_budget">
+                                                        <input type="number" class="form-control form-control-sm inp-truck_fee_budget">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
                                                         <select class="form-select form-select-sm sel-tr_fee_import_currency ">
@@ -315,7 +317,7 @@ require 'function/auth/get_session.php';
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-4">
-                                                        <input type="text" class="form-control form-control-sm">
+                                                        <input type="number" class="form-control form-control-sm">
                                                     </div>
                                                     <div class="col-lg-2 col-md-3">
                                                         <select class="form-select form-select-sm select-currency sel-tr_fee_export_currency">
@@ -379,7 +381,7 @@ require 'function/auth/get_session.php';
                                                     <option value="Export">Export</option>
                                                     <option value="Other" selected>Other service</option>
                                                 </select></td>
-                                            <td><input type="input" class="form-control form-control-sm inp_price_sup_service" placeholder=""></td>
+                                            <td><input type="number" class="form-control form-control-sm inp_price_sup_service" placeholder=""></td>
                                             <td><select class="form-select form-select-sm sel_currency_sup_service">
                                                     <option value="THB">THB</option>
                                                     <option value="USD">USD</option>
