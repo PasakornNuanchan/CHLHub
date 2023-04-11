@@ -275,9 +275,9 @@ require 'function/auth/get_session.php';
                                                             <option value="RMB">RMB</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                                    <!-- <div class="col-sm-9 col-md-5 col-lg-4">
                                                         <button type="button" target="_blank" class="btn btn-danger rounded-pill btn-sm bg-gradient" onclick="quartation.del_truck_fee_export(this);"><i class="bi bi-dash-lg"></i> Delete Route</button>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -326,9 +326,9 @@ require 'function/auth/get_session.php';
                                                             <option value="RMB">RMB</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-sm-9 col-md-5 col-lg-4">
+                                                    <!-- <div class="col-sm-9 col-md-5 col-lg-4">
                                                         <button type="button" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-plus"></i> Add route</button>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>

@@ -32,7 +32,7 @@ const quartation = {
     } else if (action == 'create') {
 
       await this.set_started()
-      await this.addhtmlbase_server()
+      //await this.addhtmlbase_server()
     }
   },
 
@@ -586,68 +586,62 @@ const quartation = {
                     <!-- Modal body -->
                     <div class="modal-body ps-5">
                         <div class="form-group">
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >Consignee Name:</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >e-mail:</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >user_sale :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >tax :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >bank_account_name :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >bank_number :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >address :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >contact_person_name :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" >contact_person_tel :</label>
-                                <div class="col-sm-11 col-lg-8 col-md-6">
-                                    <input type="text" class="form-control form-control-sm inp-quo_no" >
-                                </div>
-                            </div>
+                        <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Corporate name</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-cname">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Address</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-address">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Tax ID</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-tax_id">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Email</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Phone number</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-phone_number">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Fax</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-fax">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Contact</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-linkman">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">Contact Tel</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp-contact">
+                        </div>
+                    </div>
                         </div>
                     </div>
             
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="quartation.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                      <button type="button" class="btn btn-danger  rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" data-bs-dismiss="modal">Close</button>
                     </div>
-            
                 </div>
             </div>
         </div>`
@@ -974,7 +968,98 @@ const quartation = {
 
     window.location.href = "CHL-Quartation-markup.php" + url_get + url_get_action;
   },
+
+  fn_save_raw : async function (){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, save it!'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            
+            let corp_name = $('.inp-cname').val()
+            let corp_address = $('.inp-address').val()
+            let corp_tax_id = $('.inp-tax_id').val()
+            let corp_email = $('.inp-email').val()
+            let corp_phone_number = $('.inp-phone_number').val()
+            let corp_fax = $('.inp-fax').val()
+            let corp_linkman = $('.inp-linkman').val()
+            let corp_contact_tel = $('.inp-contact').val()
+
+            let check_val = 0;
+
+            if(corp_name == ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Detail data is missing plese check your data !',
+                })
+                check_val = 1;
+            }
+
+            if(check_val == 0){
+               uset_arr_temp = {
+                consignee_id : '',
+                corp_name : corp_name,
+                corp_address : corp_address,
+                corp_tax_id : corp_tax_id,
+                corp_email : corp_email,
+                corp_phone_number : corp_phone_number,
+                corp_fax : corp_fax,
+                corp_linkman : corp_linkman,
+                corp_contact_tel : corp_contact_tel,
+               }
+               console.log(uset_arr_temp)
+
+                let res_save_raw_data  = await this.ajax_save_raw_data_consignee(uset_arr_temp)
+                console.log(res_save_raw_data)
+                if(res_save_raw_data['st'] == '4'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Cannot has save your data because corporate name is duplicate please change corporate name',
+                    })
+                }else if(res_save_raw_data['st'] == '1'){
+                    await Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                    )
+                    $('#add_consignee_moda').modal('hide');
+                }else if(res_save_raw_data['st'] == '0'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Save is false plese contact to support tech team',
+                    })
+                }
+            }
+        }
+    })
+},
+
+ajax_save_raw_data_consignee : async function (uset_arr_temp){
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "post",
+            url: "php/consignee-management/save_raw_data_user.php",
+            data: {'uset_arr_temp' : uset_arr_temp},
+            dataType: "json",
+            success: function (res) {
+                resolve(res);
+            },
+        });
+    });
 }
+
+
+}
+
+
 
 
 

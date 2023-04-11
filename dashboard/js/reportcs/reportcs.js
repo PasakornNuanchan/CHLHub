@@ -776,8 +776,6 @@ const reportcs = {
         });
     },
 
-
-
     container_dem_change: async function (e) {
         let val = $(e).val();
         let parent = $(e).closest('.Demurrage-part-del');

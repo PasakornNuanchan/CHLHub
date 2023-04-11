@@ -4,7 +4,6 @@ include '../../core/conn.php';
 $uset_arr_temp = $_POST['uset_arr_temp'];
 
 
-
 $consignee_id = isset($_POST['uset_arr_temp']['consignee_id']) ? $_POST['uset_arr_temp']['consignee_id'] : '';
 $corp_name = isset($_POST['uset_arr_temp']['corp_name']) ? $_POST['uset_arr_temp']['corp_name'] : '';
 $corp_address = isset($_POST['uset_arr_temp']['corp_address']) ? $_POST['uset_arr_temp']['corp_address'] : '';
@@ -14,9 +13,9 @@ $corp_phone_number = isset($_POST['uset_arr_temp']['corp_phone_number']) ? $_POS
 $corp_fax = isset($_POST['uset_arr_temp']['corp_fax']) ? $_POST['uset_arr_temp']['corp_fax'] : '';
 $corp_linkman = isset($_POST['uset_arr_temp']['corp_linkman']) ? $_POST['uset_arr_temp']['corp_linkman'] : '';
 $corp_contact_tel = isset($_POST['uset_arr_temp']['corp_contact_tel']) ? $_POST['uset_arr_temp']['corp_contact_tel'] : '';
+$consignee_id;
 
-
-if ($consignee_id != 'undefined') {
+if ($consignee_id != '') {
     $sql_save = "
         UPDATE
             `consignee`

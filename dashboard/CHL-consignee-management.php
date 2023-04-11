@@ -99,7 +99,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="consignee_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                                <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="consignee_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
