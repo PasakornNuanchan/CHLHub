@@ -67,7 +67,8 @@ const quartation_markup = {
         let st = title['title_status'];
         let term = title['title_term'];
         let type = title['title_type'];
-        let title_user_sale = title['title_user_sale'];
+        let title_user_sale = title['fname'];
+        let title_user_sale_l = title['lname'];
         $('.inp_quono').val(quo_no);
         st = st == 1 ? 'sign' : 'waiting sign'
 
@@ -75,7 +76,7 @@ const quartation_markup = {
         $('.inp_commodity').val(commodity);
         $('.sel_consignee').val(consign_no);
         $('.sel_title_type').val(type);
-        $('.inp_sale_user').val(title_user_sale);
+        $('.inp_sale_user').val(title_user_sale+" "+title_user_sale_l);
         $('.sel_term').val(term);
 
         let num = 0

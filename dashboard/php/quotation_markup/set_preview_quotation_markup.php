@@ -14,10 +14,12 @@ SELECT
     qt.commodity as 'title_commodity',
     qt.type as 'title_type',
     qt.user_sale as 'title_user_sale',
-
+    u.first_name as 'fname',
+    u.last_name as 'lname',
     qt.status as 'title_status'
 FROM
     `quartation_title` as qt
+LEFT JOIN user as u ON qt.user_sale = u.ID
 WHERE
     qt.quartation_number = ?;
 ";

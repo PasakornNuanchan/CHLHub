@@ -123,6 +123,7 @@
 
     
     //base service
+    
     if(sizeof($base)>0){
         $updated_base_id = array();
         $check_base_id = array();
@@ -214,8 +215,10 @@
             ";
             $con->query($sql_delete_base);
         }
+    }else{
+
     }
-    
+
 
     //  $truck_import
     if(sizeof($truck_import)>0){
@@ -294,6 +297,8 @@
             ";
             $con->query($sql_delete_truck_import);
         } 
+    }else{
+
     }
     
 
@@ -375,6 +380,8 @@
             ";
             $con->query($sql_delete_truck_export);
         }
+    }else{
+
     }
     
     
@@ -460,6 +467,8 @@
             ";
             $con->query($sql_delete_sup_service);
         }
+    }else{
+        
     }
 
     $con->commit();
