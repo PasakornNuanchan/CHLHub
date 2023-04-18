@@ -39,11 +39,14 @@ include '../../core/con_path.php';
     $cargo_vol = $_POST['cargo_vol'];
     $cargo_marks = $_POST['cargo_marks'];
     $represent = $_POST['represent'];
-    $sql = "
+    $consignee = $_POST['consignee'];
+
+     $sql = "
     UPDATE
         `job_title`
     SET
         `job_number` = '$job_number',
+        `consignee_number` = '$consignee',
         `booking_number` = '$bk_no',
         `shipper_number` = '$shipper',
         `st_number` = '$shipterm',

@@ -161,7 +161,7 @@ const pettycash_return = {
                 num1++;
                 let html_pic = ''
                 if(v1['picture'] != ""){
-                   html_pic = `<div class="fs-5 mb-1 pic_show_dt"><i class="bi bi-file-earmark-image download_file" onclick="pettycash_return.download_file('${v1['ID']}');"></i></div>`;
+                   html_pic = `<div class="fs-5 mb-1 pic_show_dt"><i class="bi bi-file-earmark-image download_file" onclick="pettycash_return.download_file_detail('${v1['ID']}');"></i></div>`;
                 }
 
                 html_check +=
@@ -531,6 +531,25 @@ const pettycash_return = {
         $.ajax({
             type: "post",
             url: "php/pettycash-return/download_file.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
+        });
+    },
+
+    download_file_detail : function (e=null) {  
+        let ID_req = e;
+        console.log(ID_req)
+        
+        let data = {
+            'id_req' : ID_req
+        }
+        $.ajax({
+            type: "post",
+            url: "php/pettycash-return/download_file_detail.php",
             data: data,
             dataType: 'json',
             success: function (response) {

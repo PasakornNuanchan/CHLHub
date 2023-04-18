@@ -59,6 +59,26 @@ require 'function/auth/get_session.php';
                                     <input type="input" class="form-control form-control-sm inp-bkno" id="">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 align-self-center">Consinee</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <select class="form-select form-select-sm inp-consignee ">
+                                        <?php
+                                        $shipper_select = "SELECT * FROM consignee";
+                                        $result_shipper = mysqli_query($con, $shipper_select);
+                                        ?>
+                                        <option selected value="">Please select shipper</option>
+                                        <?php
+                                        while ($result_shipper_total = mysqli_fetch_assoc($result_shipper)) {
+                                        ?>
+                                            <option value="<?= $result_shipper_total['ID'] ?>"><?php echo $result_shipper_total['consignee_name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center">Shipper</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">

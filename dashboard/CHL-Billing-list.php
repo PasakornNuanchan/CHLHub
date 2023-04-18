@@ -70,7 +70,7 @@ require 'function/auth/get_session.php';
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['first_name'] ?> <?= $result_table_list['last_name'] ?></td>
                                             <td><?= $result_table_list['shipper_name'] ?></td>
-                                            <td><button type="button" onclick="location.href='CHL-Billing.php';" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="billing_list.preview('<?= $result_table_list['job_number']; ?>');" target="_blank" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }

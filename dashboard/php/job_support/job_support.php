@@ -21,6 +21,8 @@ VALUES(
 $result_title = $con->query($sql_job_title);
 echo $result_title;
 
+
+
 echo $sql_job_detail = "
 INSERT INTO `job_status`(
     `job_number`
@@ -32,7 +34,9 @@ VALUES(
 $result_detail = $con->query($sql_job_detail);
 echo $result_detail;
 
-$sql_container_information = "
+
+
+echo $sql_container_information = "
 INSERT INTO `container_information`(
     `job_number`
 )
@@ -42,4 +46,4 @@ VALUES(
 
 
 $result_detail = $con->query($sql_container_information);
-echo $result_detail;
+echo $sql_container_information;

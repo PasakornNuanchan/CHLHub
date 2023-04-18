@@ -173,7 +173,7 @@ require 'function/auth/get_session.php';
                                             </div>
                                             <div style="float: right">
                                                 <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
-                                                <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
+                                                <!-- <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -186,12 +186,12 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <div class="form-group row">
+                                            <!-- <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Sent Request Line :</label>
                                                 <div class="col-sm-9 col-md-5 col-lg-4">
                                                     <input type="input" class="form-control form-control-sm" readonly>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group row">
                                                 <label class="control-label col-sm-3 align-self-center ">Supplier Confirm :</label>
                                                 <div class="col-sm-9 col-md-5 col-lg-4">

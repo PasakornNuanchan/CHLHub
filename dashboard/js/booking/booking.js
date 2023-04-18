@@ -44,11 +44,12 @@ const booking = {
         return valid_st;
     },
 
-    save_booking: async function () {
+    save_booking : async function () {
         let valid = true;
         let job_number = $(".inp-jobno").val()
         this.job_number_global = job_number;
         let bk_no = $(".inp-bkno").val();
+        let consignee = $('.inp-consignee').val();
         let shipper = $(".inp-shper").find(":selected").val();
         let shipterm = $(".inp-shptrm").find(":selected").val();
         let remark = $(".inp-rmk").val();
@@ -125,6 +126,7 @@ const booking = {
 
             let data = {
                 'bk_no': bk_no,
+                'consignee' : consignee,
                 'shipper': shipper,
                 'shipterm': shipterm,
                 'remark': remark,
@@ -152,13 +154,10 @@ const booking = {
                 'represent' : represent
             };
 
-
+            //console.log(data)
             await booking.ajax_save_booking(data);
 
         }
-
-
-
 
     },
 
@@ -184,6 +183,7 @@ const booking = {
             });
         });
     },
+
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -268,6 +268,9 @@ const booking = {
         $('.inp-jobno').val(res_data['booking']['job_number']);
         $('.inp-bkno').val(res_data['booking']['booking_number']);
         $('.inp-rmk').val(res_data['booking']['remark']);
+
+        $('.inp-consignee').val(res_data['booking']['consignee_number'])
+
         $('.inp-M_vessel').val(res_data['booking']['mother_vessel']);
         $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']);
         $('.feeder_vessel').val(res_data['booking']['feeder_vessel']);

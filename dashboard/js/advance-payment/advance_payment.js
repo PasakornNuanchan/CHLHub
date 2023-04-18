@@ -252,6 +252,10 @@ const advance_return = {
                 
                 pf_amount_dtpc_arr = parseFloat(v2['amount']);
                 num1++;
+
+                if(v2['picture'] != ""){
+                    html_pic = `<div class="fs-5 mb-1 pic_show_dt"><i class="bi bi-file-earmark-image download_file" onclick="advance_return.download_file_detail('${v2['ID']}');"></i></div>`;
+                 }
                 html_des +=
                     `
                     <tr class="text-center">
@@ -259,7 +263,7 @@ const advance_return = {
                         <td><input type="input" class="form-control form-control-sm" value="${v2['billing_item_name']}" readonly></td>
                         <td><input type="input" class="form-control form-control-sm" value="${number_format(pf_amount_dtpc_arr.toFixed(2))}" style="text-align:right;" readonly></td>
                         <td><input type="input" class="form-control form-control-sm" value="${v2['currency']}" readonly></td>
-                        <td></td>
+                        <td>${html_pic}</td>
                         <td><input type="input" class="form-control form-control-sm" value="${v2['remark']}" readonly></td>
                     </tr>
                     `
@@ -387,7 +391,43 @@ const advance_return = {
         });
     },
 
+    download_file_detail : function (e=null) {  
+        let ID_req = e;
+        console.log(ID_req)
+        
+        let data = {
+            'id_req' : ID_req
+        }
+        $.ajax({
+            type: "post",
+            url: "php/advance-return/download_file_detail.php",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                var newTab = window.open();
+                newTab.document.write('<html><body><img src="' + response + '"></body></html>');
+            }
+        });
+    },
+
 };
+
+async function convert_file(c_name) {  
+    let myFile = $(c_name).prop('files')[0];
+    
+    const base64String = await toBase64(myFile);
+    return(base64String);
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
 
 function number_format(nStr) {
     nStr += '';

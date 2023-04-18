@@ -359,7 +359,7 @@ const transport = {
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
                     <div class="col-sm-3 col-lg-1">
-                        <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" >
+                        <input type="number" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" >
                     </div>
                 </div>       
                 <div class="form-group row">
@@ -367,7 +367,7 @@ const transport = {
                     <div class="col-sm-9 col-md-9 col-lg-9">
                         <div class="row">
                             <div class="col-lg-2 col-md-3">
-                                <input type="input" style="text-align:right;" class="form-control form-control-sm inp-budget"  >
+                                <input type="number" style="text-align:right;" class="form-control form-control-sm inp-budget"  >
                             </div>
                             <div class="col-lg-2 col-md-3">
                                 <div class="db-sel-cur">
@@ -383,12 +383,7 @@ const transport = {
                 
                 <hr class="mb-4">
                 <h4 class="mb-4">Supplier detail</h4>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0"  >Sent Request Line :</label>
-                    <div class="col-sm-3 col-lg-3">
-                        <input type="input" class="form-control form-control-sm" readonly>
-                    </div>
-                </div>
+                
                 <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Supplier Confirm DateTime :</label>
                     <div class="col-sm-3 col-lg-3">
@@ -400,7 +395,7 @@ const transport = {
                         <div style="float: right">
                             ${sql_del_hide}
                             <button class="btn btn-primary rounded-pill btn-sm" onclick="transport.push_action_save_transport();" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save </button>
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-line"></i> Sent to line group</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -455,6 +450,8 @@ const transport = {
                         'Your file has been saved.',
                         'success'
                     )
+                    await transport.set_preview_data(this.job_number_global)
+
                 }
 
             }
