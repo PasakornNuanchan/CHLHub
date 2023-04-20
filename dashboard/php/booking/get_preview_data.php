@@ -41,7 +41,7 @@ $job_number = $_POST['job_number'];
 FROM `job_title` as jt
 LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
 WHERE
-            job_number = '$job_number'
+            jt.ID = '$job_number'
     ";
 
     
@@ -58,7 +58,7 @@ WHERE
       hs.ID as hs
  FROM `container_information` as ci
     LEFT JOIN hs_code as hs ON ci.hs_code = hs.ID
-    where `job_number` ='$job_number'
+    where `ref_job_id` ='$job_number'
     ";
 
     $sql_container = "
@@ -71,7 +71,7 @@ WHERE
     FROM `container` as c
     LEFT JOIN container_type as ct ON c.container_type = ct.container_type_name
     WHERE 
-        c.job_number ='$job_number'
+        c.ref_job_id ='$job_number'
     GROUP BY 
         c.container_type
 ";

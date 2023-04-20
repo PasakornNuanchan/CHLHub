@@ -74,7 +74,7 @@ require 'function/auth/get_session.php';
                                         jt.type_import_export as import_export,
                                         c.consignee_name,
                                         a.location_name,
-                                        a.country,
+                                        a.provice,
                                         jt.eta,
                                         (SELECT COUNT(*) FROM transport_booking as tb1 WHERE job_number = jt.job_number AND tb1.status IN (0,2)) AS status_data                                         
                                         FROM job_title as jt 
@@ -95,7 +95,7 @@ require 'function/auth/get_session.php';
                                             <td><?= $result_table_list['consignee_name'] ?></td>
                                             <td><?= $result_table_list['import_export'] ?></td>
                                             <td><?= $result_table_list['eta'] ?></td>
-                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['country'] ?></td>
+                                            <td><?= $result_table_list['location_name'] ?> ,<?= $result_table_list['provice'] ?></td>
                                             <td><?php
                                                  if ($result_table_list['status_data'] > 1) {
                                                     echo "<span class='badge rounded-pill bg-success'>Success</span>";

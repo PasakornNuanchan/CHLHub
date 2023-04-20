@@ -1,6 +1,9 @@
 const job_support = {
     
     function_add_job : async function(){
+
+
+        
         let res = await job_support.ajax_job_support()
     },
 

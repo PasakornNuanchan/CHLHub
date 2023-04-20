@@ -78,7 +78,7 @@ include 'core/con_path.php';
                                 c.consignee_name,
                                 jt.eta,
                                 a.location_name,
-                                a.country,
+                                a.provice,
                                 IF((js.INV_check_by AND
                                     js.PL_check_by AND
                                     js.BL_check_by AND
@@ -120,7 +120,7 @@ include 'core/con_path.php';
                                             <td><?= $result_table_list['type_import_export']; ?></td>
                                             <td><?= $result_table_list['consignee_name']; ?></td>
                                             <td><?= $result_table_list['eta']; ?></td>
-                                            <td><?= $result_table_list['location_name']; ?> ,<?= $result_table_list['country']; ?></td>
+                                            <td><?= $result_table_list['location_name']; ?> ,<?= $result_table_list['provice']; ?></td>
                                             <td><span class="badge rounded-pill <?= $color_dt ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_dt ?></span></td>
                                             <td><span class="badge rounded-pill <?= $color_ts ?>" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><?= $st_txt_ts ?></span></td>
                                             <td><button type="button" onclick="customs_list.preview('<?= $result_table_list['job_number']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>

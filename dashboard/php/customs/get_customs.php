@@ -14,7 +14,7 @@
     SELECT ID, carrier_number, carrier_name FROM carrier;";
 
     $sql_area ="
-    SELECT ID, area_number,location_name,country FROM area;";
+    SELECT ID, area_number,location_name,provice as country FROM area;";
 
     $sql_cargo ="
     SELECT ID, cargo_type_number ,cargo_type_name FROM cargo_type;";

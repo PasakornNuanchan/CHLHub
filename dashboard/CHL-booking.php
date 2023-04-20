@@ -49,8 +49,11 @@ require 'function/auth/get_session.php';
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Job number</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                <div class="col-sm-7 col-md-7 col-lg-7">
                                     <input type="input" class="form-control form-control-sm inp-jobno" id="" readonly>
+                                </div>
+                                <div class="col-sm-2 col-md-2 col-lg-2">
+                                    <button type="button" class="btn btn-success btn-sm rounded-pill btn-gen_job_number" onclick="booking.generate_job_number()" >Generate</button>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -61,14 +64,14 @@ require 'function/auth/get_session.php';
                             </div>
 
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center">Consinee</label>
+                                <label class="control-label col-sm-3 align-self-center">consignee</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-consignee ">
                                         <?php
                                         $shipper_select = "SELECT * FROM consignee";
                                         $result_shipper = mysqli_query($con, $shipper_select);
                                         ?>
-                                        <option selected value="">Please select shipper</option>
+                                        <option selected value="0">Please select Consignee</option>
                                         <?php
                                         while ($result_shipper_total = mysqli_fetch_assoc($result_shipper)) {
                                         ?>
@@ -80,7 +83,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center">Shipper</label>
+                                <label class="control-label col-sm-3 align-self-center">Shipper *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-shper ">
                                         <?php
@@ -99,7 +102,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center">Shipment Terms</label>
+                                <label class="control-label col-sm-3 align-self-center">Shipment Terms *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-shptrm">
                                         <?php
@@ -124,7 +127,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Carrier:</label>
+                                <label class="control-label col-sm-3 align-self-center ">Carrier *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-carrier ">
                                         <?php
@@ -144,7 +147,7 @@ require 'function/auth/get_session.php';
                             </div>
 
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Port of Receipt</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Receipt *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-prtrecieve">
                                         <?php
@@ -156,7 +159,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -164,7 +167,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Port of Loading</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Loading *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-prtload">
                                         <?php
@@ -175,7 +178,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
                                         <?php
                                         }
                                         ?>
@@ -183,7 +186,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">T/S Port</label>
+                                <label class="control-label col-sm-3 align-self-center ">T/S Port *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-ts_port">
                                         <?php
@@ -194,7 +197,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
                                         <?php
                                         }
                                         ?>
@@ -202,7 +205,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Port of Delivery</label>
+                                <label class="control-label col-sm-3 align-self-center ">Port of Delivery *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm inp-delivery">
                                         <?php
@@ -213,7 +216,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] . " ," . $result_area_total['country'] ?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
                                         <?php
                                         }
                                         ?>
@@ -241,7 +244,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-5 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm feeder_vessel">
                                         </div>
-                                        <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.:</label>
+                                        <label class="control-label col-sm-1 col-md-2 col-lg-2  align-self-center ">Voy No.</label>
                                         <div class="col-lg-5 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp-feeder_voy_no">
                                         </div>
@@ -249,13 +252,13 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">ETD:</label>
+                                <label class="control-label col-sm-3 align-self-center ">ETD *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="date" class="form-control form-control-sm inp-etd" id="" value="">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">ETA:</label>
+                                <label class="control-label col-sm-3 align-self-center ">ETA *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="date" class="form-control form-control-sm inp-eta" id="" value="">
                                 </div>
@@ -291,13 +294,13 @@ require 'function/auth/get_session.php';
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">Cargo description</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Cargo description *</label>
                                     <div class="col-sm-9 col-md-7 col-lg-7">
                                         <input type="input" class="form-control form-control-sm inp-cargodes" id="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">H.S.Code:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">H.S.Code *</label>
                                     <div class="col-sm-9 col-md-5 col-lg-6">
                                         <select class="form-select form-select-sm inp-hscode">
                                             <?php
@@ -316,7 +319,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">Cargo Type:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Cargo Type *</label>
                                     <div class="col-sm-9 col-md-4 col-lg-4">
                                         <select class="form-select form-select-sm inp-cargo_type">
                                             <?php
@@ -335,7 +338,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">Quantity:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Quantity *</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="number" class="form-control form-control-sm inp-cargo_qty" aria-describedby="basic-addon2">
@@ -344,7 +347,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">G.W:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">G.W * </label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="number" class="form-control inp-cargo_gw" aria-describedby="basic-addon2">
@@ -353,7 +356,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3 align-self-center ">Volume:</label>
+                                    <label class="control-label col-sm-3 align-self-center ">Volume *</label>
                                     <div class="col-sm-9 col-md-5 col-lg-4">
                                         <div class="input-group">
                                             <input type="number" class="form-control inp-cargo_vol" aria-describedby="basic-addon2">
@@ -369,7 +372,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                                <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_booking();"><i class="bi bi-check-square"></i> Save</button>
+                                <button class="btn btn-success btn-sm rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_booking();"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -440,8 +443,8 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                                <button class="btn btn-danger rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.modal_del_container()"><i class="bi bi-check-square"></i> delete</button>
-                                <button class="btn btn-success rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_container_function()"><i class="bi bi-check-square"></i> Save</button>
+                                <button class="btn btn-danger btn-sm rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.modal_del_container()"><i class="bi bi-check-square"></i> delete</button>
+                                <button class="btn btn-success btn-sm rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.save_container_function()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -475,4 +478,6 @@ require 'function/auth/get_session.php';
         booking.check_get();
 
     });
+
+    
 </script>

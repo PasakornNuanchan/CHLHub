@@ -40,7 +40,7 @@ const transport_set_default ={
         let db_sel_area ='';
         $.each(set_data['area'], function (i, k) {
             db_sel_area += `
-            <option value="${k['area_number']}">${k['location_name']},${k['country']}</option>
+            <option value="${k['area_number']}">${k['location_name']},${k['provice']}</option>
             `;
         });
         

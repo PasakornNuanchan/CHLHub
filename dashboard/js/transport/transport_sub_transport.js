@@ -175,7 +175,7 @@ const transport_sub_transport = {
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Supplier:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Supplier *</label>
                     <div class="col-sm-3">
                         <div class="db-sel-sup db-sel-sup${i}">
                             ${html_select_supplier}
@@ -183,7 +183,7 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -197,7 +197,7 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Container Address:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Pickup Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -211,7 +211,7 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Container Address:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -225,7 +225,7 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -239,7 +239,7 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Type Truck: *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -255,13 +255,13 @@ const transport_sub_transport = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Truck Quantity *</label>
                     <div class="col-sm-3 col-lg-1">
                         <input type="number" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" value="${truck_quantity}">
                     </div>
                 </div>       
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget:</label>
+                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-3">Budget *</label>
                     <div class="col-sm-9 col-md-9 col-lg-9">
                         <div class="row">
                             <div class="col-lg-2 col-md-3">

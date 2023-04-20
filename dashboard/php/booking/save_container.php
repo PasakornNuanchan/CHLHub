@@ -16,6 +16,7 @@ foreach ($container_arr as $k => $v) {
     $cy_con = isset($v['cy_con']) ? $v['cy_con'] : '';
     $rtn_con = isset($v['rtn_con']) ? $v['rtn_con'] : '';
     $job_number = isset($v['job_number']) ? $v['job_number'] : '';
+    $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
 
     $soc = 0;
     $ow = 0;
@@ -24,7 +25,7 @@ foreach ($container_arr as $k => $v) {
         for ($x = 1; $x <= $qty; $x++) {
         $sql = "
         INSERT INTO `container`(
-            `job_number`,
+            `ref_job_id`,
             `container_type`,
             `single_cnt`,
             `soc`,
@@ -33,7 +34,7 @@ foreach ($container_arr as $k => $v) {
             `rtn`
         )
         VALUES(
-            '$job_number',
+            '$ref_job_id',
             '$con_type',
             '$slw',
             '$soc',

@@ -437,7 +437,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Empty Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -451,7 +451,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Container Address:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Pickup Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -465,7 +465,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Container Address:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Container Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -479,7 +479,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Drop off Empty Containe Address *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -493,7 +493,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck: *</label>
                     <div class="col-sm-9">
                         <div class="row">
                             <div class="col">
@@ -509,7 +509,7 @@ const reportcs = {
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity:</label>
+                    <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Truck Quantity *</label>
                     <div class="col-sm-3 col-lg-1">
                         <input type="text" class="form-control form-control-sm inp-truck_quantity" style="text-align:right;" value="${truck_quantity}" readonly>
                     </div>

@@ -119,7 +119,7 @@ include '../../core/con_path.php';
             `volume` = '$cargo_vol',
             `mark` = '$cargo_marks'
         WHERE
-            `job_number` = '$job_number'
+            `ref_job_id` = '$val_id'
         ";
 
     // if ($con->query($sql_cargo) === TRUE) {

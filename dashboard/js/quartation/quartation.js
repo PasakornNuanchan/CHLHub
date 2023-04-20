@@ -702,7 +702,7 @@ const quartation = {
         ID: truck_import_id,
         truck_pickup: truck_pickup,
         truck_drop: truck_drop,
-        budget: budget,
+        Budget * budget,
         currency: currency,
       }
       truck_fee_import.push(truck_fee_import_tmp)
@@ -720,7 +720,7 @@ const quartation = {
         ID: truck_export_id,
         truck_pickup: truck_pickup,
         truck_drop: truck_drop,
-        budget: budget,
+        Budget * budget,
         currency: currency,
       }
       truck_fee_export.push(truck_fee_export_tmp)

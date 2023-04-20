@@ -79,7 +79,7 @@ const booking = {
         let represent = $(".db-sel-represent").val();
 
 
-        if (shipper == "" || shipterm == "" || port_recieve == "" || port_load == "" || ts_port == "" || port_delivery == "" || etd == "" || eta == ""
+        if (shipper == "" || shipterm == "" || port_recieve == "" || port_load == "" || ts_port == "" || port_delivery == "" 
             || hs_code == "" || cargo_type == "" || cargo_qty == "" || cargo_vol == "" || cargo_gw == "") {
             Swal.fire({
                 icon: 'error',
@@ -156,7 +156,7 @@ const booking = {
 
             //console.log(data)
             await booking.ajax_save_booking(data);
-
+            //await booking.check_get()
         }
 
     },
@@ -184,7 +184,7 @@ const booking = {
         });
     },
 
-    check_get: function () {
+    check_get: async function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -266,6 +266,13 @@ const booking = {
         this.data_id = res_data['booking']['ID'];
         $('.head-of-menu').html('Booking');
         $('.inp-jobno').val(res_data['booking']['job_number']);
+        let job_check = $('.inp-jobno').val();
+        if(job_check != ""){
+            $('.btn-gen_job_number').attr('hidden',true)
+        }
+
+        
+
         $('.inp-bkno').val(res_data['booking']['booking_number']);
         $('.inp-rmk').val(res_data['booking']['remark']);
 
@@ -364,6 +371,7 @@ const booking = {
                 st_container: st_container,
                 cy_con: cy_con,
                 rtn_con: rtn_con,
+                ref_job_id : booking.job_number_global,
                 job_number: job_con
             }
 
@@ -508,6 +516,28 @@ const booking = {
                 }
             });
         });
-    }
+    },
+
+    generate_job_number : async function (){
+        let data_res = await this.ajax_generate_job_number();
+        
+        $('.inp-jobno').val(data_res);
+    },
+
+    ajax_generate_job_number : async function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "function/auth/get_last_job.php",
+                data: {},
+                dataType: "json",
+                success: function (response) {
+                    resolve(response);
+                }
+            });
+        });
+    },
+
 };
+
 

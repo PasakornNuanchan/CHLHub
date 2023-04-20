@@ -7,7 +7,7 @@ $job_number = $_POST['job_number'];
 
 
 $sql_container_sel_delete = "
-    DELETE FROM `container` WHERE job_number = '$job_number'
+    DELETE FROM `container` WHERE ref_job_id = '$job_number'
     ";
 
 

@@ -99,7 +99,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address:</label>
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Empty Container Address *</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
@@ -113,7 +113,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address:</label>
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Pickup Container Address *</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
@@ -127,7 +127,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address:</label>
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Container Address *</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
@@ -141,7 +141,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address:</label>
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center ">Drop off Empty Containe Address *</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">
@@ -155,7 +155,7 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck:</label>
+                                                <label class="control-label col-sm-3 col-lg-2  align-self-center mb-0">Type Truck: *</label>
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col">

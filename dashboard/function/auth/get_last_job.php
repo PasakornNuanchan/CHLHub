@@ -1,6 +1,9 @@
 <?php
+require '../../core/conn.php';
+require '../../function/auth/get_session.php';
+include '../../core/con_path.php';
 
-$sql_get_last_number = "SELECT jt.job_number FROM job_title  jt ORDER BY jt.ID DESC LIMIT 1";
+$sql_get_last_number = "SELECT MAX(jt.job_number)as last_job FROM job_title jt";
 
 $result = $con->query($sql_get_last_number);
 if ($result->num_rows > 0) {
@@ -9,9 +12,11 @@ if ($result->num_rows > 0) {
     $sgln = "0 results";
 }
 
-$get_job_year = substr($sgln['job_number'], 0, 4);
-$get_job_month = substr($sgln['job_number'], 4, 2);
-$get_job_num = substr($sgln['job_number'], 6, 4);
+
+
+$get_job_year = substr($sgln['last_job'], 0, 4);
+$get_job_month = substr($sgln['last_job'], 4, 2);
+$get_job_num = substr($sgln['last_job'], 6, 4);
 
 $get_job_num1 = (int)substr($get_job_num,0,1);
 $get_job_num2 = (int)substr($get_job_num,1,1);
@@ -51,4 +56,4 @@ if($get_job_year == $t_time_year){
 }
 
     $get_last_job = $res;
-?>
+echo json_encode($get_last_job);
