@@ -49,12 +49,12 @@ require 'function/auth/get_session.php';
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Job number</label>
-                                <div class="col-sm-7 col-md-7 col-lg-7">
-                                    <input type="input" class="form-control form-control-sm inp-jobno" id="" readonly>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <input type="input" class="form-control form-control-sm inp-jobno" id="">
                                 </div>
-                                <div class="col-sm-2 col-md-2 col-lg-2">
+                                <!-- <div class="col-sm-2 col-md-2 col-lg-2">
                                     <button type="button" class="btn btn-success btn-sm rounded-pill btn-gen_job_number" onclick="booking.generate_job_number()" >Generate</button>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Booking number</label>

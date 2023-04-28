@@ -2,12 +2,12 @@ const transport_sub_transport = {
     html_sel_supplier: '',
     html_sel_cur: '',
     html_sel_truck: '',
-    ajax_set_preview_data: function (job_number) {
+    ajax_set_preview_data: function (job_number_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/set_data_transport.php",
-                data: { 'job_number': job_number },
+                data: { 'job_number_id': job_number_id },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -16,12 +16,12 @@ const transport_sub_transport = {
         });
     },
 
-    ajax_set_data_driver: function (job_number) {
+    ajax_set_data_driver: function (job_number_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/set_data_driver.php",
-                data: { 'job_number': job_number },
+                data: { 'job_number_id': job_number_id },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -32,9 +32,9 @@ const transport_sub_transport = {
 
 
 
-    set_preview_data: async function (job_number) {
-        let res_data = await transport_sub_transport.ajax_set_preview_data(job_number);
-        let res_data_driver = await transport_sub_transport.ajax_set_data_driver(job_number);
+    set_preview_data: async function (job_number_id) {
+        let res_data = await transport_sub_transport.ajax_set_preview_data(job_number_id);
+        let res_data_driver = await transport_sub_transport.ajax_set_data_driver(job_number_id);
         console.log(res_data)
         console.log(res_data_driver)
 

@@ -69,6 +69,7 @@ require 'function/auth/get_session.php';
                                     <?php
                                     $sql_table_list = "
                                     SELECT 
+                                        jt.ID,
                                         jt.create_date,
                                         jt.job_number,
                                         jt.type_import_export as import_export,
@@ -80,13 +81,13 @@ require 'function/auth/get_session.php';
                                         FROM job_title as jt 
                                         LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                         LEFT JOIN area as a ON jt.ts_port_number = a.area_number
-                                        WHERE jt.status_job = '0'
+                                        WHERE jt.status_job = '0' AND jt.job_number IS NOT null
                                         ";
 
 
                                     $fetch_sql = mysqli_query($con, $sql_table_list);
                                     while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                        $job_numer = $result_table_list['job_number'];
+                                        $job_number_id = $result_table_list['ID'];
 
                                     ?>
                                         <tr>
@@ -103,7 +104,7 @@ require 'function/auth/get_session.php';
                                                     echo "<span class='badge rounded-pill bg-danger'>False</span>";
                                                 } 
                                                 ?></td>
-                                            <td><button type="button" onclick="transport_list.preview(<?=$job_numer?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="transport_list.preview(<?=$job_number_id?>);" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }

@@ -35,21 +35,47 @@ const booking_list_set = {
       
     }, 
     
+    function_add_job : async function(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res = await job_support.ajax_job_support()       
+                
+                await Swal.fire(
+                    'Create sucess!',
+                    'Data has been create.',
+                    'success'
+                )
 
-    // ajax_set_preview_data: function (job_doc_pt) {
+                location.reload();
+            }
+        })
+
+
         
-    //     return new Promise(function (resolve, reject) {
-    //         $.ajax({
-    //             type: "post",
-    //             url: "php/booking-list/get_detail.php",
-    //             data: {},
-    //             dataType: "json",
-    //             success: function (response) {
-    //                 resolve(response);
-    //             }
-    //         });
-    //     });
-    // },
+        
+    },
+
+    ajax_job_support : async function (){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_support/job_support.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    }
 
 };
 

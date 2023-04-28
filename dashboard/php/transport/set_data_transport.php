@@ -1,5 +1,5 @@
 <?php
-$job_number = $_POST['job_number'];
+$job_number_id = $_POST['job_number_id'];
     include '../../core/conn.php';
     
     $sql_transport = "
@@ -26,7 +26,7 @@ $job_number = $_POST['job_number'];
       FROM transport_booking as tb
       LEFT JOIN transport_sup as ts ON tb.sup_number = ts.transport_sup_number
       LEFT JOIN type_truck as tt ON tb.type_truck = tt.ID
-      WHERE tb.job_number = '$job_number' AND status = '0'
+      WHERE tb.ref_job_id = '$job_number_id' AND status = '0'
       ORDER BY tb.ID ASC";
 
       $result = $con->query($sql_transport);

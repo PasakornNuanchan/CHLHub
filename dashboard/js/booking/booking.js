@@ -266,9 +266,12 @@ const booking = {
         this.data_id = res_data['booking']['ID'];
         $('.head-of-menu').html('Booking');
         $('.inp-jobno').val(res_data['booking']['job_number']);
+
         let job_check = $('.inp-jobno').val();
+        
         if(job_check != ""){
-            $('.btn-gen_job_number').attr('hidden',true)
+            $('.inp-jobno').attr('disabled',true)
+            
         }
 
         

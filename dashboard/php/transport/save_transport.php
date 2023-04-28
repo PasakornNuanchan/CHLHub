@@ -52,7 +52,7 @@ foreach ($transport_arr as $k => $v) {
     } else {
              $sql_query = "
                 INSERT INTO `transport_booking`(
-                    `job_number`,
+                    `ref_job_id`,
                     `sup_number`,
                     `truck_quantity`,
                     `pick_con_empty_address`,
@@ -123,7 +123,7 @@ foreach ($driver_arr as $k => $v) {
             `Driver_name`,
             `phone_number`,
             `container_id`,
-            `job_number`,
+            `ref_job_id`,
             `route_id`,
             `status`
         )

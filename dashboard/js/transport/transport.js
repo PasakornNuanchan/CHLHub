@@ -15,28 +15,28 @@ const transport = {
             }
             return false;
         };
-        let get_job_number = getUrlParameter('job_number');
+        let get_job_number_id = getUrlParameter('job_number');
         let get_action = getUrlParameter('action');
 
-        let job_number = get_job_number == false ? null : get_job_number;
+        let job_number_id = get_job_number_id == false ? null : get_job_number_id;
         let action = get_action == false ? null : get_action;
-        transport.job_number_global = job_number;
+        transport.job_number_global = job_number_id;
         console.log(action);
 
         if (action == 'preview') {
             await transport_set_default.set_data_default();
-            transport.set_preview_data(job_number);
+            transport.set_preview_data(job_number_id);
 
         } else {
 
         }
     },
-    ajax_set_preview_data: function (job_number) {
+    ajax_set_preview_data: function (job_number_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/get_preview_data.php",
-                data: { 'job_number': job_number },
+                data: { 'job_number_id': job_number_id },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -47,13 +47,13 @@ const transport = {
 
 
 
-    set_preview_data: async function (job_number) {
+    set_preview_data: async function (job_number_id) {
 
 
 
-        let res_data = await transport.ajax_set_preview_data(job_number);
-
-
+        
+        let res_data = await transport.ajax_set_preview_data(job_number_id);
+        console.log(res_data);
         //head menu and breadcrumb
         $('.head-of-menu').html(`Transport`);
         $('.bcpage').html('');
@@ -64,8 +64,6 @@ const transport = {
         $('[name = "data_table_list"] tbody').html('');
 
 
-
-        console.log(res_data);
 
         job_global = res_data['booking']['job_number'];
         // container&driver
@@ -137,7 +135,7 @@ const transport = {
 
         this.cont_global = res_data['cont'];
 
-        await transport_sub_transport.set_preview_data(job_number);
+        await transport_sub_transport.set_preview_data(job_number_id);
 
         // booking set (booking detail)
         $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled', true);
@@ -659,7 +657,7 @@ const transport = {
 
             transport_arr.push(transport_arr_tmp)
         })
-
+        console.log(transport_arr)
         $(`.driver_transport`).each(function (i1,v1){
             //let number_route_id = ($('.driver_transport').find('#driver_transport_no').val())
             let number_route_id = $(this).attr('driver_transport_no')

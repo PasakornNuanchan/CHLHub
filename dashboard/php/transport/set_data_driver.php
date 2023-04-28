@@ -1,5 +1,5 @@
 <?php
-$job_number = $_POST['job_number'];
+$job_number_id = $_POST['job_number_id'];
 include '../../core/conn.php';
 
     
@@ -14,7 +14,7 @@ include '../../core/conn.php';
      
      FROM transport_contact as tc
      LEFT JOIN container as c ON tc.container_id = c.ID
-     WHERE tc.job_number = '$job_number' AND status NOT IN (1)";
+     WHERE tc.ref_job_id = '$job_number_id' AND status NOT IN (1)";
 
   $result = $con->query($sql_driver);
   if ($result->num_rows > 0) {

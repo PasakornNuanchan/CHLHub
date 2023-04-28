@@ -57,7 +57,7 @@ require 'function/auth/get_session.php';
                                     LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                     LEFT JOIN shipper as s ON jt.shipper_number = s.ID
                                     LEFT JOIN user as u ON jt.sale_support = u.ID
-                                    WHERE jt.status_job = '0'
+                                    WHERE jt.status_job = '0' AND jt.job_number IS NOT null
                                                        ";
 
 
