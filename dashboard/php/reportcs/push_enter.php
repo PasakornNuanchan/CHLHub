@@ -11,8 +11,8 @@
     SET
       `enter_date` = '$t_time_save'
     WHERE
-      job_number ='$job_number' ";
-    
+      ID ='$job_number' ";
+
     
      
      $status = $con->query($sql_enter);

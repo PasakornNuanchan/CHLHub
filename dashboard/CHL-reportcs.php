@@ -367,7 +367,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
                                 <h4 class="card-title">Demurrage Charge</h4>
@@ -431,7 +431,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                         <button type="button" class="btn btn-soft-secondary" onclick="reportcs.adddemhtml();">Add Demurrage Charge</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="tab-pane fade" id="pills-driver" role="tabpanel" aria-labelledby="pills-driver-tab">
                     <div class="card-transport">

@@ -61,7 +61,7 @@ require 'function/auth/get_session.php';
                                 <tbody align="center">
                                     <?php
                                     $sql_table_list = "
-                                        SELECT jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,jt.mother_vessel,jt.voy_no_mother,jt.inv,jt.mbl
+                                        SELECT jt.ID,jt.create_date,jt.job_number,c.consignee_name,jt.etd,jt.eta,jt.mother_vessel,jt.voy_no_mother,jt.inv,jt.mbl
                                         FROM job_title as jt 
                                         LEFT JOIN consignee as c ON jt.consignee_number = c.consignee_number
                                         WHERE jt.status_job = '0' AND jt.job_number IS NOT null
@@ -79,7 +79,7 @@ require 'function/auth/get_session.php';
                                             <td><?= $result_table_list['inv']; ?></td>
                                             <td><?= $result_table_list['etd']; ?></td>
                                             <td><?= $result_table_list['eta']; ?></td>
-                                            <td><button type="button" onclick="reportcs_list.preview('<?= $result_table_list['job_number']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
+                                            <td><button type="button" onclick="reportcs_list.preview('<?= $result_table_list['ID']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
                                         </tr>
                                     <?php
                                     }

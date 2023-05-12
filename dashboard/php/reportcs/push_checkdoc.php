@@ -11,7 +11,7 @@
     SET
       `check_document` = '$t_time_save'
     WHERE
-      job_number ='$job_number' ";
+      ID ='$job_number' ";
     
     
      

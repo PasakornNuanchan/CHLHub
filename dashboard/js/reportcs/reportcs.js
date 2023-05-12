@@ -1,5 +1,5 @@
 const reportcs = {
-    job_number_global : '',
+    job_number_global: '',
     check_get: function () {
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -18,23 +18,23 @@ const reportcs = {
         let get_job_number = getUrlParameter('job_number');
         let get_action = getUrlParameter('action');
 
-        let job_number = get_job_number == false ? null : get_job_number;
+        let job_number_id = get_job_number == false ? null : get_job_number;
         let action = get_action == false ? null : get_action;
-        reportcs.job_number_global = job_number
+        reportcs.job_number_global = job_number_id
 
         if (action == 'preview') {
-            reportcs.set_preview_data(job_number);
-            reportcs_set_default.set_data_default(job_number);
+            reportcs.set_preview_data(job_number_id);
+            reportcs_set_default.set_data_default(job_number_id);
         } else {
 
         }
     },
-    ajax_set_preview_data: function (job_number) {
+    ajax_set_preview_data: function (job_number_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/get_preview_data.php",
-                data: { 'job_number': job_number },
+                data: { 'job_number_id': job_number_id },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -45,11 +45,11 @@ const reportcs = {
 
 
 
-    set_preview_data: async function (job_number) {
+    set_preview_data: async function (job_number_id) {
 
 
 
-        let res_data = await reportcs.ajax_set_preview_data(job_number);
+        let res_data = await reportcs.ajax_set_preview_data(job_number_id);
         console.log(res_data);
 
 
@@ -72,7 +72,7 @@ const reportcs = {
         });
         $('.sel-supplier').append(html_supplier);
 
-       
+
         //job detail
         $('.inp-job_number').val(res_data['de']['job_number']).attr('readonly', true);
         $('.inp-inv').val(res_data['de']['inv']);
@@ -97,17 +97,16 @@ const reportcs = {
         $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
         $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
         $('.inp-clearance_date_for_customs').val(res_data['de']['clearlance_date'])
-        
+
         //Document
-        if (res_data['dej']['INV_receiv_by'] == "") {
+        if (res_data['dej']['INV_receiv_by'] == null) {
             inv_status = '';
             inv_status_edit = 'hidden';
-
         } else {
             inv_status = 'hidden';
             inv_status_edit = '';
         }
-        if (res_data['dej']['BL_receiv_by'] == "") {
+        if (res_data['dej']['BL_receiv_by'] == null){
             bl_status = '';
             bl_status_edit = 'hidden';
 
@@ -115,7 +114,7 @@ const reportcs = {
             bl_status = 'hidden';
             bl_status_edit = '';
         }
-        if (res_data['dej']['PL_receiv_by'] == "") {
+        if (res_data['dej']['PL_receiv_by'] == null) {
             pl_status = '';
             pl_status_edit = 'hidden';
 
@@ -123,7 +122,7 @@ const reportcs = {
             pl_status = 'hidden';
             pl_status_edit = '';
         }
-        if (res_data['dej']['ID_receiv_by'] == "") {
+        if (res_data['dej']['ID_receiv_by'] == null){
             id_status = '';
             id_status_edit = 'hidden';
 
@@ -131,7 +130,7 @@ const reportcs = {
             id_status = 'hidden';
             id_status_edit = '';
         }
-        if (res_data['dej']['IL_receiv_by'] == "") {
+        if (res_data['dej']['IL_receiv_by'] == null) {
             il_status = '';
             il_status_edit = 'hidden';
 
@@ -140,9 +139,9 @@ const reportcs = {
             il_status_edit = '';
         }
 
-        let inv_receiv_by = res_data['dej']['INV_receiv_by'];
+        let inv_receiv_by = res_data['dej']['inv_re_f'] != null ? res_data['dej']['inv_re_f']+' '+res_data['dej']['inv_re_l'] : '';
         let inv_receiv_datetime = res_data['dej']['inv_receiv_datetime'];
-        let inv_check_by = res_data['dej']['INV_check_by'];
+        let inv_check_by = res_data['dej']['inv_ch_f'] != null ? res_data['dej']['inv_ch_f']+' '+res_data['dej']['inv_ch_l'] : '' ;
         let inv_check_datetime = res_data['dej']['inv_check_datetime'];
 
         if (res_data['dej']['INV_receiv_by'] == null) {
@@ -155,9 +154,9 @@ const reportcs = {
             inv_check_datetime = "";
         }
 
-        let BL_receiv_by = res_data['dej']['BL_receiv_by'];
+        let BL_receiv_by = res_data['dej']['bl_re_f'] != "" ? res_data['dej']['bl_re_f']+' '+res_data['dej']['bl_re_l'] : '';
         let BL_receiv_datetime = res_data['dej']['bl_receiv_datetime'];
-        let BL_check_by = res_data['dej']['BL_check_by'];
+        let BL_check_by = res_data['dej']['bl_ch_f'] != null ? res_data['dej']['bl_ch_f']+' '+res_data['dej']['bl_ch_l'] : '' ;
         let BL_check_datetime = res_data['dej']['bl_check_datetime'];
 
         if (res_data['dej']['BL_receiv_by'] == null) {
@@ -170,9 +169,9 @@ const reportcs = {
             BL_check_datetime = "";
         }
 
-        let PL_receiv_by = res_data['dej']['PL_receiv_by'];
+        let PL_receiv_by = res_data['dej']['pl_re_f'] != "" ? res_data['dej']['pl_re_f']+' '+res_data['dej']['pl_re_l'] : '';
         let PL_receiv_datetime = res_data['dej']['pl_receiv_datetime'];
-        let PL_check_by = res_data['dej']['PL_check_by'];
+        let PL_check_by = res_data['dej']['pl_ch_f'] != null ? res_data['dej']['pl_ch_f']+' '+res_data['dej']['pl_ch_l'] : '' ;
         let PL_check_datetime = res_data['dej']['pl_check_datetime'];
 
         if (res_data['dej']['PL_receiv_by'] == null) {
@@ -185,9 +184,9 @@ const reportcs = {
             PL_check_datetime = "";
         }
 
-        let ID_receiv_by = res_data['dej']['ID_receiv_by'];
+        let ID_receiv_by = res_data['dej']['id_re_f'] != "" ? res_data['dej']['id_re_f']+' '+res_data['dej']['id_re_l'] : '';
         let ID_receiv_datetime = res_data['dej']['id_receiv_datetime'];
-        let ID_check_by = res_data['dej']['ID_check_by'];
+        let ID_check_by = res_data['dej']['id_ch_f'] != null ? res_data['dej']['id_ch_f']+' '+res_data['dej']['id_ch_l'] : '' ;
         let ID_check_datetime = res_data['dej']['id_check_datetime'];
 
         if (res_data['dej']['ID_receiv_by'] == null) {
@@ -200,9 +199,9 @@ const reportcs = {
             ID_check_datetime = "";
         }
 
-        let IL_receiv_by = res_data['dej']['IL_receiv_by'];
+        let IL_receiv_by = res_data['dej']['il_re_f'] != "" ? res_data['dej']['il_re_f']+' '+res_data['dej']['il_re_l'] : '';
         let IL_receiv_datetime = res_data['dej']['il_receiv_datetime'];
-        let IL_check_by = res_data['dej']['IL_check_by'];
+        let IL_check_by = res_data['dej']['il_ch_f'] != null ? res_data['dej']['il_ch_f']+' '+res_data['dej']['il_ch_l'] : '' ;
         let IL_check_datetime = res_data['dej']['il_check_datetime'];
 
         if (res_data['dej']['IL_receiv_by'] == null) {
@@ -268,7 +267,7 @@ const reportcs = {
                         <button type="button" class="btn btn-warning rounded-pill btn-sm bg-gradient il_btn_edit" onclick="reportcs.modal_doc('il')" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" ${il_status_edit}><i class="bi bi-pencil-square"></i> Edit</button></td>
                     </tr>
                 `;
-        
+
 
 
         $('[name = tbl_job_status] tbody').html(html_detail_des);
@@ -276,21 +275,21 @@ const reportcs = {
         $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
-        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden',true) : '';
-        res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden',true) : '';
-        res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden',true) : '';
-        res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden',true) : '';
-        res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden',true) : '';
+        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden', true) : '';
+        res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden', true) : '';
+        res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden', true) : '';
+        res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden', true) : '';
+        res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden', true) : '';
 
 
-        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden',true) : '';
-        res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden',true) : '';
-        res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden',true) : '';
-        res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden',true) : '';
-        res_data['dej']['IL_check_by'] != '' ? $('.il_btn_edit').attr('hidden',true) : '';
+        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden', true) : '';
+        res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden', true) : '';
+        res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden', true) : '';
+        res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden', true) : '';
+        res_data['dej']['IL_check_by'] != '' ? $('.il_btn_edit').attr('hidden', true) : '';
 
-        
-        
+
+
         //container
         var html_container = '';
         var container_type_check = '';
@@ -333,7 +332,7 @@ const reportcs = {
                 //cbm = parseFloat(v['cbm']);
                 // sng = parseFloat(v['single_cnt']);
 
-            
+
 
                 let container_number = v['container_number'] != null ? v['container_number'] : '';
                 let seal_number = v['seal_number'] != null ? v['seal_number'] : '';
@@ -366,60 +365,36 @@ const reportcs = {
         route = 1;
 
 
+        if (res_data['tran'] != "0 results") {
+            $.each(res_data['tran'], async function (i, v) {
+                $('.card-transport').html('');
+                //budget = parseFloat(v['budget']);
 
-        $.each(res_data['tran'], async function (i, v) {
-            $('.card-transport').html('');
-            //budget = parseFloat(v['budget']);
+
+                //let budget = parseFloat(v['budget']);
+                let pcea = v['pick_con_empty_address'] || '';
+                let pcer = v['pick_con_empty_remark'] || '';
+                let pca = v['pick_con_address'] || '';
+                let pcr = v['pick_con_remark'] || '';
+                let dca = v['drop_con_address'] || '';
+                let dcr = v['drop_con_remark'] || '';
+                let dcea = v['drop_con_empty_address'] || '';
+                let dcer = v['drop_con_empty_remark'] || '';
+                //let sldt = v['sent_line_datetime'] || '';
+                let scf = v['sup_confirm'] || '';
+                let type_truck = !!v['type_truck'] ? v['type_truck'] : '';
+                let remark = v['remark'] || '';
+
+                let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
+                let cur_n = !!v['cur'] ? v['cur'] : '';
+                let truck_quantity = !!v['truck_quantity'] ? v['truck_quantity'] : '';
+
+                let ID_test = v['ID'];
+                html_driver_transport = '';
+                let num_tran_driver = '1';
 
 
-            //let budget = parseFloat(v['budget']);
-            let pcea = v['pick_con_empty_address'] || '';
-            let pcer = v['pick_con_empty_remark'] || '';
-            let pca = v['pick_con_address'] || '';
-            let pcr = v['pick_con_remark'] || '';
-            let dca = v['drop_con_address'] || '';
-            let dcr = v['drop_con_remark'] || '';
-            let dcea = v['drop_con_empty_address'] || '';
-            let dcer = v['drop_con_empty_remark'] || '';
-            //let sldt = v['sent_line_datetime'] || '';
-            let scf = v['sup_confirm'] || '';
-            let type_truck = !!v['type_truck'] ? v['type_truck'] : '';
-            let remark = v['remark'] || '';
-
-            let sup_n = !!v['sup_number'] ? v['sup_number'] : '';
-            let cur_n = !!v['cur'] ? v['cur'] : '';
-            let truck_quantity = !!v['truck_quantity'] ? v['truck_quantity'] : '';
-
-            let ID_test = v['ID'];
-            html_driver_transport = '';
-            let num_tran_driver = '1';
-            $.each(res_data['transport_driver_arr'][ID_test], async function (i1, v1) {
-                html_driver_transport += `
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-lg-2 align-self-center mb-0">Driver ${num_tran_driver}:</label>
-                    <div class="col-sm-9 col-lg-10">
-                        <div class="row">
-                            <div class="col-sm-3 col-lg-2">
-                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['Driver_name']}" readonly>
-                            </div>
-                            <div class="col-sm-3 col-lg-2">
-                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['phone_number']}" readonly>
-                            </div>
-                            <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0">container_number :</label>
-                            <div class="col-sm-3 col-lg-2">
-                                <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['container_number']}" readonly>
-                            </div>
-                            <label class="control-label col-sm-2 col-lg-2 align-self-center mb-0">seal_number :</label>
-                            <div class="col-sm-3 col-lg-2">
-                            <input type="input" class="form-control form-control-sm inp-supplier_firm" value="${v1['seal_number']}" readonly>
-                        </div>
-                        </div>
-                    </div>
-                </div>`;
-                num_tran_driver++;
-            })
-
-            html_transport += `
+                html_transport += `
         <div class="card-transport">
             <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -529,15 +504,16 @@ const reportcs = {
         </div>  
     </div>    
                 `;
-            route++;
-            await $('.card-transport').append(html_transport);
+                route++;
+                await $('.card-transport').append(html_transport);
 
-            $(`.db-sel-truck${i} > select`).val(type_truck).attr('disabled', true);
-            $(`.db-sel-sup${i} > select`).val(sup_n).attr('disabled', true);
-            $(`.db-sel-cur${i} > select`).val(cur_n).attr('disabled', true);
+                $(`.db-sel-truck${i} > select`).val(type_truck).attr('disabled', true);
+                $(`.db-sel-sup${i} > select`).val(sup_n).attr('disabled', true);
+                $(`.db-sel-cur${i} > select`).val(cur_n).attr('disabled', true);
 
 
-        });
+            });
+        }
         // booking set (booking detail)
         $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled', true);
         $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled', true);
@@ -579,11 +555,11 @@ const reportcs = {
         $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly', true);
         $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly', true);
 
-        await reportcs_sub_container_dem.set_preview_data(job_number)
+        //await reportcs_sub_container_dem.set_preview_data(job_number)
     },
 
     adddemhtml: function (e = null) {
-        
+
         html_add_dem = '';
         html_add_dem = `
         <div class="Demurrage-part-del Demurrage-part-del" Demurrage-part-del="">
@@ -640,14 +616,14 @@ const reportcs = {
             </div>
         </div>
         `;
-        
+
         $('.Demurrage-part-add').append(html_add_dem);
         num_dem++;
         num_count_del_delete = '1';
-        
-    }, 
-    
-    push_action_del_dem: async function (ID){
+
+    },
+
+    push_action_del_dem: async function (ID) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -656,25 +632,25 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await reportcs.ajax_del_dem(ID)
                 await Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
-               await reportcs_sub_container_dem.set_preview_data(reportcs.job_number_global)
+                await reportcs_sub_container_dem.set_preview_data(reportcs.job_number_global)
             }
-          }) 
+        })
     },
 
-    ajax_del_dem : async function(dem_arr_del){
+    ajax_del_dem: async function (dem_arr_del) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/del_dem.php",
-                data: {'dem_arr_del' : dem_arr_del},
+                data: { 'dem_arr_del': dem_arr_del },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -682,8 +658,8 @@ const reportcs = {
             });
         });
     },
-    
-    push_action_save_container: async function (){
+
+    push_action_save_container: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -692,19 +668,19 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
 
                 let val_num = 0;
-                $('[name = container-tbl] tbody > tr').each(function(i ,e ){
-                    
+                $('[name = container-tbl] tbody > tr').each(function (i, e) {
+
                     let ID = $(this).attr('container_data_id');
                     let container_nubmer = $('.inp-container_number', this).val();
                     let seal_number = $('.inp-seal_number', this).val();
                     let gw = $('.inp-gw', this).val();
                     let cbm = $('.inp-cbm', this).val();
 
-                    if(container_nubmer == '' || seal_number == '' || gw == '' || cbm == ''){
+                    if (container_nubmer == '' || seal_number == '' || gw == '' || cbm == '') {
                         Swal.fire(
                             'Error!',
                             'Your file has not been saved.',
@@ -712,65 +688,65 @@ const reportcs = {
                         )
                         val_num++
                     }
-                })         
+                })
 
-                if(val_num == 0){
-                    
-                await reportcs.save_container()
-                Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
-                )
+                if (val_num == 0) {
+
+                    await reportcs.save_container()
+                    Swal.fire(
+                        'saved!',
+                        'Your file has been saved.',
+                        'success'
+                    )
                 }
-               
+
             }
-          }) 
+        })
     },
-    save_container : async function(i, e){
+    save_container: async function (i, e) {
         let container_arr = [];
         let container_arr_tmp = {};
 
-        $('[name = container-tbl] tbody > tr').each(function(i ,e ){
+        $('[name = container-tbl] tbody > tr').each(function (i, e) {
 
-        let ID = $(this).attr('container_data_id');
-        let container_nubmer = $('.inp-container_number', this).val();
-        let seal_number = $('.inp-seal_number', this).val();
-        let gw = $('.inp-gw', this).val();
-        let cbm = $('.inp-cbm', this).val();
+            let ID = $(this).attr('container_data_id');
+            let container_nubmer = $('.inp-container_number', this).val();
+            let seal_number = $('.inp-seal_number', this).val();
+            let gw = $('.inp-gw', this).val();
+            let cbm = $('.inp-cbm', this).val();
 
-        container_arr_tmp = {
-            ID:ID,
-            container_nubmer: container_nubmer,
-            seal_number: seal_number,
-            gw: gw,
-            cbm: cbm,
-          }
+            container_arr_tmp = {
+                ID: ID,
+                container_nubmer: container_nubmer,
+                seal_number: seal_number,
+                gw: gw,
+                cbm: cbm,
+            }
 
-          container_arr.push(container_arr_tmp)
+            container_arr.push(container_arr_tmp)
         });
 
 
         //console.log(container_arr);
-       let res = await reportcs.ajax_save_container(container_arr);
-    //    if(res){
-    //     alert("testd");
-    //    }else{
-    //     alert("แตก");
-    //    }
-       
+        let res = await reportcs.ajax_save_container(container_arr);
+        //    if(res){
+        //     alert("testd");
+        //    }else{
+        //     alert("แตก");
+        //    }
+
     },
-    ajax_save_container : function(container_arr){
+    ajax_save_container: function (container_arr) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/save_container.php",
-                data: {'container_arr' : container_arr},
+                data: { 'container_arr': container_arr },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
@@ -798,7 +774,7 @@ const reportcs = {
         });
     },
 
-    push_action_save_dem : async function (){
+    push_action_save_dem: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -807,20 +783,20 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await reportcs.save_dem()
                 Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
-               
+
             }
-          }) 
+        })
     },
 
-    push_action_pickdo : async function(){
+    push_action_pickdo: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -829,35 +805,35 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await reportcs.ajax_save_pickdo()
                 Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
                 reportcs.set_preview_data(reportcs.job_number_global);
             }
-          }) 
+        })
     },
 
-    ajax_save_pickdo : function(){
+    ajax_save_pickdo: function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/push_do.php",
-                data: {'job_number' : reportcs.job_number_global},
+                data: { 'job_number': reportcs.job_number_global },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
     },
-    push_action_checkdoc : async function(){
+    push_action_checkdoc: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -866,35 +842,35 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await reportcs.ajax_save_checkdoc()
                 Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
                 reportcs.set_preview_data(reportcs.job_number_global);
-               
+
             }
-          }) 
+        })
     },
-    ajax_save_checkdoc : function(){
+    ajax_save_checkdoc: function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/push_checkdoc.php",
-                data: {'job_number' : reportcs.job_number_global},
+                data: { 'job_number': reportcs.job_number_global },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
     },
-    push_action_enter : async function(){
+    push_action_enter: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -903,20 +879,20 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await reportcs.ajax_save_enter()
                 Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
                 reportcs.set_preview_data(reportcs.job_number_global);
             }
-          }) 
+        })
     },
 
-    push_action_plan_clear : async function(){
+    push_action_plan_clear: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -925,108 +901,108 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 let clearance_plan = $('.inp-clearance_date_for_customs').val()
-                
+
                 await reportcs.ajax_save_plan_clearance(clearance_plan)
                 Swal.fire(
-                  'saved!',
-                  'Your file has been saved.',
-                  'success'
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
                 )
                 //reportcs.set_preview_data(reportcs.job_number_global);
             }
-          }) 
+        })
     },
 
-    ajax_save_plan_clearance : function(clearance_plan){
+    ajax_save_plan_clearance: function (clearance_plan) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/push_clear_plan.php",
-                data: {'job_number' : reportcs.job_number_global, 'clearance_plan' : clearance_plan},
+                data: { 'job_number': reportcs.job_number_global, 'clearance_plan': clearance_plan },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
     },
 
-    ajax_save_enter : function(){
+    ajax_save_enter: function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/push_enter.php",
-                data: {'job_number' : reportcs.job_number_global},
+                data: { 'job_number': reportcs.job_number_global },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
     },
 
-    save_dem : async function(i, e){
+    save_dem: async function (i, e) {
         let dem_arr = [];
         let dem_arr_tmp = {};
 
-        $('.Demurrage-part-del').each(function (i,e){
-            
+        $('.Demurrage-part-del').each(function (i, e) {
+
             let ID_dem = $(this).attr('demurrage_part_del')
-            let containe_ID = $('.sel-dem-container',this).val();
-            let old_dem = $('.inp-rtn-dem',this).val();
-            let new_dem = $('.inp-rtn-new-dem',this).val();
-            let doc = $('.inp-doc-dem',this).val(); 
+            let containe_ID = $('.sel-dem-container', this).val();
+            let old_dem = $('.inp-rtn-dem', this).val();
+            let new_dem = $('.inp-rtn-new-dem', this).val();
+            let doc = $('.inp-doc-dem', this).val();
 
-            
+
             dem_arr_tmp = {
-            ID_dem : ID_dem,
-            containe_ID:containe_ID,
-            old_dem: old_dem,
-            new_dem:new_dem,
-            doc:doc,
-          }
+                ID_dem: ID_dem,
+                containe_ID: containe_ID,
+                old_dem: old_dem,
+                new_dem: new_dem,
+                doc: doc,
+            }
 
-          dem_arr.push(dem_arr_tmp)
+            dem_arr.push(dem_arr_tmp)
         });
-        
-        
-       let res = await reportcs.ajax_save_dem(dem_arr);
-   
+
+
+        let res = await reportcs.ajax_save_dem(dem_arr);
+
     },
-    ajax_save_dem : function(dem_arr){
+    ajax_save_dem: function (dem_arr) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/save_dem.php",
-                data: {'dem_arr' : dem_arr},
+                data: { 'dem_arr': dem_arr },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
     },
 
-    ajax_save_container : function(container_arr){
+    ajax_save_container: function (container_arr) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport/save_container.php",
-                data: {'container_arr' : container_arr},
+                data: { 'container_arr': container_arr },
                 dataType: "json",
                 success: function (res) {
-                    
+
                     resolve(res);
-                    
+
                 },
             });
         });
@@ -1034,18 +1010,18 @@ const reportcs = {
 
     modal_doc: function (val_get) {
         if ($('#add_moda').length >= 1) {
-          $('#add_moda').remove()
+            $('#add_moda').remove()
         }
         let head_modal = '';
-        if(val_get == "inv"){
+        if (val_get == "inv") {
             head_modal = "invoice"
-        }else if(val_get == "bl"){
+        } else if (val_get == "bl") {
             head_modal = "Bill of landing"
-        }else if(val_get == "pl"){
+        } else if (val_get == "pl") {
             head_modal = "Packing list"
-        }else if(val_get == "id"){
+        } else if (val_get == "id") {
             head_modal = "Import Declaratio"
-        }else if(val_get == "il"){
+        } else if (val_get == "il") {
             head_modal = "Import Licence"
         }
 
@@ -1080,12 +1056,12 @@ const reportcs = {
                     </div>
                 </div>
             </div>`
-    
+
         $('body').append(html)
         $('#add_moda').modal('show')
-      },
+    },
 
-      arr_detail_sbtn_detail_svave_function : async function(){
+    arr_detail_sbtn_detail_svave_function: async function () {
         arr_detail = [];
         arr_detail_temp = {};
 
@@ -1098,26 +1074,26 @@ const reportcs = {
         let motherv = $('.inp-vessel-mother-job-voy').val();
         let feeder = $('.inp-feeder-vessel-job').val();
         let feederv = $('.inp-vessel-job-voy').val();
-        
+
         arr_detail_temp = {
-            inv : inv,
-            mbl : mbl,
-            hbl : hbl,
-            etd : etd,
-            eta : eta,
-            mother : mother,
-            motherv : motherv,
-            feeder : feeder,
-            feederv : feederv,
-            job_number : reportcs.job_number_global
+            inv: inv,
+            mbl: mbl,
+            hbl: hbl,
+            etd: etd,
+            eta: eta,
+            mother: mother,
+            motherv: motherv,
+            feeder: feeder,
+            feederv: feederv,
+            job_number: reportcs.job_number_global
         };
 
         arr_detail.push(arr_detail_temp);
         let res = await reportcs.ajax_sv_detail(arr_detail)
         return res['st'];
-      },
+    },
 
-    job_detail_container_sv : async function(){
+    job_detail_container_sv: async function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -1126,16 +1102,16 @@ const reportcs = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, save it!'
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 let st = await reportcs.arr_detail_sbtn_detail_svave_function()
-                if(st != 1){
+                if (st != 1) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Necessary information is missing. Please input',
                     })
-                }else{
+                } else {
                     Swal.fire(
                         'saved!',
                         'Your file has been saved.',
@@ -1143,41 +1119,42 @@ const reportcs = {
                     )
                 }
             }
-          }) 
+        })
     },
-    ajax_sv_detail : function(arr_detail){
+    ajax_sv_detail: function (arr_detail) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/reportcs/save_job_detail.php",
-                data: {'arr_detail' : arr_detail},
+                data: { 'arr_detail': arr_detail },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
-                    return(res)
+                    return (res)
                 },
             });
         });
     },
-    
 
-    save_doc_image :async function (e=null) {  
+
+    save_doc_image: async function (e = null) {
         const job_no = $('.inp-job_number').val();
         const Base_64_file = await convert_file();
         let type = $(e).closest('#add_moda').attr('docs_type');
         let data = {
-            'file_64' : Base_64_file,
-            'type' : type,
-            'job_no' : job_no}
+            'file_64': Base_64_file,
+            'type': type,
+            'job_no': job_no
+        }
         let res = await reportcs.ajax_save_docs(data);
-        if(res['st'] == '1'){
+        if (res['st'] == '1') {
             Swal.fire(
                 'saved!',
                 'Your file has been saved.',
                 'success'
             )
             $('#add_moda').modal('hide');
-        }else{
+        } else {
             Swal.fire(
                 'Error!',
                 'Your file has not been saved.',
@@ -1188,7 +1165,7 @@ const reportcs = {
         this.set_preview_data(this.job_number_global)
     },
 
-    ajax_save_docs : function (data) {  
+    ajax_save_docs: function (data) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -1201,12 +1178,12 @@ const reportcs = {
             });
         });
     },
-    download_file : function (e=null) {  
+    download_file: function (e = null) {
         let type = e;
         let job_no = $('.inp-job_number').val();
         let data = {
-            'type' : type,
-            'job_no' : job_no
+            'type': type,
+            'job_no': job_no
         }
         $.ajax({
             type: "post",
@@ -1219,23 +1196,23 @@ const reportcs = {
             }
         });
     },
-    
+
 };
 
-async function convert_file(e = null) {  
+async function convert_file(e = null) {
     let myFile = $('.inp_file_cs').prop('files')[0];
-    
+
     const base64String = await toBase64(myFile);
-    return(base64String);
+    return (base64String);
 }
 
 function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 }
 
 function number_format(nStr) {

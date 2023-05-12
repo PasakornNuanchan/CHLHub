@@ -1,6 +1,6 @@
 <?php
 require 'function/auth/get_session.php';
- 
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -318,7 +318,7 @@ require 'function/auth/get_session.php';
                                                     <th>currency</th>
                                                     <th>remark</th>
                                                     <div class="th_for_preview">
-                                                    <th>action</th>
+                                                        <th>action</th>
                                                     </div>
                                                 </tr>
                                             </thead>
@@ -431,7 +431,7 @@ require 'function/auth/get_session.php';
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Customs Clearance</h4>
+                                        <h4 class="card-title">Customs Clearance Plan</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -441,18 +441,6 @@ require 'function/auth/get_session.php';
                                             <input type="input" class="form-control form-control-sm inp_clearance_date_plan" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Clearance by.</label>
-                                        <div class="col-sm-9 col-lg-3">
-                                            <input type="input" class="form-control form-control-sm inp-clearance_by" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Datetime Success :</label>
-                                        <div class="col-sm-9 col-lg-3">
-                                            <input type="input" class="form-control form-control-sm inp-datetime_success" readonly>
-                                        </div>
-                                    </div>
                                     <div class="add_btn_clearance">
                                         <div style="float: right">
                                             <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
@@ -460,6 +448,165 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Customs Clearance</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center  ">Ship arrived :</label>
+                                            <div class="col-sm-9 col-md-10 col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-sab" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-sat" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 text-center">
+                                                        <button class="btn btn-success  ship_cf" onclick="customs_set_sub_customs.modal_ship('saf')">Confirm</button>
+                                                        <button class="btn btn-danger  ship_tb" onclick="customs_set_sub_customs.modal_ship('satb')">Troubleshoot</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-sap" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center  ">Conatiner dropoff :</label>
+                                            <div class="col-sm-9 col-md-10 col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-c_dropb" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-c_dropt" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 text-center">
+                                                        <button class="btn btn-success  cd_cf" onclick="customs_set_sub_customs.modal_ship('cdf')">Confirm</button>
+                                                        <button class="btn btn-danger  cd_tb" onclick="customs_set_sub_customs.modal_ship('cdt')">Troubleshoot</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-c_dropp" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center  ">Customs Clearance :</label>
+                                            <div class="col-sm-9 col-md-10 col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-cus_by" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-cus_time" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 text-center">
+                                                        <button class="btn btn-success  cus_cf" onclick="customs_set_sub_customs.modal_ship('ccf')">Confirm</button>
+                                                        <button class="btn btn-danger  cus_tb" onclick="customs_set_sub_customs.modal_ship('cctb')">Troubleshoot</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-cus_p" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Container upload</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="add_container_upload">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Container Arrived</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="add_container_ar">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Return CY</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="add_container_cy">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group row">
+                                        <div class="row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center  ">Container arrived :</label>
+                                            <div class="col-sm-9 col-md-10 col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 text-center">
+                                                        <button class="btn btn-success">Confirm</button>
+                                                        <button class="btn btn-danger ">Troubleshoot</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center  ">comeback to cy :</label>
+                                            <div class="col-sm-9 col-md-10 col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-cyb" readonly>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                                        <input type="input" class="form-control form-control-sm inp-cyt" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+
+                            <!-- <div class="add_btn_clearance">
+                                        <div style="float: right">
+                                            <button type="button" class="btn btn-success rounded-pill btn-sm bg-gradient" onclick="customs.push_action_clearance()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Clearance success</button>
+                                        </div>
+                                    </div> -->
+                            <!-- </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

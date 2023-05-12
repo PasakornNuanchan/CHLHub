@@ -12,7 +12,7 @@
   SET
     `clearlance_date` = '$clearance_plan'
   WHERE
-    job_number = '$job_number' ";
+    ID = '$job_number' ";
     
     
      

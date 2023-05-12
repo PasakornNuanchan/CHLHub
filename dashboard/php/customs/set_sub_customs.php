@@ -57,6 +57,63 @@ $job_number = $_POST['job_number'];
           SELECT jt.clearlance_date FROM job_title as jt WHERE job_number ='$job_number'
           ";
 
+          $sql_js = "
+          SELECT 
+          u1.first_name as f_cus,
+          u1.last_name l_cus,
+          js.Cus_suc_datetime,
+          js.Cus_status,
+          js.cus_pro,
+          u2.first_name as f_ship,
+          u2.last_name l_ship,
+          js.ship_arrievd_st,
+          js.ship_arrived_status,
+          js.ship_pro,
+          u3.first_name f_cy,
+          u3.last_name l_cy,
+          js.cy_rtn,
+          cy_rtn_status,
+          js.drop_status,
+          js.drop_datetime,
+          js.drop_pro,
+          u4.first_name drop_f,
+          u4.last_name drop_l
+          FROM job_status as js
+          LEFT JOIN user as u1 ON js.cus_by = u1.user_number
+          LEFT JOIN user as u2 ON js.ship_arrievd_by = u2.user_number
+          LEFT JOIN user as u3 ON js.cy_rtn_by = u3.user_number
+          LEFT JOIN user as u4 ON js.drop_by = u4.user_number
+          WHERE job_number ='$job_number'
+          ";
+        
+        $sql_adapter = "SELECT ID FROM job_title WHERE job_number ='$job_number'";          
+
+$result = $con->query($sql_adapter);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $adt = $row['ID'];
+  }
+} else {
+  $adt = "0 results";
+}
+
+
+$sql_container ="
+SELECT 
+cn.*,
+u1.first_name as up_f,
+u1.last_name as up_l,
+u2.first_name as cntr_f,
+u2.last_name as cntr_l,
+u3.first_name as cy_f,
+u3.last_name as cy_l
+FROM container cn
+LEFT JOIN user u1 ON cn.up_by_cntr = u1.user_number
+LEFT JOIN user u2 ON cn.cntr_up_by = u2.user_number
+LEFT JOIN user u3 ON cn.cy_by_cntr = u3.user_number
+WHERE ref_job_id = '$adt'
+";
+
 $result = $con->query($sql_detail_job);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -75,8 +132,23 @@ if ($result->num_rows > 0) {
   $dtsa = "0 results";
 }
 
+$result = $con->query($sql_js);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $dtcr = $row;
+  }
+} else {
+  $dtcr = "0 results";
+}
+
+$result = $con->query($sql_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $container[] = $row;
+  }
+} else {
+  $container = "0 results";
+}
 
 
-
-     echo json_encode(array('dts'=>$dts,'dtsa'=>$dtsa));
-?>
+  echo json_encode(array('dts'=>$dts,'dtsa'=>$dtsa,'dtcr'=>$dtcr,'container'=>$container));

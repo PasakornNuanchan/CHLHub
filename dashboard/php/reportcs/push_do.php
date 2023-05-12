@@ -11,7 +11,7 @@
     SET
       `pickup_DO_date` = '$t_time_save'
     WHERE
-      job_number ='$job_number' ";
+      ID ='$job_number' ";
     
     
      
