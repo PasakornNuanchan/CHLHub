@@ -74,31 +74,33 @@ const reportcs = {
 
 
         //job detail
-        $('.inp-job_number').val(res_data['de']['job_number']).attr('readonly', true);
-        $('.inp-inv').val(res_data['de']['inv']);
-        $('.inp-consignee').val(res_data['de']['consignee_name']).attr('readonly', true);
-        $('.inp-mbl').val(res_data['de']['mbl']);
-        $('.inp-eth-job').val(res_data['de']['etd']);
-        $('.inp-hbl').val(res_data['de']['hbl']);
-        $('.inp-eta-job').val(res_data['de']['eta']);
-        $('.inp-carrier').val(res_data['de']['carrier_name']).attr('readonly', true);
-        $('.inp-pol').val(res_data['de']['pol']).attr('readonly', true);
-        $('.inp-mother-vessel-job').val(res_data['de']['mother_vessel']);
-        $('.inp-vessel-mother-job-voy').val(res_data['de']['voy_no_mother']);
-        $('.inp-feeder-vessel-job').val(res_data['de']['feeder_vessel']);
-        $('.inp-vessel-job-voy').val(res_data['de']['voy_no_feeder']);
-        $('.inp-pod').val(res_data['de']['pod']).attr('readonly', true);
-        $('.inp-port').val(res_data['de']['port']).attr('readonly', true);
-        $('.inp-invno').val(res_data['de']['inv']).attr('readonly', true);
+        await $('.inp-job_number').val(res_data['de']['job_number']).attr('readonly', true);
+        await $('.inp-inv').val(res_data['de']['inv']);
+        await $('.inp-consignee').val(res_data['de']['consignee_name']).attr('readonly', true);
+        await $('.inp-mbl').val(res_data['de']['mbl']);
+        await $('.inp-eth-job').val(res_data['de']['etd']);
+        await $('.inp-hbl').val(res_data['de']['hbl']);
+        await $('.inp-eta-job').val(res_data['de']['eta']);
+        await $('.inp-carrier').val(res_data['de']['carrier_name']).attr('readonly', true);
+        await $('.inp-pol').val(res_data['de']['pol']).attr('readonly', true);
+        await $('.inp-mother-vessel-job').val(res_data['de']['mother_vessel']);
+        await $('.inp-vessel-mother-job-voy').val(res_data['de']['voy_no_mother']);
+        await $('.inp-feeder-vessel-job').val(res_data['de']['feeder_vessel']);
+        await $('.inp-vessel-job-voy').val(res_data['de']['voy_no_feeder']);
+        await $('.inp-pod').val(res_data['de']['pod']).attr('readonly', true);
+        await $('.inp-port').val(res_data['de']['port']).attr('readonly', true);
+        await $('.inp-invno').val(res_data['de']['inv']).attr('readonly', true);
         // Document date
-        $('.inp-clearance_date').val(res_data['de']['cus_suc_datetime']).attr('readonly', true);
-        $('.inp-check_doc').val(res_data['de']['check_document']).attr('readonly', true);
-        $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
-        $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
-        $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
-        $('.inp-clearance_date_for_customs').val(res_data['de']['clearlance_date'])
+        await $('.inp-clearance_date').val(res_data['de']['cus_suc_datetime']).attr('readonly', true);
+        await $('.inp-check_doc').val(res_data['de']['check_document']).attr('readonly', true);
+        await $('.inp-delivery').val(res_data['de']['delivery_date']).attr('readonly', true);
+        await $('.inp-enter').val(res_data['de']['enter_date']).attr('readonly', true);
+        await $('.inp-pick_do').val(res_data['de']['pickup_DO_date']).attr('readonly', true);
+        await $('.inp-clearance_date_for_customs').val(res_data['de']['clearlance_date']);
+        await $('.sel_ats').val(res_data['de']['shipping_ass']);
 
         //Document
+        console.log(res_data['dej'])
         if (res_data['dej']['INV_receiv_by'] == null) {
             inv_status = '';
             inv_status_edit = 'hidden';
@@ -275,18 +277,22 @@ const reportcs = {
         $('.inp-clearance_date').val(res_data['dej']['Cus_suc_datatime']).attr('readonly', true);
         $('.inp-datetime_success').val(res_data['dej']['Cus_suc_datetime']).attr('readonly', true);
 
-        res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden', true) : '';
-        res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden', true) : '';
-        res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden', true) : '';
-        res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden', true) : '';
-        res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden', true) : '';
 
 
-        res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden', true) : '';
-        res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden', true) : '';
-        res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden', true) : '';
-        res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden', true) : '';
-        res_data['dej']['IL_check_by'] != '' ? $('.il_btn_edit').attr('hidden', true) : '';
+
+
+        // await res_data['dej']['INV_picture'] == '' ? $('.inv_pic_show').attr('hidden', true) : '';
+        // await res_data['dej']['BL_picture'] == '' ? $('.bl_pic_show').attr('hidden', true) : '';
+        // await res_data['dej']['PL_picture'] == '' ? $('.pl_pic_show').attr('hidden', true) : '';
+        // await res_data['dej']['ID_picture'] == '' ? $('.id_pic_show').attr('hidden', true) : '';
+        // await res_data['dej']['IL_picture'] == '' ? $('.il_pic_show').attr('hidden', true) : '';
+
+
+        // await res_data['dej']['INV_check_by'] != '' ? $('.inv_btn_edit').attr('hidden', true) : '';
+        // await res_data['dej']['BL_check_by'] != '' ? $('.bl_btn_edit').attr('hidden', true) : '';
+        // await res_data['dej']['PL_check_by'] != '' ? $('.pl_btn_edit').attr('hidden', true) : '';
+        // await res_data['dej']['ID_check_by'] != '' ? $('.id_btn_edit').attr('hidden', true) : '';
+        // await res_data['dej']['IL_check_by'] != '' ? $('.il_btn_edit').attr('hidden', true) : '';
 
 
 
@@ -296,6 +302,7 @@ const reportcs = {
         var container_type_name = '';
         $('[name = container-tbl] tbody').html('');
         var num_container_rows = '1';
+        
         $.each(res_data['cont'], function (i, v) {
 
             if ((container_type_check = v['container_type']) == null) {
@@ -366,7 +373,7 @@ const reportcs = {
 
 
         if (res_data['tran'] != "0 results") {
-            $.each(res_data['tran'], async function (i, v) {
+           await $.each(res_data['tran'], async function (i, v) {
                 $('.card-transport').html('');
                 //budget = parseFloat(v['budget']);
 
@@ -393,6 +400,48 @@ const reportcs = {
                 html_driver_transport = '';
                 let num_tran_driver = '1';
 
+                $.each(res_data['transport_driver_arr'][ID_test],function(i1,v1){
+                    let D_name = v1['Driver_name']
+                    let P_number = v1['phone_number']
+                    let S_number = v1['seal_number']
+                    let C_number = v1['container_number']
+                    html_driver_transport = `
+                    <div class="driver_transport">
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <input type="text" class="form-control form-control-sm inp_driver_name" value="${D_name}" readonly>
+                                    </div>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input type="text" class="form-control form-control-sm inp_phone_number " value="${P_number}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Container number:</label>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <input type="text" class="form-control form-control-sm inp_seal_number" value="${C_number}" readonly>
+                                    </div>
+                                    <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
+                                    <div class="col-lg-4 col-md-4">
+                                        <input type="text" class="form-control form-control-sm inp_seal_number" value="${S_number}" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    
+                })
 
                 html_transport += `
         <div class="card-transport">
@@ -515,30 +564,30 @@ const reportcs = {
             });
         }
         // booking set (booking detail)
-        $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled', true);
-        $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled', true);
+        await $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled', true);
+        await $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled', true);
 
-        $('.inp-carrier-sel').val(res_data['booking']['carrier_number']).attr('disabled', true);
-        $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled', true);
-        $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled', true);
-        $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled', true);
-        $('.inp-delivery-sel-booking').val(res_data['booking']['port_of_delivery_number']).attr('disabled', true);
+        await $('.inp-carrier-sel').val(res_data['booking']['carrier_number']).attr('disabled', true);
+        await $('.inp-prtrecieve').val(res_data['booking']['port_of_receipt_number']).attr('disabled', true);
+        await $('.inp-prtload').val(res_data['booking']['port_of_loading_number']).attr('disabled', true);
+        await $('.inp-ts_port').val(res_data['booking']['ts_port_number']).attr('disabled', true);
+        await $('.inp-delivery-sel-booking').val(res_data['booking']['port_of_delivery_number']).attr('disabled', true);
 
 
 
-        $('.inp-jobno').val(res_data['booking']['job_number']).attr('readonly', true);
-        $('.inp-bkno').val(res_data['booking']['booking_number']).attr('readonly', true);
+        await $('.inp-jobno').val(res_data['booking']['job_number']).attr('readonly', true);
+        await $('.inp-bkno').val(res_data['booking']['booking_number']).attr('readonly', true);
 
-        $('.inp-rmk').val(res_data['booking']['remark']).attr('readonly', true);
+        await $('.inp-rmk').val(res_data['booking']['remark']).attr('readonly', true);
 
-        $('.inp-M_vessel').val(res_data['booking']['mother_vessel']).attr('readonly', true);
-        $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']).attr('readonly', true);
-        $('.inp-feeder_vessel').val(res_data['booking']['feeder_vessel']).attr('readonly', true);
-        $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly', true);
-        $('.inp-etd').val(res_data['booking']['etd']).attr('readonly', true);
-        $('.inp-eta').val(res_data['booking']['eta']).attr('readonly', true);
+        await $('.inp-M_vessel').val(res_data['booking']['mother_vessel']).attr('readonly', true);
+        await $('.inp-mother-voy-no').val(res_data['booking']['voy_no_mother']).attr('readonly', true);
+        await $('.inp-feeder_vessel').val(res_data['booking']['feeder_vessel']).attr('readonly', true);
+        await $('.inp-feeder_voy_no').val(res_data['booking']['voy_no_feeder']).attr('readonly', true);
+        await $('.inp-etd').val(res_data['booking']['etd']).attr('readonly', true);
+        await $('.inp-eta').val(res_data['booking']['eta']).attr('readonly', true);
 
-        $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly', true);
+        await $('.inp-cargodes').val(res_data['cninform']['cargo']).attr('readonly', true);
 
         let db_sel_hs = '';
         $.each(res_data['hscode'], function (i, k) {
@@ -548,12 +597,12 @@ const reportcs = {
         });
         $('.inp-hscode').append(db_sel_hs);
 
-        $('.inp-hscode').val(res_data['cninform']['hs_code'] + ' ' + res_data['cninform']['hs_decription']).attr('disabled', true);
-        $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled', true);
-        $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly', true);
-        $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly', true);
-        $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly', true);
-        $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly', true);
+        await $('.inp-hscode').val(res_data['cninform']['hs_code'] + ' ' + res_data['cninform']['hs_decription']).attr('disabled', true);
+        await $('.inp-cargo_type').val(res_data['cninform']['cargo_type']).attr('disabled', true);
+        await $('.inp-cargo_qty').val(res_data['cninform']['quantity']).attr('readonly', true);
+        await $('.inp-cargo_gw').val(res_data['cninform']['gw']).attr('readonly', true);
+        await $('.inp-cargo_vol').val(res_data['cninform']['volume']).attr('readonly', true);
+        await $('.inp-cargo_marks').val(res_data['cninform']['mark']).attr('readonly', true);
 
         //await reportcs_sub_container_dem.set_preview_data(job_number)
     },
@@ -916,6 +965,44 @@ const reportcs = {
         })
     },
 
+    push_action_assign_shipping: async function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let shipping_number = $('.sel_ats').val()
+                console.log(shipping_number)
+                await reportcs.ajax_save_action_assign_shipping(shipping_number)
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+                )
+            }
+        })
+    },
+
+
+    ajax_save_action_assign_shipping : function (shipping_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/reportcs/push_ast.php",
+                data: { 'job_number': reportcs.job_number_global, 'shipping_number': shipping_number },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
     ajax_save_plan_clearance: function (clearance_plan) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -924,9 +1011,7 @@ const reportcs = {
                 data: { 'job_number': reportcs.job_number_global, 'clearance_plan': clearance_plan },
                 dataType: "json",
                 success: function (res) {
-
                     resolve(res);
-
                 },
             });
         });

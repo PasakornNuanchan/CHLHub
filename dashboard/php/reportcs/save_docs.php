@@ -6,6 +6,17 @@ $file = $_POST['file_64'];
 $type = $_POST['type'];
 $job_no = $_POST['job_no'];
 
+$sql_serch_id = "SELECT ID FROM job_title WHERE job_number = '$job_no'";
+
+    $result = $con->query($sql_serch_id);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $IDa = $row['ID'];
+      }
+    } else {
+      $IDa = "0 results";
+    }
+
 switch ($type){
     case 'inv':
         $field_name = 'INV_picture';
@@ -43,11 +54,11 @@ UPDATE job_status set
     `$receiv` = '$data_user',
     `$datetime` = '$t_time_save'
 WHERE 1 
-    AND job_number = ?
+    AND ref_job_id = ?
 ";
 
 $stmt = $con->prepare($sql);
-$stmt->bind_param("ss" ,$file,$job_no);
+$stmt->bind_param("ss" ,$file,$IDa);
 if ($stmt->execute()) {
     // Success! Handle the results here
     echo json_encode(array('st' => '1'));

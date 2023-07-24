@@ -8,21 +8,20 @@ $container_arr = $_POST['container_arr'];
 
 foreach ($container_arr as $k => $v) {
     $con_type = isset($v['con_type']) ? $v['con_type'] : '';
-    $qty = isset($v['qty']) ? $v['qty'] : '';
     $slw = isset($v['slw']) ? $v['slw'] : '';
-    $soc = isset($v['soc']) ? $v['soc'] : '';
-    $ow = isset($v['ow']) ? $v['ow'] : '';
-    $st_container = isset($v['st_container']) ? $v['st_container'] : '';
-    $cy_con = isset($v['cy_con']) ? $v['cy_con'] : '';
-    $rtn_con = isset($v['rtn_con']) ? $v['rtn_con'] : '';
-    $job_number = isset($v['job_number']) ? $v['job_number'] : '';
+    $soc = isset($v['ssoc']) ? $v['ssoc'] : '';
+    $ow = isset($v['oow']) ? $v['oow'] : '';
+    $cy_con = isset($v['cy']) ? $v['cy'] : NULL;
+    $rtn_con = isset($v['rtn']) ? $v['rtn'] : NULL;
     $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
+    $attr_booking_container = isset($v['attr_booking_container']) ? $v['attr_booking_container'] : '';
+    
 
-    $soc = 0;
-    $ow = 0;
+    $cya = $cy_con == NULL ? "NULL" : "'".$v['cy']."'";
+    $rtna = $rtn_con == NULL ? "NULL" : "'".$v['rtn']."'";
+    
 
-    if ($st_container == "") {
-        for ($x = 1; $x <= $qty; $x++) {
+    if($attr_booking_container == ''){
         $sql = "
         INSERT INTO `container`(
             `ref_job_id`,
@@ -39,65 +38,28 @@ foreach ($container_arr as $k => $v) {
             '$slw',
             '$soc',
             '$ow',
-            '$cy_con',
-            '$rtn_con'
+            $cya,
+            $rtna
         )
         ";
-            $status = $con->query($sql);
-            
-        }
+        
+    }else{
+        $sql = "
+        UPDATE
+            `container`
+        SET
+            `container_type` = '$con_type',
+            `single_cnt` = '$slw',
+            `soc` = '$soc',
+            `ow` = '$ow',
+            `cy` = $cya,
+            `rtn` = $rtna
+        WHERE
+            ID = '$attr_booking_container'
+        ";
     }
     
+    $status[] = $con->query($sql);
 }
+
 echo json_encode($status);
-
-// $sql_user_query = "
-//     SELECT * FROM user WHERE ID = '$data_user'";
-
-// $result = $con->query($sql_user_query);
-// if ($result->num_rows > 0) {
-//     while ($row = $result->fetch_assoc()) {
-//         $dat_u = $row;
-//     }
-// } else {
-//     $dat_u = "0 results";
-// }
-
-// json_encode(array('dat_u' => $dat_u));
-// $bank_number = $dat_u['bank_number'];
-// $bank_name = $dat_u['bank_name'];
-
-
-
-
-// foreach ($list_data as $k => $v) {
-//     $get_amount = isset($v['get_amount']) ? $v['get_amount'] : '';
-//     $get_currency = isset($v['get_currency']) ? $v['get_currency'] : '';
-//     $get_description = isset($v['get_description']) ? $v['get_description'] : '';
-
-
-//     $sql_insert_detail =
-//         "
-// INSERT INTO `petty_cash_detail`(
-//     `petty_cash_number`,
-//     `job_number`,
-//     `amount`,
-//     `currency`
-// )
-// VALUES(
-//     '$run_doc',
-//     '$get_description',
-//     '$get_amount',
-//     '$get_currency'
-// )
-// ";
-
-// $status = $con->query($sql_insert_detail);
-// }
-
-
-// $status = $con->query($sql_insert_title);
-// echo json_encode($run_doc);
-
-//  //$status = $con->query($sql_add_list);
-//  //print_r($status);

@@ -37,7 +37,8 @@ $sql_detail = "
     js.cus_suc_datetime,
     jt.enter_date,
     jt.pickup_DO_date,
-    jt.inv
+    jt.inv,
+    jt.shipping_ass
     FROM job_title jt
       LEFT JOIN consignee c on jt.consignee_number = c.ID
       LEFT JOIN carrier cr on jt.carrier_number = cr.carrier_number
@@ -255,34 +256,34 @@ if ($result->num_rows > 0) {
   $tran = "0 results";
 }
 
-//  $imp_set_tran_drive = implode(',', $get_tran);
-// $sql_tran_drive = "
-//       SELECT 
-//       tc.ID,
-//       tc.Driver_name,
-//       tc.phone_number,
-//       tc.container_id,
-//       tc.job_number,
-//       tc.route_id,
-//       c.container_number,
-//       c.seal_number
-//       FROM transport_contact as tc
-//       LEFT JOIN container as c ON tc.container_id = c.ID
-//       WHERE tc.route_id IN($imp_set_tran_drive) AND tc.status = '0'
-//       ";
+$imp_set_tran_drive = implode(',', $get_tran);
+$sql_tran_drive = "
+      SELECT 
+      tc.ID,
+      tc.Driver_name,
+      tc.phone_number,
+      tc.container_id,
+      tc.job_number,
+      tc.route_id,
+      c.container_number,
+      c.seal_number
+      FROM transport_contact as tc
+      LEFT JOIN container as c ON tc.container_id = c.ID
+      WHERE tc.route_id IN($imp_set_tran_drive) AND tc.status = '0'
+      ";
 
-// $result = $con->query($sql_tran_drive);
-// if ($result->num_rows > 0) {
-//   while ($row = $result->fetch_assoc()) {
-//     $transport_driver[] = $row;
-//   }
-// } else {
-//   $transport_driver = "0 results";
-// }
+$result = $con->query($sql_tran_drive);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $transport_driver[] = $row;
+  }
+} else {
+  $transport_driver = "0 results";
+}
 
-// foreach ($transport_driver as $k => $v) {
-//   $transport_driver_arr[$v['route_id']][] = $v;
-// }
+foreach ($transport_driver as $k => $v) {
+  $transport_driver_arr[$v['route_id']][] = $v;
+}
 
 
 $result = $con->query($sql_supplier);

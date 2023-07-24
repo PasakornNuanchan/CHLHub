@@ -8,6 +8,17 @@ $data_in = $_POST['input_data'] ? $_POST['input_data'] : '';
 $job_number = $_POST['job_number'] ? $_POST['job_number'] : '';
 $id = $_POST['id'] ? $_POST['id'] : '';
 
+$sql_serch_id = "SELECT ID FROM job_title WHERE job_number = '$job_number'";
+
+    $result = $con->query($sql_serch_id);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $IDa = $row['ID'];
+      }
+    } else {
+      $IDa = "0 results";
+    }
+
 if($status == "saf"){
     $sql = "
     UPDATE
@@ -18,7 +29,7 @@ SET
     `ship_arrived_status` = '1',
     `ship_pro` = ''
 WHERE
-    `job_number` = '$job_number'
+    `ID` = '$IDa'
     ";
 }elseif($status == "satb"){
     $sql = "
@@ -30,7 +41,7 @@ SET
     `ship_arrived_status` = '2',
     `ship_pro` = '$data_in'
 WHERE
-    `job_number` = '$job_number'
+    `ID` = '$IDa'
     ";
 }elseif($status == "ccf"){
     $sql = "
@@ -42,7 +53,7 @@ SET
     `Cus_status` = '1',
     `cus_pro` = ''
 WHERE
-    `job_number` = '$job_number'
+`ID` = '$IDa'
     ";
 }elseif($status == "cctb"){
     $sql = "
@@ -54,7 +65,7 @@ SET
     `Cus_status` = '2',
     `cus_pro` = '$data_in'
 WHERE
-    `job_number` = '$job_number'
+`ID` = '$IDa'
     ";
 }elseif($status == "upl_f"){
     $sql = "
@@ -92,7 +103,7 @@ SET
     `drop_by` = '$data_user',
     `drop_pro` = ''
 WHERE
-    `job_number` = '$job_number'
+`ID` = '$IDa'
     ";
 }elseif($status == "cdt"){
     $sql = "
@@ -104,7 +115,7 @@ SET
     `drop_by` = '$data_user',
     `drop_pro` = '$data_in'
 WHERE
-    `job_number` = '$job_number'
+`ID` = '$IDa'
     ";
 }elseif($status == "conar_f"){
     $sql = "

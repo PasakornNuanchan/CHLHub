@@ -34,8 +34,9 @@ foreach ($arr_detail as $k => $v) {
             `etd` = '$etd',
             `eta` = '$eta'
         WHERE
-            job_number = '$job_number'
+            ID = '$job_number'
         ";
+
 
         if($con->query($sql_sv_detail) != 1){
             $arr_suc['st'] = '0';

@@ -227,6 +227,21 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Assign to shipping</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-5">
+                                                    <select  class="form-select form-select-sm sel_ats">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2 col-md-2">
+                                                    <button class="btn btn-success rounded-pill btn-sm " onclick="reportcs.push_action_assign_shipping()" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Save date </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-2 col-md-2 col-lg-2 align-self-center ">Clearlance Date Finish</label>
                                         <div class="col">
                                             <div class="row">
@@ -578,20 +593,20 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-2 align-self-center ">Job number</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center ">Job number</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <input type="input" class="form-control form-control-sm inp-jobno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Booking number</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <input type="input" class="form-control form-control-sm inp-bkno">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipper</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-shper">
                                                 <option value="">pleses select shipper</option>
                                             </select>
@@ -599,7 +614,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipment Terms</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-shptrm">
                                                 <option selected="">Please select shipment term</option>
                                             </select>
@@ -607,13 +622,13 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Remark</label>
-                                        <div class="col-sm-9 col-md-8 col-lg-7">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <input type="input" class="form-control form-control-sm inp-rmk">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Carrier:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-carrier-sel">
                                                 <option selected="">Please select carrier</option>
                                             </select>
@@ -622,7 +637,7 @@ require 'function/auth/get_session.php';
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Receipt</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-prtrecieve">
                                                 <option selected="">Please select Port of Receipt</option>
                                             </select>
@@ -630,7 +645,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Loading</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-prtload">
                                                 <option selected="">Please select Port of Loading</option>
                                             </select>
@@ -638,7 +653,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">T/S Port</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-ts_port">
                                                 <option selected="">Please select T/S Port</option>
                                             </select>
@@ -646,7 +661,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">Port of Delivery</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <select class="form-select form-select-sm inp-delivery-sel-booking">
                                                 <option selected="">Please select Port of Delivery</option>
                                             </select>
@@ -682,13 +697,13 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETD:</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <input type="date" class="form-control form-control-sm inp-etd">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center ">ETA:</label>
-                                        <div class="col-sm-9 col-md-4 col-lg-4">
+                                        <div class="col-sm-9 col-md-9 col-lg-7">
                                             <input type="date" class="form-control form-control-sm inp-eta">
                                         </div>
                                     </div>
@@ -704,28 +719,28 @@ require 'function/auth/get_session.php';
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo description</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Cargo description</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <input type="input" class="form-control form-control-sm inp-cargodes">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">H.S.Code:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">H.S.Code:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <input type="input" class="form-control form-control-sm inp-hscode">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Cargo Type:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <select class="form-select form-select-sm inp-cargo_type">
                                                     <option selected="">Please select cargo type</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Quantity:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm inp-cargo_qty">
                                                     <span class="input-group-text">Package</span>
@@ -733,8 +748,8 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">G.W:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control inp-cargo_gw">
                                                     <span class="input-group-text">KGS</span>
@@ -742,8 +757,8 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Volume:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control inp-cargo_vol">
                                                     <span class="input-group-text">M3</span>
@@ -751,8 +766,8 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
-                                            <div class="col-sm-9 col-md-7 col-lg-7">
+                                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Marks:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
                                                 <input type="input" class="form-control form-control-sm inp-cargo_marks">
                                             </div>
                                         </div>

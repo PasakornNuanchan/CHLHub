@@ -7,7 +7,7 @@ const petty_cash_set_sel_job = {
         let html = '';
         $.each(res, function (i, k) { 
             html += `
-            <option value="${k['job_number']}">${k['job_number']} / ${k['consignee_name']} </option>
+            <option value="${k['ID']}">${k['job_number']} / ${k['consignee_name']} </option>
             `;  
         });
         $('.sel-description').append(html);

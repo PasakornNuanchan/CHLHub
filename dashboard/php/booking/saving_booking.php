@@ -15,21 +15,27 @@ include '../../core/con_path.php';
     $job_number = $_POST['job_number'];
     $bk_no = $_POST['bk_no'];
     
-    $shipper = $_POST['shipper'];
-    $shipterm = $_POST['shipterm'];
+    $shipper = $_POST['shipper'] ? $_POST['shipper'] : NULL ;
+    $shipterm = $_POST['shipterm'] ? $_POST['shipterm'] : NULL;
     $remark = $_POST['remark'];
-    $carrier = $_POST['carrier'];
-    $port_recieve = $_POST['port_recieve'];
-    $port_load = $_POST['port_load'];
-    $ts_port  = $_POST['ts_port'];
-    $port_delivery  = $_POST['port_delivery'];
+    $carrier = $_POST['carrier'] ? $_POST['carrier'] : NULL ;
+
+    
+    
+
+    $port_recieve = $_POST['port_recieve'] ? $_POST['port_recieve'] : NULL;
+    $port_load = $_POST['port_load'] ? $_POST['port_load'] : NULL ;
+    $ts_port  = $_POST['ts_port'] ? $_POST['ts_port'] : NULL ;
+    $port_delivery  = $_POST['port_delivery'] ? $_POST['port_delivery'] : NULL;
+
     $mother_vessel = $_POST['mother_vessel'];
     $mother_voy_no = $_POST['mother_voy_no'];
     $feeder_vessel = $_POST['feeder_vessel'];
     $feeder_voy_no = $_POST['feeder_voy_no'];
-    $etd = $_POST['etd'];
-    $eta = $_POST['eta'];
+    $etd = $_POST['etd'] ? $_POST['etd'] : NULL;
+    $eta = $_POST['eta'] ? $_POST['eta'] : NULL;
 
+    $consignee = $_POST['consignee'] ? $_POST['consignee'] : NULL ;
     $container = $_POST['container'];
     $cargo_desc = $_POST['cargo_desc'];
     $hs_code = $_POST['hs_code'];
@@ -38,31 +44,42 @@ include '../../core/con_path.php';
     $cargo_gw = $_POST['cargo_gw'];
     $cargo_vol = $_POST['cargo_vol'];
     $cargo_marks = $_POST['cargo_marks'];
-    $represent = $_POST['represent'];
-    $consignee = $_POST['consignee'];
+    $represent = $_POST['represent'] ? $_POST['represent'] : NULL;
 
-     $sql = "
+    $shipperr = $shipper == NULL ? "NULL" : "'".$_POST['shipper']."'";
+    $shiptermm = $shipterm == NULL ? "NULL" : "'".$_POST['shipterm']."'";
+    $carrierr = $carrier == NULL ? "NULL" : "'".$_POST['carrier']."'";
+    $representt = $represent == NULL ? "NULL" : "'".$_POST['represent']."'";
+    $consigneee = $consignee == NULL ? "NULL" : "'".$_POST['consignee']."'";
+    $etdd = $etd == NULL ? "NULL" : "'".$_POST['etd']."'";
+    $etaa = $eta == NULL ? "NULL" : "'".$_POST['eta']."'";
+    $port_recievee = $port_recieve == NULL ? "NULL" : "'".$_POST['port_recieve']."'";
+    $port_loadd = $port_load == NULL ? "NULL" : "'".$_POST['port_load']."'";
+    $ts_portt = $ts_port == NULL ? "NULL" : "'".$_POST['ts_port']."'";
+    $port_deliveryy = $port_delivery == NULL ? "NULL" : "'".$_POST['port_delivery']."'";
+
+    $sql = "
     UPDATE
         `job_title`
     SET
         `job_number` = '$job_number',
-        `consignee_number` = '$consignee',
+        `consignee_number` = $consigneee,
         `booking_number` = '$bk_no',
-        `shipper_number` = '$shipper',
-        `st_number` = '$shipterm',
-        `carrier_number` = '$carrier',
-        `port_of_receipt_number` = '$port_recieve',
-        `port_of_loading_number` = '$port_load',
-        `ts_port_number` = '$ts_port',
-        `port_of_delivery_number` = '$port_delivery',
+        `shipper_number` = $shipperr,
+        `st_number` = $shiptermm,
+        `carrier_number` = $carrierr,
+        `port_of_receipt_number` = $port_recievee,
+        `port_of_loading_number` = $port_loadd,
+        `ts_port_number` = $ts_portt,
+        `port_of_delivery_number` = $port_deliveryy,
         `mother_vessel` = '$mother_vessel',
         `voy_no_mother` = '$mother_voy_no',
         `feeder_vessel` = '$feeder_vessel',
         `voy_no_feeder` = '$feeder_voy_no',
-        `etd` = '$etd',
-        `eta` = '$eta',
+        `etd` = $etdd,
+        `eta` = $etaa,
         `remark` = '$remark',
-        `booking_agent` = '$represent'
+        `booking_agent` = $representt
     WHERE
         ID = $val_id
     ";

@@ -30,7 +30,7 @@ const customs_set_data_default = {
         let db_sel_shipper = '';
         $.each(set_data['shipper'], function (i, k) {
             db_sel_shipper += `
-            <option value="${k['shipper_number']}">${k['shipper_name']}</option>
+            <option value="${k['ID']}">${k['shipper_name']}</option>
             `;
         });
         $('.inp-shper').append(db_sel_shipper);

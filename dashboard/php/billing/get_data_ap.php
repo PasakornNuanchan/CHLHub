@@ -1,6 +1,18 @@
 <?php
     include '../../core/conn.php';
     $job_number = $_POST['job_number'];
+
+    $sql_serch_id = "SELECT ID FROM job_title WHERE job_number = '$job_number'";
+
+    $result = $con->query($sql_serch_id);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $IDa = $row['ID'];
+      }
+    } else {
+      $IDa = "0 results";
+    }
+    
     $sql_ar = "
     SELECT 
       b.ID,
@@ -27,7 +39,7 @@
       LEFT JOIN transport_sup ts ON ts.ID = b.bill_to and b.bill_to_type = '2'
       LEFT JOIN carrier cr ON cr.ID = b.bill_to and b.bill_to_type = '1'
     WHERE 
-      job_number = '$job_number' and 
+      ref_job_id = '$IDa' and 
       type = 'AP' and
       status = '0'
     ORDER BY

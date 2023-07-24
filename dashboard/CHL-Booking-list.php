@@ -13,6 +13,8 @@ include 'core/con_path.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Booking</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
 </head>
 
@@ -57,24 +59,46 @@ include 'core/con_path.php';
                                     <button type="button" onclick="booking_list_set.function_add_job();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
                                 </div>
                             </div>
+
+                            <div class="bd-example table-responsive">
+                            <table id="myTable" class="table table-hover">
+                                <thead>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                        <th>Creat Date</th>
+                                        <th>Job number</th>
+                                        <th>B/L</th>
+                                        <th>Carrier</th>
+                                        <th>Consignee</th>
+                                        <th>T/S Port</th>
+                                        <th>ETA</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;">
+                                   
+                                </tbody>
+                            </table>
+                            </div>
+
+                            <div class="pnv">
                             <div class="bd-example table-responsive">
                                 <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                     <thead>
                                         <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
-                                            <th>Create Date</th>
-                                            <th>Job number</th>
-                                            <th>B/L</th>
+                                            <th>CreateDate</th>
+                                            <th>Jobnumber</th>
+                                            <th>BL</th>
                                             <th>Carrier</th>
                                             <th>Consignee</th>
-                                            <th>T/S Port</th>
+                                            <th>TSPort</th>
                                             <th>ETA</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody align="center">
-                                        <?php
+                                        <!-- <?php
 
-                                        $sql = "
+                                                $sql = "
                                 SELECT 
                                     jt.create_date,
                                     jt.job_number,
@@ -84,19 +108,20 @@ include 'core/con_path.php';
                                     co.consignee_name,
                                     a.location_name,
                                     a.provice,
-                                    jt.eta
+                                    jt.eta,
+                                    jt.ID
                                 FROM
                                     job_title as jt
                                     LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
                                     LEFT JOIN consignee as co ON jt.consignee_number = co.ID
                                     LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number
                                 WHERE jt.status_job = '0'
-                                ORDER BY jt.ID ASC
+                                ORDER BY jt.ID DESC
                                     ";
 
-                                        $fetch_sql = mysqli_query($con, $sql);
-                                        while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
-                                        ?>
+                                                $fetch_sql = mysqli_query($con, $sql);
+                                                while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
+                                                ?>
                                             <tr>
                                                 <td><?= $result_table_list['create_date']; ?></td>
                                                 <td><?= $result_table_list['job_number']; ?></td>
@@ -108,9 +133,10 @@ include 'core/con_path.php';
                                                 <td><button type="button" onclick="booking_list.preview('<?= $result_table_list['ID']; ?>');" class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button></td>
 
                                             </tr>
-                                        <?php }; ?>
+                                        <?php }; ?> -->
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -138,6 +164,7 @@ include 'core/con_path.php';
 <script src="js/booking-list/booking_list.js"></script>
 <script src="js/booking-list/booking_list_set.js"></script>
 <script src="js/job_support/job_support.js"></script>
+
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();

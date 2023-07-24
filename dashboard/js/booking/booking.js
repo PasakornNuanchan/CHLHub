@@ -8,10 +8,11 @@ const booking = {
         html = `
         <tr class="booking_container">
             <td>${db_sel_container}</td>
-            <td><input type="number" class="form-control form-control-sm inp-contqty" id="pwd2" placeholder=""></td>
-            <td><input type="number" class="form-control form-control-sm inp-single-wieght" id="pwd2" placeholder=""></td>
-            <td><input class="form-check-input inp-soc" type="checkbox"  id="flexCheckDefault"></td>
-            <td><input class="form-check-input inp-ow" type="checkbox" id="flexCheckDefault"></td>
+            <td><input type="number" class="form-control form-control-sm inp-single-wieght"></td>
+            <td><input class="form-check-input inp-soc" type="checkbox"></td>
+            <td><input class="form-check-input inp-ow" type="checkbox"></td>
+            <td><input type="date" class="form-control form-control-sm inp-cy"></td>
+            <td><input type="date" class="form-control form-control-sm inp-rtn"></td>
             <td onclick="booking.del_container_row(this);"><svg class="del-tr" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.4" d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="currentColor"></path>
                     <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="currentColor"></path>
@@ -44,7 +45,7 @@ const booking = {
         return valid_st;
     },
 
-    save_booking : async function () {
+    save_booking: async function () {
         let valid = true;
         let job_number = $(".inp-jobno").val()
         this.job_number_global = job_number;
@@ -79,8 +80,7 @@ const booking = {
         let represent = $(".db-sel-represent").val();
 
 
-        if (shipper == "" || shipterm == "" || port_recieve == "" || port_load == "" || ts_port == "" || port_delivery == "" 
-            || hs_code == "" || cargo_type == "" || cargo_qty == "" || cargo_vol == "" || cargo_gw == "") {
+        if (shipper == "" || shipterm == "" || hs_code == "" || cargo_type == "" || cargo_qty == "" || cargo_vol == "" || cargo_gw == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -126,7 +126,7 @@ const booking = {
 
             let data = {
                 'bk_no': bk_no,
-                'consignee' : consignee,
+                'consignee': consignee,
                 'shipper': shipper,
                 'shipterm': shipterm,
                 'remark': remark,
@@ -151,7 +151,7 @@ const booking = {
                 'cargo_marks': cargo_marks,
                 'valid': this.data_id,
                 'job_number': this.job_number_global,
-                'represent' : represent
+                'represent': represent
             };
 
             //console.log(data)
@@ -268,13 +268,13 @@ const booking = {
         $('.inp-jobno').val(res_data['booking']['job_number']);
 
         let job_check = $('.inp-jobno').val();
-        
-        if(job_check != ""){
-            $('.inp-jobno').attr('disabled',true)
-            
+
+        if (job_check != "") {
+            $('.inp-jobno').attr('disabled', true)
+
         }
 
-        
+
 
         $('.inp-bkno').val(res_data['booking']['booking_number']);
         $('.inp-rmk').val(res_data['booking']['remark']);
@@ -311,35 +311,34 @@ const booking = {
         booking.db_sel_container_global = db_sel_container
         $('[name = container-tbl] tbody').html('');
         html_table_container = '';
+        
+
+        
         if (res_data['container_table'] != "0 results") {
             $.each(res_data['container_table'], function (i, v) {
-                if (v['soc'] == 1) {
-                    soc_status = "checked";
-                } else {
-                    soc_status = "unchecked";
-                }
-                if (v['ow'] == 1) {
-                    ow_status = "checked";
-                } else {
-                    ow_status = "unchecked";
-                }
 
                 html_table_container = `
             <tr class="booking_container${i}" booking_container="${v['ID']}">
                 <td>${db_sel_container}</td>
-                <td><input type="number" class="form-control form-control-sm inp-contqty" style="text-align:right;" value="${v['container_count']}"></td>
                 <td><input type="number" class="form-control form-control-sm inp-single-wieght" style="text-align:right;" value="${v['single_cnt']}"></td>
-                <td><input class="form-check-input inp-soc" type="checkbox" ${soc_status} ></td> 
-                <td><input class="form-check-input inp-ow" type="checkbox"${ow_status} >
-                 <input type="hidden" class="form-control form-control-sm inp_number_container" style="text-align:right;" value="1"></td>
-                <td onclick="">
-                    
-                </td>
+                <td><input class="form-check-input inp-soc" type="checkbox"></td> 
+                <td><input class="form-check-input inp-ow" type="checkbox">
+                <td><input type="date" class="form-control form-control-sm inp-cy"></td>
+                <td><input type="date" class="form-control form-control-sm inp-rtn"></td>
             </tr>
             `;
                 $('[name = container-tbl] tbody').append(html_table_container);
-                $('[name = container-tbl] tbody tr:last').find($('.inp-container_type')).val(v['container_type_number']);
-
+                $('[name = container-tbl] tbody tr:last').find($('.inp-container_type')).val(v['container_type']);
+                $('[name = container-tbl] tbody tr:last').find($('.inp-single-wieght')).val(v['single_cnt']);
+                if (v['soc'] == 1) {
+                    $('[name = container-tbl] tbody tr:last').find($('.inp-soc')).attr('checked', 'true');
+                }
+                if (v['ow'] == 1) {
+                    $('[name = container-tbl] tbody tr:last').find($('.inp-ow')).attr('checked', 'true');
+                }
+                $('[name = container-tbl] tbody tr:last').find($('.inp-cy')).val(v['cy']);
+                $('[name = container-tbl] tbody tr:last').find($('.inp-rtn')).val(v['rtn']);
+                
 
                 //$(`.inp-container_type${i} > select`).val(v['container_type_number']);
             });
@@ -349,46 +348,69 @@ const booking = {
 
     save_container_function: async function () {
 
-        container_arr = []
-        container_arr_temp = {}
-        let cy_con = $('.inp-cy').val()
-        let rtn_con = $('.inp-rtn').val()
-        let job_con = $('.inp-jobno').val()
-
+        let container_arr = []
+        let container_arr_temp = {}
+        let end_func = '';
 
         $('[name = container-tbl] tbody > tr').each(function (i, e) {
-
-            let con_type = $('.inp-container_type', this).val();
-            let qty = $('.inp-contqty', this).val();
             let slw = $('.inp-single-wieght', this).val();
-            let soc = $('.inp-soc', this).val();
-            let ow = $('.inp-ow', this).val();
-            let st_container = $('.inp_number_container', this).val();
 
-            container_arr_temp = {
-                con_type: con_type,
-                qty: qty,
-                slw: slw,
-                soc: soc,
-                ow: ow,
-                st_container: st_container,
-                cy_con: cy_con,
-                rtn_con: rtn_con,
-                ref_job_id : booking.job_number_global,
-                job_number: job_con
+            if (slw == '') {
+                container_arr = []
+                end_func = 1;
+                return false;
+
+            } else {
+                let attr_booking_container = $(this).attr('booking_container')
+
+                let con_type = $('.inp-container_type', this).val();
+
+                let soc = $('.inp-soc:checked', this).val();
+                let ow = $('.inp-ow:checked', this).val();
+                let cy = $('.inp-cy', this).val();
+                let rtn = $('.inp-rtn', this).val();
+                let ssoc = soc == 'on' ? '1' : '2';
+                let oow = ow == 'on' ? '1' : '2';
+
+                container_arr_temp = {
+                    con_type: con_type,
+                    slw: slw,
+                    ssoc: ssoc,
+                    oow: oow,
+                    cy: cy,
+                    rtn: rtn,
+                    attr_booking_container: attr_booking_container,
+                    ref_job_id: booking.job_number_global,
+                }
+
+                container_arr.push(container_arr_temp)
             }
-
-            container_arr.push(container_arr_temp)
-
         })
-        console.log(container_arr)
-        await booking.ajax_save_container_booking(container_arr)
-        Swal.fire(
-            'saved!',
-            'Your file has been saved.',
-            'success'
-        )
-        await this.set_preview_data(booking.job_number_global)
+        if (end_func != 1) {
+            console.log(container_arr)
+            let res = await booking.ajax_save_container_booking(container_arr)
+            
+            let checker = arr => arr.every(v => v === true);
+            
+            if(checker(res) == true){
+                Swal.fire(
+                    'saved!',
+                    'Your file has been saved.',
+                    'success'
+                )
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Function error. plases call to techteam',
+                  })
+            }
+            
+            await this.set_preview_data(booking.job_number_global)
+        }
+
+
+
 
     },
 
@@ -493,10 +515,10 @@ const booking = {
         });
     },
 
-    sv_delete_container : async function(){
+    sv_delete_container: async function () {
         let res = await this.ajax_sv_delete_container()
-        
-        if(res == '1'){
+
+        if (res == '1') {
             Swal.fire(
                 'saved!',
                 'Your file has been saved.',
@@ -507,7 +529,7 @@ const booking = {
         await this.set_preview_data(booking.job_number_global)
     },
 
-    ajax_sv_delete_container : async function(){
+    ajax_sv_delete_container: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -521,13 +543,13 @@ const booking = {
         });
     },
 
-    generate_job_number : async function (){
+    generate_job_number: async function () {
         let data_res = await this.ajax_generate_job_number();
-        
+
         $('.inp-jobno').val(data_res);
     },
 
-    ajax_generate_job_number : async function(){
+    ajax_generate_job_number: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",

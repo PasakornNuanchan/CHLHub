@@ -178,7 +178,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -197,7 +197,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -216,7 +216,7 @@ require 'function/auth/get_session.php';
                                         <?php
                                         while ($result_area_total = mysqli_fetch_assoc($result_area)) {
                                         ?>
-                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice']?></option>
+                                            <option value="<?= $result_area_total['ID'] ?>"><?php echo $result_area_total['location_name'] . " ," . $result_area_total['provice'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -224,7 +224,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Mother Vessel:</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Mother Vessel:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 ">
@@ -238,7 +238,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Feeder Vessel:</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Feeder Vessel:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 ">
@@ -274,7 +274,7 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Booking agent:</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center ">Booking agent:</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm db-sel-represent inp-sel-booking-agent">
                                         <option value=""></option>
@@ -387,12 +387,13 @@ require 'function/auth/get_session.php';
                                     <div class="table-responsive mt-4">
                                         <table id="basic-table" name="container-tbl" class="table table-hover " role="grid">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-center" style="text-align:center;">
                                                     <th>Container type</th>
-                                                    <th>Container Quantity</th>
                                                     <th>Single CNT Weight</th>
                                                     <th>SOC</th>
                                                     <th>OW</th>
+                                                    <th>CY</th>
+                                                    <th>RTN</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -416,8 +417,10 @@ require 'function/auth/get_session.php';
                                                     </td>
                                                     <td><input type="number" class="form-control form-control-sm inp-contqty" id=""></td>
                                                     <td><input type="number" class="form-control form-control-sm inp-single-wieght" id=""></td>
-                                                    <td><input class="form-check-input inp-soc" type="checkbox" value="" id="flexCheckDefault"></td>
-                                                    <td><input class="form-check-input inp-ow" type="checkbox" value="" id="flexCheckDefault"></td>
+                                                    <td><input class="form-check-input inp-soc" type="checkbox"></td>
+                                                    <td><input class="form-check-input inp-ow" type="checkbox"></td>
+                                                    <td><input type="date" class="form-control form-control-sm inp-cy"></td>
+                                                    <td><input type="date" class="form-control form-control-sm inp-rtn"></td>
                                                     <td onclick="">
                                                         <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.7688 8.71387H16.2312C18.5886 8.71387 20.5 10.5831 20.5 12.8885V17.8254C20.5 20.1308 18.5886 22 16.2312 22H7.7688C5.41136 22 3.5 20.1308 3.5 17.8254V12.8885C3.5 10.5831 5.41136 8.71387 7.7688 8.71387ZM11.9949 17.3295C12.4928 17.3295 12.8891 16.9419 12.8891 16.455V14.2489C12.8891 13.772 12.4928 13.3844 11.9949 13.3844C11.5072 13.3844 11.1109 13.772 11.1109 14.2489V16.455C11.1109 16.9419 11.5072 17.3295 11.9949 17.3295Z" fill="currentColor"></path>
@@ -430,6 +433,8 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <button type="button" class="btn btn-link btn-soft-light rounded-pill" onclick="booking.addconthtml();">add new</button>
                                     <p></p>
+                                </div>
+                                <!-- <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center ">CY:</label>
                                     <div class="col-sm-9 col-md-4 col-lg-3 ">
                                         <input type="date" class="form-control form-control-sm inp-cy" id="" value="2019-12-18">
@@ -440,7 +445,7 @@ require 'function/auth/get_session.php';
                                     <div class="col-sm-9 col-md-4 col-lg-3 ">
                                         <input type="date" class="form-control form-control-sm inp-rtn" id="" value="2019-12-18">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div style="float: right">
                                 <button class="btn btn-danger btn-sm rounded-pill btn-save-booking " style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="booking.modal_del_container()"><i class="bi bi-check-square"></i> delete</button>
@@ -478,6 +483,4 @@ require 'function/auth/get_session.php';
         booking.check_get();
 
     });
-
-    
 </script>

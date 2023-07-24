@@ -3,13 +3,13 @@ const reportcs_set_default ={
     set_data_default: async function (job_number){
         
         let set_data = await reportcs_set_default.ajax_set_data(job_number);
-        console.log(set_data);
+        
         // booking set select
         // shipper 
         let db_sel_shipper='';
         $.each(set_data['shipper'], function (i, k) {
             db_sel_shipper += `
-            <option value="${k['shipper_number']}">${k['shipper_name']}</option>
+            <option value="${k['ID']}">${k['shipper_name']}</option>
             `;
         });
         $('.inp-shper').append(db_sel_shipper);
@@ -66,7 +66,11 @@ const reportcs_set_default ={
         });
         $('.sel-dem-container',).append(db_sel_dem);
         
-       
+        let db_sel_ats='';
+        $.each(set_data['shipping'], function(i,k){
+            db_sel_ats += `<option value="${k['ID']}">${k['first_name']} ${k['last_name']}</option>`
+        })
+        $('.sel_ats',).append(db_sel_ats);
     },
     ajax_set_data : function(job_number){
         return new Promise(function (resolve, reject) {

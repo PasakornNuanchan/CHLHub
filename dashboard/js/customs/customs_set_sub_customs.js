@@ -298,11 +298,11 @@ const customs_set_sub_customs = {
         }
 
         if (cus_st == "1") {
-            $('.cus_cf').attr('disabled', true);
-            $('.cus_tb').attr('disabled', false);
+            await $('.cus_cf').attr('disabled', true);
+            await $('.cus_tb').attr('disabled', false);
         } else if (ship_st == "2") {
-            $('.cus_tb').attr('disabled', true)
-            $('.cus_cf').attr('disabled', false);
+            await $('.cus_tb').attr('disabled', true)
+            await $('.cus_cf').attr('disabled', false);
         }
 
         if (drop_status == "1") {

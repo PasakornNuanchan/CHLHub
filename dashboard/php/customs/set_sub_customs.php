@@ -1,6 +1,16 @@
 <?php
 $job_number = $_POST['job_number'];
     include '../../core/conn.php';
+    $sql_serch_id = "SELECT ID FROM job_title WHERE job_number = '$job_number'";
+
+    $result = $con->query($sql_serch_id);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $IDa = $row['ID'];
+      }
+    } else {
+      $IDa = "0 results";
+    }
 
     $sql_detail_job = "
     SELECT 
@@ -51,10 +61,10 @@ $job_number = $_POST['job_number'];
       LEFT OUTER JOIN user IL_re ON js.IL_receiv_by = IL_re.user_number
       LEFT OUTER JOIN user IL_ck ON js.IL_check_by = IL_ck.user_number 
       LEFT OUTER JOIN user custom_by ON js.cus_by = custom_by.user_number
-          WHERE job_number ='$job_number'";
+          WHERE ref_job_id = '$IDa'";
  
           $sql_jt = "
-          SELECT jt.clearlance_date FROM job_title as jt WHERE job_number ='$job_number'
+          SELECT jt.clearlance_date FROM job_title as jt WHERE ID ='$IDa'
           ";
 
           $sql_js = "
@@ -83,7 +93,7 @@ $job_number = $_POST['job_number'];
           LEFT JOIN user as u2 ON js.ship_arrievd_by = u2.user_number
           LEFT JOIN user as u3 ON js.cy_rtn_by = u3.user_number
           LEFT JOIN user as u4 ON js.drop_by = u4.user_number
-          WHERE job_number ='$job_number'
+          WHERE ref_job_id ='$IDa'
           ";
         
         $sql_adapter = "SELECT ID FROM job_title WHERE job_number ='$job_number'";          

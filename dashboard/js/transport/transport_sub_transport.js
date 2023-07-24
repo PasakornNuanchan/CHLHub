@@ -116,42 +116,42 @@ const transport_sub_transport = {
                         let cont_id = v1['container_id'];
                         html_driver += `
                 <div class="driver_transport driver_transport${v['ID']}" driver_transport_no = ${v['ID']} driver_id = ${v1['ID']}>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
-                    <div class="col-sm-9">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm inp_driver_name" value="${v1['Driver_name']}" >
-                            </div>
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm inp_phone_number " value="${v1['phone_number']}" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Container number:</label>
-                    <div class="col-sm-9">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="db_sel_container db_sel_container">
-                                    <select class="form-select form-select-sm sel_container_driver${i}${i1} inp_container_number" onchange="transport.driver_seal_number_change(this)">
-                                        <option value="">plese select container</option>
-                                        ${html_sel_container_driver}
-                                    </select>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Driver name:</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control form-control-sm inp_driver_name" value="${v1['Driver_name']}" >
+                                </div>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Phone number :</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control form-control-sm inp_phone_number " value="${v1['phone_number']}" >
                                 </div>
                             </div>
-                            <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control form-control-sm inp_seal_number" value="${v1['seal_number']}" readonly>
-                            </div>
-                            <div class="col-lg-2">
-                            <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_driver(${v1['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-2  align-self-center mb-0">Container number:</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="db_sel_container db_sel_container">
+                                        <select class="form-select form-select-sm sel_container_driver${i}${i1} inp_container_number" onchange="transport.driver_seal_number_change(this)">
+                                            <option value="">plese select container</option>
+                                            ${html_sel_container_driver}
+                                        </select>
+                                    </div>
+                                </div>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center mb-0">Seal number :</label>
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control form-control-sm inp_seal_number" value="${v1['seal_number']}" readonly>
+                                </div>
+                                <div class="col-lg-2">
+                                <button class="btn btn-danger rounded-pill btn-sm" onclick="transport.push_del_driver(${v1['ID']})" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-check-square"></i> Delete </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
                     `;
                         arr_tran_temp = {

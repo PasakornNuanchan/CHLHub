@@ -7,7 +7,7 @@
     SELECT * FROM `transport_sup`";
 
     $sql_shipper = "
-    SELECT ID, shipper_name, shipper_number FROM shipper;";
+    SELECT ID, shipper_name, ID FROM shipper;";
 
     $sql_shipment ="
     SELECT ID, st_number,st_name FROM shipment_term;";
@@ -37,6 +37,10 @@ FROM
         `container_number`
     FROM container 
      WHERE job_number = '$job_number';";
+
+    $sql_get_user_shipping = "
+    SELECT ID,first_name,last_name FROM user WHERE department_number = 3
+    ";
 
 $result = $con->query($sql_supplier);
 if ($result->num_rows > 0) {
@@ -110,8 +114,17 @@ if ($result->num_rows > 0) {
     $container[] = "0 results";
 }
 
+$result = $con->query($sql_get_user_shipping);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $shipping[] = $row;
+    }
+} else {
+    $shipping = "0 results";
+}
+
 
   
-    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'truck'=>$truck,'container'=>$container))
+    echo json_encode(array('supplier'=>$supplier,'shipper'=>$shipper,'shipment'=>$shipment,'carrier'=>$carrier,'area'=>$area,'cargo'=>$cargo,'truck'=>$truck,'container'=>$container,'shipping'=>$shipping))
 
 ?>

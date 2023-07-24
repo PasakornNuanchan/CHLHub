@@ -5,7 +5,7 @@
     SELECT * FROM `transport_sup`
     ";
     $sql_shipper = "
-    SELECT ID, shipper_name, shipper_number FROM shipper;";
+    SELECT ID, shipper_name, ID FROM shipper;";
 
     $sql_shipment ="
     SELECT ID, st_number,st_name FROM shipment_term;";

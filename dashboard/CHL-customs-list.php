@@ -58,7 +58,6 @@ include 'core/con_path.php';
                                     <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Create Date</th>
                                         <th>Job number</th>
-                                        <th>Type</th>
                                         <th>Consignee</th>
                                         <th>ETA</th>
                                         <th>T/S Port</th>
@@ -117,7 +116,6 @@ include 'core/con_path.php';
                                         <tr>
                                             <td><?= $result_table_list['create_date']; ?></td>
                                             <td><?= $result_table_list['job_number']; ?></td>
-                                            <td><?= $result_table_list['type_import_export']; ?></td>
                                             <td><?= $result_table_list['consignee_name']; ?></td>
                                             <td><?= $result_table_list['eta']; ?></td>
                                             <td><?= $result_table_list['location_name']; ?> ,<?= $result_table_list['provice']; ?></td>

@@ -15,6 +15,7 @@ const customs_set_sub_booking ={
     
     set_sub_booking_preview_data: async function (job_number){
         let res_data = await customs_set_sub_booking.ajax_set_preview_booking(job_number);
+
         // sub page booking (Booking Detail)
         $('.inp-shper').val(res_data['booking']['shipper_number']).attr('disabled',true);
         $('.inp-shptrm').val(res_data['booking']['st_number']).attr('disabled',true);

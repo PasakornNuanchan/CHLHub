@@ -9,7 +9,7 @@
     FROM 
         job_title as jt
     LEFT JOIN 
-        consignee as c on jt.consignee_number = c.consignee_number
+        consignee as c on jt.consignee_number = c.ID
     ORDER BY jt.ID DESC
     LIMIT 100
     ";
