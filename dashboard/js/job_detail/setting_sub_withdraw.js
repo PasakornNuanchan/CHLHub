@@ -8,7 +8,7 @@ const sub_withdraw = {
         if(res_data_pt != "0 results"){
             let html_data_petty_cash = '';
             $.each(res_data_pt['petty_cash_data'],function(i,v){
-                html_data_petty_cash = `
+                html_data_petty_cash += `
                 <option type_data_pt="pt" class="row_set"amt_val='${v['amount']}' amt_cur="${v['currency']}" value="${v['ID']}">Petty Cash No. ${v['petty_cash_number']} (${v['amount']+' '+v['currency']})</option>
                 `;
             })

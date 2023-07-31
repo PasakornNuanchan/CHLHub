@@ -44,23 +44,23 @@ require 'function/auth/get_session.php';
                         <div class="card-body card_body_head_nav">
                             <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded active" id="payble" data-bs-toggle="pill" data-bs-target="#payble_tab_target" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="true">Payble</button>
+                                    <button class="nav-link rounded head_menu active" id="payble" data-bs-toggle="pill" data-bs-target="#payble_tab_target" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="true">Payble</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded " id="pettycash" data-bs-toggle="pill" data-bs-target="#pettycash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Petty Cash</button>
+                                    <button class="nav-link rounded head_menu" id="advancecash" data-bs-toggle="pill" data-bs-target="#advancecash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Advance cash</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded" id="advancecash" data-bs-toggle="pill" data-bs-target="#advancecash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Advance cash</button>
+                                    <button class="nav-link rounded head_menu" id="pettycash" data-bs-toggle="pill" data-bs-target="#pettycash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Petty Cash</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link rounded" id="returnpettycash" data-bs-toggle="pill" data-bs-target="#returnpettycash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Return petty cash</button>
+                                    <button class="nav-link rounded head_menu" id="returnpettycash" data-bs-toggle="pill" data-bs-target="#returnpettycash_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Return petty cash</button>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="card p-3">
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="payble_tab_target" role="tabpanel" aria-labelledby="payble">
+                            <div class="tab-pane fade menu_tab show active" id="payble_tab_target" role="tabpanel" aria-labelledby="payble">
                                 <div class="bd-example table-responsive">
                                     <table id="myTable" class="table table-hover">
                                         <thead>
@@ -79,7 +79,63 @@ require 'function/auth/get_session.php';
                                             </tr>
                                         </thead>
                                         <tbody style="text-align:center;">
-
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade menu_tab" id="pettycash_tab_target" role="tabpanel" aria-labelledby="pettycash">
+                                <div class="bd-example table-responsive">
+                                    <table id="myTablept" class="table table-hover">
+                                        <thead>
+                                            <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                                <th>Create Date Time</th>
+                                                <th>Petty Cash Number</th>
+                                                <th>Request by</th>
+                                                <th>stauts</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align:center;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade menu_tab" id="advancecash_tab_target" role="tabpanel" aria-labelledby="advancecash">
+                                <div class="bd-example table-responsive">
+                                    <table id="myTablead" class="table table-hover">
+                                        <thead>
+                                            <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                                <th>Create Date Time</th>
+                                                <th>Job number</th>
+                                                <th>Type</th>
+                                                <th>Pay to</th>
+                                                <th>Description</th>
+                                                <th>amount</th>
+                                                <th>currency</th>
+                                                <th>Picture</th>
+                                                <th>Create By.</th>
+                                                <th>stauts</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align:center;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade menu_tab" id="returnpettycash_tab_target" role="tabpanel" aria-labelledby="returnpettycash">
+                                <div class="bd-example table-responsive">
+                                    <table id="myTablere" class="table table-hover">
+                                        <thead>
+                                            <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                            <th>Create Date Time</th>
+                                                <th>Petty Cash Number</th>
+                                                <th>Request by</th>
+                                                <th>stauts</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align:center;">
                                         </tbody>
                                     </table>
                                 </div>
@@ -116,23 +172,3 @@ require 'function/auth/get_session.php';
     });
 </script>
 
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#blah').attr('src', e.target.result).css({
-                    "width": "300px",
-                    "height": "400px"
-                });
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#imgInp").change(function() {
-        console.log('33333')
-        readURL(this);
-    });
-</script>

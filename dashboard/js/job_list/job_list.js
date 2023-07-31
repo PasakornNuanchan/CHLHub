@@ -16,6 +16,29 @@ const job_list = {
         await $('.pnv').remove()
 
         $('#myTable > tbody').html('')
+        
+        let res = await this.ajax_get_permission();
+        console.log(res['permis'])
+        if(res['permis'] == '2' || res['permis'] == '3'){
+            $('.btn_create_job').remove();
+        }
+        // if(res['premis']['job_detail']=='2' ||res['premis']['job_detail']=='3' ){
+        //     $('.btn_create_job').remove()
+        // }
+    },
+
+    ajax_get_permission : async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_list/get_permission.php",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
 
     setting_data_table_t: async function (data) {

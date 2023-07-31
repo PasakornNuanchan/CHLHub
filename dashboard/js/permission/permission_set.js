@@ -16,7 +16,138 @@ const permission_set = {
 
     }, 
 
-    
+    change_department_job_detail : async function (){
+        
+
+        let data_department = $('.inp_select_department_job').val();
+
+        $.each(ulsd['rjd'],function (i,v){
+            if(v['department'] == data_department){
+                $('.inp_job_detail').val(v['job_detail'])
+                $('.inp_transport').val(v['transport'])
+                $('.inp_report').val(v['reportcs'])
+                $('.inp_customs').val(v['customs'])
+                $('.inp_billing').val(v['billing'])
+                $('.inp_withdraw').val(v['withdraw'])
+            }
+        })
+    },
+
+    save_permission_job : async function (){
+        let department = $('.inp_select_department_job').val()
+        let job_detail = $('.inp_job_detail').val();
+        let transport = $('.inp_transport').val()
+        let reportcs = $('.inp_report').val()
+        let customs = $('.inp_customs').val() 
+        let billing = $('.inp_billing').val()
+        let withdraw = $('.inp_withdraw').val()
+        
+        let obj_save = {}
+        let arr_save = []
+        obj_save = {
+            department : department,
+            job_detail : job_detail,
+            transport : transport,
+            reportcs : reportcs,
+            customs : customs,
+            billing : billing,
+            withdraw : withdraw
+        }
+        arr_save.push(obj_save)
+
+        let res_data = await this.ajax_save_permission_job(arr_save)
+        
+        if(res_data == '1' ){
+            Swal.fire(
+                'saved!',
+                'Your data has been saved.',
+                'success'
+            )
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System has problem plese contact to thailand tech team ',
+            })
+        }
+
+
+    },
+
+    ajax_save_permission_job : async function (arr_save){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+            url: "php/permission/save_permission_job.php",
+            data: {'arr_save' : arr_save},
+            dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    change_department_cash : async function (){
+        let data_department = $('.inp_select_department_cash').val();
+        $.each(ulsd['rc'],function (i,v){
+            if(v['department'] == data_department){
+                $('.inp_payble').val(v['payble'])
+                $('.inp_advance').val(v['advance'])
+                $('.inp_petty_cash_request').val(v['pettycash'])
+                $('.inp_reutn_petty_cash').val(v['returnpettycash'])
+            }
+        })
+    },
+
+    save_permission_cash : async function (){
+        let inp_select_department_cash = $('.inp_select_department_cash').val()
+        let inp_payble = $('.inp_payble').val()
+        let inp_advance = $('.inp_advance').val();
+        let inp_petty_cash_request = $('.inp_petty_cash_request').val()
+        let inp_reutn_petty_cash = $('.inp_reutn_petty_cash').val()
+
+        let obj_save = {}
+        let arr_save = []
+        obj_save = {
+            inp_select_department_cash: inp_select_department_cash,
+            inp_payble : inp_payble,
+            inp_advance : inp_advance,
+            inp_petty_cash_request : inp_petty_cash_request,
+            inp_reutn_petty_cash : inp_reutn_petty_cash,
+        }
+        arr_save.push(obj_save)
+
+        let res_data = await this.ajax_save_permission_cash(arr_save)
+        
+        if(res_data == '1' ){
+            Swal.fire(
+                'saved!',
+                'Your data has been saved.',
+                'success'
+            )
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System has problem plese contact to thailand tech team ',
+            })
+        }
+    },
+
+    ajax_save_permission_cash : async function (arr_save){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+            url: "php/permission/save_permission_cash.php",
+            data: {'arr_save' : arr_save},
+            dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
     change_department : async function(i,v){
 
@@ -24,7 +155,7 @@ const permission_set = {
 
 
         let data_department = $('.sel_department').val()
-        //console.log(data_department)
+        //console.log(ulsd)
         arr_inp = []
         arr_inp_temp = {}
        let request_data = await this.ajax_change_data(data_department)

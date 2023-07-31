@@ -234,7 +234,7 @@ if (sizeof($_SESSION) > 0) {
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item" href="../dashboard/app/user-profile.html">Profile</a>
                         </li>
                         <li>
@@ -242,7 +242,7 @@ if (sizeof($_SESSION) > 0) {
                         </li>
                         <li>
                             <hr class="dropdown-divider" />
-                        </li>
+                        </li> -->
                         <li>
                             <a class="dropdown-item" href="../dashboard/auth/sign-in.php">Logout</a>
                         </li>

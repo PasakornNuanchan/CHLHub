@@ -44,7 +44,7 @@ require 'function/auth/get_session.php';
                         <div class="form-group row">
                             <div class="col-sm-2"></div>
                             <div class="col-lg-12">
-                                <button type="button" onclick="job_list.set_to_page_create();" class="btn btn-success rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
+                                <button type="button" onclick="job_list.set_to_page_create();" class="btn btn-success rounded-pill btn-sm bg-gradient btn_create_job" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);float: right;"><i class="bi bi-eye"></i> Add Booking</button>
                             </div>
                         </div>
                         <div class="bd-example table-responsive">

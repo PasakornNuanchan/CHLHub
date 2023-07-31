@@ -144,7 +144,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
                     <div class="card p-4">
                         <div class="card-header">
                             <h4>Job Detail</h4>
@@ -1260,7 +1260,7 @@ require 'function/auth/get_session.php';
                     </div>
 
                 </div>
-                <div class="tab-pane fade show active" id="withdraw_tab_target" role="tabpanel" aria-labelledby="withdraw_tab">
+                <div class="tab-pane fade " id="withdraw_tab_target" role="tabpanel" aria-labelledby="withdraw_tab">
                     <div class="card p-4">
                         <div class="card-header">
                             <h4>Withdraw</h4>
@@ -1475,6 +1475,7 @@ require 'function/auth/get_session.php';
 </html>
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 <script src="js/job_detail/job_detail.js"></script>
+<script src="js/job_detail/permission.js"></script>
 <script src="js/job_detail/setting_data_default.js"></script>
 <script src="js/job_detail/setting_sub_job_detail.js"></script>
 <script src="js/job_detail/setting_sub_transport.js"></script>

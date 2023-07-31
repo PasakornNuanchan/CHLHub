@@ -36,70 +36,128 @@ require 'function/auth/get_session.php';
             <!-- MAIN BODY START -->
             <div class="row">
                 <div class="col-md-12 col-xl-2"></div>
-                <div class="col-md-12 col-xl-7">                    
+                <div class="col-md-12 col-xl-7">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <div class="header-title">
-                                <h4 class="card-title">Consignee Detail</h4>
+                        <div class="card-body card_body_head_nav">
+                            <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded active" id="consignee_detail_tab" data-bs-toggle="pill" data-bs-target="#consignee_detail_tab_target" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Consignee detail</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded" id="user_detail_tab" data-bs-toggle="pill" data-bs-target="#user_tab_target" type="button" role="tab" aria-controls="pills-pettycash" aria-selected="false">User control</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="consignee_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Consignee Detail</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Corporate name</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-cname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Address</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Tax ID</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-tax_id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Email</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Phone number</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-phone_number">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Fax</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-fax">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Contact</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-linkman">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 align-self-center ">Contact Tel</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="input" class="form-control form-control-sm inp-contact">
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="consignee_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <!-- <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Carrier number</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control form-control-sm inp-consignee_number" id="">
+                        <div class="tab-pane fade" id="user_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>User Control</h5>
                                 </div>
-                            </div> -->
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Corporate name</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-cname">
+                                <div class="card-body ">
+                                    <div class="user_card_tab">
+                                        <div class="consignee_user" user_consignee_id="">
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">username :</label>
+                                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                                    <input type="input" class="form-control form-control-sm inp_username">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">password :</label>
+                                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                                    <input type="input" class="form-control form-control-sm inp_pass">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">stauts :</label>
+                                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                                    <select class="form-select form-select-sm inp_status">
+                                                        <option value="1">active</option>
+                                                        <option value="0">Inactive</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="control-label col-sm-3 align-self-center ">forgot pin (for reset password) :</label>
+                                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="input" class="form-control form-control-sm inp_forgot">
+                                                </div>
+                                            </div>
+                                            <div class="text-end">
+                                                <button class="btn btn-sm btn-danger" onclick="consignee_list_set.delete_user_consingee(this)"><i class="bi bi-trash"></i> Delete</button>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-block btn-sm btn-primary col" onclick="consignee_list_set.add_new_user_consignee()">add new user customer</button>
+                                        <button class="btn btn-block btn-sm btn-success col" onclick="consignee_list_set.save_user_consignee()">save</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Address</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-address">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Tax ID</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-tax_id">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Email</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-email">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Phone number</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-phone_number">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Fax</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-fax">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Contact</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-linkman">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Contact Tel</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-contact">
-                                </div>
-                            </div>
-                            <div style="float: right">
-                                <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="consignee_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>

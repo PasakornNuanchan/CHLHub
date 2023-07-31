@@ -3,7 +3,7 @@
     include '../../core/conn.php';
 
     //Set the session timeout for 1800 seconds
-    $timeout = 1800;
+    $timeout = 18000;
 
     //Set the maxlifetime of the session
     ini_set( "session.gc_maxlifetime", $timeout );
