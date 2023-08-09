@@ -23,13 +23,6 @@ $id_number = $_POST['id_number'];
         $vol = empty($vol) ? "NULL" : "'".$vol."'";
         $remark_container = empty($remark_container) ? NULL : $remark_container;
     
-
-        // $cargo_des = isset($v['cargo_des']) ? $v['cargo_des'] : '';
-        // $cargo_type = isset($v['cargo_type']) ? $v['cargo_type'] : '';
-        // $quantity = isset($v['quantity']) ? $v['quantity'] : '';
-        // $gw = isset($v['gw']) ? $v['gw'] : '';
-        // $vol = isset($v['vol']) ? $v['vol'] : '';
-        // $remark_container = isset($v['remark_container']) ? $v['remark_container'] : '';
     
     
         $sql_query_container ="
@@ -73,15 +66,20 @@ $id_number = $_POST['id_number'];
         $hbl = isset($v['hbl']) ? $v['hbl'] : '';
         $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
         
+        
         $eta = $v['eta'];
         $etd = $v['etd'];
         $shipper = $v['shipper'];
         $shipment = $v['shipment'];
+        $cs_data_user = $v['cs_data_user'];
+        $sale_data_user = $v['sale_data_user'];
 
         $eta = empty($eta) ? "NULL" : "'".$eta."'";
         $etd = empty($etd) ? "NULL" : "'".$etd."'";
         $shipper = empty($shipper) ? "NULL" : "'".$shipper."'";
         $shipment = empty($shipment) ? "NULL" : "'".$shipment."'";
+        $cs_data_user = empty($cs_data_user) ? "NULL" : "'".$cs_data_user."'";
+        $sale_data_user = empty($sale_data_user) ? "NULL" : "'".$sale_data_user."'";
         
         $query_save = "
         UPDATE
@@ -105,7 +103,9 @@ $id_number = $_POST['id_number'];
             `etd` = $etd,
             `eta` = $eta,
             `remark` = '$remark',
-            `booking_agent` = '$booking_agent'
+            `booking_agent` = '$booking_agent',
+            `sale_support` = $sale_data_user,
+            `cs_support` = $cs_data_user
         WHERE
             id = '$id_number'
             ";
@@ -124,14 +124,15 @@ $id_number = $_POST['id_number'];
     }else{
         foreach ($data_container_delete as $k => $v) {
 
-            $raw_data_delete = isset($v['raw_data_delete']) ? $v['raw_data_delete'] : '';
+            $check_select = isset($v['check_select']) ? $v['check_select'] : '';
+            $ref_job_id = isset($v['check_select']) ? $v['check_select'] : '';
 
             $sql_query = "
             DELETE
             FROM
                 `container`
             WHERE
-                ID = '$raw_data_delete'
+                container_type = '$check_select' AND ref_job_id = '$id_number'
             ";
 
             $result = $con->query($sql_query);
@@ -144,64 +145,85 @@ $id_number = $_POST['id_number'];
     }
     
     foreach($data_container as $k => $v){
-        $container_id = isset($v['container_id']) ? $v['container_id'] : '';
-        $container_type = isset($v['container_type']) ? "'".$v['container_type']."'" : "NULL";
-        $container_number = isset($v['container_number']) ? $v['container_number'] : '';
+        $id_container = isset($v['id_container']) ? $v['id_container'] : '';
+        $container_type = isset($v['inp_container_type']) ? $v['inp_container_type'] : '';
+        $cargo_des = isset($v['inp_cargo_des']) ? $v['inp_cargo_des'] : '';
+        $container_number = isset($v['inp_container_number']) ? $v['inp_container_number'] : '';
+        $package = isset($v['inp_package']) ? $v['inp_package'] : '';
+        $seal_number = isset($v['inp_seal_number']) ? $v['inp_seal_number'] : '';
+        $remark = isset($v['inp_remark']) ? $v['inp_remark'] : '';
+
+        $single_weight = $v['inp_single_weight'];
+        $single_weight = empty($single_weight) ? "'0'" : "'".$single_weight."'";
         
-        
-        $soc = isset($v['soc']) ? $v['soc'] : '';
-        $ow = isset($v['ow']) ? $v['ow'] : '';
-        $cy = isset($v['cy']) ? $v['cy'] : '';
-        $rtn = isset($v['rtn']) ? $v['rtn'] : '';
-    
-        $cntw = $v['cntw'];
-        $cntw = empty($cntw) ? "NULL" : "'".$cntw."'";
-        
-        $cy = $v['cy'];
+        $gw = $v['inp_gw'];
+        $gw = empty($gw) ? "'0'" : "'".$gw."'";
+
+        $volume = $v['inp_volume'];
+        $volume = empty($volume) ? "'0'" : "'".$volume."'";
+
+        $cy = $v['inp_cy'];
         $cy = empty($cy) ? "NULL" : "'".$cy."'";
 
-        $rtn = $v['rtn'];
+        $rtn = $v['inp_rtn'];
         $rtn = empty($rtn) ? "NULL" : "'".$rtn."'";
 
-        if($container_id != ''){
+
+        if($id_container != ''){
              $sql_query_data_container = "
-            UPDATE
-            `container`
+             UPDATE
+             `container`
             SET
-                `container_type` = $container_type,
-                `single_cnt` = $cntw,
-                `soc` = '$soc',
-                `ow` = '$ow',
+                `container_number` = '$container_number',
+                `cargo_description` = '$cargo_des',
+                `single_cnt` = $single_weight,
+                `package` = '$package',
+                `volume` = $volume,
+                `gw` = $gw,
+                `seal_number` = '$seal_number',
                 `cy` = $cy,
                 `rtn` = $rtn,
-                `container_number` = '$container_number'
+                `remark` = '$remark'
             WHERE
-            ID = '$container_id'
+                ID = '$id_container'
             ";
         }else{
+
             $sql_query_data_container = "
             INSERT INTO `container`(
                 `container_type`,
+                `container_number`,
+                `cargo_description`,
                 `single_cnt`,
-                `soc`,
-                `ow`,
+                `package`,
+                `volume`,
+                `gw`,
+                `seal_number`,
                 `cy`,
                 `rtn`,
-                `container_number`,
+                `remark`,
                 `ref_job_id`
             )
             VALUES(
-                $container_type,
-                $cntw,
-                '$soc',
-                '$ow',
+                '$container_type',
+                '$container_number',
+                '$cargo_des',
+                $single_weight,
+                '$package',
+                $volume,
+                $gw,
+                '$seal_number',
                 $cy,
                 $rtn,
-                '$container_number',
+                '$remark',
                 '$id_number'
             )
             ";
+            
+            
         }
+        
+        
         $result = $con->query($sql_query_data_container);
         if ($result->num_rows == 0) {
             $arr_data_save_container = '1';

@@ -192,7 +192,7 @@ foreach($data_detail_container as $k => $v){
 }
 
 $sql_query_data_status = "
-INSERT INTO `container`(
+INSERT INTO `job_status`(
     `ref_job_id`
 )
 VALUES(

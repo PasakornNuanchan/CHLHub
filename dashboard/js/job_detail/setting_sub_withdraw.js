@@ -5,7 +5,7 @@ const sub_withdraw = {
         
 
         $('.row_set').remove();
-        if(res_data_pt != "0 results"){
+        if(res_data_pt['petty_cash_data'] != "0 results"){
             let html_data_petty_cash = '';
             $.each(res_data_pt['petty_cash_data'],function(i,v){
                 html_data_petty_cash += `

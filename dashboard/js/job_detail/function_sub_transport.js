@@ -147,13 +147,24 @@ const function_sub_transport = {
             <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Driver: </label>
             <div class="col-sm-9 col-md-9 col-lg-9">
                 <div class="row">
-                    <div class="col-lg-2 col-md-3 ">
-                        <input type="text" class="form-control form-control-sm" placeholder="name">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_driver_name" placeholder="name" maxlength="100">
                     </div>
-                    <div class="col-lg-2 col-md-3 ">
-                        <input type="text" class="form-control form-control-sm" placeholder="phone">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_driver_phone" placeholder="phone" maxlength="20">
                     </div>
-                    <div class="col-lg-1 col-md-3">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" placeholder="Plate">
+                    </div>
+                    <div class="col">
+                        <select class="form-select form-select-sm">
+                                <option value="">-- select container --</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" placeholder="Seal" disabled>
+                    </div>
+                    <div class="col">
                         <button class="bi bi-trash btn btn-outline-danger" onclick="function_sub_transport.delete_driver(this)"></button>
                     </div>
                 </div>
@@ -177,39 +188,39 @@ const function_sub_transport = {
                 <div class="col-sm-9 col-md-9 col-lg-9">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_peca" value="">
+                            <input type="text" class="form-control form-control-sm inp_peca" value="" maxlength="200">
                         </div>
                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_pecar" value="">
+                            <input type="text" class="form-control form-control-sm inp_pecar" value="" maxlength="200">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Pickup Container Address *</label>
+                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Loading Address *</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_pca" value="">
+                            <input type="text" class="form-control form-control-sm inp_pca" value="" maxlength="200">
                         </div>
                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_pcar" value="">
+                            <input type="text" class="form-control form-control-sm inp_pcar" value="" maxlength="200">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Drop off Container Address *</label>
+                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Delivery Address *</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_doca" value="">
+                            <input type="text" class="form-control form-control-sm inp_doca" value="" maxlength="200">
                         </div>
                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_docar" value="">
+                            <input type="text" class="form-control form-control-sm inp_docar" value="" maxlength="200">
                         </div>
                     </div>
                 </div>
@@ -219,11 +230,11 @@ const function_sub_transport = {
                 <div class="col-sm-9 col-md-9 col-lg-9">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_deca" value="">
+                            <input type="text" class="form-control form-control-sm inp_deca" value="" maxlength="200">
                         </div>
                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_decar" value="">
+                            <input type="text" class="form-control form-control-sm inp_decar" value="" maxlength="200">
                         </div>
                     </div>
                 </div>
@@ -239,7 +250,7 @@ const function_sub_transport = {
                         </div>
                         <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                         <div class="col-lg-5 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_remark" value="">
+                            <input type="text" class="form-control form-control-sm inp_remark" value="" maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -279,6 +290,7 @@ const function_sub_transport = {
     },
 
     add_new_driver : function (data){
+        
         let html_new_driver = ``;
         let count_data_driver = $(`.data_driver${data} > .data_driver_count`).length
         count_data_driver++;
@@ -286,14 +298,26 @@ const function_sub_transport = {
         <div class="form-group mt-4 row data_driver_count">
             <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Driver: ${count_data_driver}</label>
             <div class="col-sm-9 col-md-9 col-lg-9">
-                <div class="row">
-                    <div class="col-lg-2 col-md-3 ">
-                        <input type="text" class="form-control form-control-sm inp_driver_name" placeholder="name">
+                <div class="row driver_detail">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_driver_name" placeholder="Name" maxlength="100">
                     </div>
-                    <div class="col-lg-2 col-md-3 ">
-                        <input type="text" class="form-control form-control-sm inp_driver_phone" placeholder="phone">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_driver_phone" placeholder="Phone" maxlength="20">
                     </div>
-                    <div class="col-lg-1 col-md-3">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_plate" placeholder="Plate">
+                    </div>
+                    <div class="col">
+                        <select class="form-select form-select-sm" onchange="function_sub_transport.change_seal(this)">
+                                <option value="">-- select container --</option>
+                                ${sub_transport.data_container_transport_driver_data_function}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm inp_seal_transport" placeholder="Seal" disabled>
+                    </div>
+                    <div class="col">
                         <button class="bi bi-trash btn btn-outline-danger" onclick="function_sub_transport.delete_driver(this)"></button>
                     </div>
                 </div>
@@ -330,6 +354,18 @@ const function_sub_transport = {
         $(e).closest('.card_transport').remove();
         
         
+    },
+
+    change_seal : async function(e){
+        
+        let data_find = $(e).val()
+        let val_seal_set = '';
+        $.each(sub_job_detail.data_container_for_transport,function(i,v){
+            if(data_find == v['ID']){
+                val_seal_set = v['seal_number']
+            }
+        })
+        $(e).closest('.driver_detail').find('.inp_seal_transport').val(val_seal_set)
     },
 
     save_transport : async function(){
@@ -382,16 +418,20 @@ const function_sub_transport = {
             let driver_id = $(this).attr('driver_id')
             let driver_name = $(`.inp_driver_name`,this).val()
             let driver_phone = $(`.inp_driver_phone`,this).val()
-            if(driver_name != ''){
+            let driver_plate = $('.inp_plate',this).val()
+            let driver_container = $('.inp_select_container_transport',this).val()
+            
+            
                 obj_driver_detail = {
                     route_id : route_id,
                     driver_id : driver_id,
                     driver_name : driver_name,
                     driver_phone : driver_phone,
-    
+                    driver_plate : driver_plate,
+                    driver_container : driver_container
                 }
                 arr_driver_detail.push(obj_driver_detail)
-            }
+            
             
             
         })

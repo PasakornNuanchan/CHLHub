@@ -58,7 +58,7 @@ if($type_data_update == "inv"){
     UPDATE
         `job_status`
     SET
-        `ID_check_by` = '$data_user',
+        `IL_check_by` = '$data_user',
         `il_check_datetime` = '$t_time_save'
     WHERE
         ID = '$id_number'

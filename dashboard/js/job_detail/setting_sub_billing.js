@@ -38,8 +38,10 @@ const sub_billing = {
 
                 html_data_ar = `
             <tr list_id = ${id_list} type_data = "AR">
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar inp_des_ar${i} " value="${billing_description}"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar inp_billing_to_ar${i}" value="${bill_to}"></td> <!-- Bill to -->
+                <td></td>
+                <td></td>
+                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar inp_des_ar${i} " value="${billing_description}" maxlength="300"></td> <!-- Description -->
+                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar inp_billing_to_ar${i}" value="${bill_to}" maxlength="200"></td> <!-- Bill to -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox inp_payble_checkbox${i}" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency inp_currency_ar inp_currency${i}" onchange="function_sub_billing.cal_billing_data_vat(this)">
                         <option value="THB">THB</option>
@@ -52,7 +54,8 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar inp_amt_ar${i}" value="${res_ar_amt_t}"></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar inp_vat_ar${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${vat}"></td><!-- AR VAT% -->
                 <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv${i} inp_amtincv_ar" value="${res_ar_inc_t}"></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td><!-- remark -->
+                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}" maxlength="100"></td><!-- remark -->
+                
                 <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box inp_check_list_box${i}" onclick="function_sub_billing.check_box_status(this)"></td> <!-- CHECK -->
                 <td>${bc_pay}</td><!-- PAID -->
                 <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_delete_list${i}" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
@@ -97,8 +100,10 @@ const sub_billing = {
         }else{
             html_data_ar = `
             <tr type_data = "AR">
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar"></td> <!-- Bill to -->
+                <td></td>
+                <td></td>
+                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar" maxlength="300"></td> <!-- Description -->
+                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar" maxlength="200"></td> <!-- Bill to -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency inp_currency_ar" onchange="function_sub_billing.cal_billing_data_vat(this)">
                         <option value="THB">THB</option>
@@ -111,7 +116,9 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar" disabled></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
                 <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ar" disabled></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark"></td><!-- remark -->
+                <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
+                <td></td>
+                <td></td>
                 <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box" onclick="function_sub_billing.check_box_status(this)"></td> <!-- CHECK -->
                 <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
                 <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
@@ -238,8 +245,8 @@ const sub_billing = {
             // check_date_time == '' ? '' : $('.inp_check_list_box').attr('checked',true);
             html_data_ap = `
             <tr list_id = ${id_list} type_data = "AP">
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ap inp_des_ap${i} " value="${billing_description}"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ap inp_billing_to_ap${i}" value="${bill_to}"></td> <!-- Bill to -->
+                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ap inp_des_ap${i} " value="${billing_description}" maxlength="300"></td> <!-- Description -->
+                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ap inp_billing_to_ap${i}" value="${bill_to}" maxlength="200"></td> <!-- Bill to -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox inp_payble_checkbox${i}" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency inp_currency_ap inp_currency${i}" onchange="function_sub_billing.cal_billing_data_vat(this)">
                         <option value="THB">THB</option>
@@ -251,7 +258,7 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ap inp_amt_ap${i}" value="${res_ap_amt_t}"></td><!-- AP AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ap inp_vat_ap${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${vat}"></td><!-- AP VAT% -->
                 <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ap inp_amtincv${i}" value="${res_ap_inc_t}"></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td><!-- remark -->
+                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}" maxlength="100"></td><!-- remark -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box" onclick="function_sub_billing.check_box_status(this)"></td><!-- CHECK -->
                 <td>${bc_pay}</td><!-- PAID -->
                 <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_delete_list${i}" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
@@ -297,8 +304,8 @@ const sub_billing = {
     }else{
         html_data_ap = `
             <tr type_data = "AP">
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ap"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ap"></td> <!-- Bill to -->
+                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ap" maxlength="300"></td> <!-- Description -->
+                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ap" maxlength="200"></td> <!-- Bill to -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency inp_currency_ap" onchange="function_sub_billing.cal_billing_data_vat(this)">
                         <option value="THB">THB</option>
@@ -310,7 +317,7 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ap" disabled></td><!-- AP AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ap" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AP VAT% -->
                 <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ap" disabled></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark"></td><!-- remark -->
+                <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
                 <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box" onclick="function_sub_billing.check_box_status(this)"></td><!-- CHECK -->
                 <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
                 <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm " onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->

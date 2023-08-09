@@ -37,7 +37,28 @@ const job_support = {
                 },
             });
         });
+    },
+
+    ajax_delete : async function (){
+        let data_delete = $('.inp_delete').val()
+        
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/delete_job.php",
+                data: {data_delete:data_delete},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     }
+
+    
+
+
+
     
 };
 

@@ -26,7 +26,7 @@ const function_sub_billing = {
 
         
         if(type_account == "AR"){
-            console.log('555')
+            // console.log('555')
             let data_cur = '';
             if($('input[id="radiocurar1"]:checked').val() == 'on'){
                 data_cur = "thb";
@@ -59,8 +59,8 @@ const function_sub_billing = {
         let html_data_ar = '';
         html_data_ar = `
         <tr type_data = "AR">
-            <td><input type="text" class="form-control form-control-sm inp_des_ar inp_des"></td> <!-- Description -->
-            <td><input type="text" class="form-control form-control-sm inp_billing_to_ar inp_billing_to"></td> <!-- Bill to -->
+            <td><input type="text" class="form-control form-control-sm inp_des_ar inp_des" maxlength="200"></td> <!-- Description -->
+            <td><input type="text" class="form-control form-control-sm inp_billing_to_ar inp_billing_to" maxlength="200"></td> <!-- Bill to -->
             <td align="center"></td> <!-- Payble -->
             <td><select class="form-select form-select-sm inp_currency inp_currency_ar" onchange="function_sub_billing.cal_billing_data_vat(this)">
                     <option value="THB">THB</option>
@@ -73,7 +73,7 @@ const function_sub_billing = {
             <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar" onchange="function_sub_billing.cal_billing_data_vat(this)" disabled></td><!-- AR AMT -->
             <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
             <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ar" disabled></td><!-- AMT(INCL.vat) -->
-            <td><input type="text" class="form-control form-control-sm inp_remark"></td><!-- remark -->
+            <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
             <td align="center"></td><!-- CHECK -->
             <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
             <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
@@ -94,8 +94,8 @@ const function_sub_billing = {
         let html_data_ap = '';
         html_data_ap = `
         <tr type_data = "AP">
-            <td><input type="text" class="form-control form-control-sm inp_des_ap inp_des"></td> <!-- Description -->
-            <td><input type="text" class="form-control form-control-sm inp_billing_to_ap inp_billing_to"></td> <!-- Bill to -->
+            <td><input type="text" class="form-control form-control-sm inp_des_ap inp_des" maxlength="200"></td> <!-- Description -->
+            <td><input type="text" class="form-control form-control-sm inp_billing_to_ap inp_billing_to" maxlength="200"></td> <!-- Bill to -->
             <td align="center"></td> <!-- Payble -->
             <td><select class="form-select form-select-sm inp_currency inp_currency_ap" onchange="function_sub_billing.cal_billing_data_vat(this)">
                     <option value="THB">THB</option>
@@ -107,7 +107,7 @@ const function_sub_billing = {
             <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ap" onchange="function_sub_billing.cal_billing_data_vat(this)" disabled></td><!-- AR AMT -->
             <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ap" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
             <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ap" disabled></td><!-- AMT(INCL.vat) -->
-            <td><input type="text" class="form-control form-control-sm inp_remark"></td><!-- remark -->
+            <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
             <td align="center"></td><!-- CHECK -->
             <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
             <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
@@ -137,7 +137,7 @@ const function_sub_billing = {
             if (result.isConfirmed) {
                 let clo_tr_del = $(e).closest('tr')
                 let clo_tr_del_id = $(clo_tr_del).attr('list_id')
-                console.log(clo_tr_del_id)
+                // console.log(clo_tr_del_id)
                 let res_data = '';
                 if (clo_tr_del_id == undefined) {
                     res_data = '1'
@@ -196,7 +196,7 @@ const function_sub_billing = {
             if (result.isConfirmed) {
 
                 let res_data = await this.get_save_list_(e)
-                console.log(res_data)
+                // console.log(res_data)
 
                 if (res_data['arr_res'] == '1') {
                     Swal.fire(
@@ -303,8 +303,8 @@ const function_sub_billing = {
                 let data_id = $(e).closest('tr').attr('list_id')
                 let data_type = $(e).hasClass("inp_payble_checkbox")
                 let type_action = data_type == true ? '1' : '0';
-                console.log(data_id)
-                console.log(type_action)
+                // console.log(data_id)
+                // console.log(type_action)
                 let res_data = await this.ajax_update_check_list(data_id, type_action)
 
                 if (res_data['arr_res'] == '1') {
@@ -373,8 +373,8 @@ const function_sub_billing = {
             val_th = 0.21;
             val_rmb = 1;
         }
-        console.log(type_act)
-        console.log(type_acc)
+        // console.log(type_act)
+        // console.log(type_acc)
         
 
         if (type_acc === "ar") {

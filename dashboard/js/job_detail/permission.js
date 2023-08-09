@@ -1,7 +1,8 @@
 const permission_file = {
     check_permission : async function (){
+        let as_shipping = $('.inp_ats').val()
         let res_data = await this.get_permission();
-
+        console.log(res_data)
         if(res_data['data_permission']['job_detail'] == "2"){
             $('#job_detail_tab_target').find('.form-control').attr('disabled',true)
             $('#job_detail_tab_target').find('.form-select').attr('disabled',true)
@@ -33,16 +34,6 @@ const permission_file = {
             $('#reportcs_tab_target').remove()
         }
 
-        if(res_data['data_permission']['customs'] == "2"){
-            $('#customs_tab_target').find('.form-control').attr('disabled',true)
-            $('#customs_tab_target').find('.form-select').attr('disabled',true)
-            $('#customs_tab_target').find('.form-check-input').attr('disabled',true)
-            $('#customs_tab_target').find('.btn').remove()
-        }else if(res_data['data_permission']['customs'] == "3"){
-            $('#customs_tab').remove()
-            $('#customs_tab_target').remove()
-        }
-
         if(res_data['data_permission']['billing'] == "2"){
             $('#billing_tab_target').find('.form-control').attr('disabled',true)
             $('#billing_tab_target').find('.form-select').attr('disabled',true)
@@ -62,6 +53,30 @@ const permission_file = {
             $('#withdraw_tab').remove()
             $('#withdraw_tab_target').remove()
         }
+
+        
+        
+
+        if(res_data['data_permission']['department_number'] == '3'){
+            console.log(as_shipping)
+            console.log(res_data['data_permission']['ID'])
+            if(as_shipping != res_data['data_permission']['ID']){
+                console.log(8888)
+                $('#customs_tab').remove()
+                $('#customs_tab_target').remove()
+            }
+        }
+        
+
+        // if(res_data['data_permission']['customs'] == "2"){
+        //     $('#customs_tab_target').find('.form-control').attr('disabled',true)
+        //     $('#customs_tab_target').find('.form-select').attr('disabled',true)
+        //     $('#customs_tab_target').find('.form-check-input').attr('disabled',true)
+        //     $('#customs_tab_target').find('.btn').remove()
+        // }else if(res_data['data_permission']['customs'] == "3"){
+        //     $('#customs_tab').remove()
+        //     $('#customs_tab_target').remove()
+        // }
 
     },
 

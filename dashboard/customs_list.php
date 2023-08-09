@@ -8,7 +8,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>User Management</title>
+    <title>Customs list</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -38,23 +38,27 @@ require 'function/auth/get_session.php';
             <!-- breadcrumb -->
 
             <div class="row">
-                <div class="col-md-12 col-xl-7">
+                <div class="col-md-12 col-xl-12">
                     <!-- Booking -->
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <div class="header-title">
-                                <h4 class="card-title">Detail</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="job_support.function_add_job()"><i class="bi bi-check-square"></i> Save</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <input type="text" class="form-control form-control-sm rounded inp_delete">
-                            <button class="btn btn-danger rounded" onclick="job_support.ajax_delete()">delete data</button>
+                    <div class="card p-3">
+                        <div class="bd-example table-responsive">
+                            <table id="myTable" class="table table-hover">
+                                <thead>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                        <th>Creat Date</th>
+                                        <th>Job number</th>
+                                        <th>B/L</th>
+                                        <th>Carrier</th>
+                                        <th>Consignee</th>
+                                        <th>T/S Port</th>
+                                        <th>ETA</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;">
 
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -77,11 +81,12 @@ require 'function/auth/get_session.php';
 
 </html>
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<script src="js/job_support/job_support.js"></script>
+<script src="js/customs_list/customs_list.js"></script>
 
 
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
+        customs_list.set_header_page();
     });
 </script>

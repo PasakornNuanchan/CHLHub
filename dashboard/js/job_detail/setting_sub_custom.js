@@ -170,106 +170,112 @@ const sub_customs = {
         $('.contaienr_status_container_upload').html('')
         $('.contaienr_status_container_arrived').html('')
         $('.contaienr_status_container_cy').html('')
-
-        $.each(res_data['get_data_container'],function(i,v){
-            i++;
-            let container_number = v['container_number'] != '' ? v['container_number'] : '';
-            let check_by = v['fn_up'] != '' ? v['fn_up']+' '+v['ln_up'] : '';
-            let check_date_time = v['up_datetime_cntr'] == '' || v['up_datetime_cntr'] == null ? 'Not responds' : v['up_datetime_cntr'];
-            let problem_check = v['up_pro_cntr'] == '' || v['up_pro_cntr'] == null  ? 'No Problem.' : v['up_pro_cntr'] ;
-            let up_status_cntr = v['up_status_cntr'] == '' || v['up_status_cntr'] == '2'  ? '2' : v['up_status_cntr'] ;
-            let id_number = v['ID']
-            container_upload_html = `
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">Container upload : ${container_number}</label>
-                <div class="col-sm-10 col-md-10 col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_container_upload_by${i}" value="${check_by}"placeholder="check by.">
-                        </div>
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="datetime" class="form-control form-control-sm inp_conatiner_upload_datetime${i}" value="${check_date_time}">
-                        </div>
-                        <div class="col-lg-3 col-md-5 text-center">
-                            <button class="btn btn-success btn-sm cf_up${i}" onclick="function_sub_customs.modal_ship('cf_up','${id_number}')">Confirm</button>
-                            <button class="btn btn-danger btn-sm tb_up${i}" onclick="function_sub_customs.modal_ship('tb_up','${id_number}')">Troubleshoot</button>
-                        </div>
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_container_upload_problem${i}" value="${problem_check}" placeholder="check by.">
+        if(res_data['get_data_container'] !=  "0 results"){
+            $.each(res_data['get_data_container'],function(i,v){
+                i++;
+                let container_number = v['container_number'] != '' ? v['container_number'] : '';
+                let check_by = v['fn_up'] != '' ? v['fn_up']+' '+v['ln_up'] : '';
+                let check_date_time = v['up_datetime_cntr'] == '' || v['up_datetime_cntr'] == null ? 'Not responds' : v['up_datetime_cntr'];
+                let problem_check = v['up_pro_cntr'] == '' || v['up_pro_cntr'] == null  ? 'No Problem.' : v['up_pro_cntr'] ;
+                let up_status_cntr = v['up_status_cntr'] == '' || v['up_status_cntr'] == '2'  ? '2' : v['up_status_cntr'] ;
+                let id_number = v['ID']
+                container_upload_html = `
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">CNTR Unload : ${container_number}</label>
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="text" class="form-control form-control-sm inp_container_upload_by${i}" value="${check_by}"placeholder="check by.">
+                            </div>
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="datetime" class="form-control form-control-sm inp_conatiner_upload_datetime${i}" value="${check_date_time}">
+                            </div>
+                            <div class="col-lg-3 col-md-5 text-center">
+                                <button class="btn btn-success btn-sm cf_up${i}" onclick="function_sub_customs.modal_ship('cf_up','${id_number}')">Confirm</button>
+                                <button class="btn btn-danger btn-sm tb_up${i}" onclick="function_sub_customs.modal_ship('tb_up','${id_number}')">Troubleshoot</button>
+                            </div>
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="text" class="form-control form-control-sm inp_container_upload_problem${i}" value="${problem_check}" placeholder="check by.">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            `;
-
-            //console.log(up_status_cntr)
-            $('.contaienr_status_container_upload').append(container_upload_html)
-            if(up_status_cntr == '1'){
-                $(`.cf_up${i}`).attr('hidden',true)
-            }else if(up_status_cntr == '2'){
-                $(`.tb_up${i}`).attr('hidden',true)
-            }
-            $(`.inp_container_upload_by${i}`).attr('disabled',true)
-            $(`.inp_conatiner_upload_datetime${i}`).attr('disabled',true)
-            $(`.inp_container_upload_problem${i}`).attr('disabled',true)
-        })
+                `;
+    
+                //console.log(up_status_cntr)
+                $('.contaienr_status_container_upload').append(container_upload_html)
+                if(up_status_cntr == '1'){
+                    $(`.cf_up${i}`).attr('hidden',true)
+                }else if(up_status_cntr == '2'){
+                    $(`.tb_up${i}`).attr('hidden',true)
+                }
+                $(`.inp_container_upload_by${i}`).attr('disabled',true)
+                $(`.inp_conatiner_upload_datetime${i}`).attr('disabled',true)
+                $(`.inp_container_upload_problem${i}`).attr('disabled',true)
+            })
+        }
+        
         let container_arrived_html ='';
-        $.each(res_data['get_data_container'],function(i,v){
-            i++;
-            let container_number = v['container_number'] != '' ? v['container_number'] : '';
-            let check_by = v['fn_cntr'] == '' || v['fn_cntr'] == null ? 'Waitting respond' : v['fn_cntr']+' '+v['ln_cntr'];
-            let check_date_time = v['cntr_datetime'] == '' || v['cntr_datetime'] == null ? 'Not responds' : v['cntr_datetime'];
-            let problem_check = v['cntr_pro'] == '' || v['cntr_pro'] == null  ? 'No Problem.' : v['cntr_pro'] ;
-            let up_status_cntr = v['cntr_status_ar'] == '' || v['cntr_status_ar'] == '2'  ? '2' : v['cntr_status_ar'] ;
-            let id_number = v['ID']
-
-            container_arrived_html = `
-            <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">Container arrived : ${container_number}</label>
-                <div class="col-sm-10 col-md-10 col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_container_arrived_by${i}" value="${check_by}">
-                        </div>
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="datetime" class="form-control form-control-sm inp_conatiner_arrived_datetime${i}" value="${check_date_time}">
-                        </div>
-                        <div class="col-lg-3 col-md-5 text-center">
-                            <button class="btn btn-success btn-sm cf_ar${i}"  onclick="function_sub_customs.modal_ship('cf_ar','${id_number}')" >Confirm</button>
-                            <button class="btn btn-danger btn-sm tb_ar${i}"  onclick="function_sub_customs.modal_ship('tb_ar','${id_number}')">Troubleshoot</button>
-                        </div>
-                        <div class="col-lg-3 col-md-5 ">
-                            <input type="text" class="form-control form-control-sm inp_container_arrived_problem${i}" value="${problem_check}"">
+        if(res_data['get_data_container'] != "0 results"){
+            $.each(res_data['get_data_container'],function(i,v){
+                i++;
+                let container_number = v['container_number'] != '' ? v['container_number'] : '';
+                let check_by = v['fn_cntr'] == '' || v['fn_cntr'] == null ? 'Waitting respond' : v['fn_cntr']+' '+v['ln_cntr'];
+                let check_date_time = v['cntr_datetime'] == '' || v['cntr_datetime'] == null ? 'Not responds' : v['cntr_datetime'];
+                let problem_check = v['cntr_pro'] == '' || v['cntr_pro'] == null  ? 'No Problem.' : v['cntr_pro'] ;
+                let up_status_cntr = v['cntr_status_ar'] == '' || v['cntr_status_ar'] == '2'  ? '2' : v['cntr_status_ar'] ;
+                let id_number = v['ID']
+    
+                container_arrived_html = `
+                <div class="form-group row">
+                    <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">CNTR Delivery : ${container_number}</label>
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="text" class="form-control form-control-sm inp_container_arrived_by${i}" value="${check_by}">
+                            </div>
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="datetime" class="form-control form-control-sm inp_conatiner_arrived_datetime${i}" value="${check_date_time}">
+                            </div>
+                            <div class="col-lg-3 col-md-5 text-center">
+                                <button class="btn btn-success btn-sm cf_ar${i}"  onclick="function_sub_customs.modal_ship('cf_ar','${id_number}')" >Confirm</button>
+                                <button class="btn btn-danger btn-sm tb_ar${i}"  onclick="function_sub_customs.modal_ship('tb_ar','${id_number}')">Troubleshoot</button>
+                            </div>
+                            <div class="col-lg-3 col-md-5 ">
+                                <input type="text" class="form-control form-control-sm inp_container_arrived_problem${i}" value="${problem_check}"">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            `;
-
-            //console.log(up_status_cntr)
-            $('.contaienr_status_container_arrived').append(container_arrived_html)
-            if(up_status_cntr == '1'){
-                $(`.cf_ar${i}`).attr('hidden',true)
-            }else if(up_status_cntr == '2'){
-                $(`.tb_ar${i}`).attr('hidden',true)
-            }
-            $(`.inp_container_arrived_by${i}`).attr('disabled',true)
-            $(`.inp_conatiner_arrived_datetime${i}`).attr('disabled',true)
-            $(`.inp_container_arrived_problem${i}`).attr('disabled',true)
-        })
+                `;
+    
+                //console.log(up_status_cntr)
+                $('.contaienr_status_container_arrived').append(container_arrived_html)
+                if(up_status_cntr == '1'){
+                    $(`.cf_ar${i}`).attr('hidden',true)
+                }else if(up_status_cntr == '2'){
+                    $(`.tb_ar${i}`).attr('hidden',true)
+                }
+                $(`.inp_container_arrived_by${i}`).attr('disabled',true)
+                $(`.inp_conatiner_arrived_datetime${i}`).attr('disabled',true)
+                $(`.inp_container_arrived_problem${i}`).attr('disabled',true)
+            })
+        }
+        
 
         let container_cy_html ='';
-        $.each(res_data['get_data_container'],function(i,v){
-            i++;
-            let container_number = v['container_number'] != '' ? v['container_number'] : '';
-            let check_by = v['fn_cy'] == '' || v['fn_cy'] == null ? 'Waitting respond' : v['fn_cy']+' '+v['ln_cy'];
-            let check_date_time = v['cy_datetime_cntr'] == '' || v['cy_datetime_cntr'] == null ? 'Not responds' : v['cy_datetime_cntr'];
-            let problem_check = v['cy_pro_cntr'] == '' || v['cy_pro_cntr'] == null  ? 'No Problem.' : v['cy_pro_cntr'] ;
-            let up_status_cntr = v['cy_status_cntr'] == '' || v['cy_status_cntr'] == '2'  ? '2' : v['cy_status_cntr'] ;
-            let id_number = v['ID']
-            container_cy_html = `
+        if (res_data['get_data_container'] != "0 results") {
+            $.each(res_data['get_data_container'], function (i, v) {
+                i++;
+                let container_number = v['container_number'] != '' ? v['container_number'] : '';
+                let check_by = v['fn_cy'] == '' || v['fn_cy'] == null ? 'Waitting respond' : v['fn_cy'] + ' ' + v['ln_cy'];
+                let check_date_time = v['cy_datetime_cntr'] == '' || v['cy_datetime_cntr'] == null ? 'Not responds' : v['cy_datetime_cntr'];
+                let problem_check = v['cy_pro_cntr'] == '' || v['cy_pro_cntr'] == null ? 'No Problem.' : v['cy_pro_cntr'];
+                let up_status_cntr = v['cy_status_cntr'] == '' || v['cy_status_cntr'] == '2' ? '2' : v['cy_status_cntr'];
+                let id_number = v['ID']
+                container_cy_html = `
             <div class="form-group row">
-                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">Container arrived : ${container_number}</label>
+                <label class="control-label col-sm-3 col-md-2 col-lg-2 align-self-center">CNTR Reverse: ${container_number}</label>
                 <div class="col-sm-10 col-md-10 col-lg-10">
                     <div class="row">
                         <div class="col-lg-3 col-md-5 ">
@@ -290,17 +296,18 @@ const sub_customs = {
             </div>
             `;
 
-            //console.log(up_status_cntr)
-            $('.contaienr_status_container_cy').append(container_cy_html)
-            if(up_status_cntr == '1'){
-                $(`.cf_cy${i}`).attr('hidden',true)
-            }else if(up_status_cntr == '2'){
-                $(`.tb_cy${i}`).attr('hidden',true)
-            }
-            $(`.inp_container_cy_by${i}`).attr('disabled',true)
-            $(`.inp_conatiner_cy_datetime${i}`).attr('disabled',true)
-            $(`.inp_container_cy_problem${i}`).attr('disabled',true)
-        })
+                //console.log(up_status_cntr)
+                $('.contaienr_status_container_cy').append(container_cy_html)
+                if (up_status_cntr == '1') {
+                    $(`.cf_cy${i}`).attr('hidden', true)
+                } else if (up_status_cntr == '2') {
+                    $(`.tb_cy${i}`).attr('hidden', true)
+                }
+                $(`.inp_container_cy_by${i}`).attr('disabled', true)
+                $(`.inp_conatiner_cy_datetime${i}`).attr('disabled', true)
+                $(`.inp_container_cy_problem${i}`).attr('disabled', true)
+            })
+        }
         
         
 

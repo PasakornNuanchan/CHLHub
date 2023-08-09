@@ -1,7 +1,5 @@
 <?php
-include 'core/conn.php';
 require 'function/auth/get_session.php';
-include 'core/con_path.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -9,10 +7,9 @@ include 'core/con_path.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Customs</title>
+    <title>Transport Internal</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
 
-    
 </head>
 
 <body class="  ">
@@ -40,38 +37,32 @@ include 'core/con_path.php';
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mx-auto">
-                                <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4 col-xl-4 mx-auto">
-                                    <div class="btnmr text-center text-md-start text-lg-start text-xl-start"></div>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4 col-xl-4 mx-auto">
-                                    <div class="h_mounth text-center" style="text-align:center;"></div>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4 col-xl-4 mx-auto">
-                                    <div class="btnmz text-center text-md-end text-lg-end text-xl-end" >
-                                        
-                                    </div>
+                        <div class="form-group row">
+                                
+                                <div class="col-sm-2">
                                 </div>
                             </div>
-                            <br>
-                            <div class="bd-example table-responsive">
-                            <table border=1 class="table table-responsive text-center p_data">
+                        <div class="bd-example table-responsive">
+                            
+                        <table id="datatable" class="table table-hover" data-toggle="data-table" name="data_table_list" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                 <thead>
-                                    <tr>
-                                        <td>Mon</td>
-                                        <td>Tue</td>
-                                        <td>Wed</td>
-                                        <td>Thu</td>
-                                        <td>Fri</td>
-                                        <td>Sat</td>
-                                        <td>Sun</td>
+                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                        <th>Create Date</th>
+                                        <th>Job number</th>
+                                        <th>Consignee</th>
+                                        <th>Master Vessel</th>
+                                        <th>B/L</th>
+                                        <th>INV</th>
+                                        <th>ETD</th>
+                                        <th>ETA</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                 </tbody>
                             </table>
-                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -91,21 +82,11 @@ include 'core/con_path.php';
 </body>
 
 </html>
-<script src="js/customs-calendar/customs_calendar_set.js"></script>
-
+<script src="js/reportcs-list/reportcs_list.js"></script>
+<script src="js/reportcs-list/reportcs_list_set.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function(){
         sidebar_main.set_data_rows();
-
-        //customs_list_set.set_data_rows();
-        customs_calendar_set.lunch_page_header();
-
-        customs_calendar_set.runtime_lunch();
+        reportcs_list_set.set_data_rows();
     });
-</script>
-
-<script>
-    
-
-
 </script>

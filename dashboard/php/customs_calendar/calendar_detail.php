@@ -8,8 +8,37 @@
     $gen_date_start = $_POST['gen_date_start'];
     $gen_date_end = $_POST['gen_date_end'];
     
-    $sql = "
+// $sql = "
+//     SELECT
+//     jt.job_number,
+//     jt.clearlance_date AS date_task,
+//     c.consignee_name,
+//     'Clearlance' AS TYPE
+// FROM
+//     job_title jt
+// LEFT JOIN consignee c ON
+//     jt.consignee_number = c.ID
+// WHERE
+//     jt.job_number IS NOT NULL AND jt.clearlance_date BETWEEN '$gen_date_start' AND '$gen_date_end' AND jt.shipping_ass = '$data_user'
+    
+// UNION
+
+// SELECT
+//     jt.job_number,
+//     jt.eta AS data_task,
+//     c.consignee_name,
+//     'eta' AS TYPE
+// FROM
+//     job_title jt
+// LEFT JOIN consignee c ON
+//     jt.consignee_number = c.ID
+// WHERE
+//     jt.job_number IS NOT NULL AND jt.eta BETWEEN '$gen_date_start' AND '$gen_date_end' AND jt.shipping_ass = '$data_user'
+//     ";
+
+$sql = "
     SELECT
+    jt.ID,
     jt.job_number,
     jt.clearlance_date AS date_task,
     c.consignee_name,
@@ -17,13 +46,14 @@
 FROM
     job_title jt
 LEFT JOIN consignee c ON
-    jt.consignee_number = c.consignee_number
+    jt.consignee_number = c.ID
 WHERE
-    jt.job_number IS NOT NULL AND jt.clearlance_date BETWEEN '$gen_date_start' AND '$gen_date_end' AND jt.shipping_ass = '$data_user'
+    jt.job_number IS NOT NULL AND jt.clearlance_date BETWEEN '$gen_date_start' AND '$gen_date_end'
     
 UNION
 
 SELECT
+    jt.ID,
     jt.job_number,
     jt.eta AS data_task,
     c.consignee_name,
@@ -31,9 +61,9 @@ SELECT
 FROM
     job_title jt
 LEFT JOIN consignee c ON
-    jt.consignee_number = c.consignee_number
+    jt.consignee_number = c.ID
 WHERE
-    jt.job_number IS NOT NULL AND jt.eta BETWEEN '$gen_date_start' AND '$gen_date_end' AND jt.shipping_ass = '$data_user'
+    jt.job_number IS NOT NULL AND jt.eta BETWEEN '$gen_date_start' AND '$gen_date_end'
     ";
     $result = $con -> query($sql);
     if ($result->num_rows > 0) {

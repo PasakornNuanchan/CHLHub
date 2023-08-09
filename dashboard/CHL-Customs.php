@@ -636,7 +636,7 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipper</label>
                                         <div class="col-sm-9 col-md-4 col-lg-4">
                                             <select class="form-select form-select-sm inp-shper">
-                                                <option value="">pleses select shipper</option>
+                                                <option value="">please select shipper</option>
                                             </select>
                                         </div>
                                     </div>
@@ -644,7 +644,7 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-2 align-self-center">Shipment Terms</label>
                                         <div class="col-sm-9 col-md-5 col-lg-4">
                                             <select class="form-select form-select-sm inp-shptrm">
-                                                <option selected="">Please select shipment term</option>
+                                                <option selected="">please select shipment term</option>
                                             </select>
                                         </div>
                                     </div>

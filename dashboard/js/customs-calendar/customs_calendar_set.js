@@ -231,6 +231,7 @@ const customs_calendar_set = {
 
         await $.each(res_calandar_task['calendar'], function (i, v) {
             let html_data = '';
+            let ID = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
             let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
             let data_task = v['date_task'] ? v['date_task'] : '';
@@ -241,7 +242,7 @@ const customs_calendar_set = {
             let m_time = data_task_parse.substring(5, 7);
             let y_time = data_task_parse.substring(0, 4);
 
-            html_data = `<button class="btn btn-sm btn-outline-primary col-xl-12 mt-1 bic" onclick="customs_calendar_set.opentabcus('${job_number}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`
+            html_data = `<button class="btn btn-sm btn-outline-primary col-xl-12 mt-1 bic" onclick="customs_calendar_set.opentabcus('${ID}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`
 
 
             if ($(`.${d_time + m_time + y_time + 'text'} > .bic`).length < 5) {
@@ -264,6 +265,7 @@ const customs_calendar_set = {
 
         html_data_see = '';
         $.each(res_calandar_task['calendar'], function (i, v) {
+            let ID = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
             let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
             let data_task = v['date_task'] ? v['date_task'] : '';
@@ -275,7 +277,7 @@ const customs_calendar_set = {
             let y_time = data_task_parse.substring(0, 4);
 
             if (data_val == d_time + m_time + y_time) {
-                html_data_see += `<button class="btn btn-sm btn-outline-primary mt-1" onclick="customs_calendar_set.opentabcus('${job_number}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`;
+                html_data_see += `<button class="btn btn-sm btn-outline-primary mt-1" onclick="customs_calendar_set.opentabcus('${ID}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`;
             }
 
         })
@@ -350,6 +352,7 @@ const customs_calendar_set = {
         // loop paste data
         await $.each(res_calandar_task['calendar'], function (i, v) {
             let html_data = '';
+            let ID = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
             let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
             let data_task = v['date_task'] ? v['date_task'] : '';
@@ -361,7 +364,7 @@ const customs_calendar_set = {
             let m_time = data_task_parse.substring(5, 7);
             let y_time = data_task_parse.substring(0, 4);
 
-            html_data = `<button class="btn btn-sm btn-sm-lg btn-outline-primary col-xl-3 mt-1 bic" onclick="customs_calendar_set.opentabcus('${job_number}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`
+            html_data = `<button class="btn btn-sm btn-sm-lg btn-outline-primary col-xl-3 mt-1 bic" onclick="customs_calendar_set.opentabcus('${ID}')">${type_work + ' : ' + job_number + ' (' + consignee_name + ')'}</button><br>`
 
             $(`.${d_time + m_time + y_time + 'text'}`).append(html_data)
         })
@@ -634,7 +637,7 @@ const customs_calendar_set = {
     opentabcus : function (job_number) {
         //console.log(window.open = `'CHL-Customs.php?job_number=`+ job_number+`&action=preview'`+,+`_blank`);
         window.open(
-            `CHL-Customs.php?job_number=${job_number}&action=preview`,'_blank' // <- This is what makes it open in a new window.
+            `job_detail.php?job_number=${job_number}&action=preview`,'_blank' // <- This is what makes it open in a new window.
         );
     },
 };

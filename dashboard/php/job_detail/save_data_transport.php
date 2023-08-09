@@ -136,50 +136,65 @@ $id_number = $_POST['id_number'];
         }
     }
 
-    foreach($arr_driver_detail as $k => $v){
-        $route_id = isset($v['route_id']) ? $v['route_id'] : '';
-        $driver_id = isset($v['driver_id']) ? $v['driver_id'] : '';
-        $driver_name = isset($v['driver_name']) ? $v['driver_name'] : '';
-        //$driver_phone = isset($v['driver_phone']) ? $v['driver_phone'] : '';
-
-        $driver_phone = $v['driver_phone'];
-        $driver_phone = empty($driver_phone) ? "NULL" : "'".$driver_phone."'";
-
-        if($driver_id != NULL){
-            $sql_query_driver_detail = "
-            UPDATE
-                `transport_contact`
-            SET
-                `Driver_name` = '$driver_name',
-                `phone_number` = $driver_phone,
-                `ref_job_id` = '$id_number'
-            WHERE
-                `ID` = '$driver_id'
-            ";
-        }else{
-            $sql_query_driver_detail = "
-            INSERT INTO `transport_contact`(
-                `Driver_name`,
-                `phone_number`,
-                `route_id`,
-                `ref_job_id`
-            )
-            VALUES(
-                '$driver_name',
-                $driver_phone,
-                '$route_id',
-                '$id_number'
-            )
-            ";
+    if($arr_driver_detail == ''){
+        $arr_data_driver_detail = '1';
+    }else{
+        foreach($arr_driver_detail as $k => $v){
+            $route_id = isset($v['route_id']) ? $v['route_id'] : '';
+            $driver_id = isset($v['driver_id']) ? $v['driver_id'] : '';
+            $driver_name = isset($v['driver_name']) ? $v['driver_name'] : '';
+            $driver_plate = isset($v['driver_plate']) ? $v['driver_plate'] : '';
+            $driver_container = isset($v['driver_container']) ? $v['driver_container'] : '';
+            
+            //$driver_phone = isset($v['driver_phone']) ? $v['driver_phone'] : '';
+    
+            $driver_phone = $v['driver_phone'];
+            $driver_phone = empty($driver_phone) ? "NULL" : "'".$driver_phone."'";
+    
+            if($driver_id != NULL){
+                $sql_query_driver_detail = "
+                UPDATE
+                    `transport_contact`
+                SET
+                    `Driver_name` = '$driver_name',
+                    `phone_number` = $driver_phone,
+                    `plate_number` = '$driver_plate',
+                    `container_id` = '$driver_container',
+                    `ref_job_id` = '$id_number'
+                WHERE
+                    `ID` = '$driver_id'
+                ";
+            }else{
+                $sql_query_driver_detail = "
+                INSERT INTO `transport_contact`(
+                    `Driver_name`,
+                    `phone_number`,
+                    `route_id`,
+                    `ref_job_id`,
+                    `plate_number`,
+                    `container_id`
+                )
+                VALUES(
+                    '$driver_name',
+                    $driver_phone,
+                    '$route_id',
+                    '$id_number',
+                    '$driver_plate',
+                    '$driver_container'
+                )
+                ";
+            }
+            //echo $sql_query_driver_detail;
+            $result = $con->query($sql_query_driver_detail);
+            if ($result->num_rows == 0) {
+                $arr_data_driver_detail = '1';
+            } else {
+                $arr_data_driver_detail = '0';
+            }
+            
         }
-        $result = $con->query($sql_query_driver_detail);
-        if ($result->num_rows == 0) {
-            $arr_data_driver_detail = '1';
-        } else {
-            $arr_data_driver_detail = '0';
-        }
-        
     }
+    
 
         echo json_encode(array('arr_delete_driver'=>$arr_delete_driver,
         'arr_data_delete_transport'=>$arr_data_delete_transport,

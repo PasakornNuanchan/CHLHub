@@ -13,6 +13,9 @@ $get_container_type = "SELECT ID,container_type_name,container_type_full_name FR
 $get_supplier = "SELECT ID,transport_sup_name FROM transport_sup";
 $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
 $sql_shipping_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '3'";
+$sql_cs_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '4'";
+$sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '6'";
+
 
 
 $result = $con->query($get_shipper);
@@ -114,6 +117,24 @@ if ($result->num_rows > 0) {
   $shipping_user = "0 results";
 }
 
+$result = $con->query($sql_cs_user);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $cs_data[] = $row;
+  }
+} else {
+  $cs_data = "0 results";
+}
+
+$result = $con->query($sql_sale_user);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $sale_data[]= $row;
+  }
+} else {
+  $sale_data = "0 results";
+}
+
 
 echo json_encode(array(
     'shipper_data'=>$shipper_data,
@@ -126,6 +147,9 @@ echo json_encode(array(
     'container_type_data'=>$container_type_data,
     'supplier_data'=>$supplier_data,
     'truck_data'=>$truck_data,
-    'shipping_user'=>$shipping_user));
+    'shipping_user'=>$shipping_user,
+    'cs_data'=>$cs_data,
+    'sale_data'=>$sale_data
+  ));
 
 ?>

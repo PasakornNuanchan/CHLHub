@@ -24,7 +24,9 @@ SELECT
     `etd`,
     `eta`,
     `remark`,
-    `booking_agent`
+    `booking_agent`,
+    `sale_support`,
+    `cs_support`
 FROM
     `job_title`
 WHERE
@@ -56,9 +58,14 @@ SELECT
     `ow`,
     `cy`,
     `rtn`,
+    `gw`,
+    `remark`,
+    `package`,
+    `volume`,
     `container_number`,
     `seal_number`,
     `pcs`,
+    `cargo_description`,
     `package`,
     `gross_weight`,
     `cbm`,
@@ -68,6 +75,26 @@ FROM
 WHERE
     ref_job_id = '$data_id'
 ";
+
+$container_query= "
+SELECT
+    container_type,
+    COUNT(ID) count_data_row
+FROM
+    `container`
+WHERE
+    ref_job_id = '$data_id'
+    GROUP BY container_type
+";
+
+$result = $con->query($container_query);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $data_container[] = $row;
+  }
+} else {
+  $data_container = "0 results";
+}
 
 $result = $con->query($job_title_data);
 if ($result->num_rows > 0) {
@@ -96,5 +123,5 @@ if ($result->num_rows > 0) {
   $container = "0 results";
 }
 
-echo json_encode(array('job_title'=>$job_title,'container_information'=>$container_information,'container'=>$container));
+echo json_encode(array('job_title'=>$job_title,'container_information'=>$container_information,'container'=>$container,'data_container'=>$data_container));
 ?>

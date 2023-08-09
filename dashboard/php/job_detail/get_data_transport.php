@@ -59,6 +59,8 @@ if($get_driver_id == "0 results"){
       `container_id`,
       `job_number`,
       `route_id`,
+      `plate_number`,
+      `container_id`,
       `status`,
       `ref_job_id`
   FROM
