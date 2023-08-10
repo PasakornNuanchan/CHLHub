@@ -15,8 +15,50 @@ $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
 $sql_shipping_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '3'";
 $sql_cs_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '4'";
 $sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '6'";
+$sql_get_billing_des = "
+SELECT
+    `ID`,
+    `billing_number`,
+    `billing_code`,
+    `billing_item_name`,
+    `vat`
+FROM
+    `billing_description`
+";
 
+$sql_get_bill_to = "
+SELECT
+    1 AS TYPE,
+    `ID`,
+    `name` AS NAME
+FROM
+    `Goverment_contact`
+UNION
+SELECT
+    2 AS TYPE,
+    `ID`,
+    `carrier_name` AS NAME
+FROM
+    carrier
+";
 
+$result = $con->query($sql_get_bill_to);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $billing_bill_to[] = $row;
+  }
+} else {
+  $billing_bill_to = "0 results";
+}
+
+$result = $con->query($sql_get_billing_des);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $billing_des[] = $row;
+  }
+} else {
+  $billing_des = "0 results";
+}
 
 $result = $con->query($get_shipper);
 if ($result->num_rows > 0) {
@@ -136,6 +178,8 @@ if ($result->num_rows > 0) {
 }
 
 
+
+
 echo json_encode(array(
     'shipper_data'=>$shipper_data,
     'shipment_data'=>$shipment_data,
@@ -149,7 +193,9 @@ echo json_encode(array(
     'truck_data'=>$truck_data,
     'shipping_user'=>$shipping_user,
     'cs_data'=>$cs_data,
-    'sale_data'=>$sale_data
+    'sale_data'=>$sale_data,
+    'billing_des'=>$billing_des,
+    'billing_bill_to'=>$billing_bill_to
   ));
 
 ?>

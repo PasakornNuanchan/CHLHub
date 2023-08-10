@@ -474,5 +474,38 @@ const function_sub_billing = {
         let tof_vat_all = vat_all.toFixed(2)
         $('.inp_vat_inc_ap').val(tof_vat_all).attr('disabled',true)
         }
+    },
+
+    change_sub_billing : async function (e){
+        let target = $(e).val()
+        let data_requeset = '';
+        $.each(setting_data_default.data_billing_des,function(i,v){
+            if(target == v['ID']){
+                data_requeset =  v['billing_item_name'];
+            }
+        })
+        $(e).closest('tr').find('.inp_des_ap').val(data_requeset)
+    },
+
+    billing_ap_function_cal_row : async function(e){
+        
+        let ap_amt = 0;
+        let amt_inc_vat = 0;
+        let data_qty = parseFloat($(e).closest('tr').find('.inp_qty').val())
+        let data_unit_price = parseFloat($(e).closest('tr').find('.inp_unit_price').val())
+        let vat = parseFloat($(e).closest('tr').find('.inp_vat').val())
+
+        ap_amt = data_qty * data_unit_price;
+        amt_inc_vat = (ap_amt*vat/100)+ap_amt
+        ap_amt = ap_amt.toFixed(2)
+        amt_inc_vat = amt_inc_vat.toFixed(2)
+        
+        $(e).closest('tr').find('.inp_ap_amt').val(ap_amt)
+        $(e).closest('tr').find('.inp_amt_inc_vat_ap').val(amt_inc_vat)
+
+    },
+
+    sys_rate_ap : async function(e){
+        let data_sys_rate = $(e).val()
     }
 }

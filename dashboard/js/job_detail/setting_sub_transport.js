@@ -3,7 +3,7 @@ const sub_transport = {
     first_post_data: async function (data) {
         let res_data = await this.ajax_request_first(data);
 
-        console.log(res_data)        
+        //console.log(res_data)        
         
         var data_container_transport_driver = '';
         $.each(sub_job_detail.data_container_for_transport,function(i,v){
@@ -231,7 +231,7 @@ const sub_transport = {
 
                 
                 $('.transport_booking_detail').append(html_transport_data)
-                console.log(html_driver_data)
+                //console.log(html_driver_data)
                 if(i==1){
                     $('.btn_delete_transport').remove()
                 }
@@ -240,7 +240,7 @@ const sub_transport = {
                 $(`.inp_cur${i}`).val(v['cur'])
 
                 $.each(res_data['get_contact'][v['ID']], async function (i1, v1) {                    
-                    console.log(i+'_'+i1)
+                    //console.log(i+'_'+i1)
                     let container_id = v1['container_id'] ? v1['container_id'] : '';
                     let id_number = v1['ID'] ? v1['ID'] : '';
                     $(`.inp_select_container_transport${id_number}`).val(container_id)

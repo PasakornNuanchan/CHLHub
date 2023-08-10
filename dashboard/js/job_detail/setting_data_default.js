@@ -1,10 +1,12 @@
 const setting_data_default = {
-    
+    data_billing_des : '',
     setting_data : async function (){
+
+    
         let res_data_default = await setting_data_default.ajax_request_table()
 
         //job_detail
-        //console.log(res_data_default)  
+        console.log(res_data_default['billing_bill_to'])  
 
         let shipper_data = '';
         let shipment_data = '';
@@ -16,6 +18,26 @@ const setting_data_default = {
         var container_type_data ='';
         let cs_data_user ='';
         let sale_data_user ='';
+        let billing_des = '';
+        let bill_to = '';
+
+
+
+        if(res_data_default['billing_bill_to'] != "0 results"){
+            $.each(res_data_default['billing_bill_to'],function(i,v){
+                bill_to +=`<option type="${v['TYPE']}" value="${v['ID']}">${v['NAME']}</option>`;
+            })
+            $('.inp_billing_to_ap').append(bill_to)
+        }
+
+
+        this.data_billing_des = res_data_default['billing_des'];
+        if(res_data_default['billing_des'] != "0 results"){
+            $.each(res_data_default['billing_des'],function(i,v){
+                billing_des +=`<option value="${v['ID']}">${v['billing_code']}</option>`;
+            })
+            $('.sel_data_billing_ap').append(billing_des)
+        }
 
         if(res_data_default['cs_data'] != "0 results"){
             $.each(res_data_default['cs_data'],function(i,v){

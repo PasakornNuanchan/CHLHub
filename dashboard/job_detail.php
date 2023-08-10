@@ -13,8 +13,15 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+
 </head>
 <style>
+
+
+    
+
     #table_billing_ar td:nth-child(1) input {
         width: 200px;
 
@@ -57,45 +64,53 @@ require 'function/auth/get_session.php';
     }
 
 
+
+
     #table_billing_ap td:nth-child(1) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(2) input {
+        width: 50px;
+    }#table_billing_ap td:nth-child(2) select {
         width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(4) select {
-        width: 95px;
-    }
-
-    #table_billing_ap td:nth-child(5) input {
+    }#table_billing_ap td:nth-child(3) input {
+        width: 300px;
+    }#table_billing_ap td:nth-child(4) select {
+        width: 300px;
+    }#table_billing_ap td:nth-child(6) select {
         width: 100px;
-    }
-
-    #table_billing_ap td:nth-child(6) input {
-        width: 140px;
-    }
-
-    #table_billing_ap td:nth-child(7) input {
-        width: 140px;
-    }
-
-    #table_billing_ap td:nth-child(8) input {
-
-        width: 80px;
-    }
-
-    #table_billing_ap td:nth-child(9) input {
-
-        width: 140px;
-    }
-
-    #table_billing_ap td:nth-child(10) input {
-
+    }#table_billing_ap td:nth-child(7) input {
+        width: 100px;
+    }#table_billing_ap td:nth-child(8) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(9) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(10) input {
+        width: 100px;
+    }#table_billing_ap td:nth-child(11) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(12) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(15) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(26) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(24) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(28) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(27) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(25) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(23) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(16) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(17) input {
         width: 200px;
     }
 
+
+
+    
 
     #table_container_module_setting_width td:nth-child(2) select {
         width: 200px;
@@ -122,7 +137,7 @@ require 'function/auth/get_session.php';
     }
 </style>
 
-<body class="  ">
+<body class="">
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -168,7 +183,7 @@ require 'function/auth/get_session.php';
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content" id="pills-tabContent" >
                 <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
                     <div class="card p-4">
                         <div class="card-header">
@@ -1191,7 +1206,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show active " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab">
+                <div class="tab-pane fade show active " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
                             <h4>Account Payble</h4>
@@ -1200,7 +1215,7 @@ require 'function/auth/get_session.php';
                             <div class="bd-example table-responsive">
                                 <table class="table table-hover table_billing_ap" id="table_billing_ap">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>No</th>
                                             <th>Code</th>
                                             <th>Description</th>
@@ -1210,7 +1225,7 @@ require 'function/auth/get_session.php';
                                             <th>QTY.</th>
                                             <th>Unit Price</th>
                                             <th>AP AMT.</th>
-                                            <th>AP VAT%</th>
+                                            <th>VAT%</th>
                                             <th>AMT(INCL.VAT)</th>
                                             <th>Billing Date</th>
                                             <th>Sys Rate</th>
@@ -1218,48 +1233,62 @@ require 'function/auth/get_session.php';
                                             <th>Apply Date</th>
                                             <th>Paid amt</th>
                                             <th>Remark</th>
-                                            <th>KB</th>
                                             <th>CHECK</th>
-                                            <th>CN#</th>
-                                            <th>Print</th>
-                                            <th>Pack</th>
-                                            <th>Type</th>
-                                            <th>Bill Currency</th>
-                                            <th>bill ex.rate</th>
-                                            <th>item</th>
-                                            <th>Print Date</th>
-                                            <th>Vocher</th>
+                                            <th>Status</th>
+                                            <th>Tax Invoice (with hold)</th>
+                                            <th>Commission Sale</th>
+                                            <th>Branch</th>
                                             <th>Creater</th>
                                             <th>Create date</th>
                                             <th>Last modifier</th>
                                             <th>Last nodifier date</th>
                                             <th>Cheker</th>
                                             <th>Check Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- Description -->
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- Bill to -->
-                                            <td></td> <!-- Payble -->
-                                            <td><select class="form-select form-select-sm"></select></td> <!-- Currency -->
+                                        <tr class="text-center">
+                                            <td></td>
+                                            <td><select class="form-select form-select-sm sel_data_billing_ap" onchange="function_sub_billing.change_sub_billing(this)">
+                                                    <option value=""></option>
+                                                </select></td>
+                                            <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
+                                            <td><select class="form-select form-select-sm inp_billing_to_ap"></select></td> <!-- Bill to -->
+                                            <td>
+                                                <div class="paid_status"></div>
+                                            </td> <!-- Payble -->
+                                            <td><select class="form-select form-select-sm">
+                                                    <option value="THB">THB</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="RMB">RMB</option>
+                                                    <option value="JP">JP</option>
+                                                </select></td> <!-- Currency -->
                                             <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- AR VAT% -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
+                                            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- Sys rate -->
+                                            <td><input type="checkbox" class="form-input-check "></td><!-- apply -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- apply date -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- paid amt -->
                                             <td><input type="text" class="form-control form-control-sm"></td><!-- remark -->
                                             <td><input type="checkbox" class="form-input-check "></td><!-- CHECK -->
-                                            <td></td><!-- PAID -->
-                                            <td></td><!-- ACTION -->
-                                            <td></td><!-- Create by. -->
-                                            <td></td><!-- Create datetime -->
-                                            <td></td><!-- Check by. -->
-                                            <td></td><!-- Check datetime -->
-                                            <td></td><!-- Paid Check by. -->
-                                            <td></td><!-- Paid Check datetime -->
-                                            <td></td><!-- Last update by. -->
-                                            <td></td><!-- Last update datetime -->
+                                            <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+                                            <td><input type="checkbox" class="form-input-check "></td><!-- tax with hold -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- commission sale -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- branch -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- creater -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- creater date -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier date -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- checker  -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- checker date -->
+                                            <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
+                                                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button>
+                                            </td><!--  action -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1673,6 +1702,8 @@ require 'function/auth/get_session.php';
         job_detail.set_header_page();
     });
 </script>
+
+
 
 <script>
     function readURL(input) {
