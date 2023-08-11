@@ -1213,7 +1213,7 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="bd-example table-responsive">
-                                <table class="table table-hover table_billing_ap" id="table_billing_ap">
+                                <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
                                     <thead>
                                         <tr class="text-center">
                                             <th>No</th>
@@ -1251,10 +1251,12 @@ require 'function/auth/get_session.php';
                                         <tr class="text-center">
                                             <td></td>
                                             <td><select class="form-select form-select-sm sel_data_billing_ap" onchange="function_sub_billing.change_sub_billing(this)">
-                                                    <option value=""></option>
+                                                    <option value="">-- please select code --</option>
                                                 </select></td>
                                             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
-                                            <td><select class="form-select form-select-sm inp_billing_to_ap"></select></td> <!-- Bill to -->
+                                            <td><select class="form-select form-select-sm inp_billing_to_ap">
+                                                    <option value="">-- please select bill to</option>
+                                            </select></td> <!-- Bill to -->
                                             <td>
                                                 <div class="paid_status"></div>
                                             </td> <!-- Payble -->
@@ -1262,7 +1264,7 @@ require 'function/auth/get_session.php';
                                                     <option value="THB">THB</option>
                                                     <option value="USD">USD</option>
                                                     <option value="RMB">RMB</option>
-                                                    <option value="JP">JP</option>
+                                                    <option value="YEN">YEN</option>
                                                 </select></td> <!-- Currency -->
                                             <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
@@ -1299,20 +1301,14 @@ require 'function/auth/get_session.php';
                             <div class="text-end mt-4">
                                 <div class="form-group row">
                                     <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
-                                    <div class="col-lg-2 col-xl-2 col-md-3 text-end">
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('thb','ap')" name="radiocurap" id="radiocurap1" checked="">
-                                            <label for="radio1" class="form-check-label">THB</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('usd','ap')" name="radiocurap" id="radiocurap2">
-                                            <label for="radio2" class="form-check-label">USD</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('rmb','ap')" name="radiocurap" id="radiocurap3">
-                                            <label for="radio2" class="form-check-label">RMB</label>
-                                        </div>
+                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency Main:</label>
+                                    <div class="col-lg-2 col-xl-2 col-md-3 text-center">
+                                        <select class="form-select form-select-sm inp_currency_main_ap">
+                                            <option value="THB">THB</option>
+                                            <option value="USD">USD</option>
+                                            <option value="RMB">RMB</option>
+                                            <option value="YEN">YEN</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1345,7 +1341,7 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="bd-example table-responsive">
-                                <table class="table table-hover table_billing_ar" id="table_billing_ar">
+                                <table class="table table-hover table_billing_ar" id="table_billing_ar" >
                                     <thead>
                                         <tr class="text-center">
                                             <th>No.</th>

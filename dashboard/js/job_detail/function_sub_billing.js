@@ -7,12 +7,6 @@ const function_sub_billing = {
         let add_onn = $(e).closest('tr').find('.inp_add_on').val()
         let vatt = $(e).closest('tr').find('.inp_vat').val()
 
-        // console.log(type_account)
-        // console.log(qtyy)
-        // console.log(unit_pricee)
-        // console.log(add_onn)
-        // console.log(vatt)
-
         let qty = qtyy == '' ? 0 : parseFloat(qtyy);
         let unit_price = unit_pricee == '' ? 0 : parseFloat(unit_pricee);
         let add_on = add_onn == '' ||add_onn == undefined ? 0 : parseFloat(add_onn);
@@ -37,7 +31,7 @@ const function_sub_billing = {
             }
         
 
-            await this.cal_currency(data_cur,'ar')
+          //  await this.cal_currency(data_cur,'ar')
             
         }else{
             
@@ -50,7 +44,7 @@ const function_sub_billing = {
             }else if($('input[id="radiocurap3"]:checked').val() == 'on'){
                 data_cur = "rmb";
             }
-            await this.cal_currency(data_cur,'ap')
+           // await this.cal_currency(data_cur,'ap')
         }
 
     },
@@ -91,35 +85,49 @@ const function_sub_billing = {
     },
 
     add_new_list_ap: function () {
+        let rows_cal = $('.table_billing_ap > tbody >tr ').length
+        rows_cal++;
         let html_data_ap = '';
+        
+        
         html_data_ap = `
-        <tr type_data = "AP">
-            <td><input type="text" class="form-control form-control-sm inp_des_ap inp_des" maxlength="200"></td> <!-- Description -->
-            <td><input type="text" class="form-control form-control-sm inp_billing_to_ap inp_billing_to" maxlength="200"></td> <!-- Bill to -->
-            <td align="center"></td> <!-- Payble -->
-            <td><select class="form-select form-select-sm inp_currency inp_currency_ap" onchange="function_sub_billing.cal_billing_data_vat(this)">
+        <tr class="text-center ">
+                <td>${rows_cal}</td>
+                <td>${sub_billing.select_billing_des_ap}</td>
+                <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
+                <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
+                <td><div class="paid_status"></div></td> <!-- Payble -->
+                <td><select class="form-select form-select-sm inp_currency_ap">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
+                    <option value="JP">JP</option>
                 </select></td> <!-- Currency -->
-            <td><input type="number" class="form-control form-control-sm inp_qty inp_qty_ap" onchange="function_sub_billing.cal_billing_data_vat(this)"></td> <!-- QTY. -->
-            <td><input type="number" class="form-control form-control-sm inp_unit_price inp_unit_price_ap" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- Unit Price -->
-            <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ap" onchange="function_sub_billing.cal_billing_data_vat(this)" disabled></td><!-- AR AMT -->
-            <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ap" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
-            <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ap" disabled></td><!-- AMT(INCL.vat) -->
-            <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
-            <td align="center"></td><!-- CHECK -->
-            <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
-            <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
-            <td></td><!-- Create by. -->
-            <td></td><!-- Create datetime -->
-            <td></td><!-- Check by. -->
-            <td></td><!-- Check datetime -->
-            <td></td><!-- Paid Check by. -->
-            <td></td><!-- Paid Check datetime -->
-            <td></td><!-- Last update by. -->
-            <td></td><!-- Last update datetime -->
-        </tr>
+                <td><input type="number" class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
+                <td><input type="number" class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt " disabled></td><!-- AR AMT -->
+                <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+                <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
+                <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
+                <td><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
+                <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+                <td><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
+                <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
+                <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater date -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
+                <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
+                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
+            </tr>
         `;
         $('.table_billing_ap > tbody').append(html_data_ap)
     },
@@ -195,41 +203,41 @@ const function_sub_billing = {
         }).then(async (result) => {
             if (result.isConfirmed) {
 
-                let res_data = await this.get_save_list_(e)
+                let res_data = await this.get_save_list(e)
                 // console.log(res_data)
 
-                if (res_data['arr_res'] == '1') {
-                    Swal.fire(
-                        'saved!',
-                        'Your data has been saved.',
-                        'success'
-                    )
-                    var currentURL = window.location.href;
-                    var url = new URL(currentURL);
-                    var id_number = url.searchParams.get("job_number");
-                    await sub_billing.first_post_data_ar(id_number)
-                    await sub_billing.first_post_data_ap(id_number)
+                // if (res_data['arr_res'] == '1') {
+                //     Swal.fire(
+                //         'saved!',
+                //         'Your data has been saved.',
+                //         'success'
+                //     )
+                //     var currentURL = window.location.href;
+                //     var url = new URL(currentURL);
+                //     var id_number = url.searchParams.get("job_number");
+                //     await sub_billing.first_post_data_ar(id_number)
+                //     await sub_billing.first_post_data_ap(id_number)
 
-                } else if (res_data == false) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'plese enter your data',
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'System has problem plese contact to thailand tech team ',
-                    })
-                }
+                // } else if (res_data == false) {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'plese enter your data',
+                //     })
+                // } else {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'System has problem plese contact to thailand tech team ',
+                //     })
+                // }
 
 
             }
         })
     },
 
-    get_save_list_: async function (e) {
+    get_save_list: async function (e) {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
@@ -238,41 +246,61 @@ const function_sub_billing = {
         let arr_save = []
 
         let get_tr = $(e).closest('tr')
-        let get_id = $(get_tr).attr('list_id')
-        let get_type = $(get_tr).attr('type_data')
-        let get_description = $(get_tr).find('.inp_des').val()
-        let inp_billing_to = $(get_tr).find('.inp_billing_to').val()
-        let inp_add_on = $(get_tr).find('.inp_add_on').val() == '' ? 0 : $(get_tr).find('.inp_add_on').val();
 
-        let inp_currency = $(get_tr).find('.inp_currency').val()
-        let inp_qty = $(get_tr).find('.inp_qty').val()
-        let inp_unit_price = $(get_tr).find('.inp_unit_price').val()
-        let inp_amt = $(get_tr).find('.inp_amt').val()
-        let inp_vat = $(get_tr).find('.inp_vat').val() == '' ? 0 : $(get_tr).find('.inp_vat').val();
-        let inp_amtincv = $(get_tr).find('.inp_amtincv').val()
-        let inp_remark = $(get_tr).find('.inp_remark').val()
+        let get_id = $(get_tr).attr('id_list')
+        let get_type = $(get_tr).attr('type')
+        let get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
+        let get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
+        let get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
+        let get_currency = $(get_tr).find('.inp_currency_ap').val()
+        let get_qty = $(get_tr).find('.inp_qty').val()
+        let get_unit_price = $(get_tr).find('.inp_unit_price').val()
+        let get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
+        let get_vat = $(get_tr).find('.inp_vat').val()
+        let get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
+        // Billing Date
+        let get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
+        let get_data_apply = $(get_tr).find('.chb_apply').is(':checked') ? '1' : '0';
+        let get_data_apply_attr = $(get_tr).find('.chb_apply').attr('ischedkedon');
+        let get_remark = $(get_tr).find('.inp_remark_ap').val()
+        let get_check = $(get_tr).find('.chb_check').is(':checked') ? '1' : '0';
+        let get_check_attr = $(get_tr).find('.chb_check').attr('ischeckdone');
+        let get_with_hold = $(get_tr).find('.chb_tax_hold').is(':checked') ? '1' : '0';
+        let get_with_hold_attr = $(get_tr).find('.chb_tax_hold').attr('ischeckwithhold');
+        let get_commit = $(get_tr).find('.inp_commit').val()
+        let currency_main_ap = $('.inp_currency_main_ap').val()
+        
 
-        if (get_description == '' || inp_billing_to == '' || inp_qty == '' || inp_unit_price == '') {
-            return false;
-        }
+
+    
 
         obj_save = {
-            id_number: id_number,
-            get_id: get_id,
-            get_type: get_type,
-            get_description: get_description,
-            inp_billing_to: inp_billing_to,
-            inp_add_on: inp_add_on,
-            inp_currency: inp_currency,
-            inp_qty: inp_qty,
-            inp_unit_price: inp_unit_price,
-            inp_amt: inp_amt,
-            inp_vat: inp_vat,
-            inp_amtincv: inp_amtincv,
-            inp_remark: inp_remark,
+            id_number : id_number,
+            get_id : get_id,
+            get_type : get_type,
+            get_data_description : get_data_description,
+            get_data_bill_to : get_data_bill_to,
+            get_data_bill_to_type : get_data_bill_to_type,
+            get_currency : get_currency,
+            get_qty : get_qty,
+            get_unit_price : get_unit_price,
+            get_ap_amt : get_ap_amt,
+            get_vat : get_vat,
+            get_amt_inc_vat : get_amt_inc_vat,
+            get_sys_rate : get_sys_rate,
+            get_data_apply : get_data_apply,
+            get_data_apply_attr : get_data_apply_attr,
+            get_remark : get_remark,
+            get_check : get_check,
+            get_check_attr : get_check_attr,
+            get_with_hold : get_with_hold,
+            get_with_hold_attr : get_with_hold_attr,
+            get_commit : get_commit,
+            currency_main_ap : currency_main_ap
         }
         arr_save.push(obj_save)
-
+        console.log(obj_save)
+        
 
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -355,126 +383,7 @@ const function_sub_billing = {
         });
     },
 
-    cal_currency: async function (type_act, type_acc) {
-        let val_usd = 0;
-        let val_th = 0;
-        let val_rmb = 0;
-
-        if(type_act == "thb"){
-            val_usd = 34.55;
-            val_th = 1;
-            val_rmb = 4.84;
-        }else if(type_act == "usd"){
-            val_usd = 1;
-            val_th = 0.029;
-            val_rmb = 0.14;
-        }else if(type_act == "rmb"){
-            val_usd = 7.13;
-            val_th = 0.21;
-            val_rmb = 1;
-        }
-        // console.log(type_act)
-        // console.log(type_acc)
-        
-
-        if (type_acc === "ar") {
-            // sub total
-            let amt_rmb = 0;
-            let amt_usd = 0;
-            let amt_thb = 0;
-            $('.table_billing_ar > tbody > tr').each(function (e) {
-                let type_cur = $('.inp_currency_ar', this).val();
-                let amt_ar = parseFloat($('.inp_amt_ar', this).val())
-
-                if (type_cur == "THB") {
-                    amt_thb = parseFloat(amt_thb) + parseFloat(amt_ar)
-                } else if (type_cur == "USD") {
-                    amt_usd = parseFloat(amt_usd) + parseFloat(amt_ar)
-                } else if (type_cur == "RMB") {
-                    amt_rmb = parseFloat(amt_rmb) + parseFloat(amt_ar)
-                }
-            })
-
-            let cal_to_thb = parseFloat(amt_usd * val_usd) + parseFloat(amt_thb * val_th) + parseFloat(amt_rmb * val_rmb)
-            let tof_all_amt_ar = cal_to_thb.toFixed(2)
-            $('.inp_sub_total_ar').val(tof_all_amt_ar).attr('disabled', true)
-
-            let amtincv_rmb = 0;
-            let amtincv_usd = 0;
-            let amtincv_thb = 0;
-
-            $('.table_billing_ar > tbody > tr').each(function (e) {
-                let type_cur = $('.inp_currency_ar', this).val();
-                let amt_incv_ar = parseFloat($('.inp_amtincv_ar', this).val())
-
-                if (type_cur == "THB") {
-                    amtincv_thb = parseFloat(amtincv_thb) + parseFloat(amt_incv_ar)
-                } else if (type_cur == "USD") {
-                    amtincv_usd = parseFloat(amtincv_usd) + parseFloat(amt_incv_ar)
-                } else if (type_cur == "RMB") {
-                    amtincv_rmb = parseFloat(amtincv_rmb) + parseFloat(amt_incv_ar)
-                }
-            })
-            let cal_to_thb_incv = parseFloat(amtincv_usd * val_usd) + parseFloat(amtincv_thb * val_th) + parseFloat(amtincv_rmb * val_rmb)
-
-            let tof_all_amt_incv_ar = cal_to_thb_incv.toFixed(2)
-            $('.inp_total').val(tof_all_amt_incv_ar).attr('disabled', true)
-
-
-            let vat_all = tof_all_amt_incv_ar - tof_all_amt_ar;
-            let tof_vat_all = vat_all.toFixed(2)
-            $('.inp_vat_inc').val(tof_vat_all).attr('disabled', true)
-        } else {
-        // sub total
-        let amt_rmb = 0;
-        let amt_usd = 0;
-        let amt_thb = 0;
-        $('.table_billing_ap > tbody > tr').each(function (e){
-            let type_cur = $('.inp_currency_ap',this).val();
-            let amt_ar = parseFloat($('.inp_amt_ap',this).val())
-
-            if(type_cur == "THB"){
-                amt_thb = parseFloat(amt_thb) + parseFloat(amt_ar)                
-            }else if(type_cur == "USD"){
-                amt_usd = parseFloat(amt_usd) + parseFloat(amt_ar)
-            }else if(type_cur == "RMB"){
-                amt_rmb = parseFloat(amt_rmb) + parseFloat(amt_ar)
-            }
-        })
-
-        let cal_to_thb = parseFloat(amt_usd*val_usd) + parseFloat(amt_thb*val_th) + parseFloat(amt_rmb*val_rmb)
-        let tof_all_amt_ar = cal_to_thb.toFixed(2)
-        $('.inp_sub_total_ap').val(tof_all_amt_ar).attr('disabled',true)
-
-
-
-        let amtincv_rmb = 0;
-        let amtincv_usd = 0;
-        let amtincv_thb = 0;
-
-        $('.table_billing_ap > tbody > tr').each(function (e){
-            let type_cur = $('.inp_currency_ap',this).val();
-            let amt_incv_ar = parseFloat($('.inp_amtincv_ap',this).val())
-            
-            if(type_cur == "THB"){
-                amtincv_thb = parseFloat(amtincv_thb) + parseFloat(amt_incv_ar)                
-            }else if(type_cur == "USD"){
-                amtincv_usd = parseFloat(amtincv_usd) + parseFloat(amt_incv_ar)
-            }else if(type_cur == "RMB"){
-                amtincv_rmb = parseFloat(amtincv_rmb) + parseFloat(amt_incv_ar)
-            }
-        })
-        let cal_to_thb_incv = parseFloat(amtincv_usd*val_usd) + parseFloat(amtincv_thb*val_th) + parseFloat(amtincv_rmb*val_rmb)
-
-        let tof_all_amt_incv_ar = cal_to_thb_incv.toFixed(2)
-        $('.inp_total_ap').val(tof_all_amt_incv_ar).attr('disabled',true)
-        
-
-        let vat_all = tof_all_amt_incv_ar - tof_all_amt_ar;
-        let tof_vat_all = vat_all.toFixed(2)
-        $('.inp_vat_inc_ap').val(tof_vat_all).attr('disabled',true)
-        }
-    },
+    
 
     change_sub_billing : async function (e){
         let target = $(e).val()
@@ -502,10 +411,67 @@ const function_sub_billing = {
         
         $(e).closest('tr').find('.inp_ap_amt').val(ap_amt)
         $(e).closest('tr').find('.inp_amt_inc_vat_ap').val(amt_inc_vat)
-
+        this.cal_result_ap()
     },
 
     sys_rate_ap : async function(e){
-        let data_sys_rate = $(e).val()
+        let sys_rate = parseFloat($(e).val());
+        let amt_inc_vat = parseFloat($(e).closest('tr').find('.inp_amt_inc_vat_ap').val())
+        let data_result = 0;
+
+
+        console.log(sys_rate)
+        console.log(amt_inc_vat)
+        
+        data_result = parseFloat(amt_inc_vat*sys_rate )
+        $('.inp_paid_amt',$(e).closest('tr')).val(data_result)
+        await this.cal_result_ap()
+    },
+
+    cal_result_ap : async function(e){
+        let find_targer = $(e).find('tbody > tr') 
+        let inp_ap_amt =0;
+        let inp_amt_inc_vat_ap = 0;
+        let add_tax = 0;
+
+        let data_obj = {}
+        let data_arr = []
+        $(find_targer).each(function(i,v){
+            let data_ap_amt = parseFloat($('.inp_ap_amt',this).val())
+            let data_amt_inc_vat = parseFloat($('.inp_amt_inc_vat_ap',this).val())
+            let sys_rate = parseFloat($('.inp_sys_rate_ap',this).val())
+
+            let keep_amt = data_ap_amt * sys_rate
+            let keep_amt_inc = data_amt_inc_vat * sys_rate
+            
+            data_obj={
+                keep_amt : keep_amt,
+                keep_amt_inc : keep_amt_inc
+            }
+            data_arr.push(data_obj)
+        })
+
+        $.each(data_arr,function(i,v){
+            let data_keep_amt = v['keep_amt']
+            let data_keep_amt_inc = v['keep_amt_inc']
+
+            inp_ap_amt = inp_ap_amt +data_keep_amt;
+            inp_amt_inc_vat_ap = inp_amt_inc_vat_ap +data_keep_amt_inc;
+        })
+
+
+        add_tax = inp_amt_inc_vat_ap - inp_ap_amt;
+
+        inp_ap_amt = inp_ap_amt.toFixed(2)
+        add_tax = add_tax.toFixed(2)
+        inp_amt_inc_vat_ap = inp_amt_inc_vat_ap.toFixed(2)
+        
+        $('.inp_sub_total_ap').val(inp_ap_amt)
+        $('.inp_vat_inc_ap').val(add_tax)
+        $('.inp_total_ap').val(inp_amt_inc_vat_ap)
+
     }
+
+
+
 }
