@@ -19,47 +19,45 @@ require 'function/auth/get_session.php';
 </head>
 <style>
 
-
-    
-
     #table_billing_ar td:nth-child(1) input {
-        width: 200px;
-
-    }
-
-    #table_billing_ar td:nth-child(2) input {
+        width: 50px;
+    }#table_billing_ar td:nth-child(2) select {
         width: 150px;
-    }
-
-    #table_billing_ar td:nth-child(4) select {
-        width: 95px;
-    }
-
-    #table_billing_ar td:nth-child(5) input {
+    }#table_billing_ar td:nth-child(3) input {
+        width: 300px;
+    }#table_billing_ar td:nth-child(4) select {
+        width: 300px;
+    }#table_billing_ar td:nth-child(6) select {
         width: 100px;
-    }
-
-    #table_billing_ar td:nth-child(6) input {
-        width: 140px;
-    }
-
-    #table_billing_ar td:nth-child(7) input {
-        width: 140px;
-    }
-
-    #table_billing_ar td:nth-child(8) input {
-        width: 140px;
-    }
-
-    #table_billing_ar td:nth-child(9) input {
-        width: 80px;
-    }
-
-    #table_billing_ar td:nth-child(10) input {
-        width: 140px;
-    }
-
-    #table_billing_ar td:nth-child(11) input {
+    }#table_billing_ar td:nth-child(7) input {
+        width: 100px;
+    }#table_billing_ar td:nth-child(8) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(9) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(10) input {
+        width: 100px;
+    }#table_billing_ar td:nth-child(11) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(12) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(15) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(26) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(24) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(28) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(27) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(25) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(23) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(16) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(17) input {
         width: 200px;
     }
 
@@ -1218,7 +1216,7 @@ require 'function/auth/get_session.php';
                                         <tr class="text-center">
                                             <th>No</th>
                                             <th>Code</th>
-                                            <th>Description</th>
+                                            <th>Item</th>
                                             <th>Bill to</th>
                                             <th>Payble</th>
                                             <th>Currency</th>
@@ -1360,7 +1358,18 @@ require 'function/auth/get_session.php';
                                             <th>Need Vat</th>
                                             <th>Rcvd Amt</th>
                                             <th>Remark</th>
-                                            <th>KD</th>
+                                            <th>Check</th>
+                                            <th>staus</th>
+                                            <th>branch</th>
+                                            <th>status</th>
+                                            <th>creater</th>
+                                            <th>create date</th>
+                                            <th>last modifier</th>
+                                            <th>last modifier date</th>
+                                            <th>checker</th>
+                                            <th>checker date</th>
+                                            <th>action</th>
+                                            <!-- <th>KD</th>
                                             <th>D/N#</th>
                                             <th>Print</th>
                                             <th>Pack</th>
@@ -1377,14 +1386,20 @@ require 'function/auth/get_session.php';
                                             <th>Last Modifier</th>
                                             <th>Last Modifier Date</th>
                                             <th>Checker</th>
-                                            <th>Checker Date</th>
+                                            <th>Checker Date</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- Description -->
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- Bill to -->
-                                            <td align="center"><input type="checkbox" class="form-input-check "></td> <!-- Payble -->
+                                            <td>test</td> <!-- No -->
+                                            <td><select class="form-select form-select-sm select_code_billing_ar" onchange="function_sub_billing.change_sub_billing_ar(this)"> <!-- Code -->
+                                                <option value="">-- pleas select code --</option>
+                                            </select></td>
+                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- item -->
+                                            <td><select class="form-select form-select-sm select_bill_to_ar"> <!-- bill to -->
+                                                <option value="">-- please select bill to --</option>
+                                            </select></td>
+                                            <td align="center"></td> <!-- Payble -->
                                             <td><select class="form-select form-select-sm">
                                                     <option value="THB">THB</option>
                                                     <option value="USD">USD</option>
@@ -1392,14 +1407,15 @@ require 'function/auth/get_session.php';
                                                 </select></td> <!-- Currency -->
                                             <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- Add on profit -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AR VAT% -->
+                                            <td><input type="number" class="form-control form-control-sm"></td><!-- VAT% -->
                                             <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- remark -->
-                                            <td><input type="checkbox" class="form-input-check "></td><!-- CHECK -->
-                                            <td></td><!-- PAID -->
-                                            <td><button class="btn btn-success btn-sm m-1">Save</button><button class="btn btn-danger btn-sm">Del</button></td><!-- ACTION -->
+                                            <td><input type="number" class="form-control form-control-sm"></td><!-- Billing Date -->
+                                            <td><input type="text" class="form-control form-control-sm"></td><!-- sysrate -->
+                                            <td><input type="checkbox" class="form-input-check"></td><!-- need vat -->
+                                            <td><input type="checkbox" class="fotm-input-check"></td><!-- rcvd amt -->
+                                            <td><input type="text" class="form-control form-control-sm"></td>  <!-- remark -->
+                                            <td><input type="checkbox" class="form-input-check"></td>
                                             <td></td><!-- Create by. -->
                                             <td></td><!-- Create datetime -->
                                             <td></td><!-- Check by. -->
@@ -1408,6 +1424,7 @@ require 'function/auth/get_session.php';
                                             <td></td><!-- Paid Check datetime -->
                                             <td></td><!-- Last update by. -->
                                             <td></td><!-- Last update datetime -->
+                                            <td><button class="btn btn-success btn-sm m-1">Save</button><button class="btn btn-danger btn-sm">Del</button></td><!-- ACTION -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1420,18 +1437,12 @@ require 'function/auth/get_session.php';
                                     <div class="col-lg-9 col-xl-8 col-md-6"></div>
                                     <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
                                     <div class="col-lg-2 col-xl-2 col-md-3 text-end">
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('thb','ar')" name="radiocurar" id="radiocurar1" checked="">
-                                            <label for="radio1" class="form-check-label">THB</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('usd','ar')" name="radiocurar" id="radiocurar2">
-                                            <label for="radio2" class="form-check-label">USD</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" onclick="function_sub_billing.cal_currency('rmb','ar')" name="radiocurar" id="radiocurar3">
-                                            <label for="radio2" class="form-check-label">RMB</label>
-                                        </div>
+                                        <select class="form-select form-select-sm inp_currency_ar">
+                                            <option value="THB">THB</option>
+                                            <option value="USD">USD</option>
+                                            <option value="RMB">RMB</option>
+                                            <option value="YEN">YEN</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1445,14 +1456,14 @@ require 'function/auth/get_session.php';
                                     <div class="col-lg-9 col-xl-8 col-md-6"></div>
                                     <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
                                     <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_vat_inc text-end">
+                                        <input type="text" class="form-control form-control-sm  inp_vat_inc_ar text-end">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-9 col-xl-8 col-md-6"></div>
                                     <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
                                     <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_total text-end">
+                                        <input type="text" class="form-control form-control-sm inp_total inp_total_ar text-end">
                                     </div>
                                 </div>
                             </div>

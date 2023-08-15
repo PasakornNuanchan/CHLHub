@@ -18,7 +18,7 @@ $get_unit_price = isset($v['get_unit_price']) ? $v['get_unit_price'] : '';
 $get_vat = isset($v['get_vat']) ? $v['get_vat'] : '';
 $get_sys_rate = isset($v['get_sys_rate']) ? $v['get_sys_rate'] : '';
 $get_data_apply = $v['get_data_apply'];
-$get_remark = isset($v['get_remark']) ? $v[''] : 'get_remark';
+$get_remark = isset($v['get_remark']) ? $v['get_remark'] : '';
 $get_check = $v['get_check'];
 $get_with_hold = $v['get_with_hold'];
 $get_commit = $v['get_commit'];
@@ -28,6 +28,7 @@ $get_commit = $get_commit === '' ? "NULL" : $get_commit;
 $get_data_apply_attr = isset($v['get_data_apply_attr']) ? $v['get_data_apply_attr'] : '';
 $get_check_attr = isset($v['get_check_attr']) ? $v['get_check_attr'] : '';
 $get_with_hold_attr = isset($v['get_with_hold_attr']) ? $v['get_with_hold_attr'] : '';
+$need_vat = isset($v['get_need_vat']) ? $v['get_need_vat'] : '';
 
 if($get_data_apply_attr == '1'){
     $data_create_date ='';
@@ -129,29 +130,29 @@ if($get_with_hold == 1){
     //             ID = '$get_id_data'
     //         ";
     //     }else if($get_type == "AP"){
-            $sql_query_data = "
-            UPDATE
-                `billing`
-            SET
-                `billing_description` = '$get_data_description',
-                `bill_to_type` = '$get_data_bill_to_type',
-                `bill_to` = '$get_data_bill_to',
-                `currency` = '$get_currency',
-                `qty` = '$get_qty',
-                `unit_price` = '$get_unit_price',
-                `vat` = '$get_vat',
-                `remark` = '$get_remark',
-                $data_create_date
-                $data_check_date
-                `last_update_by` = '$data_user',
-                `last_update_datetime` = '$t_time_save',
-                `sys_rate` = '$get_sys_rate',
-                `commit_sale` = $get_commit,
-                $data_with_hold_date
-                `currency_main` = '$currency_main_ap'
-            WHERE
-                `ID` = '$get_id'
-            ";
+    //         $sql_query_data = "
+    //         UPDATE
+    //             `billing`
+    //         SET
+    //             `billing_description` = '$get_data_description',
+    //             `bill_to_type` = '$get_data_bill_to_type',
+    //             `bill_to` = '$get_data_bill_to',
+    //             `currency` = '$get_currency',
+    //             `qty` = '$get_qty',
+    //             `unit_price` = '$get_unit_price',
+    //             `vat` = '$get_vat',
+    //             `remark` = '$get_remark',
+    //             $data_create_date
+    //             $data_check_date
+    //             `last_update_by` = '$data_user',
+    //             `last_update_datetime` = '$t_time_save',
+    //             `sys_rate` = '$get_sys_rate',
+    //             `commit_sale` = $get_commit,
+    //             $data_with_hold_date
+    //             `currency_main` = '$currency_main_ap'
+    //         WHERE
+    //             `ID` = '$get_id'
+    //         ";
     //     }
         
     // }else{
@@ -196,7 +197,58 @@ if($get_with_hold == 1){
     //             '$t_time_save'
     //         )
     //         ";
-    //     }else if($get_type == "AP"){
+
+            $sql_query_data = "
+            INSERT INTO `billing`(
+                `billing_description`,
+                `bill_to_type`,
+                `bill_to`,
+                `currency`,
+                `qty`,
+                `unit_price`,
+                `vat`,
+                `remark`,
+                `type`,
+                `create_data_time`,
+                `create_by`,
+                `action_paid_by`,
+                `action_paid_date_time`,
+                `check_by`,
+                `check_date_time`,
+                `ref_job_id`,
+                `last_update_by`,
+                `last_update_datetime`,
+                `sys_rate`,
+                `currency_main`,
+                `need_vat`
+            )
+            VALUES(
+                '$get_data_description',
+                '$get_data_bill_to_type',
+                '$get_data_bill_to',
+                '$get_currency',
+                '$get_qty',
+                '$get_unit_price',
+                '$get_vat',
+                '$get_remark',
+                '$get_type',
+                '$t_time_save',
+                '$data_user',
+                $apply_by,
+                $apply_date_time,
+                $check_by,
+                $check_date_time,
+                '$id_number',
+                '$data_user',
+                '$t_time_save',
+                '$get_sys_rate',
+                '$currency_main_ap',
+                '$need_vat'
+                
+
+            )
+            ";
+        // }else if($get_type == "AP"){
         //   $sql_query_data = "
         //     INSERT INTO `billing`(
         //         `billing_description`,
@@ -249,9 +301,9 @@ if($get_with_hold == 1){
         //         '$currency_main_ap'
         //     )
         //     ";
-    //     }
+        // }
     // }
-//  echo $sql_query_data;
+ echo $sql_query_data;
 // $result = $con->query($sql_query_data);
 // if ($result->num_rows == 0) {
 //     $arr_res = '1';
@@ -260,7 +312,7 @@ if($get_with_hold == 1){
 // }
 
 
-//echo json_encode(array('arr_res'=>$arr_res));
+// echo json_encode(array('arr_res'=>$arr_res));
 }
 
 

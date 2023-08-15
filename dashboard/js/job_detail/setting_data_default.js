@@ -1,12 +1,14 @@
 const setting_data_default = {
     data_billing_des : '',
+    data_billing_des_ar : '',
+    
     setting_data : async function (){
 
     
         let res_data_default = await setting_data_default.ajax_request_table()
 
         //job_detail
-        console.log(res_data_default['billing_bill_to'])  
+        console.log(res_data_default)  
 
         let shipper_data = '';
         let shipment_data = '';
@@ -20,9 +22,25 @@ const setting_data_default = {
         let sale_data_user ='';
         let billing_des = '';
         let bill_to = '';
+        let billing_des_ar = '';
+        let bill_to_ar = '';
 
+        
+        if(res_data_default['bill_to_ar'] != "0 results"){
+            $.each(res_data_default['bill_to_ar'],function(i,v){
+                bill_to_ar +=`<option type="${v['TYPE']}" value="${v['ID']}">${v['NAME']}</option>`;
+            })
+            $('.select_bill_to_ar').append(bill_to_ar)
+        }
 
-
+        this.data_billing_des_ar = res_data_default['billing_des_ar'];
+        if(res_data_default['billing_des_ar'] != "0 results"){
+            $.each(res_data_default['billing_des_ar'],function(i,v){
+                billing_des_ar +=`<option value="${v['ID']}">${v['billing_code']}</option>`;
+            })
+            $('.select_code_billing_ar').append(billing_des_ar)
+        }
+        
         if(res_data_default['billing_bill_to'] != "0 results"){
             $.each(res_data_default['billing_bill_to'],function(i,v){
                 bill_to +=`<option type="${v['TYPE']}" value="${v['ID']}">${v['NAME']}</option>`;

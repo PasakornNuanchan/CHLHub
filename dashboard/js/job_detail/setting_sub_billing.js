@@ -1,11 +1,19 @@
 const sub_billing = {
     select_billing_des_ap : '',
     select_bill_to_ap : '',
+    html_select_code_billing_ar : '',
+    html_select_bill_to_ar : '',
     first_post_data_ar: async function (id_number) {
         let res_data = await this.ajax_setting_data_first_ar(id_number)
         console.log(res_data)
         let html_data_ar = '';
+        let data_select_code_billing_ar = $('.select_code_billing_ar').parent().html()
 
+        
+        let data_select_bill_to_ar = $('.select_bill_to_ar').parent().html()
+
+        this.html_select_code_billing_ar = data_select_code_billing_ar;
+        this.html_select_bill_to_ar = data_select_bill_to_ar;
         $('.table_billing_ar > tbody').html('')
         if (res_data['get_data_ar'] != "0 results") {
             
@@ -13,6 +21,7 @@ const sub_billing = {
                 let id_list = v['ID'] ? v['ID'] : '';
                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
                 let bill_to = v['bill_to'] ? v['bill_to'] : '';
+                let bill_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
                 let payble = v['payble'] ? v['payble'] : '';
                 let qty = v['qty'] ? parseFloat(v['qty']) : '';
                 let unit_price = v['unit_price'] ? parseFloat(v['unit_price']) : '';
@@ -25,7 +34,7 @@ const sub_billing = {
 
                 let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
                 let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
-
+                let need_vat = v['need_vat'] ? v['need_vat'] : '';
                 let vat = v['vat'] ? v['vat'] : '';
                 let apb = v['apbfn'] == null ? '' : v['apbfn'] + ' ' + v['apbln']
                 let lub = v['lubfn'] == null ? '' : v['lubfn'] + ' ' + v['lubln']
@@ -35,96 +44,121 @@ const sub_billing = {
                 let res_ar_inc_t = res_ar_inc.toFixed(2);
                 let currency = v['currency'] ? v['currency'] : '';
                 let bc_pay = payble == '1' ? '<span class="badge rounded-pill bg-success" >Paid</span>' : '<span class="badge rounded-pill bg-danger" >Unpiad</span>'
-
-
-
-                html_data_ar = `
-            <tr list_id = ${id_list} type_data = "AR">
-                <td>${i}</td>
-                <td></td>
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar inp_des_ar${i} " value="${billing_description}" maxlength="300"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar inp_billing_to_ar${i}" value="${bill_to}" maxlength="200"></td> <!-- Bill to -->
-                <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox inp_payble_checkbox${i}" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency inp_currency_ar inp_currency${i}" onchange="function_sub_billing.cal_billing_data_vat(this)">
+                let billing_date = create_data_time.substring(0, 10);
+                let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
+                i++;
+            html_data_ar = `
+            <tr list_id = ${id_list} class="data_ar${i}" type = "AR">
+                <td class="text-center">${i}</td> <!-- No -->
+                <td>${data_select_code_billing_ar}</td>
+                <td><input type="text" class="form-control form-control-sm inp_data_item inp_data_item${i}"></td> <!-- item -->
+                <td>${data_select_bill_to_ar}</td>
+                <td align="center"></td> <!-- Payble -->
+                <td><select class="form-select form-select-sm inp_currency_ar inp_currency_ar${i}">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                     </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm inp_qty inp_qty_ar inp_qty_ar${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${qty}"></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm inp_unit_price inp_unit_price_ar inp_unit_price_ar${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${unit_price}"></td><!-- Unit Price -->
-                <td><input type="number" class="form-control form-control-sm inp_add_on inp_add_on_ar inp_add_on_ar${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${add_on}"></td><!-- Add on profit -->
-                <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar inp_amt_ar${i}" value="${res_ar_amt_t}"></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar inp_vat_ar${i}" onchange="function_sub_billing.cal_billing_data_vat(this)" value="${vat}"></td><!-- AR VAT% -->
-                <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv${i} inp_amtincv_ar" value="${res_ar_inc_t}"></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}" maxlength="100"></td><!-- remark -->
-                <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box inp_check_list_box${i}" onclick="function_sub_billing.check_box_status(this)"></td> <!-- CHECK -->
-                <td>${bc_pay}</td><!-- PAID -->
-                <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_delete_list${i}" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
+                <td><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" value="${qty}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td> <!-- QTY. -->
+                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
+                <td><input type="text" class="form-control form-control-sm inp_data_amt inp_ar_amt text-end" disabled></td><!-- AR AMT -->
+                <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
+                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
+                <td><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
+                <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+                <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
+                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
+                <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td>status</td>
                 <td>${cb}</td><!-- Create by. -->
                 <td>${create_data_time}</td><!-- Create datetime -->
-                <td>${ccb}</td><!-- Check by. -->
-                <td>${check_date_time}</td><!-- Check datetime -->
+                <td>${ccb}</td><!-- lastmo by. -->lub
+                <td>${check_date_time}</td><!-- lastmo datetime -->last_update_datetime
                 <td>${apb}</td><!-- Paid Check by. -->
-                <td>${action_paid_date_time}</td><!-- Paid Check datetime -->
+                <td>${action_paid_date_time}</td><!--  Check datetime -->
                 <td>${lub}</td><!-- Last update by. -->
                 <td>${last_update_datetime}</td><!-- Last update datetime -->
+                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
             </tr>
             `;
 
-            
+                
 
                 $('.table_billing_ar > tbody').append(html_data_ar)
-                $(`.inp_amt_ar${i}`).attr('disabled', true)
-                $(`.inp_amtincv${i}`).attr('disabled', true)
-                $(`.inp_currency${i}`).val(currency)
+                
 
-                if (payble == '1') {
-                    $(`.inp_payble_checkbox${i}`).attr({ 'checked': true, 'disabled': true })
-                    $(`.btn_delete_list${i}`).remove()
+                $(`.data_ar${i} > td > .select_code_billing_ar`).val(billing_description)
+                let data_target = $(`.data_ar${i} > td > .select_code_billing_ar`).val()                
+                let data_find = '';
+                $.each(setting_data_default.data_billing_des_ar,function(i,v){
+                    // console.log(v['ID'])
+                    if(v['ID']== data_target){
+                        data_find = v['billing_item_name'];
+                    }
+                })
+                $(`.inp_data_item${i}`).val(data_find).attr('disabled',true)
 
+                if(need_vat == '1'){
+                    $(`.data_ar${i} > td > .ch_need_vat_ar`).prop('checked',true)
                 }
 
-                if (payble = '1' && check_date_time != '') {
-                    $(`.inp_des_ar${i}`).attr('disabled', true)
-                    $(`.inp_billing_to_ar${i}`).attr('disabled', true)
-                    $(`.inp_currency${i}`).attr('disabled', true)
-                    $(`.inp_qty_ar${i}`).attr('disabled', true)
-                    $(`.inp_unit_price_ar${i}`).attr('disabled', true)
-                    $(`.inp_des_ar${i}`).attr('disabled', true)
-                    $(`.inp_add_on_ar${i}`).attr('disabled', true)
-                    $(`.inp_vat_ar${i}`).attr('disabled', true)
-
+                if(apb != ''){
+                    $(`.data_ar${i} > td > .ch_revd_amt_ar`).prop('checked',true).attr('disabled',true)
                 }
 
-                if (check_date_time != '') {
-                    $(`.inp_check_list_box${i}`).attr({ 'checked': true, 'disabled': true })
+                if(ccb != ''){
+                    $(`.data_ar${i} > td > .ch_check_ar`).prop('checked',true).attr('disabled',true)
+                }
+                
+                $(`.data_ar${i} > td > .select_bill_to_ar`).val()
+                $(`.data_ar${i} > td > .select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
+                $(`.data_ar${i} > td > inp_currency_ar${i}`).val(currency)
+
+                let data_qty = parseFloat($(`.data_ar${i} > td > .inp_qty_ar`).val())
+                let data_unit_price = parseFloat($(`.data_ar${i} > td > .inp_unit_price`).val())
+                let data_amt = data_qty*data_unit_price
+                data_amt = data_amt.toFixed(2)
+                $(`.data_ar${i} > td > .inp_data_amt`).val(data_amt)
+                data_amt = parseFloat(data_amt)
+                let data_vat = $(`.data_ar${i} > td > .inp_vat_ar`).val()
+                let data_amt_inc_vat = ((data_amt * data_vat)/100)+data_amt;
+                data_amt_inc_vat = data_amt_inc_vat.toFixed(2)
+                $(`.data_ar${i} > td > .inp_amt_inc_vat_ar`).val(data_amt_inc_vat)
+                
+                if(apb != ''){
+                    $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
+                    $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
+                    $(`.data_ar${i} > td > .form-input-check`).attr('disabled',true)
+                    $(`.data_ar${i} > td > .btn_del_ar`) .remove()
+                    $(`.data_ar${i} > td > .btn_save_ar`) .remove()
                 }
             })
         }else{
             html_data_ar = `
-            <tr type_data = "AR">
-                <td></td>
-                <td></td>
-                <td><input type="text" class="form-control form-control-sm inp_des inp_des_ar" maxlength="300"></td> <!-- Description -->
-                <td><input type="text" class="form-control form-control-sm inp_billing_to inp_billing_to_ar" maxlength="200"></td> <!-- Bill to -->
-                <td align="center"><input type="checkbox" class="form-input-check inp_payble_checkbox" onclick="function_sub_billing.check_box_status(this)"></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency inp_currency_ar" onchange="function_sub_billing.cal_billing_data_vat(this)">
+            <tr list_id = "" type = "AR">
+                <td class="text-center">1</td> <!-- No -->
+                <td>${data_select_code_billing_ar}</td>
+                <td><input type="text" class="form-control form-control-sm inp_data_item"></td> <!-- item -->
+                <td>${data_select_bill_to_ar}</td>
+                <td align="center"></td> <!-- Payble -->
+                <td><select class="form-select form-select-sm inp_currency_ar ">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                     </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm inp_qty inp_qty_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm inp_unit_price inp_unit_price_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- Unit Price -->
-                <td><input type="number" class="form-control form-control-sm inp_add_on inp_add_on_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- Add on profit -->
-                <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar" disabled></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
-                <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ar" disabled></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
-                <td></td>
-                <td></td>
-                <td align="center"><input type="checkbox" class="form-input-check inp_check_list_box" onclick="function_sub_billing.check_box_status(this)"></td> <!-- CHECK -->
-                <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
-                <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
+                <td><input type="number" class="form-control form-control-sm inp_qty_ar text-center" ></td> <!-- QTY. -->
+                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" ></td><!-- Unit Price -->
+                <td><input type="text" class="form-control form-control-sm inp_data_amt text-end" disabled></td><!-- AR AMT -->
+                <td><input type="number" class="form-control form-control-sm inp_vat_ar text-center"></td><!-- VAT% -->
+                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                <td><input type="text" class="form-control form-control-sm" ></td><!-- sysrate -->
+                <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+                <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
+                <td><input type="text" class="form-control form-control-sm"></td>  <!-- remark -->
+                <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td>status</td>
                 <td></td><!-- Create by. -->
                 <td></td><!-- Create datetime -->
                 <td></td><!-- Check by. -->
@@ -133,65 +167,59 @@ const sub_billing = {
                 <td></td><!-- Paid Check datetime -->
                 <td></td><!-- Last update by. -->
                 <td></td><!-- Last update datetime -->
+                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
             </tr>
             `;
                 $('.table_billing_ar > tbody').append(html_data_ar)
         }
 
 
-        // currency
-        let val_usd = 34.55;
-        let val_th = 1;
-        let val_rmb = 4.84;
+        let data_qty_all = 0;
+        let data_unit_price_all = 0;
+        let data_vat_all = 0;
+        let data_sys_rate_all = 0;
 
-        // sub total
-        let amt_rmb = 0;
-        let amt_usd = 0;
-        let amt_thb = 0;
-        $('.table_billing_ar > tbody > tr').each(function (e) {
-            let type_cur = $('.inp_currency_ar', this).val();
-            let amt_ar = parseFloat($('.inp_amt_ar', this).val())
+        let data_sub_total = 0;
+        let data_value_tax = 0;
+        let data_total = 0;
+        data_obj = {}
+        data_arr = []
+        $('.table_billing_ar > tbody > tr').each(function (i,v){
+            let data_qty = parseFloat($('.inp_qty').val())
+            let data_unit_price = parseFloat($('.inp_unit_price').val())
+            let data_vat = parseFloat($('.inp_vat').val())
+            let data_sys_rate = parseFloat($('.inp_sys_rate_ar').val())
 
-            if (type_cur == "THB") {
-                amt_thb = parseFloat(amt_thb) + parseFloat(amt_ar)
-            } else if (type_cur == "USD") {
-                amt_usd = parseFloat(amt_usd) + parseFloat(amt_ar)
-            } else if (type_cur == "RMB") {
-                amt_rmb = parseFloat(amt_rmb) + parseFloat(amt_ar)
+            let data_sub_total = 0;
+            let data_total = 0;
+            let data_tax = 0;
+            
+            data_sub_total = data_qty * data_unit_price
+            data_total = ((data_sub_total*data_vat)/100)+data_sub_total
+            
+            data_obj = {
+                data_sub_total : data_sub_total,
+                data_total : data_total
             }
+            data_arr.push(data_obj)
         })
-
-        let cal_to_thb = parseFloat(amt_usd * val_usd) + parseFloat(amt_thb * val_th) + parseFloat(amt_rmb * val_rmb)
-        let tof_all_amt_ar =  cal_to_thb.toFixed(2)
-        $('.inp_sub_total_ar').val(tof_all_amt_ar).attr('disabled', true)
-
-
-
-        let amtincv_rmb = 0;
-        let amtincv_usd = 0;
-        let amtincv_thb = 0;
-
-        $('.table_billing_ar > tbody > tr').each(function (e) {
-            let type_cur = $('.inp_currency_ar', this).val();
-            let amt_incv_ar = parseFloat($('.inp_amtincv_ar', this).val())
-
-            if (type_cur == "THB") {
-                amtincv_thb = parseFloat(amtincv_thb) + parseFloat(amt_incv_ar)
-            } else if (type_cur == "USD") {
-                amtincv_usd = parseFloat(amtincv_usd) + parseFloat(amt_incv_ar)
-            } else if (type_cur == "RMB") {
-                amtincv_rmb = parseFloat(amtincv_rmb) + parseFloat(amt_incv_ar)
-            }
+        
+        
+        $.each(data_arr,function(i,v){
+            let data_sub = v['data_sub_total'] ? v['data_sub_total'] : 0 ;
+            let data_total_a = v['data_total'] ? v['data_total'] : 0;
+            data_sub_total = data_sub_total + data_sub
+            data_total = data_total + data_total_a
         })
-        let cal_to_thb_incv = parseFloat(amtincv_usd * val_usd) + parseFloat(amtincv_thb * val_th) + parseFloat(amtincv_rmb * val_rmb)
-
-        let tof_all_amt_incv_ar = cal_to_thb_incv.toFixed(2)
-        $('.inp_total').val(tof_all_amt_incv_ar).attr('disabled', true)
-
-
-        let vat_all = tof_all_amt_incv_ar - tof_all_amt_ar;
-        let tof_vat_all = vat_all.toFixed(2)
-        $('.inp_vat_inc').val(tof_vat_all).attr('disabled', true)
+        
+        data_value_tax = data_total - data_sub_total
+        data_value_tax = data_value_tax.toFixed(2)
+        data_sub_total = data_sub_total.toFixed(2)
+        data_total = data_total.toFixed(2)
+        
+        $('.inp_sub_total_ar').val(data_sub_total).attr('disabled',true)
+        $('.inp_vat_inc_ar').val(data_value_tax).attr('disabled',true)
+        $('.inp_total_ar').val(data_total).attr('disabled',true)
 
     },
 

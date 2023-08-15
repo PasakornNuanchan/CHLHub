@@ -15,6 +15,23 @@ $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
 $sql_shipping_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '3'";
 $sql_cs_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '4'";
 $sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '6'";
+$sql_get_bill_to_ar = "
+SELECT
+    1 AS TYPE,
+    `ID`,
+    `consignee_name` as NAME
+FROM
+    `consignee`
+";
+$sql_get_billing_des_ar = "
+SELECT
+    `ID`,
+    `billing_number`,
+    `billing_code`,
+    `billing_item_name`,
+    `vat`
+FROM
+    `billing_description`";
 $sql_get_billing_des = "
 SELECT
     `ID`,
@@ -42,6 +59,24 @@ FROM
     carrier
 ";
 
+
+
+$result = $con->query($sql_get_bill_to_ar);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $bill_to_ar[] = $row;
+  }
+} else {
+  $bill_to_ar = "0 results";
+}
+$result = $con->query($sql_get_billing_des_ar);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $billing_des_ar[] = $row;
+  }
+} else {
+  $billing_des_ar = "0 results";
+}
 $result = $con->query($sql_get_bill_to);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -195,7 +230,9 @@ echo json_encode(array(
     'cs_data'=>$cs_data,
     'sale_data'=>$sale_data,
     'billing_des'=>$billing_des,
-    'billing_bill_to'=>$billing_bill_to
+    'billing_bill_to'=>$billing_bill_to,
+    'billing_des_ar'=>$billing_des_ar,
+    'bill_to_ar'=>$bill_to_ar
   ));
 
 ?>

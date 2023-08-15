@@ -20,7 +20,7 @@ const function_sub_billing = {
 
         
         if(type_account == "AR"){
-            // console.log('555')
+            
             let data_cur = '';
             if($('input[id="radiocurar1"]:checked').val() == 'on'){
                 data_cur = "thb";
@@ -51,35 +51,43 @@ const function_sub_billing = {
 
     add_new_list_ar: function () {
         let html_data_ar = '';
+        let rows_cal = $('.table_billing_ar > tbody >tr ').length
+        rows_cal++;
+        
         html_data_ar = `
-        <tr type_data = "AR">
-            <td><input type="text" class="form-control form-control-sm inp_des_ar inp_des" maxlength="200"></td> <!-- Description -->
-            <td><input type="text" class="form-control form-control-sm inp_billing_to_ar inp_billing_to" maxlength="200"></td> <!-- Bill to -->
-            <td align="center"></td> <!-- Payble -->
-            <td><select class="form-select form-select-sm inp_currency inp_currency_ar" onchange="function_sub_billing.cal_billing_data_vat(this)">
-                    <option value="THB">THB</option>
-                    <option value="USD">USD</option>
-                    <option value="RMB">RMB</option>
-                </select></td> <!-- Currency -->
-            <td><input type="number" class="form-control form-control-sm inp_qty inp_qty_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td> <!-- QTY. -->
-            <td><input type="number" class="form-control form-control-sm inp_unit_price inp_unit_price_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- Unit Price -->
-            <td><input type="number" class="form-control form-control-sm inp_add_on inp_add_on_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- Add on profit -->
-            <td><input type="number" class="form-control form-control-sm inp_amt inp_amt_ar" onchange="function_sub_billing.cal_billing_data_vat(this)" disabled></td><!-- AR AMT -->
-            <td><input type="number" class="form-control form-control-sm inp_vat inp_vat_ar" onchange="function_sub_billing.cal_billing_data_vat(this)"></td><!-- AR VAT% -->
-            <td><input type="number" class="form-control form-control-sm inp_amtincv inp_amtincv_ar" disabled></td><!-- AMT(INCL.vat) -->
-            <td><input type="text" class="form-control form-control-sm inp_remark" maxlength="100"></td><!-- remark -->
-            <td align="center"></td><!-- CHECK -->
-            <td><span class="badge rounded-pill bg-danger" >Unpiad</span></td><!-- PAID -->
-            <td><button class="btn btn-success btn-sm m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm" onclick="function_sub_billing.delete_list(this)">Del</button></td><!-- ACTION -->
-            <td></td><!-- Create by. -->
-            <td></td><!-- Create datetime -->
-            <td></td><!-- Check by. -->
-            <td></td><!-- Check datetime -->
-            <td></td><!-- Paid Check by. -->
-            <td></td><!-- Paid Check datetime -->
-            <td></td><!-- Last update by. -->
-            <td></td><!-- Last update datetime -->
-        </tr>
+        <tr list_id = "" type = "AR">
+                <td class="text-center">${rows_cal}</td> <!-- No -->
+                <td>${sub_billing.html_select_code_billing_ar}</td>
+                <td><input type="text" class="form-control form-control-sm inp_data_item" disabled></td> <!-- item -->
+                <td>${sub_billing.html_select_bill_to_ar}</td>
+                <td align="center"></td> <!-- Payble -->
+                <td><select class="form-select form-select-sm inp_currency_ar ">
+                        <option value="THB">THB</option>
+                        <option value="USD">USD</option>
+                        <option value="RMB">RMB</option>
+                    </select></td> <!-- Currency -->
+                <td><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)" ></td> <!-- QTY. -->
+                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
+                <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
+                <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
+                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+                <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
+                <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
+                <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td>status</td>
+                <td></td><!-- Create by. -->
+                <td></td><!-- Create datetime -->
+                <td></td><!-- Check by. -->
+                <td></td><!-- Check datetime -->
+                <td></td><!-- Paid Check by. -->
+                <td></td><!-- Paid Check datetime -->
+                <td></td><!-- Last update by. -->
+                <td></td><!-- Last update datetime -->
+                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
+            </tr>
         `;
         $('.table_billing_ar > tbody').append(html_data_ar)
     },
@@ -91,7 +99,7 @@ const function_sub_billing = {
         
         
         html_data_ap = `
-        <tr class="text-center ">
+        <tr class="text-center">
                 <td>${rows_cal}</td>
                 <td>${sub_billing.select_billing_des_ap}</td>
                 <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
@@ -249,31 +257,71 @@ const function_sub_billing = {
 
         let get_id = $(get_tr).attr('id_list')
         let get_type = $(get_tr).attr('type')
-        let get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
-        let get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
-        let get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
-        let get_currency = $(get_tr).find('.inp_currency_ap').val()
-        let get_qty = $(get_tr).find('.inp_qty').val()
-        let get_unit_price = $(get_tr).find('.inp_unit_price').val()
-        let get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
-        let get_vat = $(get_tr).find('.inp_vat').val()
-        let get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
-        // Billing Date
-        let get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
-        let get_data_apply = $(get_tr).find('.chb_apply').is(':checked') ? '1' : '0';
-        let get_data_apply_attr = $(get_tr).find('.chb_apply').attr('ischedkedon');
-        let get_remark = $(get_tr).find('.inp_remark_ap').val()
-        let get_check = $(get_tr).find('.chb_check').is(':checked') ? '1' : '0';
-        let get_check_attr = $(get_tr).find('.chb_check').attr('ischeckdone');
-        let get_with_hold = $(get_tr).find('.chb_tax_hold').is(':checked') ? '1' : '0';
-        let get_with_hold_attr = $(get_tr).find('.chb_tax_hold').attr('ischeckwithhold');
-        let get_commit = $(get_tr).find('.inp_commit').val()
-        let currency_main_ap = $('.inp_currency_main_ap').val()
+
+        let get_data_description = '';
+        let get_data_bill_to = '';        
+        let get_data_bill_to_type = '';
+        let get_currency = '';
+        let get_qty = '';
+        let get_unit_price = '';
+        let get_ap_amt = '';
+        let get_vat = '';
+        let get_amt_inc_vat = '';
+        let get_sys_rate = '';
+        let get_data_apply = '';
+        let get_data_apply_attr = '';
+        let get_remark = '';
+        let get_with_hold = '';
+        let get_with_hold_attr = '';
+        let get_commit = '';
+        let currency_main_ap = '';
+        let get_need_vat = '';
+        let get_revd_amt ='';
+        let get_check_attr = '';
+
+        if(get_type == "AP"){
+            get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
+            get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
+            get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
+            get_currency = $(get_tr).find('.inp_currency_ap').val()
+            get_qty = $(get_tr).find('.inp_qty').val()
+            get_unit_price = $(get_tr).find('.inp_unit_price').val()
+            get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
+            get_vat = $(get_tr).find('.inp_vat').val()
+            get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
+            
+            get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
+            get_data_apply = $(get_tr).find('.chb_apply').is(':checked') ? '1' : '0';
+            get_data_apply_attr = $(get_tr).find('.chb_apply').attr('ischedkedon');
+            get_remark = $(get_tr).find('.inp_remark_ap').val()
+            get_check = $(get_tr).find('.chb_check').is(':checked') ? '1' : '0';
+            get_check_attr = $(get_tr).find('.chb_check').attr('ischeckdone');
+            get_with_hold = $(get_tr).find('.chb_tax_hold').is(':checked') ? '1' : '0';
+            get_with_hold_attr = $(get_tr).find('.chb_tax_hold').attr('ischeckwithhold');
+            get_commit = $(get_tr).find('.inp_commit').val()
+            currency_main_ap = $('.inp_currency_main_ap').val()
+        }else{
+            get_data_description = $(get_tr).find('.select_code_billing_ar').val()
+            get_data_bill_to = $(get_tr).find('.select_bill_to_ar').val()
+            get_data_bill_to_type = $(get_tr).find('.select_bill_to_ar :selected').attr('type')
+            get_currency = $(get_tr).find('.inp_currency_ar').val()
+            get_qty = $(get_tr).find('.inp_qty_ar').val()
+            get_unit_price = $(get_tr).find('.inp_unit_price').val()
+            get_ap_amt = $(get_tr).find('.inp_ar_amt').val()
+            get_vat = $(get_tr).find('.inp_vat_ar').val()
+            get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ar').val()
+            
+            get_sys_rate = $(get_tr).find('.inp_sys_rate_ar').val()
+            get_remark = $(get_tr).find('.inp_remark').val()
+
+
+            get_need_vat = $(get_tr).find('.ch_need_vat_ar').is(':checked') ? '1' : '0';
+            get_revd_amt = $(get_tr).find('.ch_revd_amt_ar').is(':checked') ? '1' : '0';
+            get_check = $(get_tr).find('.ch_check_ar').is(':checked') ? '1' : '0';
         
-
-
-    
-
+            
+        }
+        
         obj_save = {
             id_number : id_number,
             get_id : get_id,
@@ -296,10 +344,12 @@ const function_sub_billing = {
             get_with_hold : get_with_hold,
             get_with_hold_attr : get_with_hold_attr,
             get_commit : get_commit,
-            currency_main_ap : currency_main_ap
+            currency_main_ap : currency_main_ap,
+            get_need_vat : get_need_vat,
+            get_revd_amt : get_revd_amt
         }
         arr_save.push(obj_save)
-        console.log(obj_save)
+        console.log(arr_save)
         
 
         return new Promise(function (resolve, reject) {
@@ -383,7 +433,17 @@ const function_sub_billing = {
         });
     },
 
-    
+    change_sub_billing_ar : async function (e){
+        let target = $(e).val()
+        
+        let data_requeset = '';
+        $.each(setting_data_default.data_billing_des_ar,function(i,v){
+            if(target == v['ID']){
+                data_requeset =  v['billing_item_name'];
+            }
+        })
+        $(e).closest('tr').find('.inp_data_item').val(data_requeset)
+    },
 
     change_sub_billing : async function (e){
         let target = $(e).val()
@@ -395,6 +455,25 @@ const function_sub_billing = {
         })
         $(e).closest('tr').find('.inp_des_ap').val(data_requeset)
     },
+
+    billing_ap_function_cal_row_ar : async function(e){
+        
+        let ap_amt = 0;
+        let amt_inc_vat = 0;
+        let data_qty = parseFloat($(e).closest('tr').find('.inp_qty').val())
+        let data_unit_price = parseFloat($(e).closest('tr').find('.inp_unit_price').val())
+        let vat = parseFloat($(e).closest('tr').find('.inp_vat').val())
+
+        ap_amt = data_qty * data_unit_price;
+        amt_inc_vat = (ap_amt*vat/100)+ap_amt
+        ap_amt = ap_amt.toFixed(2)
+        amt_inc_vat = amt_inc_vat.toFixed(2)
+        
+        $(e).closest('tr').find('.inp_ar_amt').val(ap_amt)
+        $(e).closest('tr').find('.inp_amt_inc_vat_ar').val(amt_inc_vat)
+        this.cal_result_ar()
+    },
+
 
     billing_ap_function_cal_row : async function(e){
         
@@ -414,21 +493,85 @@ const function_sub_billing = {
         this.cal_result_ap()
     },
 
+    sys_rate_ar : async function(e){
+        let sys_rate = parseFloat($(e).val());
+        let amt_inc_vat = parseFloat($(e).closest('tr').find('.inp_amt_inc_vat_ap').val())
+        let data_result = 0;
+        sys_rate = sys_rate == NaN ? 0 : sys_rate;
+        amt_inc_vat = amt_inc_vat == NaN ? 0 : amt_inc_vat;
+        
+        
+        data_result = parseFloat(amt_inc_vat*sys_rate )
+        // $('.inp_paid_amt',$(e).closest('tr')).val(data_result)
+        await this.cal_result_ar()
+    },
+
     sys_rate_ap : async function(e){
         let sys_rate = parseFloat($(e).val());
         let amt_inc_vat = parseFloat($(e).closest('tr').find('.inp_amt_inc_vat_ap').val())
         let data_result = 0;
-
-
-        console.log(sys_rate)
-        console.log(amt_inc_vat)
         
         data_result = parseFloat(amt_inc_vat*sys_rate )
         $('.inp_paid_amt',$(e).closest('tr')).val(data_result)
         await this.cal_result_ap()
     },
 
+
+    cal_result_ar : async function(e){
+        
+        
+        let inp_ap_amt =0;
+        let inp_amt_inc_vat_ap = 0;
+        let add_tax = 0;
+
+        let data_obj = {}
+        let data_arr = []
+        $(`.table_billing_ar > tbody > tr`).each(function(i,v){
+
+
+            let data_ar_amt = parseFloat($('.inp_ar_amt',this).val())
+            let data_amt_inc_vat = parseFloat($('.inp_amt_inc_vat_ar',this).val())
+            let sys_rate = parseFloat($('.inp_sys_rate_ar',this).val())
+            data_ar_amt = data_ar_amt === NaN ? 0 : data_ar_amt;
+            data_amt_inc_vat = data_amt_inc_vat != NaN ? data_amt_inc_vat : 0 ;
+            sys_rate = sys_rate == 'NaN' ? 0 : sys_rate;
+
+            
+
+            let keep_amt = data_ar_amt * sys_rate
+            let keep_amt_inc = data_amt_inc_vat * sys_rate
+            
+            data_obj={
+                keep_amt : keep_amt,
+                keep_amt_inc : keep_amt_inc
+            }
+            data_arr.push(data_obj)
+        })
+        
+        $.each(data_arr,function(i,v){
+            let data_keep_amt = v['keep_amt']
+            let data_keep_amt_inc = v['keep_amt_inc']
+
+            inp_ap_amt = inp_ap_amt +data_keep_amt;
+            inp_amt_inc_vat_ap = inp_amt_inc_vat_ap +data_keep_amt_inc;
+        })
+
+
+        add_tax = inp_amt_inc_vat_ap - inp_ap_amt;
+
+        inp_ap_amt = inp_ap_amt.toFixed(2)
+        add_tax = add_tax.toFixed(2)
+        inp_amt_inc_vat_ap = inp_amt_inc_vat_ap.toFixed(2)
+        
+        $('.inp_sub_total_ar').val(inp_ap_amt)
+        $('.inp_vat_inc_ar').val(add_tax)
+        $('.inp_total_ar').val(inp_amt_inc_vat_ap)
+
+    },
+
+
     cal_result_ap : async function(e){
+        
         let find_targer = $(e).find('tbody > tr') 
         let inp_ap_amt =0;
         let inp_amt_inc_vat_ap = 0;
