@@ -8,6 +8,7 @@ SELECT
     bi.*,
     cb.first_name cbfn,
     cb.last_name cbln,
+    cb.brunch,
     ccb.first_name ccbfn,
     ccb.last_name ccbln,
     apb.first_name apbfn,

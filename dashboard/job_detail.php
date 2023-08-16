@@ -18,91 +18,94 @@ require 'function/auth/get_session.php';
 
 </head>
 <style>
-
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
-    }#table_billing_ar td:nth-child(2) select {
+    }#table_billing_ar td:nth-child(2) input {
+        width: 50px;
+    }#table_billing_ar td:nth-child(3) select {
         width: 150px;
-    }#table_billing_ar td:nth-child(3) input {
+    }#table_billing_ar td:nth-child(4) input {
         width: 300px;
-    }#table_billing_ar td:nth-child(4) select {
+    }#table_billing_ar td:nth-child(5) select {
         width: 300px;
-    }#table_billing_ar td:nth-child(6) select {
-        width: 100px;
-    }#table_billing_ar td:nth-child(7) input {
+    }#table_billing_ar td:nth-child(7) select {
         width: 100px;
     }#table_billing_ar td:nth-child(8) input {
-        width: 150px;
+        width: 100px;
     }#table_billing_ar td:nth-child(9) input {
         width: 150px;
     }#table_billing_ar td:nth-child(10) input {
-        width: 100px;
-    }#table_billing_ar td:nth-child(11) input {
         width: 150px;
+    }#table_billing_ar td:nth-child(11) input {
+        width: 100px;
     }#table_billing_ar td:nth-child(12) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(15) input {
-        width: 200px;
-    }#table_billing_ar td:nth-child(26) input {
-        width: 200px;
-    }#table_billing_ar td:nth-child(24) input {
-        width: 200px;
-    }#table_billing_ar td:nth-child(28) input {
+    }#table_billing_ar td:nth-child(13) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(16) input {
         width: 200px;
     }#table_billing_ar td:nth-child(27) input {
         width: 200px;
     }#table_billing_ar td:nth-child(25) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(23) input {
+    }#table_billing_ar td:nth-child(29) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(16) input {
-        width: 150px;
+    }#table_billing_ar td:nth-child(28) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(26) input {
+        width: 200px;
+    }#table_billing_ar td:nth-child(24) input {
+        width: 200px;
     }#table_billing_ar td:nth-child(17) input {
+        width: 150px;
+    }#table_billing_ar td:nth-child(18) input {
         width: 200px;
     }
 
 
 
 
-    #table_billing_ap td:nth-child(1) input {
+    #table_billing_ar td:nth-child(1) input {
         width: 50px;
-    }#table_billing_ap td:nth-child(2) select {
+    }#table_billing_ap td:nth-child(2) input {
+        width: 50px;
+    }#table_billing_ap td:nth-child(3) select {
         width: 150px;
-    }#table_billing_ap td:nth-child(3) input {
+    }#table_billing_ap td:nth-child(4) input {
         width: 300px;
-    }#table_billing_ap td:nth-child(4) select {
+    }#table_billing_ap td:nth-child(5) select {
         width: 300px;
-    }#table_billing_ap td:nth-child(6) select {
-        width: 100px;
-    }#table_billing_ap td:nth-child(7) input {
+    }#table_billing_ap td:nth-child(7) select {
         width: 100px;
     }#table_billing_ap td:nth-child(8) input {
-        width: 150px;
+        width: 100px;
     }#table_billing_ap td:nth-child(9) input {
         width: 150px;
     }#table_billing_ap td:nth-child(10) input {
-        width: 100px;
-    }#table_billing_ap td:nth-child(11) input {
         width: 150px;
+    }#table_billing_ap td:nth-child(11) input {
+        width: 100px;
     }#table_billing_ap td:nth-child(12) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(15) input {
-        width: 200px;
-    }#table_billing_ap td:nth-child(26) input {
-        width: 200px;
-    }#table_billing_ap td:nth-child(24) input {
-        width: 200px;
-    }#table_billing_ap td:nth-child(28) input {
+    }#table_billing_ap td:nth-child(13) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(16) input {
         width: 200px;
     }#table_billing_ap td:nth-child(27) input {
         width: 200px;
     }#table_billing_ap td:nth-child(25) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(23) input {
+    }#table_billing_ap td:nth-child(29) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(16) input {
-        width: 150px;
+    }#table_billing_ap td:nth-child(28) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(26) input {
+        width: 200px;
+    }#table_billing_ap td:nth-child(24) input {
+        width: 200px;
     }#table_billing_ap td:nth-child(17) input {
+        width: 150px;
+    }#table_billing_ap td:nth-child(18) input {
         width: 200px;
     }
 
@@ -1207,13 +1210,24 @@ require 'function/auth/get_session.php';
                 <div class="tab-pane fade show active " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
-                            <h4>Account Payble</h4>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6">
+                                    <h4>Account Payble</h4>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6">
+                                    <div class="text-end">
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="bd-example table-responsive">
                                 <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
                                     <thead>
                                         <tr class="text-center">
+                                            <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
                                             <th>No</th>
                                             <th>Code</th>
                                             <th>Item</th>
@@ -1342,6 +1356,7 @@ require 'function/auth/get_session.php';
                                 <table class="table table-hover table_billing_ar" id="table_billing_ar" >
                                     <thead>
                                         <tr class="text-center">
+                                            <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ar')">all</button></th>
                                             <th>No.</th>
                                             <th>Code</th>
                                             <th>Item</th>
@@ -1361,7 +1376,6 @@ require 'function/auth/get_session.php';
                                             <th>Check</th>
                                             <th>staus</th>
                                             <th>branch</th>
-                                            <th>status</th>
                                             <th>creater</th>
                                             <th>create date</th>
                                             <th>last modifier</th>
@@ -1437,7 +1451,7 @@ require 'function/auth/get_session.php';
                                     <div class="col-lg-9 col-xl-8 col-md-6"></div>
                                     <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
                                     <div class="col-lg-2 col-xl-2 col-md-3 text-end">
-                                        <select class="form-select form-select-sm inp_currency_ar">
+                                        <select class="form-select form-select-sm inp_currency_main_ar">
                                             <option value="THB">THB</option>
                                             <option value="USD">USD</option>
                                             <option value="RMB">RMB</option>

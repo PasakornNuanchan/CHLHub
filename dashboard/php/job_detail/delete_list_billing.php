@@ -5,16 +5,7 @@ include '../../core/con_path.php';
 $delete_list = $_POST['id_number'];
 
 $sql_query_data = "
-UPDATE
-    `billing`
-SET
-    `status` = '2',
-    `delete_date_time` = '$t_time_save',
-    `delete_by` = '$data_user',
-    `last_update_by` = '$data_user',
-    `last_update_datetime` = '$t_time_save'
-WHERE
-    ID = '$delete_list'
+DELETE FROM `billing` WHERE ID = '$delete_list'
 ";
 
 $result = $con->query($sql_query_data);

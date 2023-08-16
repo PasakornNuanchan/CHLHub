@@ -29,11 +29,12 @@ $get_data_apply_attr = isset($v['get_data_apply_attr']) ? $v['get_data_apply_att
 $get_check_attr = isset($v['get_check_attr']) ? $v['get_check_attr'] : '';
 $get_with_hold_attr = isset($v['get_with_hold_attr']) ? $v['get_with_hold_attr'] : '';
 $need_vat = isset($v['get_need_vat']) ? $v['get_need_vat'] : '';
-
+$revd_amt = isset($v['get_revd_amt']) ? $v['get_revd_amt'] : '';
+// case update
 if($get_data_apply_attr == '1'){
     $data_create_date ='';
 }else{
-    if($get_data_apply == '1'){
+    if($get_data_apply == '1' || $revd_amt == '1'){
         $data_create_date = "
         `action_paid_date_time` = '$t_time_save',
         `action_paid_by` = '$data_user',
@@ -78,8 +79,11 @@ if($get_with_hold_attr == '1'){
     }
 }
 
-
+// insert case
 if($get_data_apply == 1){
+    $apply_by = "'".$data_user."'";
+    $apply_date_time = "'".$t_time_save."'";
+}else if($revd_amt == 1){
     $apply_by = "'".$data_user."'";
     $apply_date_time = "'".$t_time_save."'";
 }else{
@@ -105,98 +109,55 @@ if($get_with_hold == 1){
     
 
 
-    // if($get_id_data != ''){
-    //     if($get_type == "AR"){
-    //         $sql_query_data = "
-    //         UPDATE
-    //             `billing`
-    //         SET
-    //             `billing_description` = '$get_description',
-    //             `bill_to` = '$inp_billing_to',
-    //             `currency` = '$inp_currency',
-    //             `qty` = '$inp_qty',
-    //             `unit_price` = '$inp_unit_price',
-    //             `amount` = '$inp_amt',
-    //             `vat` = '$inp_vat',
-    //             `amtinclvat` = '$inp_amtincv',
-    //             `remark` = '$inp_remark',
-    //             `type` = '$get_type',
-    //             `status` = '0',
-    //             `ref_job_id` = '$id_number',
-    //             `add_on` = '$inp_add_on',
-    //             `last_update_by` = '$data_user',
-    //             `last_update_datetime` = '$t_time_save'
-    //         WHERE
-    //             ID = '$get_id_data'
-    //         ";
-    //     }else if($get_type == "AP"){
-    //         $sql_query_data = "
-    //         UPDATE
-    //             `billing`
-    //         SET
-    //             `billing_description` = '$get_data_description',
-    //             `bill_to_type` = '$get_data_bill_to_type',
-    //             `bill_to` = '$get_data_bill_to',
-    //             `currency` = '$get_currency',
-    //             `qty` = '$get_qty',
-    //             `unit_price` = '$get_unit_price',
-    //             `vat` = '$get_vat',
-    //             `remark` = '$get_remark',
-    //             $data_create_date
-    //             $data_check_date
-    //             `last_update_by` = '$data_user',
-    //             `last_update_datetime` = '$t_time_save',
-    //             `sys_rate` = '$get_sys_rate',
-    //             `commit_sale` = $get_commit,
-    //             $data_with_hold_date
-    //             `currency_main` = '$currency_main_ap'
-    //         WHERE
-    //             `ID` = '$get_id'
-    //         ";
-    //     }
+    if($get_id != ''){
+        if($get_type == "AR"){
+            $sql_query_data = "
+            UPDATE
+                `billing`
+            SET
+                `billing_description` = '$get_data_description',
+                `bill_to_type` = '$get_data_bill_to_type',
+                `bill_to` = '$get_data_bill_to',
+                `currency` = '$get_currency',
+                `qty` = '$get_qty',
+                `unit_price` = '$get_unit_price',
+                `vat` = '$get_vat',
+                `remark` = '$get_remark',
+                $data_create_date
+                $data_check_date
+                `last_update_by` = '$data_user',
+                `last_update_datetime` = '$t_time_save',
+                `sys_rate` = '$get_sys_rate',
+                `currency_main` = '$currency_main_ap'
+            WHERE
+                `ID` = '$get_id'
+            ";
+        }else if($get_type == "AP"){
+            $sql_query_data = "
+            UPDATE
+                `billing`
+            SET
+                `billing_description` = '$get_data_description',
+                `bill_to_type` = '$get_data_bill_to_type',
+                `bill_to` = '$get_data_bill_to',
+                `currency` = '$get_currency',
+                `qty` = '$get_qty',
+                `unit_price` = '$get_unit_price',
+                `vat` = '$get_vat',
+                `remark` = '$get_remark',
+                $data_create_date
+                $data_check_date
+                `last_update_by` = '$data_user',
+                `last_update_datetime` = '$t_time_save',
+                `sys_rate` = '$get_sys_rate',
+                `currency_main` = '$currency_main_ap'
+            WHERE
+                `ID` = '$get_id'
+            ";
+        }
         
-    // }else{
-    //     if($get_type == "AR"){
-    //         $sql_query_data = "
-    //         INSERT INTO `billing`(
-    //             `billing_description`,
-    //             `bill_to`,
-    //             `currency`,
-    //             `qty`,
-    //             `unit_price`,
-    //             `amount`,
-    //             `vat`,
-    //             `amtinclvat`,
-    //             `remark`,
-    //             `type`,
-    //             `create_data_time`,
-    //             `create_by`,
-    //             `status`,
-    //             `ref_job_id`,
-    //             `add_on`,
-    //             `last_update_by`,
-    //             `last_update_datetime`
-    //         )
-    //         VALUES(
-    //             '$get_description',
-    //             '$inp_billing_to',
-    //             '$inp_currency',
-    //             '$inp_qty',
-    //             '$inp_unit_price',
-    //             '$inp_amt',
-    //             '$inp_vat',
-    //             '$inp_amtincv',
-    //             '$inp_remark',
-    //             '$get_type',
-    //             '$t_time_save',
-    //             '$data_user',
-    //             '0',
-    //             '$id_number',
-    //             '$inp_add_on',
-    //             '$data_user',
-    //             '$t_time_save'
-    //         )
-    //         ";
+    }else{
+        if($get_type == "AR"){
 
             $sql_query_data = "
             INSERT INTO `billing`(
@@ -248,61 +209,61 @@ if($get_with_hold == 1){
 
             )
             ";
-        // }else if($get_type == "AP"){
-        //   $sql_query_data = "
-        //     INSERT INTO `billing`(
-        //         `billing_description`,
-        //         `bill_to_type`,
-        //         `bill_to`,
-        //         `currency`,
-        //         `qty`,
-        //         `unit_price`,
-        //         `vat`,
-        //         `remark`,
-        //         `type`,
-        //         `create_data_time`,
-        //         `create_by`,
-        //         `action_paid_by`,
-        //         `action_paid_date_time`,
-        //         `check_by`,
-        //         `check_date_time`,
-        //         `ref_job_id`,
-        //         `last_update_by`,
-        //         `last_update_datetime`,
-        //         `sys_rate`,
-        //         `tax_with_hold_by`,
-        //         `commit_sale`,
-        //         `tax_with_hold_date_time`,
-        //         `currency_main`
-        //     )
-        //     VALUES(
-        //         '$get_data_description',
-        //         '$get_data_bill_to_type',
-        //         '$get_data_bill_to',
-        //         '$get_currency',
-        //         '$get_qty',
-        //         '$get_unit_price',
-        //         '$get_vat',
-        //         '$get_remark',
-        //         '$get_type',
-        //         '$t_time_save',
-        //         '$data_user',
-        //         $apply_by,
-        //         $apply_date_time,
-        //         $check_by,
-        //         $check_date_time,
-        //         '$id_number',
-        //         '$data_user',
-        //         '$t_time_save',
-        //         '$get_sys_rate',
-        //         $tax_with_hold_by,
-        //         $get_commit,
-        //         $tax_with_hold_time,
-        //         '$currency_main_ap'
-        //     )
-        //     ";
-        // }
-    // }
+        }else if($get_type == "AP"){
+          $sql_query_data = "
+            INSERT INTO `billing`(
+                `billing_description`,
+                `bill_to_type`,
+                `bill_to`,
+                `currency`,
+                `qty`,
+                `unit_price`,
+                `vat`,
+                `remark`,
+                `type`,
+                `create_data_time`,
+                `create_by`,
+                `action_paid_by`,
+                `action_paid_date_time`,
+                `check_by`,
+                `check_date_time`,
+                `ref_job_id`,
+                `last_update_by`,
+                `last_update_datetime`,
+                `sys_rate`,
+                `tax_with_hold_by`,
+                `commit_sale`,
+                `tax_with_hold_date_time`,
+                `currency_main`
+            )
+            VALUES(
+                '$get_data_description',
+                '$get_data_bill_to_type',
+                '$get_data_bill_to',
+                '$get_currency',
+                '$get_qty',
+                '$get_unit_price',
+                '$get_vat',
+                '$get_remark',
+                '$get_type',
+                '$t_time_save',
+                '$data_user',
+                $apply_by,
+                $apply_date_time,
+                $check_by,
+                $check_date_time,
+                '$id_number',
+                '$data_user',
+                '$t_time_save',
+                '$get_sys_rate',
+                $tax_with_hold_by,
+                $get_commit,
+                $tax_with_hold_time,
+                '$currency_main_ap'
+            )
+            ";
+        }
+    }
  echo $sql_query_data;
 // $result = $con->query($sql_query_data);
 // if ($result->num_rows == 0) {
@@ -314,7 +275,3 @@ if($get_with_hold == 1){
 
 // echo json_encode(array('arr_res'=>$arr_res));
 }
-
-
-
-?>
