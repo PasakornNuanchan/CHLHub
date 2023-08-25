@@ -44,6 +44,7 @@ const job_detail = {
             await sub_transport.first_post_data(id_number);
             await sub_reportcs.first_post_data(id_number);
             await sub_customs.first_post_data(id_number);
+            await sub_bl.first_post_data(id_number);
             await sub_billing.first_post_data_ar(id_number);
             await sub_billing.first_post_data_ap(id_number);
             await sub_withdraw.first_post_data(id_number);

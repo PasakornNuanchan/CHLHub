@@ -65,6 +65,8 @@ $id_number = $_POST['id_number'];
         $mbl = isset($v['mbl']) ? $v['mbl'] : '';
         $hbl = isset($v['hbl']) ? $v['hbl'] : '';
         $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
+        $commodity = isset($v['commodity']) ? $v['commodity'] : '';
+        $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
         
         
         $eta = $v['eta'];
@@ -105,7 +107,9 @@ $id_number = $_POST['id_number'];
             `remark` = '$remark',
             `booking_agent` = '$booking_agent',
             `sale_support` = $sale_data_user,
-            `cs_support` = $cs_data_user
+            `cs_support` = $cs_data_user,
+            `commodity` = '$commodity',
+            `delivery_place` = '$delivery_place'
         WHERE
             id = '$id_number'
             ";

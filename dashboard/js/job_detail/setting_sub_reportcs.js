@@ -94,6 +94,7 @@ const sub_reportcs = {
         let ats = res_data['get_data_status']['shipping_ass'] ? res_data['get_data_status']['shipping_ass'] : '';
         let clearlance_success = res_data['get_data_status']['Cus_suc_datetime'] ? res_data['get_data_status']['Cus_suc_datetime'] : '';
         let delivery = res_data['get_data_status']['delivery_date'] ? res_data['get_data_status']['delivery_date'] : '';
+        let import_entry = res_data['get_data_status']['do_number'] ? res_data['get_data_status']['do_number'] : '';
         
         
         $('.inp_pick_do').val(pickup_do)
@@ -103,12 +104,14 @@ const sub_reportcs = {
         $('.inp_ats').val(ats)
         $('.inp_clearlance_success').val(clearlance_success).attr('disabled',true)
         $('.inp_delivery').val(delivery).attr('disabled',true)
+        $('.inp_import_entry').val(import_entry)
 
         $('.btn_pick_do').attr('onclick',`function_sub_reportcs.update_document_date('do')`)
         $('.btn_check_doc').attr('onclick',`function_sub_reportcs.update_document_date('cd')`)
         $('.btn_enter').attr('onclick',`function_sub_reportcs.update_document_date('en')`)
-        $('.btn_clear_date').attr('onclick',`function_sub_reportcs.update_document_date('clear')`)
+        $('.btn_clear_date').attr('onclick',`function_sub_reportcs.update_clearance()`)
         $('.btn_ats').attr('onclick',`function_sub_reportcs.update_shipping_data()`)
+        $('.btn_import_ent').attr('onclick',`function_sub_reportcs.update_import_entry()`)
     },
 
 

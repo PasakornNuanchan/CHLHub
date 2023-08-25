@@ -223,6 +223,95 @@ const function_sub_reportcs = {
             });
         });
     },
+
+    update_import_entry : async function(){
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        let ats_data = $('.inp_import_entry').val()
+        
+        let res_data = await this.ajax_update_import_entry(ats_data,id_number);
+
+        if(res_data['arr_res'] == '1'){
+            await Swal.fire(
+                'Save it!',
+                'Your file has been deleted.',
+                'success'
+              )
+            await sub_reportcs.first_post_data(id_number)
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System error plese contact to tech team',
+              })
+        }
+
+    },
+
+    ajax_update_import_entry: async function (ats_data,id_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/update_status_import_entry.php",
+                data: {
+                    ats_data: ats_data,
+                    id_number: id_number,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    update_clearance : async function(){
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        let ats_data = $('.inp_clearance_date').val()
+        
+        let res_data = await this.ajax_update_clearance(ats_data,id_number);
+
+        if(res_data['arr_res'] == '1'){
+            await Swal.fire(
+                'Save it!',
+                'Your file has been deleted.',
+                'success'
+              )
+            await sub_reportcs.first_post_data(id_number)
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System error plese contact to tech team',
+              })
+        }
+
+    },
+
+    ajax_update_clearance : async function (ats_data,id_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/update_status_update_clearance.php",
+                data: {
+                    ats_data: ats_data,
+                    id_number: id_number,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+
+
+
+
 }
 async function convert_file(data) {
 

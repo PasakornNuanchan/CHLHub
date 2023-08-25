@@ -78,7 +78,8 @@ SELECT
     jt.enter_date,
     jt.pickup_DO_date,
     jt.shipping_ass,
-    js.Cus_suc_datetime
+    js.Cus_suc_datetime,
+    jt.do_number
 FROM
     job_title jt
     LEFT join job_status js ON jt.ID = js.ref_job_id

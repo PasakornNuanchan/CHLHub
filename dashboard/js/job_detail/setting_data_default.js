@@ -69,6 +69,7 @@ const setting_data_default = {
                 sale_data_user +=`<option value="${v['ID']}">${v['first_name']+' '+v['last_name']}</option>`;
             })
             $('.inp_sale_user').append(sale_data_user)
+            
         }
         
 
@@ -77,6 +78,7 @@ const setting_data_default = {
                 shipper_data +=`<option value="${v['ID']}">${v['shipper_name']}</option>`;
             })
             $('#shipper_db').append(shipper_data)
+            
         }
 
 
@@ -92,6 +94,7 @@ const setting_data_default = {
                 consingee_data +=`<option value="${v['ID']}">${v['consignee_name']}</option>`;
             })
             $('#consginee_db').append(consingee_data)
+            
         }
 
         if(res_data_default['carrier_data'] != "0 results"){
@@ -109,6 +112,13 @@ const setting_data_default = {
             $('#area_datal').append(area_data)
             $('#area_datat').append(area_data)
             $('#area_datad').append(area_data)
+
+            $('.bl_por').append(area_data)
+            $('.bl_pol').append(area_data)
+            $('.bl_pod').append(area_data)
+            $('.bl_pode').append(area_data)
+
+
         }
         
         if(res_data_default['cargo_data'] != "0 results"){
@@ -130,6 +140,7 @@ const setting_data_default = {
                 container_type_data +=`<option value="${v['container_type_name']}">${v['container_type_name']} (${v['container_type_full_name']})</option>`;
             })
             $('#container_type_data').append(container_type_data)
+            $('.bl_container_type').append(container_type_data)
         }
 
       // transport

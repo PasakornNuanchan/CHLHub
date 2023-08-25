@@ -20,45 +20,85 @@ require 'function/auth/get_session.php';
 <style>
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
-    }#table_billing_ar td:nth-child(2) input {
+    }
+
+    #table_billing_ar td:nth-child(2) input {
         width: 50px;
-    }#table_billing_ar td:nth-child(3) select {
+    }
+
+    #table_billing_ar td:nth-child(3) select {
         width: 150px;
-    }#table_billing_ar td:nth-child(4) input {
+    }
+
+    #table_billing_ar td:nth-child(4) input {
         width: 300px;
-    }#table_billing_ar td:nth-child(5) select {
+    }
+
+    #table_billing_ar td:nth-child(5) select {
         width: 300px;
-    }#table_billing_ar td:nth-child(7) select {
+    }
+
+    #table_billing_ar td:nth-child(7) select {
         width: 100px;
-    }#table_billing_ar td:nth-child(8) input {
+    }
+
+    #table_billing_ar td:nth-child(8) input {
         width: 100px;
-    }#table_billing_ar td:nth-child(9) input {
+    }
+
+    #table_billing_ar td:nth-child(9) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(10) input {
+    }
+
+    #table_billing_ar td:nth-child(10) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(11) input {
+    }
+
+    #table_billing_ar td:nth-child(11) input {
         width: 100px;
-    }#table_billing_ar td:nth-child(12) input {
+    }
+
+    #table_billing_ar td:nth-child(12) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(13) input {
+    }
+
+    #table_billing_ar td:nth-child(13) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(16) input {
+    }
+
+    #table_billing_ar td:nth-child(16) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(27) input {
+    }
+
+    #table_billing_ar td:nth-child(27) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(25) input {
+    }
+
+    #table_billing_ar td:nth-child(25) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(29) input {
+    }
+
+    #table_billing_ar td:nth-child(29) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(28) input {
+    }
+
+    #table_billing_ar td:nth-child(28) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(26) input {
+    }
+
+    #table_billing_ar td:nth-child(26) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(24) input {
+    }
+
+    #table_billing_ar td:nth-child(24) input {
         width: 200px;
-    }#table_billing_ar td:nth-child(17) input {
+    }
+
+    #table_billing_ar td:nth-child(17) input {
         width: 150px;
-    }#table_billing_ar td:nth-child(18) input {
+    }
+
+    #table_billing_ar td:nth-child(18) input {
         width: 200px;
     }
 
@@ -67,51 +107,91 @@ require 'function/auth/get_session.php';
 
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
-    }#table_billing_ap td:nth-child(2) input {
+    }
+
+    #table_billing_ap td:nth-child(2) input {
         width: 50px;
-    }#table_billing_ap td:nth-child(3) select {
+    }
+
+    #table_billing_ap td:nth-child(3) select {
         width: 150px;
-    }#table_billing_ap td:nth-child(4) input {
+    }
+
+    #table_billing_ap td:nth-child(4) input {
         width: 300px;
-    }#table_billing_ap td:nth-child(5) select {
+    }
+
+    #table_billing_ap td:nth-child(5) select {
         width: 300px;
-    }#table_billing_ap td:nth-child(7) select {
+    }
+
+    #table_billing_ap td:nth-child(7) select {
         width: 100px;
-    }#table_billing_ap td:nth-child(8) input {
+    }
+
+    #table_billing_ap td:nth-child(8) input {
         width: 100px;
-    }#table_billing_ap td:nth-child(9) input {
+    }
+
+    #table_billing_ap td:nth-child(9) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(10) input {
+    }
+
+    #table_billing_ap td:nth-child(10) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(11) input {
+    }
+
+    #table_billing_ap td:nth-child(11) input {
         width: 100px;
-    }#table_billing_ap td:nth-child(12) input {
+    }
+
+    #table_billing_ap td:nth-child(12) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(13) input {
+    }
+
+    #table_billing_ap td:nth-child(13) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(16) input {
+    }
+
+    #table_billing_ap td:nth-child(16) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(27) input {
+    }
+
+    #table_billing_ap td:nth-child(27) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(25) input {
+    }
+
+    #table_billing_ap td:nth-child(25) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(29) input {
+    }
+
+    #table_billing_ap td:nth-child(29) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(28) input {
+    }
+
+    #table_billing_ap td:nth-child(28) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(26) input {
+    }
+
+    #table_billing_ap td:nth-child(26) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(24) input {
+    }
+
+    #table_billing_ap td:nth-child(24) input {
         width: 200px;
-    }#table_billing_ap td:nth-child(17) input {
+    }
+
+    #table_billing_ap td:nth-child(17) input {
         width: 150px;
-    }#table_billing_ap td:nth-child(18) input {
+    }
+
+    #table_billing_ap td:nth-child(18) input {
         width: 200px;
     }
 
 
 
-    
+
 
     #table_container_module_setting_width td:nth-child(2) select {
         width: 200px;
@@ -176,7 +256,10 @@ require 'function/auth/get_session.php';
                             <button class="nav-link rounded" id="customs_tab" data-bs-toggle="pill" data-bs-target="#customs_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Customs</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded" id="billing_tab" data-bs-toggle="pill" data-bs-target="#billing_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Billing</button>
+                            <button class="nav-link rounded" id="bl_tab" data-bs-toggle="pill" data-bs-target="#bl_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Bill of Lading</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded" id="billing_tab" data-bs-toggle="pill" data-bs-target="#billing_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Invoice</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="withdraw_tab" data-bs-toggle="pill" data-bs-target="#withdraw_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Withdraw</button>
@@ -184,11 +267,18 @@ require 'function/auth/get_session.php';
                     </ul>
                 </div>
             </div>
-            <div class="tab-content" id="pills-tabContent" >
-                <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
                     <div class="card p-4">
                         <div class="card-header">
-                            <h4>Job Detail</h4>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                    <h4>Job Detail</h4>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-end">
+                                    <!-- <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.generate_first_bl()">test</button> -->
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
 
@@ -294,6 +384,13 @@ require 'function/auth/get_session.php';
                                             <input type="text" class="form-control form-control-sm inp_feeder_vessel" maxlength="60">
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Commodity:</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                            <textarea class="form-control inp_commodity" id="exampleFormControlTextarea1" rows="5" maxlength="600"></textarea>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="form-group row">
@@ -330,11 +427,11 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Description:</label>
                                         <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_cargo_des" disabled maxlength="200">
+                                            <input type="text" class="form-control form-control-sm inp_cargo_des" maxlength="200">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Single CNTR weight :</label>
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Tare weight :</label>
                                         <div class="col-sm-9 col-md-5 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_scntrw_container">
                                         </div>
@@ -369,7 +466,7 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
                                         <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_remark_container" disabled maxlength="400">
+                                            <input type="text" class="form-control form-control-sm inp_remark_container" maxlength="400">
                                         </div>
                                     </div>
                                     <hr>
@@ -379,6 +476,13 @@ require 'function/auth/get_session.php';
                                             <select class="form-select form-select-sm inp_booking_agent" id="agent_data">
                                                 <option value="">-- pleses select agent booking --</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Delivery place:</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                            <input type="text" class="form-control form-control-sm inp_delivery_place" maxlength="60">
                                         </div>
                                     </div>
                                 </div>
@@ -462,12 +566,12 @@ require 'function/auth/get_session.php';
                                             <th>No.</th>
                                             <th>Container Type</th>
                                             <th>Container Number</th>
-                                            <th>Cargo Description</th>
-                                            <th>SINGLE CNT WEIGHT</th>
+                                            <th>Seal Number</th>
+                                            <th>Tare WEIGHT</th>
                                             <th>Package</th>
                                             <th>G.W</th>
                                             <th>Volume</th>
-                                            <th>Seal Number</th>
+                                            <th>VGM</th>
                                             <th>CY</th>
                                             <th>RTN</th>
                                             <th>Remark</th>
@@ -476,14 +580,14 @@ require 'function/auth/get_session.php';
                                     <tbody>
                                         <tr>
                                             <td class="text-center" container_data_q>1</td>
-                                            <td><select class="form-select form-select-sm inp_container_type" id="container_type_data" disabled>
+                                            <td><select class="form-select form-select-sm inp_container_type" id="container_type_data" disabled> 
                                                     <option value="">-- pleses select container type --</option>
                                                 </select></td>
                                             <td><input type="text" class="form-control form-control-sm text-center"></td>
                                             <td><input type="text" class="form-control form-control-sm text-center text-center"></td>
-                                            <td><input type="text" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
-                                            <td><input type="text" class="form-control form-control-sm text-center"></td>
+                                            <td><input type="number" class="form-control form-control-sm text-center"></td>
+                                            <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="text" class="form-control form-control-sm text-center"></td>
@@ -854,6 +958,19 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Import Entry: *</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_import_entry">
+                                        </div>
+                                        <div class="col-lg-1 col-md-1">
+                                            <button class="btn btn-success btn-sm btn_import_ent">confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Clearlance Date: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
@@ -901,6 +1018,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1207,7 +1325,272 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show active " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
+                <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
+                    <div class="row">
+                        <div class=" col-xl-7 col-lg-7">
+                            <div class="card p-4">
+                                <div class="card-header">
+                                    <h4>Bill of Landing</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Shipper : </label>
+                                            <div class="col">
+                                                <textarea class="form-control inp_bl_shipping" id="exampleFormControlTextarea1" rows="5" maxlength="400"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Consignee : </label>
+                                            <div class="col">
+                                                <textarea class="form-control inp_bl_consingee" id="exampleFormControlTextarea1" rows="5" maxlength="400"></textarea>
+                                                <!-- <select class="form-select form-select-sm bl_consignee_page inp_bl_consingee" disabled>
+                                                    <option value="">select shipper</option>
+                                                </select> -->
+                                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.address_consignee()"> address consignee</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Notify Party : </label>
+                                            <div class="col">
+                                                <textarea class="form-control inp_notify_bl" id="exampleFormControlTextarea1" rows="5" maxlength="400"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Pre-Carriage By : </label>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm inp_pre_carriage">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of Receipt : </label>
+                                            <div class="col">
+                                                <select class="form-select form-select-sm bl_por inp_bl_por" disabled>
+                                                    <option value="select place of receipt"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of loading : </label>
+                                            <div class="col">
+                                                <select class="form-select form-select-sm bl_pol inp_bl_pol" disabled>
+                                                    <option value="select port of lading"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of Discharge : </label>
+                                            <div class="col">
+                                                <select class="form-select form-select-sm bl_pod inp_bl_pod" disabled>
+                                                    <option value="select port of discharge"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of delivery : </label>
+                                            <div class="col">
+                                                <select class="form-select form-select-sm bl_pode inp_bl_pode" disabled>
+                                                    <option value="select place of delivery"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Vessel : </label>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm inp_mother_vessel" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="card p-4 ">
+                                <div class="card-header">
+
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="form-group mt-4">
+                                        <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">Bill header : </label>
+                                            <div class="col">
+                                                <select class="form-select form-select-sm inp_bill_header_bl">
+                                                    <option value="">Select bill header</option>
+                                                    <option value="CHL">CHINA HIGHWIN LIMITED</option>
+                                                    <option value="THS">TH SHIPPING CONTAINER LINE</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">Delivery Agent : </label>
+                                            <div class="col">
+                                                <textarea class="form-control inp_delivery_agent_bl" id="exampleFormControlTextarea1" rows="4"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">shipper on board : </label>
+                                            <div class="col">
+                                                <input type="date" class="form-control form-control-sm inp_shipper_on_board">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">No. of Original B(s)/L : </label>
+                                            <div class="col">
+                                                <input type="number" class="form-control form-control-sm inp_bl_number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <h4>Bill of lading detail</h4>
+                                <div class="bd-example table-responsive">
+                                    <table class="table table-hover table_detail_bl">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th row="2">Container No. & Seal No. Marks and Number</th>
+                                                <th>No.of Container or package</th>
+                                                <th>Kind of package; Description of goods</th>
+                                                <th>Gross Weight</th>
+                                                <th>Measurement</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><textarea class="form-control inp_container_no_and_seal" id="exampleFormControlTextarea1" rows="4"></textarea></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_container_or_package"></td>
+                                                <td><textarea class="form-control inp_kind_of_package" id="exampleFormControlTextarea1" rows="4"></textarea></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_gross_Weight"></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_mesurement"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <button class="btn btn-outline-primary btn-sm col-xl-12 col-lg-12 col-md-12 col-sx-12" onclick="function_sub_bl.add_detail_bl()">Add detail</button> -->
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <h4>Container</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="bd-example table-responsive">
+                                    <table class="table table-hover table_container_bl">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Container number</th>
+                                                <th>Contianer type</th>
+                                                <th>Seal number</th>
+                                                <th>Quantity</th>
+                                                <th>Unit</th>
+                                                <th>Weight</th>
+                                                <th>CBM</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control form-control-sm"></td>
+                                                <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type">
+                                                        <option value="">select container type</option>
+                                                    </select></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_quantity_bl"></td>
+                                                <td>
+                                                    <select class="form-select form-select-sm inp_unit_bl">
+                                                        <option value="BAGS">BAGS</option>
+                                                        <option value="BALES">BALES</option>
+                                                        <option value="BOXES">BOXES</option>
+                                                        <option value="BUNDLES">BUNDLES</option>
+                                                        <option value="CANS">CANS</option>
+                                                        <option value="CATRONS">CATRONS</option>
+                                                        <option value="CASES">CASES</option>
+                                                        <option value="CRATES">CRATES</option>
+                                                        <option value="CARTON">CARTON</option>
+                                                        <option value="CTNS">CTNS</option>
+                                                        <option value="DOZENS">DOZENS</option>
+                                                        <option value="DRUMS">DRUMS</option>
+                                                        <option value="LOTS">LOTS</option>
+                                                        <option value="PACKAGES">PACKAGES</option>
+                                                        <option value="PAIRS">PAIRS</option>
+                                                        <option value="PALLET(S)">PALLET(S)</option>
+                                                        <option value="PAPER PLTS">PAPER PLTS</option>
+                                                        <option value="PCS">PCS</option>
+                                                        <option value="PIECES">PIECES</option>
+                                                        <option value="PKGS">PKGS</option>
+                                                        <option value="PLASTIC PLTS">PLASTIC PLTS</option>
+                                                        <option value="PLTS">PLTS</option>
+                                                        <option value="PLYWOOD CASE(S)">PLYWOOD CASE(S)</option>
+                                                        <option value="RACKS">RACKS</option>
+                                                        <option value="REELS">REELS</option>
+                                                        <option value="ROLLS">ROLLS</option>
+                                                        <option value="SACKS">SACKS</option>
+                                                        <option value="SETS">SETS</option>
+                                                        <option value="SHEET">SHEET</option>
+                                                        <option value="STEEL CASES">STEEL CASES</option>
+                                                        <option value="TANKS">TANKS</option>
+                                                        <option value="TINS">TINS</option>
+                                                        <option value="TRAYS">TRAYS</option>
+                                                        <option value="UNIT">UNIT</option>
+                                                        <option value="CREATE">W/CREATE</option>
+                                                        <option value="WOODEN CASES">WOODEN CASES</option>
+                                                    </select>
+                                                    <!-- <input type="text" class="form-control form-control-sm inp_unit_bl"> -->
+                                                </td>
+                                                <td><input type="text" class="form-control form-control-sm"></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_cbm_bl"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-header">
+
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Description : </label>
+                                        <div class="col">
+                                            <textarea class="form-control inp_description_of_good" id="exampleFormControlTextarea1" rows="12" maxlength="400"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl()">Generate BL</button>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line()">Generate BL With line</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">
@@ -1216,6 +1599,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
                                     <div class="text-end">
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
                                     </div>
@@ -1268,7 +1652,7 @@ require 'function/auth/get_session.php';
                                             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
                                             <td><select class="form-select form-select-sm inp_billing_to_ap">
                                                     <option value="">-- please select bill to</option>
-                                            </select></td> <!-- Bill to -->
+                                                </select></td> <!-- Bill to -->
                                             <td>
                                                 <div class="paid_status"></div>
                                             </td> <!-- Payble -->
@@ -1348,12 +1732,24 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                     <div class="card p-4">
-                        <div class="card-header">
-                            <h4>Account Receivable</h4>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6">
+                                <h4>Account Receivable</h4>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6">
+                                <div class="text-end">
+                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
+                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
+                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
+                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
+                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
+
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="bd-example table-responsive">
-                                <table class="table table-hover table_billing_ar" id="table_billing_ar" >
+                                <table class="table table-hover table_billing_ar" id="table_billing_ar">
                                     <thead>
                                         <tr class="text-center">
                                             <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ar')">all</button></th>
@@ -1371,6 +1767,7 @@ require 'function/auth/get_session.php';
                                             <th>Billing Date</th>
                                             <th>Sys rate</th>
                                             <th>Need Vat</th>
+                                            <th>With hold (%)</th>
                                             <th>Rcvd Amt</th>
                                             <th>Remark</th>
                                             <th>Check</th>
@@ -1407,12 +1804,12 @@ require 'function/auth/get_session.php';
                                         <tr>
                                             <td>test</td> <!-- No -->
                                             <td><select class="form-select form-select-sm select_code_billing_ar" onchange="function_sub_billing.change_sub_billing_ar(this)"> <!-- Code -->
-                                                <option value="">-- pleas select code --</option>
-                                            </select></td>
+                                                    <option value="">-- pleas select code --</option>
+                                                </select></td>
                                             <td><input type="text" class="form-control form-control-sm"></td> <!-- item -->
                                             <td><select class="form-select form-select-sm select_bill_to_ar"> <!-- bill to -->
-                                                <option value="">-- please select bill to --</option>
-                                            </select></td>
+                                                    <option value="">-- please select bill to --</option>
+                                                </select></td>
                                             <td align="center"></td> <!-- Payble -->
                                             <td><select class="form-select form-select-sm">
                                                     <option value="THB">THB</option>
@@ -1428,7 +1825,7 @@ require 'function/auth/get_session.php';
                                             <td><input type="text" class="form-control form-control-sm"></td><!-- sysrate -->
                                             <td><input type="checkbox" class="form-input-check"></td><!-- need vat -->
                                             <td><input type="checkbox" class="fotm-input-check"></td><!-- rcvd amt -->
-                                            <td><input type="text" class="form-control form-control-sm"></td>  <!-- remark -->
+                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- remark -->
                                             <td><input type="checkbox" class="form-input-check"></td>
                                             <td></td><!-- Create by. -->
                                             <td></td><!-- Create datetime -->
@@ -1714,6 +2111,8 @@ require 'function/auth/get_session.php';
 <script src="js/job_detail/setting_sub_billing.js"></script>
 <script src="js/job_detail/setting_sub_withdraw.js"></script>
 <script src="js/job_detail/setting_create_job.js"></script>
+<script src="js/job_detail/setting_sub_bl.js"></script>
+<script src="js/job_detail/function_sub_bl.js"></script>
 
 
 

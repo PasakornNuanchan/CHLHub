@@ -206,11 +206,29 @@ if ($con->query($sql_query_data_status) === TRUE) {
     $res_in_status = '0';
 }
 
+
+$sql_query_bl_document = "
+INSERT INTO `bl_title`(
+    `ref_job_id`
+)
+VALUES(
+    '$last_id'
+)
+";
+
+if ($con->query($sql_query_bl_document) === TRUE) {
+    $res_in_bl = '1';
+} else {
+    $res_in_bl = '0';
+}
+
+
 echo json_encode(array(
     'res_in_job_title'=>$res_in_job_title,
     'res_in_container_information'=>$res_in_container_information,
     'res_in_container'=>$res_in_container,
     'res_in_status'=>$res_in_status,
+    '$res_in_bl'=>$$res_in_bl,
     'l_id'=>$last_id
 ));
 

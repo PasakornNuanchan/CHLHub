@@ -26,7 +26,9 @@ SELECT
     `remark`,
     `booking_agent`,
     `sale_support`,
-    `cs_support`
+    `cs_support`,
+    `commodity`,
+    `delivery_place`
 FROM
     `job_title`
 WHERE

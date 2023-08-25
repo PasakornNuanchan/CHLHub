@@ -25,6 +25,8 @@ const sub_job_detail = {
         $('.inp_inv').val(res_data['job_title']['inv'])
         $('.inp_mbl').val(res_data['job_title']['mbl'])
         $('.inp_hbl').val(res_data['job_title']['hbl'])
+        $('.inp_commodity').val(res_data['job_title']['commodity'])
+        $('.inp_delivery_place').val(res_data['job_title']['delivery_place'])
         // container information 
         $('.inp_cargo_des').val(res_data['container_information']['cargo'])
         $('.inp_cargo_type').val(res_data['container_information']['cargo_type'])
@@ -79,18 +81,19 @@ const sub_job_detail = {
                             let cy = v1['cy'] ? v1['cy'] : '';
                             let rtn = v1['rtn'] ? v1['rtn'] : '';
                             let remark = v1['remark'] ? v1['remark'] : '';
+                            let data_vgm = parseFloat(single_cnt) + parseFloat(gw);
 
                             let html_container_module = `
                                 <tr class="container_data_q${i}" id_container_module = "${id_container}">
                                     <td class="text-center"><div class="q_container_module"></div></td>
                                     <td>${sub_job_detail.data_select_container}</td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_container_number" maxlength="30" value="${container_number}"></td>
-                                    <td><input type="text" class="form-control form-control-sm text-center inp_cargo_description text-center" maxlength="200" value="${cargo_description}"></td>
-                                    <td><input type="text" class="form-control form-control-sm text-center inp_single_weight" value="${single_cnt}"></td>
-                                    <td><input type="number" class="form-control form-control-sm text-center inp_package" maxlength="40" value="${package}"></td>
-                                    <td><input type="number" class="form-control form-control-sm text-center inp_gw" value="${gw}"></td>
-                                    <td><input type="number" class="form-control form-control-sm text-center inp_volume" value="${volume}"></td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_seal_number" maxlength="30" value="${seal_number}"></td>
+                                    <td><input type="number" class="form-control form-control-sm text-center inp_single_weight" value="${single_cnt}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
+                                    <td><input type="number" class="form-control form-control-sm text-center inp_package" maxlength="40" value="${package}"></td>
+                                    <td><input type="number" class="form-control form-control-sm text-center inp_gw" value="${gw}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
+                                    <td><input type="number" class="form-control form-control-sm text-center inp_volume" value="${volume}"></td>
+                                    <td><input type="number" class="form-control form-control-sm text-center inp_vgm" value="${data_vgm}"></td>
                                     <td><input type="date" class="form-control form-control-sm text-center inp_cy" value="${cy}"></td>
                                     <td><input type="date" class="form-control form-control-sm text-center inp_rtn" value="${rtn}"></td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_remark" maxlength="200" value="${remark}"></td>
@@ -119,7 +122,7 @@ const sub_job_detail = {
         }
 
 
-
+        
 
         // if (res_data['container'] == "0 results") {
 

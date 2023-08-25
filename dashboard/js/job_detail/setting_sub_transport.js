@@ -6,10 +6,14 @@ const sub_transport = {
         //console.log(res_data)        
         
         var data_container_transport_driver = '';
-        $.each(sub_job_detail.data_container_for_transport,function(i,v){
-            data_container_transport_driver += `<option value="${v['ID']}">No.${i} ${v['container_number']} </option>`;
-        })
+        if(sub_job_detail.data_container_for_transport != "0 results"){
+            $.each(sub_job_detail.data_container_for_transport,function(i,v){
+                data_container_transport_driver += `<option value="${v['ID']}">No.${i} ${v['container_number']} </option>`;
+            })
         this.data_container_transport_driver_data_function = data_container_transport_driver;
+
+        }
+        
         
 
         data_sel_supplier = $('#sel_supplier').parent().html()
@@ -323,7 +327,7 @@ const sub_transport = {
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center"Delivery Container Address *</label>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Delivery Container Address *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">

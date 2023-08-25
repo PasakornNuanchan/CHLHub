@@ -75,6 +75,12 @@ const function_sub_billing = {
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
                 <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+                <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage">
+                                            <option value="0">Non with holding tax</option>
+                                            <option value="1">1%</option>
+                                            <option value="3">3%</option>
+                                            <option value="7">7%</option>
+                                        </select></td><!-- with holding tax -->
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
                 <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
@@ -100,103 +106,45 @@ const function_sub_billing = {
 
         html_data_ap = `
         <tr list_id = "" type = "AP">
-                <td></td>
-                <td>${rows_cal}</td>
-                <td>${sub_billing.select_billing_des_ap}</td>
-                <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
-                <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
-                <td><div class="paid_status"></div></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency_ap">
-                    <option value="THB">THB</option>
-                    <option value="USD">USD</option>
-                    <option value="RMB">RMB</option>
-                    <option value="JP">JP</option>
-                </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt " disabled></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
-                <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
-                <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
-                <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
-                <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
-                <td class="text-center"><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
-                <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
-                <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater date -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
-                <td><button class="btn btn-success btn-sm rounded" onclick="function_sub_billing.save_list(this)"><i class="bi bi-save"></i> save</button>
-                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
-            </tr>
+            <td></td>
+            <td>${rows_cal}</td>
+            <td>${sub_billing.select_billing_des_ap}</td>
+            <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
+            <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
+            <td><div class="paid_status"></div></td> <!-- Payble -->
+            <td><select class="form-select form-select-sm inp_currency_ap">
+                <option value="THB">THB</option>
+                <option value="USD">USD</option>
+                <option value="RMB">RMB</option>
+                <option value="JP">JP</option>
+            </select></td> <!-- Currency -->
+            <td><input type="number" class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
+            <td><input type="number" class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt " disabled></td><!-- AR AMT -->
+            <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+            <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
+            <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
+            <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
+            <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+            <td class="text-center"><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
+            <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
+            <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater date -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
+            <td><button class="btn btn-success btn-sm rounded" onclick="function_sub_billing.save_list(this)"><i class="bi bi-save"></i> save</button>
+            <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
+        </tr>
         `;
         $('.table_billing_ap > tbody').append(html_data_ap)
-    },
-
-    delete_list: function (e) {
-        Swal.fire({
-            title: `Are you sure delete list`,
-            text: `you sure click on Yes, save it!`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, save it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                let clo_tr_del = $(e).closest('tr')
-                let clo_tr_del_id = $(clo_tr_del).attr('list_id')
-                // console.log(clo_tr_del_id)
-                let res_data = '';
-                if (clo_tr_del_id == undefined) {
-                    res_data = '1'
-                    clo_tr_del.remove();
-
-                } else {
-                    let res_data_result = await this.ajax_delete_list(clo_tr_del_id)
-                    res_data = res_data_result['arr_res'];
-                    clo_tr_del.remove();
-                }
-
-                if (res_data == '1') {
-                    Swal.fire(
-                        'saved!',
-                        'Your data has been saved.',
-                        'success'
-                    )
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'System has problem plese contact to thailand tech team ',
-                    })
-                }
-            }
-        })
-    },
-
-    ajax_delete_list: async function (id_number) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/job_detail/delete_list_billing.php",
-                data: {
-                    id_number: id_number,
-                },
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
     },
 
 
@@ -279,6 +227,7 @@ const function_sub_billing = {
         let get_need_vat = '';
         let get_revd_amt = '';
         let get_check_attr = '';
+        let get_with_holding_tax = '';
 
         if (get_type == "AP") {
             get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
@@ -311,7 +260,7 @@ const function_sub_billing = {
             get_ap_amt = $(get_tr).find('.inp_ar_amt').val()
             get_vat = $(get_tr).find('.inp_vat_ar').val()
             get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ar').val()
-
+            get_with_holding_tax = $(get_tr).find('.inp_wt_percentage').val()
             get_sys_rate = $(get_tr).find('.inp_sys_rate_ar').val()
             get_remark = $(get_tr).find('.inp_remark').val()
             get_check_attr = $(get_tr).find('.ch_check_ar').attr('ischeckdone');
@@ -339,6 +288,7 @@ const function_sub_billing = {
             get_vat: get_vat,
             get_amt_inc_vat: get_amt_inc_vat,
             get_sys_rate: get_sys_rate,
+            get_with_holding_tax :get_with_holding_tax,
             get_data_apply: get_data_apply,
             get_data_apply_attr: get_data_apply_attr,
             get_remark: get_remark,
@@ -949,55 +899,80 @@ const function_sub_billing = {
         })
 
         let arr_save = []
-        $.each(arr_get_id, function (i, v) {
-            let data_find = v['data_id_select'];
-
-            var currentURL = window.location.href;
-            var url = new URL(currentURL);
-            var id_number = url.searchParams.get("job_number");
-
-            let get_tr = $(`.table_billing_ap > tbody > .data_ap_list${data_find}`)
-            get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
-            get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
-            get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
-            get_currency = $(get_tr).find('.inp_currency_ap').val()
-            get_qty = $(get_tr).find('.inp_qty').val()
-            get_unit_price = $(get_tr).find('.inp_unit_price').val()
-            get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
-            get_vat = $(get_tr).find('.inp_vat').val()
-            get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
-
-            get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
-            currency_main = $('.inp_currency_main_ap').val()
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        if (arr_get_id != '') {
+            $.each(arr_get_id, function (i, v) {
+                let data_find = v['data_id_select'];
 
 
-            let obj_save = {
-                get_refer:data_find,
-                get_id: id_number,
-                get_type: 'AR',
-                get_data_description: get_data_description,
-                get_data_bill_to: get_data_bill_to,
-                get_data_bill_to_type: get_data_bill_to_type,
-                get_currency: get_currency,
-                get_qty: get_qty,
-                get_unit_price: get_unit_price,
-                get_ap_amt: get_ap_amt,
-                get_vat: get_vat,
-                get_sys_rate :get_sys_rate,
-                get_amt_inc_vat: get_amt_inc_vat,
-                currency_main_ap: currency_main,
+
+                let get_tr = $(`.table_billing_ap > tbody > .data_ap_list${data_find}`)
+                get_data_description = $(get_tr).find('.sel_data_billing_ap').val()
+                get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
+                get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
+                get_currency = $(get_tr).find('.inp_currency_ap').val()
+                get_qty = $(get_tr).find('.inp_qty').val()
+                get_unit_price = $(get_tr).find('.inp_unit_price').val()
+                get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
+                get_vat = $(get_tr).find('.inp_vat').val()
+                get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
+
+                get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
+                currency_main = $('.inp_currency_main_ap').val()
+
+
+                let obj_save = {
+                    get_refer: data_find,
+                    get_id: id_number,
+                    get_type: 'AR',
+                    get_data_description: get_data_description,
+                    get_data_bill_to: get_data_bill_to,
+                    get_data_bill_to_type: get_data_bill_to_type,
+                    get_currency: get_currency,
+                    get_qty: get_qty,
+                    get_unit_price: get_unit_price,
+                    get_ap_amt: get_ap_amt,
+                    get_vat: get_vat,
+                    get_sys_rate: get_sys_rate,
+                    get_amt_inc_vat: get_amt_inc_vat,
+                    currency_main_ap: currency_main,
+                }
+                arr_save.push(obj_save)
+            })
+
+            let res_data = await function_sub_billing.ajax_copy_data(arr_save)
+            if (res_data['res_status'] == '1') {
+                Swal.fire(
+                    'saved!',
+                    'Your data has been saved.',
+                    'success'
+                )
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'System has problem plese contact to thailand tech team ',
+                })
             }
-            arr_save.push(obj_save)
-        })
-        console.log(arr_save)
-        let res_data = await function_sub_billing.ajax_copy_data(arr_save)
+
+            sub_billing.first_post_data_ar(id_number)
+            sub_billing.first_post_data_ap(id_number)
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'plese select list to copy ',
+            })
+        }
 
 
 
-        
     },
 
-    ajax_copy_data : async function (arr_save) {
+    ajax_copy_data: async function (arr_save) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -1012,4 +987,409 @@ const function_sub_billing = {
             });
         });
     },
+
+    delete_list: function (e) {
+        Swal.fire({
+            title: `Are you sure delete list`,
+            text: `you sure click on Yes, save it!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let clo_tr_del = $(e).closest('tr')
+                let clo_tr_del_id = $(clo_tr_del).attr('id_list')
+
+                let res_data = '';
+                if (clo_tr_del_id == undefined) {
+                    res_data = '1'
+                    clo_tr_del.remove();
+
+                } else {
+                    let res_data_result = await this.ajax_delete_list(clo_tr_del_id)
+                    res_data = res_data_result['arr_res'];
+                    clo_tr_del.remove();
+                }
+
+
+
+                if (res_data == '1') {
+                    Swal.fire(
+                        'saved!',
+                        'Your data has been saved.',
+                        'success'
+                    )
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'System has problem plese contact to thailand tech team ',
+                    })
+                }
+            }
+        })
+    },
+
+    ajax_delete_list: async function (id_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/delete_list_billing.php",
+                data: {
+                    id_number: id_number,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+    generate_bill_ap: async function () {
+
+        arr_get_data_select = []
+        $('.table_billing_ap > tbody > tr > td > .inp_box_select_ap').each(function () {
+            let check_correct_data = $(this).is(':checked') ? '1' : '0';
+
+            if (check_correct_data == '1') {
+                let data_id_select = $(this).attr('id_data_billing')
+                let obj_get_data_select = {
+                    data_id_select: data_id_select
+                }
+                arr_get_data_select.push(obj_get_data_select)
+            }
+        })
+
+    },
+
+    generate_bill_ar: async function () {
+
+        arr_get_data_select = []
+        $('.table_billing_ar > tbody > tr > td > .inp_box_select_ar').each(function () {
+            let check_correct_data = $(this).is(':checked') ? '1' : '0';
+
+            if (check_correct_data == '1') {
+                let data_id_select = $(this).attr('id_data_billing')
+                arr_get_data_select.push(data_id_select)
+            }
+        })
+        text_sent = '';
+        text_sent = arr_get_data_select.join(',')
+        if (text_sent != '') {
+            if ($('#add_moda').length >= 1) {
+                $('#add_moda').remove()
+            }
+    
+            html = `
+                <div class="modal fade" id="add_moda" >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">Select for generate Invoice</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Bill Footer:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                        <select id="consginee_db" class="form-select form-select-sm inp_bill_footer">
+                                            <option value="">-- plsese select bill footer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="function_sub_billing.get_generate_bill_inv()">Generate</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>`
+    
+            $('body').append(html)
+            $('#add_moda').modal('show')
+            let res = await this.ajax_get_select_bill_select()
+            
+            let bill_footer = '';
+            $.each(res['data_footer'],function(i,v){
+                bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
+            })
+            $('.inp_bill_footer').append(bill_footer)
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Select list ar for generate ',
+            })
+
+            return false;
+        }
+
+
+        
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        //this.ajax_generate_bill_ar(arr_get_data_select)
+    },
+
+    get_generate_bill_inv : async function(e){
+        
+        let data_footer = $('.inp_bill_footer').val()
+
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+
+        window.open(`php/job_detail/create_pdf_invoice.php?list_request=${text_sent}&job_number=${id_number}&footer=${data_footer}`, "_blank")
+    },
+
+    generate_bill_ar_full: async function () {
+        arr_get_data_select = []
+        $('.table_billing_ar > tbody > tr > td > .inp_box_select_ar').each(function () {
+            let check_correct_data = $(this).is(':checked') ? '1' : '0';
+
+            if (check_correct_data == '1') {
+                let data_id_select = $(this).attr('id_data_billing')
+                arr_get_data_select.push(data_id_select)
+            }
+        })
+        text_sent = '';
+        text_sent = arr_get_data_select.join(',')
+        if (text_sent != '') {
+            if ($('#add_moda').length >= 1) {
+                $('#add_moda').remove()
+            }
+    
+            html = `
+                <div class="modal fade" id="add_moda" >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">Select for generate Bill</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Bill Header:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                        <select id="consginee_db" class="form-select form-select-sm inp_bill_header">
+                                            <option value="">-- plsese select bill header</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Bill Footer:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                        <select id="consginee_db" class="form-select form-select-sm inp_bill_footer">
+                                            <option value="">-- plsese select bill footer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Due Date:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                       <input type="date" class="form-control form-control-sm inp_due_date">
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="function_sub_billing.get_generate_bill_ar_full()">Generate</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>`
+    
+            $('body').append(html)
+            $('#add_moda').modal('show')
+            let res = await this.ajax_get_select_bill_select()
+            let bill_header = '';
+            let bill_footer = '';
+            $.each(res['data_header'],function(i,v){
+                bill_header += `<option value="${v['ID']}">${v['corp_name']}</option>`
+            })
+            $('.inp_bill_header').append(bill_header)
+
+            $.each(res['data_footer'],function(i,v){
+                bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
+            })
+            $('.inp_bill_footer').append(bill_footer)
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Select list ar for generate ',
+            })
+
+            return false;
+        }
+
+
+       
+    },
+
+    get_generate_bill_ar_full : async function(e){
+        let data_header = $('.inp_bill_header').val()
+        let data_footer = $('.inp_bill_footer').val()
+        let data_due_date = $('.inp_due_date').val()
+        let data_currency = $('.inp_currency_main_ar').val()
+
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+
+        window.open(`php/job_detail/create_pdf_invoice_full.php?list_request=${text_sent}&job_number=${id_number}&header=${data_header}&footer=${data_footer}&due=${data_due_date}&currency=${data_currency}`, "_blank")
+    },
+
+    get_generate_bill_ar_state_ment_account : async function(){
+
+        window.open(`php/job_detail/create_pdf_statement_account.php`, "_blank")
+    },
+
+    get_generate_bill_ar_debit_note : async function(){
+
+        window.open(`php/job_detail/create_pdf_debit_note.php?list_request=${text_sent}&job_number=${id_number}`, "_blank")
+    },
+
+    sent_generate_bill_ar_debit_note_line : async function(){
+        
+
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+
+        let data_header = $('.inp_bill_header').val()
+        let data_footer = $('.inp_bill_footer').val()
+
+        window.open(`php/job_detail/create_pdf_debit_note_line.php?list_request=${text_sent}&job_number=${id_number}&header=${data_header}&footer=${data_footer}`, "_blank")
+        //this.ajax_generate_bill_ar(arr_get_data_select)
+    },
+
+    get_generate_bill_ar_debit_note_line: async function () {
+        arr_get_data_select = []
+        $('.table_billing_ar > tbody > tr > td > .inp_box_select_ar').each(function () {
+            let check_correct_data = $(this).is(':checked') ? '1' : '0';
+
+            if (check_correct_data == '1') {
+                let data_id_select = $(this).attr('id_data_billing')
+                arr_get_data_select.push(data_id_select)
+            }
+        })
+        
+        text_sent = arr_get_data_select.join(',')
+        if (text_sent != '') {
+            if ($('#add_moda').length >= 1) {
+                $('#add_moda').remove()
+            }
+    
+            html = `
+                <div class="modal fade" id="add_moda" >
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">Select for generate debit note</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Bill Header:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                        <select id="consginee_db" class="form-select form-select-sm inp_bill_header">
+                                            <option value="">-- plsese select bill header</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-3 col-lg-3 align-self-center ">Bill Footer:</label>
+                                    <div class="col-sm-9 col-md-5 col-lg-7">
+                                        <select id="consginee_db" class="form-select form-select-sm inp_bill_footer">
+                                            <option value="">-- plsese select bill footer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-success" onclick="function_sub_billing.sent_generate_bill_ar_debit_note_line()">Generate</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>`
+    
+            $('body').append(html)
+            $('#add_moda').modal('show')
+            let res = await this.ajax_get_select_bill_select()
+            let bill_header = '';
+            let bill_footer = '';
+            $.each(res['data_header'],function(i,v){
+                bill_header += `<option value="${v['ID']}">${v['corp_name']}</option>`
+            })
+            $('.inp_bill_header').append(bill_header)
+
+            $.each(res['data_footer'],function(i,v){
+                bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
+            })
+            $('.inp_bill_footer').append(bill_footer)
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Select list ar for generate ',
+            })
+
+            return false;
+        }
+
+    },
+
+
+    ajax_get_select_bill_select : async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/get_bill_header.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+    
+
+    // generate_bill_ar_full: async function () {
+
+    
+
+
+    // },
+
+
+
+
+
 }
