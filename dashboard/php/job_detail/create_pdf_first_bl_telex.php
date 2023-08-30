@@ -15,6 +15,7 @@ SELECT
     c.address as address_consignee,
     jt.mbl,
     jt.hbl,
+    jt.job_number,
     jt.feeder_vessel,
     a1.location_name as a1location,
     a2.location_name as a2location,
@@ -44,7 +45,7 @@ if ($result->num_rows > 0) {
     $data_address_consignee[] = $row['address_consignee'];
   }
 } else {
-  $data_shipper = "0 results";
+  $data_shipperandconsignee = "0 results";
 }
 
 
@@ -300,7 +301,7 @@ $pdf->Cell(25, 4, strtoupper(""), 'R', 0, 'L');
 $pdf->SetX(180);
 $pdf->Cell(25, 4, strtoupper(""), 'R', 1, 'L');
 
-for ($i = 0; $i <= 16; $i++) {
+for ($i = 0; $i <= 15; $i++) {
 
   $pdf->SetX(10);
   $pdf->Cell(50, 4, strtoupper(""), "R", 0, 'L');
@@ -520,7 +521,7 @@ $pdf->Cell(90, 4, "", 'B', 1, 'L');
 foreach ($data_shipperandconsignee as $k => $v) {
   $pdf->SetFont('times', '', 8, '', true);
   $pdf->SetXY(155, 12);
-  $pdf->Cell(60, $set_height_header, $v['hbl'], '', 0, 'L');
+  $pdf->Cell(60, $set_height_header, $v['job_number'], '', 0, 'L');
 }
 
 // foreach($data_shipperandconsignee as $k => $v){
@@ -529,8 +530,9 @@ foreach ($data_shipperandconsignee as $k => $v) {
 //   $pdf->Cell(100, $set_height_header, $v['shipper_name'], 'R', 0, 'L');
 // }
 
+//shipper
 foreach ($data_shipper as $k => $v) {
-  $pdf->SetXY(10, 18);
+  $pdf->SetXY(10, 17);
   $pdf->MultiCell(100, 3, strtoupper($v), '', "L");
 }
 
@@ -556,6 +558,13 @@ foreach ($data_delivery_agent as $k => $v) {
   $pdf->SetXY(115, 73);
   $pdf->MultiCell(75, 3, strtoupper($v), '', "L");
 }
+
+
+foreach($data as $k => $v){
+  $pdf->SetXY(110, 106);
+  $pdf->MultiCell(90, 3, strtoupper($v['final_destination']), '', "L");
+}
+
 
 $get_y_table = 123;
 
@@ -585,22 +594,39 @@ foreach ($data_bl_list as $k => $v) {
   }
 }
 
+
+
+
+
 $pdf->SetXY(160, 160);
 $pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(40, 4, "SHIPPED ON BOARD:", 0, 0, 'C');
+$pdf->Cell(40, 4, "ON BOARD DATE:", 0, 0, 'C');
 $pdf->SetXY(160, 165);
 $today = date("Y/m/d");
 $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(40, 4, $today, 0, 0, 'C');
 
 $pdf->SetY($data_last_y_get + 5);
+
+$pdf->SetTextColor(140, 14, 14);
+$pdf->SetFont('times', 'B', 18, '', true);
+$pdf->SetX(45);
+$pdf->Cell(140,2,"TELEX RELEASE",0,1);
+
+
+
+$pdf->SetTextColor(0,0,0);
+$pdf->SetFont('times', '', 8, '', true);
+$pdf->SetX(15);
+$pdf->Cell(150,4,"CONTAINER/SEAL NO.:",0,1);
 foreach ($container_data as $k => $v) {
-  $pdf->SetX(15);
-  $pdf->MultiCell(150, 4, $v['container_number']."/".$v['seal_number'] . "/" . $v['container_type'] . "/" . $v['package'] . $v['package_unit'] . "/" . $v['gw'] . ".KGS/" . $v['volume'] . "CBM", 0, 'L');
+  $pdf->SetX(15);  
+  
+  $pdf->MultiCell(150, 4, strtoupper($v['container_number']."/".$v['seal_number'] . "/" . $v['container_type'] . "/" . $v['package'] . $v['package_unit'] . "/" . $v['gw'] . ".KGS/" . $v['volume'] . "CBM"), 0, 'L');
 }
 
-$pdf->SetXY(15, 232);
-$pdf->Cell(30, 4, "FREIGHT COLLECT");
+$pdf->SetXY(78, 232);
+$pdf->Cell(35, 4, "FREIGHT COLLECT",0,0,"C");
 
 
 // $data_last_y_get = $data_last_y_get+5;
@@ -630,9 +656,12 @@ $pdf->Cell(90, 4, "Anthorized Signature", '', '', 'C');
 
 
 $pdf->SetFont('times', '', 8, '', true);
-$pdf->SetY(271);
+$pdf->SetY(267);
 $pdf->SetX(145);
 $pdf->Cell(0, 4, "Bangkok");
+$pdf->SetX(15);
+$pdf->Cell(40,4,"DESTINATION");
+
 foreach ($data as $k => $v) {
   $word_bl = convertNumberToWords($v['bl_number']);
   $pdf->SetX(90);
@@ -654,13 +683,13 @@ $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(90, 4, "for combined transport and port to port shipment", '', '', 'C');
 
 
-$pdf->SetXY(110, 55);
-$pdf->SetFont('times', '', 9, '', true);
-$pdf->Cell(90, 4, "ALL TERMS. CONDITION AND EXECPTIONS", '', '', 'C');
-
 $pdf->SetXY(110, 60);
 $pdf->SetFont('times', '', 9, '', true);
-$pdf->Cell(90, 4, "AS PER ORIGINAL BILL OF LANDING", '', '', 'C');
+$pdf->Cell(90, 2, "ALL TERMS. CONDITION AND EXECPTIONS", '', '', 'C');
+
+$pdf->SetXY(110, 64);
+$pdf->SetFont('times', '', 9, '', true);
+$pdf->Cell(90, 1, "AS PER ORIGINAL BILL OF LANDING", '', '', 'C');
 
 
 foreach ($data as $k => $v) {
@@ -674,7 +703,11 @@ foreach ($data as $k => $v) {
 
     $pdf->SetXY(110, 50);
     $pdf->SetFont('times', 'B', 12, '', true);
-    $pdf->Cell(90, 4, "ORIGINAL", '', '', 'C');
+    $pdf->Cell(90, 4, "COPY", '', '', 'C');
+
+    $pdf->SetXY(110, 55);
+    $pdf->SetFont('times', 'B', 12, '', true);
+    $pdf->Cell(90, 4, "NON-NEGOTIBLE", '', '', 'C');
 
     $pdf->SetXY(113, 240);
     $pdf->SetFont('times', 'B', 12, '', true);
@@ -690,6 +723,10 @@ foreach ($data as $k => $v) {
     $pdf->SetXY(110, 50);
     $pdf->SetFont('times', 'B', 12, '', true);
     $pdf->Cell(90, 4, "COPY", '', '', 'C');
+    
+    $pdf->SetXY(110, 55);
+    $pdf->SetFont('times', 'B', 12, '', true);
+    $pdf->Cell(90, 4, "NON-NEGOTIBLE", '', '', 'C');
 
     $pdf->SetXY(113, 240);
     $pdf->SetFont('times', 'B', 12, '', true);
@@ -738,7 +775,17 @@ foreach ($data as $k => $v) {
   }
   
   
+  $pdf->SetXY(10,271);
+  $pdf->SetFont('times', 'B', 7, '', true);
+  $pdf->Cell(10,4,"CHL-");
 
+
+
+  foreach ($data_shipperandconsignee as $k => $v) {
+    $pdf->SetFont('times', '', 8, '', true);
+    $pdf->SetXY(18,272);
+    $pdf->Cell(60, 4, $v['job_number'], '', 0, 'L');
+  }
 
 //$pdf->AddPage();
 

@@ -20,6 +20,7 @@ const sub_bl = {
         let ts_port_number = res_data['job_title']['ts_port_number'] ? res_data['job_title']['ts_port_number'] : '';
         let port_of_delivery_number = res_data['job_title']['port_of_delivery_number'] ? res_data['job_title']['port_of_delivery_number'] : '';
         let vessel = res_data['job_title']['mother_vessel'] ? res_data['job_title']['mother_vessel'] : '';
+        let feeder_vessel = res_data['job_title']['feeder_vessel'] ? res_data['job_title']['feeder_vessel'] : '';
 
 
 
@@ -39,18 +40,20 @@ const sub_bl = {
         let shipper_bl = res_data['bl_title']['shipper_bl'] ? res_data['bl_title']['shipper_bl'] : '';
         let consignee_bl = res_data['bl_title']['consignee_bl'] ? res_data['bl_title']['consignee_bl'] : '';
         let description_of_good = res_data['bl_title']['description_of_good'] ? res_data['bl_title']['description_of_good'] : '';
-
+        let onboaed_date = res_data['bl_title']['on_board_date'] ? res_data['bl_title']['on_board_date'] :'';
+        let final_destination = res_data['bl_title']['final_destination'] ? res_data['bl_title']['final_destination'] :'';
         $('.inp_bl_shipping').val(shipper_bl)
         $('.inp_bl_consingee').val(consignee_bl)
 
-
+        $('.inp_final_destination').val(final_destination)
         $('.inp_notify_bl').val(notify_party)
-        $('.inp_pre_carriage').val(pre_carriage)
+        $('.inp_pre_carriage').val(feeder_vessel).attr('disabled',true)
         $('.inp_bill_header_bl').val(bill_header)
         $('.inp_delivery_agent_bl').val(delivery_agent)
         $('.inp_shipper_on_board').val(shipper_on_board)
         $('.inp_bl_number').val(bl_number)
         $('.inp_description_of_good').val(description_of_good)
+        $('.inp_on_board_date').val(onboaed_date)
 
         $('.table_detail_bl tbody').html('');
         if (res_data['bl_list'] != "0 results") {
@@ -59,17 +62,23 @@ const sub_bl = {
                 let id_number = v['ID'] ? v['ID'] : '';
                 let container_no = v['container_no'] ? v['container_no'] : '';
                 let package = v['package'] ? v['package'] : '';
+                let package_unit = v['package_unit'] ? v['package_unit'] : '';
                 let kind_of_package = v['kind_of_package'] ? v['kind_of_package'] : '';
                 let gross_weight = v['gross_weight'] ? v['gross_weight'] : '';
+                let gross_weight_unit = v['gross_weight_unit'] ? v['gross_weight_unit'] : '';
                 let measurement = v['measurement'] ? v['measurement'] : '';
+                let cbm_unit = v['cbm_unit'] ? v['cbm_unit'] : '';
 
                 let html_data_list = `
                 <tr id_number = "${id_number}">
                     <td><textarea class="form-control inp_container_no_and_seal inp_container_no_and_seal${i}" id="exampleFormControlTextarea1" rows="4"></textarea></td>
                     <td><input type="text" class="form-control form-control-sm inp_container_or_package" value="${package}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_unit_package" value="${package_unit}"></td>
                     <td><textarea class="form-control inp_kind_of_package inp_kind_of_package${i}" id="exampleFormControlTextarea1" rows="4" ></textarea></td>
                     <td><input type="text" class="form-control form-control-sm inp_gross_Weight" value="${gross_weight}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_gross_weight_unit" value="${gross_weight_unit}"></td>
                     <td><input type="text" class="form-control form-control-sm inp_mesurement" value="${measurement}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_mesurement_unit" value="${cbm_unit}"></td>
                 </tr>
                 `;
 
@@ -93,10 +102,10 @@ const sub_bl = {
                 let container_number = v['container_number'] ? v['container_number'] : '';
                 let seal_number = v['seal_number'] ? v['seal_number'] :'';
                 let container_type = v['container_type'] ? v['container_type'] : '';
-                let quantity = v['quantity'] ? v['quantity'] : '';
+                let quantity = v['package'] ? v['package'] : 0;
                 let unit = v['unit'] ? v['unit']: '';
-                let cbm = v['cbm'] ? v['cbm'] :'';
-                let gw = v['gw'] ? v['gw'] : '';
+                let cbm = v['volume'] ? v['volume'] :0;
+                let gw = v['gw'] ? v['gw'] : 0;
                 //let slw = v['single_cnt'] ? v['single_cnt'] : '';
                 //let weight = 0;
                 // gw = parseFloat(gw)
@@ -113,8 +122,8 @@ const sub_bl = {
                     <td><input type="text" class="form-control form-control-sm" value="${seal_number}">
                     <td><input type="number" class="form-control form-control-sm inp_quantity_bl" onchange="function_sub_bl.cal_container_package()" value="${quantity}"></td>
                     <td>${data_unit_bl}</td>
-                    <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl" onchange="function_sub_bl.cal_container_weight()" value="${gw}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp_cbm_bl" value="${cbm}"></td>
+                    <td><input type="number" class="form-control form-control-sm text-end inp_weight_bl" onchange="function_sub_bl.cal_container_weight()" value="${gw}"></td>
+                    <td><input type="number" class="form-control form-control-sm inp_cbm_bl" onchange="function_sub_bl.cal_container_cbm()" value="${cbm}"></td>
                 </tr>
                 `;
 
@@ -125,6 +134,52 @@ const sub_bl = {
             })
             $('.inp_gross_Weight').val(data_gw_all)
         }
+
+        // await function_sub_billing.cal_container_package()
+        // await function_sub_billing.cal_container_weight()
+        let data_quantity_l = 0;
+        $('.table_container_bl > tbody > tr > td > .inp_quantity_bl').each(function (){
+            let data = $(this).val();
+            if(data === 'NaN'){
+                data = 0;
+            }
+            data_quantity_l = parseFloat(data_quantity_l) + parseFloat(data);
+        })
+
+        let data_unit = $('.table_container_bl > tbody > .containertr_row0 > td > .inp_unit_bl').val()
+        
+        $('.inp_package_total').val(data_quantity_l)
+        $('.inp_container_or_package').val(data_quantity_l)
+        //$('.inp_unit_package').val(data_unit)
+
+
+        let data_weight  = 0;
+        $('.table_container_bl > tbody > tr > td > .inp_weight_bl').each(function (){
+            let data = $(this).val();
+            
+            if(data === 'NaN'){
+                data = 0;
+            }
+            data_weight = parseFloat(data_weight) + parseFloat(data);
+        })
+        //$('.inp_gross_weight_unit').val('KGS')
+        $('.inp_weight_total').val(data_weight)
+        $('.inp_gross_Weight').val(data_weight)
+
+        let data_cbm  = 0;
+        $('.table_container_bl > tbody > tr > td > .inp_cbm_bl').each(function (){
+            let data = $(this).val();
+            
+            if(data === 'NaN'){
+                data = 0;
+            }
+            data_cbm = parseFloat(data_cbm) + parseFloat(data);
+        })
+
+        $('.inp_cbm_total').val(data_cbm)
+        $('.inp_mesurement').val(data_cbm)
+        //$('.inp_mesurement_unit').val('CBM')
+
 
     },
 

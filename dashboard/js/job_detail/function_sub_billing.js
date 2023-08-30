@@ -56,7 +56,7 @@ const function_sub_billing = {
 
         html_data_ar = `
         <tr list_id = "" type = "AR">
-                <td></<td>>
+                <td></td>
                 <td class="text-center">${rows_cal}</td> <!-- No -->
                 <td>${sub_billing.html_select_code_billing_ar}</td>
                 <td><input type="text" class="form-control form-control-sm inp_data_item" disabled></td> <!-- item -->
@@ -161,33 +161,33 @@ const function_sub_billing = {
             if (result.isConfirmed) {
 
                 let res_data = await this.get_save_list(e)
-                // console.log(res_data)
+                console.log(res_data)
 
-                // if (res_data['arr_res'] == '1') {
-                //     Swal.fire(
-                //         'saved!',
-                //         'Your data has been saved.',
-                //         'success'
-                //     )
-                //     var currentURL = window.location.href;
-                //     var url = new URL(currentURL);
-                //     var id_number = url.searchParams.get("job_number");
-                //     await sub_billing.first_post_data_ar(id_number)
-                //     await sub_billing.first_post_data_ap(id_number)
+                if (res_data['arr_res'] == '1') {
+                    Swal.fire(
+                        'saved!',
+                        'Your data has been saved.',
+                        'success'
+                    )
+                    var currentURL = window.location.href;
+                    var url = new URL(currentURL);
+                    var id_number = url.searchParams.get("job_number");
+                    await sub_billing.first_post_data_ar(id_number)
+                    await sub_billing.first_post_data_ap(id_number)
 
-                // } else if (res_data == false) {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'plese enter your data',
-                //     })
-                // } else {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'System has problem plese contact to thailand tech team ',
-                //     })
-                // }
+                } else if (res_data == false) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'plese enter your data',
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'System has problem plese contact to thailand tech team ',
+                    })
+                }
 
 
             }

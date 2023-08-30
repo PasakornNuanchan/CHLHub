@@ -18,6 +18,26 @@ require 'function/auth/get_session.php';
 
 </head>
 <style>
+
+    .table_detail_bl td:nth-child(1) textarea{
+        width: 400px;
+    }.table_detail_bl td:nth-child(2) input{
+        width: 200px;
+    }.table_detail_bl td:nth-child(3) input
+    {
+        width: 200px;
+    }.table_detail_bl td:nth-child(4) input{
+        width: 50px;
+    }.table_detail_bl td:nth-child(5) input{
+        width: 200px;
+    }.table_detail_bl td:nth-child(6) input{
+        width: 200px;
+    }.table_detail_bl td:nth-child(7) input{
+        width: 200px;
+    }.table_detail_bl td:nth-child(8) input{
+        width: 200px;
+    }
+
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
     }
@@ -390,7 +410,7 @@ require 'function/auth/get_session.php';
                                             <textarea class="form-control inp_commodity" id="exampleFormControlTextarea1" rows="5" maxlength="600"></textarea>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="form-group row">
@@ -580,7 +600,7 @@ require 'function/auth/get_session.php';
                                     <tbody>
                                         <tr>
                                             <td class="text-center" container_data_q>1</td>
-                                            <td><select class="form-select form-select-sm inp_container_type" id="container_type_data" disabled> 
+                                            <td><select class="form-select form-select-sm inp_container_type" id="container_type_data" disabled>
                                                     <option value="">-- pleses select container type --</option>
                                                 </select></td>
                                             <td><input type="text" class="form-control form-control-sm text-center"></td>
@@ -1349,7 +1369,7 @@ require 'function/auth/get_session.php';
                                                 <!-- <select class="form-select form-select-sm bl_consignee_page inp_bl_consingee" disabled>
                                                     <option value="">select shipper</option>
                                                 </select> -->
-                                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.address_consignee()"> address consignee</button>
+                                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.address_consignee()">Save as consignee</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1457,6 +1477,22 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">on board date for telex release: </label>
+                                            <div class="col">
+                                                <input type="date" class="form-control form-control-sm inp_on_board_date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3"> Final destination for telex release</label>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm inp_final_destination">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
                                             <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">No. of Original B(s)/L : </label>
                                             <div class="col">
                                                 <input type="number" class="form-control form-control-sm inp_bl_number">
@@ -1475,9 +1511,12 @@ require 'function/auth/get_session.php';
                                             <tr>
                                                 <th row="2">Container No. & Seal No. Marks and Number</th>
                                                 <th>No.of Container or package</th>
+                                                <th>unit</th>
                                                 <th>Kind of package; Description of goods</th>
                                                 <th>Gross Weight</th>
+                                                <th>unit</th>
                                                 <th>Measurement</th>
+                                                <th>unit</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1485,8 +1524,11 @@ require 'function/auth/get_session.php';
                                                 <td><textarea class="form-control inp_container_no_and_seal" id="exampleFormControlTextarea1" rows="4"></textarea></td>
                                                 <td><input type="text" class="form-control form-control-sm inp_container_or_package"></td>
                                                 <td><textarea class="form-control inp_kind_of_package" id="exampleFormControlTextarea1" rows="4"></textarea></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_unit_package"></td>
                                                 <td><input type="text" class="form-control form-control-sm inp_gross_Weight"></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_gross_weight_unit"></td>
                                                 <td><input type="text" class="form-control form-control-sm inp_mesurement"></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_mesurement_unit"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1566,221 +1608,248 @@ require 'function/auth/get_session.php';
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card p-4">
-                            <div class="card-header">
+                                <div class="text-right">
+                                    <div class="form-group">
+                                        <div class="row text-center">
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <label >Total : Quantity </label>                                                
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <input type="text" class="form-control form-control-sm inp_package_total text-end" disabled>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <label class="col-xl-3">Weight </label>
+                                            </div>
 
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Description : </label>
-                                        <div class="col">
-                                            <textarea class="form-control inp_description_of_good" id="exampleFormControlTextarea1" rows="12" maxlength="400"></textarea>
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <input type="text" class="form-control form-control-sm inp_weight_total text-end" disabled>
+                                            </div>
+
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <label class="col-xl-3">CBM </label>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-2">
+                                                <input type="text" class="form-control form-control-sm col-xl-2 inp_cbm_total text-end" disabled>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-end">
-                                    <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
-                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl()">Generate BL</button>
-                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line()">Generate BL With line</button>
+                            </div>
+                            <div class="card p-4">
+                                <div class="card-header">
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Description : </label>
+                                            <div class="col">
+                                                <textarea class="form-control inp_description_of_good" id="exampleFormControlTextarea1" rows="12" maxlength="400"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_telex_line()">Telex release BL</button>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl()">Generate BL</button>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line()">Generate BL With line</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
-                    <div class="card p-4">
-                        <div class="card-header">
+                    <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <h4>Account Payble</h4>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="text-end">
+                                            <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
+                                            <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
+                                            <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="bd-example table-responsive">
+                                    <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
+                                                <th>No</th>
+                                                <th>Code</th>
+                                                <th>Item</th>
+                                                <th>Bill to</th>
+                                                <th>Payble</th>
+                                                <th>Currency</th>
+                                                <th>QTY.</th>
+                                                <th>Unit Price</th>
+                                                <th>AP AMT.</th>
+                                                <th>VAT%</th>
+                                                <th>AMT(INCL.VAT)</th>
+                                                <th>Billing Date</th>
+                                                <th>Sys Rate</th>
+                                                <th>Apply</th>
+                                                <th>Apply Date</th>
+                                                <th>Paid amt</th>
+                                                <th>Remark</th>
+                                                <th>CHECK</th>
+                                                <th>Status</th>
+                                                <th>Tax Invoice (with hold)</th>
+                                                <th>Commission Sale</th>
+                                                <th>Branch</th>
+                                                <th>Creater</th>
+                                                <th>Create date</th>
+                                                <th>Last modifier</th>
+                                                <th>Last nodifier date</th>
+                                                <th>Cheker</th>
+                                                <th>Check Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td></td>
+                                                <td><select class="form-select form-select-sm sel_data_billing_ap" onchange="function_sub_billing.change_sub_billing(this)">
+                                                        <option value="">-- please select code --</option>
+                                                    </select></td>
+                                                <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
+                                                <td><select class="form-select form-select-sm inp_billing_to_ap">
+                                                        <option value="">-- please select bill to</option>
+                                                    </select></td> <!-- Bill to -->
+                                                <td>
+                                                    <div class="paid_status"></div>
+                                                </td> <!-- Payble -->
+                                                <td><select class="form-select form-select-sm">
+                                                        <option value="THB">THB</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="RMB">RMB</option>
+                                                        <option value="YEN">YEN</option>
+                                                    </select></td> <!-- Currency -->
+                                                <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- AR VAT% -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
+                                                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- Sys rate -->
+                                                <td><input type="checkbox" class="form-input-check "></td><!-- apply -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- apply date -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- paid amt -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- remark -->
+                                                <td><input type="checkbox" class="form-input-check "></td><!-- CHECK -->
+                                                <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+                                                <td><input type="checkbox" class="form-input-check "></td><!-- tax with hold -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- commission sale -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- branch -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- creater -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- creater date -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier date -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- checker  -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- checker date -->
+                                                <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
+                                                    <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button>
+                                                </td><!--  action -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="button_add_new_list_ap">
+                                    <button class="btn btn-sm btn-outline-primary col-lg-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ap()">add new list account payble</button>
+                                </div>
+                                <div class="text-end mt-4">
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Currency Main:</label>
+                                        <div class="col-lg-2 col-xl-2 col-md-3 text-center">
+                                            <select class="form-select form-select-sm inp_currency_main_ap">
+                                                <option value="THB">THB</option>
+                                                <option value="USD">USD</option>
+                                                <option value="RMB">RMB</option>
+                                                <option value="YEN">YEN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm inp_sub_total_ap text-end">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm inp_vat_inc_ap text-end">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm inp_total_ap text-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-6">
-                                    <h4>Account Payble</h4>
+                                    <h4>Account Receivable</h4>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
                                     <div class="text-end">
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="bd-example table-responsive">
-                                <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
-                                            <th>No</th>
-                                            <th>Code</th>
-                                            <th>Item</th>
-                                            <th>Bill to</th>
-                                            <th>Payble</th>
-                                            <th>Currency</th>
-                                            <th>QTY.</th>
-                                            <th>Unit Price</th>
-                                            <th>AP AMT.</th>
-                                            <th>VAT%</th>
-                                            <th>AMT(INCL.VAT)</th>
-                                            <th>Billing Date</th>
-                                            <th>Sys Rate</th>
-                                            <th>Apply</th>
-                                            <th>Apply Date</th>
-                                            <th>Paid amt</th>
-                                            <th>Remark</th>
-                                            <th>CHECK</th>
-                                            <th>Status</th>
-                                            <th>Tax Invoice (with hold)</th>
-                                            <th>Commission Sale</th>
-                                            <th>Branch</th>
-                                            <th>Creater</th>
-                                            <th>Create date</th>
-                                            <th>Last modifier</th>
-                                            <th>Last nodifier date</th>
-                                            <th>Cheker</th>
-                                            <th>Check Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="text-center">
-                                            <td></td>
-                                            <td><select class="form-select form-select-sm sel_data_billing_ap" onchange="function_sub_billing.change_sub_billing(this)">
-                                                    <option value="">-- please select code --</option>
-                                                </select></td>
-                                            <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
-                                            <td><select class="form-select form-select-sm inp_billing_to_ap">
-                                                    <option value="">-- please select bill to</option>
-                                                </select></td> <!-- Bill to -->
-                                            <td>
-                                                <div class="paid_status"></div>
-                                            </td> <!-- Payble -->
-                                            <td><select class="form-select form-select-sm">
-                                                    <option value="THB">THB</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="RMB">RMB</option>
-                                                    <option value="YEN">YEN</option>
-                                                </select></td> <!-- Currency -->
-                                            <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AR VAT% -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
-                                            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- Sys rate -->
-                                            <td><input type="checkbox" class="form-input-check "></td><!-- apply -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- apply date -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- paid amt -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- remark -->
-                                            <td><input type="checkbox" class="form-input-check "></td><!-- CHECK -->
-                                            <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
-                                            <td><input type="checkbox" class="form-input-check "></td><!-- tax with hold -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- commission sale -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- branch -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- creater -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- creater date -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier date -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- checker  -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- checker date -->
-                                            <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
-                                                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button>
-                                            </td><!--  action -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="button_add_new_list_ap">
-                                <button class="btn btn-sm btn-outline-primary col-lg-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ap()">add new list account payble</button>
-                            </div>
-                            <div class="text-end mt-4">
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency Main:</label>
-                                    <div class="col-lg-2 col-xl-2 col-md-3 text-center">
-                                        <select class="form-select form-select-sm inp_currency_main_ap">
-                                            <option value="THB">THB</option>
-                                            <option value="USD">USD</option>
-                                            <option value="RMB">RMB</option>
-                                            <option value="YEN">YEN</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_sub_total_ap text-end">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_vat_inc_ap text-end">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_total_ap text-end">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card p-4">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <h4>Account Receivable</h4>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="text-end">
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
+                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="bd-example table-responsive">
-                                <table class="table table-hover table_billing_ar" id="table_billing_ar">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ar')">all</button></th>
-                                            <th>No.</th>
-                                            <th>Code</th>
-                                            <th>Item</th>
-                                            <th>Bill to</th>
-                                            <th>Payble</th>
-                                            <th>Currency</th>
-                                            <th>QTY.</th>
-                                            <th>Unit Price</th>
-                                            <th>AR AMT.</th>
-                                            <th>VAT%</th>
-                                            <th>AMT(INCL.VAT)</th>
-                                            <th>Billing Date</th>
-                                            <th>Sys rate</th>
-                                            <th>Need Vat</th>
-                                            <th>With hold (%)</th>
-                                            <th>Rcvd Amt</th>
-                                            <th>Remark</th>
-                                            <th>Check</th>
-                                            <th>staus</th>
-                                            <th>branch</th>
-                                            <th>creater</th>
-                                            <th>create date</th>
-                                            <th>last modifier</th>
-                                            <th>last modifier date</th>
-                                            <th>checker</th>
-                                            <th>checker date</th>
-                                            <th>action</th>
-                                            <!-- <th>KD</th>
+                            <div class="card-body">
+                                <div class="bd-example table-responsive">
+                                    <table class="table table-hover table_billing_ar" id="table_billing_ar">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ar')">all</button></th>
+                                                <th>No.</th>
+                                                <th>Code</th>
+                                                <th>Item</th>
+                                                <th>Bill to</th>
+                                                <th>Payble</th>
+                                                <th>Currency</th>
+                                                <th>QTY.</th>
+                                                <th>Unit Price</th>
+                                                <th>AR AMT.</th>
+                                                <th>VAT%</th>
+                                                <th>AMT(INCL.VAT)</th>
+                                                <th>Billing Date</th>
+                                                <th>Sys rate</th>
+                                                <th>Need Vat</th>
+                                                <th>With hold (%)</th>
+                                                <th>Rcvd Amt</th>
+                                                <th>Remark</th>
+                                                <th>Check</th>
+                                                <th>staus</th>
+                                                <th>branch</th>
+                                                <th>creater</th>
+                                                <th>create date</th>
+                                                <th>last modifier</th>
+                                                <th>last modifier date</th>
+                                                <th>checker</th>
+                                                <th>checker date</th>
+                                                <th>action</th>
+                                                <!-- <th>KD</th>
                                             <th>D/N#</th>
                                             <th>Print</th>
                                             <th>Pack</th>
@@ -1798,284 +1867,284 @@ require 'function/auth/get_session.php';
                                             <th>Last Modifier Date</th>
                                             <th>Checker</th>
                                             <th>Checker Date</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>test</td> <!-- No -->
-                                            <td><select class="form-select form-select-sm select_code_billing_ar" onchange="function_sub_billing.change_sub_billing_ar(this)"> <!-- Code -->
-                                                    <option value="">-- pleas select code --</option>
-                                                </select></td>
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- item -->
-                                            <td><select class="form-select form-select-sm select_bill_to_ar"> <!-- bill to -->
-                                                    <option value="">-- please select bill to --</option>
-                                                </select></td>
-                                            <td align="center"></td> <!-- Payble -->
-                                            <td><select class="form-select form-select-sm">
-                                                    <option value="THB">THB</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="RMB">RMB</option>
-                                                </select></td> <!-- Currency -->
-                                            <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- VAT% -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
-                                            <td><input type="number" class="form-control form-control-sm"></td><!-- Billing Date -->
-                                            <td><input type="text" class="form-control form-control-sm"></td><!-- sysrate -->
-                                            <td><input type="checkbox" class="form-input-check"></td><!-- need vat -->
-                                            <td><input type="checkbox" class="fotm-input-check"></td><!-- rcvd amt -->
-                                            <td><input type="text" class="form-control form-control-sm"></td> <!-- remark -->
-                                            <td><input type="checkbox" class="form-input-check"></td>
-                                            <td></td><!-- Create by. -->
-                                            <td></td><!-- Create datetime -->
-                                            <td></td><!-- Check by. -->
-                                            <td></td><!-- Check datetime -->
-                                            <td></td><!-- Paid Check by. -->
-                                            <td></td><!-- Paid Check datetime -->
-                                            <td></td><!-- Last update by. -->
-                                            <td></td><!-- Last update datetime -->
-                                            <td><button class="btn btn-success btn-sm m-1">Save</button><button class="btn btn-danger btn-sm">Del</button></td><!-- ACTION -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="button_add_new_list_ar text-center">
-                                <button class="btn btn-sm btn-outline-primary col-lg-12 col-xs-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ar()">add new list account receivable</button>
-                            </div>
-                            <div class="text-end mt-4">
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
-                                    <div class="col-lg-2 col-xl-2 col-md-3 text-end">
-                                        <select class="form-select form-select-sm inp_currency_main_ar">
-                                            <option value="THB">THB</option>
-                                            <option value="USD">USD</option>
-                                            <option value="RMB">RMB</option>
-                                            <option value="YEN">YEN</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_sub_total_ar text-end">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm  inp_vat_inc_ar text-end">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_total inp_total_ar text-end">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade " id="withdraw_tab_target" role="tabpanel" aria-labelledby="withdraw_tab">
-                    <div class="card p-4">
-                        <div class="card-header">
-                            <h4>Withdraw</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Type: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <select class="form-select form-select-sm inp_type_wd" onchange="sub_withdraw.show_petty_cash(this)">
-                                                        <option value="Payble">Payable</option>
-                                                        <option value="Advancecash">Advance cash</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data_petty_cash">
-
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Pay to: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input class="form-control form-control-sm inp_pay_to_wd" list="Payto_list" maxlength="200">
-                                                    <datalist id="Payto_list">
-                                                        <option value="Port Authority of Thailand (PAT)">
-                                                        <option value="Airports of Thailand (AOT)">
-                                                        <option value="Thai Customs">
-                                                    </datalist>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Description: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input class="form-control form-control-sm inp_description_wd" list="description_list" name="browser" id="browser" maxlength="300">
-                                                    <datalist id="description_list">
-                                                        <option value="RENT cargo">
-                                                        <option value="Customs Fee">
-                                                        <option value="OT officer">
-                                                    </datalist>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Amount: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input type="number" class="form-control form-control-sm inp_amount_wd">
-                                                </div>
-                                                <div class="col">
-                                                    <select class="form-select form-select-sm inp_currency_wd">
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>test</td> <!-- No -->
+                                                <td><select class="form-select form-select-sm select_code_billing_ar" onchange="function_sub_billing.change_sub_billing_ar(this)"> <!-- Code -->
+                                                        <option value="">-- pleas select code --</option>
+                                                    </select></td>
+                                                <td><input type="text" class="form-control form-control-sm"></td> <!-- item -->
+                                                <td><select class="form-select form-select-sm select_bill_to_ar"> <!-- bill to -->
+                                                        <option value="">-- please select bill to --</option>
+                                                    </select></td>
+                                                <td align="center"></td> <!-- Payble -->
+                                                <td><select class="form-select form-select-sm">
                                                         <option value="THB">THB</option>
                                                         <option value="USD">USD</option>
                                                         <option value="RMB">RMB</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row fg_pic">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Picture: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input type="file" class="form-control form-control-sm inp_picfile" id="imgInp">
-                                                </div>
-                                            </div>
+                                                    </select></td> <!-- Currency -->
+                                                <td><input type="number" class="form-control form-control-sm"></td> <!-- QTY. -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- Unit Price -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- AR AMT -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- VAT% -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- AMT(INCL.vat) -->
+                                                <td><input type="number" class="form-control form-control-sm"></td><!-- Billing Date -->
+                                                <td><input type="text" class="form-control form-control-sm"></td><!-- sysrate -->
+                                                <td><input type="checkbox" class="form-input-check"></td><!-- need vat -->
+                                                <td><input type="checkbox" class="fotm-input-check"></td><!-- rcvd amt -->
+                                                <td><input type="text" class="form-control form-control-sm"></td> <!-- remark -->
+                                                <td><input type="checkbox" class="form-input-check"></td>
+                                                <td></td><!-- Create by. -->
+                                                <td></td><!-- Create datetime -->
+                                                <td></td><!-- Check by. -->
+                                                <td></td><!-- Check datetime -->
+                                                <td></td><!-- Paid Check by. -->
+                                                <td></td><!-- Paid Check datetime -->
+                                                <td></td><!-- Last update by. -->
+                                                <td></td><!-- Last update datetime -->
+                                                <td><button class="btn btn-success btn-sm m-1">Save</button><button class="btn btn-danger btn-sm">Del</button></td><!-- ACTION -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="button_add_new_list_ar text-center">
+                                    <button class="btn btn-sm btn-outline-primary col-lg-12 col-xs-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ar()">add new list account receivable</button>
+                                </div>
+                                <div class="text-end mt-4">
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
+                                        <div class="col-lg-2 col-xl-2 col-md-3 text-end">
+                                            <select class="form-select form-select-sm inp_currency_main_ar">
+                                                <option value="THB">THB</option>
+                                                <option value="USD">USD</option>
+                                                <option value="RMB">RMB</option>
+                                                <option value="YEN">YEN</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Remark: </label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm inp_sub_total_ar text-end">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm  inp_vat_inc_ar text-end">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 col-md-6"></div>
+                                        <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
+                                        <div class="col-lg-2 col-md-3">
+                                            <input type="text" class="form-control form-control-sm inp_total inp_total_ar text-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="withdraw_tab_target" role="tabpanel" aria-labelledby="withdraw_tab">
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <h4>Withdraw</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Type: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select class="form-select form-select-sm inp_type_wd" onchange="sub_withdraw.show_petty_cash(this)">
+                                                            <option value="Payble">Payable</option>
+                                                            <option value="Advancecash">Advance cash</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="data_petty_cash">
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Pay to: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input class="form-control form-control-sm inp_pay_to_wd" list="Payto_list" maxlength="200">
+                                                        <datalist id="Payto_list">
+                                                            <option value="Port Authority of Thailand (PAT)">
+                                                            <option value="Airports of Thailand (AOT)">
+                                                            <option value="Thai Customs">
+                                                        </datalist>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Description: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input class="form-control form-control-sm inp_description_wd" list="description_list" name="browser" id="browser" maxlength="300">
+                                                        <datalist id="description_list">
+                                                            <option value="RENT cargo">
+                                                            <option value="Customs Fee">
+                                                            <option value="OT officer">
+                                                        </datalist>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Amount: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="number" class="form-control form-control-sm inp_amount_wd">
+                                                    </div>
+                                                    <div class="col">
+                                                        <select class="form-select form-select-sm inp_currency_wd">
+                                                            <option value="THB">THB</option>
+                                                            <option value="USD">USD</option>
+                                                            <option value="RMB">RMB</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row fg_pic">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center">Picture: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="file" class="form-control form-control-sm inp_picfile" id="imgInp">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-md-2 col-lg-3 align-self-center ">Remark: </label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control form-control-sm inp_remark_wd" maxlength="300">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 text-center">
+                                        <div class="bd-example">
+                                            <img id="blah" style="width:300px;height:300px;border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" class="bg-secondary" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-2">
+                                        <div class="col-sm-3 col-md-3 col-lg-6">
                                             <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control form-control-sm inp_remark_wd" maxlength="300">
+                                                <div class="col text-end">
+                                                    <button class="btn btn-success btn-sm " onclick="function_sub_withdraw.get_data_save();">save</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 text-center">
-                                    <div class="bd-example">
-                                        <img id="blah" style="width:300px;height:300px;border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" class="bg-secondary" />
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <h4>Payable list</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="db-example table-responsive">
+                                    <table class="table table-hover table_wd_payble">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Pay to</th>
+                                                <th>Description</th>
+                                                <th>Amount</th>
+                                                <th>Picture</th>
+                                                <th>Remark</th>
+                                                <th>status</th>
+                                                <th>action</th>
+                                                <th>request by.</th>
+                                                <th>datetime request</th>
+                                                <th>paid by.</th>
+                                                <th>paid datetime</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="form-group row mt-2">
-                                    <div class="col-sm-3 col-md-3 col-lg-6">
-                                        <div class="row">
-                                            <div class="col text-end">
-                                                <button class="btn btn-success btn-sm " onclick="function_sub_withdraw.get_data_save();">save</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-header">
+                                <h4>Advance Cash list</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="db-example table-responsive">
+                                    <table class="table table-hover table_wd_advancecash">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Pay to</th>
+                                                <th>Description</th>
+                                                <th>Amount</th>
+                                                <th>Picture</th>
+                                                <th>Remark</th>
+                                                <th>status</th>
+                                                <th>action</th>
+                                                <th>request by.</th>
+                                                <th>datetime request</th>
+                                                <th>paid by.</th>
+                                                <th>paid datetime</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card p-4">
-                        <div class="card-header">
-                            <h4>Payable list</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="db-example table-responsive">
-                                <table class="table table-hover table_wd_payble">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Pay to</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Picture</th>
-                                            <th>Remark</th>
-                                            <th>status</th>
-                                            <th>action</th>
-                                            <th>request by.</th>
-                                            <th>datetime request</th>
-                                            <th>paid by.</th>
-                                            <th>paid datetime</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card p-4">
-                        <div class="card-header">
-                            <h4>Advance Cash list</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="db-example table-responsive">
-                                <table class="table table-hover table_wd_advancecash">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Pay to</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Picture</th>
-                                            <th>Remark</th>
-                                            <th>status</th>
-                                            <th>action</th>
-                                            <th>request by.</th>
-                                            <th>datetime request</th>
-                                            <th>paid by.</th>
-                                            <th>paid datetime</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="petty_cash_data_all">
+                        <div class="petty_cash_data_all">
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
 
 

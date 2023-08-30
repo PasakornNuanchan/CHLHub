@@ -18,10 +18,12 @@ $carriage = isset($v['carriage']) ? $v['carriage'] : '';
 $bill_header = isset($v['bill_header']) ? $v['bill_header'] : '';
 $delivery_agent = isset($v['delivery_agent']) ? $v['delivery_agent'] : '';
 $shipper_on_board =  $v['shipper_on_board'];
+$on_board_date = $v['on_board_date'];
 $bl_number = isset($v['bl_number']) ? $v['bl_number'] :'';
 $shipper_bl = isset($v['shipper_bl']) ? $v['shipper_bl'] : '';
 $consignee_bl = isset($v['consignee_bl']) ? $v['consignee_bl'] : '';
 $des_of_god = isset($v['des_of_god']) ? $v['des_of_god'] : '';
+$final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
 
 
 
@@ -49,6 +51,12 @@ if($shipper_on_board !== ''){
     $shipper_on_board = "NULL";
 }
 
+if($on_board_date !== ''){
+    $on_board_date = "'".$on_board_date."'";
+}else{
+    $on_board_date = "NULL";
+}
+
 if($cs_data == "1"){
     $sql_query_detail_title = "
     UPDATE
@@ -59,10 +67,12 @@ if($cs_data == "1"){
         `bill_header` = '$bill_header',
         `delivery_agent` = '$delivery_agent',
         `shipper_on_board` = $shipper_on_board,
+        `on_board_date` = $on_board_date,
         `bl_number` = '$bl_number',
         `shipper_bl`='$shipper_bl',
         `consignee_bl`='$consignee_bl',
-        `description_of_good` = '$des_of_god'
+        `description_of_good` = '$des_of_god',
+        `final_destination`= '$final_destination'
     WHERE
         ref_job_id = '$id_number'
     ";
@@ -77,10 +87,12 @@ if($cs_data == "1"){
         `bill_header`,
         `delivery_agent`,
         `shipper_on_board`,
+        `on_board_date`
         `bl_number`,
         `shipper_bl`,
         `consignee_bl`,
-        `description_of_good`
+        `description_of_good`,
+        `final_destination`
     )
     VALUES(
         '$id_number',
@@ -89,10 +101,12 @@ if($cs_data == "1"){
         '$bill_header',
         '$delivery_agent',
         $shipper_on_board,
+        $on_board_date,
         '$bl_number',
         '$shipper_bl',
         '$consignee_bl',
-        '$des_of_god'
+        '$des_of_god',
+        '$final_destination'
     )
     ";
 }
@@ -112,9 +126,12 @@ foreach($table_detail_arr as $k => $v){
 $id_number = isset($v['id_number']) ? $v['id_number'] : '';
 $container_no_and_seal = isset($v['container_no_and_seal']) ? $v['container_no_and_seal'] : '';
 $container_or_package = isset($v['container_or_package']) ? $v['container_or_package'] : '';
+$package_unit = isset($v['package_unit']) ? $v['package_unit'] : '';
 $kind_of_package = isset($v['kind_of_package']) ? $v['kind_of_package'] : '';
 $gross_Weight = isset($v['gross_Weight']) ? $v['gross_Weight'] : '';
+$gross_weight_unit = isset($v['gross_weight_unit']) ? $v['gross_weight_unit'] : '';
 $mesurement = isset($v['mesurement']) ? $v['mesurement'] : '';
+$mesurement_unit = isset($v['mesurement_unit']) ? $v['mesurement_unit'] : '';
 $id_row = isset($v['id_row']) ? $v['id_row'] : '';
 
 if($id_row == ''){
@@ -123,17 +140,23 @@ if($id_row == ''){
         `ref_job_id`,
         `container_no`,
         `package`,
+        `package_unit`,
         `kind_of_package`,
         `gross_weight`,
-        `measurement`
+        `gross_weight_unit`,
+        `measurement`,
+        `cbm_unit`
     )
     VALUES(
         '$id_number',
         '$container_no_and_seal',
+        '$package_unit',
         '$container_or_package',
         '$kind_of_package',
         '$gross_Weight',
-        '$mesurement'
+        '$gross_weight_unit',
+        '$mesurement',
+        '$mesurement_unit'
     )
     ";
 }else{
@@ -144,9 +167,12 @@ if($id_row == ''){
         `ref_job_id` = '$id_number',
         `container_no` = '$container_no_and_seal',
         `package` = '$container_or_package',
+        `package_unit` = '$package_unit',
         `kind_of_package` = '$kind_of_package',
         `gross_weight` = '$gross_Weight',
-        `measurement` = '$mesurement'
+        `gross_weight_unit` = '$gross_weight_unit',
+        `measurement` = '$mesurement',
+        `cbm_unit` = '$mesurement_unit'
     WHERE
         `ID` = '$id_row'
     ";
@@ -180,8 +206,8 @@ $sql_query_container = "
 UPDATE
     `container`
 SET
-    `cbm` = $cbm_bl,
-    `quantity` = $quantity_bl,
+    `volume` = $cbm_bl,
+    `package` = $quantity_bl,
     `gw` = $weight_bl,
     `unit` = '$unit_bl'
 WHERE

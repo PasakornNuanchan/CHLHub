@@ -132,6 +132,10 @@ const function_sub_job_detail = {
                         'Your data has been saved.',
                         'success'
                     )
+                    var currentURL = window.location.href;
+                    var url = new URL(currentURL);
+                    var id_number = url.searchParams.get("job_number");
+                    await sub_bl.first_post_data(id_number);
                 } else {
                     Swal.fire({
                         icon: 'error',

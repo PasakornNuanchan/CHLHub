@@ -82,12 +82,12 @@ const sub_billing = {
                 <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
                 <td><div class="inp_status"></div></td>
                 <td class="text-center">${brunch}</td><!-- brunch -->
-                <td>${cb}</td><!-- create by, -->
-                <td>${create_data_time}</td><!-- create datetime. -->
-                <td>${lub}</td><!-- lastmo by -->
-                <td>${last_update_datetime}</td><!-- lastmo date -->
-                <td>${ccb}</td><!--  checker by -->
-                <td>${check_date_time}</td><!-- checker date -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${cb}"></td><!-- create by, -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${create_data_time}"></td><!-- create datetime. -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
+                <td><input type="text" class="form-control form-control-sm" disabled value="${check_date_time}"></td><!-- checker date -->
                 <td>
                 <button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button>
                 <button class="btn btn-danger btn-sm btn_del_ar" onclick="function_sub_billing.delete_list(this)">Del</button>
@@ -155,25 +155,27 @@ const sub_billing = {
                 // }
             })
         }else{
+
             html_data_ar = `
-            <tr id_list = "" type = "AR">
+            <tr list_id = "" type = "AR">
+                <td></td>
                 <td class="text-center">1</td> <!-- No -->
-                <td>${data_select_code_billing_ar}</td>
-                <td><input type="text" class="form-control form-control-sm inp_data_item"></td> <!-- item -->
-                <td>${data_select_bill_to_ar}</td>
+                <td>${sub_billing.html_select_code_billing_ar}</td>
+                <td><input type="text" class="form-control form-control-sm inp_data_item" disabled></td> <!-- item -->
+                <td>${sub_billing.html_select_bill_to_ar}</td>
                 <td align="center"></td> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency_ar ">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                     </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm inp_qty_ar text-center" ></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" ></td><!-- Unit Price -->
-                <td><input type="text" class="form-control form-control-sm inp_data_amt text-end" disabled></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm inp_vat_ar text-center"></td><!-- VAT% -->
-                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
+                <td><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)" ></td> <!-- QTY. -->
+                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
+                <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
+                <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
+                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm" ></td><!-- sysrate -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
                 <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage">
                                             <option value="0">Non with holding tax</option>
@@ -182,19 +184,17 @@ const sub_billing = {
                                             <option value="7">7%</option>
                                         </select></td><!-- with holding tax -->
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
-                <td><input type="text" class="form-control form-control-sm"></td>  <!-- remark -->
+                <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
                 <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
-                <td>status</td>
+                <td></td>
                 <td></td><!-- Create by. -->
                 <td></td><!-- Create datetime -->
-                <td></td><!-- Check by. -->
                 <td></td><!-- Check datetime -->
                 <td></td><!-- Paid Check by. -->
                 <td></td><!-- Paid Check datetime -->
                 <td></td><!-- Last update by. -->
                 <td></td><!-- Last update datetime -->
-                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button>
-                </td><!-- ACTION -->
+                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
             </tr>
             `;
                 $('.table_billing_ar > tbody').append(html_data_ar)

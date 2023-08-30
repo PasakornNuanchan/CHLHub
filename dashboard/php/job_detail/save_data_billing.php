@@ -264,14 +264,14 @@ if($get_with_hold == 1){
             ";
         }
     }
- echo $sql_query_data;
-// $result = $con->query($sql_query_data);
-// if ($result->num_rows == 0) {
-//     $arr_res = '1';
-// } else {
-//     $arr_res = '0';
-// }
+ //echo $sql_query_data;
+$result = $con->query($sql_query_data);
+if ($result->num_rows == 0) {
+    $arr_res = '1';
+} else {
+    $arr_res = '0';
+}
 
 
-// echo json_encode(array('arr_res'=>$arr_res));
+echo json_encode(array('arr_res'=>$arr_res));
 }

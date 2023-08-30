@@ -14,6 +14,8 @@ SELECT
     c.consignee_name,
     c.address as address_consignee,
     jt.mbl,
+    jt.hbl,
+    jt.feeder_vessel,
     a1.location_name as a1location,
     a2.location_name as a2location,
     a3.location_name as a3location,
@@ -167,18 +169,18 @@ $pdf->AddFont('times', 'I', 'timesi.php');
 
 
 $set_height_header = 6;
-$pdf->SetXY(20,12);
-$pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(100, $set_height_header, "Shipper", '', 0, 'L');
-$pdf->SetX(140);
-$pdf->Cell(60, $set_height_header, "B/L NO.", '', 0, 'L');
+// $pdf->SetXY(20,12);
+// $pdf->SetFont('times', 'B', 8, '', true);
+// $pdf->Cell(100, $set_height_header, "Shipper", '', 0, 'L');
+// $pdf->SetX(140);
+// $pdf->Cell(60, $set_height_header, "B/L NO.", '', 0, 'L');
 
 foreach($data_shipperandconsignee as $k => $v){
   $pdf->SetFont('times', '', 8, '', true);
   $pdf->SetXY(20,17);
   $pdf->Cell(100, $set_height_header, $v['shipper_name'], '', 0, 'L');
   $pdf->SetX(140);
-  $pdf->Cell(60, $set_height_header, $v['mbl'], '', 1, 'L');
+  $pdf->Cell(60, $set_height_header, $v['hbl'], '', 1, 'L');
 
 }
 
@@ -187,6 +189,9 @@ foreach($data_address_shipper as $k => $v){
   $pdf->MultiCell(100,3,strtoupper($v),'',"L");
 }
 
+$pdf->Ln();
+$pdf->Ln();
+$pdf->Ln();
 $pdf->Ln();
 $pdf->Ln();
 
@@ -201,7 +206,7 @@ foreach($data_address_consignee as $k => $v){
 }
 
 
-$pdf->Ln();
+
 $pdf->Ln();
 $pdf->Ln();
 
@@ -209,7 +214,8 @@ foreach($data_notify as $k => $v){
   $pdf->SetX(20);
   $pdf->MultiCell(100,3,strtoupper($v),0,"L");
 }
-
+$pdf->Ln();
+$pdf->Ln();
 
 foreach($data_delivery_agent as $k => $v){
   $pdf->SetX(120);
@@ -217,9 +223,9 @@ foreach($data_delivery_agent as $k => $v){
 }
 
 
-foreach($data as $k => $v ){
+foreach($data_shipperandconsignee as $k => $v ){
   $pdf->SetX(20);
-  $pdf->Cell(100,3,strtoupper($v['pre_carriage']),0,0,'L');
+  $pdf->Cell(100,3,strtoupper($v['feeder_vessel']),0,0,'L');
 }
 
 foreach($data_shipperandconsignee as $k => $v){
@@ -243,7 +249,7 @@ foreach($data_shipperandconsignee as $k => $v){
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Ln();
-$pdf->Ln();
+
 
 foreach($data_shipperandconsignee as $k => $v){
   $pdf->SetX(20);
@@ -262,13 +268,13 @@ foreach($data_bl_list as $k => $v){
   $data_last_container = $pdf->GetY();
 
   $pdf->SetXY(65,$data_last_y_get);
-  $pdf->Cell(35,4,strtoupper($v['package']),0,0,'C');
+  $pdf->Cell(35,4,strtoupper($v['package'])." ".strtoupper($v['package_unit']),0,0,'C');
 
   $pdf->SetXY(155,$data_last_y_get);
-  $pdf->Cell(20,4,strtoupper($v['gross_weight']),0,0,'C');
+  $pdf->Cell(20,4,strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']),0,0,'C');
 
   $pdf->SetXY(175,$data_last_y_get);
-  $pdf->Cell(20,4,strtoupper($v['measurement']),0,0,'C');
+  $pdf->Cell(20,4,strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']),0,0,'C');
 
   $pdf->SetXY(100,$data_last_y_get);
   $pdf->MultiCell(55,4,strtoupper($v['kind_of_package']),0,'L');
@@ -292,7 +298,7 @@ $pdf->SetXY(20,$data_last_y_get);
 
 foreach($container_data as $k => $v){
   $pdf->SetX(25);
-  $pdf->Cell(150,4,strtoupper($v['container_number']."/".$v['container_type']."/".$v['quantity'].$v['unit']."/".$v['gw'].".KGS/".$v['cbm']."CBM"),0,1,'L');
+  $pdf->Cell(150,4,strtoupper($v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['unit']."/".$v['gw'].".KGS/".$v['cbm']."CBM"),0,1,'L');
 }
 
 $today = date("Y/m/d");
