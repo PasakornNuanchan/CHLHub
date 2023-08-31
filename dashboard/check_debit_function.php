@@ -12,6 +12,8 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
 </head>
 
 <body class="  ">
@@ -204,6 +206,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="text-end">
                                     <button class="btn btn-primary btn-sm rounded" onclick="setting_page.set_ap_by_job()">Search</button>
+                                    <button class="btn btn-primary btn-sm rounded" onclick="setting_page.ajax_excel()">gen</button>
                                 </div>
                             </div>
                             <div class="card p-4">
