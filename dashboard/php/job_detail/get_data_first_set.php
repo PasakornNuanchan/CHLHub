@@ -11,6 +11,7 @@ SELECT
     `booking_number`,
     `shipper_number`,
     `st_number`,
+    `notify`,
     `mbl`,
     `hbl`,
     `inv`,

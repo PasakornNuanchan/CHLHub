@@ -31,7 +31,7 @@ const setting_page = {
         let cs_support = $('.inp_cs_support_ar_job').val()
 
         let res_data = await this.ajax_set_ar_by_job(job_number, date_start, date_stop, bill_to, cs_support, bill_to_type);
-        console.log(res_data)
+        
         let data_round = 1;
         let last_i = 0;
 
@@ -213,7 +213,7 @@ const setting_page = {
         let cs_support = $('.inp_cs_support_ap_job').val()
 
         let res_data = await this.ajax_set_ap_by_job(job_number, date_start, date_stop, bill_to, cs_support, bill_to_type);
-        console.log(res_data)
+        
         let data_round = 0;
         let last_i = 0;
 
@@ -258,7 +258,7 @@ const setting_page = {
                     }
                     last_i = i;
 
-                    console.log(data_round)
+                    
 
                     usd_cal = usd_cal ? parseFloat(usd_cal).toFixed(2) : '';
                     thb_cal = thb_cal ? parseFloat(thb_cal).toFixed(2) : '';
@@ -299,9 +299,9 @@ const setting_page = {
 
                     $('.table_data_ap_by_job tbody').append(html_data_table)
 
-                    console.log(i1)
+                    
                 })
-                console.log(data_round + "vbvb")
+                
                 $(`.table_ap_${i}_0 > .td_m`).attr({ 'rowspan': `${data_round}` })
             
                 let data_plus_cal_usd = 0;
@@ -392,71 +392,210 @@ const setting_page = {
         });
     },
 
-    ajax_excel: async function () {
-       
+    ajax_request_data_ap : async function (job_number,date_start,date_stop,bill_to,cs_support,bill_to_type){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/debit_note/file_gen_ap_debit_note.php",
+                data: {
+                    job_number: job_number,
+                    date_start: date_start,
+                    date_stop: date_stop,
+                    bill_to: bill_to,
+                    bill_to_type: bill_to_type,
+                    cs_support: cs_support
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    excel_generate_ap : async function () {
+        let job_number = $('.inp_job_number_ap_job').val()        
+        let date_start = $('.inp_date_start_ap_job').val()
+        let date_stop = $('.inp_date_stop_ap_job').val()
+        let bill_to_type = $('.inp_bill_to_ap_job :selected').attr('data_type')
+        let bill_to = $('.inp_bill_to_ap_job').val()        
+        let cs_support = $('.inp_cs_support_ap_job').val()
+
+        let res_data = await this.ajax_request_data_ap(job_number,date_start,date_stop,bill_to,cs_support,bill_to_type)
+        
         var createXLSLFormatObj = [];
         /* XLS Head Columns */
-        var xlsHeader = ["EmployeeID", "Full Name"];
-
-        /* XLS Rows Data */
-        var xlsRows = [{
-                "EmployeeID": "MNmanomai",
-                "FullName": "Jolly"
-            },
-            {
-                "EmployeeID": "EMP002",
-                "FullName": "Macias"
-            },
-            {
-                "EmployeeID": "EMP003",
-                "FullName": "Lucian"
-            },
-            {
-                "EmployeeID": "EMP004",
-                "FullName": "Blaze"
-            },
-            {
-                "EmployeeID": "EMP005",
-                "FullName": "Blossom"
-            },
-            {
-                "EmployeeID": "EMP006",
-                "FullName": "Kerry"
-            },
-            {
-                "EmployeeID": "EMP007",
-                "FullName": "Adele"
-            },
-            {
-                "EmployeeID": "EMP008",
-                "FullName": "Freaky"
-            },
-            {
-                "EmployeeID": "EMP009",
-                "FullName": "Brooke"
-            },
-            {
-                "EmployeeID": "EMP010",
-                "FullName": "FreakyJolly.Com"
-            }
-        ];
+        var xlsHeader = ["Create date", "Bill to","inv no.","mbl on.","Container No.","Quantity Container","description","USD","THB","RMB","YEN"];
         createXLSLFormatObj.push(xlsHeader);
+         /* XLS Rows Data */
+    
+        var xlsRows = res_data['data_setting_default_ap_by_job'];
 
-        $.each(xlsRows, function(index, value) {
+        $.each(xlsRows, function(i, v) {
             var innerRowData = [];
-            //$("tbody").append('<tr><td>' + value.EmployeeID + '</td><td>' + value.FullName + '</td></tr>');
-            $.each(value, function(ind, val) {
-                innerRowData.push(val);
-            });
+            var val = {};
+            let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
+            let billing_item_data = v['billing_item_data'] ? v['billing_item_data'] : '';
+            let container = v['container'] ? v['container'] : '';
+            let container_quantity = v['container_quantity'] ? v['container_quantity'] : '';
+            let create_date = v['create_date'] ? v['create_date'] : '';
+            let currency = v['currency'] ? v['currency'] : '';
+            let job_number = v['job_number'] ? v['job_number'] : '';
+            let main = v['main'] ? v['main'] : '';
+            let mbl = v['mbl'] ? v['mbl'] : '';
+
+            let thb_cur = 0;
+            let usd_cur = 0;
+            let rmb_cur = 0;
+            let yen_cur = 0;
+
+            if(currency == "THB"){
+                thb_cur = thb_cur + main;
+            }else if(currency == "USD"){
+                usd_cur = thb_cur + main;
+            }else if(currency == "RMB"){
+                rmb_cur = thb_cur + main;
+            }else if(currency == "YEN"){
+                yen_cur = thb_cur + main;
+            }
+
+            thb_cur = parseFloat(thb_cur).toFixed(2);
+            usd_cur = parseFloat(usd_cur).toFixed(2);
+            rmb_cur = parseFloat(rmb_cur).toFixed(2);
+            yen_cur = parseFloat(yen_cur).toFixed(2);
+            
+            innerRowData = [
+                create_date,
+                bill_to_c,
+                job_number,
+                mbl,
+                container,
+                container_quantity,
+                billing_item_data ,
+                usd_cur,
+                thb_cur,
+                rmb_cur,
+                yen_cur
+            ]
+
             createXLSLFormatObj.push(innerRowData);
         });
-
+        
 
         /* File Name */
         var filename = "Statement.xlsx";
 
         /* Sheet Name */
-        var ws_name = "FreakySheet";
+        var ws_name = "Statement";
+
+        if (typeof console !== 'undefined') console.log(new Date());
+        var wb = XLSX.utils.book_new(),
+            ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+
+        /* Add worksheet to workbook */
+        XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+        /* Write workbook and Download */
+        if (typeof console !== 'undefined') console.log(new Date());
+        XLSX.writeFile(wb, filename);
+        if (typeof console !== 'undefined') console.log(new Date());
+    },
+
+    ajax_request_data_ar : async function (job_number,date_start,date_stop,bill_to,cs_support,bill_to_type){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/debit_note/file_gen_ar_debit_note.php",
+                data: {
+                    job_number: job_number,
+                    date_start: date_start,
+                    date_stop: date_stop,
+                    bill_to: bill_to,
+                    bill_to_type: bill_to_type,
+                    cs_support: cs_support
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    excel_generate_ar : async function () {
+        let job_number = $('.inp_job_number_ar_job').val()        
+        let date_start = $('.inp_date_start_ar_job').val()
+        let date_stop = $('.inp_date_stop_ar_job').val()
+        let bill_to_type = $('.inp_bill_to_ar_job :selected').attr('data_type')
+        let bill_to = $('.inp_bill_to_ar_job').val()        
+        let cs_support = $('.inp_cs_support_ar_job').val()
+
+        let res_data = await this.ajax_request_data_ar(job_number,date_start,date_stop,bill_to,cs_support,bill_to_type)
+        
+        var createXLSLFormatObj = [];
+        /* XLS Head Columns */
+        var xlsHeader = ["Create date", "Bill to","inv no.","mbl on.","Container No.","Quantity Container","description","USD","THB","RMB","YEN"];
+        createXLSLFormatObj.push(xlsHeader);
+         /* XLS Rows Data */
+    
+        var xlsRows = res_data['data_setting_default_ap_by_job'];
+
+        $.each(xlsRows, function(i, v) {
+            var innerRowData = [];
+            var val = {};
+            let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
+            let billing_item_data = v['billing_item_data'] ? v['billing_item_data'] : '';
+            let container = v['container'] ? v['container'] : '';
+            let container_quantity = v['container_quantity'] ? v['container_quantity'] : '';
+            let create_date = v['create_date'] ? v['create_date'] : '';
+            let currency = v['currency'] ? v['currency'] : '';
+            let job_number = v['job_number'] ? v['job_number'] : '';
+            let main = v['main'] ? v['main'] : '';
+            let mbl = v['mbl'] ? v['mbl'] : '';
+
+            let thb_cur = 0;
+            let usd_cur = 0;
+            let rmb_cur = 0;
+            let yen_cur = 0;
+
+            if(currency == "THB"){
+                thb_cur = thb_cur + main;
+            }else if(currency == "USD"){
+                usd_cur = thb_cur + main;
+            }else if(currency == "RMB"){
+                rmb_cur = thb_cur + main;
+            }else if(currency == "YEN"){
+                yen_cur = thb_cur + main;
+            }
+
+            thb_cur = parseFloat(thb_cur).toFixed(2);
+            usd_cur = parseFloat(usd_cur).toFixed(2);
+            rmb_cur = parseFloat(rmb_cur).toFixed(2);
+            yen_cur = parseFloat(yen_cur).toFixed(2);
+            
+            innerRowData = [
+                create_date,
+                bill_to_c,
+                job_number,
+                mbl,
+                container,
+                container_quantity,
+                billing_item_data ,
+                usd_cur,
+                thb_cur,
+                rmb_cur,
+                yen_cur
+            ]
+
+            createXLSLFormatObj.push(innerRowData);
+        });
+        
+
+        /* File Name */
+        var filename = "Statement.xlsx";
+
+        /* Sheet Name */
+        var ws_name = "Statement";
 
         if (typeof console !== 'undefined') console.log(new Date());
         var wb = XLSX.utils.book_new(),

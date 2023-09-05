@@ -31,7 +31,7 @@ const sub_billing = {
                 let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
                 let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
                 let remark = v['remark'] ? v['remark'] : '';
-
+                
                 let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
                 let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
                 let need_vat = v['need_vat'] ? v['need_vat'] : '';
@@ -298,6 +298,9 @@ const sub_billing = {
             let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
             let remark = v['remark'] ? v['remark'] : '';
 
+
+            let status_data = v['status'] ? v['status'] : '';
+
             let billing_date = create_data_time.substring(0, 10);
             let action_paid_by = v['action_paid_by'] ? v['action_paid_by'] : '';
             let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
@@ -382,14 +385,28 @@ const sub_billing = {
             })
             $(`.data_ap${i} > td > .inp_des_ap`).val(data_requeset)
 
-            if(action_paid_by != ''){
+            // if(action_paid_by != ''){
+            //     //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+            //     $(`.data_ap${i} > td > .inp_payble`).html('Paid')
+            //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
+            // }else{
+            //     $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
+            //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
+            // }
+
+            if(status_data == '0'){
+                $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
+            }else if(status_data == '1'){
                 $(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+
                 $(`.data_ap${i} > td > .inp_payble`).html('Paid')
                 $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
-            }else{
-                $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Prepaid</span>')
+            }else if(status_data == '2'){
+                $(`.data_ap${i} > td > .inp_payble`).html('Reject')
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
             }
+
 
             if(check_by  != ''){
                 $(`.chb_check${i}`).attr({'checked':true,'disabled':true,"ischeckdone":'1'})

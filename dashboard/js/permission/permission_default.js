@@ -20,9 +20,9 @@ const permission_default = {
                 <div class="col-sm-9 col-lg-9">
                 <div class="form-group row">
                     <div class="col-sm-1 col-md-1 col-lg-1">
-                        <input type="checkbox" class="form-check-input type_page="main" check_clear save_check inp_${v['ID']}" ninp=${v['ID']}>    
+                        <input type="checkbox" type_page="main" class="form-check-input  check_clear save_check inp_${v['ID']}" ninp=${v['ID']}>    
                     </div>
-                    <label class="control-label col-sm-3 col-lg-5 align-self-center ">${v['menu_name']}</label>
+                    <label class="control-label col-sm-3 col-lg-5 align-self-center "><i class="${v['menu_icon']}"></i>  ${v['menu_name']}</label>
                 </div>
                 </div>
             </div>

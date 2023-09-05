@@ -8,7 +8,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>area Management</title>
+    <title>Billing Descripttion Management</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -43,24 +43,24 @@ require 'function/auth/get_session.php';
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Area</h4>
+                                        <h4 class="card-title">Billing Descripttion Management</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Port Name :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Code Name :</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="input" class="form-control form-control-sm inp_port_name">
+                                            <input type="input" class="form-control form-control-sm inp_code_name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 align-self-center ">Provice :</label>
+                                        <label class="control-label col-sm-3 align-self-center ">Billing item name :</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="input" class="form-control form-control-sm inp_provice">
+                                            <input type="input" class="form-control form-control-sm inp_item_name">
                                         </div>
                                     </div>
                                     <div style="float: right">
-                                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="area_management.get_area_management()"><i class="bi bi-check-square"></i> Save</button>
+                                        <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="function_bd_management.get_data_management()"><i class="bi bi-check-square"></i> Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -86,12 +86,12 @@ require 'function/auth/get_session.php';
 
 </html>
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<script src="js/area_management/function_area_management.js"></script>
+<script src="js/billing_description_management/function_bd_management.js"></script>
 
 
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
-        area_management.set_data_head();
+        function_bd_management.set_data_head();
     });
 </script>

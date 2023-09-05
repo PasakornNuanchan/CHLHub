@@ -46,6 +46,7 @@ const function_sub_job_detail = {
                 let sale_data_user = $('.inp_sale_user').val()
                 let commodity = $('.inp_commodity').val()
                 let delivery_place = $('.inp_delivery_place').val()
+                let notify = $('.inp_notify').val()
                 let arr_detail_save = []
 
                 obj_detail_save = {
@@ -77,7 +78,8 @@ const function_sub_job_detail = {
                     cs_data_user: cs_data_user,
                     sale_data_user: sale_data_user,
                     commodity:commodity,
-                    delivery_place:delivery_place
+                    delivery_place:delivery_place,
+                    notify:notify
                 }
 
                 arr_detail_save.push(obj_detail_save)

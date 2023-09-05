@@ -67,7 +67,7 @@ $id_number = $_POST['id_number'];
         $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
         $commodity = isset($v['commodity']) ? $v['commodity'] : '';
         $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
-        
+        $notify = isset($v['notify']) ? $v['notify'] : '';
         
         $eta = $v['eta'];
         $etd = $v['etd'];
@@ -109,7 +109,8 @@ $id_number = $_POST['id_number'];
             `sale_support` = $sale_data_user,
             `cs_support` = $cs_data_user,
             `commodity` = '$commodity',
-            `delivery_place` = '$delivery_place'
+            `delivery_place` = '$delivery_place',
+            `notify` = '$notify'
         WHERE
             id = '$id_number'
             ";

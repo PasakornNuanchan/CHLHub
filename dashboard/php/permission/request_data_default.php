@@ -6,7 +6,7 @@
 
 
     $sql_request_menu = "
-    SELECT ID,menu_number,menu_name,link FROM `menu` ORDER BY ID
+    SELECT ID,menu_number,menu_name,menu_icon,link FROM `menu` ORDER BY menu_number
     ";
 
 

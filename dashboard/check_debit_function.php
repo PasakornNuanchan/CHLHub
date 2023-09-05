@@ -55,7 +55,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="ar_job_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                        <div class="tab-pane fade " id="ar_job_target" role="tabpanel" aria-labelledby="job_detail_tab">
                         <div class="card p-4">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -116,6 +116,8 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="text-end">
                                     <button class="btn btn-primary btn-sm rounded" onclick="setting_page.set_ar_by_job()">Search</button>
+                                    <button class="btn btn-primary btn-sm rounded" onclick="setting_page.excel_generate_ar()">Excel generate</button>
+
                                 </div>
                             </div>
                             <div class="card p-4">
@@ -145,7 +147,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade " id="ap_job_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                        <div class="tab-pane fade show active" id="ap_job_target" role="tabpanel" aria-labelledby="job_detail_tab">
                             <div class="card p-4">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -206,7 +208,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="text-end">
                                     <button class="btn btn-primary btn-sm rounded" onclick="setting_page.set_ap_by_job()">Search</button>
-                                    <button class="btn btn-primary btn-sm rounded" onclick="setting_page.ajax_excel()">gen</button>
+                                    <button class="btn btn-primary btn-sm rounded" onclick="setting_page.excel_generate_ap()">Excel generate</button>
                                 </div>
                             </div>
                             <div class="card p-4">

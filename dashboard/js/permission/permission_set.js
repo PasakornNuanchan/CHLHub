@@ -155,18 +155,20 @@ const permission_set = {
 
 
         let data_department = $('.sel_department').val()
-        //console.log(ulsd)
+        
         arr_inp = []
         arr_inp_temp = {}
        let request_data = await this.ajax_change_data(data_department)
-        console.log(request_data)
+        //console.log(request_data['srrdl'])
         $('.check_clear').attr('disabled',false)
+
         $.each(request_data['srrdl'],function(i,v){
-            if(v == '20'){
-                $(`.inp_${v}`).prop('checked',true).attr('disabled',true)
-            }else{
-                $(`.inp_${v}`).prop('checked',true)
-            }
+            console.log(v)
+            // if(v == '20'){
+            //     $(`.inp_${v}`).prop('checked',true).attr('disabled',true)
+            // }else{
+                console.log($(`.inp_${v}`).prop('checked',true))
+            // }
         })
 
     },

@@ -46,7 +46,8 @@ const sub_job_detail = {
         $('.table_container_module tbody').html('')
         $('.table_container_v2 tbody').html('')
         
-
+        let notify = res_data['job_title']['notify'] ? res_data['job_title']['notify'] : '';
+        $('.inp_notify').val(notify)
 
         if (res_data['data_container'] != "0 results") {
             let html_data_container_group = '';
