@@ -65,7 +65,7 @@ const setting_data = {
             let qty = v['qty'] ? v['qty'] : '';
             let unit_price = v['unit_price'] ? v['unit_price'] : '';
             let vat = v['vat'] ? v['vat'] : '';
-            let remark = v['remark'] ? v['vat'] : '';
+            let remark = v['remark'] ? v['remark'] : '';
             let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
             let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
             let create_by = v['create_f'] ? v['create_f'] + ' ' + v['create_l'] : '';
@@ -73,6 +73,7 @@ const setting_data = {
             let id_number = v['ID'] ? v['ID'] : '';
             let sale_support = v['sale_support'] ? v['sale_support'] : '';
             let status_data = v['status'] ? v['status'] : '';
+            let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
 
 
             let amt = parseFloat(qty) * parseFloat(unit_price);
@@ -109,8 +110,8 @@ const setting_data = {
                 <input type="radio" class="form-check-input" onclick="function_account_check.status_change(this)" name="status_row_rd${id_number}" status_data="2" id_find="radio_status_id_${id_number}" id="radio_status_id_${id_number}_2">
                 <label for="radio3" class="form-check-label pl-2">Reject</label>
             </td>
-            <td><input type="number" class="form-control form-control-sm rounded inp_paid_amt inp_paid_amt${i} text-end" value=""></td>
-            <td><input type="text" class="form-control form-control-sm rounded" value="${remark}"></td>
+            <td><input type="number" class="form-control form-control-sm rounded inp_paid_amt inp_paid_amt${i} text-end" value="${paid_amt}"></td>
+            <td><input type="text" class="form-control form-control-sm rounded inp_remark inp_remark${i}" value="${remark}"></td>
             <td><input type="text" class="form-control form-control-sm rounded" value="${create_data_time}" disabled></td>
             <td><input type="text" class="form-control form-control-sm rounded" value="${create_by}" disabled></td>
             <td><input type="text" class="form-control form-control-sm rounded" value="${sale_support}" disabled></td>
@@ -129,7 +130,7 @@ const setting_data = {
                 $(`#radio_status_id_${id_number}_1`).prop('disabled', true)
                 $(`#radio_status_id_${id_number}_2`).prop('disabled', true)
 
-
+                $(`.inp_remark${i}`).attr('disabled',true)
 
             }else if(status_data == '2'){
                 $(`#radio_status_id_${id_number}_2`).prop('checked', true)
@@ -137,6 +138,8 @@ const setting_data = {
                 $(`#radio_status_id_${id_number}_0`).prop('disabled', true)
                 $(`#radio_status_id_${id_number}_1`).prop('disabled', true)
                 $(`#radio_status_id_${id_number}_2`).prop('disabled', true)
+
+                $(`.inp_remark${i}`).attr('disabled',true)
             }
 
         })

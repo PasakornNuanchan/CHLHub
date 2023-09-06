@@ -17,6 +17,7 @@ const sub_job_detail = {
         $('.inp_port_of_receipt').val(res_data['job_title']['port_of_receipt_number'])
         $('.inp_port_of_loading').val(res_data['job_title']['port_of_loading_number'])
         $('.inp_ts_port').val(res_data['job_title']['ts_port_number'])
+        $('.inp_port_of_discharge').val(res_data['job_title']['port_of_discharge'])
         $('.inp_port_of_delivery').val(res_data['job_title']['port_of_delivery_number'])
         $('.inp_mother_vessel').val(res_data['job_title']['mother_vessel'])
         $('.inp_feeder_vessel').val(res_data['job_title']['feeder_vessel'])
@@ -92,6 +93,7 @@ const sub_job_detail = {
                                     <td><input type="text" class="form-control form-control-sm text-center inp_seal_number" maxlength="30" value="${seal_number}"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_single_weight" value="${single_cnt}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_package" maxlength="40" value="${package}"></td>
+                                    <td></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_gw" value="${gw}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_volume" value="${volume}"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_vgm" value="${data_vgm}"></td>

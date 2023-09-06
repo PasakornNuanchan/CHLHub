@@ -112,6 +112,7 @@ const setting_data_default = {
             $('#area_datal').append(area_data)
             $('#area_datat').append(area_data)
             $('#area_datad').append(area_data)
+            $('#area_datadl').append(area_data)
 
             $('.bl_por').append(area_data)
             $('.bl_pol').append(area_data)

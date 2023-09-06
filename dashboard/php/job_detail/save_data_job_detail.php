@@ -66,6 +66,7 @@ $id_number = $_POST['id_number'];
         $hbl = isset($v['hbl']) ? $v['hbl'] : '';
         $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
         $commodity = isset($v['commodity']) ? $v['commodity'] : '';
+        $port_of_discharge = isset($v['port_of_discharge']) ? $v['port_of_discharge'] :'';
         $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
         $notify = isset($v['notify']) ? $v['notify'] : '';
         
@@ -99,6 +100,7 @@ $id_number = $_POST['id_number'];
             `port_of_receipt_number` = '$port_of_receipt',
             `port_of_loading_number` = '$port_of_loading',
             `ts_port_number` = '$ts_port',
+            `port_of_discharge` = '$port_of_discharge'
             `port_of_delivery_number` = '$port_of_delivery',
             `mother_vessel` = '$mother',
             `feeder_vessel` = '$feeder',

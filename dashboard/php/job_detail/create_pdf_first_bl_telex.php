@@ -25,7 +25,8 @@ SELECT
     a2.provice as a2provice,
     a3.provice as a3provice,
     a4.provice as a4provice,
-    jt.mother_vessel
+    jt.mother_vessel,
+    st.st_name
 FROM
     job_title jt
 LEFT JOIN shipper s ON jt.shipper_number = s.ID
@@ -34,6 +35,7 @@ LEFT JOIN area a1 ON jt.port_of_receipt_number = a1.ID
 LEFT JOIN area a2 ON jt.port_of_loading_number = a2.ID
 LEFT JOIN area a3 ON jt.ts_port_number = a3.ID
 LEFT JOIN area a4 ON jt.port_of_delivery_number = a4.ID
+LEFT JOIN shipment_term st ON jt.st_number = st.ID
 WHERE
     jt.ID = '$job_number'
 ";
@@ -273,7 +275,7 @@ $pdf->Cell(50, 4, strtoupper("Container NO. & Seal NO."), "TR", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(25, 4, strtoupper("No.of"), "TR", 0, 'L');
 $pdf->SetX(85);
-$pdf->Cell(70, 4, strtoupper("Kind of oackages; Description of Goods"), 'TR', 0, 'L');
+$pdf->Cell(70, 4, strtoupper("Kind of packages; Description of Goods"), 'TR', 0, 'L');
 $pdf->SetX(155);
 $pdf->Cell(25, 4, strtoupper("Gross Weight"), 'TR', 0, 'L');
 $pdf->SetX(180);
@@ -284,7 +286,7 @@ $pdf->Cell(50, 4, strtoupper("Marks and Numbers"), "R", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(25, 4, strtoupper("Container or"), "R", 0, 'L');
 $pdf->SetX(85);
-$pdf->Cell(70, 4, strtoupper(""), 'R', 0, 'L');
+$pdf->Cell(70, 4, strtoupper("SHIPPER'S LOAD & COUNT & SEAL"), 'R', 0, 'L');
 $pdf->SetX(155);
 $pdf->Cell(25, 4, strtoupper(""), 'R', 0, 'L');
 $pdf->SetX(180);
@@ -324,7 +326,7 @@ $pdf->SetFont('times', '', 8, '', true);
 
 
 $pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(195, 3, strtoupper("Total number of Conrainers"), 'T', 1, 'L');
+$pdf->Cell(195, 3, strtoupper("Total number of Containers"), 'T', 1, 'L');
 $get_y_res = $pdf->GetY();
 $pdf->Cell(195, 3, strtoupper("or other Packages or Units"), '', 1, 'L');
 $get_y_res_last = $pdf->GetY();
@@ -607,11 +609,16 @@ $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(40, 4, $today, 0, 0, 'C');
 
 $pdf->SetY($data_last_y_get + 5);
+$pdf->SetTextColor(0,0,0);
+$pdf->SetFont('times', '', 8, '', true);
+$pdf->SetX(15);
+$pdf->Cell(150,4,"SHIPMENT TERMS :",0,1);
+foreach ($data_shipperandconsignee as $k => $v) {
+  $pdf->SetX(15);  
+  
+  $pdf->MultiCell(150, 4, strtoupper($v['st_name']), 0, 'L');
+}
 
-$pdf->SetTextColor(140, 14, 14);
-$pdf->SetFont('times', 'B', 18, '', true);
-$pdf->SetX(45);
-$pdf->Cell(140,2,"TELEX RELEASE",0,1);
 
 
 
@@ -624,6 +631,14 @@ foreach ($container_data as $k => $v) {
   
   $pdf->MultiCell(150, 4, strtoupper($v['container_number']."/".$v['seal_number'] . "/" . $v['container_type'] . "/" . $v['package'] . $v['package_unit'] . "/" . $v['gw'] . ".KGS/" . $v['volume'] . "CBM"), 0, 'L');
 }
+
+$pdf->SetTextColor(140, 14, 14);
+$pdf->SetFont('times', 'B', 18, '', true);
+$pdf->SetXY(100,182);
+$pdf->Cell(140,2,"TELEX RELEASE",0,1);
+
+$pdf->SetTextColor(0,0,0);
+$pdf->SetFont('times', '', 8, '', true);
 
 $pdf->SetXY(78, 232);
 $pdf->Cell(35, 4, "FREIGHT COLLECT",0,0,"C");
@@ -658,7 +673,10 @@ $pdf->Cell(90, 4, "Anthorized Signature", '', '', 'C');
 $pdf->SetFont('times', '', 8, '', true);
 $pdf->SetY(267);
 $pdf->SetX(145);
-$pdf->Cell(0, 4, "Bangkok");
+foreach($data as $k => $v){
+  $pdf->Cell(0, 4, strtoupper($v['place']));
+}
+
 $pdf->SetX(15);
 $pdf->Cell(40,4,"DESTINATION");
 

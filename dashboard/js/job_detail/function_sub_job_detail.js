@@ -27,6 +27,7 @@ const function_sub_job_detail = {
                 let port_of_receipt = $('.inp_port_of_receipt').val()
                 let port_of_loading = $('.inp_port_of_loading').val()
                 let ts_port = $('.inp_ts_port').val()
+                let port_of_discharge = $('.inp_port_of_discharge').val()
                 let port_of_delivery = $('.inp_port_of_delivery').val()
                 let mother = $('.inp_mother_vessel').val()
                 let feeder = $('.inp_feeder_vessel').val()
@@ -60,6 +61,7 @@ const function_sub_job_detail = {
                     port_of_receipt: port_of_receipt,
                     port_of_loading: port_of_loading,
                     ts_port: ts_port,
+                    port_of_discharge : port_of_discharge,
                     port_of_delivery: port_of_delivery,
                     mother: mother,
                     feeder: feeder,

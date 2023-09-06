@@ -19,6 +19,7 @@ SELECT
     `port_of_receipt_number`,
     `port_of_loading_number`,
     `ts_port_number`,
+    `port_of_discharge`,
     `port_of_delivery_number`,
     `mother_vessel`,
     `feeder_vessel`,

@@ -1,4 +1,5 @@
 const create_job = {
+    html_par_con : '',
     setting_create_job : async function (){
         $('.card_body_head_nav').remove()
         $('.btn_get_data_detail_f_save').remove()
@@ -7,14 +8,23 @@ const create_job = {
         $('#customs_tab_target').remove()
         $('#billing_tab_target').remove()
         $('#withdraw_tab_target').remove()
+        $('.c_container_module').remove()
+        $('.c_container_add').remove()
 
+        $('.head_d_btn_get_data_detail').html('')
         let btn_get_save_detail = `<button class="btn btn-sm btn-success" onclick="create_job.get_data_create()" ><i class="bi bi-save"></i> save</button>`;
-        $('.head_d_btn_get_data_detail').append(btn_get_save_detail)
+        $('.save_create_btn_add').append(btn_get_save_detail)
+
+        html_container_type = $('.inp_container_type').parent().html();
+        this.html_par_con = html_container_type;
+        console.log(html_container_type)
 
         $('.head_b_btn_add_new_row').html('')
+
         let btn_add_new_row = `<button class="btn btn-sm btn-outline-primary col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="create_job.add_row_new_container()" > add new container</button>`;
+        $('.table_container_module tbody').html('')
         $('.head_b_btn_add_new_row').append(btn_add_new_row)
-        html_container_type = $('.inp_container_type').parent().html();
+        
     },
 
 
@@ -156,22 +166,23 @@ const create_job = {
     },
 
 
-    add_row_new_container: function () {
+    // add_row_new_container: function () {
 
-        let html_add_new_container = "";
-        html_add_new_container = `
-    <tr class="text-center header_container_data">
-        <td>${html_container_type}</td>
-        <td><input type="text" class="form-control form-control-sm inp_container_number"></td>
-        <td><input type="number" class="form-control form-control-sm inp_cntr"></td>
-        <td><input type="checkbox" class="form-check-input inp_soc"></td>
-        <td><input type="checkbox" class="form-check-input inp_ow"></td>
-        <td><input type="date" class="form-control form-control-sm inp_cy"></td>
-        <td><input type="date" class="form-control form-control-sm inp_rtn"></td>
-        <td><button class="btn btn-sm btn-danger" onclick="function_sub_job_detail.delete_row_table_container(this)"><i class="bi bi-trash text-white"></i></button></td>
-    </tr>
-    `;
+    //     console.log(this.html_par_con)
+    //     let html_add_new_container = "";
+    //     html_add_new_container = `
+    // <tr class="text-center header_container_data">
+    //     <td>${ters}</td>
+    //     <td><input type="text" class="form-control form-control-sm inp_container_number"></td>
+    //     <td><input type="number" class="form-control form-control-sm inp_cntr"></td>
+    //     <td><input type="checkbox" class="form-check-input inp_soc"></td>
+    //     <td><input type="checkbox" class="form-check-input inp_ow"></td>
+    //     <td><input type="date" class="form-control form-control-sm inp_cy"></td>
+    //     <td><input type="date" class="form-control form-control-sm inp_rtn"></td>
+    //     <td><button class="btn btn-sm btn-danger" onclick="function_sub_job_detail.delete_row_table_container(this)"><i class="bi bi-trash text-white"></i></button></td>
+    // </tr>
+    // `;
 
-        $('.table_data_container > tbody').append(html_add_new_container)
-    }
+    //     $('.table_data_container > tbody').append(html_add_new_container)
+    // }
 }

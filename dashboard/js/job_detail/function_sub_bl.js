@@ -33,6 +33,8 @@ const function_sub_bl = {
         let on_board_date = $('.inp_on_board_date').val()
         let bl_number = $('.inp_bl_number').val()
         let des_of_god = $('.inp_description_of_good').val()
+        let data_place = $('.inp_place').val()
+        
 
         data_detail_obj = {
             des_of_god: des_of_god,
@@ -47,6 +49,7 @@ const function_sub_bl = {
             on_board_date : on_board_date,
             final_destination : final_destination,
             bl_number: bl_number,
+            data_place : data_place,
         }
         data_detail_arr.push(data_detail_obj);
 

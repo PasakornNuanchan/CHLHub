@@ -31,7 +31,7 @@ const sub_billing = {
                 let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
                 let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
                 let remark = v['remark'] ? v['remark'] : '';
-                
+                let status_data = v['status'] ? v['status'] : '';
                 let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
                 let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
                 let need_vat = v['need_vat'] ? v['need_vat'] : '';
@@ -116,15 +116,16 @@ const sub_billing = {
                     $(`.data_ar${i} > td > .ch_need_vat_ar`).prop('checked',true)
                 }
 
-                if(apb != ''){
-                    $(`.data_ar${i} > td > .ch_revd_amt_ar`).prop('checked',true).attr({'disabled':true,"ischedkedon":'1'})
+                if(status_data == '0'){
+                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
+                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
+                }else if(status_data == '1'){
+                    //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
                     $(`.data_ar${i} > td > .inp_payble`).html('Paid')
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
-                    
-                    
-                }else{
-                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
-                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Prepaid</span>')
+                }else if(status_data == '2'){
+                    $(`.data_ar${i} > td > .inp_payble`).html('Reject')
+                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
                 }
 
                 if(ccb != ''){

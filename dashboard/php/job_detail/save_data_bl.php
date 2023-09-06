@@ -24,6 +24,7 @@ $shipper_bl = isset($v['shipper_bl']) ? $v['shipper_bl'] : '';
 $consignee_bl = isset($v['consignee_bl']) ? $v['consignee_bl'] : '';
 $des_of_god = isset($v['des_of_god']) ? $v['des_of_god'] : '';
 $final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
+$data_place = isset($v['data_place']) ? $v['data_place'] : '';
 
 
 
@@ -72,7 +73,8 @@ if($cs_data == "1"){
         `shipper_bl`='$shipper_bl',
         `consignee_bl`='$consignee_bl',
         `description_of_good` = '$des_of_god',
-        `final_destination`= '$final_destination'
+        `final_destination`= '$final_destination',
+        `place` = '$data_place'
     WHERE
         ref_job_id = '$id_number'
     ";
@@ -92,7 +94,8 @@ if($cs_data == "1"){
         `shipper_bl`,
         `consignee_bl`,
         `description_of_good`,
-        `final_destination`
+        `final_destination`,
+        `place`
     )
     VALUES(
         '$id_number',
@@ -106,7 +109,8 @@ if($cs_data == "1"){
         '$shipper_bl',
         '$consignee_bl',
         '$des_of_god',
-        '$final_destination'
+        '$final_destination',
+        '$data_place'
     )
     ";
 }

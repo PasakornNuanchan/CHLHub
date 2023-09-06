@@ -42,6 +42,7 @@ const sub_bl = {
         let description_of_good = res_data['bl_title']['description_of_good'] ? res_data['bl_title']['description_of_good'] : '';
         let onboaed_date = res_data['bl_title']['on_board_date'] ? res_data['bl_title']['on_board_date'] :'';
         let final_destination = res_data['bl_title']['final_destination'] ? res_data['bl_title']['final_destination'] :'';
+        let place = res_data['bl_title']['place'] ? res_data['bl_title']['place'] :'';
         $('.inp_bl_shipping').val(shipper_bl)
         $('.inp_bl_consingee').val(consignee_bl)
 
@@ -54,6 +55,7 @@ const sub_bl = {
         $('.inp_bl_number').val(bl_number)
         $('.inp_description_of_good').val(description_of_good)
         $('.inp_on_board_date').val(onboaed_date)
+        $('.inp_place').val(place)
 
         $('.table_detail_bl tbody').html('');
         if (res_data['bl_list'] != "0 results") {
@@ -117,8 +119,8 @@ const sub_bl = {
 
                 let html_data_container = `
                 <tr class="containertr_row${i} containertr_row" container_id="${id_nubmer}">
-                    <td><input type="text" class="form-control form-control-sm" value="${container_number}" disabled></td>
                     <td>${data_container}</td>
+                    <td><input type="text" class="form-control form-control-sm" value="${container_number}" disabled></td>
                     <td><input type="text" class="form-control form-control-sm" value="${seal_number}">
                     <td><input type="number" class="form-control form-control-sm inp_quantity_bl" onchange="function_sub_bl.cal_container_package()" value="${quantity}"></td>
                     <td>${data_unit_bl}</td>

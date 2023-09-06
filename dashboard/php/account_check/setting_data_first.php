@@ -59,7 +59,8 @@ SELECT
     u2.first_name as paid_f,
     u2.last_name as paid_l,
     jt.sale_support,
-    b.status
+    b.status,
+    b.paid_amt
 FROM
     billing b
 LEFT JOIN job_title jt ON b.ref_job_id = jt.ID

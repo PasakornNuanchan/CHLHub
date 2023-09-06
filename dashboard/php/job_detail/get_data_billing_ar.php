@@ -26,7 +26,7 @@ LEFT JOIN USER apb ON
 LEFT JOIN USER lub ON
     lub.ID = bi.last_update_by
 WHERE
-    bi.type = 'AR' AND bi.status ='0' AND ref_job_id = '$id_number'
+    bi.type = 'AR' AND ref_job_id = '$id_number'
     
 ";
 
