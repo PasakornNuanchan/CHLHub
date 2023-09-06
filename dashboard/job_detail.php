@@ -656,7 +656,7 @@ require 'function/auth/get_session.php';
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
-                                            <td><select class="form-select form-select-sm inp_select_packing"name="" id="">
+                                            <td><select class="form-select form-select-sm inp_select_packing" name="" id="">
                                                 <option value=""></option>
                                             </select></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
@@ -1551,7 +1551,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">Place : </label>
+                                            <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">Place of issue : </label>
                                             <div class="col">
                                                 <input class="form-control form-control-sm inp_place" list="place_list" maxlength="60">
                                                 <datalist id="place_list">

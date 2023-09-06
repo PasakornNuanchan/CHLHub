@@ -24,8 +24,19 @@ const setting_data_default = {
         let bill_to = '';
         let billing_des_ar = '';
         let bill_to_ar = '';
+        let unit_data = '';
+
+        if(res_data_default['unit'] != "0 results"){
+            $.each(res_data_default['unit'],function(i,v){
+                unit_data += `<option value="${v['ID']}">${v['name']}</option>`;
+            })
+            
+            $('.inp_select_packing').append(unit_data)
+        }
 
         
+    
+
         if(res_data_default['bill_to_ar'] != "0 results"){
             $.each(res_data_default['bill_to_ar'],function(i,v){
                 bill_to_ar +=`<option type="${v['TYPE']}" value="${v['ID']}">${v['NAME']}</option>`;

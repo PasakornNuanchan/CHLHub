@@ -58,8 +58,16 @@ SELECT
 FROM
     carrier
 ";
+$sql_unit = "SELECT ID,name FROM `unit`";
 
-
+$result = $con->query($sql_unit);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $unit[] = $row;
+  }
+} else {
+  $unit = "0 results";
+}
 
 $result = $con->query($sql_get_bill_to_ar);
 if ($result->num_rows > 0) {
@@ -232,7 +240,8 @@ echo json_encode(array(
     'billing_des'=>$billing_des,
     'billing_bill_to'=>$billing_bill_to,
     'billing_des_ar'=>$billing_des_ar,
-    'bill_to_ar'=>$bill_to_ar
+    'bill_to_ar'=>$bill_to_ar,
+    'unit'=>$unit
   ));
 
 ?>

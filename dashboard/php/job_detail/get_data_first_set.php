@@ -73,7 +73,8 @@ SELECT
     `package`,
     `gross_weight`,
     `cbm`,
-    `ref_job_id`
+    `ref_job_id`,
+    `unit`
 FROM
     `container`
 WHERE

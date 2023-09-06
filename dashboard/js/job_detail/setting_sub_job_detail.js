@@ -1,6 +1,7 @@
 const sub_job_detail = {
     data_select_container: '',
     data_container_for_transport : '',
+    select_packing_global : '',
     first_post_data: async function (data) {
         //data = 1;
         let res_data = await this.ajax_request_first(data);
@@ -41,7 +42,10 @@ const sub_job_detail = {
         $('.inp_cs_user').val(res_data['job_title']['cs_support'])
         $('.inp_sale_user').val(res_data['job_title']['sale_support'])
         //container 
+        let select_packing = $('.inp_select_packing').parent().html();
+        this.select_packing_global = select_packing;
         html_container_type = $('#container_type_data').parent().html();
+        
         this.data_select_container = $('.inp_container_type').parent().html()
         $('.table_data_container > tbody').html('')
         $('.table_container_module tbody').html('')
@@ -67,7 +71,7 @@ const sub_job_detail = {
 
                 $('.table_container_v2 tbody').append(html_data_container_group)
                 $(`.table_container_v2 > tbody > tr > .container_type_data_selector${i} > .inp_container_type`).val(container_type).attr('disabled', true)
-
+                
                 if (res_data['container'] != "0 results") {
                     $.each(res_data['container'], function (i1, v1) {
                         if (v1['container_type'] == v['container_type']) {
@@ -83,6 +87,7 @@ const sub_job_detail = {
                             let cy = v1['cy'] ? v1['cy'] : '';
                             let rtn = v1['rtn'] ? v1['rtn'] : '';
                             let remark = v1['remark'] ? v1['remark'] : '';
+                            let unit = v1['unit'] ? v1['unit'] : '';
                             let data_vgm = parseFloat(single_cnt) + parseFloat(gw);
 
                             let html_container_module = `
@@ -93,7 +98,7 @@ const sub_job_detail = {
                                     <td><input type="text" class="form-control form-control-sm text-center inp_seal_number" maxlength="30" value="${seal_number}"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_single_weight" value="${single_cnt}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_package" maxlength="40" value="${package}"></td>
-                                    <td></td>
+                                    <td>${select_packing}</td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_gw" value="${gw}" onchange="function_sub_job_detail.cal_vgm(this)"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_volume" value="${volume}"></td>
                                     <td><input type="number" class="form-control form-control-sm text-center inp_vgm" value="${data_vgm}"></td>
@@ -104,6 +109,7 @@ const sub_job_detail = {
                                 `;
                             $('.table_container_module tbody').append(html_container_module)
                             $(`.table_container_module > tbody > .container_data_q${i} > td > .inp_container_type`).val(data_container_v1).attr('disabled',true)
+                            $(`.table_container_module > tbody > .container_data_q${i} > td > .inp_select_packing`).val(unit)
                         }
 
                     })

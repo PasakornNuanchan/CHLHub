@@ -100,7 +100,7 @@ $id_number = $_POST['id_number'];
             `port_of_receipt_number` = '$port_of_receipt',
             `port_of_loading_number` = '$port_of_loading',
             `ts_port_number` = '$ts_port',
-            `port_of_discharge` = '$port_of_discharge'
+            `port_of_discharge` = '$port_of_discharge',
             `port_of_delivery_number` = '$port_of_delivery',
             `mother_vessel` = '$mother',
             `feeder_vessel` = '$feeder',
@@ -157,6 +157,7 @@ $id_number = $_POST['id_number'];
         $cargo_des = isset($v['inp_cargo_des']) ? $v['inp_cargo_des'] : '';
         $container_number = isset($v['inp_container_number']) ? $v['inp_container_number'] : '';
         $package = isset($v['inp_package']) ? $v['inp_package'] : '';
+        $packing = isset($v['inp_select_packing']) ? $v['inp_select_packing'] : '';
         $seal_number = isset($v['inp_seal_number']) ? $v['inp_seal_number'] : '';
         $remark = isset($v['inp_remark']) ? $v['inp_remark'] : '';
 
@@ -190,7 +191,8 @@ $id_number = $_POST['id_number'];
                 `seal_number` = '$seal_number',
                 `cy` = $cy,
                 `rtn` = $rtn,
-                `remark` = '$remark'
+                `remark` = '$remark',
+                `unit` = '$packing'
             WHERE
                 ID = '$id_container'
             ";
@@ -209,7 +211,8 @@ $id_number = $_POST['id_number'];
                 `cy`,
                 `rtn`,
                 `remark`,
-                `ref_job_id`
+                `ref_job_id`,
+                `unit`
             )
             VALUES(
                 '$container_type',
@@ -223,7 +226,8 @@ $id_number = $_POST['id_number'];
                 $cy,
                 $rtn,
                 '$remark',
-                '$id_number'
+                '$id_number',
+                '$packing'
             )
             ";
             

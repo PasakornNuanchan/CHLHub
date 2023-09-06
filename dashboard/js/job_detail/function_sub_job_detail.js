@@ -95,6 +95,7 @@ const function_sub_job_detail = {
                     let inp_container_number = $('.inp_container_number', this).val()
                     let inp_single_weight = $('.inp_single_weight', this).val()
                     let inp_package = $('.inp_package', this).val()
+                    let inp_select_packing = $('.inp_select_packing', this).val()
                     let inp_gw = $('.inp_gw', this).val()
                     let inp_volume = $('.inp_volume', this).val()
                     let inp_seal_number = $('.inp_seal_number', this).val()
@@ -109,6 +110,7 @@ const function_sub_job_detail = {
                         inp_container_number: inp_container_number,
                         inp_single_weight: inp_single_weight,
                         inp_package: inp_package,
+                        inp_select_packing : inp_select_packing,
                         inp_gw: inp_gw,
                         inp_volume: inp_volume,
                         inp_seal_number: inp_seal_number,
@@ -127,7 +129,7 @@ const function_sub_job_detail = {
                 var currentURL = window.location.href;
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
-
+                console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
                 let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
 
                 if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_data_save_container'] == '1') {
@@ -276,6 +278,7 @@ const function_sub_job_detail = {
             <td><input type="text" class="form-control form-control-sm text-center inp_seal_number" maxlength="30"></td>
             <td><input type="number" class="form-control form-control-sm text-center inp_single_weight" onchange="function_sub_job_detail.cal_vgm(this)"></td>
             <td><input type="number" class="form-control form-control-sm text-center inp_package" maxlength="40"></td>
+            <td>${sub_job_detail.select_packing_global}</td>
             <td><input type="number" class="form-control form-control-sm text-center inp_gw" onchange="function_sub_job_detail.cal_vgm(this)"></td>
             <td><input type="number" class="form-control form-control-sm text-center inp_volume"></td>
             <td><input type="number" class="form-control form-control-sm text-center inp_vgm"></td>

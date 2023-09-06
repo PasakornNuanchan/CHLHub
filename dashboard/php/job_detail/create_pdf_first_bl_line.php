@@ -24,7 +24,8 @@ SELECT
     a2.provice as a2provice,
     a3.provice as a3provice,
     a4.provice as a4provice,
-    jt.mother_vessel
+    jt.mother_vessel,
+    st.st_name
 FROM
     job_title jt
 LEFT JOIN shipper s ON jt.shipper_number = s.ID
@@ -33,6 +34,7 @@ LEFT JOIN area a1 ON jt.port_of_receipt_number = a1.ID
 LEFT JOIN area a2 ON jt.port_of_loading_number = a2.ID
 LEFT JOIN area a3 ON jt.ts_port_number = a3.ID
 LEFT JOIN area a4 ON jt.port_of_delivery_number = a4.ID
+LEFT JOIN shipment_term st ON jt.st_number = st.ID
 WHERE
     jt.ID = '$job_number'
 ";
@@ -272,7 +274,7 @@ $pdf->Cell(50, 4, strtoupper("Container NO. & Seal NO."), "TR", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(25, 4, strtoupper("No.of"), "TR", 0, 'L');
 $pdf->SetX(85);
-$pdf->Cell(70, 4, strtoupper("Kind of oackages; Description of Goods"), 'TR', 0, 'L');
+$pdf->Cell(70, 4, strtoupper("Kind of packages; Description of Goods"), 'TR', 0, 'L');
 $pdf->SetX(155);
 $pdf->Cell(25, 4, strtoupper("Gross Weight"), 'TR', 0, 'L');
 $pdf->SetX(180);
@@ -283,7 +285,7 @@ $pdf->Cell(50, 4, strtoupper("Marks and Numbers"), "R", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(25, 4, strtoupper("Container or"), "R", 0, 'L');
 $pdf->SetX(85);
-$pdf->Cell(70, 4, strtoupper(""), 'R', 0, 'L');
+$pdf->Cell(70, 4, strtoupper("SHIPPER'S LOAD & COUNT & SEAL"), 'R', 0, 'L');
 $pdf->SetX(155);
 $pdf->Cell(25, 4, strtoupper(""), 'R', 0, 'L');
 $pdf->SetX(180);
@@ -323,7 +325,7 @@ $pdf->SetFont('times', '', 8, '', true);
 
 
 $pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(195, 3, strtoupper("Total number of Conrainers"), 'T', 1, 'L');
+$pdf->Cell(195, 3, strtoupper("Total number of Container"), 'T', 1, 'L');
 $get_y_res = $pdf->GetY();
 $pdf->Cell(195, 3, strtoupper("or other Packages or Units"), '', 1, 'L');
 $get_y_res_last = $pdf->GetY();
@@ -567,13 +569,13 @@ foreach ($data_bl_list as $k => $v) {
   $data_last_container = $pdf->GetY();
 
   $pdf->SetXY(60, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['package'])." ".strtoupper($v['package_unit']), "R", 'C');
+  $pdf->MultiCell(25, 4, strtoupper($v['package']) . " " . strtoupper($v['package_unit']), "R", 'C');
 
   $pdf->SetXY(155, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']), "R", 'C');
+  $pdf->MultiCell(25, 4, strtoupper($v['gross_weight']) . " " . strtoupper($v['gross_weight_unit']), "R", 'C');
 
   $pdf->SetXY(180, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']), "R", 'C');
+  $pdf->MultiCell(25, 4, strtoupper($v['measurement']) . " " . strtoupper($v['cbm_unit']), "R", 'C');
 
   $pdf->SetXY(85, $get_y_table);
   $pdf->MultiCell(70, 4, strtoupper($v['kind_of_package']), "", 'L');
@@ -594,9 +596,22 @@ $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(40, 4, $today, 0, 0, 'C');
 
 $pdf->SetY($data_last_y_get + 5);
+$pdf->SetX(15);
+$pdf->Cell(40, 4, "SHIPMENT TERMS :", 0, 0);
+$data_get_y_ship_ment_1 = $pdf->GetY();
+$pdf->SetY($data_get_y_ship_ment_1 + 5);
+
+foreach ($data_shipperandconsignee as $k => $v) {
+  $pdf->SetX(15);
+
+  $pdf->Cell(40, 4, $v['st_name'], 0, 0);
+}
+
+$data_get_y_ship_ment = $pdf->GetY();
+$pdf->SetY($data_get_y_ship_ment + 5);
 foreach ($container_data as $k => $v) {
   $pdf->SetX(15);
-  $pdf->MultiCell(150, 4, $v['container_number']."/".$v['seal_number'] . "/" . $v['container_type'] . "/" . $v['package'] . $v['package_unit'] . "/" . $v['gw'] . ".KGS/" . $v['volume'] . "CBM", 0, 'L');
+  $pdf->MultiCell(150, 4, $v['container_number'] . "/" . $v['seal_number'] . "/" . $v['container_type'] . "/" . $v['package'] . $v['package_unit'] . "/" . $v['gw'] . ".KGS/" . $v['volume'] . "CBM", 0, 'L');
 }
 
 $pdf->SetXY(15, 232);
@@ -632,7 +647,9 @@ $pdf->Cell(90, 4, "Anthorized Signature", '', '', 'C');
 $pdf->SetFont('times', '', 8, '', true);
 $pdf->SetY(271);
 $pdf->SetX(145);
-$pdf->Cell(0, 4, "Bangkok");
+foreach ($data as $k => $v) {
+  $pdf->Cell(0, 4, $v['place']);
+}
 foreach ($data as $k => $v) {
   $word_bl = convertNumberToWords($v['bl_number']);
   $pdf->SetX(90);
@@ -697,47 +714,47 @@ foreach ($data as $k => $v) {
   }
 }
 
-  //print_r($data_description);
+//print_r($data_description);
 
-  if($data_description[0] != ""){
-    foreach($data_description as $k => $v){
-      $pdf->AddPage();
-    
-      $pdf->SetXY(170, 10);
-      $pdf->SetFont('times', 'B', 9, '', true);
-      $page_first = $pdf->PageNo();
-      $pdf->Cell(50, 5, "ATTACHED Sheet Page ".$page_first);
-    
-      $pdf->SetXY(10, 15);
-      foreach ($data_shipperandconsignee as $k1 => $v1) {
-        $pdf->Cell(180, 6, "ATTACHED SHEET FOR B/L NO.:" . $v1['mbl'] . " VESSEL/VOY : " . $v1['mother_vessel'], 0, 1, "C");
-      }
-    
-      $pdf->SetFont('times', 'B', 9, '', true);
-      $pdf->SetXY(10, 25);
-      $pdf->Cell(180, 6, "DESCRIPTION OF GOODS:", 0, 1, "L");
-      $get_last_y = 30;
-    
-      
-        $pdf->SetFont('times', '', 9, '', true);
-        $pdf->SetXY(10, $get_last_y);
-        $pdf->MultiCell(180, 6, strtoupper($v), 0, 'L');
-        $get_last_y = $pdf->GetY();
-      
-      $pdf->SetFont('times', 'B', 9, '', true);
-      $page_first = $pdf->PageNo();
-      $pdf->SetXY(170, 10);
-      $pdf->Cell(50, 5, "ATTACHED Sheet Page ".$page_first);
-      
-      
-      $get_last_y = $get_last_y + 10;
-      $pdf->SetXY(10, $get_last_y);
-      $pdf->SetFont('times', 'B', 10, '', true);
-      $pdf->Cell(190, 10, "** END OF ATTACHED SHEET **", 0, 0, 'C');
+if ($data_description[0] != "") {
+  foreach ($data_description as $k => $v) {
+    $pdf->AddPage();
+
+    $pdf->SetXY(170, 10);
+    $pdf->SetFont('times', 'B', 9, '', true);
+    $page_first = $pdf->PageNo();
+    $pdf->Cell(50, 5, "ATTACHED Sheet Page " . $page_first);
+
+    $pdf->SetXY(10, 15);
+    foreach ($data_shipperandconsignee as $k1 => $v1) {
+      $pdf->Cell(180, 6, "ATTACHED SHEET FOR B/L NO.:" . $v1['mbl'] . " VESSEL/VOY : " . $v1['mother_vessel'], 0, 1, "C");
     }
+
+    $pdf->SetFont('times', 'B', 9, '', true);
+    $pdf->SetXY(10, 25);
+    $pdf->Cell(180, 6, "DESCRIPTION OF GOODS:", 0, 1, "L");
+    $get_last_y = 30;
+
+
+    $pdf->SetFont('times', '', 9, '', true);
+    $pdf->SetXY(10, $get_last_y);
+    $pdf->MultiCell(180, 6, strtoupper($v), 0, 'L');
+    $get_last_y = $pdf->GetY();
+
+    $pdf->SetFont('times', 'B', 9, '', true);
+    $page_first = $pdf->PageNo();
+    $pdf->SetXY(170, 10);
+    $pdf->Cell(50, 5, "ATTACHED Sheet Page " . $page_first);
+
+
+    $get_last_y = $get_last_y + 10;
+    $pdf->SetXY(10, $get_last_y);
+    $pdf->SetFont('times', 'B', 10, '', true);
+    $pdf->Cell(190, 10, "** END OF ATTACHED SHEET **", 0, 0, 'C');
   }
-  
-  
+}
+
+
 
 
 //$pdf->AddPage();
