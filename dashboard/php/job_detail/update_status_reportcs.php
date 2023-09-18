@@ -1,27 +1,31 @@
 <?php
 include '../../core/conn.php';
-date_default_timezone_set("Asia/Bangkok");
-$t_time = (date("Y-m-d H:i:sa"));
-$t_time_save =substr($t_time,0,19);
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
 
 $type_request = $_POST['type_request'];
 $id_number = $_POST['id_number'];
 
 if($type_request == "do"){
     $type_sent = "pickup_DO_date";
+    $filed_by = "pickup_DO_by";
 }elseif($type_request == "cd"){
     $type_sent = "check_document";
+    $filed_by = "check_document_by";
 }elseif($type_request == "en"){
     $type_sent = "enter_date";
+    $filed_by = "enter_by";
 }elseif($type_request == "clear"){
     $type_sent = "clearlance_date";
+    $filed_by = "clearlance_date_by";
 }
 
 $sql_update = "
 UPDATE
     `job_title`
 SET
-    $type_sent = '$t_time_save'
+    $type_sent = '$t_time_save',
+    $filed_by = '$data_user'
 WHERE
     ID = '$id_number'
 ";

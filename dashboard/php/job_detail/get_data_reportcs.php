@@ -72,17 +72,43 @@ WHERE
 $sql_status = "
 SELECT
     jt.ID,
+    jt.clearlance_date_by,
+    u5.first_name clearlance_date_by_f,
+    u5.last_name clearlance_date_by_l,
     jt.clearlance_date,
+    jt.clearlance_datetime,
     jt.delivery_date,
+    jt.check_document_by,
+    u1.first_name cdb_f,
+    u1.last_name cdb_l,
     jt.check_document,
+    jt.enter_by,
+    u2.first_name ent_f,
+    u2.last_name ent_l,
     jt.enter_date,
+    jt.pickup_DO_by,
+    u3.first_name pick_f,
+    u3.last_name pick_l,
     jt.pickup_DO_date,
+    jt.shipping_ass_by,
+    u6.first_name shipping_ass_by_f,
+    u6.last_name shipping_ass_by_l,
+    jt.shipping_ass_dt,
     jt.shipping_ass,
     js.Cus_suc_datetime,
+    jt.do_number_by,
+    u4.first_name do_number_f,
+    u4.last_name do_number_l,
     jt.do_number
 FROM
     job_title jt
     LEFT join job_status js ON jt.ID = js.ref_job_id
+    LEFT JOIN user u1 ON jt.check_document_by = u1.ID
+    LEFT JOIN user u2 ON jt.enter_by = u2.ID
+    LEFT JOIN user u3 ON jt.pickup_DO_by = u3.ID
+    LEFT JOIN user u4 ON jt.do_number_by = u4.ID
+    LEFT JOIN user u5 ON jt.clearlance_date_by = u5.ID
+    LEFT JOIN user u6 ON jt.shipping_ass_by = u6.ID
 WHERE
   jt.ID = '$id_number'
 ";

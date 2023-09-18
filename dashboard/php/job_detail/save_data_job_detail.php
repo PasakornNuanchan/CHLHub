@@ -5,6 +5,47 @@ $data_job_detail = $_POST['arr_detail_save'];
 $data_container = $_POST['arr_detail_container'];
 $data_container_delete = $_POST['delete_data'];
 $id_number = $_POST['id_number'];
+$arr_hbl = $_POST['arr_hbl'];
+
+
+    foreach($arr_hbl as $k => $v){
+        $hbl_data = isset($v['hbl_data']) ? $v['hbl_data'] : '';
+        $id_hbl = isset($v['id_hbl']) ? $v['id_hbl'] : '';
+
+
+        if($id_hbl != ''){
+            $sql_query_hbl = "
+            UPDATE
+                `bl_title`
+            SET
+                `hbl` = '$hbl_data',
+            WHERE
+                `ref_job_id` = '$id_hbl'
+            ";
+        }else{
+            $sql_query_hbl = "
+            INSERT INTO `bl_title`(
+                `ref_job_id`,
+                `hbl`
+            )
+            VALUES(
+                '$id_number',
+                '$hbl_data'
+                
+            )
+            ";
+        }
+
+        $result = $con->query($sql_query_hbl);
+        if ($result->num_rows == 0) {
+            $arr_hbl_data = '1';
+        } else {
+            $arr_hbl_data = '0';
+        }
+        
+    }
+
+
 
 
     foreach($data_job_detail as $k => $v){
@@ -94,7 +135,6 @@ $id_number = $_POST['id_number'];
             `shipper_number` = $shipper,
             `st_number` = $shipment,
             `mbl` = '$mbl',
-            `hbl` = '$hbl',
             `inv` = '$inv',
             `carrier_number` = '$carrier',
             `port_of_receipt_number` = '$port_of_receipt',
@@ -246,6 +286,7 @@ $id_number = $_POST['id_number'];
     echo json_encode(array('arr_data_container_information'=>$arr_data_container_information,
     'arr_data_job_title'=>$arr_data_job_title,
     'arr_data_delete_container'=>$arr_data_delete_container,
-    'arr_data_save_container'=>$arr_data_save_container
+    'arr_data_save_container'=>$arr_data_save_container,
+    'arr_hbl_data'=>$arr_hbl_data,
     ))
 ?>

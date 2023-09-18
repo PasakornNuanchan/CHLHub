@@ -1,24 +1,34 @@
 const function_sub_reportcs = {
     lunch_photo: async function (type_request, id_request) {
         let type_used = '';
+        let type_data = '';
         if (type_request == "inv") {
             type_used = "INV_picture";
+            type_data = "inv_type"
         } else if (type_request == "bl") {
             type_used = "BL_picture";
+            type_data = "bl_type"
+
         } else if (type_request == "pl") {
             type_used = "PL_picture";
+            type_data = "pl_type"
+
         } else if (type_request == "id") {
             type_used = "ID_picture";
+            type_data = "id_type"
+
         } else if (type_request == "il") {
             type_used = "IL_picture";
+            type_data = "il_type"
+
         }
     
-        let res_data = await this.ajax_request_lunch_photo(type_used, id_request)
+        let res_data = await this.ajax_request_lunch_photo(type_used, id_request,type_data)
         
 
     },
 
-    ajax_request_lunch_photo: async function (type_request, id_request) {
+    ajax_request_lunch_photo: async function (type_request, id_request,type_data) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -26,11 +36,20 @@ const function_sub_reportcs = {
                 data: {
                     type_request: type_request,
                     id_request: id_request,
+                    type_data : type_data,
                 },
                 dataType: "json",
                 success: function (res) {
+            
                     var newTab = window.open();
-                    newTab.document.write('<html><body><img src="' + res + '"></body></html>');
+
+                    if(res['type_data'] == "application/pdf"){
+                        newTab.document.write('<html><body><embed width="100%" height="100%" src="' + res['request'] + '" type="application/pdf"></body></html>');
+                    }else{
+                        newTab.document.write('<html><body><img id="imageDisplay" src="'+res['request']+'" alt="รูปภาพ"></body></html>');
+                    }
+
+                    
                 },
             });
         });
@@ -179,12 +198,14 @@ const function_sub_reportcs = {
         var id_number = url.searchParams.get("job_number");
 
         let id_update = id_number;
-
+        
         let base_64_file = $('.inp_file_cs').prop('files')[0];
+        let type_data = base_64_file.type
         const Base_64_file = await convert_file(base_64_file);
         
         let data = {
             id_update : id_update,
+            type_data : type_data,
             picture : Base_64_file,
             val_get : val_get
         }
@@ -208,6 +229,7 @@ const function_sub_reportcs = {
             )
         }
         sub_reportcs.first_post_data(id_number)
+        
     },
 
     ajax_save_docs: function (data) {

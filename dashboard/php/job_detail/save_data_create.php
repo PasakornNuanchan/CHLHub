@@ -5,7 +5,7 @@ include '../../core/con_path.php';
 
 $data_detail_save = $_POST['arr_detail_save'];
 $data_detail_container = $_POST['arr_detail_container'];
-
+$hbl_arr = $_POST['hbl_arr'];
 
 
 // save job title
@@ -26,6 +26,10 @@ foreach($data_detail_save as $k => $v){
     $mbl = isset($v['mbl']) ? $v['mbl'] : '';
     $hbl = isset($v['hbl']) ? $v['hbl'] : '';
     $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
+
+    $port_of_discharge = isset($v['port_of_discharge']) ? $v['port_of_discharge'] : '';    
+    $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
+    $sale_support = isset($v['sale_support']) ? $v['sale_support'] : '';    
     
     $eta = $v['eta'];
     $etd = $v['etd'];
@@ -46,20 +50,23 @@ foreach($data_detail_save as $k => $v){
         `shipper_number`,
         `st_number`,
         `mbl`,
-        `hbl`,
         `inv`,
         `carrier_number`,
         `port_of_receipt_number`,
         `port_of_loading_number`,
         `ts_port_number`,
         `port_of_delivery_number`,
+        `port_of_discharge`,
         `mother_vessel`,
         `feeder_vessel`,
         `etd`,
         `eta`,
         `remark`,
+        `delivery_place`,
         `create_date`,
         `last_save_by`,
+        `cs_support`,
+        `sale_support`,
         `booking_agent`
     )
     VALUES(
@@ -69,20 +76,23 @@ foreach($data_detail_save as $k => $v){
         $shipper,
         $shipment,
         '$mbl',
-        '$hbl',
         '$inv',
         '$carrier',
         '$port_of_receipt',
         '$port_of_loading',
         '$ts_port',
         '$port_of_delivery',
+        '$port_of_discharge',
         '$mother',
         '$feeder',
         $etd,
         $eta,
+        '$delivery_place',
         '$remark',
         '$t_time_save',
         '$data_user',
+        '$data_user',
+        '$sale_support',
         '$booking_agent'
     )
     ";
@@ -142,54 +152,54 @@ foreach($data_detail_save as $k => $v){
 
 }
 
-foreach($data_detail_container as $k => $v){
-    $container_type = isset($v['container_type']) ? "'".$v['container_type']."'" : "NULL";
-    $container_number = isset($v['container_number']) ? $v['container_number'] : '';
+// foreach($data_detail_container as $k => $v){
+//     $container_type = isset($v['container_type']) ? "'".$v['container_type']."'" : "NULL";
+//     $container_number = isset($v['container_number']) ? $v['container_number'] : '';
 
-    $soc = isset($v['soc']) ? $v['soc'] : '';
-    $ow = isset($v['ow']) ? $v['ow'] : '';
-    $cy = isset($v['cy']) ? $v['cy'] : '';
-    $rtn = isset($v['rtn']) ? $v['rtn'] : '';
+//     $soc = isset($v['soc']) ? $v['soc'] : '';
+//     $ow = isset($v['ow']) ? $v['ow'] : '';
+//     $cy = isset($v['cy']) ? $v['cy'] : '';
+//     $rtn = isset($v['rtn']) ? $v['rtn'] : '';
 
-    $cntw = $v['cntw'];
-    $cntw = empty($cntw) ? "NULL" : "'".$cntw."'";
+//     $cntw = $v['cntw'];
+//     $cntw = empty($cntw) ? "NULL" : "'".$cntw."'";
     
-    $cy = $v['cy'];
-    $cy = empty($cy) ? "NULL" : "'".$cy."'";
+//     $cy = $v['cy'];
+//     $cy = empty($cy) ? "NULL" : "'".$cy."'";
 
-    $rtn = $v['rtn'];
-    $rtn = empty($rtn) ? "NULL" : "'".$rtn."'";
-    $sql_query_data_container = "
-    INSERT INTO `container`(
-        `container_type`,
-        `single_cnt`,
-        `soc`,
-        `ow`,
-        `cy`,
-        `rtn`,
-        `container_number`,
-        `ref_job_id`   
-    )
-    VALUES(
-        $container_type,
-        $cntw,
-        '$soc',
-        '$ow',
-        $cy,
-        $rtn,
-        '$container_number',
-        '$last_id'
-    )
-    ";
+//     $rtn = $v['rtn'];
+//     $rtn = empty($rtn) ? "NULL" : "'".$rtn."'";
+//     $sql_query_data_container = "
+//     INSERT INTO `container`(
+//         `container_type`,
+//         `single_cnt`,
+//         `soc`,
+//         `ow`,
+//         `cy`,
+//         `rtn`,
+//         `container_number`,
+//         `ref_job_id`   
+//     )
+//     VALUES(
+//         $container_type,
+//         $cntw,
+//         '$soc',
+//         '$ow',
+//         $cy,
+//         $rtn,
+//         '$container_number',
+//         '$last_id'
+//     )
+//     ";
 
-    if ($con->query($sql_query_data_container) === TRUE) {
-        $res_in_container = '1';
-    } else {
-        $res_in_container = '0';
-    }
+//     if ($con->query($sql_query_data_container) === TRUE) {
+//         $res_in_container = '1';
+//     } else {
+//         $res_in_container = '0';
+//     }
 
     
-}
+// }
 
 $sql_query_data_status = "
 INSERT INTO `job_status`(
@@ -207,28 +217,38 @@ if ($con->query($sql_query_data_status) === TRUE) {
 }
 
 
-$sql_query_bl_document = "
-INSERT INTO `bl_title`(
-    `ref_job_id`
-)
-VALUES(
-    '$last_id'
-)
-";
 
-if ($con->query($sql_query_bl_document) === TRUE) {
-    $res_in_bl = '1';
-} else {
-    $res_in_bl = '0';
+foreach($hbl_arr as $k => $v){
+
+    $hbl = isset($v['data_bl']) ? $v['data_bl'] : '';
+    
+    $sql_query_bl_document = "
+    INSERT INTO `bl_title`(
+        `ref_job_id`,
+        `hbl`
+    )
+    VALUES(
+        '$last_id',
+        '$hbl'
+        
+    )
+    ";
+    if ($con->query($sql_query_bl_document) === TRUE) {
+        $res_in_bl = '1';
+    } else {
+        $res_in_bl = '0';
+    }
 }
+
+
+
 
 
 echo json_encode(array(
     'res_in_job_title'=>$res_in_job_title,
     'res_in_container_information'=>$res_in_container_information,
-    'res_in_container'=>$res_in_container,
     'res_in_status'=>$res_in_status,
-    '$res_in_bl'=>$$res_in_bl,
+    'res_in_bl'=>$res_in_bl,
     'l_id'=>$last_id
 ));
 

@@ -6,31 +6,41 @@ require '../../core/con_path.php';
 $id_update = $_POST['id_update'];
 $picture = $_POST['picture'];
 $val_get = $_POST['val_get'];
+$type_data = $_POST['type_data'];
 switch ($val_get){
     case 'inv':
         $field_name = 'INV_picture';
         $receiv = 'INV_receiv_by';
         $datetime = 'inv_receiv_datetime';
+        $data_type_added = 'inv_type';
         break;
     case 'pl':
         $field_name = 'PL_picture';
         $receiv = 'PL_receiv_by';
         $datetime = 'pl_receiv_datetime';
+        $data_type_added = 'pl_type';
+
         break;
     case 'bl':
         $field_name = 'BL_picture';
         $receiv = 'BL_receiv_by';
         $datetime = 'bl_receiv_datetime';
+        $data_type_added = 'bl_type';
+
         break;
     case 'id':
         $field_name = 'ID_picture';
         $receiv = 'ID_receiv_by';
         $datetime = 'id_receiv_datetime';
+        $data_type_added = 'id_type';
+
         break; 
     case 'il':
         $field_name = 'IL_picture';
         $receiv = 'IL_receiv_by';
         $datetime = 'il_receiv_datetime';
+        $data_type_added = 'il_type';
+
         break;
 }
 
@@ -40,7 +50,8 @@ UPDATE
 SET
     `$field_name` = '$picture',
     `$datetime` = '$t_time_save',
-    `$receiv` = '$data_user'
+    `$receiv` = '$data_user',
+    `$data_type_added` = '$type_data'
 WHERE
     ref_job_id = '$id_update'
 ";

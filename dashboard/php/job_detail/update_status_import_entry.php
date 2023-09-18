@@ -1,8 +1,8 @@
 <?php
 include '../../core/conn.php';
-date_default_timezone_set("Asia/Bangkok");
-$t_time = (date("Y-m-d H:i:sa"));
-$t_time_save =substr($t_time,0,19);
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
+
 
 $ats_data = $_POST['ats_data'] == "" ? '' : $_POST['ats_data'];
 $id_number = $_POST['id_number'];
@@ -12,7 +12,8 @@ $sql_update = "
 UPDATE
     `job_title`
 SET
-    do_number = '$ats_data'
+    do_number = '$ats_data',
+    do_number_by = '$data_user'
 WHERE
     ID = '$id_number'
 ";

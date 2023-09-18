@@ -26,7 +26,7 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-    .table_detail_bl td:nth-child(3) input {
+    .table_detail_bl td:nth-child(3) select {
         width: 200px;
     }
 
@@ -53,181 +53,147 @@ require 'function/auth/get_session.php';
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
     }
-
     #table_billing_ar td:nth-child(2) input {
         width: 50px;
     }
-
     #table_billing_ar td:nth-child(3) select {
         width: 150px;
     }
-
     #table_billing_ar td:nth-child(4) input {
         width: 300px;
     }
-
     #table_billing_ar td:nth-child(5) select {
         width: 300px;
     }
-
     #table_billing_ar td:nth-child(7) select {
         width: 100px;
     }
-
     #table_billing_ar td:nth-child(8) input {
         width: 100px;
     }
-
     #table_billing_ar td:nth-child(9) input {
         width: 150px;
     }
-
     #table_billing_ar td:nth-child(10) input {
         width: 150px;
     }
-
     #table_billing_ar td:nth-child(11) input {
         width: 100px;
     }
-
     #table_billing_ar td:nth-child(12) input {
         width: 150px;
     }
-
     #table_billing_ar td:nth-child(13) input {
         width: 150px;
     }
-
-    #table_billing_ar td:nth-child(16) input {
+    #table_billing_ar td:nth-child(15) select {
+        width: 100px;
+    }
+    #table_billing_ar td:nth-child(17) input {
         width: 200px;
     }
-
-    #table_billing_ar td:nth-child(27) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(25) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(29) input {
-        width: 200px;
-    }
-
     #table_billing_ar td:nth-child(28) input {
         width: 200px;
     }
-
     #table_billing_ar td:nth-child(26) input {
         width: 200px;
     }
-
-    #table_billing_ar td:nth-child(24) input {
+    #table_billing_ar td:nth-child(30) input {
         width: 200px;
     }
-
-    #table_billing_ar td:nth-child(17) input {
+    #table_billing_ar td:nth-child(29) input {
+        width: 200px;
+    }
+    #table_billing_ar td:nth-child(27) input {
+        width: 200px;
+    }
+    #table_billing_ar td:nth-child(25) input {
+        width: 200px;
+    }
+    #table_billing_ar td:nth-child(18) input {
         width: 150px;
     }
-
-    #table_billing_ar td:nth-child(18) input {
+    #table_billing_ar td:nth-child(19) input {
         width: 200px;
     }
 
 
 
-
-    #table_billing_ar td:nth-child(1) input {
+    #table_billing_ap td:nth-child(1) input {
         width: 50px;
     }
-
     #table_billing_ap td:nth-child(2) input {
         width: 50px;
     }
-
     #table_billing_ap td:nth-child(3) select {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(4) input {
         width: 300px;
     }
-
     #table_billing_ap td:nth-child(5) select {
         width: 300px;
     }
-
     #table_billing_ap td:nth-child(7) select {
         width: 100px;
     }
-
     #table_billing_ap td:nth-child(8) input {
         width: 100px;
     }
-
     #table_billing_ap td:nth-child(9) input {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(10) input {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(11) input {
         width: 100px;
     }
-
     #table_billing_ap td:nth-child(12) input {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(13) input {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(16) input {
         width: 200px;
     }
-
-    #table_billing_ap td:nth-child(27) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(25) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(29) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(28) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(26) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(24) input {
-        width: 200px;
-    }
-
     #table_billing_ap td:nth-child(17) input {
         width: 150px;
     }
-
     #table_billing_ap td:nth-child(18) input {
         width: 200px;
     }
-
-
-
-
-
-    #table_container_module_setting_width td:nth-child(2) select {
+    
+    #table_billing_ap td:nth-child(24) input {
         width: 200px;
     }
+    #table_billing_ap td:nth-child(25) input {
+        width: 200px;
+    }
+    #table_billing_ap td:nth-child(26) input {
+        width: 200px;
+    }
+    #table_billing_ap td:nth-child(27) input {
+        width: 200px;
+    }
+    #table_billing_ap td:nth-child(28) input {
+        width: 200px;
+    }
+    #table_billing_ap td:nth-child(29) input {
+        width: 200px;
+    }
+    
+    
+    
+
+    
+
+
+
+
+
+    
 
     #table_container_module_setting_width td:nth-child(6) input {
         width: 150px;
@@ -292,9 +258,9 @@ require 'function/auth/get_session.php';
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="customs_tab" data-bs-toggle="pill" data-bs-target="#customs_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Customs</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="bl_tab" data-bs-toggle="pill" data-bs-target="#bl_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Bill of Lading</button>
-                        </li>
+                        </li> -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded" id="billing_tab" data-bs-toggle="pill" data-bs-target="#billing_tab_target" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Invoice</button>
                         </li>
@@ -326,6 +292,30 @@ require 'function/auth/get_session.php';
                                         <div class="col-sm-9 col-md-5 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_jobnumber" maxlength="10">
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Date Generate Job:</label>
+                                        <div class="col-sm-6 col-md-5 col-lg-6">
+                                            <input type="month" class="form-control form-control-sm inp_month_check " maxlength="10">
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-sm btn-primary col-xl-12" onclick="function_sub_job_detail.generate_job()">Generate job</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Type:</label>
+                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                            <select class="form-select form-select-sm inp_type_generate" name="" id="">
+                                                <option value="">-- select type --</option>
+                                                <option value="I">IMPORT</option>
+                                                <option value="E">EXPOER</option>
+                                                <option value="R">RE-EXPORT</option>
+                                                <option value="P">PRODUCT</option>
+                                                <option value="G">GUANGZHOU</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Booking number:</label>
@@ -454,7 +444,7 @@ require 'function/auth/get_session.php';
                                             <input type="date" class="form-control form-control-sm inp_eta">
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-xl-6">
 
@@ -464,10 +454,18 @@ require 'function/auth/get_session.php';
                                             <input type="text" class="form-control form-control-sm inp_mbl">
                                         </div>
                                     </div>
+                                    <div class="hbl_added">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+                                            <div class="col-sm-9 col-md-5 col-lg-9">
+                                                <input type="text" class="form-control form-control-sm inp_hbl">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="40">H B/L:</label>
+                                        <div class="col-sm-3 col-md-3 col-lg-3"></div>
                                         <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_hbl">
+                                            <button class="btn btn-primary btn-sm btn-block col-lg-12 col-xl-12" onclick="function_sub_job_detail.add_hbl()">add hb/l</button>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -505,7 +503,7 @@ require 'function/auth/get_session.php';
                                             <input type="number" class="form-control form-control-sm inp_quantity" disabled>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Tare weight :</label>
                                         <div class="col-sm-9 col-md-5 col-lg-9">
@@ -597,14 +595,14 @@ require 'function/auth/get_session.php';
                                     <h4>Detail operation</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-4 align-self-center ">CS support By:</label>
                                         <div class="col">
                                             <select class="form-select form-select-sm inp_cs_user">
                                                 <option value="">-- pleses select Customer service --</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-4 align-self-center ">Sale support By.</label>
                                         <div class="col">
@@ -657,8 +655,8 @@ require 'function/auth/get_session.php';
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><select class="form-select form-select-sm inp_select_packing" name="" id="">
-                                                <option value=""></option>
-                                            </select></td>
+                                                    <option value=""></option>
+                                                </select></td>
                                             <td><input type="number" class="form-control form-control-sm text-center"></td>
                                             <td><input type="text" class="form-control form-control-sm text-center"></td>
                                             <td><input type="date" class="form-control form-control-sm text-center"></td>
@@ -989,75 +987,113 @@ require 'function/auth/get_session.php';
                             </div>
                             <h4 class="mt-4">Document Date</h4>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Check Doc: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Check Doc: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_check_doc" disabled>
                                         </div>
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_check_doc">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_check_doc_by" disabled>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Enter: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Enter: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_enter" disabled>
                                         </div>
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_enter">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_enter_by" disabled>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Pick up D/O: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Pick up D/O: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_pick_do" disabled>
                                         </div>
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_pick_do">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_pick_do_by" disabled>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Import Entry: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Import Entry: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_import_entry">
                                         </div>
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_import_ent">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_import_entry_by" disabled>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Clearlance Date: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Customs Clearance Place: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="date" class="form-control form-control-sm inp_clearance_date">
                                         </div>
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_clear_date">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_clearance_date_by" disabled>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_clearance_datetime" disabled>
+                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Assign to shipping: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Assign to shipping: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <select id="sel_ats" class="form-select form-select-sm inp_ats">
                                                 <option value="">pleses select shipping</option>
                                             </select>
@@ -1065,25 +1101,49 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-1 col-md-1">
                                             <button class="btn btn-success btn-sm btn_ats">confirm</button>
                                         </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_ats_by" disabled>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_ats_datetime" disabled>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Clearlance Success: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Clearance Success: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_clearlance_success">
+                                        </div>
+                                        <div class="col-lg-1 col-md-1"></div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_clearlance_success_by" disabled>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Delivery: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Delivery: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-5 ">
+                                        <div class="col-lg-4 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_delivery">
+                                        </div>
+                                        <div class="col-lg-1 col-md-1"></div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_delivery_by" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -1395,6 +1455,9 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
                     <div class="row">
                         <div class=" col-xl-7 col-lg-7">
@@ -1444,7 +1507,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of Receipt : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_por inp_bl_por" disabled>
-                                                    <option value="select place of receipt"></option>
+                                                    <!-- <option value="">select place of receipt</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1454,7 +1517,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of loading : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pol inp_bl_pol" disabled>
-                                                    <option value="select port of lading"></option>
+                                                    <!-- <option value="">select port of lading</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1464,7 +1527,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of Discharge : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pod inp_bl_pod" disabled>
-                                                    <option value="select port of discharge"></option>
+                                                    <!-- <option value="">select port of discharge</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1474,7 +1537,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of delivery : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pode inp_bl_pode" disabled>
-                                                    <option value="select place of delivery"></option>
+                                                    <!-- <option value="">select port of discharge</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1721,6 +1784,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
@@ -1756,6 +1820,7 @@ require 'function/auth/get_session.php';
                                             <th>AMT(INCL.VAT)</th>
                                             <th>Billing Date</th>
                                             <th>Sys Rate</th>
+                                            <th>Sys Rate currency</th>
                                             <th>Apply</th>
                                             <th>Apply Date</th>
                                             <th>Paid amt</th>
@@ -1772,6 +1837,37 @@ require 'function/auth/get_session.php';
                                             <th>Cheker</th>
                                             <th>Check Date</th>
                                             <th>Action</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">1</th>
+                                            <th class="text-center">2</th>
+                                            <th class="text-center">3</th>
+                                            <th class="text-center">4</th>
+                                            <th class="text-center">5</th>
+                                            <th class="text-center">6</th>
+                                            <th class="text-center">7</th>
+                                            <th class="text-center">8</th>
+                                            <th class="text-center">9</th>
+                                            <th class="text-center">10</th>
+                                            <th class="text-center">11</th>
+                                            <th class="text-center">12</th>
+                                            <th class="text-center">13</th>
+                                            <th class="text-center">14</th>
+                                            <th class="text-center">15</th>
+                                            <th class="text-center">16</th>
+                                            <th class="text-center">17</th>
+                                            <th class="text-center">18</th>
+                                            <th class="text-center">19</th>
+                                            <th class="text-center">20</th>
+                                            <th class="text-center">21</th>
+                                            <th class="text-center">22</th>
+                                            <th class="text-center">23</th>
+                                            <th class="text-center">24</th>
+                                            <th class="text-center">25</th>
+                                            <th class="text-center">26</th>
+                                            <th class="text-center">27</th>
+                                            <th class="text-center">28</th>
+                                            <th class="text-center">29</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1859,6 +1955,12 @@ require 'function/auth/get_session.php';
                                         <input type="text" class="form-control form-control-sm inp_total_ap text-end">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-11 col-xl-11 col-md-6"></div>
+                                    <div class="col-lg-1 col-xl-1 col-md-3 text-end">
+                                        <button class="btn btn-sm btn-primary text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1897,6 +1999,7 @@ require 'function/auth/get_session.php';
                                             <th>AMT(INCL.VAT)</th>
                                             <th>Billing Date</th>
                                             <th>Sys rate</th>
+                                            <th>Sys Rate currency</th>
                                             <th>Need Vat</th>
                                             <th>With hold (%)</th>
                                             <th>Rcvd Amt</th>
@@ -1911,24 +2014,37 @@ require 'function/auth/get_session.php';
                                             <th>checker</th>
                                             <th>checker date</th>
                                             <th>action</th>
-                                            <!-- <th>KD</th>
-                                            <th>D/N#</th>
-                                            <th>Print</th>
-                                            <th>Pack</th>
-                                            <th>Bill Currency</th>
-                                            <th>Type</th>
-                                            <th>Bill Ex.rate</th>
-                                            <th>Vat#</th>
-                                            <th>Item</th>
-                                            <th>Print Date</th>
-                                            <th>Vocher</th>
-                                            <th>Vocher#</th>
-                                            <th>Creater</th>
-                                            <th>Create Date</th>
-                                            <th>Last Modifier</th>
-                                            <th>Last Modifier Date</th>
-                                            <th>Checker</th>
-                                            <th>Checker Date</th> -->
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">1</th>
+                                            <th class="text-center">2</th>
+                                            <th class="text-center">3</th>
+                                            <th class="text-center">4</th>
+                                            <th class="text-center">5</th>
+                                            <th class="text-center">6</th>
+                                            <th class="text-center">7</th>
+                                            <th class="text-center">8</th>
+                                            <th class="text-center">9</th>
+                                            <th class="text-center">10</th>
+                                            <th class="text-center">11</th>
+                                            <th class="text-center">12</th>
+                                            <th class="text-center">13</th>
+                                            <th class="text-center">14</th>
+                                            <th class="text-center">15</th>
+                                            <th class="text-center">16</th>
+                                            <th class="text-center">17</th>
+                                            <th class="text-center">18</th>
+                                            <th class="text-center">19</th>
+                                            <th class="text-center">20</th>
+                                            <th class="text-center">21</th>
+                                            <th class="text-center">22</th>
+                                            <th class="text-center">23</th>
+                                            <th class="text-center">24</th>
+                                            <th class="text-center">25</th>
+                                            <th class="text-center">26</th>
+                                            <th class="text-center">27</th>
+                                            <th class="text-center">28</th>
+                                            <th class="text-center">29</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2244,7 +2360,20 @@ require 'function/auth/get_session.php';
 <script src="js/job_detail/setting_create_job.js"></script>
 <script src="js/job_detail/setting_sub_bl.js"></script>
 <script src="js/job_detail/function_sub_bl.js"></script>
+<script src="js/job_detail//setting_bl_gang_bl.js"></script>
 
+<script>
+    $(document).ready(function() {
+        // ดึงวันที่ปัจจุบัน
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = (today.getMonth() + 1).toString().padStart(2, "0"); // หลักเดียวให้เติม 0 ข้างหน้า
+        var defaultValue = `${year}-${month}`;
+
+        // ใส่ค่าเริ่มต้นลงใน input
+        $(".inp_month_check").val(defaultValue);
+    });
+</script>
 
 
 <script>
@@ -2275,3 +2404,4 @@ require 'function/auth/get_session.php';
         readURL(this);
     });
 </script>
+

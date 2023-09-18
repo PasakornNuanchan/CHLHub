@@ -8,6 +8,8 @@ const sub_job_detail = {
         console.log(res_data)
         this.data_container_for_transport = res_data['container'];
         //job_detail
+
+
         $('.inp_jobnumber').val(res_data['job_title']['job_number'])
         $('.inp_bookingnumber').val(res_data['job_title']['booking_number'])
         $('.inp_consignee').val(res_data['job_title']['consignee_number'])
@@ -26,7 +28,32 @@ const sub_job_detail = {
         $('.inp_eta').val(res_data['job_title']['eta'])
         $('.inp_inv').val(res_data['job_title']['inv'])
         $('.inp_mbl').val(res_data['job_title']['mbl'])
-        $('.inp_hbl').val(res_data['job_title']['hbl'])
+
+        //$('.inp_hbl').val(res_data['job_title']['hbl'])
+
+        if(res_data['hbl_data'] != "0 results"){
+            $('.hbl_added').html('')
+            $.each(res_data['hbl_data'],function(i,v){
+                let hbl_data = v['hbl'] ? v['hbl'] : '';
+                let id_hbl = v['ID'] ? v['ID'] : '';
+                
+                let html_data = `
+                <div class="form-group row" id_hbl="${id_hbl}">
+                    <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+                    <div class="col-sm-9 col-md-5 col-lg-9">
+                        <input type="text" class="form-control form-control-sm inp_hbl" value="${hbl_data}">
+                    </div>
+                </div>
+                `;
+                $('.hbl_added').append(html_data)
+            })
+        }
+        
+
+
+
+
+
         $('.inp_commodity').val(res_data['job_title']['commodity'])
         $('.inp_delivery_place').val(res_data['job_title']['delivery_place'])
         // container information 

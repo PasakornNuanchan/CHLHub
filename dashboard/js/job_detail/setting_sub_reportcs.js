@@ -96,6 +96,15 @@ const sub_reportcs = {
         let delivery = res_data['get_data_status']['delivery_date'] ? res_data['get_data_status']['delivery_date'] : '';
         let import_entry = res_data['get_data_status']['do_number'] ? res_data['get_data_status']['do_number'] : '';
         
+        let clearlance_date_by = res_data['get_data_status']['clearlance_date_by_f'] ? res_data['get_data_status']['clearlance_date_by_f']+" "+res_data['get_data_status']['clearlance_date_by_l'] : '';
+        let clearlance_datetime = res_data['get_data_status']['clearlance_datetime'] ? res_data['get_data_status']['clearlance_datetime'] : '';
+        let check_document_by = res_data['get_data_status']['cdb_f'] ? res_data['get_data_status']['cdb_f']+" "+res_data['get_data_status']['cdb_l'] : '';
+        let enter_by = res_data['get_data_status']['ent_f'] ? res_data['get_data_status']['ent_f']+" "+res_data['get_data_status']['ent_l'] : '';
+        let pickup_DO_by = res_data['get_data_status']['pick_f'] ? res_data['get_data_status']['pick_f']+" "+res_data['get_data_status']['pick_l'] : '';
+        let shipping_ass_by = res_data['get_data_status']['shipping_ass_by_f'] ? res_data['get_data_status']['shipping_ass_by_f']+" "+res_data['get_data_status']['shipping_ass_by_l'] : '';
+        let shipping_ass_dt = res_data['get_data_status']['shipping_ass_dt'] ? res_data['get_data_status']['shipping_ass_dt'] : '';
+        let do_number_by = res_data['get_data_status']['do_number_f'] ? res_data['get_data_status']['do_number_f']+" "+res_data['get_data_status']['do_number_l'] : '';
+
         
         $('.inp_pick_do').val(pickup_do)
         $('.inp_check_doc').val(check_doc)
@@ -106,12 +115,47 @@ const sub_reportcs = {
         $('.inp_delivery').val(delivery).attr('disabled',true)
         $('.inp_import_entry').val(import_entry)
 
+        $('.inp_clearance_datetime').val(clearlance_datetime)
+        $('.inp_clearance_date_by').val(clearlance_datetime)
+        $('.inp_check_doc_by').val(check_document_by)
+
+        $('.inp_enter_by').val(enter_by)
+        $('.inp_pick_do_by').val(pickup_DO_by)
+        $('.inp_ats_by').val(shipping_ass_by)
+        $('.inp_ats_datetime').val(shipping_ass_dt)
+        $('.inp_import_entry_by').val(do_number_by)
+
+        
+        
+         
+        
+
         $('.btn_pick_do').attr('onclick',`function_sub_reportcs.update_document_date('do')`)
         $('.btn_check_doc').attr('onclick',`function_sub_reportcs.update_document_date('cd')`)
         $('.btn_enter').attr('onclick',`function_sub_reportcs.update_document_date('en')`)
         $('.btn_clear_date').attr('onclick',`function_sub_reportcs.update_clearance()`)
         $('.btn_ats').attr('onclick',`function_sub_reportcs.update_shipping_data()`)
         $('.btn_import_ent').attr('onclick',`function_sub_reportcs.update_import_entry()`)
+
+        check_document_by != '' ? $('.btn_check_doc').remove() : '';
+        enter_by != '' ? $('.btn_enter').remove() : '';
+        pickup_DO_by != '' ? $('.btn_pick_do').remove() : '';
+
+
+        if(do_number_by != ''){
+            $('.inp_import_entry').attr('disabled',true)
+            $('.btn_import_ent').remove();
+        }
+
+        if(clearlance_date_by != ''){
+            $('.inp_clearance_date').attr('disabled',true)
+            $('.btn_clear_date').remove()
+        }
+
+        if(shipping_ass_by != ''){
+            $('.inp_ats').attr('disabled',true)
+            $('.btn_ats').remove()
+        }
     },
 
 

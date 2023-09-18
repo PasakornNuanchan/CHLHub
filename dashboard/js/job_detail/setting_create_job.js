@@ -50,6 +50,7 @@ const create_job = {
                 let port_of_receipt = $('.inp_port_of_receipt').val()
                 let port_of_loading = $('.inp_port_of_loading').val()
                 let ts_port = $('.inp_ts_port').val()
+                let port_of_discharge = $('.inp_port_of_discharge').val()
                 let port_of_delivery = $('.inp_port_of_delivery').val()
                 let mother = $('.inp_mother_vessel').val()
                 let feeder = $('.inp_feeder_vessel').val()
@@ -57,10 +58,11 @@ const create_job = {
                 let eta = $('.inp_eta').val()
                 let inv = $('.inp_inv').val()
                 let mbl = $('.inp_mbl').val()
-                let hbl = $('.inp_hbl').val()
                 let cargo_des = $('.inp_cargo_des').val()
                 let cargo_type = $('.inp_cargo_type').val()
                 let quantity = $('.inp_quantity').val()
+                let delivery_place = $('.inp_delivery_place').val()
+                let sale_support = $('.inp_sale_user').val()
                 let gw = $('.inp_gw').val()
                 let vol = $('.inp_vol').val()
                 let remark_container = $('.inp_remark_container').val()
@@ -85,49 +87,63 @@ const create_job = {
                     eta: eta,
                     inv: inv,
                     mbl: mbl,
-                    hbl: hbl,
                     cargo_des: cargo_des,
                     cargo_type: cargo_type,
                     quantity: quantity,
                     gw: gw,
                     vol: vol,
                     remark_container: remark_container,
-                    booking_agent: booking_agent
+                    booking_agent: booking_agent,
+                    port_of_discharge : port_of_discharge ,                    
+                    delivery_place : delivery_place ,
+                    sale_support : sale_support ,                    
                 }
 
                 arr_detail_save.push(obj_detail_save)
-                let arr_detail_container = [];
-                let obj_detail_container = {};
 
-                $('.table_data_container > tbody > tr').each(function (e) {
 
-                    let container_id = $(this).attr('container_id')
-                    let container_type = $(".inp_container_type option:selected", this).val();
-                    let container_number = $('.inp_container_number', this).val();
-                    let cntw = $('.inp_cntr', this).val();
-                    let soc = $('.inp_soc', this).is(":checked") ? '1' : '2' ;
-                    let ow = $('.inp_ow', this).is(":checked") ? '1' : '2' ;
-                    let cy = $('.inp_cy', this).val();
-                    let rtn = $('.inp_rtn', this).val();
+                let hbl_arr = []
+                
+                $('.inp_hbl').each(function(){
+                    let data_bl = $(this).val()
+                    let hbl_obj = {
+                        data_bl : data_bl
+                    }    
+                    hbl_arr.push(hbl_obj)
+                })
+                
+                // let arr_detail_container = [];
+                // let obj_detail_container = {};
+
+                // $('.table_data_container > tbody > tr').each(function (e) {
+
+                //     let container_id = $(this).attr('container_id')
+                //     let container_type = $(".inp_container_type option:selected", this).val();
+                //     let container_number = $('.inp_container_number', this).val();
+                //     let cntw = $('.inp_cntr', this).val();
+                //     let soc = $('.inp_soc', this).is(":checked") ? '1' : '2' ;
+                //     let ow = $('.inp_ow', this).is(":checked") ? '1' : '2' ;
+                //     let cy = $('.inp_cy', this).val();
+                //     let rtn = $('.inp_rtn', this).val();
 
                     
-                    obj_detail_container = {
-                        container_id: container_id,
-                        container_type: container_type,
-                        container_number: container_number,
-                        cntw: cntw,
-                        soc: soc,
-                        ow: ow,
-                        cy: cy,
-                        rtn: rtn,
-                    }
+                //     obj_detail_container = {
+                //         container_id: container_id,
+                //         container_type: container_type,
+                //         container_number: container_number,
+                //         cntw: cntw,
+                //         soc: soc,
+                //         ow: ow,
+                //         cy: cy,
+                //         rtn: rtn,
+                //     }
 
-                    arr_detail_container.push(obj_detail_container)
+                //     arr_detail_container.push(obj_detail_container)
 
 
-                });
+                // });
             
-                let res_return = await this.ajax_save_data_create(arr_detail_save,arr_detail_container)
+                let res_return = await this.ajax_save_data_create(arr_detail_save,hbl_arr)
                 console.log(res_return)
 
                 if(res_return['res_in_job_title'] == '1' ||res_return['res_in_container_information'] == '1' ||res_return['res_in_container'] == '1' ||res_return['res_in_status'] == '1' ){
@@ -149,14 +165,14 @@ const create_job = {
         })
     },
 
-    ajax_save_data_create : async function (arr_detail_save,arr_detail_container) {
+    ajax_save_data_create : async function (arr_detail_save,hbl_arr) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/job_detail/save_data_create.php",
                 data: {
                 arr_detail_save : arr_detail_save,
-                arr_detail_container : arr_detail_container},
+                hbl_arr : hbl_arr},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);

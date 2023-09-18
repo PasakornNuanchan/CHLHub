@@ -5,6 +5,7 @@
 include '../../core/conn.php';
 
 $job_number = $_GET['job_number'];
+$bl_number = $_GET['bl_number_main'];
 //query
 $sql_query_shipper = "
 SELECT
@@ -50,11 +51,25 @@ if ($result->num_rows > 0) {
 
 $sql_list = "
 SELECT
-    *
+  `ID`,
+  `ref_job_id`,
+  `hbl`,
+  `notify_party`,
+  `pre_carriage`,
+  `bill_header`,
+  `delivery_agent`,
+  `shipper_on_board`,
+  `bl_number`,
+  `shipper_bl`,
+  `consignee_bl`,
+  `description_of_good`,
+  `on_board_date`,
+  `final_destination`,
+  `place`
 FROM
     `bl_title`
 WHERE
-    ref_job_id = '$job_number'
+    ID = '$bl_number'
 ";
 
 $result = $con->query($sql_list);
@@ -175,43 +190,25 @@ $set_height_header = 6;
 // $pdf->SetX(140);
 // $pdf->Cell(60, $set_height_header, "B/L NO.", '', 0, 'L');
 
-foreach($data_shipperandconsignee as $k => $v){
+foreach($data as $k => $v){
   $pdf->SetFont('times', '', 8, '', true);
   $pdf->SetXY(20,17);
-  $pdf->Cell(100, $set_height_header, $v['shipper_name'], '', 0, 'L');
-  $pdf->SetX(140);
-  $pdf->Cell(60, $set_height_header, $v['hbl'], '', 1, 'L');
-
+  $pdf->MultiCell(100, 3, $v['shipper_bl'], '', 0);
 }
 
-foreach($data_address_shipper as $k => $v){
-  $pdf->SetX(20);
-  $pdf->MultiCell(100,3,strtoupper($v),'',"L");
+foreach($data as $k => $v){
+  $pdf->SetFont('times', '', 8, '', true);
+  $pdf->SetXY(140,17);
+  $pdf->MultiCell(60, 3, $v['hbl'], '', 0);
 }
 
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-
-foreach($data_shipperandconsignee as $k => $v){
-  $pdf->SetX(20);
-  $pdf->Cell(100, $set_height_header, strtoupper($v['consignee_name']), '', 1, 'L');
+foreach($data as $k => $v){
+  $pdf->SetXY(20,40);
+  $pdf->MultiCell(100,3,strtoupper($v['consignee_bl']),'',"L");
 }
-
-foreach($data_address_consignee as $k => $v){
-  $pdf->SetX(20);
-  $pdf->MultiCell(100,3,strtoupper($v),0,"L");
-}
-
-
-
-$pdf->Ln();
-$pdf->Ln();
 
 foreach($data_notify as $k => $v){
-  $pdf->SetX(20);
+  $pdf->SetXY(20,60);
   $pdf->MultiCell(100,3,strtoupper($v),0,"L");
 }
 $pdf->Ln();

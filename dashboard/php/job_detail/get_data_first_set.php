@@ -92,6 +92,19 @@ WHERE
     GROUP BY container_type
 ";
 
+$get_hbl_query = "
+SELECT ID,hbl FROM bl_title WHERE ref_job_id = '$data_id'
+";
+
+$result = $con->query($get_hbl_query);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $hbl_data[] = $row;
+  }
+} else {
+  $hbl_data = "0 results";
+}
+
 $result = $con->query($container_query);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -128,5 +141,5 @@ if ($result->num_rows > 0) {
   $container = "0 results";
 }
 
-echo json_encode(array('job_title'=>$job_title,'container_information'=>$container_information,'container'=>$container,'data_container'=>$data_container));
+echo json_encode(array('job_title'=>$job_title,'container_information'=>$container_information,'container'=>$container,'data_container'=>$data_container,'hbl_data'=>$hbl_data));
 ?>

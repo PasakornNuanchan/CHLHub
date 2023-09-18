@@ -35,7 +35,6 @@ const function_sub_job_detail = {
                 let eta = $('.inp_eta').val()
                 let inv = $('.inp_inv').val()
                 let mbl = $('.inp_mbl').val()
-                let hbl = $('.inp_hbl').val()
                 let cargo_des = $('.inp_cargo_des').val()
                 let cargo_type = $('.inp_cargo_type').val()
                 let quantity = $('.inp_quantity').val()
@@ -69,7 +68,6 @@ const function_sub_job_detail = {
                     eta: eta,
                     inv: inv,
                     mbl: mbl,
-                    hbl: hbl,
                     cargo_des: cargo_des,
                     cargo_type: cargo_type,
                     quantity: quantity,
@@ -125,14 +123,29 @@ const function_sub_job_detail = {
 
                 });
 
+                let arr_hbl = []
+                //let obj_hbl = {}
+                $('.hbl_added > .form-group').each(function (e){
+                    
+                    let id_hbl = $(this).attr('id_hbl')
+                    let hbl_data = $('.inp_hbl',this).val()
+                    let obj_hbl = {}
+                    obj_hbl = {
+                        id_hbl : id_hbl,
+                        hbl_data : hbl_data
+                    }
+                    arr_hbl.push(obj_hbl)
+                })
+                console.log(arr_hbl)
+
 
                 var currentURL = window.location.href;
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
-                console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
-                let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
+                //console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
+                let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl)
 
-                if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_data_save_container'] == '1') {
+                if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_data_save_container'] == '1' || res_return['arr_hbl_data'] == '1') {
                     Swal.fire(
                         'saved!',
                         'Your data has been saved.',
@@ -154,7 +167,7 @@ const function_sub_job_detail = {
         })
     },
 
-    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number) {
+    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number,arr_hbl) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -163,7 +176,8 @@ const function_sub_job_detail = {
                     arr_detail_save: arr_detail_save,
                     arr_detail_container: arr_detail_container,
                     delete_data: delete_data,
-                    id_number: id_number
+                    id_number: id_number,
+                    arr_hbl : arr_hbl,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -356,4 +370,57 @@ const function_sub_job_detail = {
         //console.log(data_vgm)
         $(e).closest('tr').find('.inp_vgm').val(data_vgm)
     },
+
+    add_hbl : async function(){
+        let html_add_hbl = `
+        <div class="form-group row">
+            <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+            <div class="col-sm-9 col-md-5 col-lg-9">
+                <input type="text" class="form-control form-control-sm inp_hbl">
+            </div>
+        </div>
+        `;
+        $('.hbl_added').append(html_add_hbl)
+    },
+
+    generate_job : async function(){
+        let data_month = $('.inp_month_check').val()
+        let data_type = $('.inp_type_generate').val()
+
+        let data_year = data_month.substr(0,4)
+        let data_monthly = data_month.substr(5,3)
+        let full_my = data_year+data_monthly;
+
+        let res_data = await this.ajax_request_generate_job(full_my)
+       
+        let job_cal = '';
+        if(res_data == "0 results"){
+            job_cal = full_my+"000";
+        }else{
+            job_cal = res_data.substr(1)
+        }
+
+        job_cal = parseFloat(job_cal)
+        job_cal = job_cal+1
+    
+        let text_job = data_type+(job_cal);
+        $('.inp_jobnumber').val(text_job)
+    },
+
+    ajax_request_generate_job : function (full_my) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/request_generate_job.php",
+                data: {
+                    full_my: full_my,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
 }

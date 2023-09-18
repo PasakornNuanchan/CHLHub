@@ -1,4 +1,5 @@
 const function_sub_bl = {
+    arr_fright_delete : [],
     add_detail_bl: async function () {
         let html_detail_bl = `
         <tr>
@@ -13,7 +14,7 @@ const function_sub_bl = {
     },
 
 
-    get_save_data: async function () {
+    get_save_data: async function (e) {
         let data_detail_obj = {}
         let data_detail_arr = []
         var currentURL = window.location.href;
@@ -21,22 +22,29 @@ const function_sub_bl = {
         var id_number = url.searchParams.get("job_number");
 
 
+        let h_data = $(e).closest('.bl_tab_target')
+        let data_find_table_detail_bl = $(h_data).find('.table_detail_bl > tbody > tr')
+        let data_find_table_container = $(h_data).find('.table_container_bl > tbody > tr')
+        let data_find_table_fright = $(h_data).find('.table_fright > tbody > tr')
 
-        let shipper_bl = $('.inp_bl_shipping').val()
-        let consignee_bl = $('.inp_bl_consingee').val()
-        let notify = $('.inp_notify_bl').val()
-        let carriage = $('.inp_pre_carriage').val()
-        let bill_header = $('.inp_bill_header_bl').val()
-        let delivery_agent = $('.inp_delivery_agent_bl').val()
-        let shipper_on_board = $('.inp_shipper_on_board').val()
-        let final_destination = $('.inp_final_destination').val()
-        let on_board_date = $('.inp_on_board_date').val()
-        let bl_number = $('.inp_bl_number').val()
-        let des_of_god = $('.inp_description_of_good').val()
-        let data_place = $('.inp_place').val()
-        
-
+        let bl_data = $(h_data).attr('bl_number')
+        let shipper_bl = $('.inp_bl_shipping',h_data).val()
+        let consignee_bl = $('.inp_bl_consingee',h_data).val()
+        let notify = $('.inp_notify_bl',h_data).val()
+        let carriage = $('.inp_pre_carriage',h_data).val()
+        let bill_header = $('.inp_bill_header_bl',h_data).val()
+        let delivery_agent = $('.inp_delivery_agent_bl',h_data).val()
+        let shipper_on_board = $('.inp_shipper_on_board',h_data).val()
+        let final_destination = $('.inp_final_destination',h_data).val()
+        let on_board_date = $('.inp_on_board_date',h_data).val()
+        let bl_number = $('.inp_bl_number',h_data).val()
+        let des_of_god = $('.inp_description_of_good',h_data).val()
+        let data_place = $('.inp_place',h_data).val()
+        let payble_at = $('.inp_payble',h_data).val()
+    
         data_detail_obj = {
+            payble_at : payble_at,
+            bl_data : bl_data,
             des_of_god: des_of_god,
             id_number: id_number,
             shipper_bl: shipper_bl,
@@ -55,22 +63,21 @@ const function_sub_bl = {
 
         let table_detail_obj = {}
         let table_detail_arr = []
-        $('.table_detail_bl > tbody > tr ').each(function (i, v) {
-            let id_row = $(this).attr('id_number')
-            let container_no_and_seal = $('.inp_container_no_and_seal', this).val()
-            let container_or_package = $('.inp_container_or_package', this).val()
-            let package_unit = $('.inp_unit_package',this).val()
-            let kind_of_package = $('.inp_kind_of_package', this).val()
-            let gross_Weight = $('.inp_gross_Weight', this).val()
-            let gross_weight_unit = $('.inp_gross_weight_unit',this).val()
-            let mesurement = $('.inp_mesurement', this).val()
-            let mesurement_unit = $('.inp_mesurement_unit', this).val()
-
-
-
+        $(data_find_table_detail_bl).each(function (i, v) {
+            let id_bl = $(this).closest('table').attr('id_list')
+            let id_row = $(this).attr('id_row')
+            let container_no_and_seal = $('.inp_container_no_and_seal', h_data).val()
+            let container_or_package = $('.inp_container_or_package', h_data).val()
+            let package_unit = $('.inp_unit_package',h_data).val()
+            let kind_of_package = $('.inp_kind_of_package', h_data).val()
+            let gross_Weight = $('.inp_gross_Weight', h_data).val()
+            let gross_weight_unit = $('.inp_gross_weight_unit',h_data).val()
+            let mesurement = $('.inp_mesurement', h_data).val()
+            let mesurement_unit = $('.inp_mesurement_unit', h_data).val()
 
             table_detail_obj = {
-                id_row: id_row,
+                id_bl: id_bl,
+                id_row : id_row,
                 id_number: id_number,
                 container_no_and_seal: container_no_and_seal,
                 container_or_package: container_or_package,
@@ -87,10 +94,11 @@ const function_sub_bl = {
 
         let table_container_bl_obj = {}
         let table_container_bl_arr = []
-        $('.table_container_bl > tbody > .containertr_row').each(function (i, v) {
+        $(data_find_table_container).each(function (i, v) {
             let id_container = $(this).attr('container_id')
+            
             let quantity_bl = $('.inp_quantity_bl', this).val()
-            let unit_bl = $('.inp_unit_bl', this).val()
+            let unit_bl = $('.inp_bl_unit_data', this).val()
             let cbm_bl = $('.inp_cbm_bl', this).val()
             let weight = $('.inp_weight_bl', this).val()
 
@@ -106,9 +114,36 @@ const function_sub_bl = {
             table_container_bl_arr.push(table_container_bl_obj)
         })
 
-        // console.log(table_detail_arr)
-        let res_data = await this.ajax_save_data_bl(data_detail_arr, table_detail_arr, table_container_bl_arr)
-        if (res_data['arr_save_detail'] == '1' && res_data['arr_save_list'] == '1' && res_data['arr_save_container'] == '1') {
+        let table_fright_bl_arr = [];
+        $(data_find_table_fright).each(function(i,v){
+            let id_list =  $(this).attr('id_list')
+            
+            let charge = $('.inp_charge',this).val()
+            let prepaid = $('.inp_prepaid',this).val()
+            let collect = $('.inp_collect',this).val()
+            let ref_id_row = $(data_find_table_fright,this).closest('.table').attr('ref_id_row')
+            let ref_job_id = $(data_find_table_fright,this).closest('.table').attr('id_number')
+
+            let obj_fright = {
+                id_list : id_list,
+                ref_id_row : ref_id_row,
+                ref_job_id : ref_job_id,
+                charge : charge,
+                prepaid : prepaid,
+                collect : collect,
+            }
+
+            table_fright_bl_arr.push(obj_fright)
+            
+        })
+
+        console.log(data_detail_arr)
+        console.log(table_detail_arr)
+        console.log(table_container_bl_arr)
+        console.log(table_fright_bl_arr)
+
+        let res_data = await this.ajax_save_data_bl(data_detail_arr, table_detail_arr, table_container_bl_arr,table_fright_bl_arr,this.arr_fright_delete)
+        if (res_data['arr_save_detail'] == '1' && res_data['arr_save_list'] == '1' && res_data['arr_save_container'] == '1' && res_data['arr_query_fright'] == '1') {
             Swal.fire(
                 'saved!',
                 'Your data has been saved.',
@@ -133,14 +168,16 @@ const function_sub_bl = {
 
     },
 
-    ajax_save_data_bl: async function (data_detail_arr, table_detail_arr, table_container_bl_arr) {
+    ajax_save_data_bl: async function (data_detail_arr, table_detail_arr, table_container_bl_arr,table_fright_bl_arr,arr_fright_delete) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 data: {
-                    data_detail_arr: data_detail_arr,
-                    table_detail_arr: table_detail_arr,
-                    table_container_bl_arr: table_container_bl_arr
+                    data_detail_arr : data_detail_arr,
+                    table_detail_arr : table_detail_arr,
+                    table_container_bl_arr : table_container_bl_arr,
+                    table_fright_bl_arr : table_fright_bl_arr,  
+                    arr_fright_delete : arr_fright_delete,
                 },
                 url: "php/job_detail/save_data_bl.php",
                 dataType: "json",
@@ -151,28 +188,41 @@ const function_sub_bl = {
         });
     },
 
-    generate_bl: async function () {
+    generate_bl: async function (e) {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
 
-        window.open(`php/job_detail/create_pdf_first_bl.php?job_number=${id_number}`, "_blank")
+        let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
+        let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
+        
+        window.open(`php/job_detail/create_pdf_first_bl.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
     },
 
-    generate_bl_line: async function () {
+    generate_bl_line: async function (e) {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
 
-        window.open(`php/job_detail/create_pdf_first_bl_line.php?job_number=${id_number}`, "_blank")
+        let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
+        let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
+
+
+
+        window.open(`php/job_detail/create_pdf_first_bl_line.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
     },
 
-    generate_telex_line: async function () {
+    generate_telex_line: async function (e) {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
 
-        window.open(`php/job_detail/create_pdf_first_bl_telex.php?job_number=${id_number}`, "_blank")
+        let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
+        let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
+
+
+
+        window.open(`php/job_detail/create_pdf_first_bl_telex.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
     },
 
     cal_container_package: async function () {
@@ -206,9 +256,11 @@ const function_sub_bl = {
         $('.inp_unit_package').val(data_unit)
     },
 
-    cal_container_weight: async function () {
+    cal_container_weight: async function (e) {
         let data_weight = 0;
-        $('.table_container_bl > tbody > tr > td > .inp_weight_bl').each(function () {
+        let table_data = $(e).closest('.bl_tab_target').find('.table_container_bl > tbody > tr > td > .inp_weight_bl')
+
+        $(table_data).each(function () {
             let data = $(this).val();
 
             if (data === 'NaN') {
@@ -218,14 +270,16 @@ const function_sub_bl = {
         })
         //console.log(data_weight)
 
-        $('.inp_weight_total').val(data_weight)
-        $('.inp_gross_Weight').val(data_weight)
-        $('.inp_gross_weight_unit').val('KGS')
+        $(e).closest('.bl_tab_target').find('.inp_weight_total').val(data_weight)
+        $(e).closest('.bl_tab_target').find('.inp_gross_Weight').val(data_weight)
+        $(e).closest('.bl_tab_target').find('.inp_gross_weight_unit').val('KGS')
     },
 
-    cal_container_cbm: async function () {
+    cal_container_cbm: async function (e) {
+        let table_data = $(e).closest('.bl_tab_target').find('.table_container_bl > tbody > tr > td > .inp_cbm_bl')
+
         let data_cbm = 0;
-        $('.table_container_bl > tbody > tr > td > .inp_cbm_bl').each(function () {
+        $(table_data).each(function () {
             let data = $(this).val();
 
             if (data === 'NaN') {
@@ -234,104 +288,45 @@ const function_sub_bl = {
             data_cbm = parseFloat(data_cbm) + parseFloat(data);
         })
 
-        $('.inp_cbm_total').val(data_cbm)
-        $('.inp_mesurement').val(data_cbm)
-        $('.inp_mesurement_unit').val('CBM')
+        $(e).closest('.bl_tab_target').find('.inp_cbm_total').val(data_cbm)
+        $(e).closest('.bl_tab_target').find('.inp_mesurement').val(data_cbm)
+        $(e).closest('.bl_tab_target').find('.inp_mesurement_unit').val('CBM')
+    },
 
+    address_consignee: async function (e) {
+        let data_consingee_address = $(e).closest('.bl_tab_target').find(`.inp_bl_consingee`).val()
+        $(e).closest('.bl_tab_target').find('.inp_notify_bl').val(data_consingee_address)
+    },
+
+    add_fright : async function(e){        
+        let html_fright = `
+        <tr>
+            <td><input type="text" class="form-control form-control-sm inp_charge"></td>
+            <td><input type="text" class="form-control form-control-sm inp_prepaid"></td>
+            <td><input type="text" class="form-control form-control-sm inp_collect"></td>
+            <td><button class="btn btn-sm btn-danger" onclick="function_sub_bl.delete_fright(this)"><i class="bi bi-trash"></i> Del</button></td>
+        </tr>
+        `;
+        $(e).closest('.bl_tab_target').find('.table_fright > tbody').append(html_fright)
+ 
 
     },
 
-    address_consignee: async function () {
-        // let data_name = '';
-        // let data_addres = '';
+    delete_fright : async function(e){
 
-        // $.each(sub_bl.data_as_consignee, function (i, v) {
-        //     data_name = v['name_data'] ? v['name_data'] : '';
-        //     data_addres = v['address_data'] ? v['address_data'] : '';
-        // })
+        let data_id = $(e).closest('tr').attr('id_list')
+        console.log(data_id)
+        if(data_id != undefined){
+            let obj_data_delete_fright = {
+                data_id : data_id
+            }
 
-
-        // $('.inp_bl_consingee').val(data_name + '\n' + data_addres)
-
-
-        let data_consingee_address = $('.inp_bl_consingee').val();
-        $('.inp_notify_bl').val(data_consingee_address)
+            this.arr_fright_delete.push(obj_data_delete_fright)
+        }
+        $(e).closest('tr').remove();     
+    
     }
 
 
 
 }
-
-// if(unit = "BAGS"){
-
-            // }else if(unit = "BALES"){
-
-            // }else if(unit = "BOXES"){
-
-            // }else if(unit = "BUNDLES"){
-
-            // }else if(unit = "CANS"){
-
-            // }else if(unit = "CATRONS"){
-
-            // }else if(unit = "CASES"){
-
-            // }else if(unit = "CRATES"){
-
-            // }else if(unit = "CARTON"){
-
-            // }else if(unit = "CTNS"){
-
-            // }else if(unit = "DOZENS"){
-
-            // }else if(unit = "DRUMS"){
-
-            // }else if(unit = "LOTS"){
-
-            // }else if(unit = "PACKAGES"){
-
-            // }else if(unit = "PAIRS"){
-
-            // }else if(unit = "PALLET(S)"){
-
-            // }else if(unit = "PAPER PLTS"){
-
-            // }else if(unit = "PCS"){
-
-            // }else if(unit = "PIECES"){
-
-            // }else if(unit = "PKGS"){
-
-            // }else if(unit = "PLASTIC PLTS"){
-
-            // }else if(unit = "PLTS"){
-
-            // }else if(unit = "PLYWOOD CASE(S)"){
-
-            // }else if(unit = "RACKS"){
-
-            // }else if(unit = "REELS"){
-
-            // }else if(unit = "ROLLS"){
-
-            // }else if(unit = "SACKS"){
-
-            // }else if(unit = "SETS"){
-
-            // }else if(unit = "SHEET"){
-
-            // }else if(unit = "STEEL CASES"){
-
-            // }else if(unit = "TANKS"){
-
-            // }else if(unit = "TINS"){
-
-            // }else if(unit = "TRAYS"){
-
-            // }else if(unit = "UNIT"){
-
-            // }else if(unit = "CREATE"){
-
-            // }else if(unit = "WOODEN CASES"){
-
-            // }e 

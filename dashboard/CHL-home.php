@@ -40,7 +40,7 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                              <p style="text-align:center;">WELCOME </p>
-                             <p style="text-align:center;">China Highwin Limited Co.,ltd </p>
+                             <p style="text-align:center;">China Highwin Limited</p>
                              <p style="text-align:center;">Operation page</p>
                         </div>
                     </div>

@@ -74,6 +74,12 @@ const function_sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td><select class="form-select form-select-sm inp_sys_rate_currency_ar">
+                    <option value="THB">THB</option>
+                    <option value="USD">USD</option>
+                    <option value="RMB">RMB</option>
+                    <option value="YEN">YEN</option>
+                    </select></td><!-- sysrate currency -->
                 <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage">
                                             <option value="0">Non with holding tax</option>
@@ -92,7 +98,7 @@ const function_sub_billing = {
                 <td></td><!-- Paid Check datetime -->
                 <td></td><!-- Last update by. -->
                 <td></td><!-- Last update datetime -->
-                <td><button class="btn btn-success btn-sm btn_save_ar m-1" onclick="function_sub_billing.save_list(this)">Save</button><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
+                <td><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
             </tr>
         `;
         $('.table_billing_ar > tbody').append(html_data_ar)
@@ -125,6 +131,12 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
             <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+            <td><select class="form-select form-select-sm inp_sys_rate_currency_ap">
+                    <option value="THB">THB</option>
+                    <option value="USD">USD</option>
+                    <option value="RMB">RMB</option>
+                    <option value="YEN">YEN</option>
+                    </select></td><!-- sysrate currency -->
             <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
@@ -140,8 +152,7 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
-            <td><button class="btn btn-success btn-sm rounded" onclick="function_sub_billing.save_list(this)"><i class="bi bi-save"></i> save</button>
-            <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
+            <td><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
         </tr>
         `;
         $('.table_billing_ap > tbody').append(html_data_ap)
@@ -288,7 +299,7 @@ const function_sub_billing = {
             get_vat: get_vat,
             get_amt_inc_vat: get_amt_inc_vat,
             get_sys_rate: get_sys_rate,
-            get_with_holding_tax :get_with_holding_tax,
+            get_with_holding_tax: get_with_holding_tax,
             get_data_apply: get_data_apply,
             get_data_apply_attr: get_data_apply_attr,
             get_remark: get_remark,
@@ -1081,7 +1092,7 @@ const function_sub_billing = {
             if ($('#add_moda').length >= 1) {
                 $('#add_moda').remove()
             }
-    
+
             html = `
                 <div class="modal fade" id="add_moda" >
                     <div class="modal-dialog modal-lg">
@@ -1113,13 +1124,13 @@ const function_sub_billing = {
                         </div>
                     </div>
                 </div>`
-    
+
             $('body').append(html)
             $('#add_moda').modal('show')
             let res = await this.ajax_get_select_bill_select()
-            
+
             let bill_footer = '';
-            $.each(res['data_footer'],function(i,v){
+            $.each(res['data_footer'], function (i, v) {
                 bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
             })
             $('.inp_bill_footer').append(bill_footer)
@@ -1135,15 +1146,15 @@ const function_sub_billing = {
         }
 
 
-        
+
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
         //this.ajax_generate_bill_ar(arr_get_data_select)
     },
 
-    get_generate_bill_inv : async function(e){
-        
+    get_generate_bill_inv: async function (e) {
+
         let data_footer = $('.inp_bill_footer').val()
 
         var currentURL = window.location.href;
@@ -1169,7 +1180,7 @@ const function_sub_billing = {
             if ($('#add_moda').length >= 1) {
                 $('#add_moda').remove()
             }
-    
+
             html = `
                 <div class="modal fade" id="add_moda" >
                     <div class="modal-dialog modal-lg">
@@ -1215,18 +1226,18 @@ const function_sub_billing = {
                         </div>
                     </div>
                 </div>`
-    
+
             $('body').append(html)
             $('#add_moda').modal('show')
             let res = await this.ajax_get_select_bill_select()
             let bill_header = '';
             let bill_footer = '';
-            $.each(res['data_header'],function(i,v){
+            $.each(res['data_header'], function (i, v) {
                 bill_header += `<option value="${v['ID']}">${v['corp_name']}</option>`
             })
             $('.inp_bill_header').append(bill_header)
 
-            $.each(res['data_footer'],function(i,v){
+            $.each(res['data_footer'], function (i, v) {
                 bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
             })
             $('.inp_bill_footer').append(bill_footer)
@@ -1242,10 +1253,10 @@ const function_sub_billing = {
         }
 
 
-       
+
     },
 
-    get_generate_bill_ar_full : async function(e){
+    get_generate_bill_ar_full: async function (e) {
         let data_header = $('.inp_bill_header').val()
         let data_footer = $('.inp_bill_footer').val()
         let data_due_date = $('.inp_due_date').val()
@@ -1256,20 +1267,22 @@ const function_sub_billing = {
         var id_number = url.searchParams.get("job_number");
 
         window.open(`php/job_detail/create_pdf_invoice_full.php?list_request=${text_sent}&job_number=${id_number}&header=${data_header}&footer=${data_footer}&due=${data_due_date}&currency=${data_currency}`, "_blank")
+
+        
     },
 
-    get_generate_bill_ar_state_ment_account : async function(){
+    get_generate_bill_ar_state_ment_account: async function () {
 
         window.open(`php/job_detail/create_pdf_statement_account.php`, "_blank")
     },
 
-    get_generate_bill_ar_debit_note : async function(){
+    get_generate_bill_ar_debit_note: async function () {
 
         window.open(`php/job_detail/create_pdf_debit_note.php?list_request=${text_sent}&job_number=${id_number}`, "_blank")
     },
 
-    sent_generate_bill_ar_debit_note_line : async function(){
-        
+    sent_generate_bill_ar_debit_note_line: async function () {
+
 
         var currentURL = window.location.href;
         var url = new URL(currentURL);
@@ -1292,13 +1305,13 @@ const function_sub_billing = {
                 arr_get_data_select.push(data_id_select)
             }
         })
-        
+
         text_sent = arr_get_data_select.join(',')
         if (text_sent != '') {
             if ($('#add_moda').length >= 1) {
                 $('#add_moda').remove()
             }
-    
+
             html = `
                 <div class="modal fade" id="add_moda" >
                     <div class="modal-dialog modal-lg">
@@ -1338,18 +1351,18 @@ const function_sub_billing = {
                         </div>
                     </div>
                 </div>`
-    
+
             $('body').append(html)
             $('#add_moda').modal('show')
             let res = await this.ajax_get_select_bill_select()
             let bill_header = '';
             let bill_footer = '';
-            $.each(res['data_header'],function(i,v){
+            $.each(res['data_header'], function (i, v) {
                 bill_header += `<option value="${v['ID']}">${v['corp_name']}</option>`
             })
             $('.inp_bill_header').append(bill_header)
 
-            $.each(res['data_footer'],function(i,v){
+            $.each(res['data_footer'], function (i, v) {
                 bill_footer += `<option value="${v['ID']}">${v['corp_name']}</option>`
             })
             $('.inp_bill_footer').append(bill_footer)
@@ -1367,7 +1380,7 @@ const function_sub_billing = {
     },
 
 
-    ajax_get_select_bill_select : async function () {
+    ajax_get_select_bill_select: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -1379,15 +1392,252 @@ const function_sub_billing = {
             });
         });
     },
+
+    save_all_billing: async function () {
+        let arr_data_save_ap = [];
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        $('.table_billing_ap > tbody > tr').each(function () {
+            let get_id_list = $(this).attr('id_list');
+            let description_code = $('.sel_data_billing_ap', this).val()
+            let billing_to = $('.inp_billing_to_ap', this).val()
+            let billing_to_type = $('.inp_billing_to_ap :selected',this).attr('type')
+            let currency = $('.inp_currency_ap', this).val()
+            let qty = $('.inp_qty', this).val()
+            let unit_price = $('.inp_unit_price', this).val()
+            let vat = $('.inp_vat', this).val()
+            let sys_rate = $('.inp_sys_rate_ap', this).val()
+            let sys_rate_currency = $('.inp_sys_rate_currency_ap', this).val()
+            let remark = $('.inp_remark_ap', this).val()
+            let commit_sale = $('.inp_commit', this).val()
+            let tax_with_hold = $('.chb_tax_hold', this).is(':checked') ? '1' : '0';
+            let check = $('.chb_check', this).is(':checked') ? '1' : '0';
+            let apply = $('.chb_apply', this).is(':checked') ? '1' : '0';
+            
+            // case has id_list
+            if (get_id_list != undefined) {
+                $.each(sub_billing.data_list_ap['get_data_ap'], function (i, v) {
+                    let obj = {}
+                    if (get_id_list == v['ID']) {
+                        let check_description = v['billing_description'] ? v['billing_description'] : '';
+                        let check_billing_to = v['bill_to'] ? v['bill_to'] : '';
+                        let check_billing_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
+                        let check_currency = v['currency'] ? v['currency'] : '';
+                        let check_qty = v['qty'] ? v['qty'] : '';
+                        let check_unit_price = v['unit_price'] ? v['unit_price'] : '';
+                        let check_vat = v['vat'] ? v['vat'] : '';
+                        let check_sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
+                        let check_sys_rate_currency = v['sys_rate_currency'] ? v['sys_rate_currency'] : '';
+                        let check_remark = v['remark'] ? v['remark'] : '';
+                        let check_commit_sale = v['commit_sale'] ? v['commit_sale'] : ''
+
+                        let check_apply = v['action_paid_by'] ? 1 : 0;
+                        let check_check = v['check_by'] ? 1 : 0;
+                        let check_tax_with_hole = v['tax_with_hold_by'] ? 1 : 0;
+
+                        if (description_code == check_description &&
+                            billing_to == check_billing_to &&
+                            billing_to_type == check_billing_to_type &&
+                            currency == check_currency &&
+                            qty == check_qty &&
+                            unit_price == check_unit_price &&
+                            vat == check_vat &&
+                            sys_rate == check_sys_rate &&
+                            sys_rate_currency == check_sys_rate_currency &&
+                            remark == check_remark &&
+                            commit_sale == check_commit_sale &&
+                            check_apply == apply &&
+                            check_check == check &&
+                            check_tax_with_hole == tax_with_hold
+                        ) {
+                           
+                        } else {
+                            obj = {
+                                get_id_list: get_id_list,
+                                description_code: description_code,
+                                billing_to: billing_to,
+                                billing_to_type : billing_to_type,
+                                currency: currency,
+                                qty: qty,
+                                unit_price: unit_price,
+                                vat: vat,
+                                sys_rate: sys_rate,
+                                sys_rate_currency: sys_rate_currency,
+                                remark: remark,
+                                commit_sale: commit_sale,
+                                tax_with_hold: tax_with_hold,
+                                check: check,
+                                apply: apply,
+                                id_number : id_number,
+                            }
+                            arr_data_save_ap.push(obj)
+                        }
+                    }
+                })
+            }else{
+                obj = {
+                    get_id_list: get_id_list,
+                    description_code: description_code,
+                    billing_to: billing_to,
+                    currency: currency,
+                    qty: qty,
+                    unit_price: unit_price,
+                    vat: vat,
+                    sys_rate: sys_rate,
+                    sys_rate_currency: sys_rate_currency,
+                    remark: remark,
+                    commit_sale: commit_sale,
+                    tax_with_hold: tax_with_hold,
+                    check: check,
+                    apply: apply,
+                    id_number : id_number,
+                }
+                arr_data_save_ap.push(obj)
+            }
+        })
+        console.log(arr_data_save_ap)
+
+        let arr_data_save_ar = [];
+        $('.table_billing_ar > tbody > tr').each(function () {
+            let get_id_list = $(this).attr('id_list');
+            let description_code = $('.select_code_billing_ar', this).val()
+            let billing_to = $('.select_bill_to_ar', this).val()
+            let billing_to_type = $('.select_bill_to_ar :selected',this).attr('type')
+            let currency = $('.inp_currency_ar', this).val()
+            let qty = $('.inp_qty_ar', this).val()
+            let unit_price = $('.inp_unit_price', this).val()
+            let vat = $('.inp_vat', this).val()
+            let sys_rate = $('.inp_sys_rate_ar', this).val()
+            let sys_rate_currency = $('.inp_sys_rate_currency_arf', this).val()
+            let remark = $('.inp_remark', this).val()
+            let receiv_amt = $('.ch_revd_amt_ar',this).is(':checked') ? '1' : '0';
+            let need_vat = $('.ch_need_vat_ar',this).is(':checked') ? '1' : '0';
+            let tax_with_hold = $('.inp_wt_percentage', this).is(':checked') ? '1' : '0';
+            let check = $('.ch_check_ar', this).is(':checked') ? '1' : '0';
+            
+            // case has id_list
+            if (get_id_list != undefined) {
+                $.each(sub_billing.data_list_ar['get_data_ar'], function (i, v) {
+                    let obj = {}
+                    if (get_id_list == v['ID']) {
+                        let check_description = v['billing_description'] ? v['billing_description'] : '';
+                        let check_billing_to = v['bill_to'] ? v['bill_to'] : '';
+                        let check_billing_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
+                        let check_currency = v['currency'] ? v['currency'] : '';
+                        let check_qty = v['qty'] ? v['qty'] : '';
+                        let check_unit_price = v['unit_price'] ? v['unit_price'] : '';
+                        let check_vat = v['vat'] ? v['vat'] : '';
+                        let check_sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
+                        let check_sys_rate_currency = v['sys_rate_currency'] ? v['sys_rate_currency'] : '';
+                        let check_remark = v['remark'] ? v['remark'] : '';
+
+                        let check_check = v['check_by'] ? 1 : 0;
+                        let check_tax_with_hole = v['tax_with_hold_by'] ? 1 : 0;
+                        let check_receiv_amt = v['action_paid_by'] ? 1 : 0;
+                        let check_need_vat = v['need_vat'] == '1' ? 1 : 0;
+
+                        
+                        if (description_code == check_description &&
+                            billing_to == check_billing_to &&
+                            billing_to_type == check_billing_to_type &&
+                            currency == check_currency &&
+                            qty == check_qty &&
+                            unit_price == check_unit_price &&
+                            vat == check_vat &&
+                            sys_rate == check_sys_rate &&
+                            sys_rate_currency == check_sys_rate_currency &&
+                            remark == check_remark &&
+                            check == check_check &&
+                            tax_with_hold == check_tax_with_hole &&
+                            receiv_amt == check_receiv_amt &&
+                            need_vat == check_need_vat
+
+                        ) {
+                           
+                        } else {
+                            obj = {
+                                get_id_list: get_id_list,
+                                description_code: description_code,
+                                billing_to: billing_to,
+                                billing_to_type : billing_to_type,
+                                currency: currency,
+                                qty: qty,
+                                unit_price: unit_price,
+                                vat: vat,
+                                sys_rate: sys_rate,
+                                sys_rate_currency: sys_rate_currency,
+                                remark: remark,
+                                tax_with_hold: tax_with_hold,
+                                check: check,
+                                receiv_amt : receiv_amt,
+                                need_vat : need_vat,
+                                id_number : id_number,
+                            }
+                            arr_data_save_ar.push(obj)
+                        }
+                    }
+                })
+            }else{
+                obj = {
+                    get_id_list: get_id_list,
+                    description_code: description_code,
+                    billing_to: billing_to,
+                    currency: currency,
+                    qty: qty,
+                    unit_price: unit_price,
+                    vat: vat,
+                    sys_rate: sys_rate,
+                    sys_rate_currency: sys_rate_currency,
+                    remark: remark,
+                    tax_with_hold: tax_with_hold,
+                    check: check,
+                    receiv_amt : receiv_amt,
+                    need_vat : need_vat,
+                    id_number : id_number,
+                }
+                arr_data_save_ar.push(obj)
+            }
+        })
+        
+        
+        let res_data = await this.ajax_save_data_billing(arr_data_save_ap,arr_data_save_ar)
+        
+        if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
+            Swal.fire(
+                'saved!',
+                'Your data has been saved.',
+                'success'
+            )
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Contact to tech team in thailand',
+            })
+        }
+    },
+
     
 
-    // generate_bill_ar_full: async function () {
+    ajax_save_data_billing : async function (arr_data_save_ap,arr_data_save_ar) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/save_data_billing_ap.php",
+                data: {
+                    arr_data_save_ap : arr_data_save_ap,
+                    arr_data_save_ar : arr_data_save_ar
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 
     
-
-
-    // },
-
 
 
 

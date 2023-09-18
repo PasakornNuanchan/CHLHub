@@ -1,7 +1,9 @@
 const setting_data_default = {
     data_billing_des : '',
     data_billing_des_ar : '',
-    
+    data_area : '',
+    data_container_type : '',
+    data_unit : '',
     setting_data : async function (){
 
     
@@ -32,9 +34,10 @@ const setting_data_default = {
             })
             
             $('.inp_select_packing').append(unit_data)
+            $('.inp_unit_package').append(unit_data)
         }
 
-        
+        this.data_unit = unit_data
     
 
         if(res_data_default['bill_to_ar'] != "0 results"){
@@ -129,7 +132,7 @@ const setting_data_default = {
             $('.bl_pol').append(area_data)
             $('.bl_pod').append(area_data)
             $('.bl_pode').append(area_data)
-
+            this.data_area = area_data
 
         }
         
@@ -152,7 +155,9 @@ const setting_data_default = {
                 container_type_data +=`<option value="${v['container_type_name']}">${v['container_type_name']} (${v['container_type_full_name']})</option>`;
             })
             $('#container_type_data').append(container_type_data)
-            $('.bl_container_type').append(container_type_data)
+            //$('.bl_container_type').append(container_type_data)
+
+            this.data_container_type = container_type_data
         }
 
       // transport

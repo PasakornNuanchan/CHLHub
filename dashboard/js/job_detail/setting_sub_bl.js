@@ -25,11 +25,11 @@ const sub_bl = {
 
 
 
-        $('.inp_bl_por').val(port_of_receipt_number)
-        $('.inp_bl_pol').val(port_of_loading_number)
-        $('.inp_bl_pod').val(ts_port_number)
-        $('.inp_bl_pode').val(port_of_delivery_number)
-        $('.inp_mother_vessel').val(vessel)
+        // $('.inp_bl_por').val(port_of_receipt_number)
+        // $('.inp_bl_pol').val(port_of_loading_number)
+        // $('.inp_bl_pod').val(ts_port_number)
+        // $('.inp_bl_pode').val(port_of_delivery_number)
+        // $('.inp_mother_vessel').val(vessel)
 
         let bill_header = res_data['bl_title']['bill_header'] ? res_data['bl_title']['bill_header'] : '';
         let delivery_agent = res_data['bl_title']['delivery_agent'] ? res_data['bl_title']['delivery_agent'] : '';

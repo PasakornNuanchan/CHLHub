@@ -7,58 +7,96 @@ $data_detail_arr = $_POST['data_detail_arr'];
 $table_detail_arr = $_POST['table_detail_arr'];
 $table_container_bl_arr = $_POST['table_container_bl_arr'];
 
+$table_fright_bl_arr = $_POST['table_fright_bl_arr'];
+$arr_fright_delete = $_POST['arr_fright_delete'];
 
+foreach ($table_fright_bl_arr as $k => $v) {
+    $id_list = isset($v['id_list']) ? $v['id_list'] : '';
+    $charge = isset($v['charge']) ? $v['charge'] : '';
+    $prepaid = isset($v['prepaid']) ? $v['prepaid'] : '';
+    $collect = isset($v['collect']) ? $v['collect'] : '';
+    $ref_id_row = isset($v['ref_id_row']) ? $v['ref_id_row'] : '';
+    $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
 
+    if ($id_list != '') {
+        $sql_query_fright = "
+        UPDATE
+            `fright_bl`
+        SET
+            `fright` = '$charge',
+            `prepaid` = '$prepaid',
+            `collect` = '$collect',
+            `ref_job_id` = '$ref_job_id'
+        WHERE
+            `ID` = '$id_list'
+        ";
+        
+    } else {
+        $sql_query_fright = "
+        INSERT INTO `fright_bl`(
+            `fright`,
+            `prepaid`,
+            `collect`,
+            `ref_row`,
+            `ref_job_id`
+        )
+        VALUES(
+            '$charge',
+            '$prepaid',
+            '$collect',
+            '$ref_id_row',
+            '$ref_job_id'
+        )
+        ";
+    }
+    //echo $sql_query_fright;
+    $result = $con->query($sql_query_fright);
+    if ($result->num_rows == 0) {
+        $arr_query_fright = '1';
+    } else {
+        $arr_query_fright = '0';
+    }
+}
 
+if($arr_fright_delete != ''){
+    foreach($arr_fright_delete as $k => $v){
+        $data_id = isset($v['data_id']) ? $v['data_id'] : '';
 
-foreach($data_detail_arr as $k => $v){
-$id_number = isset($v['id_number']) ? $v['id_number'] : '';
-$notify = isset($v['notify']) ? $v['notify'] : '';
-$carriage = isset($v['carriage']) ? $v['carriage'] : '';
-$bill_header = isset($v['bill_header']) ? $v['bill_header'] : '';
-$delivery_agent = isset($v['delivery_agent']) ? $v['delivery_agent'] : '';
-$shipper_on_board =  $v['shipper_on_board'];
-$on_board_date = $v['on_board_date'];
-$bl_number = isset($v['bl_number']) ? $v['bl_number'] :'';
-$shipper_bl = isset($v['shipper_bl']) ? $v['shipper_bl'] : '';
-$consignee_bl = isset($v['consignee_bl']) ? $v['consignee_bl'] : '';
-$des_of_god = isset($v['des_of_god']) ? $v['des_of_god'] : '';
-$final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
-$data_place = isset($v['data_place']) ? $v['data_place'] : '';
-
-
-
-
-$sql_data = "
-SELECT
-    *
-FROM
-    `bl_title`
-WHERE
-    ref_job_id = '$id_number'
-";
-
-$result = $con->query($sql_data);
-if ($result->num_rows > 0) {
-  $cs_data = "1";
-} else {
-  $cs_data = "0";
+        $sql_query_delete_fright = "
+        DELETE
+        FROM
+            `fright_bl`
+        WHERE
+            `ID` = '$data_id'
+        ";
+        $con->query($sql_query_delete_fright);
+    }
 }
 
 
-if($shipper_on_board !== ''){
-    $shipper_on_board = "'".$shipper_on_board."'";
-}else{
-    $shipper_on_board = "NULL";
-}
 
-if($on_board_date !== ''){
-    $on_board_date = "'".$on_board_date."'";
-}else{
-    $on_board_date = "NULL";
-}
 
-if($cs_data == "1"){
+
+foreach ($data_detail_arr as $k => $v) {
+    $bl_data =  isset($v['bl_data']) ? $v['bl_data'] : '';
+    $id_number = isset($v['id_number']) ? $v['id_number'] : '';
+    $notify = isset($v['notify']) ? $v['notify'] : '';
+    $carriage = isset($v['carriage']) ? $v['carriage'] : '';
+    $bill_header = isset($v['bill_header']) ? $v['bill_header'] : '';
+    $delivery_agent = isset($v['delivery_agent']) ? $v['delivery_agent'] : '';
+    $shipper_on_board =  $v['shipper_on_board'];
+    $on_board_date = $v['on_board_date'];
+    $bl_number = isset($v['bl_number']) ? $v['bl_number'] : '';
+    $shipper_bl = isset($v['shipper_bl']) ? $v['shipper_bl'] : '';
+    $consignee_bl = isset($v['consignee_bl']) ? $v['consignee_bl'] : '';
+    $des_of_god = isset($v['des_of_god']) ? $v['des_of_god'] : '';
+    $final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
+    $data_place = isset($v['data_place']) ? $v['data_place'] : '';
+    $payble_at = isset($v['payble_at']) ? $v['payble_at'] : '';
+
+    $shipper_on_board = $shipper_on_board ? "'" . $shipper_on_board . "'" : 'NULL';
+    $on_board_date = $on_board_date ? "'" . $on_board_date . "'" : 'NULL';
+
     $sql_query_detail_title = "
     UPDATE
         `bl_title`
@@ -74,72 +112,37 @@ if($cs_data == "1"){
         `consignee_bl`='$consignee_bl',
         `description_of_good` = '$des_of_god',
         `final_destination`= '$final_destination',
-        `place` = '$data_place'
+        `place` = '$data_place',
+        `payble_at` = '$payble_at'
     WHERE
-        ref_job_id = '$id_number'
+        ID = '$bl_data'
     ";
-    
-       
-}else{
-    $sql_query_detail_title = "
-    INSERT INTO `bl_title`(
-        `ref_job_id`,
-        `notify_party`,
-        `pre_carriage`,
-        `bill_header`,
-        `delivery_agent`,
-        `shipper_on_board`,
-        `on_board_date`
-        `bl_number`,
-        `shipper_bl`,
-        `consignee_bl`,
-        `description_of_good`,
-        `final_destination`,
-        `place`
-    )
-    VALUES(
-        '$id_number',
-        '$notify',
-        '$carriage',
-        '$bill_header',
-        '$delivery_agent',
-        $shipper_on_board,
-        $on_board_date,
-        '$bl_number',
-        '$shipper_bl',
-        '$consignee_bl',
-        '$des_of_god',
-        '$final_destination',
-        '$data_place'
-    )
-    ";
+
+    //echo $sql_query_detail_title;
+    $result = $con->query($sql_query_detail_title);
+    if ($result->num_rows == 0) {
+        $arr_save_detail = '1';
+    } else {
+        $arr_save_detail = '0';
+    }
 }
 
-//echo $sql_query_detail_title;
-$result = $con->query($sql_query_detail_title);
-if ($result->num_rows == 0) {
-    $arr_save_detail = '1';
-} else {
-    $arr_save_detail = '0';
-}
+foreach ($table_detail_arr as $k => $v) {
+    $id_number = isset($v['id_number']) ? $v['id_number'] : '';
+    $container_no_and_seal = isset($v['container_no_and_seal']) ? $v['container_no_and_seal'] : '';
+    $container_or_package = isset($v['container_or_package']) ? $v['container_or_package'] : '';
+    $package_unit = isset($v['package_unit']) ? $v['package_unit'] : '';
+    $kind_of_package = isset($v['kind_of_package']) ? $v['kind_of_package'] : '';
+    $gross_Weight = isset($v['gross_Weight']) ? $v['gross_Weight'] : '';
+    $gross_weight_unit = isset($v['gross_weight_unit']) ? $v['gross_weight_unit'] : '';
+    $mesurement = isset($v['mesurement']) ? $v['mesurement'] : '';
+    $mesurement_unit = isset($v['mesurement_unit']) ? $v['mesurement_unit'] : '';
+    $id_row = isset($v['id_row']) ? $v['id_row'] : '';
+    $id_bl = isset($v['id_bl']) ? $v['id_bl'] : '';
 
 
-}
-
-foreach($table_detail_arr as $k => $v){
-$id_number = isset($v['id_number']) ? $v['id_number'] : '';
-$container_no_and_seal = isset($v['container_no_and_seal']) ? $v['container_no_and_seal'] : '';
-$container_or_package = isset($v['container_or_package']) ? $v['container_or_package'] : '';
-$package_unit = isset($v['package_unit']) ? $v['package_unit'] : '';
-$kind_of_package = isset($v['kind_of_package']) ? $v['kind_of_package'] : '';
-$gross_Weight = isset($v['gross_Weight']) ? $v['gross_Weight'] : '';
-$gross_weight_unit = isset($v['gross_weight_unit']) ? $v['gross_weight_unit'] : '';
-$mesurement = isset($v['mesurement']) ? $v['mesurement'] : '';
-$mesurement_unit = isset($v['mesurement_unit']) ? $v['mesurement_unit'] : '';
-$id_row = isset($v['id_row']) ? $v['id_row'] : '';
-
-if($id_row == ''){
-    $sql_query_table_list = "
+    if ($id_row == '') {
+        $sql_query_table_list = "
     INSERT INTO `bl_list`(
         `ref_job_id`,
         `container_no`,
@@ -149,7 +152,8 @@ if($id_row == ''){
         `gross_weight`,
         `gross_weight_unit`,
         `measurement`,
-        `cbm_unit`
+        `cbm_unit`,
+        `bl_title_id`
     )
     VALUES(
         '$id_number',
@@ -160,11 +164,12 @@ if($id_row == ''){
         '$gross_Weight',
         '$gross_weight_unit',
         '$mesurement',
-        '$mesurement_unit'
+        '$mesurement_unit',
+        '$id_bl'
     )
     ";
-}else{
-    $sql_query_table_list = "
+    } else {
+        $sql_query_table_list = "
     UPDATE
         `bl_list`
     SET
@@ -180,9 +185,10 @@ if($id_row == ''){
     WHERE
         `ID` = '$id_row'
     ";
-}
+    }
 
-$result = $con->query($sql_query_table_list);
+    //echo $sql_query_table_list;
+    $result = $con->query($sql_query_table_list);
     if ($result->num_rows == 0) {
         $arr_save_list = '1';
     } else {
@@ -194,19 +200,19 @@ $result = $con->query($sql_query_table_list);
 
 
 
-foreach($table_container_bl_arr as $k =>$v){
+foreach ($table_container_bl_arr as $k => $v) {
 
-$id_number = isset($v['id_container']) ? $v['id_container'] : '';
-$quantity_bl = isset($v['quantity_bl']) ? $v['quantity_bl'] : '';
-$unit_bl = isset($v['unit_bl']) ? $v['unit_bl'] : '';
-$cbm_bl = $v['cbm_bl'];
-$weight_bl = isset($v['weight']) ? $v['weight'] : '';
+    $id_number = isset($v['id_container']) ? $v['id_container'] : '';
+    $quantity_bl = isset($v['quantity_bl']) ? $v['quantity_bl'] : '';
+    $unit_bl = isset($v['unit_bl']) ? $v['unit_bl'] : '';
+    $cbm_bl = $v['cbm_bl'];
+    $weight_bl = isset($v['weight']) ? $v['weight'] : '';
 
-$cbm_bl = $cbm_bl == '' ? "NULL" : "'".$cbm_bl."'";
-$weight_bl = $weight_bl == '' ? "NULL" : "'".$weight_bl."'";
-$quantity_bl = $quantity_bl == '' ? "NULL" : "'".$quantity_bl."'";
+    $cbm_bl = $cbm_bl == '' ? "NULL" : "'" . $cbm_bl . "'";
+    $weight_bl = $weight_bl == '' ? "NULL" : "'" . $weight_bl . "'";
+    $quantity_bl = $quantity_bl == '' ? "NULL" : "'" . $quantity_bl . "'";
 
-$sql_query_container = "
+    $sql_query_container = "
 UPDATE
     `container`
 SET
@@ -217,8 +223,8 @@ SET
 WHERE
     ID = '$id_number'
 ";
-
-$result = $con->query($sql_query_container);
+    //echo $sql_query_container;
+    $result = $con->query($sql_query_container);
     if ($result->num_rows == 0) {
         $arr_save_container = '1';
     } else {
@@ -226,4 +232,4 @@ $result = $con->query($sql_query_container);
     }
 }
 
-echo json_encode(array('arr_save_detail'=>$arr_save_detail,'arr_save_list'=>$arr_save_list,'arr_save_container'=>$arr_save_container));
+echo json_encode(array('arr_save_detail' => $arr_save_detail, 'arr_save_list' => $arr_save_list, 'arr_save_container' => $arr_save_container,'arr_query_fright'=>$arr_query_fright));
