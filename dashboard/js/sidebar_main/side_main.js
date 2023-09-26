@@ -42,7 +42,7 @@ const sidebar_main = {
         })
 
         if(check_val_data_page == '0'){
-        //   window.location = 'CHL-home.php';
+           window.location = 'CHL-home.php';
         }
        
     }, 

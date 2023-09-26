@@ -1637,6 +1637,33 @@ const function_sub_billing = {
         });
     },
 
+    change_currency : function(e){
+        
+        let type_data = $(e).closest('tr').attr('type')
+        let first_currency = '';        
+        let last_currency = '';
+        let date_mo = '';
+        
+
+        if(type_data == "AP"){
+            first_currency = $(e).closest('tr').find('td > .inp_currency_ap').val()
+            last_currency = $(e).closest('tr').find('td > .inp_sys_rate_currency_ap').val()
+            date_mo = $(e).closest('tr').find('td > .inp_create_date_ap').val()
+        }else{
+            first_currency = $(e).closest('tr').find('td > .inp_currency_ar').val()
+            last_currency = $(e).closest('tr').find('td > .inp_sys_rate_currency_arf').val()
+            date_mo = $(e).closest('tr').find('td > .inp_create_datetime_ar').val()
+        }
+        
+
+        let data_request = first_currency+"_"+last_currency
+        console.log(data_request.toLowerCase())
+        console.log(date_mo)
+
+
+        
+    }
+
     
 
 

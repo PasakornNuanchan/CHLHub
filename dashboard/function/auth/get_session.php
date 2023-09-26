@@ -1,7 +1,7 @@
 <?php
 
 //Set the session timeout for 1800 seconds
-$timeout = 1800;
+$timeout = 7200;
 
 //Set the maxlifetime of the session
 ini_set( "session.gc_maxlifetime", $timeout );
@@ -16,13 +16,15 @@ session_start();
 $s_name = session_name();
 
 //Check the session exists or not
+
+//echo $_COOKIE[ $s_name ];
 if(isset( $_COOKIE[ $s_name ] )) {
     setcookie( $s_name, $_COOKIE[ $s_name ], time() + $timeout, '/' );
     // echo "Session is created for $s_name.<br/>";
 } else {
     ?>
     <script>
-        alert('SESSION TIMED OUT!! Please login again.');
+        await alert('SESSION TIMED OUT!! Please login again.');
         window.location = 'auth/sign-in.php';
     </script>
     <?php

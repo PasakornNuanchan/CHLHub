@@ -1838,7 +1838,7 @@ require 'function/auth/get_session.php';
                                             <th>Check Date</th>
                                             <th>Action</th>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th class="text-center">1</th>
                                             <th class="text-center">2</th>
                                             <th class="text-center">3</th>
@@ -1868,7 +1868,7 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">27</th>
                                             <th class="text-center">28</th>
                                             <th class="text-center">29</th>
-                                        </tr>
+                                        </tr> -->
                                     </thead>
                                     <tbody>
                                         <tr class="text-center">
@@ -2015,7 +2015,7 @@ require 'function/auth/get_session.php';
                                             <th>checker date</th>
                                             <th>action</th>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th class="text-center">1</th>
                                             <th class="text-center">2</th>
                                             <th class="text-center">3</th>
@@ -2045,7 +2045,7 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">27</th>
                                             <th class="text-center">28</th>
                                             <th class="text-center">29</th>
-                                        </tr>
+                                        </tr> -->
                                     </thead>
                                     <tbody>
                                         <tr>

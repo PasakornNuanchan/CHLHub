@@ -22,13 +22,13 @@ const function_sub_reportcs = {
             type_data = "il_type"
 
         }
-    
-        let res_data = await this.ajax_request_lunch_photo(type_used, id_request,type_data)
-        
+
+        let res_data = await this.ajax_request_lunch_photo(type_used, id_request, type_data)
+
 
     },
 
-    ajax_request_lunch_photo: async function (type_request, id_request,type_data) {
+    ajax_request_lunch_photo: async function (type_request, id_request, type_data) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -36,20 +36,20 @@ const function_sub_reportcs = {
                 data: {
                     type_request: type_request,
                     id_request: id_request,
-                    type_data : type_data,
+                    type_data: type_data,
                 },
                 dataType: "json",
                 success: function (res) {
-            
+
                     var newTab = window.open();
 
-                    if(res['type_data'] == "application/pdf"){
+                    if (res['type_data'] == "application/pdf") {
                         newTab.document.write('<html><body><embed width="100%" height="100%" src="' + res['request'] + '" type="application/pdf"></body></html>');
-                    }else{
-                        newTab.document.write('<html><body><img id="imageDisplay" src="'+res['request']+'" alt="รูปภาพ"></body></html>');
+                    } else {
+                        newTab.document.write('<html><body><img id="imageDisplay" src="' + res['request'] + '" alt="รูปภาพ"></body></html>');
                     }
 
-                    
+
                 },
             });
         });
@@ -60,26 +60,26 @@ const function_sub_reportcs = {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
-        let res_data = await this.ajax_update_document_date(type_request,id_number);
+        let res_data = await this.ajax_update_document_date(type_request, id_number);
 
-        if(res_data['arr_res'] == '1'){
+        if (res_data['arr_res'] == '1') {
             await Swal.fire(
                 'Save it!',
                 'Your save file successful.',
                 'success'
-              )
+            )
             await sub_reportcs.first_post_data(id_number)
-        }else{
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'System error plese contact to tech team',
-              })
+            })
         }
 
     },
 
-    ajax_update_document_date: async function (type_request,id_number) {
+    ajax_update_document_date: async function (type_request, id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -96,32 +96,32 @@ const function_sub_reportcs = {
         });
     },
 
-    update_shipping_data : async function(){
+    update_shipping_data: async function () {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
         let ats_data = $('.inp_ats').val()
-        
-        let res_data = await this.ajax_update_shipping_data(ats_data,id_number);
 
-        if(res_data['arr_res'] == '1'){
+        let res_data = await this.ajax_update_shipping_data(ats_data, id_number);
+
+        if (res_data['arr_res'] == '1') {
             await Swal.fire(
                 'Save it!',
                 'Your file has been deleted.',
                 'success'
-              )
+            )
             await sub_reportcs.first_post_data(id_number)
-        }else{
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'System error plese contact to tech team',
-              })
+            })
         }
 
     },
 
-    ajax_update_shipping_data: async function (ats_data,id_number) {
+    ajax_update_shipping_data: async function (ats_data, id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -191,26 +191,26 @@ const function_sub_reportcs = {
         $('#add_moda').modal('show')
     },
 
-    save_doc_image: async function (e = null,val_get) {
+    save_doc_image: async function (e = null, val_get) {
 
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
 
         let id_update = id_number;
-        
+
         let base_64_file = $('.inp_file_cs').prop('files')[0];
         let type_data = base_64_file.type
         const Base_64_file = await convert_file(base_64_file);
-        
+
         let data = {
-            id_update : id_update,
-            type_data : type_data,
-            picture : Base_64_file,
-            val_get : val_get
+            id_update: id_update,
+            type_data: type_data,
+            picture: Base_64_file,
+            val_get: val_get
         }
-    
-    
+
+
         let res = await this.ajax_save_docs(data);
         if (res == '1') {
             $('#add_moda').modal('hide');
@@ -219,7 +219,7 @@ const function_sub_reportcs = {
                 'Your file has been saved.',
                 'success'
             )
-            
+
         } else {
             Swal.fire(
                 'Error!',
@@ -229,7 +229,7 @@ const function_sub_reportcs = {
             )
         }
         sub_reportcs.first_post_data(id_number)
-        
+
     },
 
     ajax_save_docs: function (data) {
@@ -246,32 +246,32 @@ const function_sub_reportcs = {
         });
     },
 
-    update_import_entry : async function(){
+    update_import_entry: async function () {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
         let ats_data = $('.inp_import_entry').val()
-        
-        let res_data = await this.ajax_update_import_entry(ats_data,id_number);
 
-        if(res_data['arr_res'] == '1'){
+        let res_data = await this.ajax_update_import_entry(ats_data, id_number);
+
+        if (res_data['arr_res'] == '1') {
             await Swal.fire(
                 'Save it!',
                 'Your file has been deleted.',
                 'success'
-              )
+            )
             await sub_reportcs.first_post_data(id_number)
-        }else{
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'System error plese contact to tech team',
-              })
+            })
         }
 
     },
 
-    ajax_update_import_entry: async function (ats_data,id_number) {
+    ajax_update_import_entry: async function (ats_data, id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -288,32 +288,32 @@ const function_sub_reportcs = {
         });
     },
 
-    update_clearance : async function(){
+    update_clearance: async function () {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
         let ats_data = $('.inp_clearance_date').val()
-        
-        let res_data = await this.ajax_update_clearance(ats_data,id_number);
 
-        if(res_data['arr_res'] == '1'){
+        let res_data = await this.ajax_update_clearance(ats_data, id_number);
+
+        if (res_data['arr_res'] == '1') {
             await Swal.fire(
                 'Save it!',
                 'Your file has been deleted.',
                 'success'
-              )
+            )
             await sub_reportcs.first_post_data(id_number)
-        }else{
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'System error plese contact to tech team',
-              })
+            })
         }
 
     },
 
-    ajax_update_clearance : async function (ats_data,id_number) {
+    ajax_update_clearance: async function (ats_data, id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",

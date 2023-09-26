@@ -15,11 +15,6 @@ require 'function/auth/get_session.php';
 
 </head>
 <style>
-    
-
-
-
-
     .table_data td:nth-child(1) {
         z-index: 1;
     }
@@ -82,7 +77,7 @@ require 'function/auth/get_session.php';
 
     .table_data td:nth-child(17) input {
         width: 200px;
-    } 
+    }
 </style>
 
 <body class="  ">
@@ -206,75 +201,112 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="card p-5">
-                            <div class="table-responsive">
-                                <div id="tableContainer">
-                                    <table class="all-table">
-                                        <table class="table table-hover table_data">
-                                            <thead>
-                                                <tr class="text-center sticky-top">
-                                                    <th class="sticky-left">No.</th>
-                                                    <th class="sticky-left">Inv No.</th>
-                                                    <th class="sticky-left">Description</th>
-                                                    <th>Bill to</th>
-                                                    <th>Currency</th>
-                                                    <th>Qty.</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Amt.</th>
-                                                    <th>Vat(%)</th>
-                                                    <th>Amt Incv.</th>
-                                                    <th>Status</th>
-                                                    <th>Paid Amt</th>
-                                                    <th>Remark</th>
-                                                    <th>Request Datetime</th>
-                                                    <th>Request By</th>
-                                                    <th>Sale Support</th>
-                                                    <th>Operation By</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="text-center">
-                                                    <td></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-                                                    <td>
-                                                        <input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-                                                        <label for="radio1" class="form-check-label pl-2">Waiting</label>
-                                                        <input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-                                                        <label for="radio2" class="form-check-label pl-2">Approve</label>
-                                                        <input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-                                                        <label for="radio3" class="form-check-label pl-2">Reject</label>
-                                                    </td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-                                                    <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                </div>
+                    </div>
+
+                    <div class="card p-5">
+                        <div class="table-responsive">
+                            <div id="tableContainer">
+                                <table class="table table-hover table_data">
+                                    <thead>
+                                        <tr class="text-center sticky-top">
+                                            <th>No.</th>
+                                            <th>Inv No.</th>
+                                            <th>Bill to</th>
+                                            <th>Description</th>
+                                            <th>Currency</th>
+                                            <th>Qty.</th>
+                                            <th>Unit Price</th>
+                                            <th>Amt.</th>
+                                            <th>Vat(%)</th>
+                                            <th>Amt Incv.</th>
+                                            <th>Status</th>
+                                            <th>Paid Amt</th>
+                                            <th>Remark</th>
+                                            <th>Request Datetime</th>
+                                            <th>Request By</th>
+                                            <th>Sale Support</th>
+                                            <th>Operation By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
+                                            <td>
+                                                <input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
+                                                <label for="radio1" class="form-check-label pl-2">Waiting</label>
+                                                <input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
+                                                <label for="radio2" class="form-check-label pl-2">Approve</label>
+                                                <input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
+                                                <label for="radio3" class="form-check-label pl-2">Reject</label>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value=""></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
+                                            <td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header"></div>
+                        <div class="card-body">
+                            <div class="bd-exsample table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>job number </th>
+                                            <th>Container type, air freight, LCL </th>
+                                            <th>quantity </th>
+                                            <th>Currency </th>
+                                            <th>Amount </th>
+                                            <th>Request payment date </th>
+                                            <th>Request by </th>
+                                            <th>Receipt </th>
+                                            <th>Payee </th>
+                                            <th>remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
+
+                <!-- MAIN BODY END -->
             </div>
 
-
-            <!-- MAIN BODY END -->
-        </div>
-
-        <!-- Footer Section Start -->
-        <?php include 'include/footermain.php'; ?>
-        <!-- Footer Section End -->
+            <!-- Footer Section Start -->
+            <?php include 'include/footermain.php'; ?>
+            <!-- Footer Section End -->
     </main>
 
     <!-- Wrapper End-->

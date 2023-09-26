@@ -5,7 +5,9 @@ const sub_billing = {
     html_select_bill_to_ar : '',
     data_list_ap : '',
     data_list_ar : '',
+    
     first_post_data_ar: async function (id_number) {
+        
         let res_data = await this.ajax_setting_data_first_ar(id_number)
 
         this.data_list_ar = res_data
@@ -63,7 +65,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_data_item inp_data_item${i}"></td> <!-- item -->
                 <td>${data_select_bill_to_ar}</td>
                 <td align="center"><div class="inp_payble"></div></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency_ar inp_currency_ar${i}">
+                <td><select class="form-select form-select-sm inp_currency_ar inp_currency_ar${i}" onchange="function_sub_billing.change_currency(this)">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
@@ -76,7 +78,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_arf">
+                <td><select class="form-select form-select-sm inp_sys_rate_currency_arf" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
@@ -95,7 +97,7 @@ const sub_billing = {
                 <td><div class="inp_status"></div></td>
                 <td class="text-center">${brunch}</td><!-- brunch -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${cb}"></td><!-- create by, -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${create_data_time}"></td><!-- create datetime. -->
+                <td><input type="text" class="form-control form-control-sm inp_create_datetime_ar" disabled value="${create_data_time}"></td><!-- create datetime. -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
@@ -181,7 +183,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_data_item" disabled></td> <!-- item -->
                 <td>${sub_billing.html_select_bill_to_ar}</td>
                 <td align="center"></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency_ar ">
+                <td><select class="form-select form-select-sm inp_currency_ar "  onchange="function_sub_billing.change_currency(this)">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
@@ -193,7 +195,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_ar">
+                <td><select class="form-select form-select-sm inp_sys_rate_currency_ar"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
@@ -354,7 +356,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
                 <td>${data_sel_bill_to}</td> <!-- Bill to -->
                 <td><div class="inp_payble"></div></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm  inp_currency_ap">
+                <td><select class="form-select form-select-sm  inp_currency_ap"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
@@ -367,14 +369,14 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap inp_amt_inc_vat_ap${i}" disabled ></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${billing_date}" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_ap">
+                <td><select class="form-select form-select-sm inp_sys_rate_currency_ap"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
                     </select></td><!-- sysrate currency -->
                 <td><input type="checkbox" class="form-input-check chb_apply chb_apply${i}"></td><!-- apply -->
-                <td><input type="text" class="form-control form-control-sm" value="${action_paid_date_time}"disabled></td><!-- apply date -->
+                <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt inp_paid_amt${i}" disabled></td><!-- paid amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
                 <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
@@ -383,7 +385,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm text-end inp_commit" value="${commit_sale}"></td><!-- commision sale -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${cbb}" disabled></td><!-- branch -->
                 <td><input type="text" class="form-control form-control-sm" value="${cb}" disabled></td><!-- creater -->
-                <td><input type="text" class="form-control form-control-sm" value="${create_data_time}" disabled></td><!-- creater date -->
+                <td><input type="text" class="form-control form-control-sm inp_create_date_ap" value="${create_data_time}" disabled></td><!-- creater date -->
                 <td><input type="text" class="form-control form-control-sm" value="${lub}" disabled></td><!-- last modifier -->
                 <td><input type="text" class="form-control form-control-sm" value="${last_update_datetime}" disabled></td><!-- last modifier date -->
                 <td><input type="text" class="form-control form-control-sm" value="${ccb}" disabled></td><!-- checker  -->
@@ -496,7 +498,7 @@ const sub_billing = {
             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
             <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
             <td><div class="paid_status"></div></td> <!-- Payble -->
-            <td><select class="form-select form-select-sm inp_currency_ap">
+            <td><select class="form-select form-select-sm inp_currency_ap" onchange="function_sub_billing.change_currency(this)">
                 <option value="THB">THB</option>
                 <option value="USD">USD</option>
                 <option value="RMB">RMB</option>
@@ -509,7 +511,7 @@ const sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
             <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
-            <td><select class="form-select form-select-sm inp_sys_rate_currency_ar">
+            <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>

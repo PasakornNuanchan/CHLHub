@@ -7,259 +7,113 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 
-	<link href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
-	<link href="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css" rel="stylesheet">
+	<link src="https://code.jquery.com/jquery-3.7.0.js" />
+	<link src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" />
+	<link src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js" />
+	<link src="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+	<link src="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css" />
 
-	<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-	<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js"></script>
-
-	<style>
-		.mr10 {
-			margin-right: 10px;
-		}
-	</style>
 
 </head>
 
 <body>
+	<!-- เพิ่มไฟล์ CSS และ JavaScript -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.3/css/fixedColumns.dataTables.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.3/js/dataTables.fixedColumns.min.js"></script>
 
-	<div class="toolbar">
-		<div>
-			<label class="checkbox">
-				<input id="height" type="checkbox" checked> Enable Height
-			</label>
-		</div>
-		<div class="form-inline">
-			<span class="mr10">Fixed Number: </span>
-			<input class="form-control mr10" id="fixedNumber" type="number" value="2" min="1" max="5">
-			<span class="mr10">Fixed Right Number: </span class="mr10">
-			<input class="form-control" id="fixedRightNumber" type="number" value="1" min="0" max="5">
-		</div>
-		<div class="form-inline">
-			<span class="mr10">Cells: </span>
-			<input class="form-control mr10" id="cells" type="number" value="20" min="1" max="30">
-			<span class="mr10">Rows: </span class="mr10">
-			<input class="form-control mr10" id="rows" type="number" value="20" min="1" max="50">
-			<button id="build" class="btn btn-secondary">Rebuild Table</button>
-		</div>
+	<!-- สร้างตาราง -->
+	<div class="container">
+		<table id="example" class="display nowrap col-xl-8" style="width:100%">
+			<thead>
+				<tr>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Position</th>
+					<th>Office</th>
+					<th>Age</th>
+					<th>Start date</th>
+					<th>Salary</th>
+					<th>Extn.</th>
+					<th>E-mail</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Tiger</td>
+					<td>Nixon</td>
+					<td>System Architect</td>
+					<td>Edinburgh</td>
+					<td>61</td>
+					<td>2011-04-25</td>
+					<td>$320,800</td>
+					<td>5421</td>
+					<td>t.nixon@datatables.net</td>
+				</tr>
+				<tr>
+					<td>Garrett</td>
+					<td>Winters</td>
+					<td>Accountant</td>
+					<td>Tokyo</td>
+					<td>63</td>
+					<td>2011-07-25</td>
+					<td>$170,750</td>
+					<td>8422</td>
+					<td>g.winters@datatables.net</td>
+				</tr>
+				<tr>
+					<td>Ashton</td>
+					<td>Cox</td>
+					<td>Junior Technical Author</td>
+					<td>San Francisco</td>
+					<td>66</td>
+					<td>2009-01-12</td>
+					<td>$86,000</td>
+					<td>1562</td>
+					<td>a.cox@datatables.net</td>
+				</tr>
+				<tr>
+					<td>Cedric</td>
+					<td>Kelly</td>
+					<td>Senior Javascript Developer</td>
+					<td>Edinburgh</td>
+					<td>22</td>
+					<td>2012-03-29</td>
+					<td>$433,060</td>
+					<td>6224</td>
+					<td>c.kelly@datatables.net</td>
+				</tr>
+				<tr>
+					<td>Airi</td>
+					<td>Satou</td>
+					<td>Accountant</td>
+					<td>Tokyo</td>
+					<td>33</td>
+					<td>2008-11-28</td>
+					<td>$162,700</td>
+					<td>5407</td>
+					<td>a.satou@datatables.net</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	<table class="table table-hover table_data" id="table">
-		<thead>
-			<tr class="text-center sticky-top">
-				<th class="sticky-left">No.</th>
-				<th class="sticky-left">Inv No.</th>
-				<th class="sticky-left">Description</th>
-				<th>Bill to</th>
-				<th>Currency</th>
-				<th>Qty.</th>
-				<th>Unit Price</th>
-				<th>Amt.</th>
-				<th>Vat(%)</th>
-				<th>Amt Incv.</th>
-				<th>Status</th>
-				<th>Paid Amt</th>
-				<th>Remark</th>
-				<th>Request Datetime</th>
-				<th>Request By</th>
-				<th>Sale Support</th>
-				<th>Operation By</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class="text-center">
-				<td></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-				<td>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-					<label for="radio1" class="form-check-label pl-2">Waiting</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-					<label for="radio2" class="form-check-label pl-2">Approve</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-					<label for="radio3" class="form-check-label pl-2">Reject</label>
-				</td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-			</tr>
-			<tr class="text-center">
-				<td></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-				<td>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-					<label for="radio1" class="form-check-label pl-2">Waiting</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-					<label for="radio2" class="form-check-label pl-2">Approve</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-					<label for="radio3" class="form-check-label pl-2">Reject</label>
-				</td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-			</tr>
-			<tr class="text-center">
-				<td></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-				<td>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-					<label for="radio1" class="form-check-label pl-2">Waiting</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-					<label for="radio2" class="form-check-label pl-2">Approve</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-					<label for="radio3" class="form-check-label pl-2">Reject</label>
-				</td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-			</tr>
-			<tr class="text-center">
-				<td></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-				<td>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-					<label for="radio1" class="form-check-label pl-2">Waiting</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-					<label for="radio2" class="form-check-label pl-2">Approve</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-					<label for="radio3" class="form-check-label pl-2">Reject</label>
-				</td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-			</tr>
-			<tr class="text-center">
-				<td></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="T2023011231"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="BINDING FEE"></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="Air port of thailand(PAT)"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="THB"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-center" value="1"></td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value="1.01"></td>
-				<td>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio1" checked=>
-					<label for="radio1" class="form-check-label pl-2">Waiting</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio2">
-					<label for="radio2" class="form-check-label pl-2">Approve</label>
-					<input type="radio" class="form-check-input" name="status_row_rd" id="radio3">
-					<label for="radio3" class="form-check-label pl-2">Reject</label>
-				</td>
-				<td><input type="text" class="form-control form-control-sm rounded text-end" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value=""></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-				<td><input type="text" class="form-control form-control-sm rounded" value="" disabled></td>
-			</tr>
-		</tbody>
-	</table>
-
 </body>
 
 </html>
+
 <script>
-	var $table = $('#table')
-
-	function buildTable($el) {
-		var cells = +$('#cells').val()
-		var rows = +$('#rows').val()
-		var i
-		var j
-		var row
-		var columns = [{
-			field: 'state',
-			checkbox: true,
-			valign: 'middle'
-		}]
-		var data = []
-
-		for (i = 0; i < cells; i++) {
-			columns.push({
-				field: 'field' + i,
-				title: 'Cell' + i,
-				sortable: true,
-				valign: 'middle',
-				formatter: function(val) {
-					return '<div class="item">' + val + '</div>'
-				},
-				events: {
-					'click .item': function() {
-						console.log('click')
-					}
-				}
-			})
-		}
-		for (i = 0; i < rows; i++) {
-			row = {}
-			for (j = 0; j < cells + 3; j++) {
-				row['field' + j] = 'Row-' + i + '-' + j
+	$(document).ready(function() {
+		var table = $('#example').DataTable({
+			scrollY: "300px",
+			scrollX: true,
+			scrollCollapse: true,
+			paging: false,
+			fixedColumns: {
+				leftColumns: 2, // จำนวนคอลัมน์ที่ต้องการตรึงด้านซ้าย
+				rightColumns: 1 // จำนวนคอลัมน์ที่ต้องการตรึงด้านขวา
 			}
-			data.push(row)
-		}
-		$el.bootstrapTable('destroy').bootstrapTable({
-			height: $('#height').prop('checked') ? 400 : undefined,
-			columns: columns,
-			data: data,
-			search: true,
-			showColumns: true,
-			showToggle: true,
-			clickToSelect: true,
-			fixedColumns: true,
-			fixedNumber: +$('#fixedNumber').val(),
-			fixedRightNumber: +$('#fixedRightNumber').val()
-		})
-	}
-
-	$(function() {
-		buildTable($table)
-
-		$('#build').click(function() {
-			buildTable($table)
-		})
-	})
+		});
+	});
 </script>
