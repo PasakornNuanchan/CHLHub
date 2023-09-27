@@ -53,66 +53,87 @@ require 'function/auth/get_session.php';
     #table_billing_ar td:nth-child(1) input {
         width: 50px;
     }
+
     #table_billing_ar td:nth-child(2) input {
         width: 50px;
     }
+
     #table_billing_ar td:nth-child(3) select {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(4) input {
         width: 300px;
     }
+
     #table_billing_ar td:nth-child(5) select {
         width: 300px;
     }
+
     #table_billing_ar td:nth-child(7) select {
         width: 100px;
     }
+
     #table_billing_ar td:nth-child(8) input {
         width: 100px;
     }
+
     #table_billing_ar td:nth-child(9) input {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(10) input {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(11) input {
         width: 100px;
     }
+
     #table_billing_ar td:nth-child(12) input {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(13) input {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(15) select {
         width: 100px;
     }
+
     #table_billing_ar td:nth-child(17) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(28) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(26) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(30) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(29) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(27) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(25) input {
         width: 200px;
     }
+
     #table_billing_ar td:nth-child(18) input {
         width: 150px;
     }
+
     #table_billing_ar td:nth-child(19) input {
         width: 200px;
     }
@@ -122,78 +143,97 @@ require 'function/auth/get_session.php';
     #table_billing_ap td:nth-child(1) input {
         width: 50px;
     }
+
     #table_billing_ap td:nth-child(2) input {
         width: 50px;
     }
+
     #table_billing_ap td:nth-child(3) select {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(4) input {
         width: 300px;
     }
+
     #table_billing_ap td:nth-child(5) select {
         width: 300px;
     }
+
     #table_billing_ap td:nth-child(7) select {
         width: 100px;
     }
+
     #table_billing_ap td:nth-child(8) input {
         width: 100px;
     }
+
     #table_billing_ap td:nth-child(9) input {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(10) input {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(11) input {
         width: 100px;
     }
+
     #table_billing_ap td:nth-child(12) input {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(13) input {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(16) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(17) input {
         width: 150px;
     }
+
     #table_billing_ap td:nth-child(18) input {
         width: 200px;
     }
-    
+
     #table_billing_ap td:nth-child(24) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(25) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(26) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(27) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(28) input {
         width: 200px;
     }
+
     #table_billing_ap td:nth-child(29) input {
         width: 200px;
     }
-    
-    
-    
-
-    
 
 
 
 
 
-    
+
+
+
+
+
+
 
     #table_container_module_setting_width td:nth-child(6) input {
         width: 150px;
@@ -289,71 +329,104 @@ require 'function/auth/get_session.php';
                                 <div class="col-xl-6">
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Job Number:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_jobnumber" maxlength="10">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="text" class="form-control form-control-sm inp_jobnumber" maxlength="10" disabled>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Date Generate Job:</label>
-                                        <div class="col-sm-6 col-md-5 col-lg-6">
-                                            <input type="month" class="form-control form-control-sm inp_month_check " maxlength="10">
-                                        </div>
-                                        <div class="col">
-                                            <button class="btn btn-sm btn-primary col-xl-12" onclick="function_sub_job_detail.generate_job()">Generate job</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Type:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <select class="form-select form-select-sm inp_type_generate" name="" id="">
-                                                <option value="">-- select type --</option>
-                                                <option value="I">IMPORT</option>
-                                                <option value="E">EXPOER</option>
-                                                <option value="R">RE-EXPORT</option>
-                                                <option value="P">PRODUCT</option>
-                                                <option value="G">GUANGZHOU</option>
-                                            </select>
+                                    <div class="generate_job_func">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Date Generate Job:</label>
+                                            <div class="col-sm-6 col-md-9 col-lg-6">
+                                                <input type="month" class="form-control form-control-sm inp_month_check " maxlength="10">
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-sm btn-primary col-xl-12" onclick="function_sub_job_detail.generate_job()">Generate job</button>
+                                            </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Type:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <select class="form-select form-select-sm inp_type_generate" name="" id="">
+                                                    <option value="">-- select type --</option>
+                                                    <option value="I">IMPORT</option>
+                                                    <option value="E">EXPOER</option>
+                                                    <option value="R">RE-EXPORT</option>
+                                                    <option value="P">PRODUCT</option>
+                                                    <option value="L">LCL</option>
+                                                    <option value="A">AIR FREIGHT</option>
+                                                    <option value="G">GUANGZHOU</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Booking number:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_bookingnumber" maxlength="60">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center">Shipper:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <select class="form-select form-select-sm inp_shipper " id="shipper_db">
-                                                <option value="">-- pleses select shipper --</option>
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center">Client:</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <select class="form-select form-select-sm inp_client " id="client_db">
+                                                <option value="">-- pleses select client --</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center">Shipper:</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <div class="row">
+                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                    <select class="form-select form-select-sm inp_shipper inp_copy_data " id="shipper_db">
+                                                        <option value="">-- pleses select shipper --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Consignee:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <select id="consginee_db" class="form-select form-select-sm inp_consignee">
-                                                <option value="">-- plsese select consignee</option>
-                                            </select>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <div class="row">
+                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                    <select id="consginee_db" class="form-select form-select-sm inp_consignee inp_copy_data">
+                                                        <option value="">-- plsese select consignee</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Notify:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_notify" maxlength="300">
-                                            <!-- <select id="consginee_db" class="form-select form-select-sm inp_notify">
-                                                <option value="">-- plsese select consignee -- </option>
-                                            </select> -->
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <!-- <input type="text" class="form-control form-control-sm inp_notify" maxlength="300"> -->
+                                            <div class="row">
+                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                    <select class="form-select form-select-sm inp_notify_job_detail inp_copy_data" id="notify_db">
+                                                        <option value="">-- plsese select notify -- </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Shipment Terms:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_shipment" id="shipment_db">
                                                 <option value="">-- pleses select shipment --</option>
                                             </select>
@@ -363,7 +436,7 @@ require 'function/auth/get_session.php';
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Carrier:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_carrier" id="carrier_data">
                                                 <option value="">-- pleses select carrier --</option>
                                             </select>
@@ -371,7 +444,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Port of Receipt:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_port_of_receipt" id="area_data">
                                                 <option value="">-- pleses select port of receipt --</option>
                                             </select>
@@ -379,7 +452,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Port of Loading:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_port_of_loading" id="area_datal">
                                                 <option value="">-- pleses select port of loading--</option>
 
@@ -388,7 +461,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">T/S Port:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_ts_port" id="area_datat">
                                                 <option value="">-- pleses select t/s port -- </option>
 
@@ -397,7 +470,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Port of Discharge:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_port_of_discharge" id="area_datad">
                                                 <option value="">-- pleses select port of delivery --</option>
 
@@ -406,7 +479,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Port of Delivery:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_port_of_delivery" id="area_datadl">
                                                 <option value="">-- pleses select port of delivery --</option>
 
@@ -416,13 +489,13 @@ require 'function/auth/get_session.php';
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Feeder Vessel:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_feeder_vessel" maxlength="60">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Mother Vessel:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_mother_vessel" maxlength="60">
                                         </div>
                                     </div>
@@ -434,13 +507,13 @@ require 'function/auth/get_session.php';
                                     </div> -->
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">ETD:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="date" class="form-control form-control-sm inp_etd">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">ETA:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="date" class="form-control form-control-sm inp_eta">
                                         </div>
                                     </div>
@@ -450,34 +523,34 @@ require 'function/auth/get_session.php';
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="40">M B/L:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_mbl">
                                         </div>
                                     </div>
                                     <div class="hbl_added">
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
-                                            <div class="col-sm-9 col-md-5 col-lg-9">
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
                                                 <input type="text" class="form-control form-control-sm inp_hbl">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-3 col-md-3 col-lg-3"></div>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <button class="btn btn-primary btn-sm btn-block col-lg-12 col-xl-12" onclick="function_sub_job_detail.add_hbl()">add hb/l</button>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="20">INV No.:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_inv">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_cargo_type" id="cargo_data" disabled>
                                                 <option value="">-- pleses select cargo type --</option>
                                             </select>
@@ -485,7 +558,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Description:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <!-- <input type="text" class="form-control form-control-sm inp_cargo_des" maxlength="200"> -->
                                             <textarea class="form-control inp_cargo_des" id="exampleFormControlTextarea1" rows="5" maxlength="600"></textarea>
 
@@ -493,26 +566,26 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_remark_container" maxlength="400">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="number" class="form-control form-control-sm inp_quantity" disabled>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Tare weight :</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_scntrw_container">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="number" class="form-control form-control-sm inp_gw_container" disabled>
                                         </div>
                                     </div>
@@ -521,7 +594,7 @@ require 'function/auth/get_session.php';
 
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="number" class="form-control form-control-sm inp_vol" disabled>
                                         </div>
                                     </div>
@@ -529,7 +602,7 @@ require 'function/auth/get_session.php';
                                     <hr>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Booking agent:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <select class="form-select form-select-sm inp_booking_agent" id="agent_data">
                                                 <option value="">-- pleses select agent booking --</option>
                                             </select>
@@ -538,13 +611,13 @@ require 'function/auth/get_session.php';
                                     <hr>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Delivery place:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_delivery_place" maxlength="60">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Remark:</label>
-                                        <div class="col-sm-9 col-md-5 col-lg-9">
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_remark" maxlength="400">
                                         </div>
                                     </div>
@@ -1021,7 +1094,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_enter_by" disabled>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1041,7 +1114,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_pick_do_by" disabled>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1061,7 +1134,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_import_entry_by" disabled>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1084,8 +1157,8 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_clearance_datetime" disabled>
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                 </div>
                             </div>
@@ -1110,7 +1183,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_ats_datetime" disabled>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1608,7 +1681,7 @@ require 'function/auth/get_session.php';
                                         <div class="row">
                                             <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">No. of Original B(s)/L : </label>
                                             <div class="col">
-                                                <input type="number" class="form-control form-control-sm inp_bl_number">
+                                                <input type="number" class="form-control form-control-sm inp_bl_number" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -1794,6 +1867,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
                                     <div class="text-end">
+                                        <button class="btn btn-success rounded text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
@@ -1955,12 +2029,7 @@ require 'function/auth/get_session.php';
                                         <input type="text" class="form-control form-control-sm inp_total_ap text-end">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-11 col-xl-11 col-md-6"></div>
-                                    <div class="col-lg-1 col-xl-1 col-md-3 text-end">
-                                        <button class="btn btn-sm btn-primary text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -2404,4 +2473,3 @@ require 'function/auth/get_session.php';
         readURL(this);
     });
 </script>
-

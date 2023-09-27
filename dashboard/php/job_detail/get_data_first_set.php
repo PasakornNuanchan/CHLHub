@@ -11,7 +11,6 @@ SELECT
     `booking_number`,
     `shipper_number`,
     `st_number`,
-    `notify`,
     `mbl`,
     `hbl`,
     `inv`,
@@ -30,7 +29,11 @@ SELECT
     `sale_support`,
     `cs_support`,
     `commodity`,
-    `delivery_place`
+    `delivery_place`,
+    `notify_type`,
+    `notify_number`,
+    `client_type`,
+    `client_number`
 FROM
     `job_title`
 WHERE

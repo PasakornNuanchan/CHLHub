@@ -27,6 +27,7 @@ const setting_data_default = {
         let billing_des_ar = '';
         let bill_to_ar = '';
         let unit_data = '';
+        let shipper_consignee = '';
 
         if(res_data_default['unit'] != "0 results"){
             $.each(res_data_default['unit'],function(i,v){
@@ -158,6 +159,16 @@ const setting_data_default = {
             //$('.bl_container_type').append(container_type_data)
 
             this.data_container_type = container_type_data
+        }
+
+
+        if(res_data_default['shipper_consignee'] != "0 results"){
+            $.each(res_data_default['shipper_consignee'],function(i,v){
+                shipper_consignee += `<option type_data="${v['type_data']}" value="${v['id_data']}" >${v['name_data']}</option>`
+            })
+
+            $('#client_db').append(shipper_consignee)
+            $('#notify_db').append(shipper_consignee)
         }
 
       // transport

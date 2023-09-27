@@ -7,6 +7,9 @@ $data_container_delete = $_POST['delete_data'];
 $id_number = $_POST['id_number'];
 $arr_hbl = $_POST['arr_hbl'];
 
+$arr_delete_hbl = $_POST['arr_delete_hbl'];
+
+    
 
     foreach($arr_hbl as $k => $v){
         $hbl_data = isset($v['hbl_data']) ? $v['hbl_data'] : '';
@@ -43,6 +46,18 @@ $arr_hbl = $_POST['arr_hbl'];
             $arr_hbl_data = '0';
         }
         
+    }
+
+    foreach($arr_delete_hbl as $k => $v){
+        $data_id_hbl = isset($v['data_id_hbl']) ? $v['data_id_hbl'] : '';
+
+        $sql_delete_bl_title = "DELETE FROM `bl_title` WHERE ID = '$data_id_hbl'";
+        $sql_delete_bl_list = "DELETE FROM `bl_list` WHERE bl_title_id = '$data_id_hbl'";
+        $sql_delete_fright_bl = "DELETE FROM `fright_bl` WHERE ref_row = '$data_id_hbl'";
+        $result = $con->query($sql_delete_bl_title);
+        $result = $con->query($sql_delete_bl_list);
+        $result = $con->query($sql_delete_fright_bl);
+
     }
 
 
@@ -109,7 +124,14 @@ $arr_hbl = $_POST['arr_hbl'];
         $commodity = isset($v['commodity']) ? $v['commodity'] : '';
         $port_of_discharge = isset($v['port_of_discharge']) ? $v['port_of_discharge'] :'';
         $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
-        $notify = isset($v['notify']) ? $v['notify'] : '';
+
+        //$notify = isset($v['notify']) ? $v['notify'] : '';
+        
+        $notify_value = isset($v['notify_value']) ? $v['notify_value'] : '';
+        $notify_type = isset($v['notify_type']) ? $v['notify_type'] : '';
+        $client_value = isset($v['client_value']) ? $v['client_value'] : '';
+        $client_type = isset($v['client_type']) ? $v['client_type'] : '';
+        
         
         $eta = $v['eta'];
         $etd = $v['etd'];
@@ -152,7 +174,10 @@ $arr_hbl = $_POST['arr_hbl'];
             `cs_support` = $cs_data_user,
             `commodity` = '$commodity',
             `delivery_place` = '$delivery_place',
-            `notify` = '$notify'
+            `notify_type` = '$notify_type',
+            `notify_number` = '$notify_value',
+            `client_type` = '$client_type',
+            `client_number` = '$client_value'
         WHERE
             id = '$id_number'
             ";

@@ -1,9 +1,7 @@
 const function_sub_job_detail = {
 
     arr_delete_container: [],
-
-
-
+    arr_delete_hbl:[],
 
     get_data_all_page: async function () {
 
@@ -46,7 +44,13 @@ const function_sub_job_detail = {
                 let sale_data_user = $('.inp_sale_user').val()
                 let commodity = $('.inp_commodity').val()
                 let delivery_place = $('.inp_delivery_place').val()
-                let notify = $('.inp_notify').val()
+                //let notify = $('.inp_notify').val()
+                
+                let client_value = $('.inp_client :selected').val()
+                let client_type = $('.inp_client :selected').attr('type_data')
+                let notify_value = $('.inp_notify_job_detail :selected').val()
+                let notify_type = $('.inp_notify_job_detail :selected').attr('type_data')
+
                 let arr_detail_save = []
 
                 obj_detail_save = {
@@ -79,7 +83,10 @@ const function_sub_job_detail = {
                     sale_data_user: sale_data_user,
                     commodity:commodity,
                     delivery_place:delivery_place,
-                    notify:notify
+                    client_value : client_value,
+                    client_type : client_type,
+                    notify_value : notify_value,
+                    notify_type : notify_type,
                 }
 
                 arr_detail_save.push(obj_detail_save)
@@ -136,14 +143,13 @@ const function_sub_job_detail = {
                     }
                     arr_hbl.push(obj_hbl)
                 })
-                console.log(arr_hbl)
-
-
+                
                 var currentURL = window.location.href;
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
                 //console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
-                let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl)
+                //console.log()
+                let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl,this.arr_delete_hbl)
 
                 if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_data_save_container'] == '1' || res_return['arr_hbl_data'] == '1') {
                     Swal.fire(
@@ -154,7 +160,8 @@ const function_sub_job_detail = {
                     var currentURL = window.location.href;
                     var url = new URL(currentURL);
                     var id_number = url.searchParams.get("job_number");
-                    await sub_bl.first_post_data(id_number);
+                    
+                    await sub_gang_bl.setting_first_bl_gang();
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -167,7 +174,7 @@ const function_sub_job_detail = {
         })
     },
 
-    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number,arr_hbl) {
+    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number,arr_hbl,arr_delete_hbl) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -178,6 +185,7 @@ const function_sub_job_detail = {
                     delete_data: delete_data,
                     id_number: id_number,
                     arr_hbl : arr_hbl,
+                    arr_delete_hbl : arr_delete_hbl,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -372,13 +380,29 @@ const function_sub_job_detail = {
     },
 
     add_hbl : async function(){
+        //let html_add_hbl = `
+        // <div class="form-group row">
+        //     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+        //     <div class="col-sm-9 col-md-5 col-lg-9">
+        //         <input type="text" class="form-control form-control-sm inp_hbl">
+        //     </div>
+        // </div>
+        // `;
+
         let html_add_hbl = `
-        <div class="form-group row">
-            <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
-            <div class="col-sm-9 col-md-5 col-lg-9">
-                <input type="text" class="form-control form-control-sm inp_hbl">
-            </div>
-        </div>
+        <div class="form-group row" >
+                    <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+                    <div class="col-sm-9 col-md-5 col-lg-9">
+                        <div class="row">
+                            <div class="col-sm-11 col-md-10 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_hbl">
+                            </div>
+                            <div class="col-sm-1 col-md-2 col-lg-1">
+                                <i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         `;
         $('.hbl_added').append(html_add_hbl)
     },
@@ -423,4 +447,28 @@ const function_sub_job_detail = {
         });
     },
 
+    get_to_copy : async function(e){
+        let dataToCopy = $(e).closest('.form-group').find('.inp_copy_data :selected').text()
+        var copyTextArea = $("<textarea/>");// สร้าง element textarea สำหรับใช้คัดลอกข้อมูล
+        copyTextArea.text(dataToCopy);// กำหนดข้อมูลให้กับ textarea
+        $("body").append(copyTextArea);// นำ textarea ไปแทรกใน DOM (เปิด textarea ในหน้าจอ)
+        copyTextArea.select();// เลือกข้อความใน textarea
+        document.execCommand("copy");// คัดลอกข้อมูล
+        copyTextArea.remove();// นำ textarea ออกจาก DOM (ปิด textarea ในหน้าจอ)
+    },
+
+
+    delete_data_hbl : async function(e){
+        let data_id_hbl = $(e).closest('.form-group').attr('id_hbl');
+
+        if(data_id_hbl != undefined){
+            let obj_data = {
+                data_id_hbl : data_id_hbl,
+            }
+            this.arr_delete_hbl.push(obj_data)
+        }
+            
+
+        $(e).closest('.form-group').remove()
+    }
 }

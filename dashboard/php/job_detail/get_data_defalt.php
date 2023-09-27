@@ -58,6 +58,15 @@ SELECT
 FROM
     carrier
 ";
+
+
+$sql_get_shipper_consignee = "
+SELECT 1 as type_data , sp.ID as id_data ,sp.shipper_name as name_data FROM shipper sp 
+UNION
+SELECT 2 as type_data , c.ID as id_data ,c.consignee_name as name_data FROM consignee c;
+";
+
+
 $sql_unit = "SELECT ID,name FROM `unit`";
 
 $result = $con->query($sql_unit);
@@ -69,6 +78,15 @@ if ($result->num_rows > 0) {
   $unit = "0 results";
 }
 
+$result = $con->query($sql_get_shipper_consignee);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $shipper_consignee[] = $row;
+  }
+} else {
+  $shipper_consignee = "0 results";
+}
+
 $result = $con->query($sql_get_bill_to_ar);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -77,6 +95,7 @@ if ($result->num_rows > 0) {
 } else {
   $bill_to_ar = "0 results";
 }
+
 $result = $con->query($sql_get_billing_des_ar);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -85,6 +104,7 @@ if ($result->num_rows > 0) {
 } else {
   $billing_des_ar = "0 results";
 }
+
 $result = $con->query($sql_get_bill_to);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -241,7 +261,6 @@ echo json_encode(array(
     'billing_bill_to'=>$billing_bill_to,
     'billing_des_ar'=>$billing_des_ar,
     'bill_to_ar'=>$bill_to_ar,
-    'unit'=>$unit
+    'unit'=>$unit,
+    'shipper_consignee'=>$shipper_consignee,
   ));
-
-?>

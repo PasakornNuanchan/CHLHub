@@ -1,5 +1,16 @@
 const setting_first = {
     first_set: async function () {
+
+
+        $('.head-of-menu').html('Account Payable (CHECK)');
+        $('.bcpage').html('');
+        html_bdpage = `
+        <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Check)</a></li>
+        `;
+        $('.bcpage').append(html_bdpage);
+
+
+
         let res_data = await this.ajax_first_set();
         console.log(res_data)
         $('.table_data_account tbody').html('')
@@ -132,9 +143,9 @@ const setting_first = {
                     <td><input type="datetime" class="form-control form-control form-control-sm" value="${check_date_time}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${booking_number}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${container_data}" disabled></td>                                    Container No.
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${hbl_data}" disabled></td>                                    
-                    <td><input type="text" class="form-control form-control form-control-sm" value="" disabled></td>                                    
+                    <td><input type="text" class="form-control form-control form-control-sm" value="${hbl_data}" disabled></td>                         
                     <td><input type="checkbox" class="form-input-check tb_in_tb"></td>
+                    <td><input type="text" class="form-control form-control form-control-sm" value="" disabled></td>                                    
                     <td><input type="text" class="form-control form-control form-control-sm" value="${action_paid_date_time}" disabled></td>                                    Request payble
                 </tr>
                 `;

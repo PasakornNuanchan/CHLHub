@@ -9,6 +9,25 @@ const sub_job_detail = {
         this.data_container_for_transport = res_data['container'];
         //job_detail
 
+        let job_number_data = res_data['job_title']['job_number'] ? res_data['job_title']['job_number'] : '';
+        if(job_number_data != ''){
+            $('.generate_job_func').remove();
+        }
+
+        // let notify_type =  v['notify_type'] ? v['notify_type'] : '';
+        // let notify_number =  v['notify_number'] ? v['notify_number'] : '';
+        // let client_type =  v['client_type'] ? v['client_type'] : '';
+        // let client_number =  v['client_number'] ? v['client_number'] : '';
+
+        let notify_type = res_data['job_title']['notify_type'] ? res_data['job_title']['notify_type'] : '';
+        let notify_number = res_data['job_title']['notify_number'] ? res_data['job_title']['notify_number'] : '';
+        let client_type = res_data['job_title']['client_type'] ? res_data['job_title']['client_type'] : '';
+        let client_number = res_data['job_title']['client_number'] ? res_data['job_title']['client_number'] : '';
+
+        //$(`.select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
+
+        $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected',true)
+        $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected',true)
 
         $('.inp_jobnumber').val(res_data['job_title']['job_number'])
         $('.inp_bookingnumber').val(res_data['job_title']['booking_number'])
@@ -41,7 +60,14 @@ const sub_job_detail = {
                 <div class="form-group row" id_hbl="${id_hbl}">
                     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
                     <div class="col-sm-9 col-md-5 col-lg-9">
-                        <input type="text" class="form-control form-control-sm inp_hbl" value="${hbl_data}">
+                        <div class="row">
+                            <div class="col-sm-11 col-md-10 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_hbl" value="${hbl_data}">
+                            </div>
+                            <div class="col-sm-1 col-md-2 col-lg-1">
+                                <i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 `;

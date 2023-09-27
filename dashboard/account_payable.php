@@ -32,32 +32,30 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(21) input,
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(23) input,
-    .table_data_account td:nth-child(24) input{
+    .table_data_account td:nth-child(24) input {
         width: 150px;
-    }    
+    }
 
     .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(14) input{
+    .table_data_account td:nth-child(14) input {
         width: 200px;
-    }    
+    }
 
     .table_data_account td:nth-child(5) input,
     .table_data_account td:nth-child(6) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,
     .table_data_account td:nth-child(11) input,
-    .table_data_account td:nth-child(12) input
-    {
+    .table_data_account td:nth-child(12) input {
         width: 120px;
-    }    
-
-    
-
-    .table_data_account td:nth-child(9) input,
-    .table_data_account td:nth-child(10) input{
-        width: 70px;
     }
 
+
+
+    .table_data_account td:nth-child(9) input,
+    .table_data_account td:nth-child(10) input {
+        width: 70px;
+    }
 </style>
 
 
@@ -180,24 +178,28 @@ require 'function/auth/get_session.php';
                         <label for="" class="col-lg-1">Status : </label>
                         <div class="bd-example col-lg-11">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="bsradio1" id="radio1" name_data="All" checked="">
-                                <label for="radio1" class="form-check-label pl-2">Unapply</label>
+                                <input type="checkbox" class="form-check-input cb_st_1" name="bsradio1" id="cb1" name_data="cb1">
+                                <label for="radio1" class="form-check-label pl-2">Accrued Liabilities(Paid)</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="bsradio1" id="radio2" name_data="">
-                                <label for="radio2" class="form-check-label pl-2">Apply</label>
+                                <input type="checkbox" class="form-check-input cb_st_2" name="bsradio1" id="cb2" name_data="cb2">
+                                <label for="radio2" class="form-check-label pl-2">Accrued Liabilities(Unpaid)</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="bsradio1" id="radio3" name_data="">
-                                <label for="radio3" class="form-check-label pl-2">Reject</label>
+                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio1" id="cb3" name_data="cb3">
+                                <label for="radio3" class="form-check-label pl-2">Created</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="bsradio1" id="radio3" name_data="">
-                                <label for="radio3" class="form-check-label pl-2">All</label>
+                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio1" id="cb4" name_data="cb4">
+                                <label for="radio3" class="form-check-label pl-2">Not Checked</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="bsradio1" id="radio3" name_data="">
-                                <label for="radio3" class="form-check-label pl-2">Complete</label>
+                                <input type="checkbox" class="form-check-input cb_st_4" name="bsradio1" id="cb5" name_data="cb5">
+                                <label for="radio3" class="form-check-label pl-2">Not Applied</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input cb_st_5" name="bsradio1" id="cb6" name_data="cb6">
+                                <label for="radio3" class="form-check-label pl-2">Not Approved</label>
                             </div>
                         </div>
                     </div>
@@ -264,8 +266,8 @@ require 'function/auth/get_session.php';
                                     <th>Booking No.</th>
                                     <th>Container No.</th>
                                     <th>Client</th>
-                                    <th>Payment Appliction</th>
                                     <th>Request By.</th>
+                                    <th>Payment Appliction</th>
                                     <th>Request payble</th>
                                 </tr>
                                 <tr class="text-center">
@@ -293,8 +295,8 @@ require 'function/auth/get_session.php';
                                     <th>S/O或提单号</th>
                                     <th>柜号</th>
                                     <th>委托单位</th>
-                                    <th>付款申请</th>
                                     <th>付款申请人</th>
+                                    <th>付款申请</th>
                                     <th>付款申请时间</th>
                                 </tr>
                                 <tr class="text-center">
@@ -357,7 +359,7 @@ require 'function/auth/get_session.php';
                                     <td><input type="text" class="form-control form-control"></td>
                                     <td><input type="text" class="form-control form-control"></td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -366,67 +368,123 @@ require 'function/auth/get_session.php';
                         <button class="btn btn-sm btn-success">Checked all 全选</button>
                         <button class="btn btn-sm btn-warning">Unchecked all 全不选</button>
                     </div>
+                    <div style="zoom: 80%">
+                        <div class="form-group row text-center mt-3">
+                            <label class="col-xl-2">Total Payables 应付合计</label>
 
-                    <div class="form-group row text-center mt-3">
-                        <label class="col-xl-3">Total Payables 应付合计</label>
-                        <label class="col-xl-1">USD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm total_payble_usd text-end" disabled>
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>USD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm total_payble_usd text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>THB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm total_payble_thb text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>RMB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm total_payble_rmb text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>HKD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm total_payble_hkd text-end" disabled>
+                                </div>
+                            </div>
                         </div>
-                        <label class="col-xl-1">THB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm total_payble_thb text-end" disabled>
+                        <div class="form-group row text-center">
+                            <label class="col-xl-2">Verified Total Payables 应付已审合计：</label>
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>USD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>THB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>RMB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>HKD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
                         </div>
-                        <label class="col-xl-1">RMB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm total_payble_rmb text-end" disabled>
-                        </div>
-                        <label class="col-xl-1">HKD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm total_payble_hkd text-end" disabled>
+                        <div class="form-group row text-center">
+                            <label class="col-xl-2">Total Payment Requests 付款申请合计：</label>
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>USD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>THB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>RMB</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
+                                <div class="col-xs-2 col-sm-2 col-xl-2">
+                                    <label>HKD</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-xl-10">
+                                    <input type="text" class="form-control form-control-sm text-end" disabled>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row text-center">
-                        <label class="col-xl-3">Verified Total Payables 应付已审合计：</label>
-                        <label class="col-xl-1">USD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">THB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">RMB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">HKD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group row text-center">
-                        <label class="col-xl-3">Total Payment Requests 付款申请合计：</label>
-                        <label class="col-xl-1">USD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">THB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">RMB</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                        <label class="col-xl-1">HKD</label>
-                        <div class="col-xl-1">
-                            <input type="text" class="form-control form-control-sm" disabled>
-                        </div>
-                    </div>
-                
-
-
                 </div>
             </div>
 

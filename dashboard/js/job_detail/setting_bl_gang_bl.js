@@ -6,12 +6,14 @@ const sub_gang_bl = {
 
         let res_data = await this.get_bl_data(id_number)
         console.log(res_data)
+        $('.bl_header_old').remove();
+        $('.bl_page_old').remove();
         let html_data_header = '';
         if (res_data['bl_title'] != "0 results") {
         $.each(res_data['bl_title'], async function (i, v) {
             html_data_header += `
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded" id="bl_tab${v['ID']}" data-bs-toggle="pill" data-bs-target="#bl_tab_target${v['ID']}" type="button" role="tab" aria-controls="pills-profile${v['ID']}" aria-selected="false">Bill of Lading</button>
+                <button class="nav-link rounded bl_header_old" id="bl_tab${v['ID']}" data-bs-toggle="pill" data-bs-target="#bl_tab_target${v['ID']}" type="button" role="tab" aria-controls="pills-profile${v['ID']}" aria-selected="false">Bill of Lading</button>
             </li>
             `;
         })
@@ -26,7 +28,7 @@ const sub_gang_bl = {
                 let id_data = v['ID'] ? v['ID'] : '';
 
                 html_data_pill = `
-            <div class="tab-pane fade bl_tab_target" id="bl_tab_target${v['ID']}" bl_number="${id_data}" role="tabpanel" aria-labelledby="bl_tab${v['ID']}">
+            <div class="tab-pane fade bl_tab_target bl_page_old" id="bl_tab_target${v['ID']}" bl_number="${id_data}" role="tabpanel" aria-labelledby="bl_tab${v['ID']}">
                 <div class="row">
                 <div class=" col-xl-7 col-lg-7">
                     <div class="card p-4">
@@ -425,7 +427,7 @@ const sub_gang_bl = {
                 $(`.inp_shipper_on_board${i}`).val(shipper_on_board)
                 $(`.inp_on_board_date${i}`).val(on_board_date)
                 $(`.inp_final_destination${i}`).val(final_destination)
-                $(`.inp_bl_number${i}`).val(original_number)
+                $(`.inp_bl_number${i}`).val(3).attr('disabled',true)
                 $(`.inp_place${i}`).val(place)
                 $(`.inp_payble${i}`).val(payble_at)
 
