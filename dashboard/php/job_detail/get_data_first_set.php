@@ -33,7 +33,8 @@ SELECT
     `notify_type`,
     `notify_number`,
     `client_type`,
-    `client_number`
+    `client_number`,
+    `final_destination`
 FROM
     `job_title`
 WHERE

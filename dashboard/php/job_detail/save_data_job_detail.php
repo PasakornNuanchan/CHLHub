@@ -123,7 +123,6 @@ $arr_delete_hbl = $_POST['arr_delete_hbl'];
         $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
         $commodity = isset($v['commodity']) ? $v['commodity'] : '';
         $port_of_discharge = isset($v['port_of_discharge']) ? $v['port_of_discharge'] :'';
-        $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
 
         //$notify = isset($v['notify']) ? $v['notify'] : '';
         
@@ -131,6 +130,8 @@ $arr_delete_hbl = $_POST['arr_delete_hbl'];
         $notify_type = isset($v['notify_type']) ? $v['notify_type'] : '';
         $client_value = isset($v['client_value']) ? $v['client_value'] : '';
         $client_type = isset($v['client_type']) ? $v['client_type'] : '';
+
+        $final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
         
         
         $eta = $v['eta'];
@@ -171,13 +172,12 @@ $arr_delete_hbl = $_POST['arr_delete_hbl'];
             `remark` = '$remark',
             `booking_agent` = '$booking_agent',
             `sale_support` = $sale_data_user,
-            `cs_support` = $cs_data_user,
             `commodity` = '$commodity',
-            `delivery_place` = '$delivery_place',
             `notify_type` = '$notify_type',
             `notify_number` = '$notify_value',
             `client_type` = '$client_type',
-            `client_number` = '$client_value'
+            `client_number` = '$client_value',
+            `final_destination` = '$final_destination'
         WHERE
             id = '$id_number'
             ";

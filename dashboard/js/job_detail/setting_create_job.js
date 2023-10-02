@@ -61,12 +61,13 @@ const create_job = {
                 let cargo_des = $('.inp_cargo_des').val()
                 let cargo_type = $('.inp_cargo_type').val()
                 let quantity = $('.inp_quantity').val()
-                let delivery_place = $('.inp_delivery_place').val()
+                // let delivery_place = $('.inp_delivery_place').val()
                 let sale_support = $('.inp_sale_user').val()
                 let gw = $('.inp_gw').val()
                 let vol = $('.inp_vol').val()
                 let remark_container = $('.inp_remark_container').val()
                 let booking_agent = $('.inp_booking_agent').val()
+                let final_destination = $('.inp_finaldestination').val()
                 let arr_detail_save = []
 
                 obj_detail_save = {
@@ -95,8 +96,9 @@ const create_job = {
                     remark_container: remark_container,
                     booking_agent: booking_agent,
                     port_of_discharge : port_of_discharge ,                    
-                    delivery_place : delivery_place ,
-                    sale_support : sale_support ,                    
+                    // delivery_place : delivery_place ,
+                    sale_support : sale_support ,        
+                    final_destination : final_destination,            
                 }
 
                 arr_detail_save.push(obj_detail_save)

@@ -13,7 +13,7 @@
     }
 
     json_encode(array('user_number'=>$user_number));
-    $data_user =$user_number['user_number'];
+    $data_user = $user_number['user_number'];
     $data_bank_number =$user_number['bank_number'];
     $data_bank_name =$user_number['bank_name'];
     $department_number =$user_number['department_number'];

@@ -30,6 +30,7 @@ if ($result->num_rows > 0) {
 
 $sql_query_shipper = "
 SELECT
+    jt.final_destination,
     jt.shipper_number,
     s.shipper_name,
     s.address as address_shipper,
@@ -132,7 +133,6 @@ $sql_count_container = "
 SELECT
 	container_type,
 	COUNT(ID) as count_id
-    
 FROM
     container c
 WHERE
@@ -266,7 +266,7 @@ foreach ($data_shipperandconsignee as $k => $v) {
 
 $pdf->SetX(10);
 $pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(50, 4, strtoupper("vessel"), "TR", 0, 'L');
+$pdf->Cell(50, 4, strtoupper("vessel / Voyage"), "TR", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(50, 4, strtoupper("Port of Loading"), "TR", 1, 'L');
 
@@ -284,7 +284,7 @@ $pdf->Cell(50, 4, strtoupper("Port of Discharge"), "TR", 0, 'L');
 $pdf->SetX(60);
 $pdf->Cell(50, 4, strtoupper("Place of Delivery"), "TR", 0, 'L');
 $pdf->SetX(110);
-$pdf->Cell(90, 4, strtoupper("Final Destination(merchan's reference only)"), 'LT', 1, 'L');
+$pdf->Cell(90, 4, strtoupper("Final Destination(merchant's reference only)"), 'LT', 1, 'L');
 //$pdf->Ln();
 
 foreach ($data_shipperandconsignee as $k => $v) {
@@ -292,7 +292,10 @@ foreach ($data_shipperandconsignee as $k => $v) {
   $pdf->SetX(10);
   $pdf->Cell(50, 4, strtoupper($v['a3location'] . "," . $v['a3provice']), '', 0, 'L');
   $pdf->SetX(60);
-  $pdf->Cell(50, 4, strtoupper($v['a4location'] . "," . $v['a4provice']), 'R', 1, 'L');
+  $pdf->Cell(50, 4, strtoupper($v['a4location'] . "," . $v['a4provice']), 'R', 0, 'L');
+  $pdf->SetX(110);
+  $pdf->Cell(80, 4, strtoupper($v['final_destination']), '', 1, 'L');
+  
 }
 
 $pdf->SetFont('times', 'B', 8, '', true);
@@ -379,7 +382,7 @@ $pdf->Cell(150, 4, strtoupper("TOTAL : $words $all_context"));
 
 $pdf->setXY(10, $get_y_res_last);
 $pdf->Ln();
-$pdf->Cell(38, 4, "Frieight charges on ", 'RB');
+$pdf->Cell(38, 4, "Freight charges on ", 'RB');
 $pdf->SetX(48);
 $pdf->Cell(30, 4, "Prepaid", 'RB', '', 'C');
 $pdf->SetX(78);
@@ -395,7 +398,7 @@ $pdf->Cell(30, 4, "", 'R', '', 'C');
 $pdf->SetX(78);
 $pdf->Cell(35, 4, "", 'R', '', 'C');
 $pdf->SetX(113);
-$pdf->Cell(60, 4, "noted the total number of container or other package or units", 'L', 1, 'L');
+$pdf->Cell(60, 4, "noted the total number of containers or other packages or units", 'L', 1, 'L');
 
 $pdf->Cell(38, 4, "", 'R');
 $pdf->SetX(48);
@@ -427,7 +430,7 @@ $pdf->Cell(30, 4, "", 'R', '', 'C');
 $pdf->SetX(78);
 $pdf->Cell(35, 4, "", 'R', '', 'C');
 $pdf->SetX(113);
-$pdf->Cell(60, 4, "One og the original Bills of lading must be surrended duly endorsed", 'L', 1, 'L');
+$pdf->Cell(60, 4, "One of the original Bills of lading must be surrended duly endorsed", 'L', 1, 'L');
 
 $pdf->Cell(38, 4, "", 'R');
 $pdf->SetX(48);
@@ -629,20 +632,23 @@ $pdf->Cell(40, 4, $today, 0, 0, 'C');
 $pdf->SetY($data_last_y_get + 5);
 
 
-
-$pdf->SetY(230);
-foreach($data_fright as $k => $v){
-$pdf->SetX(10);
-$pdf->Cell(38,4,$v['fright'],0,0,"C");
-$pdf->SetX(48);
-$pdf->Cell(30,4,$v['prepaid'],0,0,"C");
-$pdf->SetX(78);
-$pdf->Cell(35,4,$v['collect'],0,1,"C");
+$pdf->SetFont('times', 'B', 9, '', true);
+foreach ($data as $k => $v) {
+  if($v['fright_c_on']== '1'){
+    $pdf->SetXY(48,210);
+    $pdf->Cell(30, 4,"FREIGHT PREPAID", 0,0, "C");
+  }else{
+    $pdf->SetXY(78,220);
+    $pdf->Cell(35, 4,"FREIGHT COLLECT", 0,0, "C");
+  }
+  
 }
 
-$pdf->setXY(30,271);
-foreach($data as $k => $v){
-  $pdf->Cell(10, 4, strtoupper($v['payble_at']),0,0,"C");
+
+$pdf->SetFont('times', '', 8, '', true);
+$pdf->setXY(30, 271);
+foreach ($data as $k => $v) {
+  $pdf->Cell(10, 4, strtoupper($v['payble_at']), 0, 0, "C");
 }
 
 
@@ -653,7 +659,7 @@ $pdf->Cell(90, 4, "_____________________________________", '', '', 'C');
 
 $pdf->SetXY(135, 259);
 $pdf->SetFont('times', 'i', 8, '', true);
-$pdf->Cell(90, 4, "Anthorized Signature", '', '', 'C');
+$pdf->Cell(90, 4, "Authorized Signature", '', '', 'C');
 
 
 $pdf->SetFont('times', '', 8, '', true);
@@ -680,11 +686,11 @@ $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(90, 4, "for combined transport and port to port shipment", '', '', 'C');
 
 
-$pdf->SetXY(110, 55);
+$pdf->SetXY(110, 59);
 $pdf->SetFont('times', '', 9, '', true);
-$pdf->Cell(90, 4, "ALL TERMS. CONDITION AND EXECPTIONS", '', '', 'C');
+$pdf->Cell(90, 4, "ALL TERMS. CONDITIONS AND EXCEPTIONS", '', '', 'C');
 
-$pdf->SetXY(110, 60);
+$pdf->SetXY(110, 62);
 $pdf->SetFont('times', '', 9, '', true);
 $pdf->Cell(90, 4, "AS PER ORIGINAL BILL OF LANDING", '', '', 'C');
 
@@ -700,11 +706,15 @@ foreach ($data as $k => $v) {
 
     $pdf->SetXY(110, 50);
     $pdf->SetFont('times', 'B', 12, '', true);
-    $pdf->Cell(90, 4, "ORIGINAL", '', '', 'C');
+    $pdf->Cell(90, 4, "COPY", '', '', 'C');
+
+    $pdf->SetXY(110, 55);
+    $pdf->SetFont('times', 'B', 12, '', true);
+    $pdf->Cell(90, 4, "NON-NEGOTIABLE", '', '', 'C');
 
     $pdf->SetXY(113, 240);
     $pdf->SetFont('times', 'B', 12, '', true);
-    $pdf->Cell(90, 4, "CHINA HIGNWIN(THAILAND) LIMIED", '', 1, 'C');
+    $pdf->Cell(90, 4, "CHINA HIGNWIN(THAILAND) LIMITED", '', 1, 'C');
   } else {
     $imagePath = '../../lib/fpdf/logo/th_shipping_line.png';
     $pdf->Image($imagePath, 143, 31, 25, 0);
@@ -716,6 +726,8 @@ foreach ($data as $k => $v) {
     $pdf->SetXY(110, 50);
     $pdf->SetFont('times', 'B', 12, '', true);
     $pdf->Cell(90, 4, "COPY", '', '', 'C');
+
+
 
     $pdf->SetXY(113, 240);
     $pdf->SetFont('times', 'B', 12, '', true);
@@ -732,7 +744,7 @@ if ($data_description[0] != "") {
     $pdf->SetXY(170, 10);
     $pdf->SetFont('times', 'B', 9, '', true);
     $page_first = $pdf->PageNo();
-    $pdf->Cell(50, 5, "ATTACHED Sheet Page " . $page_first);
+    $pdf->Cell(50, 5, "Attached Sheet Page " . $page_first);
 
     $pdf->SetXY(10, 15);
     foreach ($data_shipperandconsignee as $k1 => $v1) {
@@ -753,7 +765,7 @@ if ($data_description[0] != "") {
     $pdf->SetFont('times', 'B', 9, '', true);
     $page_first = $pdf->PageNo();
     $pdf->SetXY(170, 10);
-    $pdf->Cell(50, 5, "ATTACHED Sheet Page " . $page_first);
+    $pdf->Cell(50, 5, "Attached Sheet Page " . $page_first);
 
 
     $get_last_y = $get_last_y + 10;
@@ -786,15 +798,15 @@ if ($currentLineCount < 10) {
   }
   // part container
   $pdf->Ln();
-  if($count_container_ab < 7){
+  if ($count_container_ab < 7) {
     foreach ($container_data as $v) {
-      $pdf->MultiCell(100,4,$v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM",0);
+      $pdf->MultiCell(100, 4, $v['container_number'] . "/" . $v['seal_number'] . "/" . $v['container_type'] . "/" . $v['quantity'] . $v['name'] . "/" . $v['gw'] . "KGS./" . $v['volume'] . "CBM", 0);
     }
-  }else{
+  } else {
     $pdf->AddPage();
     $pdf->SetFont('times', 'B', 8, '', true);
     $pdf->SetXY(170, 10);
-    $pdf->Cell(30, 3, "ATTACHED Sheet Page 2", 0, 1, 'L');
+    $pdf->Cell(30, 3, "Attached Sheet Page 2", 0, 1, 'L');
 
     $pdf->SetXY(10, 15);
     foreach ($data_shipperandconsignee as $k1 => $v1) {
@@ -805,28 +817,25 @@ if ($currentLineCount < 10) {
     $pdf->Cell(10, 3, "CONTAINER/SEAL NO.:", 0, 0, "L");
     $pdf->Ln();
     $pdf->SetFont('times', '', 8, '', true);
-    
-    foreach ($container_data as $v) {
-      $pdf->MultiCell(190,4,$v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM",0);
 
+    foreach ($container_data as $v) {
+      $pdf->MultiCell(190, 4, $v['container_number'] . "/" . $v['seal_number'] . "/" . $v['container_type'] . "/" . $v['quantity'] . $v['name'] . "/" . $v['gw'] . "KGS./" . $v['volume'] . "CBM", 0);
     }
     $pdf->Ln();
     $pdf->ln(2);
-    $pdf->Cell(190,3,"** END OF ATTACHED SHEET **",0,0,"C");
+    $pdf->Cell(190, 3, "** END OF ATTACHED SHEET **", 0, 0, "C");
   }
-
-  
 } else {
   // part container
-  if($count_container_ab < 6){ //6
+  if ($count_container_ab < 6) { //6
     $pdf->SetFont('times', '', 8, '', true);
     $pdf->SetXY(10, 140);
 
     foreach ($container_data as $v) {
-      $pdf->MultiCell(100,4,$v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM",0);
+      $pdf->MultiCell(100, 4, $v['container_number'] . "/" . $v['seal_number'] . "/" . $v['container_type'] . "/" . $v['quantity'] . $v['name'] . "/" . $v['gw'] . "KGS./" . $v['volume'] . "CBM", 0);
     }
   }
-  
+
 
   //part description
 
@@ -839,12 +848,12 @@ if ($currentLineCount < 10) {
   $pdf->AddPage();
   $pdf->SetFont('times', 'B', 8, '', true);
   $pdf->SetXY(170, 10);
-  $pdf->Cell(30, 3, "ATTACHED Sheet Page 2", 0, 1, 'L');
+  $pdf->Cell(30, 3, "Attached Sheet Page 2", 0, 1, 'L');
 
   $pdf->SetXY(10, 15);
-    foreach ($data_shipperandconsignee as $k1 => $v1) {
-      $pdf->Cell(180, 6, "ATTACHED SHEET FOR B/L NO.:" . $v1['mbl'] . " VESSEL/VOY : " . $v1['mother_vessel'], 0, 1, "C");
-    }
+  foreach ($data_shipperandconsignee as $k1 => $v1) {
+    $pdf->Cell(180, 6, "ATTACHED SHEET FOR B/L NO.:" . $v1['mbl'] . " VESSEL/VOY : " . $v1['mother_vessel'], 0, 1, "C");
+  }
 
   $pdf->SetXY(10, 20);
   $pdf->Cell(10, 3, "DESCRIPTION OF GOODS : ", 0, 0, "L");
@@ -857,22 +866,20 @@ if ($currentLineCount < 10) {
   $pdf->Ln();
   $pdf->SetFont('times', 'B', 8, '', true);
 
-  
+
 
   // part container
-  if($count_container_ab >= 7){
+  if ($count_container_ab >= 7) {
     $pdf->Cell(10, 3, "CONTAINER/SEAL NO.: ", 0, 0, "L");
     $pdf->Ln(4);
     $pdf->SetFont('times', '', 8, '', true);
     foreach ($container_data as $v) {
-      $pdf->MultiCell(100,3,$v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM",0);
+      $pdf->MultiCell(100, 3, $v['container_number'] . "/" . $v['seal_number'] . "/" . $v['container_type'] . "/" . $v['quantity'] . $v['name'] . "/" . $v['gw'] . "KGS./" . $v['volume'] . "CBM", 0);
     }
   }
 
   $pdf->ln(2);
-  $pdf->Cell(190,3,"** END OF ATTACHED SHEET **",0,0,"C");
-
-  
+  $pdf->Cell(190, 3, "** END OF ATTACHED SHEET **", 0, 0, "C");
 };
 
 

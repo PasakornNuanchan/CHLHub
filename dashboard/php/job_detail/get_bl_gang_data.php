@@ -6,6 +6,7 @@ $id_number = $_POST['id_number'];
 $sql_query_data_bl = "
 SELECT 
 bl.*,
+jt.final_destination as finala,
 jt.feeder_vessel,
 jt.mother_vessel,
 jt.port_of_receipt_number,

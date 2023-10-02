@@ -21,9 +21,8 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    .table_data_account td:nth-child(2) input,
     .table_data_account td:nth-child(3) input,
-    .table_data_account td:nth-child(15) input,
+    .table_data_account td:nth-child(4) input,
     .table_data_account td:nth-child(16) input,
     .table_data_account td:nth-child(17) input,
     .table_data_account td:nth-child(18) input,
@@ -32,28 +31,29 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(21) input,
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(23) input,
-    .table_data_account td:nth-child(24) input {
+    .table_data_account td:nth-child(24) input,
+    .table_data_account td:nth-child(25) input {
         width: 150px;
     }
 
-    .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(14) input {
+    .table_data_account td:nth-child(5) input,
+    .table_data_account td:nth-child(15) input {
         width: 200px;
     }
 
-    .table_data_account td:nth-child(5) input,
     .table_data_account td:nth-child(6) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,
-    .table_data_account td:nth-child(11) input,
-    .table_data_account td:nth-child(12) input {
+    .table_data_account td:nth-child(9) input,
+    .table_data_account td:nth-child(12) input,
+    .table_data_account td:nth-child(13) input {
         width: 120px;
     }
 
 
 
-    .table_data_account td:nth-child(9) input,
-    .table_data_account td:nth-child(10) input {
+    .table_data_account td:nth-child(10) input,
+    .table_data_account td:nth-child(11) input {
         width: 70px;
     }
 </style>
@@ -111,10 +111,6 @@ require 'function/auth/get_session.php';
                 </div>
 
                 <div class="card-body">
-
-
-
-
                     <div class="bd-example">
                         <h5>Filter</h5>
                         <div class="row g-3">
@@ -151,68 +147,47 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
 
-                    <!-- <div class="form-group row">
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">Filter : </label>
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">Bill to</label>
-                        <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                            <input type="text" class="form-control form-control-sm rounded">
-                        </div>
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">Job number</label>
-                        <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                            <input type="text" class="form-control form-control-sm rounded">
-                        </div>
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">B/L no.</label>
-                        <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                            <input type="text" class="form-control form-control-sm rounded">
-                        </div>
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">Container no.</label>
-                        <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                            <input type="text" class="form-control form-control-sm rounded">
-                        </div>
-                        <label class="col-sm-12 col-md-12 col-lg-1 col-xl-1">Code</label>
-                        <div class="col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                            <input type="text" class="form-control form-control-sm rounded">
-                        </div>
-                    </div> -->
+                    <h5 class="mt-2">Status</h5>
                     <div class="form-group mt-2 row">
-                        <label for="" class="col-lg-1">Status : </label>
-                        <div class="bd-example col-lg-11">
+                        <label for="" class="col-lg-2">Accrued Liabilities(Unpaid) : </label>
+                        <div class="bd-example col-lg-10">
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_1" name="bsradio1" id="cb1" name_data="cb1">
-                                <label for="radio1" class="form-check-label pl-2">Accrued Liabilities(Paid)</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_2" name="bsradio1" id="cb2" name_data="cb2">
-                                <label for="radio2" class="form-check-label pl-2">Accrued Liabilities(Unpaid)</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio1" id="cb3" name_data="cb3">
+                                <input type="radio" class="form-check-input cb_st_1" name="bsradio2" name_data="1">
                                 <label for="radio3" class="form-check-label pl-2">Created</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio1" id="cb4" name_data="cb4">
-                                <label for="radio3" class="form-check-label pl-2">Not Checked</label>
+                                <input type="radio" class="form-check-input cb_st_2" name="bsradio2" name_data="2">
+                                <label for="radio3" class="form-check-label pl-2">Checked</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_4" name="bsradio1" id="cb5" name_data="cb5">
-                                <label for="radio3" class="form-check-label pl-2">Not Applied</label>
+                                <input type="radio" class="form-check-input cb_st_3" name="bsradio2" name_data="3">
+                                <label for="radio3" class="form-check-label pl-2">Applied</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_5" name="bsradio1" id="cb6" name_data="cb6">
-                                <label for="radio3" class="form-check-label pl-2">Not Approved</label>
+                                <input type="radio" class="form-check-input cb_st_4" name="bsradio2" name_data="4">
+                                <label for="radio3" class="form-check-label pl-2">Waiting Approve</label>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group mt-2 row">
+                        <label for="" class="col-lg-2">Accrued Liabilities(Paid) : </label>
+                        <div class="bd-example col-lg-10">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input cb_st_5" name="bsradio2" name_data="5">
+                                <label for="radio3" class="form-check-label pl-2">Approve</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bd-example">
                         <div class="row g-3">
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Select Search</label>
                                 <select name="" id="" class="form-select form-select-sm sel_serach">
                                     <option value="">-- Select Search --</option>
-                                    <option value="">Create Date</option>
-                                    <option value="">Apply Date</option>
-                                    <option value="">Check Date</option>
-
+                                    <option value="1">Create Date</option>
+                                    <option value="2">Apply Date</option>
+                                    <option value="3">Check Date</option>
                                 </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
@@ -242,6 +217,7 @@ require 'function/auth/get_session.php';
                         <table class="table table-hover table_data_account" style="zoom: 60%">
                             <thead>
                                 <tr class="text-center">
+                                    <th></th>
                                     <th>No.</th>
                                     <th>Job No.</th>
                                     <th>Bill to</th>
@@ -271,6 +247,7 @@ require 'function/auth/get_session.php';
                                     <th>Request payble</th>
                                 </tr>
                                 <tr class="text-center">
+                                    <th></th>
                                     <th>序号</th>
                                     <th>系统单号</th>
                                     <th>结算单位</th>
@@ -327,6 +304,7 @@ require 'function/auth/get_session.php';
                                     <th>25</th>
                                     <th>26</th>
                                     <th>27</th>
+                                    <th>28</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -365,8 +343,10 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <div class="text-start">
-                        <button class="btn btn-sm btn-success">Checked all 全选</button>
-                        <button class="btn btn-sm btn-warning">Unchecked all 全不选</button>
+                        <button class="btn btn-sm btn-success" onclick="ap_function.checked_select_all()">Checked all 全选</button>
+                        <button class="btn btn-sm btn-warning" onclick="ap_function.unchecked_select_all()">Unchecked all 全不选</button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
                     </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">

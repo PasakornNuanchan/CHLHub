@@ -10,53 +10,53 @@ $table_container_bl_arr = $_POST['table_container_bl_arr'];
 $table_fright_bl_arr = $_POST['table_fright_bl_arr'];
 $arr_fright_delete = $_POST['arr_fright_delete'];
 
-foreach ($table_fright_bl_arr as $k => $v) {
-    $id_list = isset($v['id_list']) ? $v['id_list'] : '';
-    $charge = isset($v['charge']) ? $v['charge'] : '';
-    $prepaid = isset($v['prepaid']) ? $v['prepaid'] : '';
-    $collect = isset($v['collect']) ? $v['collect'] : '';
-    $ref_id_row = isset($v['ref_id_row']) ? $v['ref_id_row'] : '';
-    $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
+// foreach ($table_fright_bl_arr as $k => $v) {
+//     $id_list = isset($v['id_list']) ? $v['id_list'] : '';
+//     $charge = isset($v['charge']) ? $v['charge'] : '';
+//     $prepaid = isset($v['prepaid']) ? $v['prepaid'] : '';
+//     $collect = isset($v['collect']) ? $v['collect'] : '';
+//     $ref_id_row = isset($v['ref_id_row']) ? $v['ref_id_row'] : '';
+//     $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
 
-    if ($id_list != '') {
-        $sql_query_fright = "
-        UPDATE
-            `fright_bl`
-        SET
-            `fright` = '$charge',
-            `prepaid` = '$prepaid',
-            `collect` = '$collect',
-            `ref_job_id` = '$ref_job_id'
-        WHERE
-            `ID` = '$id_list'
-        ";
+//     if ($id_list != '') {
+//         $sql_query_fright = "
+//         UPDATE
+//             `fright_bl`
+//         SET
+//             `fright` = '$charge',
+//             `prepaid` = '$prepaid',
+//             `collect` = '$collect',
+//             `ref_job_id` = '$ref_job_id'
+//         WHERE
+//             `ID` = '$id_list'
+//         ";
         
-    } else {
-        $sql_query_fright = "
-        INSERT INTO `fright_bl`(
-            `fright`,
-            `prepaid`,
-            `collect`,
-            `ref_row`,
-            `ref_job_id`
-        )
-        VALUES(
-            '$charge',
-            '$prepaid',
-            '$collect',
-            '$ref_id_row',
-            '$ref_job_id'
-        )
-        ";
-    }
-    //echo $sql_query_fright;
-    $result = $con->query($sql_query_fright);
-    if ($result->num_rows == 0) {
-        $arr_query_fright = '1';
-    } else {
-        $arr_query_fright = '0';
-    }
-}
+//     } else {
+//         $sql_query_fright = "
+//         INSERT INTO `fright_bl`(
+//             `fright`,
+//             `prepaid`,
+//             `collect`,
+//             `ref_row`,
+//             `ref_job_id`
+//         )
+//         VALUES(
+//             '$charge',
+//             '$prepaid',
+//             '$collect',
+//             '$ref_id_row',
+//             '$ref_job_id'
+//         )
+//         ";
+//     }
+//     //echo $sql_query_fright;
+//     $result = $con->query($sql_query_fright);
+//     if ($result->num_rows == 0) {
+//         $arr_query_fright = '1';
+//     } else {
+//         $arr_query_fright = '0';
+//     }
+// }
 
 if($arr_fright_delete != ''){
     foreach($arr_fright_delete as $k => $v){
@@ -93,6 +93,7 @@ foreach ($data_detail_arr as $k => $v) {
     $final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
     $data_place = isset($v['data_place']) ? $v['data_place'] : '';
     $payble_at = isset($v['payble_at']) ? $v['payble_at'] : '';
+    $sel_frieght = isset($v['sel_frieght']) ? $v['sel_frieght'] : '';
 
     $shipper_on_board = $shipper_on_board ? "'" . $shipper_on_board . "'" : 'NULL';
     $on_board_date = $on_board_date ? "'" . $on_board_date . "'" : 'NULL';
@@ -113,7 +114,8 @@ foreach ($data_detail_arr as $k => $v) {
         `description_of_good` = '$des_of_god',
         `final_destination`= '$final_destination',
         `place` = '$data_place',
-        `payble_at` = '$payble_at'
+        `payble_at` = '$payble_at',
+        `fright_c_on` = '$sel_frieght'
     WHERE
         ID = '$bl_data'
     ";
@@ -232,4 +234,4 @@ WHERE
     }
 }
 
-echo json_encode(array('arr_save_detail' => $arr_save_detail, 'arr_save_list' => $arr_save_list, 'arr_save_container' => $arr_save_container,'arr_query_fright'=>$arr_query_fright));
+echo json_encode(array('arr_save_detail' => $arr_save_detail, 'arr_save_list' => $arr_save_list, 'arr_save_container' => $arr_save_container));

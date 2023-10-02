@@ -319,7 +319,7 @@ require 'function/auth/get_session.php';
                                     <h4>Job Detail</h4>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-end">
-                                    <!-- <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.generate_first_bl()">test</button> -->
+                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.load_save_data()" >load</button>
                                 </div>
                             </div>
                         </div>
@@ -517,10 +517,26 @@ require 'function/auth/get_session.php';
                                             <input type="date" class="form-control form-control-sm inp_eta">
                                         </div>
                                     </div>
+                                    
 
                                 </div>
                                 <div class="col-xl-6">
-
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">CS support By:</label>
+                                        <div class="col">
+                                            <select class="form-select form-select-sm inp_cs_user" disabled>
+                                                <option value="">-- pleses select Customer service --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Sale support By.</label>
+                                        <div class="col">
+                                            <select class="form-select form-select-sm inp_sale_user">
+                                                <option value="">-- pleses select sale --</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="40">M B/L:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -551,7 +567,7 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <select class="form-select form-select-sm inp_cargo_type" id="cargo_data" disabled>
+                                            <select class="form-select form-select-sm inp_cargo_type" id="cargo_data" >
                                                 <option value="">-- pleses select cargo type --</option>
                                             </select>
                                         </div>
@@ -610,17 +626,24 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <hr>
                                     <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Final destination:</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="text" class="form-control form-control-sm inp_finaldestination">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Delivery place:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_delivery_place" maxlength="60">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Remark:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_remark" maxlength="400">
                                         </div>
                                     </div>
+                                    <div class="save_create_btn_add text-end"></div>
                                 </div>
                             </div>
                         </div>
@@ -662,32 +685,17 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5">
+                        <!-- <div class="col-xl-5">
                             <div class="card p-4">
                                 <div class="card-header">
                                     <h4>Detail operation</h4>
                                 </div>
                                 <div class="card-body">
-                                    <!-- <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-4 align-self-center ">CS support By:</label>
-                                        <div class="col">
-                                            <select class="form-select form-select-sm inp_cs_user">
-                                                <option value="">-- pleses select Customer service --</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-4 align-self-center ">Sale support By.</label>
-                                        <div class="col">
-                                            <select class="form-select form-select-sm inp_sale_user">
-                                                <option value="">-- pleses select sale --</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="save_create_btn_add text-end"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
 
@@ -842,7 +850,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Drop off Empty Containe Address *</label>
+                            <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Drop off Empty Container Address *</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 ">
@@ -1139,7 +1147,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Customs Clearance Place: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Customs Clearance plan: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-5 ">
@@ -1228,11 +1236,11 @@ require 'function/auth/get_session.php';
                 <div class="tab-pane fade " id="customs_tab_target" role="tabpanel" aria-labelledby="customs_tab">
                     <div class="card p-4">
                         <div class="card-header">
-                            <h4>Customs Clearlance Plan</h4>
+                            <h4>Customs Clearance Plan</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Customs Clearlance Plan: *</label>
+                                <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Customs Clearance Plan: *</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <div class="col-lg-5 col-md-5 ">
                                         <input type="text" class="form-control form-control-sm inp_customs_plan">
@@ -1372,7 +1380,7 @@ require 'function/auth/get_session.php';
                     </div>
                     <div class="card p-4">
                         <div class="card-header">
-                            <h4>Customs Clearlance</h4>
+                            <h4>Customs Clearance</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
@@ -1500,7 +1508,7 @@ require 'function/auth/get_session.php';
                     </div>
                     <div class="card p-4">
                         <div class="card-header">
-                            <h4>Reverse to CY</h4>
+                            <h4>CY return</h4>
                         </div>
                         <div class="card-body">
                             <div class="contaienr_status_container_cy">
@@ -1617,7 +1625,7 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Vessel : </label>
+                                            <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Vessel / Yoyage : </label>
                                             <div class="col">
                                                 <input type="text" class="form-control form-control-sm inp_mother_vessel" disabled>
                                             </div>

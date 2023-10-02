@@ -199,9 +199,20 @@ const sub_gang_bl = {
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">payble at: </label>
+                                    <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">payable at: </label>
                                     <div class="col">
                                         <input class="form-control form-control-sm inp_payble inp_payble${i}" list="place_list" maxlength="60">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3">Freight prepaid or collect</label>
+                                    <div class="col">
+                                        <select class="form-select form-select-sm sel_frieight_ppocc sel_frieight_ppocc${i}">
+                                            <option value="1">Freight Prepaid</option>
+                                            <option value="2">Freight Collect</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -259,8 +270,8 @@ const sub_gang_bl = {
                                         <th>Container number</th>
                                         <th>Seal number</th>
                                         <th>Quantity</th>
-                                        <th>Unit</th>
-                                        <th>Weight</th>
+                                        <th>Package</th>
+                                        <th>Gross Weight</th>
                                         <th>CBM</th>
                                     </tr>
                                 </thead>
@@ -329,7 +340,7 @@ const sub_gang_bl = {
                                         <input type="text" class="form-control form-control-sm inp_package_total text-end" disabled>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-2">
-                                        <label class="col-xl-3">Weight </label>
+                                        <label class="col-xl-3">Gross Weight </label>
                                     </div>
 
                                     <div class="col-xl-2 col-lg-2 col-md-2">
@@ -345,45 +356,44 @@ const sub_gang_bl = {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card p-4">
-                    <div class="card-header"><h4>Frieight charges on</h4></div>
-                    <div class="card-body">
-                        <div class="bd-exsample table-responsive">
-                            <table class="table table-hover table_fright table_fright${i}   table_select_fright${v['ID']}" ref_id_row="${v['ID']}" id_number="${id_number}">
-                                <thead>
-                                    <tr>                                        
-                                        <th>Frieight charges on</th>
-                                        <th>Prepaid</th>
-                                        <th>Collect</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" class="form-control form-control-sm inp_charge"></td>
-                                        <td><input type="text" class="form-control form-control-sm inp_prepaid"></td>
-                                        <td><input type="text" class="form-control form-control-sm inp_collect"></td>
-                                        <td><button class="btn btn-sm btn-danger" onclick="function_sub_bl.delete_fright(this)"><i class="bi bi-trash"></i> Del</button></td>
-                                    </tr>
-                                </tody>
-                            </table>
+                        <div class="text-end">
+                            <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data(this)"><i class="bi bi-save"></i> save</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_telex_line(this)">Telex release BL</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl(this)">Generate BL</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line(this)">Generate BL With line</button>
                         </div>
-                        <div><button class="btn btn-sm btn-primary col-xl-12 col-lg-12 col-md-12" onclick="function_sub_bl.add_fright(this)">add rows fright charge on</button></div>
-                        
                     </div>
-                    <div class="text-end">
-                        <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data(this)"><i class="bi bi-save"></i> save</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_telex_line(this)">Telex release BL</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl(this)">Generate BL</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line(this)">Generate BL With line</button>
-                    </div>
-                </div>
                 </div>
             </div>
             `;
-
+                // <div class="card p-4">
+                //     <div class="card-header"><h4>Frieight charges on</h4></div>
+                //         <div class="card-body">
+                //             <div class="bd-exsample table-responsive">
+                //                 <table class="table table-hover table_fright table_fright${i}   table_select_fright${v['ID']}" ref_id_row="${v['ID']}" id_number="${id_number}">
+                //                     <thead>
+                //                         <tr>                                        
+                //                             <th>Frieight charges on</th>
+                //                             <th>Prepaid</th>
+                //                             <th>Collect</th>
+                //                             <th>Action</th>
+                //                         </tr>
+                //                     </thead>
+                //                     <tbody>
+                //                         <tr>
+                //                             <td><input type="text" class="form-control form-control-sm inp_charge"></td>
+                //                             <td><input type="text" class="form-control form-control-sm inp_prepaid"></td>
+                //                             <td><input type="text" class="form-control form-control-sm inp_collect"></td>
+                //                             <td><button class="btn btn-sm btn-danger" onclick="function_sub_bl.delete_fright(this)"><i class="bi bi-trash"></i> Del</button></td>
+                //                         </tr>
+                //                     </tody>
+                //                 </table>
+                //             </div>
+                //             <div><button class="btn btn-sm btn-primary col-xl-12 col-lg-12 col-md-12" onclick="function_sub_bl.add_fright(this)">add rows fright charge on</button></div>
+                //         </div>
+                //    </div>
+                // </div>
+                
                 let shipper_bl = v['shipper_bl'] ? v['shipper_bl'] : '';
                 let consignee_bl = v['consignee_bl'] ? v['consignee_bl'] : '';
                 let notify_bl = v['notify_party'] ? v['notify_party'] : '';
@@ -398,10 +408,11 @@ const sub_gang_bl = {
                 let delivery_agent = v['delivery_agent'] ? v['delivery_agent'] : '';
                 let shipper_on_board = v['shipper_on_board'] ? v['shipper_on_board'] : '';
                 let on_board_date = v['on_board_date'] ? v['on_board_date'] : '';
-                let final_destination = v['final_destination'] ? v['final_destination'] : '';
+                let final_destination = v['finala'] ? v['finala'] : '';
                 let place = v['place'] ? v['place'] : '';
                 let original_number = v['bl_number'] ? v['bl_number'] : '';
                 let payble_at = v['payble_at'] ? v['payble_at'] : '';
+                let fright_c_on = v['fright_c_on'] ? v['fright_c_on'] : '';
 
                 $('.tab-content').append(html_data_pill)
                 $(`.inp_bl_shipping${i}`).val(shipper_bl)
@@ -430,6 +441,7 @@ const sub_gang_bl = {
                 $(`.inp_bl_number${i}`).val(3).attr('disabled',true)
                 $(`.inp_place${i}`).val(place)
                 $(`.inp_payble${i}`).val(payble_at)
+                $(`.sel_frieight_ppocc${i}`).val(fright_c_on)
 
                 
 

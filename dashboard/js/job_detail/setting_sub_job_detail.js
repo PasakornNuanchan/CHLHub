@@ -47,6 +47,7 @@ const sub_job_detail = {
         $('.inp_eta').val(res_data['job_title']['eta'])
         $('.inp_inv').val(res_data['job_title']['inv'])
         $('.inp_mbl').val(res_data['job_title']['mbl'])
+        $('.inp_finaldestination').val(res_data['job_title']['final_destination'])
 
         //$('.inp_hbl').val(res_data['job_title']['hbl'])
 

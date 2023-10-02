@@ -44,6 +44,7 @@ const function_sub_job_detail = {
                 let sale_data_user = $('.inp_sale_user').val()
                 let commodity = $('.inp_commodity').val()
                 let delivery_place = $('.inp_delivery_place').val()
+                let final_destination = $('.inp_finaldestination').val()
                 //let notify = $('.inp_notify').val()
                 
                 let client_value = $('.inp_client :selected').val()
@@ -87,6 +88,7 @@ const function_sub_job_detail = {
                     client_type : client_type,
                     notify_value : notify_value,
                     notify_type : notify_type,
+                    final_destination : final_destination,
                 }
 
                 arr_detail_save.push(obj_detail_save)
@@ -470,5 +472,204 @@ const function_sub_job_detail = {
             
 
         $(e).closest('.form-group').remove()
-    }
+    },
+
+
+    load_save_data : async function (){
+        
+        if ($('#add_modal_load_data').length >= 1) {
+            $('#add_modal_load_data').remove()
+        }
+
+        let res_data = await this.ajax_request_job_load();
+        
+        data_modal_detail_load = res_data;
+
+        let tbody_data_html = '';
+        $.each(res_data['load_data'],function(i,v){
+            let id_number = v['ID'] ? v['ID'] : '';
+            let job_number = v['job_number'] ? v['job_number'] : '';
+            let client_name = v['client_name'] ? v['client_name'] : '';
+            let shipper_name = v['shipper_name'] ? v['shipper_name'] : '';
+            let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
+            let notify_name = v['notify_name'] ? v['notify_name'] : '';
+            let st_name = v['st_name'] ? v['st_name'] : '';
+            let carrier_name = v['carrier_name'] ? v['carrier_name'] : '';
+            let port_of_receipt_name = v['port_of_receipt_name'] ? v['port_of_receipt_name'] : '';
+            let port_of_loading_name = v['port_of_loading_name'] ? v['port_of_loading_name'] : '';
+            let ts_port_name = v['ts_port_name'] ? v['ts_port_name'] : '';
+            let port_of_discharge_name = v['port_of_discharge_name'] ? v['port_of_discharge_name'] : '';
+            let port_of_delivery_name = v['port_of_delivery_name'] ? v['port_of_delivery_name'] : '';
+            let final_destination = v['final_destination'] ? v['final_destination'] : '';
+            let booking_agent_name = v['booking_agent_name'] ? v['booking_agent_name'] : '';
+            let delivery_place = v['delivery_place'] ? v['delivery_place'] : '';
+            let remark = v['remark'] ? v['remark'] : '';
+
+            tbody_data_html += `
+            <tr>
+                <td><button class="btn btn-outline-primary btn-sm rounded" onclick="function_sub_job_detail.select_load_data(${id_number})">Select</button></td>
+                <td>${job_number}</td>
+                <td>${client_name}</td>
+                <td>${shipper_name}</td>
+                <td>${consignee_name}</td>
+                <td>${notify_name}</td>
+                <td>${st_name}</td>
+                <td>${carrier_name}</td>
+                <td>${port_of_receipt_name}</td>
+                <td>${port_of_loading_name}</td>
+                <td>${ts_port_name}</td>
+                <td>${port_of_discharge_name}</td>
+                <td>${port_of_delivery_name}</td>
+                <td>${final_destination}</td>
+                <td>${booking_agent_name}</td>
+                <td>${delivery_place}</td>
+                <td>${remark}</td>
+            </tr>
+            `;
+        })
+
+
+
+        html = `
+            <div class="modal fade" id="add_modal_load_data" >
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">load document</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body ">
+                            <div class="bd-example table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Job number</th>
+                                        <th>Client</th>
+                                        <th>Shipper</th>
+                                        <th>Consignee</th>
+                                        <th>Notify</th>
+                                        <th>shipment terms</th>
+                                        <th>Carrier</th>
+                                        <th>Port of Receipt</th>
+                                        <th>Port of Loading</th>
+                                        <th>T/S Port</th>
+                                        <th>Port of Discharge</th>
+                                        <th>Port of Delivery</th>
+                                        <th>Final destinatino</th>
+                                        <th>Booking agent</th>
+                                        <th>Delivery place</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tbody_data_html}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>`
+
+        $('body').append(html)
+        $('#add_modal_load_data').modal('show')
+    },
+
+    select_load_data : async function(e){
+        console.log(data_modal_detail_load)
+        console.log(e)
+        $('#add_modal_load_data').modal('toggle')
+        $.each(data_modal_detail_load['load_data'],async function(i,v){
+            let id_number = v['ID'] ? v['ID'] : '';
+            let client_type = v['client_type'] ? v['client_type'] : '';
+            let client_number = v['client_number'] ? v['client_number'] : '';
+            let shipper_number = v['shipper_number'] ? v['shipper_number'] : '';
+            let consignee_number = v['consignee_number'] ? v['consignee_number'] : '';
+            let notify_type = v['notify_type'] ? v['notify_type'] : '';
+            let notify_number = v['notify_number'] ? v['notify_number'] : '';
+            let st_number = v['st_number'] ? v['st_number'] : '';
+            let carrier_number = v['carrier_number'] ? v['carrier_number'] : '';
+            let port_of_receipt_number = v['port_of_receipt_number'] ? v['port_of_receipt_number'] : '';
+            let port_of_loading_number = v['port_of_loading_number'] ? v['port_of_loading_number'] : '';
+            let ts_port_number = v['ts_port_number'] ? v['ts_port_number'] : '';
+            let port_of_discharge = v['port_of_discharge'] ? v['port_of_discharge'] : '';
+            let port_of_delivery_number = v['port_of_delivery_number'] ? v['port_of_delivery_number'] : '';
+            let final_destination = v['final_destination'] ? v['final_destination'] : '';
+            let booking_agent = v['booking_agent'] ? v['booking_agent'] : '';
+            let delivery_place = v['delivery_place'] ? v['delivery_place'] : '';
+            let remark = v['remark'] ? v['remark'] : '';
+            let sale_support = v['sale_support'] ? v['sale_support'] : '';
+
+            
+
+            if(e == id_number){
+            
+                if(client_type == '' && client_number == ''){
+                    $(`.inp_client option[value=""]`).prop('selected',true)
+                }else{
+                    $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected',true)
+                }
+
+                if(notify_type == '' && notify_number == ''){
+                    $(`.inp_notify_job_detail option[value=""]`).prop('selected',true)
+                }else{
+                    $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected',true)
+
+                }
+
+                $(`.inp_shipper option[value="${shipper_number}"]`).prop('selected',true)
+                $(`.inp_consignee option[value="${consignee_number}"]`).prop('selected',true)
+
+                $(`.inp_shipment option[value="${st_number}"]`).prop('selected',true)
+                $(`.inp_carrier option[value="${carrier_number}"]`).prop('selected',true)
+                $(`.inp_port_of_receipt option[value="${port_of_receipt_number}"]`).prop('selected',true)
+                $(`.inp_port_of_loading option[value="${port_of_loading_number}"]`).prop('selected',true)
+                $(`.inp_ts_port option[value="${ts_port_number}"]`).prop('selected',true)
+                $(`.inp_port_of_discharge option[value="${port_of_discharge}"]`).prop('selected',true)
+                $(`.inp_port_of_delivery option[value="${port_of_delivery_number}"]`).prop('selected',true)
+                $(`.inp_finaldestination`).val(final_destination)
+                $(`.inp_booking_agent option[value="${booking_agent}"]`).prop('selected',true)
+                $(`.inp_delivery_place`).val(delivery_place)
+                $(`.inp_remark`).val(remark)
+                $(`.inp_sale_user option[value="${sale_support}"]`).prop('selected',true)
+
+            }
+                
+
+                
+            
+
+            
+        })
+        
+
+
+        
+    },
+
+    ajax_request_job_load : function (full_my) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/get_job_load.php",
+                data: {
+                    full_my: full_my,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
 }

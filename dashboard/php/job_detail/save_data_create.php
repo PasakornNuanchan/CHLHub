@@ -1,11 +1,14 @@
 <?php
 include '../../core/conn.php';
 require '../../function/auth/get_session.php';
-include '../../core/con_path.php';
+require '../../core/con_path.php';
 
 $data_detail_save = $_POST['arr_detail_save'];
 $data_detail_container = $_POST['arr_detail_container'];
 $hbl_arr = $_POST['hbl_arr'];
+
+
+
 
 
 // save job title
@@ -28,8 +31,8 @@ foreach($data_detail_save as $k => $v){
     $booking_agent = isset($v['booking_agent']) ? $v['booking_agent'] : '';
 
     $port_of_discharge = isset($v['port_of_discharge']) ? $v['port_of_discharge'] : '';    
-    $delivery_place = isset($v['delivery_place']) ? $v['delivery_place'] : '';
     $sale_support = isset($v['sale_support']) ? $v['sale_support'] : '';    
+    $final_destination = isset($v['final_destination']) ? $v['final_destination'] : '';
     
     $eta = $v['eta'];
     $etd = $v['etd'];
@@ -62,12 +65,12 @@ foreach($data_detail_save as $k => $v){
         `etd`,
         `eta`,
         `remark`,
-        `delivery_place`,
         `create_date`,
         `last_save_by`,
         `cs_support`,
         `sale_support`,
-        `booking_agent`
+        `booking_agent`,
+        `final_destination`
     )
     VALUES(
         '$job_number',
@@ -87,13 +90,13 @@ foreach($data_detail_save as $k => $v){
         '$feeder',
         $etd,
         $eta,
-        '$delivery_place',
         '$remark',
         '$t_time_save',
         '$data_user',
         '$data_user',
         '$sale_support',
-        '$booking_agent'
+        '$booking_agent',
+        '$final_destination'
     )
     ";
 
