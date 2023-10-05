@@ -100,7 +100,7 @@ require_once 'lang_lib.php';
                         </li>
                     </ul>
                 </li>  -->
-                <div class="side_bar_main_add">
+                <div class="side_bar_main_add" style="zoom:85%">
                     
                 </div>
 <br>

@@ -21,7 +21,7 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    .table_data_account td:nth-child(2) input{
+    .table_data_account td:nth-child(2) input {
         width: 80px;
     }
 
@@ -29,7 +29,7 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(6) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(9) input,
-    .table_data_account td:nth-child(11) input{
+    .table_data_account td:nth-child(11) input {
         width: 250px;
 
     }
@@ -45,18 +45,16 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(15) input,
     .table_data_account td:nth-child(16) input,
     .table_data_account td:nth-child(17) input,
-    .table_data_account td:nth-child(18) input{
+    .table_data_account td:nth-child(18) input {
         width: 150px;
     }
 
     .table_data_account td:nth-child(15) input,
     .table_data_account td:nth-child(16) input,
     .table_data_account td:nth-child(17) input,
-    .table_data_account td:nth-child(18) input{
+    .table_data_account td:nth-child(18) input {
         width: 200px;
     }
-
-    
 </style>
 
 
@@ -82,7 +80,7 @@ require 'function/auth/get_session.php';
             <!-- MAIN BODY START -->
 
             <!-- headtab -->
-            
+
             <div class="card">
                 <div class="card-header">
                     <h4>Bank Account</h4>
@@ -91,7 +89,7 @@ require 'function/auth/get_session.php';
                     <div>
                         <div class="form-group">
                             <button class="btn btn-outline-primary btn-sm" onclick="function_bac.function_add()"><i class="bi bi-plus"></i> Add</button>
-                            <button class="btn btn-outline-success btn-sm"><i class="bi bi-save"></i> Save</button>
+                            <button class="btn btn-outline-success btn-sm" onclick="function_bac.raw_data_save()"><i class="bi bi-save"></i> Save</button>
                             <button class="btn btn-outline-warning btn-sm"><i class="bi bi-printer"></i> Print</button>
                         </div>
                     </div>
@@ -132,99 +130,112 @@ require 'function/auth/get_session.php';
                     </div>
                     <div class="bd-example mt-3 table-responsive">
                         <div class="bd-example table-responsive">
-                        <table class="table table-hover table_data_account" style="zoom: 70%">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>No.</th>
-                                    <th>Country Code</th>
-                                    <th>Country</th>
-                                    <th>*payment method</th>
-                                    <th>Bank Code</th>
-                                    <th>Company Name</th>
-                                    <th>Bank b</th>
-                                    <th>Currency</th>
-                                    <th>Bank Brunch</th>
-                                    <th>Bank address</th>
-                                    <th>Swift code</th>
-                                    <th>Bank telephone</th>
-                                    <th>Commercial number</th>
-                                    <th>Tax number</th>
-                                    <th>Founder</th>
-                                    <th>Creation time</th>
-                                    <th>Modified person</th>
-                                    <th>Change the time</th>
-                                </tr>
-                                <tr class="text-center">
-                                    <th>序号</th>
-                                    <th>*收付地点</th>
-                                    <th>*国家名</th>
-                                    <th>*支付方式</th>
-                                    <th>银行简码</th>
-                                    <th>公司名称</th>
-                                    <th>银行账号</th>
-                                    <th>币种</th>
-                                    <th>开户行全称</th>
-                                    <th>银行地址</th>
-                                    <th>SWIFT CODE</th>
-                                    <th>银行电话</th>
-                                    <th>工商登记号</th>
-                                    <th>税务登记号</th>
-                                    <th>创建人</th>
-                                    <th>创建时间</th>
-                                    <th>修改人</th>
-                                    <th>修改时间</th>
-                                </tr>
-                                <tr class="text-center">
-                                    <th>1</th>
-                                    <th>2</th>
-                                    <th>3</th>
-                                    <th>4</th>
-                                    <th>5</th>
-                                    <th>6</th>
-                                    <th>7</th>
-                                    <th>8</th>
-                                    <th>9</th>
-                                    <th>10</th>
-                                    <th>11</th>
-                                    <th>12</th>
-                                    <th>13</th>
-                                    <th>14</th>
-                                    <th>15</th>
-                                    <th>16</th>
-                                    <th>17</th>
-                                    <th>18</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                <tr>
-                                    <td></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                    <td><input type="text" class="form-control form-control"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            <table class="table table-hover table_data_account" style="zoom: 70%">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>No.</th>
+                                        <th>Country Code</th>
+                                        <th>Country</th>
+                                        <th>*payment method</th>
+                                        <th>Bank Code</th>
+                                        <th>Company Name</th>
+                                        <th>Bank b</th>
+                                        <th>Currency</th>
+                                        <th>Bank Brunch</th>
+                                        <th>Bank address</th>
+                                        <th>Swift code</th>
+                                        <th>Bank telephone</th>
+                                        <th>Commercial number</th>
+                                        <th>Tax number</th>
+                                        <th>Founder</th>
+                                        <th>Creation time</th>
+                                        <th>Modified person</th>
+                                        <th>Change the time</th>
+                                        <th>action</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>序号</th>
+                                        <th>*收付地点</th>
+                                        <th>*国家名</th>
+                                        <th>*支付方式</th>
+                                        <th>银行简码</th>
+                                        <th>公司名称</th>
+                                        <th>银行账号</th>
+                                        <th>币种</th>
+                                        <th>开户行全称</th>
+                                        <th>银行地址</th>
+                                        <th>SWIFT CODE</th>
+                                        <th>银行电话</th>
+                                        <th>工商登记号</th>
+                                        <th>税务登记号</th>
+                                        <th>创建人</th>
+                                        <th>创建时间</th>
+                                        <th>修改人</th>
+                                        <th>修改时间</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>7</th>
+                                        <th>8</th>
+                                        <th>9</th>
+                                        <th>10</th>
+                                        <th>11</th>
+                                        <th>12</th>
+                                        <th>13</th>
+                                        <th>14</th>
+                                        <th>15</th>
+                                        <th>16</th>
+                                        <th>17</th>
+                                        <th>18</th>
+                                        <th>19</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                        <td><input type="text" class="form-control form-control"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- MAIN BODY END -->
-
+        <!-- <input type="text" class="form-control form-control-sm inp_hbl" list="hbl_list"> -->
+        <datalist class="country_code_list_option" id="country_code_list">
+        </datalist>
+        <datalist class="country_list_option" id="country_list">
+        </datalist>
+        <datalist class="currency_list_option" id="currency_list">
+        </datalist>
+        <datalist class="payment_method_list_option" id="payment_method_list">
+        </datalist>
+        <datalist class="company_list_option" id="company_list">
+        </datalist>
 
         <!-- Footer Section Start -->
         <?php include 'include/footermain.php'; ?>

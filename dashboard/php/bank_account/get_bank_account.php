@@ -3,12 +3,6 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 require '../../core/con_path.php';
 
-$arr_data = $_POST['arr_data'];
-
-
-if($arr_data['arr_data'] != '1'){
-  echo "test";
-}else{
   $sql_query_data = "
   SELECT
       bank.ID,
@@ -48,7 +42,7 @@ if($arr_data['arr_data'] != '1'){
   } else {
     $get_bank_account = "0 results";
   }
-}
+
 
 
 

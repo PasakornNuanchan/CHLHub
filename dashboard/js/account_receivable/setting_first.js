@@ -4,10 +4,10 @@ const setting_first = {
     first_set: async function () {
 
 
-        $('.head-of-menu').html('Account Payable (CHECK)');
+        $('.head-of-menu').html('Account Receivable (CHECK)');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Check)</a></li>
+        <li class="breadcrumb-item"><a href="account_receivable.php" target="" style="color:white;">Account receivable (Check)</a></li>
         `;
         $('.bcpage').append(html_bdpage);
 
@@ -82,8 +82,6 @@ const setting_first = {
 
 
                 if(approve_datetime != ""){
-
-
                     if(currency == "THB"){
                         paid_thb = paid_thb + ap_amt_incvat_cal
                     }
@@ -145,9 +143,9 @@ const setting_first = {
                     <td>
                         <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1" checked="">
                         <label for="radio1" class="form-check-label pl-2">Waiting</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" onclick="ap_function.select_approve(this)">
+                        <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" onclick="ar_function.select_approve(this)">
                         <label for="radio2" class="form-check-label pl-2">Approve</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3_${id_number}" name_data="3" onclick="ap_function.select_approve(this)">
+                        <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3_${id_number}" name_data="3" onclick="ar_function.select_approve(this)">
                         <label for="radio3" class="form-check-label pl-2">Reject</label>
                     </td>                              
                     <td><input type="text" class="form-control form-control form-control-sm" value="${remark}" disabled></td>
@@ -213,15 +211,15 @@ const setting_first = {
         $('.inp_paid_usd').val(paid_usd)
         $('.inp_paid_rmb').val(paid_rmb)
         $('.inp_paid_hkd').val(paid_hkd)
+
         $('.cb_st_6').prop('checked',true)
-        
     },
 
     ajax_first_set: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/account_payable/get_data_table.php",
+                url: "php/account_receivable/get_data_table.php",
                 dataType: "json",
                 success: function (res) {
                     resolve(res);

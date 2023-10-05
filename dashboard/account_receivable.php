@@ -9,7 +9,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Account payable Check</title>
+    <title>Account receivable Check</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -107,7 +107,7 @@ require 'function/auth/get_session.php';
             </div> -->
             <div class="card">
                 <div class="card-header">
-                    <h4>Account payable Check</h4>
+                    <h4>Account receivable Check</h4>
                 </div>
 
                 <div class="card-body">
@@ -222,7 +222,7 @@ require 'function/auth/get_session.php';
                                 <datalist class="cs_support_data_option" id="cs_support_list">
                                 </datalist>
                             </div>
-                            <button class="btn btn-outline-primary btn-sm" onclick="ap_function.search_function();"><i class="bi bi-search"></i> search</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="ar_function.search_function();"><i class="bi bi-search"></i> search</button>
                         </div>
                     </div>
                     <div class="bd-example mt-3 table-responsive">
@@ -355,10 +355,10 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <div class="text-start">
-                        <button class="btn btn-sm btn-success" onclick="ap_function.checked_select_all()">Checked all 全选</button>
-                        <button class="btn btn-sm btn-warning" onclick="ap_function.unchecked_select_all()">Unchecked all 全不选</button>
-                        <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
+                        <button class="btn btn-sm btn-success" onclick="ar_function.checked_select_all()">Checked all 全选</button>
+                        <button class="btn btn-sm btn-warning" onclick="ar_function.unchecked_select_all()">Unchecked all 全不选</button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="ar_function.select_action_table('approve')" >Approve only select</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="ar_function.select_action_table('reject')" >Reject only select</button>
                     </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">
@@ -499,9 +499,9 @@ require 'function/auth/get_session.php';
 </body>
 
 </html>
-<script src="js/account_payable/setting_first.js"></script>
-<script src="js/account_payable/setting_default.js"></script>
-<script src="js/account_payable/ap_function.js"></script>
+<script src="js/account_receivable/setting_first.js"></script>
+<script src="js/account_receivable/setting_default.js"></script>
+<script src="js/account_receivable/ar_function.js"></script>
 <!-- <script src="js/currency_rate/currency_rate.js"></script> -->
 
 

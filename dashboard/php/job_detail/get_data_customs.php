@@ -1,6 +1,7 @@
 <?php
 include '../../core/conn.php';
-
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
 $id_number = $_POST['id_number'];
 
 $get_table_reportcs = "

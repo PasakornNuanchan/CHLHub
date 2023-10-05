@@ -1,5 +1,7 @@
 <?php
 include '../../core/conn.php';
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
 $id_number = $_POST['data'];
 
 $sql_get_data_payble = "

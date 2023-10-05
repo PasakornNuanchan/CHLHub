@@ -162,6 +162,7 @@ foreach ($arr_data_save_ap as $v) {
         ";
     }
 
+    //$sql_query_data_billing_ap;
     $result = $con->query($sql_query_data_billing_ap);
     if ($result->num_rows == 0) {
         $arr_res_ap = '1';
@@ -169,6 +170,8 @@ foreach ($arr_data_save_ap as $v) {
         $arr_res_ap = '0';
     }
 }
+
+
 
 foreach ($arr_data_save_ar as $v) {
 
@@ -181,7 +184,7 @@ foreach ($arr_data_save_ar as $v) {
     $unit_price = isset($v['unit_price']) ? $v['unit_price'] : '0';
     $vat = isset($v['vat']) ? $v['vat'] : '0';
     $sys_rate = isset($v['sys_rate']) ? $v['sys_rate'] : '';
-    $sys_rate_currency = isset($v['sys_rate_currency']) ? $v['sys_rate_currency'] : '';
+    $sys_rate_currency_b = isset($v['sys_rate_currency']) ? $v['sys_rate_currency'] : '';
     $remark = isset($v['remark']) ? $v['remark'] : '';
     $tax_with_hold = isset($v['tax_with_hold']) ? $v['tax_with_hold'] : '';
     $check = isset($v['check']) ? $v['check'] : '';
@@ -206,7 +209,7 @@ foreach ($arr_data_save_ar as $v) {
             `action_paid_by` = '$data_user',
             `action_paid_date_time` = '$t_time_save',
             ";
-            $query_status = "`status` = '1',`";
+            $query_status = "`status` = '1',";
 
         }
 
@@ -225,6 +228,8 @@ foreach ($arr_data_save_ar as $v) {
             ";
         }
 
+       
+
         // update
         $sql_query_data_billing_ar = "
         UPDATE
@@ -238,7 +243,7 @@ foreach ($arr_data_save_ar as $v) {
             `unit_price` = '$unit_price',
             `vat` = '$vat',
             `remark` = '$remark',
-            `type` = 'AP',
+            `type` = 'AR',
             $query_receiv
             $query_check
             $query_status
@@ -246,7 +251,7 @@ foreach ($arr_data_save_ar as $v) {
             `last_update_datetime` = '$t_time_save',
             $query_need_vat
             `sys_rate` = '$sys_rate',
-            `sys_rate_currency` = '$sys_rate_currency',
+            `sys_rate_currency` = '$sys_rate_currency_b',
             `with_holding_tax` = '$tax_with_hold'
         WHERE
             ID = '$get_id_list'
@@ -286,7 +291,10 @@ foreach ($arr_data_save_ar as $v) {
             $query_need_vat_d =  "'".$need_vat."'";
         }
 
-
+        
+        
+        
+        
         //insert
         $sql_query_data_billing_ar = "
         INSERT INTO `billing`(
@@ -303,8 +311,8 @@ foreach ($arr_data_save_ar as $v) {
             `create_by`,
             $query_check_h_b
             $query_check_h_d
-            $query_apply_h_d
             $query_apply_h_b
+            $query_apply_h_d
             $query_need_vat_h
             `status`,
             `ref_job_id`,
@@ -334,12 +342,12 @@ foreach ($arr_data_save_ar as $v) {
             '$id_number',
             '$sys_rate',
             '$t_time_save',
-            '$sys_rate_currency',
+            '$sys_rate_currency_b',
             '$with_holding_tax'
         )
         ";
     }
-
+    //$sql_query_data_billing_ar;
     $result = $con->query($sql_query_data_billing_ar);
     if ($result->num_rows == 0) {
         $arr_res_ar = '1';

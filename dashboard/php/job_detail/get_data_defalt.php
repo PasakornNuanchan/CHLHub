@@ -1,6 +1,8 @@
 <?php
 
 include '../../core/conn.php';
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
 
 $get_shipper = "SELECT ID,shipper_name FROM shipper";
 $get_shipment = "SELECT ID,st_name FROM shipment_term";

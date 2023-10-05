@@ -74,7 +74,7 @@ const function_sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_ar">
+                <td><select class="form-select form-select-sm inp_sys_rate_currency_arf">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
@@ -113,7 +113,7 @@ const function_sub_billing = {
         html_data_ap = `
         <tr list_id = "" type = "AP">
             <td></td>
-            <td>${rows_cal}</td>
+            <td class="text-center">${rows_cal}</td>
             <td>${sub_billing.select_billing_des_ap}</td>
             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
             <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
@@ -1268,7 +1268,7 @@ const function_sub_billing = {
 
         window.open(`php/job_detail/create_pdf_invoice_full.php?list_request=${text_sent}&job_number=${id_number}&header=${data_header}&footer=${data_footer}&due=${data_due_date}&currency=${data_currency}`, "_blank")
 
-        
+
     },
 
     get_generate_bill_ar_state_ment_account: async function () {
@@ -1282,8 +1282,6 @@ const function_sub_billing = {
     },
 
     sent_generate_bill_ar_debit_note_line: async function () {
-
-
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
@@ -1402,7 +1400,7 @@ const function_sub_billing = {
             let get_id_list = $(this).attr('id_list');
             let description_code = $('.sel_data_billing_ap', this).val()
             let billing_to = $('.inp_billing_to_ap', this).val()
-            let billing_to_type = $('.inp_billing_to_ap :selected',this).attr('type')
+            let billing_to_type = $('.inp_billing_to_ap :selected', this).attr('type')
             let currency = $('.inp_currency_ap', this).val()
             let qty = $('.inp_qty', this).val()
             let unit_price = $('.inp_unit_price', this).val()
@@ -1414,7 +1412,7 @@ const function_sub_billing = {
             let tax_with_hold = $('.chb_tax_hold', this).is(':checked') ? '1' : '0';
             let check = $('.chb_check', this).is(':checked') ? '1' : '0';
             let apply = $('.chb_apply', this).is(':checked') ? '1' : '0';
-            
+
             // case has id_list
             if (get_id_list != undefined) {
                 $.each(sub_billing.data_list_ap['get_data_ap'], function (i, v) {
@@ -1451,13 +1449,15 @@ const function_sub_billing = {
                             check_check == check &&
                             check_tax_with_hole == tax_with_hold
                         ) {
-                           
+
                         } else {
+
+                            
                             obj = {
                                 get_id_list: get_id_list,
                                 description_code: description_code,
                                 billing_to: billing_to,
-                                billing_to_type : billing_to_type,
+                                billing_to_type: billing_to_type,
                                 currency: currency,
                                 qty: qty,
                                 unit_price: unit_price,
@@ -1469,17 +1469,18 @@ const function_sub_billing = {
                                 tax_with_hold: tax_with_hold,
                                 check: check,
                                 apply: apply,
-                                id_number : id_number,
+                                id_number: id_number,
                             }
                             arr_data_save_ap.push(obj)
                         }
                     }
                 })
-            }else{
+            } else {
                 obj = {
                     get_id_list: get_id_list,
                     description_code: description_code,
                     billing_to: billing_to,
+                    billing_to_type: billing_to_type,
                     currency: currency,
                     qty: qty,
                     unit_price: unit_price,
@@ -1491,19 +1492,19 @@ const function_sub_billing = {
                     tax_with_hold: tax_with_hold,
                     check: check,
                     apply: apply,
-                    id_number : id_number,
+                    id_number: id_number,
                 }
                 arr_data_save_ap.push(obj)
             }
         })
-        console.log(arr_data_save_ap)
+
 
         let arr_data_save_ar = [];
         $('.table_billing_ar > tbody > tr').each(function () {
             let get_id_list = $(this).attr('id_list');
             let description_code = $('.select_code_billing_ar', this).val()
             let billing_to = $('.select_bill_to_ar', this).val()
-            let billing_to_type = $('.select_bill_to_ar :selected',this).attr('type')
+            let billing_to_type = $('.select_bill_to_ar :selected', this).attr('type')
             let currency = $('.inp_currency_ar', this).val()
             let qty = $('.inp_qty_ar', this).val()
             let unit_price = $('.inp_unit_price', this).val()
@@ -1511,11 +1512,13 @@ const function_sub_billing = {
             let sys_rate = $('.inp_sys_rate_ar', this).val()
             let sys_rate_currency = $('.inp_sys_rate_currency_arf', this).val()
             let remark = $('.inp_remark', this).val()
-            let receiv_amt = $('.ch_revd_amt_ar',this).is(':checked') ? '1' : '0';
-            let need_vat = $('.ch_need_vat_ar',this).is(':checked') ? '1' : '0';
+            let receiv_amt = $('.ch_revd_amt_ar', this).is(':checked') ? '1' : '0';
+            let need_vat = $('.ch_need_vat_ar', this).is(':checked') ? '1' : '0';
             let tax_with_hold = $('.inp_wt_percentage', this).is(':checked') ? '1' : '0';
             let check = $('.ch_check_ar', this).is(':checked') ? '1' : '0';
+
             
+
             // case has id_list
             if (get_id_list != undefined) {
                 $.each(sub_billing.data_list_ar['get_data_ar'], function (i, v) {
@@ -1537,7 +1540,8 @@ const function_sub_billing = {
                         let check_receiv_amt = v['action_paid_by'] ? 1 : 0;
                         let check_need_vat = v['need_vat'] == '1' ? 1 : 0;
 
-                        
+
+
                         if (description_code == check_description &&
                             billing_to == check_billing_to &&
                             billing_to_type == check_billing_to_type &&
@@ -1554,13 +1558,13 @@ const function_sub_billing = {
                             need_vat == check_need_vat
 
                         ) {
-                           
+
                         } else {
                             obj = {
                                 get_id_list: get_id_list,
                                 description_code: description_code,
                                 billing_to: billing_to,
-                                billing_to_type : billing_to_type,
+                                billing_to_type: billing_to_type,
                                 currency: currency,
                                 qty: qty,
                                 unit_price: unit_price,
@@ -1570,20 +1574,21 @@ const function_sub_billing = {
                                 remark: remark,
                                 tax_with_hold: tax_with_hold,
                                 check: check,
-                                receiv_amt : receiv_amt,
-                                need_vat : need_vat,
-                                id_number : id_number,
+                                receiv_amt: receiv_amt,
+                                need_vat: need_vat,
+                                id_number: id_number,
                             }
                             arr_data_save_ar.push(obj)
                         }
                     }
                 })
-            }else{
+            } else {
                 obj = {
                     get_id_list: get_id_list,
                     description_code: description_code,
                     billing_to: billing_to,
                     currency: currency,
+                    billing_to_type: billing_to_type,
                     qty: qty,
                     unit_price: unit_price,
                     vat: vat,
@@ -1592,24 +1597,35 @@ const function_sub_billing = {
                     remark: remark,
                     tax_with_hold: tax_with_hold,
                     check: check,
-                    receiv_amt : receiv_amt,
-                    need_vat : need_vat,
-                    id_number : id_number,
+                    receiv_amt: receiv_amt,
+                    need_vat: need_vat,
+                    id_number: id_number,
                 }
+                
                 arr_data_save_ar.push(obj)
             }
+            
+            
         })
-        
-        
-        let res_data = await this.ajax_save_data_billing(arr_data_save_ap,arr_data_save_ar)
-        
+
+        //console.log(arr_data_save_ap)
+        console.log(arr_data_save_ar)
+        console.log(arr_data_save_ap)
+        let res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar)
+
         if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
             Swal.fire(
                 'saved!',
                 'Your data has been saved.',
                 'success'
             )
-        }else{
+        }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
+            Swal.fire(
+                'saved!',
+                'Your data has been saved.',
+                'success'
+            )
+        }else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -1618,16 +1634,16 @@ const function_sub_billing = {
         }
     },
 
-    
 
-    ajax_save_data_billing : async function (arr_data_save_ap,arr_data_save_ar) {
+
+    ajax_save_data_billing: async function (arr_data_save_ap, arr_data_save_ar) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/job_detail/save_data_billing_ap.php",
                 data: {
-                    arr_data_save_ap : arr_data_save_ap,
-                    arr_data_save_ar : arr_data_save_ar
+                    arr_data_save_ap: arr_data_save_ap,
+                    arr_data_save_ar: arr_data_save_ar
                 },
                 dataType: "json",
                 success: function (res) {
@@ -1637,34 +1653,34 @@ const function_sub_billing = {
         });
     },
 
-    change_currency : function(e){
-        
+    change_currency: function (e) {
+
         let type_data = $(e).closest('tr').attr('type')
-        let first_currency = '';        
+        let first_currency = '';
         let last_currency = '';
         let date_mo = '';
-        
 
-        if(type_data == "AP"){
+
+        if (type_data == "AP") {
             first_currency = $(e).closest('tr').find('td > .inp_currency_ap').val()
             last_currency = $(e).closest('tr').find('td > .inp_sys_rate_currency_ap').val()
             date_mo = $(e).closest('tr').find('td > .inp_create_date_ap').val()
-        }else{
+        } else {
             first_currency = $(e).closest('tr').find('td > .inp_currency_ar').val()
             last_currency = $(e).closest('tr').find('td > .inp_sys_rate_currency_arf').val()
             date_mo = $(e).closest('tr').find('td > .inp_create_datetime_ar').val()
         }
-        
 
-        let data_request = first_currency+"_"+last_currency
+
+        let data_request = first_currency + "_" + last_currency
         console.log(data_request.toLowerCase())
         console.log(date_mo)
 
 
-        
+
     }
 
-    
+
 
 
 

@@ -1,4 +1,4 @@
-const ap_function = {
+const ar_function = {
 
 
     search_function: async function () {
@@ -216,7 +216,7 @@ const ap_function = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/account_payable/get_data_table.php",
+                url: "php/account_receivable/get_data_table.php",
                 data: { arr_data: arr_data },
                 dataType: "json",
                 success: function (res) {
@@ -266,7 +266,7 @@ const ap_function = {
 
         })
 
-        let res_data = this.ajax_set_status_data(arr_data_sent);
+        let res_data = await this.ajax_set_status_data(arr_data_sent);
         if(res_data['res_arr'] == '1'){
             Swal.fire(
                 'Save it!',
@@ -286,7 +286,7 @@ const ap_function = {
 
     select_approve: async function (e) {
         let data_id = $(e).closest('tr').attr('data_id');
-
+        let arr_data_sent =[]
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -295,7 +295,7 @@ const ap_function = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, got it!'
-        }).then((result) => {
+        }).then(async(result) => {
             if (result.isConfirmed) {
                 let name_data = $(e).attr('name_data')
                 
@@ -304,10 +304,10 @@ const ap_function = {
                     name_data :name_data,
                 }
 
-                let arr_data_sent =[]
                 arr_data_sent.push(obj_data)
-
-                let res_data = this.ajax_set_status_data(arr_data_sent);
+                
+                let res_data = await this.ajax_set_status_data(arr_data_sent);
+                console.log(res_data)
                 if(res_data['res_arr'] == '1'){
                     Swal.fire(
                         'Save it!',
@@ -327,9 +327,11 @@ const ap_function = {
                 let data_finded = $.grep(setting_first.get_res_data_table,function(obj){
                     return obj.ID === data_id;
                 })
-                
+                console.log(data_finded[0]['status'])
                 if(data_finded[0]['status'] == '1'){
                     $(e).closest('tr').find(`.data_sela_1`).prop('checked',true)
+                }else if (data_finded[0]['status'] == '2'){
+                    $(e).closest('tr').find(`.data_sela_2`).prop('checked',true)
                 }else if (data_finded[0]['status'] == '3'){
                     $(e).closest('tr').find(`.data_sela_3`).prop('checked',true)
                 }
@@ -341,7 +343,7 @@ const ap_function = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/account_payable/set_status.php",
+                url: "php/account_receivable/set_status.php",
                 data: { arr_data_sent : arr_data_sent},
                 dataType: "json",
                 success: function (res) {

@@ -1,6 +1,7 @@
 <?php
 include '../../core/conn.php';
-
+require '../../function/auth/get_session.php';
+require '../../core/con_path.php';
 //$data_id = 1;
 $data_id = $_POST['data'];
 
