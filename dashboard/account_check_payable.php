@@ -9,7 +9,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Account payable reject</title>
+    <title>Account payable check</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -21,20 +21,28 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    /* .table_data_account td:nth-child(3) input,
-    .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(5) input,
-    .table_data_account td:nth-child(6) input,
+    .table_data_account td:nth-child(3) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,
     .table_data_account td:nth-child(9) input,
     .table_data_account td:nth-child(10) input,
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input,
-    .table_data_account td:nth-child(13) input,
     .table_data_account td:nth-child(14) input {
         width: 150px;
-    } */
+    }
+
+    .table_data_account td:nth-child(6) input,
+    .table_data_account td:nth-child(9) input{
+        width: 70px;
+    }
+
+    .table_data_account td:nth-child(4) input,
+    .table_data_account td:nth-child(5) input,
+    .table_data_account td:nth-child(13) input
+    {
+        width: 250px;
+    }
 </style>
 
 
@@ -62,7 +70,7 @@ require 'function/auth/get_session.php';
             <!-- headtab -->
             <div class="card">
                 <div class="card-header">
-                    <h4>Account Payable Reject</h4>
+                    <h4>Account Payable Check</h4>
                 </div>
 
                 <div class="card-body">
@@ -87,7 +95,7 @@ require 'function/auth/get_session.php';
                     <div class="bd-example mt-3">
                         <div class="row g-3">
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Select Search</label>
+                                <label class="form-label">Select currency</label>
                                 <select name="" id="" class="form-select form-select-sm sel_currency">
                                     <option value="">-- Select currency --</option>
                                     <option value="USD">USD</option>
@@ -97,10 +105,10 @@ require 'function/auth/get_session.php';
                                 </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Date Start 开始日期</label>
-                                <input type="date" class="form-control form-control-sm inp_start_date">
+                                <label class="form-label">Total</label>
+                                <input type="text" class="form-control form-control-sm inp_total">
                             </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Date End 结束日期</label>
                                 <input type="date" class="form-control form-control-sm inp_end_date">
                             </div>
@@ -115,8 +123,8 @@ require 'function/auth/get_session.php';
                                 <input type="text" class="form-control form-control-sm inp_cs" list="cs_support_list">
                                 <datalist class="cs_support_data_option" id="cs_support_list">
                                 </datalist>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" onclick="ap_function.search_function();"><i class="bi bi-search"></i> search</button>
+                            </div> -->
+                            <button class="btn btn-outline-primary btn-sm" onclick="function_acp.filter_select();"><i class="bi bi-search"></i> search</button>
                         </div>
                     </div>
                     <div class="bd-example mt-3 table-responsive">
@@ -192,22 +200,22 @@ require 'function/auth/get_session.php';
                         </table>
                     </div>
 
-                    <!-- <div class="text-start"> -->
-                        <!-- <button class="btn btn-sm btn-success" onclick="ap_function.checked_select_all()">Checked all 全选</button> -->
-                        <!-- <button class="btn btn-sm btn-warning" onclick="ap_function.unchecked_select_all()">Unchecked all 全不选</button> -->
-                        <!-- <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button> -->
-                        <!-- <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button> -->
-                    <!-- </div> -->
+                    <div class="text-start">
+                        <button class="btn btn-sm btn-success" onclick="function_acp.select_all('select')">select all 全选</button>
+                        <button class="btn btn-sm btn-warning" onclick="function_acp.select_all('deselect')">deselect all 全不选</button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
+                    </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">
-                            <label class="col-xl-2">Total Payables 应付合计</label>
+                            <label class="col-xl-2">Total Amount Including Tax: 含税合计：</label>
 
                             <div class="col-xl-2 col-sm-12 col-sx-12 row">
                                 <div class="col-xs-2 col-sm-2 col-xl-2">
                                     <label>USD</label>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm total_payble_usd text-end" disabled>
+                                    <input type="text" class="form-control form-control-sm total_incv_usd text-end" disabled>
                                 </div>
                             </div>
 
@@ -216,7 +224,7 @@ require 'function/auth/get_session.php';
                                     <label>THB</label>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm total_payble_thb text-end" disabled>
+                                    <input type="text" class="form-control form-control-sm total_incv_thb text-end" disabled>
                                 </div>
                             </div>
 
@@ -225,7 +233,7 @@ require 'function/auth/get_session.php';
                                     <label>RMB</label>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm total_payble_rmb text-end" disabled>
+                                    <input type="text" class="form-control form-control-sm total_incv_rmb text-end" disabled>
                                 </div>
                             </div>
 
@@ -234,11 +242,11 @@ require 'function/auth/get_session.php';
                                     <label>HKD</label>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm total_payble_hkd text-end" disabled>
+                                    <input type="text" class="form-control form-control-sm total_incv_hkd text-end" disabled>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row text-center">
+                        <!-- <div class="form-group row text-center">
                             <label class="col-xl-2">Verified Total Payables 应付已审合计：</label>
                             <div class="col-xl-2 col-sm-12 col-sx-12 row">
                                 <div class="col-xs-2 col-sm-2 col-xl-2">
@@ -313,7 +321,7 @@ require 'function/auth/get_session.php';
                                     <input type="text" class="form-control form-control-sm inp_paid_hkd text-end" disabled>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -341,13 +349,18 @@ require 'function/auth/get_session.php';
 <!-- <script src="js/account_payable/setting_default.js"></script> -->
 <!-- <script src="js/account_payable/ap_function.js"></script> -->
 <!-- <script src="js/currency_rate/currency_rate.js"></script> -->
-
+<script src="js/account_check_payable/first_setting.js"></script>
+<script src="js/account_check_payable/function_acp.js"></script>
 
 
 
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
+        first_setting.start_page()
+        first_setting.setting_default()
+        first_setting.setting_data_table()
+        
         // setting_first.first_set();
         // setting_default.setting_default();
         // job_detail.set_header_page();

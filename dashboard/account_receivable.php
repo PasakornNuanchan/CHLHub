@@ -107,7 +107,7 @@ require 'function/auth/get_session.php';
             </div> -->
             <div class="card">
                 <div class="card-header">
-                    <h4>Account receivable Check</h4>
+                    <h4>Account receivable (Acc)</h4>
                 </div>
 
                 <div class="card-body">
@@ -198,8 +198,9 @@ require 'function/auth/get_session.php';
                                 <select name="" id="" class="form-select form-select-sm sel_serach">
                                     <option value="">-- Select Search --</option>
                                     <option value="1">Create Date</option>
-                                    <option value="2">Apply Date</option>
-                                    <option value="3">Check Date</option>
+                                    <option value="2">Check Date</option>
+                                    <option value="3">Apply Date</option>
+
                                 </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">

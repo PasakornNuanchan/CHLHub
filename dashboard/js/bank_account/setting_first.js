@@ -145,8 +145,3 @@ const setting_first = {
     },
 }
 
-function removeDuplicates(array) {
-    return $.grep(array, function(el, index) {
-      return index === $.inArray(el, array);
-    });
-  }

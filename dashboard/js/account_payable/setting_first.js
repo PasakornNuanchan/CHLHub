@@ -4,10 +4,10 @@ const setting_first = {
     first_set: async function () {
 
 
-        $('.head-of-menu').html('Account Payable (CHECK)');
+        $('.head-of-menu').html('Account Payable (Acc)');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Check)</a></li>
+        <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Acc)</a></li>
         `;
         $('.bcpage').append(html_bdpage);
 

@@ -50,18 +50,18 @@ if ($arr_data[0]['data_status'] != '') {
 
     $bill_to = $type_bill_to_serach != '' ? "AND b.bill_to_type = '$type_bill_to_serach' AND b.bill_to = '$data_bill_to_serach' " : '';
     $job_number = $job_number_data_serach != '' ? "AND b.ref_job_id ='$job_number_data_serach' " : '';
-    $hbl = $hbl_data_serach != '' ? "AND bl.hbl = '$hbl_data_serach' " : '';
-    $container = $container_data_serach != '' ? "AND c1.container_number = '$container_data_serach' " : '';
+    $hbl = $hbl_data_serach != '' ? "AND bl.ID = '$hbl_data_serach' " : '';
+    $container = $container_data_serach != '' ? "AND c1.ID = '$container_data_serach' " : '';
     $billing_des = $billing_data_serach != '' ? "AND b.billing_description ='$billing_data_serach ' " : '';;
-    $sale_support = $sale_data_search != '' ? "AND jt.sale_support = '$sale_data_search' " : '';
+    $sale_support = $sale_data_search != '' ? "AND jt.sale_support = '$sale_data_search'" : '';
     $cs_support = $cs_data_search != '' ? "AND jt.cs_support = '$cs_data_search' " : '';
 
     if($data_search != ''){
       if($data_search == '1'){
         $search_date = "AND b.create_data_time BETWEEN '$data_start_date' AND '$data_end_date' ";
-      }else if($data_search = '2'){
+      }else if($data_search == '2'){
         $search_date = "AND b.check_date_time BETWEEN '$data_start_date' AND '$data_end_date' ";
-      }else if($data_search = '3'){
+      }else if($data_search == '3'){
         $search_date = "AND b.action_paid_date_time BETWEEN '$data_start_date' AND '$data_end_date' ";
       }
     }

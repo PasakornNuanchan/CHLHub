@@ -24,11 +24,11 @@ foreach($arr_data_sent as $k => $v){
     ";
     
     $result = $con->query($sql_query_data_status);
-            if ($result->num_rows == 0) {
-                $res_arr = '1';
-            } else {
-                $res_arr = '0';
-            }
+    if ($result->num_rows == 0) {
+        $res_arr = '1';
+    } else {
+        $res_arr = '0';
+    }
 }
 
 echo json_encode((array('res_arr'=>$res_arr)))
