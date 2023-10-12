@@ -42,8 +42,8 @@ if($arr_data[0] != ''){
       FROM
           billing b
       WHERE
-          b.type = 'AR' 
-          AND b.type = 'AR' 
+          b.type = 'AP' 
+          AND b.type = 'AP' 
           AND b.approve_date_time IS NOT NULL
           $data_query_type_n_id
           $data_query_job

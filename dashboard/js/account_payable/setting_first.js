@@ -127,9 +127,12 @@ const setting_first = {
                     currency_hkd = currency_hkd + ap_amt_incvat_cal
                 }
 
+
+
+
+                // <td><input type="checkbox" class="form-input-check chx_select_data"></td>
                 html_append_data = `
                 <tr class="text-center data_id${id_number}" data_id = "${id_number}">
-                    <td><input type="checkbox" class="form-input-check chx_select_data"></td>
                     <td>${i}</td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${job_number}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${bill_to_c}" disabled></td>                                    Bill to

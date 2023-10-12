@@ -41,18 +41,15 @@ require 'function/auth/get_session.php';
         width: 150px;
     }
 
-    .table_data_account td:nth-child(7) input{
+    .table_data_account td:nth-child(7) input {
         width: 80px;
 
     }
 
-    .table_data_account td:nth-child(5) input{
+    .table_data_account td:nth-child(5) input {
         width: 250px;
 
     }
-
-
-   
 </style>
 
 
@@ -79,8 +76,10 @@ require 'function/auth/get_session.php';
 
             <!-- headtab -->
             <div class="card">
-                <div class="card-header">
+                <div class="card-headerw">
                     <h4>Account Payable Report</h4>
+                    <button class="btn btn-outline-warning btn-sm rounded" onclick="function_arp.open_excel()">print</button>
+
                 </div>
 
                 <div class="card-body">
@@ -115,7 +114,7 @@ require 'function/auth/get_session.php';
                     <div class="bd-example mt-3">
                         <div class="row g-3">
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Select currency</label>
+                                <label class="form-label">Select type filter</label>
                                 <select name="" id="" class="form-select form-select-sm sel_type_date">
                                     <option value="">-- Select type --</option>
                                     <option value="cred">Create Date</option>
@@ -132,9 +131,19 @@ require 'function/auth/get_session.php';
                                 <label class="form-label">Date End 结束日期</label>
                                 <input type="date" class="form-control form-control-sm inp_end_date">
                             </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                
-                                
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input cb_st_6" name="bsradio2" name_data="1">
+                                    <label for="radio3" class="form-check-label pl-2">All</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input cb_st_1" name="bsradio2" name_data="1">
+                                    <label for="radio3" class="form-check-label pl-2">Unpayment</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input cb_st_2" name="bsradio2" name_data="2">
+                                    <label for="radio3" class="form-check-label pl-2">Payment</label>
+                                </div>
                             </div>
 
                             <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
@@ -240,15 +249,15 @@ require 'function/auth/get_session.php';
                                     <td class="text-center"><input type="text" class="form-control form-control inp_thb"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_rmb"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_hkd"></td>
-                                    <td class="text-center"><input type="text" class="form-control form-control inp_amount_currency"></td>  
+                                    <td class="text-center"><input type="text" class="form-control form-control inp_amount_currency"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_exchage_rate"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_so"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_bl"></td>
-                                    <td class="text-center"><input type="text" class="form-control form-control inp_sailing_date"></td>  
+                                    <td class="text-center"><input type="text" class="form-control form-control inp_sailing_date"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_vessel"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_etd"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_eta"></td>
-                                    <td class="text-center"><input type="text" class="form-control form-control inp_request_by"></td>  
+                                    <td class="text-center"><input type="text" class="form-control form-control inp_request_by"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_customer_address"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_customer_phone"></td>
                                 </tr>
@@ -257,12 +266,12 @@ require 'function/auth/get_session.php';
                         </table>
                     </div>
 
-                    <div class="text-start">
+                    <!-- <div class="text-start">
                         <button class="btn btn-sm btn-success" onclick="function_arp.select_all('select')">select all 全选</button>
                         <button class="btn btn-sm btn-warning" onclick="function_arp.select_all('deselect')">deselect all 全不选</button>
-                        <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
-                    </div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()">Approve only select</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')">Reject only select</button>
+                    </div> -->
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">
                             <label class="col-xl-2">Total Amount Including Tax: 含税合计：</label>
@@ -415,7 +424,7 @@ require 'function/auth/get_session.php';
     $(document).ready(function() {
         sidebar_main.set_data_rows();
         first_setting.start_page()
-        // first_setting.setting_default()
+        first_setting.default_setting()
         first_setting.setting_data_table()
     });
 </script>

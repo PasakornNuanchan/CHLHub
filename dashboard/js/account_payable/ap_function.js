@@ -138,9 +138,13 @@ const ap_function = {
                     currency_hkd = currency_hkd + ap_amt_incvat_cal
                 }
 
+
+                // <td><input type="checkbox" class="form-input-check chx_select_data"></td>
+
+
+
                 html_append_data = `
                 <tr class="text-center data_id${id_number}" data_id = "${id_number}">
-                    <td><input type="checkbox" class="form-input-check chx_select_data"></td>
                     <td>${i}</td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${job_number}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm" value="${bill_to_c}" disabled></td>                                    Bill to
@@ -286,11 +290,15 @@ const ap_function = {
 
     select_approve: async function (e) {
         let data_id = $(e).closest('tr').attr('data_id');
+        let data_amt_incv = $(e).closest('tr').find('td > .inp_ap_amt_incvat').val()
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            html: 
+            `Total : ${data_amt_incv}<br> 
+            if you want to pay in installment pls enter your `,
             icon: 'warning',
+            input: 'text',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

@@ -21,7 +21,7 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    .table_data_account td:nth-child(3) input,
+    /* .table_data_account td:nth-child(3) input,
     .table_data_account td:nth-child(4) input,
     .table_data_account td:nth-child(16) input,
     .table_data_account td:nth-child(17) input,
@@ -54,6 +54,45 @@ require 'function/auth/get_session.php';
 
     .table_data_account td:nth-child(10) input,
     .table_data_account td:nth-child(11) input {
+        width: 70px;
+    } */
+
+
+
+
+    .table_data_account td:nth-child(2) input,
+    .table_data_account td:nth-child(3) input,
+    .table_data_account td:nth-child(15) input,
+    .table_data_account td:nth-child(16) input,
+    .table_data_account td:nth-child(17) input,
+    .table_data_account td:nth-child(18) input,
+    .table_data_account td:nth-child(19) input,
+    .table_data_account td:nth-child(20) input,
+    .table_data_account td:nth-child(21) input,
+    .table_data_account td:nth-child(22) input,
+    .table_data_account td:nth-child(23) input,
+    .table_data_account td:nth-child(24) input {
+        width: 150px;
+    }
+
+    .table_data_account td:nth-child(4) input,
+    .table_data_account td:nth-child(14) input {
+        width: 200px;
+    }
+
+    .table_data_account td:nth-child(5) input,
+    .table_data_account td:nth-child(6) input,
+    .table_data_account td:nth-child(7) input,
+    .table_data_account td:nth-child(8) input,
+    .table_data_account td:nth-child(11) input,
+    .table_data_account td:nth-child(12) input {
+        width: 120px;
+    }
+
+
+
+    .table_data_account td:nth-child(9) input,
+    .table_data_account td:nth-child(10) input {
         width: 70px;
     }
 </style>
@@ -230,7 +269,7 @@ require 'function/auth/get_session.php';
                         <table class="table table-hover table_data_account" style="zoom: 60%">
                             <thead>
                                 <tr class="text-center">
-                                    <th></th>
+                                    <!-- <th></th> -->
                                     <th>No.</th>
                                     <th>Job No.</th>
                                     <th>Bill to</th>
@@ -260,7 +299,7 @@ require 'function/auth/get_session.php';
                                     <th>Request payble</th>
                                 </tr>
                                 <tr class="text-center">
-                                    <th></th>
+                                    <!-- <th></th> -->
                                     <th>序号</th>
                                     <th>系统单号</th>
                                     <th>结算单位</th>
@@ -355,12 +394,12 @@ require 'function/auth/get_session.php';
                         </table>
                     </div>
 
-                    <div class="text-start">
+                    <!-- <div class="text-start">
                         <button class="btn btn-sm btn-success" onclick="ap_function.checked_select_all()">Checked all 全选</button>
                         <button class="btn btn-sm btn-warning" onclick="ap_function.unchecked_select_all()">Unchecked all 全不选</button>
                         <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button>
                         <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
-                    </div>
+                    </div> -->
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">
                             <label class="col-xl-2">Total Payables 应付合计</label>

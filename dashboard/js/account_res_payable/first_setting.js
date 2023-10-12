@@ -1,11 +1,13 @@
 const first_setting = {
+
+    
     start_page : async function (){
 
 
-        $('.head-of-menu').html('Account Receivable (Check)');
+        $('.head-of-menu').html('Account Payable Report');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="account_check_receivable.php" target="" style="color:white;">Account Payable (check)</a></li>
+        <li class="breadcrumb-item"><a href="account_res_payable.php" target="" style="color:white;">Account Payable Report</a></li>
         `;
         $('.bcpage').append(html_bdpage);
     },
@@ -23,6 +25,11 @@ const first_setting = {
         if(res_data != "0 results"){
             $('.table_data_account tbody').html('')
             let html_data_tr = '';
+
+
+
+            
+
             $.each(res_data['table'],function(i,v){
                 let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
                 let consginee_tel = v['consginee_tel'] ? v['consginee_tel'] : '';
@@ -47,6 +54,8 @@ const first_setting = {
                 let data_total = qty*unit_price
                 let data_incv = (data_total*(vat/100))+data_total
                 let data_currency = data_incv*sys_rate
+
+                
                 i++;
                 html_data_tr = `
                 <tr class="id_row_${i}" id_nubmer="${id_number}">
@@ -120,7 +129,7 @@ const first_setting = {
 
         }
             
-
+        $('.cb_st_6').prop('checked',true)
 
     },
 
@@ -136,4 +145,66 @@ const first_setting = {
             });
         });
     },
+
+    default_setting : async function(){
+        let res_data = await this.ajax_setting_default();
+
+        let res_bill_to = await removeDuplicate_bill_to(res_data['bill_to']);
+        let res_job_detail = await removeDuplicate_job_number(res_data['job_number']);
+        
+
+        let html_data_bill_to = '';
+        let html_data_job_number = '';
+        $.each(res_bill_to,function(i,v){
+            html_data_bill_to += `<option value="${v['bill_to_c']}" data_type="${v['bill_to_type']}" data_row="${v['bill_to']}">${v['bill_to_c']}</option>`;
+        })
+
+        $.each(res_job_detail,function(i,v){
+            html_data_job_number += `<option value="${v['job_number']}" data_row="${v['id_number']}">${v['job_number']}</option>`;
+        })
+
+        $('.bill_to_list_option').append(html_data_bill_to)
+        $('.job_number_list_option').append(html_data_job_number)
+
+
+
+
+    },
+
+    ajax_setting_default : async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_res_payable/get_data_default.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+}
+
+async function removeDuplicate_bill_to(array) {
+    let uniqueObjects = {};
+
+    array.forEach(function(obj) {
+        if (!uniqueObjects[obj.bill_to_c]) {
+            uniqueObjects[obj.bill_to_c] = obj;
+        }
+    });
+
+    return Object.values(uniqueObjects);
+}
+
+async function removeDuplicate_job_number(array) {
+    let uniqueObjects = {};
+
+    array.forEach(function(obj) {
+        if (!uniqueObjects[obj.id_number]) {
+            uniqueObjects[obj.id_number] = obj;
+        }
+    });
+
+    return Object.values(uniqueObjects);
 }

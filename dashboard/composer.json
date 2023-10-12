@@ -1,0 +1,13 @@
+{
+    "name": "mn/chlhub",
+    "description": "chlhub",
+    "autoload": {
+        "psr-4": {
+            "Mn\\Chlhub\\": "src/"
+        }
+    },
+    "require": {
+        "phpoffice/phpexcel": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.29"
+    }
+}
