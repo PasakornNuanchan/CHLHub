@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
 }
 
 $sql_query_bl_list = "
-SELECT * FROM `bl_list` WHERE ref_job_id = '$job_number'
+SELECT * FROM `bl_list` WHERE bl_title_id = '$bl_number'
 ";
 $result = $con->query($sql_query_bl_list);
 if ($result->num_rows > 0) {
@@ -190,11 +190,11 @@ $set_height_header = 6;
 // $pdf->SetX(140);
 // $pdf->Cell(60, $set_height_header, "B/L NO.", '', 0, 'L');
 
-foreach($data as $k => $v){
-  $pdf->SetFont('times', '', 8, '', true);
-  $pdf->SetXY(20,17);
-  $pdf->MultiCell(100, 3, $v['shipper_bl'], '', 0);
-}
+// foreach($data as $k => $v){
+//   $pdf->SetFont('times', '', 8, '', true);
+//   $pdf->SetXY(20,17);
+//   $pdf->MultiCell(100, 3, strtoupper($v['shipper_bl']), '', 0);
+// }
 
 foreach($data as $k => $v){
   $pdf->SetFont('times', '', 8, '', true);
@@ -255,6 +255,10 @@ foreach($data_shipperandconsignee as $k => $v){
   $pdf->Cell(100,3,strtoupper($v['a4location'].",".$v['a4provice']),0,0,'L');
 }
 
+foreach($data as $k => $v){
+  $pdf->SetXY(120, 108);
+  $pdf->MultiCell(90, 3, strtoupper($v['final_destination']), '', "L");
+}
 
 $data_last_y_get = 128;
 foreach($data_bl_list as $k => $v){

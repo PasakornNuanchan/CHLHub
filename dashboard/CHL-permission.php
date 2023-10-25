@@ -180,6 +180,21 @@ require 'function/auth/get_session.php';
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-lg-3"></div>
+                                            <div class="col-sm-9 col-lg-9">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                                        <select class="form-select form-select-sm inp_billofladding">
+                                                            <option value="1">Full permission</option>
+                                                            <option value="2">View only</option>
+                                                            <option value="3">Hide / disabled</option>
+                                                        </select>
+                                                    </div>
+                                                    <label class="control-label col-sm-3 col-lg-5 align-self-center ">Bill of lading</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div style="float: right">
                                         <button class="btn btn-success rounded-pill btn-sm" onclick="permission_set.save_permission_job()"><i class="bi bi-check-square"></i> Save</button>

@@ -12,7 +12,7 @@ const setting_first = {
         $('.bcpage').append(html_bdpage);
 
 
-
+        
         let res_data = await this.ajax_first_set();
         console.log(res_data)
 
@@ -217,7 +217,7 @@ const setting_first = {
         $('.inp_paid_rmb').val(paid_rmb)
         $('.inp_paid_hkd').val(paid_hkd)
 
-        $('.cb_st_6').prop('checked',true)
+        await $('.sel_st_1').prop('checked',true)
     },
 
     ajax_first_set: async function () {

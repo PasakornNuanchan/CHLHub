@@ -196,7 +196,7 @@ $pdf->AddFont('times', 'I', 'timesi.php');
 $set_height_header = 6;
 $pdf->SetXY(10, 12);
 $pdf->SetFont('times', 'B', 8, '', true);
-$pdf->Cell(100, $set_height_header, "Shipper", 'TR', 0, 'L');
+$pdf->Cell(100, strtoupper($set_height_header), "Shipper", 'TR', 0, 'L');
 $pdf->SetX(140);
 $pdf->Cell(60, $set_height_header, "B/L NO.", 1, 0, 'L');
 

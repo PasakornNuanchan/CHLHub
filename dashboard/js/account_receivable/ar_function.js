@@ -1,5 +1,23 @@
 const ar_function = {
 
+    select_data : async function(e){
+        if(e == '6'){
+            $('.sel_st_1').prop('checked',false)
+            $('.sel_st_2').prop('checked',false)
+            $('.sel_st_3').prop('checked',false)
+            $('.sel_st_4').prop('checked',false)
+            $('.sel_st_5').prop('checked',false)
+        }else if(e == '1'){
+            $('.sel_st_5').prop('checked',false)  
+            $('.sel_st_6').prop('checked',false)  
+        }else if(e == '5'){
+            $('.sel_st_1').prop('checked',false)  
+            $('.sel_st_6').prop('checked',false)  
+        }else if(e == '2' || e == '3' | e == '4'){
+            $('.sel_st_6').prop('checked',false)  
+        }
+    },
+
 
     search_function: async function () {
         let arr_data = []
@@ -15,44 +33,24 @@ const ar_function = {
         let data_sale = $('.inp_sale').val()
         let data_cs = $('.inp_cs').val()
 
-        let data_action_status = $('input[name="bsradio2"]:checked').attr('name_data');
-
-        let data_checked_create = $('.cb_st_1').is(':checked') ? '1' : '0';
-        let data_checked_check = $('.cb_st_2').is(':checked') ? '1' : '0';
-        let data_checked_applied = $('.cb_st_3').is(':checked') ? '1' : '0';
-        let data_checked_approve = $('.cb_st_4').is(':checked') ? '1' : '0';
-        let data_checked_paid = $('.cb_st_4').is(':checked') ? '1' : '0';
-        let data_checked_all = $('.cb_st_6').is(':checked') ? '1' : '0';
-
-
-
-        //console.log(data_action_status)
-        //let data_radio_filter = $('input[name="bsradio1"]:checked').attr('id');
+        // let data_action_status = $('input[name="bsradio2"]:checked').attr('name_data');
+        let st_1 = $('.sel_st_1').prop('checked') ? '1' : '0';
+        let st_2 = $('.sel_st_2').prop('checked') ? '1' : '0';
+        let st_3 = $('.sel_st_3').prop('checked') ? '1' : '0';
+        let st_4 = $('.sel_st_4').prop('checked') ? '1' : '0';
+        let st_5 = $('.sel_st_5').prop('checked') ? '1' : '0';
+        let st_6 = $('.sel_st_6').prop('checked') ? '1' : '0';
 
         let sale_data_search = $(`#sale_support_list option[value="${data_sale}"]`).attr('id_number')
         let cs_data_search = $(`#cs_support_list option[value="${data_cs}"]`).attr('id_number')
 
-
         let data_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('data_id')
         let type_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('type_data')
-
-
-
 
         let job_number_data_serach = $(`#job_number_list option[value="${data_job_number}"]`).attr('id_number')
         let hbl_data_serach = $(`#hbl_list option[value="${data_hbl}"]`).attr('id_number')
         let container_data_serach = $(`#container_list option[value="${data_container}"]`).attr('id_number')
         let billing_data_serach = $(`#billing_code_list option[value="${data_billing_code}"]`).attr('id_number')
-
-
-        // console.log(data_bill_to_serach)
-        // console.log(type_bill_to_serach)
-        // console.log(job_number_data_serach)
-        // console.log(hbl_data_serach)
-        // console.log(container_data_serach)
-        // console.log(billing_data_serach)
-
-        //console.log(data_radio_filter)
 
         let obj_data = {
             data_status: 1,
@@ -67,12 +65,13 @@ const ar_function = {
             data_end_date: data_end_date,
             sale_data_search: sale_data_search,
             cs_data_search: cs_data_search,
-            data_checked_create : data_checked_create,
-            data_checked_check : data_checked_check,
-            data_checked_applied : data_checked_applied,
-            data_checked_approve : data_checked_approve,
-            data_checked_paid : data_checked_paid,
-            data_checked_all : data_checked_all,
+            // data_action_status : data_action_status,
+            st_1 : st_1,
+            st_2 : st_2,
+            st_3 : st_3,
+            st_4 : st_4,
+            st_5 : st_5,
+            st_6 : st_6,
         }
         arr_data.push(obj_data)
 
@@ -160,9 +159,9 @@ const ar_function = {
                     <td>
                         <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1" name_data="1" checked="">
                         <label for="radio1" class="form-check-label pl-2">Waiting</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2" name_data="2" onclick="ap_function.select_approve(this)">
+                        <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2" name_data="2" onclick="ar_function.select_approve(this)">
                         <label for="radio2" class="form-check-label pl-2">Approve</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3" name_data="3" onclick="ap_function.select_approve(this)">
+                        <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3" name_data="3" onclick="ar_function.select_approve(this)">
                         <label for="radio3" class="form-check-label pl-2">Reject</label>
                     </td>                              
                     <td><input type="text" class="form-control form-control form-control-sm" value="${remark}" disabled></td>
@@ -213,7 +212,7 @@ const ar_function = {
                 text: 'Data not found. please change setting search data',
             })
         }
-        await ap_function.setting_data_result();
+        await ar_function.setting_data_result();
     },
 
     ajax_query_set: async function (arr_data) {

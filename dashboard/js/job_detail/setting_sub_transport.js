@@ -70,32 +70,34 @@ const sub_transport = {
                         let phone_number = v1['phone_number'] ? v1['phone_number'] : '';
                         let plate_number = v1['plate_number'] ? v1['plate_number'] : '';
                         let container_id = v['container_id'] ? v['container_id'] : '';
+
+                        
                         
                         html_driver_data += `
                         <div class="form-group mt-4 row data_driver_count" driver_id="${v1['ID']}">
                             <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Driver: ${i1}</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
                                 <div class="row driver_detail driver_detail${i}">
-                                    <div class="col">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
                                         <input type="text" class="form-control form-control-sm inp_driver_name" placeholder="Name" value="${name_data}" maxlength="100">
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
                                         <input type="text" class="form-control form-control-sm inp_driver_phone" placeholder="Phone" value="${phone_number}" maxlength="20">
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
                                         <input type="text" class="form-control form-control-sm inp_plate" placeholder="Plate" value="${plate_number}">
                                     </div>
-                                    <div class="col select_transport${i}">
+                                    <div class="col-lg-2 col-md-12 col-sm-12 select_transport${i}">
                                         <select class="form-select form-select-sm inp_select_container_transport inp_select_container_transport${id_number}" onchange="function_sub_transport.change_seal(this)">
                                             <option value="">-- select container --</option>
                                             ${data_container_transport_driver}
                                         </select>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
                                         <input type="text" class="form-control form-control-sm inp_seal_transport" placeholder="Seal" disabled>
                                     </div>
-                                    <div class="col">
-                                        <button class="bi bi-trash btn btn-outline-danger" onclick="function_sub_transport.delete_driver(this,'${v1['ID']}')"></button>
+                                    <div class="col-lg-1 col-md-12 col-sm-12">
+                                        <button class=" btn btn-outline-danger btn-sm col-sm-12 " onclick="function_sub_transport.delete_driver(this,'${v1['ID']}')"><i class="bi bi-trash"></i> Del</button>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +106,21 @@ const sub_transport = {
                     })
 
                 }
-
+                
+                let pick_con_empty_address = v['pick_con_empty_address'] ? v['pick_con_empty_address'] : '';
+                let pick_con_empty_remark = v['pick_con_empty_remark'] ? v['pick_con_empty_remark'] : '';
+                let ggpick_con_empty_address = v['ggpick_con_empty_address'] ? v['ggpick_con_empty_address'] : '';
+                let pick_con_address = v['pick_con_address'] ? v['pick_con_address'] : '';
+                let pick_con_remark = v['pick_con_remark'] ? v['pick_con_remark'] : '';
+                let ggpick_con_address = v['ggpick_con_address'] ? v['ggpick_con_address'] : '';
+                let drop_con_address = v['drop_con_address'] ? v['drop_con_address'] : '';
+                let drop_con_remark = v['drop_con_remark'] ? v['drop_con_remark'] : '';
+                let ggdrop_con_address = v['ggdrop_con_address'] ? v['ggdrop_con_address'] : '';
+                let drop_con_empty_address = v['drop_con_empty_address'] ? v['drop_con_empty_address'] : '';
+                let drop_con_empty_remark = v['drop_con_empty_remark'] ? v['drop_con_empty_remark'] : '';
+                let ggdrop_con_empty_address = v['ggdrop_con_empty_address'] ? v['ggdrop_con_empty_address'] : '';
+                let remark = v['remark'] ? v['remark'] : '';
+    
 
                 let html_transport_data = ``;
                 html_transport_data = `
@@ -123,12 +139,24 @@ const sub_transport = {
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_peca" value="${v['pick_con_empty_address']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_peca" list="data_inp_peca" onchange="function_sub_transport.change_address(this)" value="${pick_con_empty_address}" maxlength="200">
+                                    <datalist id="data_inp_peca" class="data_list_inp_peca">
+                                        ${setting_data_default.html_data_address_pick_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_pecar" value="${v['pick_con_empty_remark']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_pecar" value="${pick_con_empty_remark}" maxlength="200">
                                 </div>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Pickup Empty Container Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">       
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggpeca gg_data" value="${ggpick_con_empty_address}" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
                             </div>
                         </div>
                     </div>
@@ -137,40 +165,78 @@ const sub_transport = {
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_pca" value="${v['pick_con_address']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_pca" list="data_inp_pca" onchange="function_sub_transport.change_address(this)" value="${pick_con_address}" maxlength="200">
+                                    <datalist id="data_inp_pca" class="data_list_inp_pca">
+                                    ${setting_data_default.html_data_address_load_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_pcar" value="${v['pick_con_remark']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_pcar" value="${pick_con_remark}" maxlength="200">
                                 </div>
                             </div>
                         </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Pickup Loading Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggpca gg_data" value="${ggpick_con_address}" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Delivery Container Address *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_doca" value="${v['drop_con_address']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_doca" list="data_inp_doca" onchange="function_sub_transport.change_address(this)" value="${drop_con_address}" maxlength="200">
+                                    <datalist id="data_inp_doca" class="data_list_inp_doca">
+                                    ${setting_data_default.html_data_address_delivery_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_docar" value="${v['drop_con_remark']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_docar" value="${drop_con_remark}" maxlength="200">
                                 </div>
                             </div>
                         </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Delivery Container Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggdoca gg_data" value="${ggdrop_con_address}" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Drop off Empty Containe Address *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_deca" value="${v['drop_con_empty_address']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_deca" list="data_inp_deca" onchange="function_sub_transport.change_address(this)" value="${drop_con_empty_address}" maxlength="200">
+                                    <datalist id="data_inp_deca" class="data_list_inp_deca">
+                                    ${setting_data_default.html_data_address_return_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_decar" value="${v['drop_con_empty_remark']}" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_decar" value="${drop_con_empty_remark}" maxlength="200">
                                 </div>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Drop off Empty Containe Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggdeca gg_data" value="${ggdrop_con_empty_address}" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
                             </div>
                         </div>
                     </div>
@@ -185,15 +251,9 @@ const sub_transport = {
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_remark" value="${v['remark']}" maxlength="100">
+                                    <input type="text" class="form-control form-control-sm inp_remark" value="${remark}" maxlength="100">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Quantity: *</label>
-                        <div class="col-sm-9 col-md-9 col-lg-9">
-                            <input type="number" class="form-control form-control-sm inp_quantity" value="${tq}" maxlength="6">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -218,20 +278,18 @@ const sub_transport = {
                     <div class="data_driver data_driver${i}">
                     ${html_driver_data}
                     </div>
-
                     <div class="form-group">
                         <button class="btn btn-block btn-outline-primary btn-sm col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_driver(${i})"> add new driver</button>
                     </div>
                     <div class="form-group text-end float-end">
                         <button class="btn btn-danger btn-sm btn_delete_transport" onclick="function_sub_transport.delete_route(this,'${v['ID']}')"><i class="bi bi-trash"></i> del</button>
                         <button class="btn btn-success btn-sm" onclick="function_sub_transport.save_transport();"><i class="bi bi-save"></i> save</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_qr('${v['ID']}')">create status</button>
+
                     </div>
+
                 </div>
                 `;
-
-                
-
-
 
                 
                 $('.transport_booking_detail').append(html_transport_data)
@@ -303,12 +361,24 @@ const sub_transport = {
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_peca" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_peca" list="data_inp_peca" onchange="function_sub_transport.change_address(this)" maxlength="200">
+                                    <datalist id="data_inp_peca" class="data_list_inp_peca">
+                                        ${setting_data_default.html_data_address_pick_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
                                     <input type="text" class="form-control form-control-sm inp_pecar" maxlength="200">
                                 </div>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Pickup Empty Container Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">       
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggpeca gg_data" value="" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
                             </div>
                         </div>
                     </div>
@@ -317,7 +387,10 @@ const sub_transport = {
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_pca" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_pca" list="data_inp_pca" onchange="function_sub_transport.change_address(this)" maxlength="200">
+                                    <datalist id="data_inp_pca" class="data_list_inp_pca">
+                                    ${setting_data_default.html_data_address_load_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
@@ -325,18 +398,39 @@ const sub_transport = {
                                 </div>
                             </div>
                         </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Pickup Loading Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggpca gg_data" value="" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Delivery Container Address *</label>
-                        <div class="col-sm-9 col-md-9 col-lg-9">
+                        <div class="col-sm-9 col-md-9 col-lg-9 ">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_doca" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_doca" list="data_inp_doca" onchange="function_sub_transport.change_address(this)" maxlength="200">
+                                    <datalist id="data_inp_doca" class="data_list_inp_doca">
+                                    ${setting_data_default.html_data_address_delivery_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
                                     <input type="text" class="form-control form-control-sm inp_docar" maxlength="200">
                                 </div>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Delivery Container Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggdoca gg_data" value="" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
                             </div>
                         </div>
                     </div>
@@ -345,12 +439,24 @@ const sub_transport = {
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 ">
-                                    <input type="text" class="form-control form-control-sm inp_deca" maxlength="200">
+                                    <input type="text" class="form-control form-control-sm inp_deca" list="data_inp_deca" onchange="function_sub_transport.change_address(this)" maxlength="200">
+                                    <datalist id="data_inp_deca" class="data_list_inp_deca">
+                                    ${setting_data_default.html_data_address_return_container}
+                                    </datalist>
                                 </div>
                                 <label class="control-label col-sm-1 col-md-2 col-lg-2 align-self-center">Remark</label>
                                 <div class="col-lg-5 col-md-5 ">
                                     <input type="text" class="form-control form-control-sm inp_decar" maxlength="200">
                                 </div>
+                            </div>
+                        </div>
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Google Maps Drop off Empty Containe Address *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9 row">
+                            <div class="col-sm-12 col-md-11 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_ggdeca gg_data" value="" maxlength="200">
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_transport.open_url_gg(this)"><i class="bi bi-map"></i> maps</button>
                             </div>
                         </div>
                     </div>

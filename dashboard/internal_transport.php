@@ -89,12 +89,19 @@ require 'function/auth/get_session.php';
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-xl-2 col-lg-2 col-md-3 ">
+                                    <label>Balance :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-5">
+                                    <input type="number" class="form-control form-control-sm rounded">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-2 col-lg-2 col-md-3 ">
                                     <label>Cash in :</label>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-5">
                                     <input type="number" class="form-control form-control-sm rounded">
                                 </div>
-
                             </div>
                             <div class="form-group row">
                                 <div class="col-xl-2 col-lg-2 col-md-3 ">
@@ -111,7 +118,7 @@ require 'function/auth/get_session.php';
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Internal Transport </h4>
+                            <h4>Filter</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
@@ -137,6 +144,17 @@ require 'function/auth/get_session.php';
                                         <option value="">-- please select pay to --</option>
                                     </select>
                                 </div>
+                                <div class="col-xl-2 col-lg-2 col-md-3 ">
+                                    <label>Description :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-5">
+                                    <select class="form-select form-select-sm rounded sel_description">
+                                        <option value="">-- please select description --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> search</button>
                             </div>
                         </div>
                     </div>
@@ -178,14 +196,138 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-xl-2 col-lg-2 col-md-3 ">
-                                    <label>Pay to :</label>
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>Date :</label>
                                 </div>
-                                <div class="col-xl-3 col-lg-3 col-md-5">
-                                    <select class="form-select form-select-sm rounded sel_payto_detail">
-                                        <option value="">-- please select pay to --</option>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                   <input type="date" class="form-select form-select-sm rounded sel_date_start_detail">
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>To :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                    <input type="date" class="form-select form-select-sm rounded sel_date_end_detail">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>Job number :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                    <select class="form-select form-select-sm rounded sel_jobnumber_filter_detail">
                                     </select>
                                 </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>Description :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                    <select class="form-select form-select-sm rounded sel_description_filter_detail">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>Pay to :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                    <select class="form-select form-select-sm rounded sel_payto_filter_detail">
+                                    </select>
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 ">
+                                    <label>Truck number :</label>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4">
+                                    <select class="form-select form-select-sm rounded sel_plate_filter_detail">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> search</button>
+                                <button class="btn btn-outline-success btn-sm" onclick="internal_transport.card_ex_show()"><i class="bi bi-plus"></i> Add expenses</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card_ex_show">
+                        <div class="card-header">
+                            <h4>Add expenses</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row text-center">
+                                <div class="col-xl-1">
+                                    <label for="">Job nubmer :</label>
+                                </div>
+                                <div class="col-xl-2">
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Description</label>
+                                </div>
+                                <div class="col-xl-2">
+                                    <select class="form-select form-select-sm">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Pay to :</label>
+                                </div>
+                                <div class="col-xl-2">
+                                <select class="form-select form-select-sm">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row text-center ">   
+                                <div class="col-xl-1">
+                                    <label for="">QTY :</label>
+                                </div>
+                                <div class="col-xl-1">
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Price :</label>
+                                </div>
+                                <div class="col-xl-1">
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Vat :</label>
+                                </div>
+                                <div class="col-xl-1">
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Total :</label>
+                                </div>
+                                <div class="col-xl-1">
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xl-1">
+                                    <label for="">Currency :</label>
+                                </div>
+                                <div class="col-xl-1">
+                                    <select class="form-select form-select-sm">
+                                        <option value="THB">THB</option>
+                                        <option value="USD">USD</option>
+                                        <option value="RMB">RMB</option>
+                                        <option value="HKD">HKD</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xl-1"><label>Remark :</label></div>
+                                <div class="col-xl-2"><input type="text" class="form-control form-control-sm"></div>
+                                <div class="col-xl-1"><label>Operarion date :</label></div>
+                                <div class="col-xl-2"><input type="date" class="form-control form-control-sm"></div>
+                                <div class="col-xl-1"><label>Truck number :</label></div>
+                                <div class="col-xl-2"><select class="form-select form-select-sm">
+                                    <option value="">test</option>
+                                </select></div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-save"> Save</i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -199,9 +341,10 @@ require 'function/auth/get_session.php';
                                 <button class="btn btn-outline-primary btn-sm " onclick="internal_transport.add_rows_req()">add rows</button>
                             </div>
                             <div class="bd-example table-responsive">
-                                <table class="table table-hover mt-4 text-center table_data_internal">
+                                <table class="table table-hover mt-4 text-center table_data_internal" style="zoom:70%">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Job number</th>
                                             <th>Description</th>
                                             <th>Pay to</th>
@@ -296,11 +439,11 @@ require 'function/auth/get_session.php';
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(async function() {
         sidebar_main.set_data_rows();
         internal_transport.set_header_page();
-        setting_data_default.setting_data_first();
-        setting_data_first.first_set();
+        await setting_data_default.setting_data_first();
+        await setting_data_first.first_set();
         // job_detail.set_header_page();
     });
 </script>
@@ -320,6 +463,8 @@ require 'function/auth/get_session.php';
     // ตั้งค่า date_start และ date_stop
     $('.date_start').val(firstDayOfMonth);
     $('.date_stop').val(lastDayOfMonth);
+    $('.sel_date_start_detail').val(firstDayOfMonth);
+    $('.sel_date_end_detail').val(lastDayOfMonth);
 });
 
 function formatDate(date) {

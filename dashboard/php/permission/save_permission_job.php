@@ -11,6 +11,7 @@ foreach($arr_save as $k => $v){
     $customs = isset($v['customs']) ? $v['customs'] : '';
     $billing = isset($v['billing']) ? $v['billing'] : '';
     $withdraw = isset($v['withdraw']) ? $v['withdraw'] : '';
+    $billoflanding = isset($v['billoflanding']) ? $v['billoflanding'] : '';
 
 
     $sql_query_data_job ="
@@ -22,7 +23,8 @@ foreach($arr_save as $k => $v){
         `reportcs` = '$reportcs',
         `customs` = '$customs',
         `billing` = '$billing',
-        `withdraw` = '$withdraw'
+        `withdraw` = '$withdraw',
+        `billoflanding` = '$billoflanding'
     WHERE
         department = '$department'
     ";

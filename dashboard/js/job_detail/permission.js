@@ -54,18 +54,38 @@ const permission_file = {
             $('#withdraw_tab_target').remove()
         }
 
-        
-        
-
-        if(res_data['data_permission']['department_number'] == '3'){
-            console.log(as_shipping)
-            console.log(res_data['data_permission']['ID'])
-            if(as_shipping != res_data['data_permission']['ID']){
-                console.log(8888)
-                $('#customs_tab').remove()
-                $('#customs_tab_target').remove()
-            }
+        if(res_data['data_permission']['customs'] == '3'){
+            $('#customs_tab').remove()
+            $('#customs_tab_target').remove()
+        }else if(res_data['data_permission']['customs'] == '2'){
+            $('#customs_tab_target').find('.form-control').attr('disabled',true)
+            $('#customs_tab_target').find('.form-select').attr('disabled',true)
+            $('#customs_tab_target').find('.form-check-input').attr('disabled',true)
+            $('#customs_tab_target').find('.btn').remove()
         }
+
+
+
+        if(res_data['data_permission']['billoflanding'] == '3'){
+            $('.bl_tab_target').remove()
+            $('.bl_header_old').remove()
+        }else if(res_data['data_permission']['billoflanding'] == '2'){
+            $('.bl_tab_target').find('.form-control').attr('disabled',true)
+            $('.bl_tab_target').find('.form-select').attr('disabled',true)
+            $('.bl_tab_target').find('.form-check-input').attr('disabled',true)
+            $('.bl_tab_target').find('.btn').remove()
+        }
+
+
+        // if(res_data['data_permission']['department_number'] == '3'){
+        //     console.log(as_shipping)
+        //     console.log(res_data['data_permission']['ID'])
+        //     if(as_shipping != res_data['data_permission']['ID']){
+        //         console.log(8888)
+        //         $('#customs_tab').remove()
+        //         $('#customs_tab_target').remove()
+        //     }
+        // }
         
 
         // if(res_data['data_permission']['customs'] == "2"){

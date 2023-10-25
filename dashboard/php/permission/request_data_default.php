@@ -20,7 +20,8 @@
       pjd.reportcs,
       pjd.customs,
       pjd.billing,
-      pjd.withdraw
+      pjd.withdraw,
+      pjd.billoflanding
 
   FROM
       `permisson_job_detail` pjd

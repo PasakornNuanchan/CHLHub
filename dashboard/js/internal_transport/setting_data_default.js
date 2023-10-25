@@ -40,10 +40,10 @@ const setting_data_default = {
         let data_plate = $('.sel_plate').parent().html();
         let data_payto = $('.sel_payto').parent().html();
 
-        this.data_pay_to = data_payto;
-        this.data_job_number = data_jobnumber;
-        this.data_description = data_description;
-        this.data_plate = data_plate;
+        this.data_pay_to = await data_payto;
+        this.data_job_number = await data_jobnumber;
+        this.data_description = await data_description;
+        this.data_plate = await data_plate;
         
     },
 

@@ -4,13 +4,13 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 require '../../core/con_path.php';
 
-$get_shipper = "SELECT ID,shipper_name FROM shipper";
+$get_shipper = "SELECT ID,shipper_name FROM shipper ORDER BY shipper_name ASC";
 $get_shipment = "SELECT ID,st_name FROM shipment_term";
-$get_consignee = "SELECT `ID`,`consignee_name` FROM `consignee`";
-$get_carrier = "SELECT ID,carrier_name FROM carrier";
-$get_area = "SELECT ID,location_name,provice FROM area ORDER BY ID DESC";
+$get_consignee = "SELECT `ID`,`consignee_name` FROM `consignee` ORDER BY consignee_name ASC";
+$get_carrier = "SELECT ID,carrier_name FROM carrier ORDER BY carrier_name ASC" ;
+$get_area = "SELECT ID,location_name,provice FROM area ORDER BY location_name ASC";
 $get_cargo_type = "SELECT ID,cargo_type_name FROM cargo_type";
-$get_agent = "SELECT ID,agent_name_corp FROM agent_booking";
+$get_agent = "SELECT ID,agent_name_corp FROM agent_booking ORDER BY agent_name_corp ASC";
 $get_container_type = "SELECT ID,container_type_name,container_type_full_name FROM container_type";
 $get_supplier = "SELECT ID,transport_sup_name FROM transport_sup";
 $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
@@ -34,6 +34,7 @@ SELECT
     `vat`
 FROM
     `billing_description`";
+
 $sql_get_billing_des = "
 SELECT
     `ID`,
@@ -65,11 +66,84 @@ FROM
 $sql_get_shipper_consignee = "
 SELECT 1 as type_data , sp.ID as id_data ,sp.shipper_name as name_data FROM shipper sp 
 UNION
-SELECT 2 as type_data , c.ID as id_data ,c.consignee_name as name_data FROM consignee c;
+SELECT 2 as type_data , c.ID as id_data ,c.consignee_name as name_data FROM consignee c
+ORDER BY name_data ASC;
+
 ";
 
 
 $sql_unit = "SELECT ID,name FROM `unit`";
+
+
+$sql_pick_container = "
+SELECT
+	DISTINCT tb.pick_con_empty_address,
+    tb.pick_con_empty_remark,
+    tb.ggpick_con_empty_address
+FROM
+    transport_booking tb";
+$sql_load_container = "
+SELECT
+	DISTINCT tb.pick_con_address,
+    tb.pick_con_remark,
+    tb.ggpick_con_address
+FROM
+    transport_booking tb";
+$sql_delivery_container = "
+SELECT
+	DISTINCT tb.drop_con_address,
+    tb.drop_con_remark,
+    tb.ggdrop_con_address
+FROM
+    transport_booking tb";
+$sql_return_container = "
+SELECT
+	DISTINCT tb.drop_con_empty_address,
+    tb.drop_con_empty_remark,
+    tb.ggdrop_con_empty_address
+FROM
+    transport_booking tb
+";
+
+$result = $con->query($sql_pick_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $address_pick_container[] = $row;
+  }
+} else {
+  $address_pick_container = "0 results";
+}
+
+$result = $con->query($sql_load_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $address_load_container[] = $row;
+  }
+} else {
+  $address_load_container = "0 results";
+}
+
+$result = $con->query($sql_delivery_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $address_delivery_container[] = $row;
+  }
+} else {
+  $address_delivery_container = "0 results";
+}
+
+$result = $con->query($sql_return_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $address_return_container[] = $row;
+  }
+} else {
+  $address_return_container = "0 results";
+}
+
+
+
+
 
 $result = $con->query($sql_unit);
 if ($result->num_rows > 0) {
@@ -265,4 +339,8 @@ echo json_encode(array(
     'bill_to_ar'=>$bill_to_ar,
     'unit'=>$unit,
     'shipper_consignee'=>$shipper_consignee,
+    'address_pick_container'=>$address_pick_container,
+    'address_load_container'=>$address_load_container,
+    'address_delivery_container'=>$address_delivery_container,
+    'address_return_container'=>$address_return_container,
   ));

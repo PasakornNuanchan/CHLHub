@@ -1,6 +1,20 @@
 const function_acp = {
     select_all : async function(e){
-        e == 'select' ? $('.table_data_account tbody > tr > td > .cbx_sel').prop('checked',true) : $('.table_data_account tbody > tr > td > .cbx_sel').prop('checked',false);
+        //e == 'select' ? $('.table_data_account tbody > tr > td > .cbx_sel').prop('checked',true) : $('.table_data_account tbody > tr > td > .cbx_sel').prop('checked',false);
+
+        $(`.table_data_account tbody tr`).each(function(){
+            let check_disabled = $(this).find(`td > .cbx_sel`).prop('disabled') == false ? '1' : '0';
+            console.log(check_disabled)
+
+            if(check_disabled == '1'){
+                if(e == '1'){
+                    $(this).find(`td > .cbx_sel`).prop('checked',true)
+
+                }else{
+                    $(this).find(`td > .cbx_sel`).prop('checked',false)
+                }
+            }
+        })
     },
 
     get_select_paid : async function(){

@@ -57,6 +57,15 @@ $id_number = $_POST['id_number'];
         $inp_docar = isset($v['inp_docar']) ? $v['inp_docar'] : '';
         $inp_deca = isset($v['inp_deca']) ? $v['inp_deca'] : '';
         $inp_decar = isset($v['inp_decar']) ? $v['inp_decar'] : '';
+        $inp_ggpeca = isset($v['inp_ggpeca']) ? $v['inp_ggpeca'] : '';
+        $inp_ggpca = isset($v['inp_ggpca']) ? $v['inp_ggpca'] : '';
+        $inp_ggdoca = isset($v['inp_ggdoca']) ? $v['inp_ggdoca'] : '';
+        $inp_ggdeca = isset($v['inp_ggdeca']) ? $v['inp_ggdeca'] : '';
+
+
+
+
+
         $db_type_truck = isset($v['db_type_truck']) ? $v['db_type_truck'] : '';
         $inp_remark = isset($v['inp_remark']) ? $v['inp_remark'] : '';
         //$inp_quantity = isset($v['inp_quantity']) ? $v['inp_quantity'] : '';
@@ -86,7 +95,12 @@ $id_number = $_POST['id_number'];
                 `budget` = $inp_bg,
                 `cur` = '$inp_cur',
                 `type_truck` = '$db_type_truck',
-                `remark` = '$inp_remark'
+                `remark` = '$inp_remark',
+                `ggpick_con_empty_address` = '$inp_ggpeca',
+                `ggpick_con_address` = '$inp_ggpca',
+                `ggdrop_con_address` = '$inp_ggdoca',
+                `ggdrop_con_empty_address` = '$inp_ggdeca'
+            
             WHERE
                 `ID` = '$transport_id'
             ";
@@ -107,7 +121,11 @@ $id_number = $_POST['id_number'];
                 `cur`,
                 `type_truck`,
                 `remark`,
-                `ref_job_id`
+                `ref_job_id`,
+                `ggpick_con_empty_address`,
+                `ggpick_con_address`,
+                `ggdrop_con_address`,
+                `ggdrop_con_empty_address`
             )
             VALUES(
                 '$supplier_id',
@@ -124,7 +142,11 @@ $id_number = $_POST['id_number'];
                 '$inp_cur',
                 '$db_type_truck',
                 '$inp_remark',
-                '$id_number'
+                '$id_number',
+                '$inp_ggpeca',
+                '$inp_ggpca',
+                '$inp_ggdoca',
+                '$inp_ggdeca'
             )
             ";
         }

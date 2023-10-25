@@ -378,6 +378,9 @@ const internal_transport = {
         }
     },
 
+    card_ex_show : async function(){
+        console.log($('.card_ex_show'))
+    },
 }
 
 async function convert_file(data) {

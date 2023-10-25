@@ -192,28 +192,28 @@ require 'function/auth/get_session.php';
                                 <!-- <label for="radio3" class="form-check-label pl-2">All</label> -->
                             <!-- </div> -->
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_6" name="bsradio2" name_data="1">
-                                <label for="radio3" class="form-check-label pl-2">ALL</label>
+                                <input type="checkbox" class="form-check-input sel_st_1" onclick="ar_function.select_data('1')" name="bsradio2" name_data="1">
+                                <label for="radio3" class="form-check-label pl-2">Unpaid</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_1" name="bsradio2" name_data="1">
-                                <label for="radio3" class="form-check-label pl-2">Created</label>
+                                <input type="checkbox" class="form-check-input sel_st_2" onclick="ar_function.select_data('2')" name="bsradio2" name_data="2">
+                                <label for="radio3" class="form-check-label pl-2">Uncheck</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_2" name="bsradio2" name_data="2">
-                                <label for="radio3" class="form-check-label pl-2">Checked</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio2" name_data="3">
+                                <input type="checkbox" class="form-check-input sel_st_3" onclick="ar_function.select_data('3')" name="bsradio2" name_data="3">
                                 <label for="radio3" class="form-check-label pl-2">Applied</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_4" name="bsradio2" name_data="4">
+                                <input type="checkbox" class="form-check-input sel_st_4" onclick="ar_function.select_data('4')" name="bsradio2" name_data="4">
                                 <label for="radio3" class="form-check-label pl-2">Approve</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_5" name="bsradio2" name_data="5">
+                                <input type="checkbox" class="form-check-input sel_st_5" onclick="ar_function.select_data('5')" name="bsradio2" name_data="5">
                                 <label for="radio3" class="form-check-label pl-2">Paid</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input sel_st_6" onclick="ar_function.select_data('6')" name="bsradio2" name_data="6">
+                                <label for="radio3" class="form-check-label pl-2">Reject</label>
                             </div>
                         </div>
                     </div>

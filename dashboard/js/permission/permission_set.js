@@ -29,6 +29,7 @@ const permission_set = {
                 $('.inp_customs').val(v['customs'])
                 $('.inp_billing').val(v['billing'])
                 $('.inp_withdraw').val(v['withdraw'])
+                $('.inp_billofladding').val(v['billoflanding'])
             }
         })
     },
@@ -41,6 +42,7 @@ const permission_set = {
         let customs = $('.inp_customs').val() 
         let billing = $('.inp_billing').val()
         let withdraw = $('.inp_withdraw').val()
+        let billoflanding = $('.inp_billofladding').val()
         
         let obj_save = {}
         let arr_save = []
@@ -51,7 +53,8 @@ const permission_set = {
             reportcs : reportcs,
             customs : customs,
             billing : billing,
-            withdraw : withdraw
+            withdraw : withdraw,
+            billoflanding : billoflanding
         }
         arr_save.push(obj_save)
 

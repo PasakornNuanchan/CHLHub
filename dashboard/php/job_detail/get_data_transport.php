@@ -26,7 +26,12 @@ SELECT
     `type_truck`,
     `remark`,
     `status`,
-    `ref_job_id`
+    `ref_job_id`,
+    `ggpick_con_empty_address`,
+    `ggpick_con_address`,
+    `ggdrop_con_address`,
+    `ggdrop_con_empty_address`
+
 FROM
     `transport_booking`
 WHERE

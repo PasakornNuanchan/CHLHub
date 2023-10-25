@@ -293,10 +293,14 @@ foreach ($data_shipperandconsignee as $k => $v) {
   $pdf->Cell(50, 4, strtoupper($v['a3location'] . "," . $v['a3provice']), '', 0, 'L');
   $pdf->SetX(60);
   $pdf->Cell(50, 4, strtoupper($v['a4location'] . "," . $v['a4provice']), 'R', 0, 'L');
-  $pdf->SetX(110);
-  $pdf->Cell(80, 4, strtoupper($v['final_destination']), '', 1, 'L');
+  
   
 }
+foreach($data as $k => $v){
+  $pdf->SetX(110);
+  $pdf->Cell(80, 4, strtoupper($v['final_destination']), '', 1, 'L');
+}
+
 
 $pdf->SetFont('times', 'B', 8, '', true);
 $pdf->SetX(10);
@@ -549,7 +553,7 @@ $pdf->Cell(90, 4, "", 'B', 1, 'L');
 // $pdf->Cell(60,4,"",'L',1,'L');
 
 
-foreach ($data_shipperandconsignee as $k => $v) {
+foreach ($data as $k => $v) {
   $pdf->SetFont('times', '', 8, '', true);
   $pdf->SetXY(155, 12);
   $pdf->Cell(60, $set_height_header, $v['hbl'], '', 0, 'L');

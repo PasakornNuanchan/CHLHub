@@ -201,10 +201,10 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <div class="text-start">
-                        <button class="btn btn-sm btn-success" onclick="function_acp.select_all('select')">select all 全选</button>
-                        <button class="btn btn-sm btn-warning" onclick="function_acp.select_all('deselect')">deselect all 全不选</button>
-                        <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
+                        <button class="btn btn-sm btn-outline-success" onclick="function_acp.select_all('1')">Checked All 全选</button>
+                        <button class="btn btn-sm btn-outline-warning" onclick="function_acp.select_all('2')">deselect all 全不选</button>
+                        <!-- <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button> -->
+                        <!-- <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button> -->
                     </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">

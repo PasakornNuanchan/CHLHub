@@ -44,7 +44,7 @@ if($arr_data[0] != ''){
       WHERE
           b.type = 'AP' 
           AND b.type = 'AP' 
-          AND b.approve_date_time IS NOT NULL
+          AND b.status = '2'
           $data_query_type_n_id
           $data_query_job
           $data_query_currency
@@ -61,6 +61,7 @@ if($arr_data[0] != ''){
       if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),
       (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
       (SELECT bd.billing_item_name FROM billing_description bd WHERE b.billing_description = bd.ID) billing_des_name,
+      (SELECT bp.paid_date_time FROM billing_payment bp WHERE b.ID = bp.ref_billing_id) billing_payment_check,
       b.currency,
       b.ID,
       b.qty,
@@ -72,7 +73,12 @@ if($arr_data[0] != ''){
   FROM
       billing b
   WHERE
-      b.type = 'AP' AND b.type = 'AP' AND b.approve_date_time IS NOT NULL
+      b.type = 'AP' AND b.type = 'AP' 
+      AND b.status = '2'
+  ORDER BY
+      billing_payment_check DESC
+  LIMIT 100
+  
   ";
 }
 

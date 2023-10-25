@@ -23,29 +23,50 @@ if ($arr_data[0]['data_status'] != '') {
     $data_end_date = isset($v['data_end_date']) ? $v['data_end_date'] : '';
     $sale_data_search = isset($v['sale_data_search']) ? $v['sale_data_search'] : '';
     $cs_data_search = isset($v['cs_data_search']) ? $v['cs_data_search'] : '';
-    // $data_action_status = isset($v['data_action_status']) ? $v['data_action_status'] : '';
 
-    
-    $data_checked_create = isset($v['data_checked_create']) ? $v['data_checked_create'] : '';
-    $data_checked_check = isset($v['data_checked_check']) ? $v['data_checked_check'] : '';
-    $data_checked_applied = isset($v['data_checked_applied']) ? $v['data_checked_applied'] : '';
-    $data_checked_approve = isset($v['data_checked_approve']) ? $v['data_checked_approve'] : '';
-    $data_checked_paid = isset($v['data_checked_paid']) ? $v['data_checked_paid'] : '';
-    $data_checked_all = isset($v['data_checked_all']) ? $v['data_checked_all'] : '';
-    // $action_paid = $data_action_paid == '1' ? 
-    // $action_unpaid = $data_action_unpaid == '1' ? 
-    // $action_created = $data_action_created == '1' ? "AND b.create_data_time is NOT NULL" : '';
-    // $action_applied = $data_action_applied == '1' ? "AND b.action_paid_date_time is NOT NULL " : '';
-    // $action_approved = $data_action_approved == '1' ? "AND b.create_data_time is NOT NULL " : '';
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    $st_1 = isset($v['st_1']) ? $v['st_1'] : '';
+    $st_2 = isset($v['st_2']) ? $v['st_2'] : '';
+    $st_3 = isset($v['st_3']) ? $v['st_3'] : '';
+    $st_4 = isset($v['st_4']) ? $v['st_4'] : '';
+    $st_5 = isset($v['st_5']) ? $v['st_5'] : '';
+    $st_6 = isset($v['st_6']) ? $v['st_6'] : '';
+   
+
+    $search_action_status = "";
+    $having_data = "";
+    $search_action_status_check = "";
+    $search_action_status_paid = "";
+    $search_action_status_approve = "";
+
+    if ($st_1 == '1') {
+      $having_data = "HAVING
+        billing_payment_check IS NULL";
+      $search_action_status =  "AND status != '3' ";
+
+    }
+
+    if ($st_5 == '1') {
+      $having_data = "HAVING
+        billing_payment_check IS NOT NULL";
+      $search_action_status =  "AND status != '3' ";
+
+    }
+
+    if ($st_2 == '1') {
+      $search_action_status_check = "AND b.check_date_time IS NOT NULL";
+    }
+
+    if ($st_3 == '1') {
+      $search_action_status_paid = "AND b.action_paid_date_time IS NOT NULL";
+    }
+
+    if ($st_4 == '1') {
+      $search_action_status_approve = "AND b.approve_date_time IS NOT NULL";
+    }
+
+    if ($st_6 == '1') {
+      $search_action_status =  "AND status = '3' ";
+    }
 
 
     $bill_to = $type_bill_to_serach != '' ? "AND b.bill_to_type = '$type_bill_to_serach' AND b.bill_to = '$data_bill_to_serach' " : '';
@@ -65,35 +86,47 @@ if ($arr_data[0]['data_status'] != '') {
         $search_date = "AND b.action_paid_date_time BETWEEN '$data_start_date' AND '$data_end_date' ";
       }
     }
+
+
     // $search_action_status = '';
+    // $having_data = '';
     // if($data_action_status != ''){
     //   if($data_action_status == '1'){
-    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NULL AND b.action_paid_date_time is NULL AND b.approve_date_time is NULL";
+    //     $search_action_status = "AND status != '3' ";
+    //     $having_data = "HAVING
+    //     billing_payment_check IS NULL";
     //   }else if($data_action_status == '2'){
-    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NULL AND b.approve_date_time is NULL";
+    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NULL AND b.action_paid_date_time is NULL AND b.approve_date_time is NULL AND status != '3'";
     //   }else if($data_action_status == '3'){
-    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NOT NULL AND b.approve_date_time is NULL";
+    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NULL AND b.approve_date_time is NULL AND status != '3'";
     //   }else if($data_action_status == '4'){
-    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NOT NULL AND b.approve_date_time is NOT NULL";
+    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NOT NULL AND b.approve_date_time is NULL AND status != '3'";
     //   }else if($data_action_status == '5'){
-    //     $search_action_status = "AND b.create_data_time is NOT NULL AND b.check_date_time is NOT NULL AND b.action_paid_date_time is NOT NULL";
-    //   }else {
+    //     $search_action_status = " AND status = '2' ";
+    //     $having_data = "  HAVING
+    //     billing_payment_check IS NULL";
+    //   }else if($data_action_status == '6'){
     //     $search_action_status = "";
+    //     $having_data = "  HAVING
+    //     billing_payment_check IS NOT NULL";
+    //   }else if($data_action_status == '7'){
+    //     $search_action_status = "AND status = '3' ";
+        
     //   }
     // }
 
     
  
     
-  $check_create = $data_checked_create == '1' ? "AND b.create_data_time IS NOT NULL" : "AND b.create_data_time IS NULL";
-  $check_checked = $data_checked_check == '1' ? "AND b.check_date_time IS NOT NULL" : "AND b.check_date_time IS NULL";
-  $check_apply = $data_checked_applied == '1'  ? "AND b.action_paid_date_time IS NOT NULL" : "AND b.action_paid_date_time IS NULL";
-  $check_approve = $data_checked_approve == '1' ? "AND b.approve_date_time IS NOT NULL" : "AND b.approve_date_time IS NULL";
-//  $check_paid = $data_checked_paid == '1' ? "AND "
-  $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
+  //   $check_create = $data_checked_create == '1' ? "AND b.create_data_time IS NOT NULL" : "AND b.create_data_time IS NULL";
+  //   $check_checked = $data_checked_check == '1' ? "AND b.check_date_time IS NOT NULL" : "AND b.check_date_time IS NULL";
+  //   $check_apply = $data_checked_applied == '1'  ? "AND b.action_paid_date_time IS NOT NULL" : "AND b.action_paid_date_time IS NULL";
+  //   $check_approve = $data_checked_approve == '1' ? "AND b.approve_date_time IS NOT NULL" : "AND b.approve_date_time IS NULL";
+  // //  $check_paid = $data_checked_paid == '1' ? "AND "
+  //   $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
 
 
- $sql_query_data = "
+$sql_query_data = "
     SELECT
         b.ID,
         b.billing_description,
@@ -108,6 +141,7 @@ if ($arr_data[0]['data_status'] != '') {
         (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
         GROUP_CONCAT(c1.container_number) container_data,
         GROUP_CONCAT(bl.hbl) hbl_data,
+        (SELECT bp.paid_date_time FROM billing_payment bp WHERE b.ID = bp.ref_billing_id) billing_payment_check,
         jt.booking_number,
         jt.create_date,
         b.bill_to_type,
@@ -162,10 +196,16 @@ if ($arr_data[0]['data_status'] != '') {
         $sale_support
         $cs_support
         $search_date
-        $check_all
+        $search_action_status_check
+        $search_action_status_paid
+        $search_action_status_approve
+        $search_action_status
     GROUP BY
       b.ID
+      $having_data
     ";
+
+    // echo $sql_query_data;
   }
 
   $result = $con->query($sql_query_data);
@@ -181,67 +221,70 @@ if ($arr_data[0]['data_status'] != '') {
 
   $sql_query_data = "
       SELECT
-          b.ID,
-          b.billing_description,
-          (SELECT job_number FROM job_title WHERE ID = b.ref_job_id) job_number,
-          jt.cs_support,
-          (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = jt.cs_support) cs_support_name,
-          (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = jt.sale_support) sale_support_name,
-          (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = b.create_by) create_by_name,
-          (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = b.check_by) check_by_name,
-          (SELECT bd.billing_item_name FROM billing_description bd WHERE b.billing_description = bd.ID) billing_des_name,
-          if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),
-          (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
-          GROUP_CONCAT(c1.container_number) container_data,
-          GROUP_CONCAT(bl.hbl) hbl_data,
-          jt.booking_number,
-          jt.create_date,
-          b.bill_to_type,
-          b.bill_to,
-          b.payble,
-          b.currency,
-          b.qty,
-          b.unit_price,
-          b.amount,
-          b.vat,
-          b.amtinclvat,
-          b.remark,
-          b.type,
-          b.create_data_time,
-          b.create_by,
-          b.delete_date_time,
-          b.delete_by,
-          b.action_paid_by,
-          b.action_paid_date_time,
-          b.check_by,
-          b.check_date_time,
-          b.status,
-          b.ref_job_id,
-          b.add_on,
-          b.last_update_by,
-          b.last_update_datetime,
-          b.sys_rate,
-          b.Billing_date,
-          b.sys_rate_currency,
-          b.tax_with_hold_by,
-          b.commit_sale,
-          b.tax_with_hold_date_time,
-          b.currency_main,
-          b.need_vat,
-          b.refer,
-          b.with_holding_tax,
-          b.paid_amt,
-          b.approve_by,
-          b.approve_date_time
-      FROM
-          `billing` b
-          LEFT JOIN job_title jt ON jt.ID = b.ref_job_id
-          LEFT JOIN container c1 ON b.ref_job_id = c1.ref_job_id
-          LEFT JOIN bl_title bl ON b.ref_job_id = bl.ref_job_id
-      WHERE
-          b.type = 'AP'
-      GROUP BY
-        b.ID
+      b.ID,
+      b.billing_description,
+      (SELECT job_number FROM job_title WHERE ID = b.ref_job_id) job_number,
+      jt.cs_support,
+      (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = jt.cs_support) cs_support_name,
+      (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = jt.sale_support) sale_support_name,
+      (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = b.create_by) create_by_name,
+      (SELECT concat(first_name,' ',last_name) FROM user WHERE ID = b.check_by) check_by_name,
+      (SELECT bd.billing_item_name FROM billing_description bd WHERE b.billing_description = bd.ID) billing_des_name,
+      if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),
+      (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
+      GROUP_CONCAT(c1.container_number) container_data,
+      GROUP_CONCAT(bl.hbl) hbl_data,
+      (SELECT bp.paid_date_time FROM billing_payment bp WHERE b.ID = bp.ref_billing_id) as billing_payment_check,
+      jt.booking_number,
+      jt.create_date,
+      b.bill_to_type,
+      b.bill_to,
+      b.payble,
+      b.currency,
+      b.qty,
+      b.unit_price,
+      b.amount,
+      b.vat,
+      b.amtinclvat,
+      b.remark,
+      b.type,
+      b.create_data_time,
+      b.create_by,
+      b.delete_date_time,
+      b.delete_by,
+      b.action_paid_by,
+      b.action_paid_date_time,
+      b.check_by,
+      b.check_date_time,
+      b.status,
+      b.ref_job_id,
+      b.add_on,
+      b.last_update_by,
+      b.last_update_datetime,
+      b.sys_rate,
+      b.Billing_date,
+      b.sys_rate_currency,
+      b.tax_with_hold_by,
+      b.commit_sale,
+      b.tax_with_hold_date_time,
+      b.currency_main,
+      b.need_vat,
+      b.refer,
+      b.with_holding_tax,
+      b.paid_amt,
+      b.approve_by,
+      b.approve_date_time
+    FROM
+      `billing` b
+      LEFT JOIN job_title jt ON jt.ID = b.ref_job_id
+      LEFT JOIN container c1 ON b.ref_job_id = c1.ref_job_id
+      LEFT JOIN bl_title bl ON b.ref_job_id = bl.ref_job_id
+    WHERE
+      b.type = 'AP' AND status != '3'
+    GROUP BY
+    b.ID
+    HAVING
+      billing_payment_check IS NULL
       ";
 
   $result = $con->query($sql_query_data);

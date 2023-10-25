@@ -12,7 +12,8 @@ SELECT
     pjd.reportcs,
     pjd.customs,
     pjd.billing,
-    pjd.withdraw
+    pjd.withdraw,
+    pjd.billoflanding
 FROM
     user u
 LEFT JOIN permisson_job_detail pjd ON u.department_number = pjd.department

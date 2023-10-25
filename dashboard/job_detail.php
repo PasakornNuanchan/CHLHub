@@ -13,6 +13,7 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 
 
@@ -311,7 +312,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
+                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">
@@ -320,6 +321,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-end">
                                     <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.load_save_data()" >load</button>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.generate_job_detail_document()"><i class="bi bi-printer"></i> Job detail</button>
                                 </div>
                             </div>
                         </div>
@@ -378,12 +380,12 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center">Shipper:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <div class="row">
-                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
                                                     <select class="form-select form-select-sm inp_shipper inp_copy_data " id="shipper_db">
                                                         <option value="">-- pleses select shipper --</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
                                                     <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
                                                 </div>
                                             </div>
@@ -394,12 +396,12 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Consignee:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <div class="row">
-                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
                                                     <select id="consginee_db" class="form-select form-select-sm inp_consignee inp_copy_data">
                                                         <option value="">-- plsese select consignee</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
                                                     <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
                                                 </div>
                                             </div>
@@ -411,12 +413,12 @@ require 'function/auth/get_session.php';
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <!-- <input type="text" class="form-control form-control-sm inp_notify" maxlength="300"> -->
                                             <div class="row">
-                                                <div class="col-sm-11 col-md-10 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
                                                     <select class="form-select form-select-sm inp_notify_job_detail inp_copy_data" id="notify_db">
                                                         <option value="">-- plsese select notify -- </option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-1 col-md-2 col-lg-1">
+                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
                                                     <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
                                                 </div>
                                             </div>
@@ -796,7 +798,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div> -->
                 </div>
-                <div class="tab-pane fade " id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab">
+                <div class="tab-pane fade " id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab" style="zoom:80%;">
                     <div class="transport_booking_detail">
                         <h5>Transport Booking Detail (route 1)</h5>
                         <div class="form-group mt-4 row">
@@ -938,7 +940,7 @@ require 'function/auth/get_session.php';
 
                     <!-- </div> -->
                 </div>
-                <div class="tab-pane fade " id="reportcs_tab_target" role="tabpanel" aria-labelledby="reportcs_tab">
+                <div class="tab-pane fade " id="reportcs_tab_target" role="tabpanel" aria-labelledby="reportcs_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <h4>Document</h4>
@@ -1233,7 +1235,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade " id="customs_tab_target" role="tabpanel" aria-labelledby="customs_tab">
+                <div class="tab-pane fade " id="customs_tab_target" role="tabpanel" aria-labelledby="customs_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <h4>Customs Clearance Plan</h4>
@@ -2455,6 +2457,7 @@ require 'function/auth/get_session.php';
 
 <script>
     $(document).ready(function() {
+        
         sidebar_main.set_data_rows();
         job_detail.set_header_page();
     });

@@ -187,39 +187,41 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <h5 class="mt-2">Status</h5>
+                    
                     <div class="form-group mt-2 row">
-                        <label for="" class="col-lg-2">Accrued Liabilities(Unpaid) : </label>
+                        <label for="" class="col-lg-2">Filter payment status : </label>
                         <div class="bd-example col-lg-10">
                             <!-- <div class="form-check form-check-inline"> -->
                                 <!-- <input type="checkbox" class="form-check-input cb_st_1" name="bsradio2" name_data="6" checked> -->
                                 <!-- <label for="radio3" class="form-check-label pl-2">All</label> -->
                             <!-- </div> -->
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_6" name="bsradio2" name_data="1">
-                                <label for="radio3" class="form-check-label pl-2">ALL</label>
+                                <input type="checkbox" class="form-check-input sel_st_1 input_first" onclick="ap_function.select_data('1')"name="bsradio2" name_data="1">
+                                <label for="radio3" class="form-check-label pl-2">Unpaid</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_1" name="bsradio2" name_data="1">
-                                <label for="radio3" class="form-check-label pl-2">Created</label>
+                                <input type="checkbox" class="form-check-input sel_st_2" onclick="ap_function.select_data('2')"name="bsradio2" name_data="2">
+                                <label for="radio3" class="form-check-label pl-2">Uncheck</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_2" name="bsradio2" name_data="2">
-                                <label for="radio3" class="form-check-label pl-2">Checked</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_3" name="bsradio2" name_data="3">
+                                <input type="checkbox" class="form-check-input sel_st_3" onclick="ap_function.select_data('3')"name="bsradio2" name_data="4">
                                 <label for="radio3" class="form-check-label pl-2">Applied</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_4" name="bsradio2" name_data="4">
+                                <input type="checkbox" class="form-check-input sel_st_4" onclick="ap_function.select_data('4')"name="bsradio2" name_data="5">
                                 <label for="radio3" class="form-check-label pl-2">Approve</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input cb_st_5" name="bsradio2" name_data="5">
+                                <input type="checkbox" class="form-check-input sel_st_5" onclick="ap_function.select_data('5')"name="bsradio2" name_data="6">
                                 <label for="radio3" class="form-check-label pl-2">Paid</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input sel_st_6" onclick="ap_function.select_data('6')"name="bsradio2" name_data="7">
+                                <label for="radio3" class="form-check-label pl-2">Reject</label>
                             </div>
                         </div>
                     </div>
+
                     <!-- <div class="form-group mt-2 row">
                         <label for="" class="col-lg-2">Accrued Liabilities(Paid) : </label>
                         <div class="bd-example col-lg-10">
@@ -394,12 +396,12 @@ require 'function/auth/get_session.php';
                         </table>
                     </div>
 
-                    <!-- <div class="text-start">
-                        <button class="btn btn-sm btn-success" onclick="ap_function.checked_select_all()">Checked all 全选</button>
-                        <button class="btn btn-sm btn-warning" onclick="ap_function.unchecked_select_all()">Unchecked all 全不选</button>
-                        <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
-                    </div> -->
+                    <div class="text-start">
+                        <button class="btn btn-sm btn-outline-success" onclick="ap_function.approve_all('2')">Approve All 全选</button>
+                        <button class="btn btn-sm btn-outline-warning" onclick="ap_function.approve_all('1')">Waiting All 全不选</button>
+                        <!-- <button class="btn btn-sm btn-outline-primary" onclick="ap_function.select_action_table('approve')" >Approve only select</button> -->
+                        <!-- <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button> -->
+                    </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">
                             <label class="col-xl-2">Total Payables 应付合计</label>

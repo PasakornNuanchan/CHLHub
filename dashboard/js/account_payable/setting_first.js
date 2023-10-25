@@ -1,22 +1,31 @@
 const setting_first = {
 
     get_res_data_table : '',
-    first_set: async function () {
+    first_set: async function (e) {
 
+        if(e == undefined){
+            $('.head-of-menu').html('Account Payable (Acc)');
+            $('.bcpage').html('');
+            html_bdpage = `
+            <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Acc)</a></li>
+            `;
+            $('.bcpage').append(html_bdpage);
+        }
+        
+        let res_data = '';
+        this.get_res_data_table = res_data ;
+        
+        if(e == undefined){
+            res_data = await this.ajax_first_set();
+            this.get_res_data_table = res_data['table'];
+        }else{
+            res_data = e;
+        }
+        
+        //console.log(res_data)
+        
+        
 
-        $('.head-of-menu').html('Account Payable (Acc)');
-        $('.bcpage').html('');
-        html_bdpage = `
-        <li class="breadcrumb-item"><a href="account_payable.php" target="" style="color:white;">Account Payable (Acc)</a></li>
-        `;
-        $('.bcpage').append(html_bdpage);
-
-
-
-        let res_data = await this.ajax_first_set();
-        console.log(res_data)
-
-        this.get_res_data_table = res_data['table'];
         $('.table_data_account tbody').html('')
 
             let currency_thb = 0;        
@@ -34,6 +43,7 @@ const setting_first = {
             let paid_rmb = 0;
             let paid_hkd = 0;
 
+        
         if (res_data['table'] != "0 results") {
             let html_append_data = '';
             $.each(res_data['table'], function (i, v) {
@@ -66,20 +76,22 @@ const setting_first = {
                 let status_data = v['status'] ? v['status'] : '';
                 let approve_by = v['approve_by'] ? v['approve_by'] : '';
                 let approve_datetime = v['approve_date_time'] ? v['approve_date_time'] : '';
-                    
+                let billing_payment_check = v['billing_payment_check'] ? v['billing_payment_check'] : '';
                 let ap_amt = qty * unit_price;
                 let ap_amt_incvat = (ap_amt*(vat/100))+ap_amt;
                 let amt_cal = parseFloat(qty) * parseFloat(unit_price);
                 let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
                 
                 
-
+                
                 ap_amt_incvat_cal = ap_amt_incvat_cal.toFixed(2)
                 ap_amt_incvat_cal = parseFloat(ap_amt_incvat_cal)
 
                 ap_amt = ap_amt.toFixed(2)
                 ap_amt_incvat = ap_amt_incvat.toFixed(2)
 
+
+                
 
                 if(approve_datetime != ""){
 
@@ -144,9 +156,9 @@ const setting_first = {
                     <td><input type="text" class="form-control form-control form-control-sm text-end" value="${vat_show}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm text-end" value="${with_holding_tax_show}" disabled> </td>                                    WH%
                     <td><input type="text" class="form-control form-control form-control-sm text-end inp_ap_amt_incvat" value="${ap_amt_incvat}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm"></td>
+                    <td><input type="text" class="form-control form-control form-control-sm text-end inp_payment"></td>
                     <td>
-                        <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1" checked="">
+                        <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1" onclick="ap_function.select_approve(this)" checked="">
                         <label for="radio1" class="form-check-label pl-2">Waiting</label>
                         <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" onclick="ap_function.select_approve(this)">
                         <label for="radio2" class="form-check-label pl-2">Approve</label>
@@ -172,6 +184,14 @@ const setting_first = {
 
                 $('.table_data_account tbody').append(html_append_data)
 
+
+                if(billing_payment_check != ''){
+                    $(`.data_id${id_number} > td >.inp_payment`).val(ap_amt_incvat).attr('disabled',true)
+                    $(`.data_id${id_number} > td >.data_sela`).attr('disabled',true)
+                }else{
+                    $(`.data_id${id_number} > td >.inp_payment`).val('0.00')
+                }
+
                 if(action_paid_by != ''){
                     $(`.data_id${id_number} > td >.tb_in_tb`).prop('checked',true)
                 }
@@ -183,6 +203,8 @@ const setting_first = {
                 }else{
                     $(`.data_id${id_number} > td > .data_sela_1`).prop('checked',true)
                 }
+
+
 
 
             })
@@ -216,8 +238,11 @@ const setting_first = {
         $('.inp_paid_usd').val(paid_usd)
         $('.inp_paid_rmb').val(paid_rmb)
         $('.inp_paid_hkd').val(paid_hkd)
-        $('.cb_st_6').prop('checked',true)
+
+        await $('.sel_st_1').prop('checked',true)
         
+        
+        console.log(res_data['table'])
     },
 
     ajax_first_set: async function () {

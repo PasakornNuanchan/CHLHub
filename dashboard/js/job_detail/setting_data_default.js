@@ -4,6 +4,15 @@ const setting_data_default = {
     data_area : '',
     data_container_type : '',
     data_unit : '',
+    address_pick_container : '',
+    address_load_container : '',
+    address_delivery_container : '',
+    address_return_container : '',
+    html_data_address_pick_container : '',
+    html_data_address_load_container : '',
+    html_data_address_delivery_container : '',
+    html_data_address_return_container : '',
+
     setting_data : async function (){
 
     
@@ -28,6 +37,47 @@ const setting_data_default = {
         let bill_to_ar = '';
         let unit_data = '';
         let shipper_consignee = '';
+
+        let html_address_pick_container = '';
+        let html_address_load_container = '';
+        let html_address_delivery_container = '';
+        let html_address_return_container = '';
+
+        
+
+        if(res_data_default['address_pick_container'] != "0 results"){
+            $.each(res_data_default['address_pick_container'],function(i,v){
+                html_address_pick_container += `<option value="${v['pick_con_empty_address']}">${v['pick_con_empty_address']}</option>`;
+            })
+        }
+
+        if(res_data_default['address_pick_container'] != "0 results"){
+            $.each(res_data_default['address_pick_container'],function(i,v){
+                html_address_load_container += `<option value="${v['pick_con_address']}">${v['pick_con_address']}</option>`;
+            })
+        }
+
+        if(res_data_default['address_pick_container'] != "0 results"){
+            $.each(res_data_default['address_pick_container'],function(i,v){
+                html_address_delivery_container += `<option value="${v['drop_con_address']}">${v['drop_con_address']}</option>`;
+            })
+        }
+
+        if(res_data_default['address_pick_container'] != "0 results"){
+            $.each(res_data_default['address_pick_container'],function(i,v){
+                html_address_return_container += `<option value="${v['drop_con_empty_address']}">${v['drop_con_empty_address']}</option>`;
+            })
+        }
+
+        this.address_pick_container = res_data_default['address_pick_container'];
+        this.address_load_container = res_data_default['address_load_container'];
+        this.address_delivery_container = res_data_default['address_delivery_container'];
+        this.address_return_container = res_data_default['address_return_container'];
+
+        this.html_data_address_pick_container = html_address_pick_container;
+        this.html_data_address_load_container = html_address_load_container;
+        this.html_data_address_delivery_container = html_address_delivery_container;
+        this.html_data_address_return_container = html_address_return_container;
 
         if(res_data_default['unit'] != "0 results"){
             $.each(res_data_default['unit'],function(i,v){

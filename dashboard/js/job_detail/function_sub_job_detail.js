@@ -672,4 +672,11 @@ const function_sub_job_detail = {
             });
         });
     },
+
+    generate_job_detail_document : async function (e) {
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        window.open(`php/job_detail/create_pdf_generate_job_detail.php?job_number=${id_number}`, "_blank")
+    },
 }
