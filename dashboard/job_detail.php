@@ -285,8 +285,8 @@ require 'function/auth/get_session.php';
 
             <!-- headtab -->
             <div class="card">
-                <div class="card-body card_body_head_nav">
-                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                <div class="card-body card_body_head_nav" style="zoom:80%">
+                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist" >
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded active" id="job_detail_tab" data-bs-toggle="pill" data-bs-target="#job_detail_tab_target" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Job detail</button>
                         </li>
@@ -380,13 +380,13 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center">Shipper:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <div class="row">
-                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
                                                     <select class="form-select form-select-sm inp_shipper inp_copy_data " id="shipper_db">
                                                         <option value="">-- pleses select shipper --</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 text-end">
+                                                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard" onclick="function_sub_job_detail.get_to_copy(this)"></i> </button>
                                                 </div>
                                             </div>
 
@@ -396,13 +396,13 @@ require 'function/auth/get_session.php';
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Consignee:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <div class="row">
-                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
                                                     <select id="consginee_db" class="form-select form-select-sm inp_consignee inp_copy_data">
                                                         <option value="">-- plsese select consignee</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 text-end">
+                                                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -413,13 +413,13 @@ require 'function/auth/get_session.php';
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <!-- <input type="text" class="form-control form-control-sm inp_notify" maxlength="300"> -->
                                             <div class="row">
-                                                <div class="col-xs-6 col-sm-6 col-md-11 col-lg-11">
+                                                <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
                                                     <select class="form-select form-select-sm inp_notify_job_detail inp_copy_data" id="notify_db">
                                                         <option value="">-- plsese select notify -- </option>
                                                     </select>
                                                 </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                                                    <i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i>
+                                                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-end">
+                                                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -496,7 +496,7 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Mother Vessel:</label>
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Mother Vessel & Flight:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <input type="text" class="form-control form-control-sm inp_mother_vessel" maxlength="60">
                                         </div>
@@ -707,7 +707,7 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="card-body">
                             <div class="bd-example table-responsive">
-                                <table class="table table-hover table_container_module table_container_module_setting_width" id="table_container_module_setting_width" onchange="function_sub_job_detail.cal_cargo_information()">
+                                <table class="table table-hover table_container_module table_container_module_setting_width" id="table_container_module_setting_width" onchange="function_sub_job_detail.cal_cargo_information()" style="zoom:80%">
                                     <thead>
                                         <tr class="text-center">
                                             <th>No.</th>
@@ -1193,7 +1193,28 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_ats_datetime" disabled>
                                         </div>
-
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 col-md-3 col-lg-2 align-self-center">Delivery Date plan: *</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-5 ">
+                                            <input type="datetime-local" class="form-control form-control-sm inp_delivery_plan">
+                                        </div>
+                                        <div class="col-lg-1 col-md-1">
+                                            <button class="btn btn-success btn-sm btn_delivery">confirm</button>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 text-center">
+                                            <label for="">By</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_delivery_plan_by " disabled>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_delivery_plan_datetime" disabled>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

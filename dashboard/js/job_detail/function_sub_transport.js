@@ -586,24 +586,42 @@ const function_sub_transport = {
 
         let list_name = $(e).attr('list');
         let val_data = $(e).val()
-        console.log(list_name)
+        // console.log(list_name)
         if(list_name == 'data_inp_peca'){
-            var result = $.grep(setting_data_default.address_pick_container, function(data_a){return data_a.pick_con_empty_address == val_data; });
-            $(e)
-            console.log(result);
+            let result = $.grep(setting_data_default.address_pick_container, function(data_a){return data_a.pick_con_empty_address == val_data; });
+            $('.inp_pecar').val(result[0]['pick_con_empty_remark'])
+            $('.inp_ggpeca').val(result[0]['ggpick_con_empty_address'])
         }else if(list_name == 'data_inp_pca'){
-        
+            let result = $.grep(setting_data_default.address_load_container, function(data_a){return data_a.pick_con_address == val_data; });
+            $('.inp_pcar').val(result[0]['pick_con_remark'])
+            $('.inp_ggpca').val(result[0]['ggpick_con_address'])
+            
         }else if(list_name == 'data_inp_doca'){
-        
+            let result = $.grep(setting_data_default.address_delivery_container, function(data_a){return data_a.drop_con_address == val_data; });
+            $('.inp_docar').val(result[0]['drop_con_remark'])
+            $('.inp_ggdoca').val(result[0]['ggdrop_con_address'])
         }else if(list_name == 'data_inp_deca'){
-        
+            let result = $.grep(setting_data_default.address_return_container, function(data_a){return data_a.drop_con_empty_address == val_data; });
+            $('.inp_decar').val(result[0]['drop_con_empty_remark'])
+            $('.inp_ggdeca').val(result[0]['drop_con_empty_address'])
         }
 
-        console.log(setting_data_default.address_pick_container)
-        // console.log(setting_data_default.address_load_container)
-        // console.log(setting_data_default.address_delivery_container)
-        // console.log(setting_data_default.address_return_container)
-    }
+        
+    },
+
+
+    generate_transport: async function (e) {
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+
+        let h_data = $(e).closest('.card').attr('transport_id')
+        // let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
+
+
+
+        window.open(`php/job_detail/create_pdf_generate_transport.php?job_number=${id_number}&transport_number=${h_data}`, "_blank")
+    },
 
 
 }

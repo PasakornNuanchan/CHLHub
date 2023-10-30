@@ -43,12 +43,23 @@ if ($result->num_rows > 0) {
 
 $sql_container = "
 SELECT
-    c.container_type
+    c.container_type,
+    con.container_sub_type
     FROM
         container c
+    LEFT JOIN container_type con ON con.container_type_name = c.container_type
     WHERE
         c.ref_job_id = '$job_number'
-"
+";
+
+$result = $con->query($sql_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $data_container[] = $row['container_sub_type'];
+  }
+} else {
+  $data_container = "0 results";
+}
 
 
 
@@ -354,95 +365,124 @@ $pdf->Cell(104,6,"REMARK",0,0,"C");
 
 
 // data job control
-foreach($data_detail as $k => $v){
+if($data_detail != "0 results"){
+  foreach($data_detail as $k => $v){
 
 
-$pdf->setXY(50,12);
-$pdf->SetFont('THSarabunNew', 'B', 26, '', true);
-$pdf->Cell(95,6,strtoupper($v['consingee_name']),0,0,"C");
+    $pdf->setXY(50,12);
+    $pdf->SetFont('THSarabunNew', 'B', 26, '', true);
+    $pdf->Cell(95,6,strtoupper($v['consingee_name']),0,0,"C");
+    
+    // data job No.
+    $pdf->setXY(50,22);
+    $pdf->SetFont('THSarabunNew', 'B', 26, '', true);
+    $pdf->Cell(95,6,strtoupper($v['job_number']),0,0,"C");
+    
+    // data consignee.
+    $pdf->setXY(50,32);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['consingee_name']),0,1,"C");
+    
+    // data cargo desceiption
+    $pdf->setXY(145,30);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->MultiCell(55,6,strtoupper($v['cargo_des']),0,"C",false);
+    
+    // data ETD PORT.
+    $pdf->setXY(50,42);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['etd_port']),0,0,"C");
+    
+    // data ETD .
+    $pdf->setXY(50,52);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['etd']),0,0,"C");
+    
+    // data ETA PORT.
+    $pdf->setXY(50,62);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['eta_port']),0,0,"C");
+    
+    // data ETA .
+    $pdf->setXY(50,72);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['eta']),0,0,"C");
+    
+    // data INVOICE .
+    $pdf->setXY(50,82);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(150,6,strtoupper($v['inv']),0,0,"L");
+    
+    // data BL no.
+    $pdf->setXY(50,92);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(150,6,strtoupper($v['hbl']),0,0,"L");
+    
+    // data CNTR NO. line 1
+    $pdf->setXY(50,122);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(46,6,strtoupper($v['quantity']." Package"),0,0,"C");
+    
+    // data CNTR NO. line 2 first
+    $pdf->setXY(50,102);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->MultiCell(150,6,strtoupper($v['container_data']),0,"L");
+    
+    // data CNTR NO. line 2 last
+    $pdf->setXY(96,122);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(49,6,strtoupper($v['gw']." KGS"),0,0,"C");
+    
+    
+    // data agent.first
+    $pdf->setXY(50,142);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(46,6,strtoupper($v['carrier']),0,0,"L");
+    
+    // data agent.first
+    $pdf->setXY(50,152);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->Cell(95,6,strtoupper($v['mother_vessel']),0,0,"L");
+    
+    // data remark
+    $pdf->setXY(96,182);
+    $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+    $pdf->MultiCell(104,6,strtoupper($v['remark']),0,"L");
+    
+    }
+}else{
+  echo "Data is not valid please re check your data <br>";
+}
 
-// data job No.
-$pdf->setXY(50,22);
-$pdf->SetFont('THSarabunNew', 'B', 26, '', true);
-$pdf->Cell(95,6,strtoupper($v['job_number']),0,0,"C");
 
-// data consignee.
-$pdf->setXY(50,32);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['consingee_name']),0,1,"C");
+//print_r($data_container);
+if($data_container != "0 results"){
+  $container_counts = array_count_values($data_container);
 
-// data cargo desceiption
-$pdf->setXY(145,30);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->MultiCell(55,6,strtoupper($v['cargo_des']),0,"C",false);
-
-// data ETD PORT.
-$pdf->setXY(50,42);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['etd_port']),0,0,"C");
-
-// data ETD .
-$pdf->setXY(50,52);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['etd']),0,0,"C");
-
-// data ETA PORT.
-$pdf->setXY(50,62);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['eta_port']),0,0,"C");
-
-// data ETA .
-$pdf->setXY(50,72);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['eta']),0,0,"C");
-
-// data INVOICE .
-$pdf->setXY(50,82);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(150,6,strtoupper($v['inv']),0,0,"L");
-
-// data BL no.
-$pdf->setXY(50,92);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(150,6,strtoupper($v['hbl']),0,0,"L");
-
-// data CNTR NO. line 1
-$pdf->setXY(50,122);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(46,6,strtoupper($v['quantity']." Package"),0,0,"C");
-
-// data CNTR NO. line 2 first
-$pdf->setXY(50,102);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->MultiCell(150,6,strtoupper($v['container_data']),0,"L");
-
-// data CNTR NO. line 2 last
-$pdf->setXY(96,122);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(49,6,strtoupper($v['gw']." KGS"),0,0,"C");
-
-
-// data agent.first
-$pdf->setXY(50,142);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(46,6,strtoupper($v['carrier']),0,0,"L");
-
-// data agent.first
-$pdf->setXY(50,152);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->Cell(95,6,strtoupper($v['mother_vessel']),0,0,"L");
-
-// data remark
-$pdf->setXY(96,182);
-$pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-$pdf->MultiCell(104,6,strtoupper($v['remark']),0,"L");
-
+  $data_res_container = [];
+  
+  
+  foreach ($container_counts as $container => $count) {
+  
+  
+  array_push($data_res_container,"$count".'X'."$container");
+  
+  }
+  $data_imp_container = implode(",",$data_res_container);
+  
+  //data CNTR type.first
+  $pdf->setXY(50,132);
+  $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
+  $pdf->Cell(95,6,strtoupper($data_imp_container),0,0,"L");
+  
+}else{
+  echo "Data is not valid please re check your data";
 }
 
 
 
-$data_detail_container = explode(" ",$data_detail['type_data']);
-print_r($data_detail_container);
+// $data_detail_container = explode(" ",$data_detail['type_data']);
+// print_r($data_detail_container);
 // foreach($data_detail as $k => $v){
 //     print_r($v['type_data']);
 // }
@@ -452,10 +492,7 @@ print_r($data_detail_container);
     
 
 
-// // data CNTR type.first
-// $pdf->setXY(50,132);
-// $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
-// $pdf->Cell(46,6,"fdslp[flps[dl[fpsd]]]",0,0,"L");
+
 
 
 // }

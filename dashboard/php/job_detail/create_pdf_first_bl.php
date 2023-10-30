@@ -190,34 +190,31 @@ $set_height_header = 6;
 // $pdf->SetX(140);
 // $pdf->Cell(60, $set_height_header, "B/L NO.", '', 0, 'L');
 
-// foreach($data as $k => $v){
-//   $pdf->SetFont('times', '', 8, '', true);
-//   $pdf->SetXY(20,17);
-//   $pdf->MultiCell(100, 3, strtoupper($v['shipper_bl']), '', 0);
-// }
-
 foreach($data as $k => $v){
-  $pdf->SetFont('times', '', 8, '', true);
-  $pdf->SetXY(140,17);
-  $pdf->MultiCell(60, 3, $v['hbl'], '', 0);
+  $pdf->SetFont('times', '', 7, '', true);
+  $pdf->SetXY(20,20);
+  $pdf->MultiCell(100, 3, strtoupper($v['shipper_bl']), '',"L");
 }
 
 foreach($data as $k => $v){
-  $pdf->SetXY(20,40);
+  $pdf->SetFont('times', '', 7, '', true);
+  $pdf->SetXY(140,20);
+  $pdf->MultiCell(60, 3, $v['hbl'], '', "L");
+}
+
+foreach($data as $k => $v){
+  $pdf->SetXY(20,43);
   $pdf->MultiCell(100,3,strtoupper($v['consignee_bl']),'',"L");
 }
 
 foreach($data_notify as $k => $v){
-  $pdf->SetXY(20,60);
+  $pdf->SetXY(20,70);
   $pdf->MultiCell(100,3,strtoupper($v),0,"L");
 }
 $pdf->Ln();
 $pdf->Ln();
 
-foreach($data_delivery_agent as $k => $v){
-  $pdf->SetX(120);
-  $pdf->MultiCell(100,3,strtoupper($v),0,"L");
-}
+
 
 
 foreach($data_shipperandconsignee as $k => $v ){
@@ -256,7 +253,7 @@ foreach($data_shipperandconsignee as $k => $v){
 }
 
 foreach($data as $k => $v){
-  $pdf->SetXY(120, 108);
+  $pdf->SetXY(120, 112);
   $pdf->MultiCell(90, 3, strtoupper($v['final_destination']), '', "L");
 }
 
@@ -303,6 +300,12 @@ foreach($container_data as $k => $v){
 }
 
 $today = date("Y/m/d");
+
+
+foreach($data_delivery_agent as $k => $v){
+  $pdf->SetXY(120,82);
+  $pdf->MultiCell(100,3,strtoupper($v),0,"L");
+}
 
 $pdf->SetXY(160,172);
 // $data_y = $pdf->GetY();

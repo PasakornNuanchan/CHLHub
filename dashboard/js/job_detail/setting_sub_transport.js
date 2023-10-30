@@ -285,6 +285,7 @@ const sub_transport = {
                         <button class="btn btn-danger btn-sm btn_delete_transport" onclick="function_sub_transport.delete_route(this,'${v['ID']}')"><i class="bi bi-trash"></i> del</button>
                         <button class="btn btn-success btn-sm" onclick="function_sub_transport.save_transport();"><i class="bi bi-save"></i> save</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_qr('${v['ID']}')">create status</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_transport(this)">generate</button>
 
                     </div>
 

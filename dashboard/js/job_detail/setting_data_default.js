@@ -51,20 +51,20 @@ const setting_data_default = {
             })
         }
 
-        if(res_data_default['address_pick_container'] != "0 results"){
-            $.each(res_data_default['address_pick_container'],function(i,v){
+        if(res_data_default['address_load_container'] != "0 results"){
+            $.each(res_data_default['address_load_container'],function(i,v){
                 html_address_load_container += `<option value="${v['pick_con_address']}">${v['pick_con_address']}</option>`;
             })
         }
 
-        if(res_data_default['address_pick_container'] != "0 results"){
-            $.each(res_data_default['address_pick_container'],function(i,v){
+        if(res_data_default['address_delivery_container'] != "0 results"){
+            $.each(res_data_default['address_delivery_container'],function(i,v){
                 html_address_delivery_container += `<option value="${v['drop_con_address']}">${v['drop_con_address']}</option>`;
             })
         }
 
-        if(res_data_default['address_pick_container'] != "0 results"){
-            $.each(res_data_default['address_pick_container'],function(i,v){
+        if(res_data_default['address_return_container'] != "0 results"){
+            $.each(res_data_default['address_return_container'],function(i,v){
                 html_address_return_container += `<option value="${v['drop_con_empty_address']}">${v['drop_con_empty_address']}</option>`;
             })
         }

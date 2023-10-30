@@ -121,6 +121,48 @@ const function_sub_reportcs = {
 
     },
 
+    update_delivery_data: async function () {
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        let delivery_plan = $('.inp_delivery_plan').val()
+        
+        let res_data = await this.ajax_update_delivery_plan(delivery_plan, id_number);
+
+        if (res_data['arr_res'] == '1') {
+            await Swal.fire(
+                'Save it!',
+                'Your file has been deleted.',
+                'success'
+            )
+            await sub_reportcs.first_post_data(id_number)
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System error plese contact to tech team',
+            })
+        }
+
+    },
+
+    ajax_update_delivery_plan : async function (delivery_plan, id_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/job_detail/update_status_delivery_plan.php",
+                data: {
+                    delivery_plan: delivery_plan,
+                    id_number: id_number,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
     ajax_update_shipping_data: async function (ats_data, id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({

@@ -399,8 +399,8 @@ const function_sub_job_detail = {
                             <div class="col-sm-11 col-md-10 col-lg-11">
                                 <input type="text" class="form-control form-control-sm inp_hbl">
                             </div>
-                            <div class="col-sm-1 col-md-2 col-lg-1">
-                                <i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i>
+                            <div class="col-sm-1 col-md-2 col-lg-1 text-end">
+                                <button class="btn btn-outline-danger btn-sm "><i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i></button>
                             </div>
                         </div>
                     </div>

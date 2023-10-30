@@ -125,6 +125,14 @@ const sub_reportcs = {
         $('.inp_ats_datetime').val(shipping_ass_dt)
         $('.inp_import_entry_by').val(do_number_by)
 
+
+        let delivery_plan = res_data['get_data_status']['delivery_plan'] ? res_data['get_data_status']['delivery_plan'] : '';
+        let delivery_plan_by = res_data['get_data_status']['delivery_plan_f'] ? res_data['get_data_status']['delivery_plan_f']+" "+res_data['get_data_status']['delivery_plan_l'] : '';
+        let delivery_plan_datetime = res_data['get_data_status']['delivery_plan_datetime'] ? res_data['get_data_status']['delivery_plan_datetime'] : '';
+        
+        $('.inp_delivery_plan').val(delivery_plan)
+        $('.inp_delivery_plan_by').val(delivery_plan_by)
+        $('.inp_delivery_plan_datetime').val(delivery_plan_datetime)
         
         
          
@@ -136,6 +144,7 @@ const sub_reportcs = {
         $('.btn_clear_date').attr('onclick',`function_sub_reportcs.update_clearance()`)
         $('.btn_ats').attr('onclick',`function_sub_reportcs.update_shipping_data()`)
         $('.btn_import_ent').attr('onclick',`function_sub_reportcs.update_import_entry()`)
+        $('.btn_delivery').attr('onclick',`function_sub_reportcs.update_delivery_data()`)
 
         check_document_by != '' ? $('.btn_check_doc').remove() : '';
         enter_by != '' ? $('.btn_enter').remove() : '';

@@ -43,7 +43,8 @@ SELECT
     js.id_check_datetime,
     js.il_receiv_datetime,
     js.il_check_datetime,
-    js.ref_job_id
+    js.ref_job_id,
+    
     
 FROM
     job_status js
@@ -101,7 +102,11 @@ SELECT
     jt.do_number_by,
     u4.first_name do_number_f,
     u4.last_name do_number_l,
-    jt.do_number
+    jt.do_number,
+    jt.delivery_plan,
+    u7.first_name delivery_plan_f,
+    u7.last_name delivery_plan_l,
+    jt.delivery_plan_datetime
 FROM
     job_title jt
     LEFT join job_status js ON jt.ID = js.ref_job_id
@@ -111,6 +116,7 @@ FROM
     LEFT JOIN user u4 ON jt.do_number_by = u4.ID
     LEFT JOIN user u5 ON jt.clearlance_date_by = u5.ID
     LEFT JOIN user u6 ON jt.shipping_ass_by = u6.ID
+    LEFT JOIN user u7 ON jt.delivery_plan_by = u7.ID
 WHERE
   jt.ID = '$id_number'
 ";

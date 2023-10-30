@@ -66,7 +66,7 @@ const sub_job_detail = {
                                 <input type="text" class="form-control form-control-sm inp_hbl" value="${hbl_data}">
                             </div>
                             <div class="col-sm-1 col-md-2 col-lg-1">
-                                <i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i>
+                                <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash" onclick="function_sub_job_detail.delete_data_hbl(this)"></i></button>
                             </div>
                         </div>
                     </div>
@@ -142,10 +142,11 @@ const sub_job_detail = {
                             let rtn = v1['rtn'] ? v1['rtn'] : '';
                             let remark = v1['remark'] ? v1['remark'] : '';
                             let unit = v1['unit'] ? v1['unit'] : '';
+                            
                             let data_vgm = parseFloat(single_cnt) + parseFloat(gw);
 
                             let html_container_module = `
-                                <tr class="container_data_q${i}" id_container_module = "${id_container}">
+                                <tr class="container_data_q${i1}" id_container_module = "${id_container}">
                                     <td class="text-center"><div class="q_container_module"></div></td>
                                     <td>${sub_job_detail.data_select_container}</td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_container_number" maxlength="30" value="${container_number}"></td>
@@ -162,8 +163,8 @@ const sub_job_detail = {
                                 </tr>
                                 `;
                             $('.table_container_module tbody').append(html_container_module)
-                            $(`.table_container_module > tbody > .container_data_q${i} > td > .inp_container_type`).val(data_container_v1).attr('disabled',true)
-                            $(`.table_container_module > tbody > .container_data_q${i} > td > .inp_select_packing`).val(unit)
+                            $(`.table_container_module > tbody > .container_data_q${i1} > td > .inp_container_type`).val(data_container_v1).attr('disabled',true)
+                            $(`.table_container_module > tbody > .container_data_q${i1} > td > .inp_select_packing`).val(unit)
                         }
 
                     })
