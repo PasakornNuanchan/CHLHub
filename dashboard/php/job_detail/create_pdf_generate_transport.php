@@ -6,6 +6,7 @@ include '../../core/conn.php';
 
 $job_number = $_GET['job_number'];
 $task_number = $_GET['transport_number'];
+$hbl = $_GET['lskdhblf'];
 
 
 $sql_count_container = "
@@ -417,7 +418,7 @@ $pdf->MultiCell(57, 3.5, iconv('UTF-8', 'TIS-620', $data_license_plate),0,"C");
 
 // data bl
 $pdf->SetXY(50,146.5);
-$pdf->Cell(145, 6, iconv('UTF-8', 'TIS-620', "92144720222/$data_mother_vessel"),"",0,"C");
+$pdf->Cell(145, 6, iconv('UTF-8', 'TIS-620', "$hbl/$data_mother_vessel"),"",0,"C");
 
 // data invoice no
 $pdf->SetXY(50,159.5);
@@ -425,7 +426,7 @@ $pdf->Cell(145, 6, iconv('UTF-8', 'TIS-620', $data_inv),"",0,"C");
 
 // data item
 $pdf->SetXY(50,170.5);
-$pdf->MultiCell(145, 6, iconv('UTF-8', 'TIS-620', $data_cargo),0,"C");
+$pdf->MultiCell(145, 4, iconv('UTF-8', 'TIS-620', $data_cargo),0,"C");
 
 // data nubmer of package&weight
 $pdf->SetXY(50,196);

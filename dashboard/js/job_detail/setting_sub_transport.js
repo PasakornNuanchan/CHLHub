@@ -3,7 +3,7 @@ const sub_transport = {
     first_post_data: async function (data) {
         let res_data = await this.ajax_request_first(data);
 
-        //console.log(res_data)        
+        console.log(res_data)        
         
         var data_container_transport_driver = '';
         if(sub_job_detail.data_container_for_transport != "0 results"){
@@ -58,6 +58,7 @@ const sub_transport = {
                                 <div class="col">
                                     <button class="bi bi-trash btn btn-outline-danger" onclick="function_sub_transport.delete_driver(this)"></button>
                                 </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -93,11 +94,15 @@ const sub_transport = {
                                             ${data_container_transport_driver}
                                         </select>
                                     </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12 "
                                     <div class="col-lg-2 col-md-12 col-sm-12">
                                         <input type="text" class="form-control form-control-sm inp_seal_transport" placeholder="Seal" disabled>
                                     </div>
                                     <div class="col-lg-1 col-md-12 col-sm-12">
                                         <button class=" btn btn-outline-danger btn-sm col-sm-12 " onclick="function_sub_transport.delete_driver(this,'${v1['ID']}')"><i class="bi bi-trash"></i> Del</button>
+                                    </div>
+                                    <div class="col-lg-1 col-md-12 col-sm-12">
+                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_qr('${v['ID']}','${v1['ID']}')">Task</button>
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +139,31 @@ const sub_transport = {
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">HBL:</label>
+                        <div class="col-sm-9 col-md-5 col-lg-3">
+                            <select class="form-select form-select-sm inp_select_hbl_transport" onchange="function_sub_transport.select_hbl_data_transport(this)">
+                                <option value="">-- Please select hbl --</option>
+                                ${setting_data_default.transport_hbl_html}
+                            </select>
+                        </div>
+                        <div class="col-sm-9 col-md-5 col-lg-6">
+                            <div class="data_hbl_transport"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Container:</label>
+                        <div class="col-sm-9 col-md-5 col-lg-3">
+                            <select class="form-select form-select-sm inp_select_container_transport" onchange="function_sub_transport.select_container_data_transport(this)">
+                                <option value="">-- Please select container --</option>
+                                ${setting_data_default.transport_container_html}
+                            </select>
+                        </div>
+                        <div class="col-sm-9 col-md-5 col-lg-6">
+                            <div class="data_container_transport"></div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Pickup Empty Container Address *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -240,6 +270,16 @@ const sub_transport = {
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="form-group row">
+                        <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Container route: *</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 ">
+                                    <input type="text" class="form-control form-control-sm inp_quantity" value="${tq}">
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Type Truck: *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -284,7 +324,6 @@ const sub_transport = {
                     <div class="form-group text-end float-end">
                         <button class="btn btn-danger btn-sm btn_delete_transport" onclick="function_sub_transport.delete_route(this,'${v['ID']}')"><i class="bi bi-trash"></i> del</button>
                         <button class="btn btn-success btn-sm" onclick="function_sub_transport.save_transport();"><i class="bi bi-save"></i> save</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_qr('${v['ID']}')">create status</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_transport(this)">generate</button>
 
                     </div>
@@ -301,21 +340,24 @@ const sub_transport = {
                 $(`.ds_supplier${i} > select`).val(v['sup_number'])
                 $(`.ds_transport${i}`).val(v['type_truck'])
                 $(`.inp_cur${i}`).val(v['cur'])
-
-                $.each(res_data['get_contact'][v['ID']], async function (i1, v1) {                    
-                    //console.log(i+'_'+i1)
-                    let container_id = v1['container_id'] ? v1['container_id'] : '';
-                    let id_number = v1['ID'] ? v1['ID'] : '';
-                    $(`.inp_select_container_transport${id_number}`).val(container_id)
-                    
-
-                    $.each(sub_job_detail.data_container_for_transport,async function(i2,v2){
-                        if(v2['ID'] == container_id){
-                            $(`.inp_select_container_transport${id_number}`).closest('.driver_detail').find('.inp_seal_transport').val(v2['seal_number'])
-                        }
+                // console.log(v['ID'])
+                if(res_data['get_contact'] != null){
+                    $.each(res_data['get_contact'][v['ID']], async function (i1, v1) {                    
+                        //console.log(i+'_'+i1)
+                        let container_id = v1['container_id'] ? v1['container_id'] : '';
+                        let id_number = v1['ID'] ? v1['ID'] : '';
+                        $(`.inp_select_container_transport${id_number}`).val(container_id)
+                        
+    
+                        $.each(sub_job_detail.data_container_for_transport,async function(i2,v2){
+                            if(v2['ID'] == container_id){
+                                $(`.inp_select_container_transport${id_number}`).closest('.driver_detail').find('.inp_seal_transport').val(v2['seal_number'])
+                            }
+                        })
+    
                     })
-
-                })
+                }
+                
             })
             
 

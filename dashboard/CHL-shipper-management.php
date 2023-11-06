@@ -40,7 +40,7 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">Consignee Detail</h4>
+                                <h4 class="card-title">Shipper Management</h4>
                             </div>
                         </div>
                         <div class="card-body">

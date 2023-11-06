@@ -62,7 +62,8 @@ $id_number = $_POST['id_number'];
         $inp_ggdoca = isset($v['inp_ggdoca']) ? $v['inp_ggdoca'] : '';
         $inp_ggdeca = isset($v['inp_ggdeca']) ? $v['inp_ggdeca'] : '';
 
-
+        $text_conatiner_transport = isset($v['text_conatiner_transport']) ? $v['text_conatiner_transport'] : '';
+        $text_hbl_transport = isset($v['text_hbl_transport']) ? $v['text_hbl_transport'] : '';
 
 
 
@@ -99,8 +100,9 @@ $id_number = $_POST['id_number'];
                 `ggpick_con_empty_address` = '$inp_ggpeca',
                 `ggpick_con_address` = '$inp_ggpca',
                 `ggdrop_con_address` = '$inp_ggdoca',
-                `ggdrop_con_empty_address` = '$inp_ggdeca'
-            
+                `ggdrop_con_empty_address` = '$inp_ggdeca',
+                `container_assign` = '$text_conatiner_transport',
+                `hbl_assign` = '$text_hbl_transport'
             WHERE
                 `ID` = '$transport_id'
             ";
@@ -125,7 +127,9 @@ $id_number = $_POST['id_number'];
                 `ggpick_con_empty_address`,
                 `ggpick_con_address`,
                 `ggdrop_con_address`,
-                `ggdrop_con_empty_address`
+                `ggdrop_con_empty_address`,
+                `container_assign`,
+                `hbl_assign`
             )
             VALUES(
                 '$supplier_id',
@@ -146,7 +150,9 @@ $id_number = $_POST['id_number'];
                 '$inp_ggpeca',
                 '$inp_ggpca',
                 '$inp_ggdoca',
-                '$inp_ggdeca'
+                '$inp_ggdeca',
+                '$text_conatiner_transport',
+                '$text_hbl_transport'
             )
             ";
         }

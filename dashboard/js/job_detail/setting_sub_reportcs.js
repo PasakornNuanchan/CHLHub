@@ -3,7 +3,7 @@ const sub_reportcs = {
     first_post_data : async function (id_number){
         let res_data = await this.ajax_setting_data_first(id_number)
         
-
+        console.log(res_data)
         
         let revby_inv = res_data['get_data_table_reportcs']['f_recinv'] ? res_data['get_data_table_reportcs']['f_recinv'] + ' ' + res_data['get_data_table_reportcs']['l_recinv'] : '';
         let revby_bl = res_data['get_data_table_reportcs']['f_recbl'] ? res_data['get_data_table_reportcs']['f_recbl'] + ' ' + res_data['get_data_table_reportcs']['l_recbl'] : '';
@@ -104,19 +104,22 @@ const sub_reportcs = {
         let shipping_ass_by = res_data['get_data_status']['shipping_ass_by_f'] ? res_data['get_data_status']['shipping_ass_by_f']+" "+res_data['get_data_status']['shipping_ass_by_l'] : '';
         let shipping_ass_dt = res_data['get_data_status']['shipping_ass_dt'] ? res_data['get_data_status']['shipping_ass_dt'] : '';
         let do_number_by = res_data['get_data_status']['do_number_f'] ? res_data['get_data_status']['do_number_f']+" "+res_data['get_data_status']['do_number_l'] : '';
+        let container_data = res_data['get_data_status']['container_data'] ? res_data['get_data_status']['container_data'] : '';
+        let cus_by = res_data['get_data_status']['cus_by'] ? res_data['get_data_status']['cus_by'] : '';
+        let do_number_datetime = res_data['get_data_status']['do_number_datetime'] ? res_data['get_data_status']['do_number_datetime'] : '';
 
-        
         $('.inp_pick_do').val(pickup_do)
         $('.inp_check_doc').val(check_doc)
         $('.inp_enter').val(enter)
         $('.inp_clearance_date').val(clearance_plan)
         $('.inp_ats').val(ats)
         $('.inp_clearlance_success').val(clearlance_success).attr('disabled',true)
-        $('.inp_delivery').val(delivery).attr('disabled',true)
+        $('.inp_clearlance_success_by').val(cus_by)
+        $('.inp_delivery').val(container_data).attr('disabled',true)
         $('.inp_import_entry').val(import_entry)
-
+        $('.inp_import_entry_datetime').val(do_number_datetime)
         $('.inp_clearance_datetime').val(clearlance_datetime)
-        $('.inp_clearance_date_by').val(clearlance_datetime)
+        $('.inp_clearance_date_by').val(clearlance_date_by)
         $('.inp_check_doc_by').val(check_document_by)
 
         $('.inp_enter_by').val(enter_by)

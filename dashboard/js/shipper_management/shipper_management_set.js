@@ -31,10 +31,10 @@ const shipper_list_set = {
 
     set_head_page : async function () {
     
-        $('.head-of-menu').html('Supplier Transport');
+        $('.head-of-menu').html('Shipper Management');
         $('.bcpage').html('');
         html_bdpage = `
-        <li class="breadcrumb-item"><a href="CHL-shipper_list.php" target="" style="color:white;">Supplier transport main list</a></li>`;
+        <li class="breadcrumb-item"><a href="CHL-shipper_list.php" target="" style="color:white;">Shipper Management List</a></li>`;
         $('.bcpage').append(html_bdpage);
 
     }, 

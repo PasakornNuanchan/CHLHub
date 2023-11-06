@@ -78,7 +78,7 @@ const job_list = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/booking-list/get_detail.php",
+                url: "php/job_list/get_detail.php",
                 data: {},
                 dataType: "json",
                 success: function (res) {

@@ -1,3 +1,9 @@
+<?php
+include '../../function/auth/end_session.php';
+
+?>
+
+
 <!doctype html>
 <html lang="en" dir="ltr">
 

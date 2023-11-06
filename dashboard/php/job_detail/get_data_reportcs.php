@@ -43,9 +43,7 @@ SELECT
     js.id_check_datetime,
     js.il_receiv_datetime,
     js.il_check_datetime,
-    js.ref_job_id,
-    
-    
+    js.ref_job_id
 FROM
     job_status js
 LEFT JOIN USER recinv ON
@@ -103,10 +101,13 @@ SELECT
     u4.first_name do_number_f,
     u4.last_name do_number_l,
     jt.do_number,
+    jt.do_number_datetime,
     jt.delivery_plan,
     u7.first_name delivery_plan_f,
     u7.last_name delivery_plan_l,
-    jt.delivery_plan_datetime
+    jt.delivery_plan_datetime,
+    (SELECT c.cntr_datetime FROM container c WHERE c.ref_job_id = jt.ID ORDER BY c.cntr_datetime DESC LIMIT 1 ) container_data,
+    (SELECT concat(ua.first_name,' ',ua.last_name) FROM user ua WHERE js.Cus_by = ua.ID) cus_by
 FROM
     job_title jt
     LEFT join job_status js ON jt.ID = js.ref_job_id

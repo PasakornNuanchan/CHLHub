@@ -17,14 +17,13 @@ $s_name = session_name();
 
 //Check the session exists or not
 
-//echo $_COOKIE[ $s_name ];
-if(isset( $_COOKIE[ $s_name ] )) {
+if(isset($_SESSION['Session_start'])) {
     setcookie( $s_name, $_COOKIE[ $s_name ], time() + $timeout, '/' );
     // echo "Session is created for $s_name.<br/>";
 } else {
     ?>
     <script>
-        await alert('SESSION TIMED OUT!! Please login again.');
+        alert('SESSION TIMED OUT!! Please login again.');
         window.location = 'auth/sign-in.php';
     </script>
     <?php
@@ -32,4 +31,10 @@ if(isset( $_COOKIE[ $s_name ] )) {
     // echo ('<script> alert("Your session destroyed"); </script>');
     // header('Location: '.'auth/sign-in.php');
 }
+
+// session_destroy();
+// print_r($_SESSION['Session_start']);
+// echo "<br>";
+// print_r($_SESSION['Session_exp']);
+
 ?>

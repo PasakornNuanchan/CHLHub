@@ -63,10 +63,10 @@ const sub_job_detail = {
                     <div class="col-sm-9 col-md-5 col-lg-9">
                         <div class="row">
                             <div class="col-sm-11 col-md-10 col-lg-11">
-                                <input type="text" class="form-control form-control-sm inp_hbl" value="${hbl_data}">
+                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data" value="${hbl_data}">
                             </div>
                             <div class="col-sm-1 col-md-2 col-lg-1">
-                                <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash" onclick="function_sub_job_detail.delete_data_hbl(this)"></i></button>
+                                <button class="btn btn-outline-danger btn-sm" onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash" ></i></button>
                             </div>
                         </div>
                     </div>

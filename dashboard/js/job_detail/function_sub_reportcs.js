@@ -352,6 +352,7 @@ const function_sub_reportcs = {
                 text: 'System error plese contact to tech team',
             })
         }
+        $('.inp_customs_plan').val(ats_data)
 
     },
 

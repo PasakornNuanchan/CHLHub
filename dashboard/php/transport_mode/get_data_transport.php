@@ -2,6 +2,12 @@
 include '../../core/conn.php';
 
 $id_number = $_POST['id_number'];
+$driver = $_POST['driver'];
+// echo $driver;
+
+
+
+
 
 $sql_get_data_transport = "
 SELECT
@@ -38,13 +44,15 @@ SELECT
     c.container_number,
     c.up_datetime_cntr,
     c.cy_datetime_cntr,
+    c.up_status_cntr,
+    c.cy_status_cntr,
     c.cntr_datetime,
     c.ID as container_id_data
 FROM
     `transport_contact` tc
 LEFT JOIN container c ON tc.container_id = c.ID
 WHERE
-  route_id = '$id_number'";
+  tc.ID = '$driver'";
 
 $result = $con->query($sql_get_driver);
 if ($result->num_rows > 0) {

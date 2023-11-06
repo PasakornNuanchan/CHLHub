@@ -422,6 +422,23 @@ const function_sub_transport = {
             let inp_ggdoca = $('.inp_ggdoca', this).val()
             let inp_ggdeca = $('.inp_ggdeca', this).val()
 
+            let arr_container_transport = [];
+            let arr_hbl_transport = [];
+            $(this).find('.data_container_transport > button').each(function(){
+                let id_number_container = $(this).attr('data_select_id')
+                arr_container_transport.push(id_number_container)
+            })
+
+            $(this).find('.data_hbl_transport > button').each(function(){
+                let id_number_hbl = $(this).attr('data_select_id')
+                arr_hbl_transport.push(id_number_hbl)
+            })
+
+            let text_conatiner_transport = arr_container_transport.join(',')
+            let text_hbl_transport = arr_hbl_transport.join(',')
+            
+            // data_hbl_transport
+            // data_container_transport
             obj_transport_detail = {
                 transport_id: transport_id,
                 supplier_id: supplier_id,
@@ -438,10 +455,12 @@ const function_sub_transport = {
                 inp_quantity: inp_quantity,
                 inp_bg: inp_bg,
                 inp_cur: inp_cur,
-                inp_ggpeca : inp_ggpeca,
-                inp_ggpca : inp_ggpca,
-                inp_ggdoca : inp_ggdoca,
-                inp_ggdeca : inp_ggdeca,
+                inp_ggpeca: inp_ggpeca,
+                inp_ggpca: inp_ggpca,
+                inp_ggdoca: inp_ggdoca,
+                inp_ggdeca: inp_ggdeca,
+                text_conatiner_transport : text_conatiner_transport,
+                text_hbl_transport : text_hbl_transport,
             }
 
             arr_transport_detail.push(obj_transport_detail)
@@ -523,12 +542,12 @@ const function_sub_transport = {
     },
 
 
-    generate_qr: async function (e) {
+    generate_qr: async function (e,t) {
         // สร้าง QR code
 
         $('#add_moda').remove();
         $('#qrcode').html('')
-        let a = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php"+ '?dsfkodsf=' + e;
+        let a = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + '?dsfkodsf=' + e+ '&fkosdf='+t;
         // สร้าง HTML ของ Modal
         var html = `
             <div class="modal fade" data_list="${e}" id="add_moda_transport_mode">
@@ -542,7 +561,7 @@ const function_sub_transport = {
                         <!-- Modal body -->
                         <div class="modal-body mx-auto text-center">
                             <div class="mx-auto text-center"  id="qrcode"></div>
-                            <button class="btn btn-outline-secondary mt-3" style="border-radius:1300px;" dan="123" onclick="function_sub_transport.get_to_copy('${e}')"><i class="bi bi-clipboard"></i></button>
+                            <button class="btn btn-outline-secondary mt-3" style="border-radius:1300px;" dan="123" onclick="function_sub_transport.get_to_copy('${e}','${t}')"><i class="bi bi-clipboard"></i></button>
                         </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
@@ -551,11 +570,11 @@ const function_sub_transport = {
                     </div>
                 </div>
             </div>`;
-    
+
         // เพิ่ม HTML ของ Modal ไปยัง body
         $('body').append(html);
         // <input type="text" class=" form-control form-control-sm mt-3" value="${a}">
-    
+
         // แสดง Modal
         $('#add_moda_transport_mode').modal('show');
         var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -565,9 +584,9 @@ const function_sub_transport = {
         });
     },
 
-    get_to_copy : async function(e){
-        
-        let dataToCopy = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php"+"?dsfkodsf="+e;
+    get_to_copy: async function (e,t) {
+
+        let dataToCopy = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + "?dsfkodsf=" + e+ '&fkosdf='+t;
         var copyTextArea = $("<textarea/>");// สร้าง element textarea สำหรับใช้คัดลอกข้อมูล
         copyTextArea.text(dataToCopy);// กำหนดข้อมูลให้กับ textarea
         $("#add_moda_transport_mode").append(copyTextArea);// นำ textarea ไปแทรกใน DOM (เปิด textarea ในหน้าจอ)
@@ -575,53 +594,118 @@ const function_sub_transport = {
         document.execCommand("copy");// คัดลอกข้อมูล
         copyTextArea.remove();// นำ textarea ออกจาก DOM (ปิด textarea ในหน้าจอ)
     },
-    
-    
-    open_url_gg : async function (e){
+
+
+    open_url_gg: async function (e) {
         let data_gg = $(e).closest('.form-group').find('.gg_data').val();
         window.open(data_gg)
     },
 
-    change_address : async function(e){
+    change_address: async function (e) {
 
         let list_name = $(e).attr('list');
         let val_data = $(e).val()
         // console.log(list_name)
-        if(list_name == 'data_inp_peca'){
-            let result = $.grep(setting_data_default.address_pick_container, function(data_a){return data_a.pick_con_empty_address == val_data; });
+        if (list_name == 'data_inp_peca') {
+            let result = $.grep(setting_data_default.address_pick_container, function (data_a) { return data_a.pick_con_empty_address == val_data; });
             $('.inp_pecar').val(result[0]['pick_con_empty_remark'])
             $('.inp_ggpeca').val(result[0]['ggpick_con_empty_address'])
-        }else if(list_name == 'data_inp_pca'){
-            let result = $.grep(setting_data_default.address_load_container, function(data_a){return data_a.pick_con_address == val_data; });
+        } else if (list_name == 'data_inp_pca') {
+            let result = $.grep(setting_data_default.address_load_container, function (data_a) { return data_a.pick_con_address == val_data; });
             $('.inp_pcar').val(result[0]['pick_con_remark'])
             $('.inp_ggpca').val(result[0]['ggpick_con_address'])
-            
-        }else if(list_name == 'data_inp_doca'){
-            let result = $.grep(setting_data_default.address_delivery_container, function(data_a){return data_a.drop_con_address == val_data; });
+
+        } else if (list_name == 'data_inp_doca') {
+            let result = $.grep(setting_data_default.address_delivery_container, function (data_a) { return data_a.drop_con_address == val_data; });
             $('.inp_docar').val(result[0]['drop_con_remark'])
             $('.inp_ggdoca').val(result[0]['ggdrop_con_address'])
-        }else if(list_name == 'data_inp_deca'){
-            let result = $.grep(setting_data_default.address_return_container, function(data_a){return data_a.drop_con_empty_address == val_data; });
+        } else if (list_name == 'data_inp_deca') {
+            let result = $.grep(setting_data_default.address_return_container, function (data_a) { return data_a.drop_con_empty_address == val_data; });
             $('.inp_decar').val(result[0]['drop_con_empty_remark'])
             $('.inp_ggdeca').val(result[0]['drop_con_empty_address'])
         }
 
-        
+
     },
 
 
     generate_transport: async function (e) {
-        var currentURL = window.location.href;
-        var url = new URL(currentURL);
-        var id_number = url.searchParams.get("job_number");
 
-        let h_data = $(e).closest('.card').attr('transport_id')
-        // let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
+        let arr_select = []
+        
+        $('.hbl_sel_data').each(function (i, v) {
+            let data = $(this).val();
 
+            let obk_select = {
+                value : data,
+                label : data,
+            }
+            arr_select.push(obk_select)
 
+        })
+       
 
-        window.open(`php/job_detail/create_pdf_generate_transport.php?job_number=${id_number}&transport_number=${h_data}`, "_blank")
+        let inputOptions = arr_select.reduce((obj, item) => {
+            obj[item.value] = item.label
+            return obj
+        }, {})
+
+        let { value: selectedFruit } = await Swal.fire({
+            title: 'Select hbl',
+            input: 'select',
+            inputOptions: inputOptions,
+            inputPlaceholder: 'Please select your data',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value !== '') {
+                        resolve()
+                    } else {
+                        resolve('คุณต้องเลือกผลไม้')
+                    }
+                })
+            }
+        })
+
+        if (selectedFruit) {
+            let selectedFruitLabel = arr_select.find(hbl => hbl.value === selectedFruit).label
+            var currentURL = window.location.href;
+            var url = new URL(currentURL);
+            var id_number = url.searchParams.get("job_number");
+            let h_data = $(e).closest('.card').attr('transport_id')
+            window.open(`php/job_detail/create_pdf_generate_transport.php?job_number=${id_number}&transport_number=${h_data}&lskdhblf=${selectedFruitLabel}`, "_blank")    
+        }
     },
 
 
+
+    select_hbl_data_transport : async function(e){
+        let val_this_data = $(e).find(':selected').val()
+        let val_this_data_text = $(e).find(':selected').text()
+        if(val_this_data != ''){
+            html_data_badge_hbl = `<button class="btn btn-sm btn-outline-danger m-2 hbl_data_selected" data_select_id="${val_this_data}" onclick="function_sub_transport.delete_hbl_data_transport(this)" style="zoom:90%">${val_this_data_text} <i class="bi bi-trash "></i></button>`
+            // $('.data_hbl_transport').append(html_data_badge_hbl)
+            $(e).closest('.card').find('.data_hbl_transport').append(html_data_badge_hbl)
+        }
+        $(e).val('')
+    },
+
+    delete_hbl_data_transport : async function(e){
+        $(e).remove()
+    },
+
+    select_container_data_transport : async function(e){
+        let val_this_data = $(e).find(':selected').val()
+        let val_this_data_text = $(e).find(':selected').text()
+        if(val_this_data != ''){
+            html_data_badge_hbl = `<button class="btn btn-sm btn-outline-danger m-2 container_data_selected" data_select_id="${val_this_data}" onclick="function_sub_transport.delete_container_data_transport(this)" style="zoom:90%">${val_this_data_text} <i class="bi bi-trash "></i></button>`
+            // $('.data_hbl_transport').append(html_data_badge_hbl)
+            $(e).closest('.card').find('.data_container_transport').append(html_data_badge_hbl)
+        }
+        $(e).val('')
+    },
+
+    delete_container_data_transport : async function(e){
+        $(e).remove()
+    },
 }

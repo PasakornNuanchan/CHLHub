@@ -4,6 +4,13 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 require '../../core/con_path.php';
 
+$id_number = $_POST['id_number'];
+
+$get_hbl = "SELECT ID,hbl FROM bl_title WHERE ref_job_id = '$id_number'";
+$get_container = "SELECT c.ID,c.container_number,(SELECT concat(ct.container_sub_type,' (',ct.container_type_full_name,')') 
+FROM container_type ct WHERE c.container_type = ct.container_type_name) as data_container FROM container c WHERE c.ref_job_id = '$id_number'";
+
+
 $get_shipper = "SELECT ID,shipper_name FROM shipper ORDER BY shipper_name ASC";
 $get_shipment = "SELECT ID,st_name FROM shipment_term";
 $get_consignee = "SELECT `ID`,`consignee_name` FROM `consignee` ORDER BY consignee_name ASC";
@@ -316,7 +323,23 @@ if ($result->num_rows > 0) {
   $sale_data = "0 results";
 }
 
+$result = $con->query($get_hbl);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $hbl_select_transport[] = $row;
+  }
+} else {
+  $hbl_select_transport = "0 results";
+}
 
+$result = $con->query($get_container);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $container_select_transport[] = $row;
+  }
+} else {
+  $container_select_transport = "0 results";
+}
 
 
 echo json_encode(array(
@@ -343,4 +366,6 @@ echo json_encode(array(
     'address_load_container'=>$address_load_container,
     'address_delivery_container'=>$address_delivery_container,
     'address_return_container'=>$address_return_container,
+    'hbl_select_transport'=>$hbl_select_transport,
+    'container_select_transport'=>$container_select_transport,
   ));

@@ -94,7 +94,7 @@ foreach ($data_detail_arr as $k => $v) {
     $data_place = isset($v['data_place']) ? $v['data_place'] : '';
     $payble_at = isset($v['payble_at']) ? $v['payble_at'] : '';
     $sel_frieght = isset($v['sel_frieght']) ? $v['sel_frieght'] : '';
-
+    $data_container_all = isset($v['data_container_all']) ? $v['data_container_all'] : '';
     $shipper_on_board = $shipper_on_board ? "'" . $shipper_on_board . "'" : 'NULL';
     $on_board_date = $on_board_date ? "'" . $on_board_date . "'" : 'NULL';
 
@@ -115,7 +115,8 @@ foreach ($data_detail_arr as $k => $v) {
         `final_destination`= '$final_destination',
         `place` = '$data_place',
         `payble_at` = '$payble_at',
-        `fright_c_on` = '$sel_frieght'
+        `fright_c_on` = '$sel_frieght',
+        `container_in_bl` = '$data_container_all'
     WHERE
         ID = '$bl_data'
     ";

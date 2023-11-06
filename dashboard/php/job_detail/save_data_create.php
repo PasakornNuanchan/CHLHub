@@ -225,22 +225,25 @@ foreach($hbl_arr as $k => $v){
 
     $hbl = isset($v['data_bl']) ? $v['data_bl'] : '';
     
-    $sql_query_bl_document = "
-    INSERT INTO `bl_title`(
-        `ref_job_id`,
-        `hbl`
-    )
-    VALUES(
-        '$last_id',
-        '$hbl'
-        
-    )
-    ";
-    if ($con->query($sql_query_bl_document) === TRUE) {
-        $res_in_bl = '1';
-    } else {
-        $res_in_bl = '0';
+    if($hbl != ''){
+        $sql_query_bl_document = "
+        INSERT INTO `bl_title`(
+            `ref_job_id`,
+            `hbl`
+        )
+        VALUES(
+            '$last_id',
+            '$hbl'
+            
+        )
+        ";
+        if ($con->query($sql_query_bl_document) === TRUE) {
+            $res_in_bl = '1';
+        } else {
+            $res_in_bl = '0';
+        }
     }
+    
 }
 
 

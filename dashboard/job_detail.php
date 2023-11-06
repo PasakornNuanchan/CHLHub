@@ -312,7 +312,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
+                <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">
@@ -549,7 +549,7 @@ require 'function/auth/get_session.php';
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
                                             <div class="col-sm-9 col-md-9 col-lg-9">
-                                                <input type="text" class="form-control form-control-sm inp_hbl">
+                                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data">
                                             </div>
                                         </div>
                                     </div>
@@ -798,7 +798,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div> -->
                 </div>
-                <div class="tab-pane fade " id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab" style="zoom:80%;">
+                <div class="tab-pane fade show active" id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab" style="zoom:80%;">
                     <div class="transport_booking_detail">
                         <h5>Transport Booking Detail (route 1)</h5>
                         <div class="form-group mt-4 row">
@@ -934,9 +934,9 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <button class="btn btn-block btn-outline-primary col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_route();">add new route</button>
-                    </div>
+                    </div> -->
 
                     <!-- </div> -->
                 </div>
@@ -1144,7 +1144,9 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_import_entry_by" disabled>
                                         </div>
-
+                                        <div class="col-lg-3 col-md-5 ">
+                                            <input type="text" class="form-control form-control-sm inp_import_entry_datetime" disabled>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1167,8 +1169,6 @@ require 'function/auth/get_session.php';
                                         <div class="col-lg-3 col-md-5 ">
                                             <input type="text" class="form-control form-control-sm inp_clearance_datetime" disabled>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -1243,12 +1243,6 @@ require 'function/auth/get_session.php';
                                             <input type="text" class="form-control form-control-sm inp_delivery">
                                         </div>
                                         <div class="col-lg-1 col-md-1"></div>
-                                        <div class="col-lg-1 col-md-1 text-center">
-                                            <label for="">By</label>
-                                        </div>
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <input type="text" class="form-control form-control-sm inp_delivery_by" disabled>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1562,7 +1556,7 @@ require 'function/auth/get_session.php';
 
 
 
-                <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
+                <!-- <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
                     <div class="row">
                         <div class=" col-xl-7 col-lg-7">
                             <div class="card p-4">
@@ -1583,9 +1577,6 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Consignee : </label>
                                             <div class="col">
                                                 <textarea class="form-control inp_bl_consingee" id="exampleFormControlTextarea1" rows="5" maxlength="400"></textarea>
-                                                <!-- <select class="form-select form-select-sm bl_consignee_page inp_bl_consingee" disabled>
-                                                    <option value="">select shipper</option>
-                                                </select> -->
                                                 <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.address_consignee()">Save as consignee</button>
                                             </div>
                                         </div>
@@ -1611,7 +1602,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of Receipt : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_por inp_bl_por" disabled>
-                                                    <!-- <option value="">select place of receipt</option> -->
+                                                    
                                                 </select>
                                             </div>
                                         </div>
@@ -1621,7 +1612,6 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of loading : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pol inp_bl_pol" disabled>
-                                                    <!-- <option value="">select port of lading</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1631,7 +1621,6 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Port of Discharge : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pod inp_bl_pod" disabled>
-                                                    <!-- <option value="">select port of discharge</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1641,7 +1630,6 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of delivery : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_pode inp_bl_pode" disabled>
-                                                    <!-- <option value="">select port of discharge</option> -->
                                                 </select>
                                             </div>
                                         </div>
@@ -1761,7 +1749,6 @@ require 'function/auth/get_session.php';
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <button class="btn btn-outline-primary btn-sm col-xl-12 col-lg-12 col-md-12 col-sx-12" onclick="function_sub_bl.add_detail_bl()">Add detail</button> -->
                             </div>
                         </div>
                         <div class="card p-4">
@@ -1829,7 +1816,7 @@ require 'function/auth/get_session.php';
                                                         <option value="CREATE">W/CREATE</option>
                                                         <option value="WOODEN CASES">WOODEN CASES</option>
                                                     </select>
-                                                    <!-- <input type="text" class="form-control form-control-sm inp_unit_bl"> -->
+                                                    
                                                 </td>
                                                 <td><input type="text" class="form-control form-control-sm"></td>
                                                 <td><input type="text" class="form-control form-control-sm inp_cbm_bl"></td>
@@ -1887,7 +1874,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">

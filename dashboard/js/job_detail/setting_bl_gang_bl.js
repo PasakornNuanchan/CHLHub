@@ -10,17 +10,20 @@ const sub_gang_bl = {
         $('.bl_page_old').remove();
         let html_data_header = '';
         if (res_data['bl_title'] != "0 results") {
-        $.each(res_data['bl_title'], async function (i, v) {
-            html_data_header += `
+            $.each(res_data['bl_title'], async function (i, v) {
+                html_data_header += `
             <li class="nav-item" role="presentation">
                 <button class="nav-link rounded bl_header_old" id="bl_tab${v['ID']}" data-bs-toggle="pill" data-bs-target="#bl_tab_target${v['ID']}" type="button" role="tab" aria-controls="pills-profile${v['ID']}" aria-selected="false">Bill of Lading</button>
             </li>
             `;
-        })
+            })
         }
         $('#pills-tab').append(html_data_header)
 
         let html_data_pill = '';
+
+        
+
         if (res_data['bl_title'] != "0 results") {
             $.each(res_data['bl_title'], async function (i, v) {
 
@@ -262,10 +265,29 @@ const sub_gang_bl = {
                         <h4>Container</h4>
                     </div>
                     <div class="card-body">
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label>Select Container</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <select class="form-select form-select-sm sel_container_bl" onchange="function_sub_bl.select_bl_container_one(this)">
+                                    <option value="">-- Please select container --</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.select_bl_container(this)">Select all container</button>
+                            </div>
+                        </div>
+                    </div>
+
+
                         <div class="bd-example table-responsive">
-                            <table class="table table-hover table_container_bl">
+                            <table class="table table-hover table_container_bl table_container_bl${id_data}" id_data=${id_data}>
                                 <thead>
                                     <tr class="text-center">
+                                        <th>Del Act</th>
                                         <th>Contianer type</th>
                                         <th>Container number</th>
                                         <th>Seal number</th>
@@ -337,21 +359,21 @@ const sub_gang_bl = {
                                         <label>Total : Quantity </label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-2">
-                                        <input type="text" class="form-control form-control-sm inp_package_total text-end" disabled>
+                                        <input type="text" class="form-control form-control-sm inp_package_total inp_package_total${id_data} text-end" disabled>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-2">
                                         <label class="col-xl-3">Gross Weight </label>
                                     </div>
 
                                     <div class="col-xl-2 col-lg-2 col-md-2">
-                                        <input type="text" class="form-control form-control-sm inp_weight_total text-end" disabled>
+                                        <input type="text" class="form-control form-control-sm inp_weight_total inp_weight_total${id_data} text-end" disabled>
                                     </div>
 
                                     <div class="col-xl-2 col-lg-2 col-md-2">
                                         <label class="col-xl-3">CBM </label>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-2">
-                                        <input type="text" class="form-control form-control-sm col-xl-2 inp_cbm_total text-end" disabled>
+                                        <input type="text" class="form-control form-control-sm col-xl-2 inp_cbm_total inp_cbm_total${id_data} text-end" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +415,7 @@ const sub_gang_bl = {
                 //         </div>
                 //    </div>
                 // </div>
-                
+
                 let shipper_bl = v['shipper_bl'] ? v['shipper_bl'] : '';
                 let consignee_bl = v['consignee_bl'] ? v['consignee_bl'] : '';
                 let notify_bl = v['notify_party'] ? v['notify_party'] : '';
@@ -414,6 +436,7 @@ const sub_gang_bl = {
                 let payble_at = v['payble_at'] ? v['payble_at'] : '';
                 let fright_c_on = v['fright_c_on'] ? v['fright_c_on'] : '';
 
+                // container_in_bl =  v['container_in_bl'] ? v['container_in_bl'] : '';
                 $('.tab-content').append(html_data_pill)
                 $(`.inp_bl_shipping${i}`).val(shipper_bl)
                 $(`.inp_bl_consingee${i}`).val(consignee_bl)
@@ -438,30 +461,30 @@ const sub_gang_bl = {
                 $(`.inp_shipper_on_board${i}`).val(shipper_on_board)
                 $(`.inp_on_board_date${i}`).val(on_board_date)
                 $(`.inp_final_destination${i}`).val(final_destination)
-                $(`.inp_bl_number${i}`).val(3).attr('disabled',true)
+                $(`.inp_bl_number${i}`).val(3).attr('disabled', true)
                 $(`.inp_place${i}`).val(place)
                 $(`.inp_payble${i}`).val(payble_at)
                 $(`.sel_frieight_ppocc${i}`).val(fright_c_on)
 
-                
 
-                
+
+
             })
         }
 
         $('.table_fright tbody').html('');
-        if(res_data['fright'] != "0 results"){
-                    
-            $.each(res_data['fright'],function(i1,v1){
+        if (res_data['fright'] != "0 results") {
+
+            $.each(res_data['fright'], function (i1, v1) {
                 let id_fright = v1['ID'] ? v1['ID'] : '';
                 let collect = v1['collect'] ? v1['collect'] : '';
                 let fright = v1['fright'] ? v1['fright'] : '';
                 let prepaid = v1['prepaid'] ? v1['prepaid'] : '';
                 let ref_job_id = v1['ref_job_id'] ? v1['ref_job_id'] : '';
                 let ref_row = v1['ref_row'] ? v1['ref_row'] : '';
-                
-                
-                    let html_data_fright = `
+
+
+                let html_data_fright = `
                     <tr id_list= "${id_fright}">
                         <td><input type="text" class="form-control form-control-sm inp_charge" value="${fright}"></td>
                         <td><input type="text" class="form-control form-control-sm inp_prepaid" value="${prepaid}"></td>
@@ -469,17 +492,17 @@ const sub_gang_bl = {
                         <td><button class="btn btn-sm btn-danger" onclick="function_sub_bl.delete_fright(this)"><i class="bi bi-trash"></i> Del</button></td>
                     </tr>
                     `;
-    
-    
-                    $(`.table_select_fright${ref_row} > tbody`).append(html_data_fright)
-                
-                
+
+
+                $(`.table_select_fright${ref_row} > tbody`).append(html_data_fright)
+
+
             })
         }
 
-        if(res_data['bl_list'] != "0 results"){
-            $.each(res_data['bl_list'],function (i,v){
-                
+        if (res_data['bl_list'] != "0 results") {
+            $.each(res_data['bl_list'], function (i, v) {
+
                 let id_list = v['bl_title_id'] ? v['bl_title_id'] : '';
                 let id_row = v['ID'] ? v['ID'] : '';
                 $(`.table_detail_bl${id_list} tbody`).html('')
@@ -521,68 +544,182 @@ const sub_gang_bl = {
             })
         }
 
-        
-        let cal_quantity_end = 0;
-        let cal_weight_end = 0;
-        let cal_cbm = 0;
-        if (res_data['container'] != "0 results") {
 
-            $('.table_container_bl tbody').html('')
-            $.each(res_data['container'], function (i, v) {
-                
 
-                let container_id = v['ID'] ? v['ID'] : '';
-                let container_type = v['container_type'] ? v['container_type'] : '';
-                let container_number = v['container_number'] ? v['container_number'] : '';
-                let seal_number = v['seal_number'] ? v['seal_number'] : '';
-                let package = v['package'] ? v['package'] : '';
-                let unit = v['unit'] ? v['unit'] : '';
-                let gw = v['gw'] ? v['gw'] : '';
-                let volume = v['volume'] ? v['volume'] : '';
 
-                let data_html = `
-                <tr container_id = "${container_id}">
-                    <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type inp_bl_contianer_type${i}">
-                            <option value="">select container type</option>
-                            ${setting_data_default.data_container_type}
-                        </select></td>
-                    <td><input type="text" class="form-control form-control-sm inp_container_number_bl inp_container_number_bl${i}"></td>
-                    <td><input type="text" class="form-control form-control-sm inp_seal_number_bl inp_seal_number_bl${i}"></td>
-                    <td><input type="text" class="form-control form-control-sm text-end inp_quantity_bl inp_quantity_bl${i}"></td>
-                    <td><select class="form-select form-select-sm inp_bl_unit_data inp_bl_unit_data${i}">
-                            <option value="">-- select data --</option>
-                            ${setting_data_default.data_unit}
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl inp_weight_bl${i}" onchange="function_sub_bl.cal_container_weight(this)"></td>
-                    <td><input type="text" class="form-control form-control-sm text-end inp_cbm_bl inp_cbm_bl${i}" onchange="function_sub_bl.cal_container_cbm(this)"></td>
-                </tr>
-                `;
+        $(`.table_container_bl tbody`).html('')
+        if (res_data['bl_title'] != "0 results") {
 
-                $('.table_container_bl tbody').append(data_html)
-                $(`.inp_bl_contianer_type${i}`).val(container_type).attr('disabled', true)
-                $(`.inp_container_number_bl${i}`).val(container_number)
-                $(`.inp_seal_number_bl${i}`).val(seal_number)
-                $(`.inp_quantity_bl${i}`).val(package)
-                $(`.inp_bl_unit_data${i}`).val(unit)
-                $(`.inp_weight_bl${i}`).val(gw)
-                $(`.inp_cbm_bl${i}`).val(volume)
+            $.each(res_data['bl_title'], function (i, v) {
 
-                cal_quantity_end   = parseFloat(cal_quantity_end) + parseFloat(package)
-                cal_weight_end = parseFloat(cal_weight_end) + parseFloat(gw)
-                cal_cbm = parseFloat(cal_cbm) + parseFloat(volume)
+                let id_list = v['ID'] ? v['ID'] : '';
 
-                
+                let container_in_bl = v['container_in_bl'] ? v['container_in_bl'] : '';
+                container_in_bl = container_in_bl.split(",")
+
+
+                if (container_in_bl != "") {
+
+                    $.each(container_in_bl, function (i1, v1) {
+                        if (v1 != '') {
+                            $.each(res_data['container'], function (i2, v2) {
+                                let container_id = v2['ID'] ? v2['ID'] : '';
+
+                                if (v1 == v2['ID']) {
+                                    let container_type = v2['container_type'] ? v2['container_type'] : '';
+                                    let container_number = v2['container_number'] ? v2['container_number'] : '';
+                                    let seal_number = v2['seal_number'] ? v2['seal_number'] : '';
+                                    let package = v2['package'] ? v2['package'] : '';
+                                    let unit = v2['unit'] ? v2['unit'] : '';
+                                    let gw = v2['gw'] ? v2['gw'] : '';
+                                    let volume = v2['volume'] ? v2['volume'] : '';
+
+                                    let data_html = `
+                                    <tr container_id = "${container_id}">
+                                    <td class="text-center"><button class="btn btn-outline-danger btn-sm" onclick="function_sub_bl.delete_container_function(this)"><i class="bi bi-trash"></i></button></td>
+                                        <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type inp_bl_contianer_type${i2}">
+                                                <option value="">select container type</option>
+                                                ${setting_data_default.data_container_type}
+                                            </select></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_container_number_bl inp_container_number_bl${i2}"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_seal_number_bl inp_seal_number_bl${i2}"></td>
+                                        <td><input type="text" class="form-control form-control-sm text-end inp_quantity_bl inp_quantity_bl${i2}"></td>
+                                        <td><select class="form-select form-select-sm inp_bl_unit_data inp_bl_unit_data${i2}">
+                                                <option value="">-- select data --</option>
+                                                ${setting_data_default.data_unit}
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl inp_weight_bl${i2}" onchange="function_sub_bl.cal_container_weight(this)"></td>
+                                        <td><input type="text" class="form-control form-control-sm text-end inp_cbm_bl inp_cbm_bl${i2}" onchange="function_sub_bl.cal_container_cbm(this)"></td>
+                                    </tr>
+                                    `;
+                                    $(`.table_container_bl${id_list} tbody`).append(data_html)
+
+                                    $(`.inp_bl_contianer_type${i2}`).val(container_type)
+                                    $(`.inp_container_number_bl${i2}`).val(container_number)
+                                    $(`.inp_seal_number_bl${i2}`).val(seal_number)
+                                    $(`.inp_quantity_bl${i2}`).val(package)
+                                    $(`.inp_bl_unit_data${i2}`).val(unit)
+                                    $(`.inp_weight_bl${i2}`).val(gw)
+                                    $(`.inp_cbm_bl${i2}`).val(volume)
+ 
+                                }
+                            })
+                        }
+                    })
+                }
             })
         }
-        $('.inp_package_total').val(cal_quantity_end)
-        $('.inp_weight_total').val(cal_weight_end)
-        $('.inp_cbm_total').val(cal_cbm)
+
+    
+    $.each(res_data['bl_title'],function(i,v){
+
+    
+        let total_quantity_bl = 0;
+        let total_weight_bl = 0;
+        let total_cbm_bl = 0;
+        let id_number = v['ID'] ? v['ID'] : '';
 
         
+        $(`.table_container_bl${id_number} tbody tr`).each(function(e){
+            let data_quantity_bl = $('.inp_quantity_bl',this).val()
+            let data_weight_bl = $('.inp_weight_bl',this).val()
+            let data_cbm_bl = $('.inp_cbm_bl',this).val()
 
+
+            data_quantity_bl = parseFloat(data_quantity_bl)
+            data_weight_bl = parseFloat(data_weight_bl)
+            data_cbm_bl = parseFloat(data_cbm_bl)
+
+            total_quantity_bl = total_quantity_bl + data_quantity_bl
+            total_weight_bl = total_weight_bl + data_weight_bl
+            total_cbm_bl = total_cbm_bl + data_cbm_bl
+
+            
+
+        })
+
+
+        total_quantity_bl = parseFloat(total_quantity_bl)
+        total_weight_bl = parseFloat(total_weight_bl)
+        total_cbm_bl = parseFloat(total_cbm_bl)
+
+        total_quantity_bl = total_quantity_bl.toFixed(2)
+        total_weight_bl = total_weight_bl.toFixed(2)
+        total_cbm_bl = total_cbm_bl.toFixed(2)
+
+        $(`.inp_package_total${id_number}`).val(total_quantity_bl)
+        $(`.inp_weight_total${id_number}`).val(total_weight_bl)
+        $(`.inp_cbm_total${id_number}`).val(total_cbm_bl)
+    })   
+        // $.each(res_data['bl_title'],function(i,v){
+        //     
+        // })
         
         
+        
+
+        // let cal_quantity_end = 0;
+        // let cal_weight_end = 0;
+        // let cal_cbm = 0;
+        // if (res_data['container'] != "0 results") {
+
+        //     $('.table_container_bl tbody').html('')
+        //     $.each(res_data['container'], function (i, v) {
+
+
+        //         let container_id = v['ID'] ? v['ID'] : '';
+
+        //         let container_type = v['container_type'] ? v['container_type'] : '';
+        //         let container_number = v['container_number'] ? v['container_number'] : '';
+        //         let seal_number = v['seal_number'] ? v['seal_number'] : '';
+        //         let package = v['package'] ? v['package'] : '';
+        //         let unit = v['unit'] ? v['unit'] : '';
+        //         let gw = v['gw'] ? v['gw'] : '';
+        //         let volume = v['volume'] ? v['volume'] : '';
+
+        //         let data_html = `
+        //         <tr container_id = "${container_id}">
+        //         <td class="text-center"><button class="btn btn-outline-danger btn-sm" onclick="function_sub_bl.delete_container_function(this)"><i class="bi bi-trash"></i></button></td>
+        //             <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type inp_bl_contianer_type${i}">
+        //                     <option value="">select container type</option>
+        //                     ${setting_data_default.data_container_type}
+        //                 </select></td>
+        //             <td><input type="text" class="form-control form-control-sm inp_container_number_bl inp_container_number_bl${i}"></td>
+        //             <td><input type="text" class="form-control form-control-sm inp_seal_number_bl inp_seal_number_bl${i}"></td>
+        //             <td><input type="text" class="form-control form-control-sm text-end inp_quantity_bl inp_quantity_bl${i}"></td>
+        //             <td><select class="form-select form-select-sm inp_bl_unit_data inp_bl_unit_data${i}">
+        //                     <option value="">-- select data --</option>
+        //                     ${setting_data_default.data_unit}
+        //                 </select>
+        //             </td>
+        //             <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl inp_weight_bl${i}" onchange="function_sub_bl.cal_container_weight(this)"></td>
+        //             <td><input type="text" class="form-control form-control-sm text-end inp_cbm_bl inp_cbm_bl${i}" onchange="function_sub_bl.cal_container_cbm(this)"></td>
+        //         </tr>
+        //         `;
+
+        //         $('.table_container_bl tbody').append(data_html)
+        //         $(`.inp_bl_contianer_type${i}`).val(container_type).attr('disabled', true)
+        //         $(`.inp_container_number_bl${i}`).val(container_number)
+        //         $(`.inp_seal_number_bl${i}`).val(seal_number)
+        //         $(`.inp_quantity_bl${i}`).val(package)
+        //         $(`.inp_bl_unit_data${i}`).val(unit)
+        //         $(`.inp_weight_bl${i}`).val(gw)
+        //         $(`.inp_cbm_bl${i}`).val(volume)
+
+        //         cal_quantity_end   = parseFloat(cal_quantity_end) + parseFloat(package)
+        //         cal_weight_end = parseFloat(cal_weight_end) + parseFloat(gw)
+        //         cal_cbm = parseFloat(cal_cbm) + parseFloat(volume)
+
+
+        //     })
+        // }
+
+
+
+
+        $('.sel_container_bl').append(setting_data_default.transport_container_html)
+
 
     },
 

@@ -13,7 +13,8 @@ UPDATE
     `job_title`
 SET
     do_number = '$ats_data',
-    do_number_by = '$data_user'
+    do_number_by = '$data_user',
+    do_number_datetime = '$t_time_save'
 WHERE
     ID = '$id_number'
 ";

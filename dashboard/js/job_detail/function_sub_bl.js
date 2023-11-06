@@ -43,6 +43,16 @@ const function_sub_bl = {
         let payble_at = $('.inp_payble',h_data).val()
         let sel_frieght = $('.sel_frieight_ppocc',h_data).val()
     
+        let arr_container_data = []
+
+        $(e).closest('.card').find('.table tbody tr').each(function(a){
+            
+            let data = $(this).attr('container_id')
+            arr_container_data.push(data)
+
+        })
+        let data_container_all = arr_container_data.join(',')
+
         data_detail_obj = {
             payble_at : payble_at,
             bl_data : bl_data,
@@ -60,6 +70,7 @@ const function_sub_bl = {
             bl_number: bl_number,
             data_place : data_place,
             sel_frieght : sel_frieght,
+            data_container_all : data_container_all,
         }
         data_detail_arr.push(data_detail_obj);
 
@@ -70,8 +81,7 @@ const function_sub_bl = {
             let id_row = $(this).attr('id_row')
             let container_no_and_seal = $('.inp_container_no_and_seal', h_data).val()
             let container_or_package = $('.inp_container_or_package', h_data).val()
-            let package_unit = $('.inp_unit_package option:selected',h_data).text()
-            console.log(package_unit)
+            let package_unit = $('.inp_unit_package option:selected',h_data).val()
             let kind_of_package = $('.inp_kind_of_package', h_data).val()
             let gross_Weight = $('.inp_gross_Weight', h_data).val()
             let gross_weight_unit = $('.inp_gross_weight_unit',h_data).val()
@@ -97,6 +107,7 @@ const function_sub_bl = {
 
         let table_container_bl_obj = {}
         let table_container_bl_arr = []
+
         $(data_find_table_container).each(function (i, v) {
             let id_container = $(this).attr('container_id')
             
@@ -198,11 +209,17 @@ const function_sub_bl = {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
-
+        
         let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
         let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
-        
-        window.open(`php/job_detail/create_pdf_first_bl.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
+        let arr_data_hbl = []
+        $(e).closest('.bl_tab_target').find('.table_container_bl tbody tr').each(function(b){
+            let data_container_id = $(this).attr('container_id')
+            arr_data_hbl.push(data_container_id)
+        })
+        let data_hbl = arr_data_hbl.join(',')
+
+        window.open(`php/job_detail/create_pdf_first_bl.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}&hbl=${data_hbl}`, "_blank")
     },
 
     generate_bl_line: async function (e) {
@@ -213,9 +230,15 @@ const function_sub_bl = {
         let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
         let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
 
+        let arr_data_hbl = []
+        $(e).closest('.bl_tab_target').find('.table_container_bl tbody tr').each(function(b){
+            let data_container_id = $(this).attr('container_id')
+            arr_data_hbl.push(data_container_id)
+        })
+        let data_hbl = arr_data_hbl.join(',')
 
 
-        window.open(`php/job_detail/create_pdf_first_bl_line.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
+        window.open(`php/job_detail/create_pdf_first_bl_line.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}&hbl=${data_hbl}`, "_blank")
     },
 
     generate_telex_line: async function (e) {
@@ -226,9 +249,15 @@ const function_sub_bl = {
         let h_data = $(e).closest('.bl_tab_target').attr('bl_number')
         let id_list = $(e).closest('.bl_tab_target').find('.table_detail_bl > tbody > tr').attr('id_row')
 
+        let arr_data_hbl = []
+        $(e).closest('.bl_tab_target').find('.table_container_bl tbody tr').each(function(b){
+            let data_container_id = $(this).attr('container_id')
+            arr_data_hbl.push(data_container_id)
+        })
+        let data_hbl = arr_data_hbl.join(',')
 
 
-        window.open(`php/job_detail/create_pdf_first_bl_telex.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}`, "_blank")
+        window.open(`php/job_detail/create_pdf_first_bl_telex.php?job_number=${id_number}&bl_number_main=${h_data}&id_list=${id_list}&hbl=${data_hbl}`, "_blank")
     },
 
     cal_container_package: async function () {
@@ -243,19 +272,6 @@ const function_sub_bl = {
         })
 
         let data_unit = $('.table_container_bl > tbody > .containertr_row0 > td > .inp_unit_bl').val()
-
-        // let data_quantity_l = 0;
-        // $('.table_container_bl > tbody > tr ').each(function () {
-        //     let data_quantity = $('.inp_quantity_bl').val();
-        //     let data_unit = $('.inp_unit_bl').val();
-        //     let obj_data = 
-
-            // if (data === 'NaN') {
-            //     data = 0;
-            // }
-            // data_quantity_l = parseFloat(data_quantity_l) + parseFloat(data);
-        //})
-
 
         $('.inp_package_total').val(data_quantity_l)
         $('.inp_container_or_package').val(data_quantity_l)
@@ -331,7 +347,297 @@ const function_sub_bl = {
         }
         $(e).closest('tr').remove();     
     
-    }
+    },
+
+    select_bl_container : async function(e){
+        // $(e).closest('.bl_tab_target').find('.table_container_bl tbody')
+        $(e).closest('.card').find('.table_container_bl tbody').html('')
+        let data_paste = $(e).closest('.card').find('.table').attr('id_data')
+        let obj_data = {}
+        let arr_data = []
+        
+        $('.table_container_module tbody tr ').each(function(){
+            
+            
+            let id_number = $(this).attr('id_container_module');
+            let container_type = $('.inp_container_type',this).val()
+            let container_number = $('.inp_container_number',this).val()
+            let seal_number = $('.inp_seal_number',this).val()
+            let package = $('.inp_package',this).val()
+            let packing_unit = $('.inp_select_packing',this).val()
+            let gw = $('.inp_gw',this).val()
+            let volume = $('.inp_volume',this).val()
+            
+            
+            obj_data = {
+                id_number : id_number,
+                container_type : container_type,
+                container_number : container_number,
+                seal_number : seal_number,
+                package : package,
+                packing_unit : packing_unit,
+                gw : gw,
+                volume : volume,
+            }
+            arr_data.push(obj_data)
+        })
+
+        $('.inp_package_total').val(0)
+        $('.inp_weight_total').val(0)
+        $('.inp_cbm_total').val(0)
+
+
+        let total_data_package = 0;
+        let total_data_gw = 0;
+        let total_data_volume = 0;
+
+        $.each(arr_data,function(i,v){
+
+
+            let data_id_number = v['id_number'] ? v['id_number'] : '';
+            let data_container_type = v['container_type'] ? v['container_type'] : '';
+            let data_container_number = v['container_number'] ? v['container_number'] : '';
+            let data_seal_number = v['seal_number'] ? v['seal_number'] : '';
+            let data_package = v['package'] ? v['package'] : '';
+            let data_packing_unit = v['packing_unit'] ? v['packing_unit'] : '';
+            let data_gw = v['gw'] ? v['gw'] : '';
+            let data_volume = v['volume'] ? v['volume'] : '';
+
+            
+            data_package = parseFloat(data_package)
+            data_gw = parseFloat(data_gw)
+            data_volume = parseFloat(data_volume)
+
+            total_data_package = total_data_package + data_package
+            total_data_gw = total_data_gw + data_gw
+            total_data_volume = total_data_volume + data_volume
+
+            
+
+            let data_html = `
+                <tr container_id = "${data_id_number}">
+                    <td class="text-center"><button class="btn btn-outline-danger btn-sm" onclick="function_sub_bl.delete_container_function(this)"><i class="bi bi-trash"></i></button></td>
+                    <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type inp_bl_contianer_type${i}">
+                            <option value="">select container type</option>
+                            ${setting_data_default.data_container_type}
+                        </select></td>
+                    <td><input type="text" class="form-control form-control-sm inp_container_number_bl inp_container_number_bl${i}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_seal_number_bl inp_seal_number_bl${i}"></td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_quantity_bl inp_quantity_bl${i}"></td>
+                    <td><select class="form-select form-select-sm inp_bl_unit_data inp_bl_unit_data${i}">
+                            <option value="">-- select data --</option>
+                            ${setting_data_default.data_unit}
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl inp_weight_bl${i}" onchange="function_sub_bl.cal_container_weight(this)"></td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_cbm_bl inp_cbm_bl${i}" onchange="function_sub_bl.cal_container_cbm(this)"></td>
+                </tr>
+            `;
+
+
+            $(`.table_container_bl${data_paste} tbody`).append(data_html);
+
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_bl_contianer_type${i}`).val(data_container_type)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_container_number_bl${i}`).val(data_container_number)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_seal_number_bl${i}`).val(data_seal_number)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_quantity_bl${i}`).val(data_package)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_bl_unit_data${i}`).val(data_packing_unit)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_weight_bl${i}`).val(data_gw)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_cbm_bl${i}`).val(data_volume)
+
+            $(`.inp_unit_package`).val(data_packing_unit)
+        })
+
+        total_data_package = total_data_package.toFixed(2)
+        total_data_gw = total_data_gw.toFixed(2)
+        total_data_volume = total_data_volume.toFixed(2)
+
+        $(e).closest('.card').find(`.inp_package_total`).val(total_data_package)
+        $(e).closest('.card').find(`.inp_weight_total`).val(total_data_gw)
+        $(e).closest('.card').find(`.inp_cbm_total`).val(total_data_volume)
+        
+
+        
+        $(`.table_detail_bl${data_paste} > tbody > tr > td > .inp_container_or_package`).val(total_data_package)
+        $(`.table_detail_bl${data_paste} > tbody > tr > td > .inp_gross_Weight`).val(total_data_gw)
+        $(`.table_detail_bl${data_paste} > tbody > tr > td > .inp_mesurement`).val(total_data_volume)
+        
+
+    },
+
+    select_bl_container_one : async function(e){
+        let value_select = $(e).val();
+        let data_paste = $(e).closest('.card').find('.table_container_bl').attr('id_data')
+        
+        // console.log(value_select)
+        let obj_data = {}
+        let arr_data = []
+
+        $('.table_container_module tbody tr').each(function(){
+            let id_number = $(this).attr('id_container_module');
+            let container_type = $('.inp_container_type',this).val()
+            let container_number = $('.inp_container_number',this).val()
+            let seal_number = $('.inp_seal_number',this).val()
+            let package = $('.inp_package',this).val()
+            let packing_unit = $('.inp_select_packing',this).val()
+            let gw = $('.inp_gw',this).val()
+            let volume = $('.inp_volume',this).val()
+            
+            
+            if(id_number == value_select){
+                obj_data = {
+                    id_number : id_number,
+                    container_type : container_type,
+                    container_number : container_number,
+                    seal_number : seal_number,
+                    package : package,
+                    packing_unit : packing_unit,
+                    gw : gw,
+                    volume : volume,
+                }
+                arr_data.push(obj_data)
+            }
+        })
+        
+        // console.log(arr_data)
+        
+
+        let data_count = $(e).closest('.card').find('.table tbody tr').length
+
+        let total_data_package = 0;
+        let total_data_gw = 0;
+        let total_data_volume = 0;
+        $.each(arr_data,function(i,v){
+
+            i = data_count++
+            
+            let data_id_number = v['id_number'] ? v['id_number'] : '';
+            let data_container_type = v['container_type'] ? v['container_type'] : '';
+            let data_container_number = v['container_number'] ? v['container_number'] : '';
+            let data_seal_number = v['seal_number'] ? v['seal_number'] : '';
+            let data_package = v['package'] ? v['package'] : '';
+            let data_packing_unit = v['packing_unit'] ? v['packing_unit'] : '';
+            let data_gw = v['gw'] ? v['gw'] : '';
+            let data_volume = v['volume'] ? v['volume'] : '';
+
+            
+            data_package = parseFloat(data_package)
+            data_gw = parseFloat(data_gw)
+            data_volume = parseFloat(data_volume)
+
+            total_data_package = total_data_package + data_package
+            total_data_gw = total_data_gw + data_gw
+            total_data_volume = total_data_volume + data_volume
+
+            
+
+            let data_html = `
+                <tr container_id = "${data_id_number}">
+                    <td class="text-center"><button class="btn btn-outline-danger btn-sm" onclick="function_sub_bl.delete_container_function(this)"><i class="bi bi-trash"></i></button></td>
+                    <td><select class="form-select form-select-sm bl_container_type inp_bl_contianer_type inp_bl_contianer_type${i}">
+                            <option value="">select container type</option>
+                            ${setting_data_default.data_container_type}
+                        </select></td>
+                    <td><input type="text" class="form-control form-control-sm inp_container_number_bl inp_container_number_bl${i}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_seal_number_bl inp_seal_number_bl${i}"></td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_quantity_bl inp_quantity_bl${i}"></td>
+                    <td><select class="form-select form-select-sm inp_bl_unit_data inp_bl_unit_data${i}">
+                            <option value="">-- select data --</option>
+                            ${setting_data_default.data_unit}
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_weight_bl inp_weight_bl${i}" onchange="function_sub_bl.cal_container_weight(this)"></td>
+                    <td><input type="text" class="form-control form-control-sm text-end inp_cbm_bl inp_cbm_bl${i}" onchange="function_sub_bl.cal_container_cbm(this)"></td>
+                </tr>
+            `;
+
+
+            $(`.table_container_bl${data_paste} tbody`).append(data_html);
+
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_bl_contianer_type${i}`).val(data_container_type)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_container_number_bl${i}`).val(data_container_number)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_seal_number_bl${i}`).val(data_seal_number)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_quantity_bl${i}`).val(data_package)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_bl_unit_data${i}`).val(data_packing_unit)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_weight_bl${i}`).val(data_gw)
+            $(`.table_container_bl${data_paste} > tbody > tr > td > .inp_cbm_bl${i}`).val(data_volume)
+
+            $(`.inp_unit_package`).val(data_packing_unit)
+        })
+        let total_data_quantity_bl = 0;
+        let total_data_weight_bl = 0;
+        let total_data_cbm_bl = 0;
+        let data_table = $(e).closest('.card').find('.table tbody tr')
+
+        $(data_table).each(function(a){
+            
+            let data_quantity_bl = $('.inp_quantity_bl',this).val()
+            let data_weight_bl = $('.inp_weight_bl',this).val()
+            let data_cbm_bl = $('.inp_cbm_bl',this).val()
+
+            data_quantity_bl = parseFloat(data_quantity_bl)
+            data_weight_bl = parseFloat(data_weight_bl)
+            data_cbm_bl = parseFloat(data_cbm_bl)
+            total_data_quantity_bl = total_data_quantity_bl + data_quantity_bl
+            total_data_weight_bl = total_data_weight_bl + data_weight_bl
+            total_data_cbm_bl = total_data_cbm_bl + data_cbm_bl
+
+        })
+
+        total_data_quantity_bl = total_data_quantity_bl.toFixed(2)
+        total_data_weight_bl = total_data_weight_bl.toFixed(2)
+        total_data_cbm_bl = total_data_cbm_bl.toFixed(2)
+
+        $('.inp_package_total').val(total_data_quantity_bl)
+        $('.inp_weight_total').val(total_data_weight_bl)
+        $('.inp_cbm_total').val(total_data_cbm_bl)
+        $('.inp_container_or_package').val(total_data_quantity_bl)
+        $('.inp_gross_Weight').val(total_data_weight_bl)
+        $('.inp_mesurement').val(total_data_cbm_bl)
+
+    },
+
+    delete_container_function : async function(e){
+        
+        $(e).closest('tr').find('.inp_quantity_bl').val(0)
+        $(e).closest('tr').find('.inp_weight_bl').val(0)
+        $(e).closest('tr').find('.inp_cbm_bl').val(0)
+
+        let data_table = $(e).closest('.card').find('.table tbody tr')
+        
+        let total_data_quantity_bl = 0;
+        let total_data_weight_bl = 0;
+        let total_data_cbm_bl = 0;
+
+        $(data_table).each(function(a){
+            
+            let data_quantity_bl = $('.inp_quantity_bl',this).val()
+            let data_weight_bl = $('.inp_weight_bl',this).val()
+            let data_cbm_bl = $('.inp_cbm_bl',this).val()
+
+            data_quantity_bl = parseFloat(data_quantity_bl)
+            data_weight_bl = parseFloat(data_weight_bl)
+            data_cbm_bl = parseFloat(data_cbm_bl)
+            total_data_quantity_bl = total_data_quantity_bl + data_quantity_bl
+            total_data_weight_bl = total_data_weight_bl + data_weight_bl
+            total_data_cbm_bl = total_data_cbm_bl + data_cbm_bl
+
+        })
+
+        total_data_quantity_bl = total_data_quantity_bl.toFixed(2)
+        total_data_weight_bl = total_data_weight_bl.toFixed(2)
+        total_data_cbm_bl = total_data_cbm_bl.toFixed(2)
+
+        $('.inp_package_total').val(total_data_quantity_bl)
+        $('.inp_weight_total').val(total_data_weight_bl)
+        $('.inp_cbm_total').val(total_data_cbm_bl)
+        $('.inp_container_or_package').val(total_data_quantity_bl)
+        $('.inp_gross_Weight').val(total_data_weight_bl)
+        $('.inp_mesurement').val(total_data_cbm_bl)
+        $(e).closest('tr').remove()
+        
+
+    },
 
 
 

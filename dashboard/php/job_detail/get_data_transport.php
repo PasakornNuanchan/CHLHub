@@ -7,33 +7,34 @@ $data_id = $_POST['data'];
 
 $get_route = "
 SELECT
-    `ID`,
-    `job_number`,
-    `sup_number`,
-    `truck_quantity`,
-    `pick_con_empty_address`,
-    `pick_con_empty_remark`,
-    `pick_con_address`,
-    `pick_con_remark`,
-    `drop_con_address`,
-    `drop_con_remark`,
-    `drop_con_empty_address`,
-    `drop_con_empty_remark`,
-    `budget`,
-    `cur`,
-    `sent_line_datetime`,
-    `sup_confirm`,
-    `type_truck`,
-    `remark`,
-    `status`,
-    `ref_job_id`,
-    `ggpick_con_empty_address`,
-    `ggpick_con_address`,
-    `ggdrop_con_address`,
-    `ggdrop_con_empty_address`
-
+    tb.ID,
+    tb.job_number,
+    tb.sup_number,
+    tb.truck_quantity,
+    tb.pick_con_empty_address,
+    tb.pick_con_empty_remark,
+    tb.pick_con_address,
+    tb.pick_con_remark,
+    tb.drop_con_address,
+    tb.drop_con_remark,
+    tb.drop_con_empty_address,
+    tb.drop_con_empty_remark,
+    tb.budget,
+    tb.cur,
+    tb.sent_line_datetime,
+    tb.sup_confirm,
+    tb.type_truck,
+    tb.remark,
+    tb.status,
+    tb.ref_job_id,
+    tb.ggpick_con_empty_address,
+    tb.ggpick_con_address,
+    tb.ggdrop_con_address,
+    tb.ggdrop_con_empty_address,
+    tb.container_assign,
+    tb.hbl_assign
 FROM
-    `transport_booking`
+    transport_booking tb
 WHERE
     ref_job_id = '$data_id'
 ";
@@ -44,11 +45,68 @@ if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $get_route_data[] = $row;
     $get_driver_id[] = $row['ID'];
+    $get_container_transport = $row['container_assign'];
+    $get_hbl_transport = $row['hbl_assign'];
+
   }
 } else {
   $get_route_data = "0 results";
   $get_driver_id = "0 results";
 }
+$get_container_transport = explode(',',$get_container_transport);
+$get_hbl_transport = explode(',',$get_hbl_transport);
+
+// print_r($get_container_transport);
+// print_r($get_hbl_transport);
+
+// if($get_container_transport != ''){
+  foreach($get_container_transport as $k=>$v){
+    $container_assign = isset($v) ? $v : '';
+    
+    if($container_assign != ''){
+      $sql_query_data_a = "
+      SELECT
+          c.ID,
+          concat(c.container_number,' ',(SELECT ct.container_sub_type FROM container_type ct WHERE ct.container_type_name = c.container_type),' (',(SELECT ct.container_type_full_name FROM container_type ct WHERE ct.container_type_name = c.container_type),')') as data_container
+      FROM
+          container c
+      WHERE
+        c.ID IN ($container_assign)
+      ";
+  
+      $result = $con->query($sql_query_data_a);
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $get_data_container_assign[] = $row;   
+        }
+      } 
+    }
+  }
+// }
+
+// if($get_hbl_transport != ''){
+  foreach($get_hbl_transport as $k=>$v){
+    $hbl_assign = isset($v) ? $v : '';
+    if($hbl_assign != ''){
+      $sql_query_data_b = "
+      SELECT
+          bl.ID,
+          bl.hbl
+      FROM
+          bl_title bl
+      WHERE
+          bl.ID IN($hbl_assign)
+      ";
+      $result = $con->query($sql_query_data_b);
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $get_data_hbl_assign[] = $row;   
+        }
+      } 
+    }
+    
+  }
+// }
 
 
 
@@ -93,4 +151,7 @@ if($get_driver_id == "0 results"){
 
 echo json_encode(array(
     'get_route_data'=>$get_route_data,
-    'get_contact'=>$arr_get_contact));
+    'get_contact'=>$arr_get_contact,
+    'get_data_container_assign'=>$get_data_container_assign,
+    'get_data_hbl_assign'=>$get_data_hbl_assign,
+  ));

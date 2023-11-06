@@ -39,7 +39,7 @@ const job_detail = {
 
 
         if (get_action == "preview") {
-            await setting_data_default.setting_data();
+            await setting_data_default.setting_data(id_number);
             await sub_gang_bl.setting_first_bl_gang();
             await sub_job_detail.first_post_data(id_number);
             await sub_transport.first_post_data(id_number);

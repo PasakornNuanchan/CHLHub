@@ -3,7 +3,10 @@ const first_setting = {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("dsfkodsf");
-        let res_data = await this.ajax_get_data(id_number)
+        var driver = url.searchParams.get("fkosdf");
+        
+        
+        let res_data = await this.ajax_get_data(id_number,driver)
         console.log(res_data)
         $.each(res_data['get_data_transport'],function(i,v){
 
@@ -62,6 +65,9 @@ const first_setting = {
             // let up_datetime_cntr = v['up_datetime_cntr'] ? v['up_datetime_cntr'] : '';
             let cntr_datetime = v['cntr_datetime'] ? v['cntr_datetime'] : '';
             let cy_datetime_cntr = v['cy_datetime_cntr'] ? v['cy_datetime_cntr'] : '';
+            let up_status_cntr = v['up_status_cntr'] ? v['up_status_cntr'] : '';
+            let cy_status_cntr = v['cy_status_cntr'] ? v['cy_status_cntr'] : '';
+        
             let html_data = '';
             html_data = `
             <div class="card mt-2">
@@ -99,6 +105,8 @@ const first_setting = {
             //     $(`.inp_dt_ar_de${i}`).val(up_datetime_cntr).addClass("text-center")
             //     $(`.btn_ada${i}`).remove()
             // }
+
+            
             if(cntr_datetime != ''){
                 $(`.inp_dt_d${i}`).val(cntr_datetime).addClass("text-center")
                 $(`.btn_del${i}`).remove()
@@ -111,12 +119,14 @@ const first_setting = {
         })
     },
 
-    ajax_get_data : function (id_number) {
+    ajax_get_data : function (id_number,driver) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/transport_mode/get_data_transport.php",
-                data : {id_number: id_number},
+                data : {
+                    id_number: id_number,
+                    driver: driver},
                 dataType: 'json',
                 success: function (response) {
                     resolve(response)

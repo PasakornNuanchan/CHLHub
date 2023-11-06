@@ -332,21 +332,28 @@ const function_sub_job_detail = {
         let volume_all = 0;
         let gw_all = 0;
         let single_w_all = 0;
+        let package_all = 0;
         $('.table_container_module tbody tr').each(function (e) {
             let cargo_des = $('.inp_cargo_description', this).val()
             let volume = parseFloat($('.inp_volume', this).val())
             let gw = parseFloat($('.inp_gw', this).val())
             let single_w = parseFloat($('.inp_single_weight', this).val())
+            let package = parseFloat($('.inp_package',this).val())
+
+            package_all = parseFloat(package_all) + parseFloat(package)
 
             volume_all = parseFloat(volume_all) + volume;
             gw_all = parseFloat(gw_all) + gw;
-            single_w_all = parseFloat(single_w_all) + single_w
+            single_w_all = parseFloat(single_w_all) + parseFloat(single_w)
             cargo_description_all = cargo_description_all + ',' + cargo_des;
 
-
+            volume_all = volume_all.toFixed(2)
+            gw_all = gw_all.toFixed(2)
+            single_w_all = single_w_all.toFixed(2)
         })
 
         //$('.inp_cargo_des').val(cargo_description_all)
+        $('.inp_quantity').val(package_all)
         $('.inp_gw_container').val(gw_all)
         $('.inp_vol').val(volume_all)
         $('.inp_scntrw_container').val(single_w_all)
@@ -397,10 +404,10 @@ const function_sub_job_detail = {
                     <div class="col-sm-9 col-md-5 col-lg-9">
                         <div class="row">
                             <div class="col-sm-11 col-md-10 col-lg-11">
-                                <input type="text" class="form-control form-control-sm inp_hbl">
+                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data">
                             </div>
                             <div class="col-sm-1 col-md-2 col-lg-1 text-end">
-                                <button class="btn btn-outline-danger btn-sm "><i class="bi bi-trash text-danger" onclick="function_sub_job_detail.delete_data_hbl(this)"></i></button>
+                                <button class="btn btn-outline-danger btn-sm " onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash text-danger" "></i></button>
                             </div>
                         </div>
                     </div>

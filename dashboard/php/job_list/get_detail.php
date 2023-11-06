@@ -1,5 +1,6 @@
 <?php
     include '../../core/conn.php';
+    require '../../function/auth/get_session.php';
     $arr = array();
     $sql = "
     SELECT 
@@ -7,18 +8,13 @@
         jt.job_number,
         jt.mbl,
         jt.ID,
-        c.carrier_name,
-        co.consignee_name,
-        a.location_name,
-        a.provice,
+        (SELECT c.carrier_name FROM carrier c WHERE c.ID = jt.carrier_number) carrier_name,
+        (SELECT co.consignee_name FROM consignee co WHERE co.ID = jt.consignee_number) consignee_name,
+        (SELECT concat(a.location_name,',',a.provice) FROM area a WHERE a.area_number = jt.ts_port_number) location_name,
         jt.eta,
         jt.ID
     FROM
         job_title as jt
-        LEFT JOIN carrier as c ON jt.carrier_number = c.carrier_number
-        LEFT JOIN consignee as co ON jt.consignee_number = co.ID
-        LEFT JOIN area as a ON jt.port_of_receipt_number = a.area_number
-    
     ORDER BY jt.ID DESC";
     
     $result = $con -> query($sql);

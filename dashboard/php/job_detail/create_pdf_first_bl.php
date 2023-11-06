@@ -6,6 +6,8 @@ include '../../core/conn.php';
 
 $job_number = $_GET['job_number'];
 $bl_number = $_GET['bl_number_main'];
+$id_list = $_GET['id_list'];
+$hbl = $_GET['hbl'];
 //query
 $sql_query_shipper = "
 SELECT
@@ -85,7 +87,9 @@ if ($result->num_rows > 0) {
 }
 
 $sql_query_bl_list = "
-SELECT * FROM `bl_list` WHERE bl_title_id = '$bl_number'
+SELECT bl.*,
+(SELECT u.name FROM unit u WHERE bl.package_unit = u.ID) as package_unit_test
+FROM `bl_list` bl WHERE ID = '$id_list'
 ";
 $result = $con->query($sql_query_bl_list);
 if ($result->num_rows > 0) {
@@ -102,7 +106,7 @@ $sql_container_bl_list = "
 SELECT 
 
 *
- FROM container WHERE ref_job_id = '$job_number'";
+ FROM container WHERE ID = '$hbl'";
 $result = $con->query($sql_container_bl_list);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
@@ -266,7 +270,7 @@ foreach($data_bl_list as $k => $v){
   $data_last_container = $pdf->GetY();
 
   $pdf->SetXY(65,$data_last_y_get);
-  $pdf->Cell(35,4,strtoupper($v['package'])." ".strtoupper($v['package_unit']),0,0,'C');
+  $pdf->Cell(35,4,strtoupper($v['package'])." ".strtoupper($v['package_unit_test']),0,0,'C');
 
   $pdf->SetXY(155,$data_last_y_get);
   $pdf->Cell(20,4,strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']),0,0,'C');

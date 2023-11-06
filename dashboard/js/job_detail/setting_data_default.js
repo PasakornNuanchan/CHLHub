@@ -12,14 +12,16 @@ const setting_data_default = {
     html_data_address_load_container : '',
     html_data_address_delivery_container : '',
     html_data_address_return_container : '',
+    transport_container_html : '',
+    transport_hbl_html : '',
 
-    setting_data : async function (){
+    setting_data : async function (id_number){
 
     
-        let res_data_default = await setting_data_default.ajax_request_table()
+        let res_data_default = await setting_data_default.ajax_request_table(id_number)
 
         //job_detail
-        console.log(res_data_default)  
+        // console.log(res_data_default)  
 
         let shipper_data = '';
         let shipment_data = '';
@@ -43,6 +45,7 @@ const setting_data_default = {
         let html_address_delivery_container = '';
         let html_address_return_container = '';
 
+        
         
 
         if(res_data_default['address_pick_container'] != "0 results"){
@@ -226,6 +229,10 @@ const setting_data_default = {
         let supplier_data = '';
         let truck_type_data = '';
         let shipping_user = '';
+
+        let html_data_container_transport = '';
+        let html_data_hbl_transport = '';
+
         if (res_data_default['supplier_data'] != "0 results") {
             $.each(res_data_default['supplier_data'], function (i, v) {
                 supplier_data += `<option value="${v['ID']}">${v['transport_sup_name']}</option>`;
@@ -239,6 +246,26 @@ const setting_data_default = {
             })
             $('#db_type_truck').append(truck_type_data)
         }
+
+        if (res_data_default['container_select_transport'] != "0 results") {
+            $.each(res_data_default['container_select_transport'], function (i, v) {
+                html_data_container_transport += `<option value="${v['ID']}">${v['container_number']+' '+v['data_container']}</option>`;
+            })
+            // $('#sel_supplier').append(supplier_data)
+            // console.log(html_data_container_transport)
+        }
+
+        if (res_data_default['hbl_select_transport'] != "0 results") {
+            $.each(res_data_default['hbl_select_transport'], function (i, v) {
+                html_data_hbl_transport += `<option value="${v['ID']}">${v['hbl']}</option>`;
+            })
+            // $('#db_type_truck').append(truck_type_data)
+            // console.log(html_data_hbl_transport)
+        }
+
+        this.transport_container_html = html_data_container_transport
+        this.transport_hbl_html = html_data_hbl_transport
+
       // report cs
         if (res_data_default['shipping_user'] != "0 results") {
             $.each(res_data_default['shipping_user'], function (i, v) {
@@ -256,11 +283,12 @@ const setting_data_default = {
 
     },
 
-    ajax_request_table: async function () {
+    ajax_request_table: async function (id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/job_detail/get_data_defalt.php",
+                data : {id_number : id_number},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
