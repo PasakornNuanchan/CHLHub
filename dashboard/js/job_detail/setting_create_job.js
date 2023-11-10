@@ -10,6 +10,9 @@ const create_job = {
         $('#withdraw_tab_target').remove()
         $('.c_container_module').remove()
         $('.c_container_add').remove()
+        $('.btn_generate_job_detail').remove()
+        $('.job_description').remove()
+
 
         $('.head_d_btn_get_data_detail').html('')
         let btn_get_save_detail = `<button class="btn btn-sm btn-success" onclick="create_job.get_data_create()" ><i class="bi bi-save"></i> save</button>`;
@@ -20,7 +23,6 @@ const create_job = {
         console.log(html_container_type)
 
         $('.head_b_btn_add_new_row').html('')
-
         let btn_add_new_row = `<button class="btn btn-sm btn-outline-primary col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="create_job.add_row_new_container()" > add new container</button>`;
         $('.table_container_module tbody').html('')
         $('.head_b_btn_add_new_row').append(btn_add_new_row)
@@ -70,6 +72,11 @@ const create_job = {
                 let final_destination = $('.inp_finaldestination').val()
                 let arr_detail_save = []
 
+                let client_value = $('.inp_client :selected').val()
+                let client_type = $('.inp_client :selected').attr('type_data')
+                let notify_value = $('.inp_notify_job_detail :selected').val()
+                let notify_type = $('.inp_notify_job_detail :selected').attr('type_data')
+
                 obj_detail_save = {
                     job_number: job_number,
                     booking_number: booking_number,
@@ -93,6 +100,10 @@ const create_job = {
                     quantity: quantity,
                     gw: gw,
                     vol: vol,
+                    client_value : client_value,
+                    client_type : client_type,
+                    notify_value : notify_value,
+                    notify_type : notify_type,
                     remark_container: remark_container,
                     booking_agent: booking_agent,
                     port_of_discharge : port_of_discharge ,                    

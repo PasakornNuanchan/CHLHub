@@ -48,17 +48,14 @@ const ap_function = {
 
 
 
-        let sale_data_search = $(`#sale_support_list option[value="${data_sale}"]`).attr('id_number')
-        let cs_data_search = $(`#cs_support_list option[value="${data_cs}"]`).attr('id_number')
-
-
-        let data_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('data_id')
-        let type_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('type_data')
-
-        let job_number_data_serach = $(`#job_number_list option[value="${data_job_number}"]`).attr('id_number')
-        let hbl_data_serach = $(`#hbl_list option[value="${data_hbl}"]`).attr('id_number')
-        let container_data_serach = $(`#container_list option[value="${data_container}"]`).attr('id_number')
-        let billing_data_serach = $(`#billing_code_list option[value="${data_billing_code}"]`).attr('id_number')
+        let sale_data_search = $(`#sale_support_list option[value="${data_sale}"]`).attr('id_number')  ? $(`#sale_support_list option[value="${data_sale}"]`).attr('id_number')  : '';
+        let cs_data_search = $(`#cs_support_list option[value="${data_cs}"]`).attr('id_number') ? $(`#cs_support_list option[value="${data_cs}"]`).attr('id_number') : '';
+        let data_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('data_id') ? $(`#bill_to_list option[value="${bill_to}"]`).attr('data_id') : '';
+        let type_bill_to_serach = $(`#bill_to_list option[value="${bill_to}"]`).attr('type_data') ? $(`#bill_to_list option[value="${bill_to}"]`).attr('type_data') : '';
+        let job_number_data_serach = $(`#job_number_list option[value="${data_job_number}"]`).attr('id_number') ? $(`#job_number_list option[value="${data_job_number}"]`).attr('id_number') : '';
+        let hbl_data_serach = $(`#hbl_list option[value="${data_hbl}"]`).attr('id_number') ? $(`#hbl_list option[value="${data_hbl}"]`).attr('id_number') : '';
+        let container_data_serach = $(`#container_list option[value="${data_container}"]`).attr('id_number') ? $(`#container_list option[value="${data_container}"]`).attr('id_number') : '';
+        let billing_data_serach = $(`#billing_code_list option[value="${data_billing_code}"]`).attr('id_number') ? $(`#billing_code_list option[value="${data_billing_code}"]`).attr('id_number') : '';
 
         let obj_data = {
             data_status: 1,
@@ -73,7 +70,6 @@ const ap_function = {
             data_end_date: data_end_date,
             sale_data_search: sale_data_search,
             cs_data_search: cs_data_search,
-            //data_action_status: data_action_status,
             st_1 : st_1,
             st_2 : st_2,
             st_3 : st_3,
@@ -83,7 +79,7 @@ const ap_function = {
         }
         arr_data.push(obj_data)
 
-        console.log(arr_data)
+        // console.log(arr_data)
         let res_data = await this.ajax_query_set(arr_data)
         console.log(res_data['table'])
         await setting_first.first_set(res_data);

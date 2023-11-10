@@ -262,33 +262,36 @@ foreach($data as $k => $v){
 }
 
 $data_last_y_get = 128;
-foreach($data_bl_list as $k => $v){
-  $data_last_y_get;
-
-  $pdf->SetXY(20,$data_last_y_get);
-  $pdf->MultiCell(45,4,strtoupper($v['container_no']),0,'L');
-  $data_last_container = $pdf->GetY();
-
-  $pdf->SetXY(65,$data_last_y_get);
-  $pdf->Cell(35,4,strtoupper($v['package'])." ".strtoupper($v['package_unit_test']),0,0,'C');
-
-  $pdf->SetXY(155,$data_last_y_get);
-  $pdf->Cell(20,4,strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']),0,0,'C');
-
-  $pdf->SetXY(175,$data_last_y_get);
-  $pdf->Cell(20,4,strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']),0,0,'C');
-
-  $pdf->SetXY(100,$data_last_y_get);
-  $pdf->MultiCell(55,4,strtoupper($v['kind_of_package']),0,'L');
-  $data_last_y_get =$pdf->GetY();
-
-
-  if($data_last_container > $data_last_y_get){
-    $data_last_y_get = $data_last_container;
+if($data_bl_list != "0 results"){
+  foreach($data_bl_list as $k => $v){
+    $data_last_y_get;
+  
+    $pdf->SetXY(20,$data_last_y_get);
+    $pdf->MultiCell(45,4,strtoupper($v['container_no']),0,'L');
+    $data_last_container = $pdf->GetY();
+  
+    $pdf->SetXY(65,$data_last_y_get);
+    $pdf->Cell(35,4,strtoupper($v['package'])." ".strtoupper($v['package_unit_test']),0,0,'C');
+  
+    $pdf->SetXY(155,$data_last_y_get);
+    $pdf->Cell(20,4,strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']),0,0,'C');
+  
+    $pdf->SetXY(175,$data_last_y_get);
+    $pdf->Cell(20,4,strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']),0,0,'C');
+  
+    $pdf->SetXY(100,$data_last_y_get);
+    $pdf->MultiCell(55,4,strtoupper($v['kind_of_package']),0,'L');
+    $data_last_y_get =$pdf->GetY();
+  
+  
+    if($data_last_container > $data_last_y_get){
+      $data_last_y_get = $data_last_container;
+    }
+    // $pdf->MultiCell(55,6,$data_last_y_get,1,'L');
+    // $pdf->MultiCell(55,6,$data_last_container,1,'L');
   }
-  // $pdf->MultiCell(55,6,$data_last_y_get,1,'L');
-  // $pdf->MultiCell(55,6,$data_last_container,1,'L');
 }
+
 
 
 $data_last_y_get = $data_last_y_get+5;
@@ -297,11 +300,13 @@ $pdf->SetXY(20,$data_last_y_get);
 
 
 
-
-foreach($container_data as $k => $v){
-  $pdf->SetX(25);
-  $pdf->Cell(150,4,strtoupper($v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['unit']."/".$v['gw'].".KGS/".$v['cbm']."CBM"),0,1,'L');
+if($container_data != "0 results"){
+  foreach($container_data as $k => $v){
+    $pdf->SetX(25);
+    $pdf->Cell(150,4,strtoupper($v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['unit']."/".$v['gw'].".KGS/".$v['cbm']."CBM"),0,1,'L');
+  }
 }
+
 
 $today = date("Y/m/d");
 

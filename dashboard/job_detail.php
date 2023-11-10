@@ -286,7 +286,7 @@ require 'function/auth/get_session.php';
             <!-- headtab -->
             <div class="card">
                 <div class="card-body card_body_head_nav" style="zoom:80%">
-                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist" >
+                    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded active" id="job_detail_tab" data-bs-toggle="pill" data-bs-target="#job_detail_tab_target" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Job detail</button>
                         </li>
@@ -312,7 +312,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
+                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">
@@ -320,8 +320,8 @@ require 'function/auth/get_session.php';
                                     <h4>Job Detail</h4>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-end">
-                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.load_save_data()" >load</button>
-                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.generate_job_detail_document()"><i class="bi bi-printer"></i> Job detail</button>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.load_save_data()">load</button>
+                                    <button class="btn btn-outline-primary btn-sm btn_generate_job_detail" onclick="function_sub_job_detail.generate_job_detail_document()"><i class="bi bi-printer"></i> Job detail</button>
                                 </div>
                             </div>
                         </div>
@@ -402,7 +402,7 @@ require 'function/auth/get_session.php';
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 text-end">
-                                                <button class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i></button>
+                                                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard text-primary" onclick="function_sub_job_detail.get_to_copy(this)"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -519,7 +519,7 @@ require 'function/auth/get_session.php';
                                             <input type="date" class="form-control form-control-sm inp_eta">
                                         </div>
                                     </div>
-                                    
+
 
                                 </div>
                                 <div class="col-xl-6">
@@ -565,58 +565,59 @@ require 'function/auth/get_session.php';
                                             <input type="text" class="form-control form-control-sm inp_inv">
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <select class="form-select form-select-sm inp_cargo_type" id="cargo_data" >
-                                                <option value="">-- pleses select cargo type --</option>
-                                            </select>
+                                    <div class="job_description">
+                                        <hr>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Type:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <select class="form-select form-select-sm inp_cargo_type" id="cargo_data">
+                                                    <option value="">-- pleses select cargo type --</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Description:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <!-- <input type="text" class="form-control form-control-sm inp_cargo_des" maxlength="200"> -->
-                                            <textarea class="form-control inp_cargo_des" id="exampleFormControlTextarea1" rows="5" maxlength="600"></textarea>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Cargo Description:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <!-- <input type="text" class="form-control form-control-sm inp_cargo_des" maxlength="200"> -->
+                                                <textarea class="form-control inp_cargo_des" id="exampleFormControlTextarea1" rows="5" maxlength="600"></textarea>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_remark_container" maxlength="400">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Marks:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="text" class="form-control form-control-sm inp_remark_container" maxlength="400">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="number" class="form-control form-control-sm inp_quantity" disabled>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Quantity:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="number" class="form-control form-control-sm inp_quantity" disabled>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Tare weight :</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_scntrw_container">
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Tare weight :</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="text" class="form-control form-control-sm inp_scntrw_container">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="number" class="form-control form-control-sm inp_gw_container" disabled>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <input type="number" class="form-control form-control-sm inp_vol" disabled>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">G.W:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="number" class="form-control form-control-sm inp_gw_container" disabled>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="form-group row">
-                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Volume:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="number" class="form-control form-control-sm inp_vol" disabled>
-                                        </div>
-                                    </div>
-
                                     <hr>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Booking agent:</label>
@@ -687,20 +688,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-xl-5">
-                            <div class="card p-4">
-                                <div class="card-header">
-                                    <h4>Detail operation</h4>
-                                </div>
-                                <div class="card-body">
-                                    
-                                    <div class="save_create_btn_add text-end"></div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
-
-
                     <div class="card p-4 c_container_module">
                         <div class="card-header">
                             <h4>Container module</h4>
@@ -798,7 +786,8 @@ require 'function/auth/get_session.php';
                         </div>
                     </div> -->
                 </div>
-                <div class="tab-pane fade show active" id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab" style="zoom:80%;">
+
+                <div class="tab-pane fade " id="transport_tab_target" role="tabpanel" aria-labelledby="transport_tab" style="zoom:80%;">
                     <div class="transport_booking_detail">
                         <h5>Transport Booking Detail (route 1)</h5>
                         <div class="form-group mt-4 row">
@@ -934,11 +923,9 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
 
-                    <!-- <div class="col">
+                    <div class="col">
                         <button class="btn btn-block btn-outline-primary col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_route();">add new route</button>
-                    </div> -->
-
-                    <!-- </div> -->
+                    </div>
                 </div>
                 <div class="tab-pane fade " id="reportcs_tab_target" role="tabpanel" aria-labelledby="reportcs_tab" style="zoom:80%;">
                     <div class="card p-4">
@@ -1553,10 +1540,7 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-
-
-
-                <!-- <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
+                <div class="tab-pane fade" id="bl_tab_target" role="tabpanel" aria-labelledby="bl_tab">
                     <div class="row">
                         <div class=" col-xl-7 col-lg-7">
                             <div class="card p-4">
@@ -1602,7 +1586,7 @@ require 'function/auth/get_session.php';
                                             <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Place of Receipt : </label>
                                             <div class="col">
                                                 <select class="form-select form-select-sm bl_por inp_bl_por" disabled>
-                                                    
+
                                                 </select>
                                             </div>
                                         </div>
@@ -1816,7 +1800,7 @@ require 'function/auth/get_session.php';
                                                         <option value="CREATE">W/CREATE</option>
                                                         <option value="WOODEN CASES">WOODEN CASES</option>
                                                     </select>
-                                                    
+
                                                 </td>
                                                 <td><input type="text" class="form-control form-control-sm"></td>
                                                 <td><input type="text" class="form-control form-control-sm inp_cbm_bl"></td>
@@ -1874,8 +1858,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
-                </div> -->
-
+                </div>
                 <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
@@ -1930,37 +1913,7 @@ require 'function/auth/get_session.php';
                                             <th>Check Date</th>
                                             <th>Action</th>
                                         </tr>
-                                        <!-- <tr>
-                                            <th class="text-center">1</th>
-                                            <th class="text-center">2</th>
-                                            <th class="text-center">3</th>
-                                            <th class="text-center">4</th>
-                                            <th class="text-center">5</th>
-                                            <th class="text-center">6</th>
-                                            <th class="text-center">7</th>
-                                            <th class="text-center">8</th>
-                                            <th class="text-center">9</th>
-                                            <th class="text-center">10</th>
-                                            <th class="text-center">11</th>
-                                            <th class="text-center">12</th>
-                                            <th class="text-center">13</th>
-                                            <th class="text-center">14</th>
-                                            <th class="text-center">15</th>
-                                            <th class="text-center">16</th>
-                                            <th class="text-center">17</th>
-                                            <th class="text-center">18</th>
-                                            <th class="text-center">19</th>
-                                            <th class="text-center">20</th>
-                                            <th class="text-center">21</th>
-                                            <th class="text-center">22</th>
-                                            <th class="text-center">23</th>
-                                            <th class="text-center">24</th>
-                                            <th class="text-center">25</th>
-                                            <th class="text-center">26</th>
-                                            <th class="text-center">27</th>
-                                            <th class="text-center">28</th>
-                                            <th class="text-center">29</th>
-                                        </tr> -->
+
                                     </thead>
                                     <tbody>
                                         <tr class="text-center">
@@ -2047,7 +2000,7 @@ require 'function/auth/get_session.php';
                                         <input type="text" class="form-control form-control-sm inp_total_ap text-end">
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -2465,7 +2418,7 @@ require 'function/auth/get_session.php';
 
 <script>
     $(document).ready(function() {
-        
+
         sidebar_main.set_data_rows();
         job_detail.set_header_page();
     });

@@ -43,6 +43,11 @@ foreach($data_detail_save as $k => $v){
     $etd = empty($etd) ? "NULL" : "'".$etd."'";
     $shipper = empty($shipper) ? "NULL" : "'".$shipper."'";
     $shipment = empty($shipment) ? "NULL" : "'".$shipment."'";
+
+    $notify_value = isset($v['notify_value']) ? $v['notify_value'] : '';
+    $notify_type = isset($v['notify_type']) ? $v['notify_type'] : '';
+    $client_value = isset($v['client_value']) ? $v['client_value'] : '';
+    $client_type = isset($v['client_type']) ? $v['client_type'] : '';
     
 
     $sql_fetch_data_save = "
@@ -70,6 +75,10 @@ foreach($data_detail_save as $k => $v){
         `cs_support`,
         `sale_support`,
         `booking_agent`,
+        `notify_type`,
+        `notify_number`,
+        `client_type`,
+        `client_number`,
         `final_destination`
     )
     VALUES(
@@ -96,6 +105,10 @@ foreach($data_detail_save as $k => $v){
         '$data_user',
         '$sale_support',
         '$booking_agent',
+        '$notify_type',
+        '$notify_value',
+        '$client_type',
+        '$client_value',
         '$final_destination'
     )
     ";

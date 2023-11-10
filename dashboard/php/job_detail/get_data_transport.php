@@ -45,75 +45,85 @@ if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $get_route_data[] = $row;
     $get_driver_id[] = $row['ID'];
-    $get_container_transport = $row['container_assign'];
-    $get_hbl_transport = $row['hbl_assign'];
-
+    $get_container_transport[] = $row['container_assign'];
+    $get_hbl_transport[] = $row['hbl_assign'];
   }
+
+
+
+  // print_r($get_container_transport);
+  // print_r($get_hbl_transport);
+  $get_container_transport = array_filter($get_container_transport);
+  $get_hbl_transport = array_filter($get_hbl_transport);
+  
+  $get_container_transport = implode(',', $get_container_transport);
+  $get_hbl_transport = implode(',', $get_hbl_transport);
 } else {
   $get_route_data = "0 results";
   $get_driver_id = "0 results";
+  $get_container_transport = "0 results";
+  $get_hbl_transport = "0 results";
 }
-$get_container_transport = explode(',',$get_container_transport);
-$get_hbl_transport = explode(',',$get_hbl_transport);
+
 
 // print_r($get_container_transport);
 // print_r($get_hbl_transport);
 
-// if($get_container_transport != ''){
-  foreach($get_container_transport as $k=>$v){
-    $container_assign = isset($v) ? $v : '';
-    
-    if($container_assign != ''){
-      $sql_query_data_a = "
+
+
+
+if ($get_container_transport != "0 results") {
+    $sql_query_data_a = "
       SELECT
           c.ID,
           concat(c.container_number,' ',(SELECT ct.container_sub_type FROM container_type ct WHERE ct.container_type_name = c.container_type),' (',(SELECT ct.container_type_full_name FROM container_type ct WHERE ct.container_type_name = c.container_type),')') as data_container
       FROM
           container c
       WHERE
-        c.ID IN ($container_assign)
+        c.ID IN ($get_container_transport)
       ";
-  
-      $result = $con->query($sql_query_data_a);
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          $get_data_container_assign[] = $row;   
-        }
-      } 
-    }
-  }
-// }
 
-// if($get_hbl_transport != ''){
-  foreach($get_hbl_transport as $k=>$v){
-    $hbl_assign = isset($v) ? $v : '';
-    if($hbl_assign != ''){
-      $sql_query_data_b = "
+    $result = $con->query($sql_query_data_a);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $get_data_container_assign[] = $row;
+      }
+    }else{
+      $get_data_container_assign = "0 results";
+    }
+  }else{
+    $get_data_container_assign = "0 results";
+  }
+
+  if ($get_hbl_transport != "0 results") {
+    $sql_query_data_b = "
       SELECT
           bl.ID,
           bl.hbl
       FROM
           bl_title bl
       WHERE
-          bl.ID IN($hbl_assign)
+          bl.ID IN($get_hbl_transport)
       ";
-      $result = $con->query($sql_query_data_b);
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          $get_data_hbl_assign[] = $row;   
-        }
-      } 
+    $result = $con->query($sql_query_data_b);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $get_data_hbl_assign[] = $row;
+      }
+    }else{
+      $get_data_hbl_assign = "0 results";
     }
-    
+  }else{
+    $get_data_hbl_assign = "0 results";
   }
-// }
 
 
 
-if($get_driver_id == "0 results"){
+
+if ($get_driver_id == "0 results") {
   $arr_get_contact = "0 results";
-}else{
-  $imp_set_driver = strval(implode(",",$get_driver_id));
+} else {
+  $imp_set_driver = strval(implode(",", $get_driver_id));
 
   $get_contact_booking_transport = "
   SELECT
@@ -139,19 +149,18 @@ if($get_driver_id == "0 results"){
     while ($row = $result->fetch_assoc()) {
       $get_contact[] = $row;
     }
-    foreach($get_contact as $k => $v){
+    foreach ($get_contact as $k => $v) {
       $arr_get_contact[$v['route_id']][] = $v;
+    }
+  }else{
+    $arr_get_contact = "0 results";
   }
-}
-  // } else {
-  //   $arr_get_contact = "0 results";
-  // }
 }
 
 
 echo json_encode(array(
-    'get_route_data'=>$get_route_data,
-    'get_contact'=>$arr_get_contact,
-    'get_data_container_assign'=>$get_data_container_assign,
-    'get_data_hbl_assign'=>$get_data_hbl_assign,
-  ));
+  'get_route_data' => $get_route_data,
+  'get_contact' => $arr_get_contact,
+  'get_data_container_assign' => $get_data_container_assign,
+  'get_data_hbl_assign' => $get_data_hbl_assign,
+));

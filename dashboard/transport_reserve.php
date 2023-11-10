@@ -38,8 +38,14 @@ require 'function/auth/get_session.php';
                 <!-- <div class="col-md-12 col-xl-2"></div> -->
                 <div class="col-md-12 col-xl-12" style="zoom:80%">
                     <div class="card">
-                        <div class="card-body">
-                            <h4>Transport reserve</h4>
+                        <div class="card-body row">
+                            <div class="col">
+                                <h4>Transport reserve</h4>
+                            </div>
+                            <div class="col text-end">
+                                <a class="btn btn-outline-primary btn-sm" href="../dashboard/CHL-suptransport_list.php" target="_blank">Supplier</a>
+                                <!-- <button class="btn btn-outline-primary btn-sm" href="">btn</button> -->
+                            </div>
                         </div>
                     </div>
                     <div class="data_transport">

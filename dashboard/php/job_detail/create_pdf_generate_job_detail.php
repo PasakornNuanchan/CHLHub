@@ -450,8 +450,6 @@ if($data_detail != "0 results"){
     $pdf->MultiCell(104,6,strtoupper($v['remark']),0,"L");
     
     }
-}else{
-  echo "Data is not valid please re check your data <br>";
 }
 
 
@@ -475,8 +473,6 @@ if($data_container != "0 results"){
   $pdf->SetFont('THSarabunNew', 'B', 14, '', true);
   $pdf->Cell(95,6,strtoupper($data_imp_container),0,0,"L");
   
-}else{
-  echo "Data is not valid please re check your data";
 }
 
 

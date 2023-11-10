@@ -1,6 +1,12 @@
 <?php
-include '../../function/auth/end_session.php';
+// include '../../../function/auth/end_session.php';
+session_start(); // เริ่มต้นเซสชัน
 
+session_destroy();
+
+if(isset($_SESSION['Session_start'])) {
+        setcookie(session_name(), '', time()-10000, '/');
+}
 ?>
 
 

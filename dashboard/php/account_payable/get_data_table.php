@@ -30,7 +30,7 @@ if ($arr_data[0]['data_status'] != '') {
     $st_4 = isset($v['st_4']) ? $v['st_4'] : '';
     $st_5 = isset($v['st_5']) ? $v['st_5'] : '';
     $st_6 = isset($v['st_6']) ? $v['st_6'] : '';
-   
+
 
     $search_action_status = "";
     $having_data = "";
@@ -42,14 +42,12 @@ if ($arr_data[0]['data_status'] != '') {
       $having_data = "HAVING
         billing_payment_check IS NULL";
       $search_action_status =  "AND status != '3' ";
-
     }
 
     if ($st_5 == '1') {
       $having_data = "HAVING
         billing_payment_check IS NOT NULL";
       $search_action_status =  "AND status != '3' ";
-
     }
 
     if ($st_2 == '1') {
@@ -77,12 +75,12 @@ if ($arr_data[0]['data_status'] != '') {
     $sale_support = $sale_data_search != '' ? "AND jt.sale_support = '$sale_data_search'" : '';
     $cs_support = $cs_data_search != '' ? "AND jt.cs_support = '$cs_data_search' " : '';
 
-    if($data_search != ''){
-      if($data_search == '1'){
+    if ($data_search != '') {
+      if ($data_search == '1') {
         $search_date = "AND b.create_data_time BETWEEN '$data_start_date' AND '$data_end_date' ";
-      }else if($data_search == '2'){
+      } else if ($data_search == '2') {
         $search_date = "AND b.check_date_time BETWEEN '$data_start_date' AND '$data_end_date' ";
-      }else if($data_search == '3'){
+      } else if ($data_search == '3') {
         $search_date = "AND b.action_paid_date_time BETWEEN '$data_start_date' AND '$data_end_date' ";
       }
     }
@@ -111,22 +109,22 @@ if ($arr_data[0]['data_status'] != '') {
     //     billing_payment_check IS NOT NULL";
     //   }else if($data_action_status == '7'){
     //     $search_action_status = "AND status = '3' ";
-        
+
     //   }
     // }
 
-    
- 
-    
-  //   $check_create = $data_checked_create == '1' ? "AND b.create_data_time IS NOT NULL" : "AND b.create_data_time IS NULL";
-  //   $check_checked = $data_checked_check == '1' ? "AND b.check_date_time IS NOT NULL" : "AND b.check_date_time IS NULL";
-  //   $check_apply = $data_checked_applied == '1'  ? "AND b.action_paid_date_time IS NOT NULL" : "AND b.action_paid_date_time IS NULL";
-  //   $check_approve = $data_checked_approve == '1' ? "AND b.approve_date_time IS NOT NULL" : "AND b.approve_date_time IS NULL";
-  // //  $check_paid = $data_checked_paid == '1' ? "AND "
-  //   $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
 
 
-$sql_query_data = "
+
+    //   $check_create = $data_checked_create == '1' ? "AND b.create_data_time IS NOT NULL" : "AND b.create_data_time IS NULL";
+    //   $check_checked = $data_checked_check == '1' ? "AND b.check_date_time IS NOT NULL" : "AND b.check_date_time IS NULL";
+    //   $check_apply = $data_checked_applied == '1'  ? "AND b.action_paid_date_time IS NOT NULL" : "AND b.action_paid_date_time IS NULL";
+    //   $check_approve = $data_checked_approve == '1' ? "AND b.approve_date_time IS NOT NULL" : "AND b.approve_date_time IS NULL";
+    // //  $check_paid = $data_checked_paid == '1' ? "AND "
+    //   $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
+
+
+    $sql_query_data = "
     SELECT
         b.ID,
         b.billing_description,
@@ -216,7 +214,6 @@ $sql_query_data = "
   } else {
     $table = "0 results";
   }
-
 } else {
 
   $sql_query_data = "

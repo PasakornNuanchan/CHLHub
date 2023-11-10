@@ -47,12 +47,12 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">User number</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="number" class="form-control form-control-sm inp-un" id="">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">First name</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
@@ -87,6 +87,7 @@ require 'function/auth/get_session.php';
                                 <label class="control-label col-sm-3 align-self-center ">Department</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm sel_department">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -122,26 +123,32 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">Login </h4>
+                                <h4 class="card-title head_change">Change Password </h4>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Username</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-user_name">
+                                    <input type="input" class="form-control form-control-sm inp-user_name" >
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Passowrd</label>
+                            <div class="form-group row fn_old_pass">
+                                <label class="control-label col-sm-3 align-self-center ">Old password </label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="password" class="form-control form-control-sm inp-pass_word">
+                                    <input type="password" class="form-control form-control-sm inp-old_pass_word">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Pass Forgot</label>
+                            <div class="form-group row fn_new_pass">
+                                <label class="control-label col-sm-3 align-self-center text_new_pass ">New password</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="password" class="form-control form-control-sm inp-password_f">
+                                    <input type="password" class="form-control form-control-sm inp-new_password">
+                                </div>
+                            </div>
+                            <div class="form-group row fn_cf_new_pass">
+                                <label class="control-label col-sm-3 align-self-center ">Confirm new password</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <input type="password" class="form-control form-control-sm inp-cf_newpassword">
                                 </div>
                             </div>
                         </div>
@@ -165,8 +172,8 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
-                            <div style="float: right">
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="user_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                            <div style="float: right" class="bun_save">
+                                <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="user_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
                         </div>
                     </div>
@@ -192,6 +199,7 @@ require 'function/auth/get_session.php';
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 <script src="js/user_management/user_management_set.js"></script>
 <script src="js/user_management/user_management_set_default.js"></script>
+<script src="js/user_management/create_user.js"></script>
 
 
 <script>

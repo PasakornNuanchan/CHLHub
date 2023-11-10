@@ -611,47 +611,49 @@ const sub_gang_bl = {
             })
         }
 
-    
-    $.each(res_data['bl_title'],function(i,v){
+    if(res_data['bl_title'] != "0 results"){
+        $.each(res_data['bl_title'],function(i,v){
 
     
-        let total_quantity_bl = 0;
-        let total_weight_bl = 0;
-        let total_cbm_bl = 0;
-        let id_number = v['ID'] ? v['ID'] : '';
-
-        
-        $(`.table_container_bl${id_number} tbody tr`).each(function(e){
-            let data_quantity_bl = $('.inp_quantity_bl',this).val()
-            let data_weight_bl = $('.inp_weight_bl',this).val()
-            let data_cbm_bl = $('.inp_cbm_bl',this).val()
-
-
-            data_quantity_bl = parseFloat(data_quantity_bl)
-            data_weight_bl = parseFloat(data_weight_bl)
-            data_cbm_bl = parseFloat(data_cbm_bl)
-
-            total_quantity_bl = total_quantity_bl + data_quantity_bl
-            total_weight_bl = total_weight_bl + data_weight_bl
-            total_cbm_bl = total_cbm_bl + data_cbm_bl
-
+            let total_quantity_bl = 0;
+            let total_weight_bl = 0;
+            let total_cbm_bl = 0;
+            let id_number = v['ID'] ? v['ID'] : '';
+    
             
-
-        })
-
-
-        total_quantity_bl = parseFloat(total_quantity_bl)
-        total_weight_bl = parseFloat(total_weight_bl)
-        total_cbm_bl = parseFloat(total_cbm_bl)
-
-        total_quantity_bl = total_quantity_bl.toFixed(2)
-        total_weight_bl = total_weight_bl.toFixed(2)
-        total_cbm_bl = total_cbm_bl.toFixed(2)
-
-        $(`.inp_package_total${id_number}`).val(total_quantity_bl)
-        $(`.inp_weight_total${id_number}`).val(total_weight_bl)
-        $(`.inp_cbm_total${id_number}`).val(total_cbm_bl)
-    })   
+            $(`.table_container_bl${id_number} tbody tr`).each(function(e){
+                let data_quantity_bl = $('.inp_quantity_bl',this).val()
+                let data_weight_bl = $('.inp_weight_bl',this).val()
+                let data_cbm_bl = $('.inp_cbm_bl',this).val()
+    
+    
+                data_quantity_bl = parseFloat(data_quantity_bl)
+                data_weight_bl = parseFloat(data_weight_bl)
+                data_cbm_bl = parseFloat(data_cbm_bl)
+    
+                total_quantity_bl = total_quantity_bl + data_quantity_bl
+                total_weight_bl = total_weight_bl + data_weight_bl
+                total_cbm_bl = total_cbm_bl + data_cbm_bl
+    
+                
+    
+            })
+    
+    
+            total_quantity_bl = parseFloat(total_quantity_bl)
+            total_weight_bl = parseFloat(total_weight_bl)
+            total_cbm_bl = parseFloat(total_cbm_bl)
+    
+            total_quantity_bl = total_quantity_bl.toFixed(2)
+            total_weight_bl = total_weight_bl.toFixed(2)
+            total_cbm_bl = total_cbm_bl.toFixed(2)
+    
+            $(`.inp_package_total${id_number}`).val(total_quantity_bl)
+            $(`.inp_weight_total${id_number}`).val(total_weight_bl)
+            $(`.inp_cbm_total${id_number}`).val(total_cbm_bl)
+        })   
+    }
+    
         // $.each(res_data['bl_title'],function(i,v){
         //     
         // })

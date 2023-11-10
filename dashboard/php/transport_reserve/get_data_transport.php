@@ -29,6 +29,7 @@ SELECT
     tb.ggpick_con_address,
     tb.ggdrop_con_address,
     tb.ggdrop_con_empty_address,
+    tb.container_assign,
     (SELECT COUNT(con.ID) FROM container con WHERE con.ref_job_id = tb.ref_job_id) as count_container,
     (SELECT jt.delivery_plan FROM job_title jt WHERE jt.ID = tb.ref_job_id) as delivery_date,
     (SELECT js.Cus_suc_datetime FROM job_status js WHERE js.ref_job_id = tb.ref_job_id) as clearance_date,
@@ -37,6 +38,18 @@ FROM
     transport_booking tb
 WHERE
     1";
+
+$result = $con->query($sql_query_data_transport);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+    $task[] = $row;
+    $get_container_assign[] = $row['container_assign'];
+    }
+} else {
+    $task = "0 results";
+}
+
+$imp_get_container_assign = implode($get_container_assign);
 
 $sql_query_container = "
 SELECT
@@ -49,34 +62,22 @@ SELECT
 FROM
     container con
 WHERE
-    1
+    con.ID IN ($imp_get_container_assign)
 ";
-
-
-
-$result = $con->query($sql_query_data_transport);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-    $task[] = $row;
-    }
-} else {
-    $task = "0 results";
-}
-
 
 
 $result = $con->query($sql_query_container);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-      $get_container[] = $row;
+      $get_head_data_container[] = $row;
     }
-    foreach($get_container as $k => $v){
-      $arr_get_container[$v['ref_job_id']][] = $v;
+  }else{
+    $get_head_data_container = "0 results";
   }
-}
 
 
 
-echo json_encode(array('task'=>$task,'container'=>$arr_get_container));
+
+echo json_encode(array('task'=>$task,'get_head_data_container'=>$get_head_data_container));
 
 ?>

@@ -13,25 +13,19 @@ const sub_transport = {
         this.data_container_transport_driver_data_function = data_container_transport_driver;
 
         }
-        
-        
-
         data_sel_supplier = $('#sel_supplier').parent().html()
         data_sel_truck = $('#db_type_truck').parent().html()
         $('.transport_booking_detail').html('');
         
         if (res_data['get_route_data'] != "0 results") {
-
             $.each(res_data['get_route_data'], function (i, v) {
-
                 i++;
                 let html_driver_data = ``;
 
                 let tq = v['truck_quantity'] ? v['truck_quantity'] : '';
                 let bg = v['budget'] ? v['budget'] : '';
-                
-
-                if (res_data['get_contact'] == null) {
+            
+                if (res_data['get_contact'] == "0 results") {
                     html_driver_data = `
                     <div class="form-group mt-4 row data_driver_count">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Driver: 1</label>
@@ -125,7 +119,47 @@ const sub_transport = {
                 let drop_con_empty_remark = v['drop_con_empty_remark'] ? v['drop_con_empty_remark'] : '';
                 let ggdrop_con_empty_address = v['ggdrop_con_empty_address'] ? v['ggdrop_con_empty_address'] : '';
                 let remark = v['remark'] ? v['remark'] : '';
-    
+                let container_assign = v['container_assign'] ? v['container_assign'] : '';
+                let hbl_assign = v['hbl_assign'] ? v['hbl_assign'] : '';
+
+                container_assign = container_assign.split(',')
+                hbl_assign = hbl_assign.split(',')
+                
+                let html_data_container = '';
+                let html_data_hbl = '';
+
+                if(container_assign != ''){
+                    $.each(container_assign,function(i,v){   
+                        if(res_data['get_data_container_assign'] != "0 results"){
+                            $.each(res_data['get_data_container_assign'],function(i1,v1){
+                                let id_number = v1['ID'] ? v1['ID'] : '';
+                                let data_container = v1['data_container'] ? v1['data_container'] : '';
+                                if(v == v1['ID']){
+                                    html_data_container += `<button class="btn btn-sm btn-outline-danger m-2 container_data_selected" data_select_id="${id_number}" onclick="function_sub_transport.delete_container_data_transport(this)" style="zoom:90%">${data_container} <i class="bi bi-trash "></i></button>`
+                                }
+                            })
+                        }
+                        
+                    })   
+                }
+
+                if(hbl_assign != ''){
+                    $.each(hbl_assign,function(i,v){
+                        if(res_data['get_data_hbl_assign'] != "0 results"){
+                            $.each(res_data['get_data_hbl_assign'],function(i1,v1){
+                                let id_number = v1['ID'] ? v1['ID'] : '';
+                                let data_hbl = v1['hbl'] ? v1['hbl'] : '';
+                                console.log(id_number)
+                                console.log(data_hbl)
+                                if(v == v1['ID']){
+                                    html_data_hbl += `<button class="btn btn-sm btn-outline-danger m-2 hbl_data_selected" data_select_id="${id_number}" onclick="function_sub_transport.delete_hbl_data_transport(this)" style="zoom:90%">${data_hbl} <i class="bi bi-trash "></i></button>`
+                                }
+                            })
+                        }
+                    })
+                }
+                
+                
 
                 let html_transport_data = ``;
                 html_transport_data = `
@@ -148,7 +182,9 @@ const sub_transport = {
                             </select>
                         </div>
                         <div class="col-sm-9 col-md-5 col-lg-6">
-                            <div class="data_hbl_transport"></div>
+                            <div class="data_hbl_transport">
+                            ${html_data_hbl}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -160,7 +196,9 @@ const sub_transport = {
                             </select>
                         </div>
                         <div class="col-sm-9 col-md-5 col-lg-6">
-                            <div class="data_container_transport"></div>
+                            <div class="data_container_transport">
+                            ${html_data_container}
+                            </div>
                         </div>
                     </div>
                     
@@ -361,41 +399,47 @@ const sub_transport = {
             })
             
 
-            // $.each(res_data['get_route_data'], function (i, v) {
-            //     $.each(res_data['get_contact'][v['ID']], function (i1, v1) {
-            //         let container_id = v1['container_id'] ? v1['container_id'] : '';
-            //         console.log(container_id)
-            //         console.log($(`.driver_detail > .select_transport `).find(`.inp_select_container_transport`))
-            //     })
-            // })
+            
 
         } else {
             let html_driver_data = ``;
-            // html_driver_data = `
-            //         <div class="form-group mt-4 row data_driver_count">
-            //             <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Driver: 1</label>
-            //             <div class="col-sm-9 col-md-9 col-lg-9">
-            //                 <div class="row">
-            //                     <div class="col-lg-2 col-md-3 ">
-            //                         <input type="text" class="form-control form-control-sm inp_driver_name" placeholder="name">
-            //                     </div>
-            //                     <div class="col-lg-2 col-md-3 ">
-            //                         <input type="text" class="form-control form-control-sm inp_driver_phone" placeholder="phone">
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //             `; 
+            
 
             let html_transport_data = ``;
             html_transport_data = `
-                <div class="card p-4 card_transport " >
+                <div class="card p-4 card_transport test_abv" >
                     <h5>Transport Booking Detail (route 1)</h5>
                     <div class="form-group mt-4 row">
                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Supplier:</label>
                         <div class="col-sm-9 col-md-5 col-lg-4">
                             <div class="ds_supplier ds_supplier">
                                 ${data_sel_supplier}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">HBL:</label>
+                        <div class="col-sm-9 col-md-5 col-lg-3">
+                            <select class="form-select form-select-sm inp_select_hbl_transport" onchange="function_sub_transport.select_hbl_data_transport(this)">
+                                <option value="">-- Please select hbl --</option>
+                                ${setting_data_default.transport_hbl_html}
+                            </select>
+                        </div>
+                        <div class="col-sm-9 col-md-5 col-lg-6">
+                            <div class="data_hbl_transport">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Container:</label>
+                        <div class="col-sm-9 col-md-5 col-lg-3">
+                            <select class="form-select form-select-sm inp_select_container_transport" onchange="function_sub_transport.select_container_data_transport(this)">
+                                <option value="">-- Please select container --</option>
+                                ${setting_data_default.transport_container_html}
+                            </select>
+                        </div>
+                        <div class="col-sm-9 col-md-5 col-lg-6">
+                            <div class="data_container_transport">
                             </div>
                         </div>
                     </div>
@@ -519,12 +563,12 @@ const sub_transport = {
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Quantity: *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <input type="number" class="form-control form-control-sm inp_quantity">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-md-3 col-lg-3 align-self-center">Budget: *</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -550,13 +594,9 @@ const sub_transport = {
                 `;
 
             $('.transport_booking_detail').append(html_transport_data)
-            // $(`.ds_supplier${i} > select`).val(v['sup_number'])
-            // $(`.truck_select_list${i}`).val(v['type_truck'])
-            // $(`.ds_transport${i}`).val(v['type_truck'])
-            // $(`.inp_cur${i}`).val(v['cur'])
+           
         }
-        //$('.inp_select_container_transport').append(data_container_transport_driver)
-        
+        $(`.ds_supplier > #sel_supplier`).attr('disabled' ,true)
 
     },
 

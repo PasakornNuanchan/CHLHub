@@ -156,6 +156,7 @@ $id_number = $_POST['id_number'];
             )
             ";
         }
+        // echo $sql_query_transport_detail;
         $result = $con->query($sql_query_transport_detail);
         if ($result->num_rows == 0) {
             $arr_data_transport_detail = '1';

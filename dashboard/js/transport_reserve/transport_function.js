@@ -1,25 +1,24 @@
 const transport_function = {
     get_to_copy: async function (e) {
-        
         let id_number = $(e).closest('.card').attr('rjid')
-        console.log(id_number)
+        // console.log(id_number)
         let clear_date = $(e).closest('.card').find('.inp_clearance_date').val()
         let delivery_date = $(e).closest('.card').find('.inp_delivery_plan').val()
-        let clear_date_d = clear_date.substring(0,10)
-        let delivery_date_d = delivery_date.substring(0,10)
-        let delivery_date_t = delivery_date.substring(11,16)
-        
+        let clear_date_d = clear_date.substring(0, 10)
+        let delivery_date_d = delivery_date.substring(0, 10)
+        let delivery_date_t = delivery_date.substring(11, 16)
+
 
         let arr_count_type = [];
         let arr_container_number = [];
-        $(e).closest('.card').find('.table > tbody > tr').each(function(i,v){
-            
+        $(e).closest('.card').find('.table > tbody > tr').each(function (i, v) {
+
             let count_type = $(this).find('.inp_container_type').attr('type_sub_name')
             let conatiner_name = $(this).find('.inp_container_name').val()
             arr_count_type.push(count_type)
-            arr_container_number.push(`"`+conatiner_name+`"`)
+            arr_container_number.push(`"` + conatiner_name + `"`)
         })
-        
+
         let compress_type = compressArray(arr_count_type);
         let container_type_data = compress_type.join(',');
         let container_number_data = arr_container_number.join(',')
@@ -27,19 +26,62 @@ const transport_function = {
         let get_hbl = await this.ajax_get_hbl(id_number);
         let hbl_arr = [];
         let hbl_data = '';
-        
-        if(get_hbl['hbl'] != "0 results"){
-            
-            $.each(get_hbl['hbl'],function(i,v){
+
+        let value_remark = $(e).closest('.card').find('.inp_delivery_remark').val()
+        let value_delivery = $(e).closest('.card').find('.inp_delivery_container').val()
+        let value_ggmap = $(e).closest('.card').find('.ggdrop_con').attr('href')
+        if (get_hbl['hbl'] != "0 results") {
+
+            $.each(get_hbl['hbl'], function (i, v) {
                 let hbl = v['hbl'] ? v['hbl'] : '';
                 // console.log(hbl)
                 hbl_arr.push(hbl)
-                
+
             })
             hbl_data = hbl_arr.join(',');
         }
+
+       
+        let consignee_name = ""
+        let consginee_address = ""
+        let tax = ""
+        let type_select_text = '';
+
+        await Swal.fire({
+            title: "Receip By",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Consignee",
+            confirmButtonColor : "green",
+            denyButtonText : "CHL",
+            denyButtonColor : "blue",
+            cancelButtonText : "Cancel",
+            cancelButtonColor : "red",
+        }).then(async(result) => {
+            
+            if (result.isConfirmed) {
+                let res_data_consignee = await this.ajax_get_consginee_detail(id_number)
+                consignee_name = res_data_consignee['consingee'][0]['consignee_name']
+                consginee_address = res_data_consignee['consingee'][0]['address']
+                tax = res_data_consignee['consingee'][0]['tax']
+                // consignee_name = res_data_consignee['consingee'][0]['consignee_name']
+                // consginee_address = res_data_consignee['consingee'][0]['address']
+                // tax = res_data_consignee['consingee'][0]['tax']
         
         
+            } else if (result.isDenied) {
+                consignee_name = "CHINA HIGHWIN (THAILAND) LIMITED (HEAD OFFICE)";
+                consginee_address = "223/85, 92 Country Complex Building A, 17th Floor Sanphawut Rd, Bangna-Tai Bangna Bangkok 10260 Thailand";
+                tax = "0745560004379";
+            }
+        });
+        
+        
+        console.log(consignee_name)
+        console.log(consginee_address)
+        console.log(tax)
+
+      
         let dataToCopy = `
         clearance on ${clear_date_d} 
         delivery on ${delivery_date_d} @ ${delivery_date_t}
@@ -49,14 +91,14 @@ const transport_function = {
         เลขตู้ : ${container_number_data}  
         ราคา  :
         ที่จัดส่ง ; 
-        ""CONTACT : 伟泰0879562324
-        KNL RECYCLETECHNOLOGY & TO SERVICE CO.,LTD.""
-        https://www.google.com/maps?q=13.749329,101.671371
+        Remark : ${value_remark}
+        ${value_delivery}
+        ${value_ggmap}
             
         *ออกใบเสร็จ
-        ""M.P.F. CONSULTANT CO.,LTD.
-        88/22 MOO.9 , TAMBON THUNGSUKLA, AMPHUR SRIRACHA, CHONBURI,THAILAND 20230
-        收货人税务登记号TAX ID: 0205565030623"""
+        ${consignee_name}
+        ${consginee_address}
+        收货人税务登记号TAX ID: ${tax}
         
         `;
 
@@ -69,12 +111,14 @@ const transport_function = {
         copyTextArea.remove();// นำ textarea ออกจาก DOM (ปิด textarea ในหน้าจอ)
     },
 
-    ajax_get_hbl : async function (id_number) {
+    ajax_get_consginee_detail : async function (id_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "php/transport_reserve/get_hbl.php",
-                data : {id_number:id_number},
+                url: "php/transport_reserve/get_detail_consignee.php",
+                data: {
+                    id_number: id_number,
+                },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -82,6 +126,61 @@ const transport_function = {
             });
         });
     },
+
+    ajax_get_hbl: async function (id_number) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport_reserve/get_hbl.php",
+                data: { id_number: id_number },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    get_data_save: async function (e) {
+        let data_id_number = $(e).closest('.card').attr('id_number')
+        let data_supplier_name = $(e).closest('.card').find(`.inp_data_supplier${data_id_number}`).val()
+
+        let res_data = await this.ajax_sent_data_save(data_id_number, data_supplier_name);
+        if (res_data == '1') {
+            Swal.fire(
+                'saved!',
+                'Your data has been saved.',
+                'success'
+            )
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'System has problem plese contact to thailand tech team ',
+            })
+        }
+
+    },
+
+    ajax_sent_data_save: async function (data_id_number, data_supplier_name) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/transport_reserve/save_data_transport.php",
+                data: {
+                    data_id_number: data_id_number,
+                    data_supplier_name: data_supplier_name
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+
+    
 }
 
 

@@ -20,13 +20,41 @@ FROM
 ";
 
 $sql_get_job_number = "
-SELECT ID,job_number FROM job_title";
+SELECT
+    ID,
+    job_number
+FROM
+    job_title    
+WHERE
+	job_number is not null AND job_number !=''
+GROUP BY
+	job_number
+ORDER BY
+	job_number asc";
 
 $sql_get_hbl = "
-SELECT ID,hbl FROM bl_title";
+SELECT
+    ID,
+    hbl
+FROM
+    bl_title
+WHERE
+	hbl is NOT null AND hbl != ''
+GROUP BY
+	HBL";
 
 $sql_get_container = "
-SELECT ID,container_number FROM container
+SELECT
+    ID,
+    container_number
+FROM
+    container
+WHERE
+    container_number IS NOT NULL AND container_number != ''
+GROUP BY
+    container_number
+ORDER BY
+    ID ASC
 ";
 
 $sql_billing_code = "
@@ -66,9 +94,15 @@ if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $hbl[] = $row;
   }
+  $hbl = array_filter($hbl);
 } else {
   $hbl = "0 results";
 }
+
+
+
+
+
 
 $result = $con->query($sql_get_job_number);
 if ($result->num_rows > 0) {

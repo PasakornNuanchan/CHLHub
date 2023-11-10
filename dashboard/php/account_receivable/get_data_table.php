@@ -96,7 +96,7 @@ if ($arr_data[0]['data_status'] != '') {
     // $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
 
 
-    echo $sql_query_data = "
+    $sql_query_data = "
     SELECT
         b.ID,
         b.billing_description,

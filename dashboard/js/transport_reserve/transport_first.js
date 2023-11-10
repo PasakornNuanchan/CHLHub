@@ -1,17 +1,16 @@
 const transport_first = {
-    setting_default : async function(){
+    setting_default: async function () {
         let res_data = await this.ajax_setting_default()
-        console.log(res_data)
         html_data_supplier = '';
-        if(res_data['supplier'] != "0 results"){
-            $.each(res_data['supplier'],function(i,v){
+        if (res_data['supplier'] != "0 results") {
+            $.each(res_data['supplier'], function (i, v) {
                 html_data_supplier += `<option value="${v['ID']}">${v['transport_sup_name']}</option>`
             })
         }
-        
+
     },
 
-    ajax_setting_default : async function () {
+    ajax_setting_default: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -24,12 +23,12 @@ const transport_first = {
         });
     },
 
-    setting_first : async function(){
+    setting_first: async function () {
         let res_data = await this.ajax_setting_data_first()
         console.log(res_data)
-        if(res_data['task'] != "0 results"){
+        if (res_data['task'] != "0 results") {
             $('.data_transport').html('')
-            $.each(res_data['task'],function(i,v){
+            $.each(res_data['task'], function (i, v) {
                 let id_number = v['ID'] ? v['ID'] : '';
                 let job_number = v['job_number'] ? v['job_number'] : '';
                 let sup_number = v['sup_number'] ? v['sup_number'] : '';
@@ -54,28 +53,51 @@ const transport_first = {
                 let ggpick_con_address = v['ggpick_con_address'] ? v['ggpick_con_address'] : '';
                 let ggdrop_con_address = v['ggdrop_con_address'] ? v['ggdrop_con_address'] : '';
                 let ggdrop_con_empty_address = v['ggdrop_con_empty_address'] ? v['ggdrop_con_empty_address'] : '';
-                let count_container = v['count_container'] ? v['count_container'] : '';
+                // let count_container = v['count_container'] ? v['count_container'] : '';
                 let delivery_date = v['delivery_date'] ? v['delivery_date'] : '';
                 let clearance_date = v['clearance_date'] ? v['clearance_date'] : '';
-    
+                let container_assign = v['container_assign'] ? v['container_assign'] : '';
                 let html_container = '';
-                $.each(res_data['container'][ref_job_id],function(i1,v1){
-                let container_type = v1['container_type'] ? v1['container_type'] : '';
-                let container_number = v1['container_number'] ? v1['container_number'] : '';
-                let gw = v1['gw'] ? v1['gw'] : '';
-                let container_type_name = v1['container_type_name'] ? v1['container_type_name'] : '';
 
-                html_container += `<tr>
-                    <td class="text-center">1</td>
-                    <td><input type="text" class="form-control form-control-sm text-center inp_container_type"  readonly type_sub_name="${container_type}" value="${container_type_name}"></td>
-                    <td><input type="text" class="form-control form-control-sm text-center inp_container_name"  readonly value="${container_number}"></td>
-                    <td><input type="text" class="form-control form-control-sm text-center inp_container_gw"  readonly value="${gw}"></td>
-                </tr>`
-                })
+                container_assign = container_assign.split(',')
                 
+                let count_i = 0;
+                $.each(container_assign, function (i1, v1) {
+                    
+                    $.each(res_data['get_head_data_container'], function (i2, v2) {
+                        
+                        let id_number = v2['ID'] ? v2['ID'] : '';
+                        if (v1 == id_number) {
+                            
+                            let container_type = v2['container_type'] ? v2['container_type'] : '';
+                            let container_number = v2['container_number'] ? v2['container_number'] : '';
+                            let gw = v2['gw'] ? v2['gw'] : '';
+                            // let ref_job_id = v2['ref_job_id'] ? v2['ref_job_id'] : '';
+                            let container_type_name = v2['container_type_name'] ? v2['container_type_name'] : '';
+
+                            count_i++;
+                            html_container += `
+                            <tr>
+                                <td class="text-center">${count_i}</td>
+                                <td><input type="text" class="form-control form-control-sm text-center inp_container_type"  readonly type_sub_name="${container_type}" value="${container_type_name}"></td>
+                                <td><input type="text" class="form-control form-control-sm text-center inp_container_name"  readonly value="${container_number}"></td>
+                                <td><input type="text" class="form-control form-control-sm text-center inp_container_gw"  readonly value="${gw}"></td>
+                            </tr>`
+                        }
+                    })
+                })
+            
+
+            // $.each(res_data['container'][ref_job_id],function(i1,v1){
+            // let container_type = v1['container_type'] ? v1['container_type'] : '';
+            // let container_number = v1['container_number'] ? v1['container_number'] : '';
+            // let gw = v1['gw'] ? v1['gw'] : '';
+            // let container_type_name = v1['container_type_name'] ? v1['container_type_name'] : '';
 
 
-                let html_card_transport = `
+
+
+            let html_card_transport = `
                 <div class="card" id_number="${id_number}" rjid="${ref_job_id}">
                     <div class="card-body">
                         <div class="mx-auto">
@@ -85,9 +107,9 @@ const transport_first = {
                                 <div class="col-lg-1 col-xl-1"><label for="">To</label></div>
                                 <div class="col-lg-2 col-xl-2"><input type="text" class="form-control form-control-sm" value="${drop_con_address}" readonly></div>
                                 <div class="col-lg-1 col-xl-1"><label for="">Container quantity</label></div>
-                                <div class="col-lg-1 col-xl-1"><input type="text" class="form-control form-control-sm" value="${count_container}" readonly></div>
+                                <div class="col-lg-1 col-xl-1"><input type="text" class="form-control form-control-sm inp_container_quantity${id_number}" value="" readonly></div>
                                 <div class="col-lg-1 col-xl-1"><label for="">Supplier</label></div>
-                                <div class="col-lg-2 col-xl-2"><select class="form-select form-select-sm" name="" id="">
+                                <div class="col-lg-2 col-xl-2"><select class="form-select form-select-sm inp_data_supplier${id_number}" name="" id="">
                                     <option value="">Please select supplier</option>
                                        ${html_data_supplier}
                                     </select></div>
@@ -99,11 +121,9 @@ const transport_first = {
                                 <div class="col-lg-2 col-xl-2"><input type="datetime-local" class="form-control form-control-sm inp_clearance_date" value="${clearance_date}" readonly></div>
                                 <div class="col-lg-1 col-xl-1"><label for="">Delivery date plan</label></div>
                                 <div class="col-lg-2 col-xl-2"><input type="datetime-local" class="form-control form-control-sm inp_delivery_plan" value="${delivery_date}" readonly></div>
-                                <!-- <div class="col-lg-1 col-xl-1"><label for="">Container Plan</label></div>
-                                <div class="col-lg-1 col-xl-1"><input type="text" class="form-control form-control-sm " value="${count_container}"></div> -->
                             </div>
                             <div class="text-end">
-                                <button class="btn btn-outline-primary btn-sm">save</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="transport_function.get_data_save(this)">save</button>
                                 <button class="btn btn-outline-primary btn-sm" onclick="transport_function.get_to_copy(this)">copy context</button>
                             </div>
                             <div class="text-center">
@@ -114,29 +134,33 @@ const transport_first = {
                             <div class="form-group row text-center">
                                 <div class="col-lg-2 col-xl-2"><label for="">Pickup Empty Container Address</label></div>
                                 <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${pick_con_empty_address}" readonly></div>
+                                <div class="col-lg-1 col-xl-1"><a class="btn btn-sm btn-outline-primary" href="${ggpick_con_empty_address}" target="_blank"><i class="bi bi-map"></i></a></div>
                                 <div class="col-lg-2 col-xl-2"><label for="">remark</label></div>
-                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${pick_con_empty_remark}" readonly></div>
+                                <div class="col-lg-3 col-xl-3"><input type="text" class="form-control form-control-sm" value="${pick_con_empty_remark}" readonly></div>
                             </div>
                             <div class="form-group row text-center">
                                 <div class="col-lg-2 col-xl-2"><label for="">Loading Address</label></div>
                                 <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${pick_con_address}" readonly></div>
+                                <div class="col-lg-1 col-xl-1"><a class="btn btn-sm btn-outline-primary" href="${ggpick_con_address}" target="_blank"><i class="bi bi-map"></i></a></div>
                                 <div class="col-lg-2 col-xl-2"><label for="">remark</label></div>
-                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${pick_con_remark}" readonly></div>
+                                <div class="col-lg-3 col-xl-3"><input type="text" class="form-control form-control-sm" value="${pick_con_remark}" readonly></div>
                             </div>
                             <div class="form-group row text-center">
                                 <div class="col-lg-2 col-xl-2"><label for="">Delivery Container Address</label></div>
-                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${drop_con_address}" readonly></div>
+                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm inp_delivery_container" value="${drop_con_address}" readonly></div>
+                                <div class="col-lg-1 col-xl-1"><a class="btn btn-sm btn-outline-primary ggdrop_con" href="${ggdrop_con_address}" target="_blank"><i class="bi bi-map"></i></a></div>
                                 <div class="col-lg-2 col-xl-2"><label for="">remark</label></div>
-                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${drop_con_remark}" readonly></div>
+                                <div class="col-lg-3 col-xl-3"><input type="text" class="form-control form-control-sm inp_delivery_remark" value="${drop_con_remark}" readonly></div>
                             </div>
                             <div class="form-group row text-center">
                                 <div class="col-lg-2 col-xl-2"><label for="">Drop off Empty Containe Address</label></div>
                                 <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${drop_con_empty_address}" readonly></div>
+                                <div class="col-lg-1 col-xl-1"><a class="btn btn-sm btn-outline-primary" href="${ggdrop_con_empty_address}" target="_blank"><i class="bi bi-map"></i></a></div>
                                 <div class="col-lg-2 col-xl-2"><label for="">remark</label></div>
-                                <div class="col-lg-4 col-xl-4"><input type="text" class="form-control form-control-sm" value="${drop_con_empty_remark}" readonly></div>
+                                <div class="col-lg-3 col-xl-3"><input type="text" class="form-control form-control-sm" value="${drop_con_empty_remark}" readonly></div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover table_container${id_number}">
                                     <thead>
                                         <tr class="text-center">
                                             <th>No</th>
@@ -154,14 +178,17 @@ const transport_first = {
                     </div>
                 </div>
                 `;
-                $('.data_transport').append(html_card_transport)
-            })
-        }
-        
-        
-    },
+            $('.data_transport').append(html_card_transport)
+            let data_container = $(`.table_container${id_number} tbody tr`).length
+            $(`.inp_container_quantity${id_number}`).val(data_container)
+            $(`.inp_data_supplier${id_number}`).val(sup_number)
+        })
+    }
 
-    ajax_setting_data_first : async function () {
+
+},
+
+    ajax_setting_data_first: async function () {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",

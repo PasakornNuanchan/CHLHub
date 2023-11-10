@@ -110,6 +110,7 @@ if ($result->num_rows > 0) {
     $data_bl_list_kind[] = $row['kind_of_package'];
   }
 } else {
+  $data_bl_list_kind = "0 results";
   $data_bl_list = "0 results";
 }
 
@@ -594,31 +595,32 @@ foreach($data as $k => $v){
 
 $get_y_table = 123;
 
-foreach ($data_bl_list as $k => $v) {
-
-
-  $pdf->SetXY(10, $get_y_table);
-  $pdf->MultiCell(50, 4, strtoupper($v['container_no']), "R", 'L');
-  $data_last_container = $pdf->GetY();
-
-  $pdf->SetXY(60, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['package'])." ".strtoupper($v['package_unit_test']), "R", 'C');
-
-  $pdf->SetXY(155, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']), "R", 'C');
-
-  $pdf->SetXY(180, $get_y_table);
-  $pdf->MultiCell(25, 4, strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']), "R", 'C');
-
-  // $pdf->SetXY(85, $get_y_table);
-  // $pdf->MultiCell(70, 4, strtoupper($v['kind_of_package']), "", 'L');
-  // $data_last_y_get = $pdf->GetY();
-
-
-  // if ($data_last_container > $get_y_table) {
-  //   $get_y_table = $data_last_container;
-  // }
+if($data_bl_list != "0 results"){
+  foreach ($data_bl_list as $k => $v) {
+    $pdf->SetXY(10, $get_y_table);
+    $pdf->MultiCell(50, 4, strtoupper($v['container_no']), "R", 'L');
+    $data_last_container = $pdf->GetY();
+  
+    $pdf->SetXY(60, $get_y_table);
+    $pdf->MultiCell(25, 4, strtoupper($v['package'])." ".strtoupper($v['package_unit_test']), "R", 'C');
+  
+    $pdf->SetXY(155, $get_y_table);
+    $pdf->MultiCell(25, 4, strtoupper($v['gross_weight'])." ".strtoupper($v['gross_weight_unit']), "R", 'C');
+  
+    $pdf->SetXY(180, $get_y_table);
+    $pdf->MultiCell(25, 4, strtoupper($v['measurement'])." ".strtoupper($v['cbm_unit']), "R", 'C');
+  
+    // $pdf->SetXY(85, $get_y_table);
+    // $pdf->MultiCell(70, 4, strtoupper($v['kind_of_package']), "", 'L');
+    // $data_last_y_get = $pdf->GetY();
+  
+  
+    // if ($data_last_container > $get_y_table) {
+    //   $get_y_table = $data_last_container;
+    // }
+  }
 }
+
 
 
 
@@ -781,16 +783,16 @@ foreach ($data as $k => $v) {
 }
 
 
-
-
 $lines = explode("\n", $data_bl_list_kind[0]);
 foreach ($lines as $line) {
   $currentLineCount++;
 }
-
-foreach ($container_data as $lineab) {
-  $count_container_ab++;
+if($container_data != "0 results"){
+  foreach ($container_data as $lineab) {
+    $count_container_ab++;
+  }
 }
+
 
 $pdf->SetXY(10,271);
   $pdf->SetFont('times', 'B', 7, '', true);
@@ -809,15 +811,21 @@ if ($currentLineCount < 10) {
   // part description
   $pdf->SetFont('times', '', 8, '', true);
   $pdf->SetXY(85, 123);
-  foreach ($data_bl_list_kind as $line) {
-    $pdf->MultiCell(70, 3, strtoupper($line), 0, 1);
+  if($data_bl_list_kind != "0 results"){
+    foreach ($data_bl_list_kind as $line) {
+      $pdf->MultiCell(70, 3, strtoupper($line), 0, 1);
+    }
   }
+  
   // part container
   $pdf->Ln();
   if($count_container_ab < 7){
-    foreach ($container_data as $v) {
-      $pdf->MultiCell(100,4,strtoupper($v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM"),0);
+    if($container_data != "0 results"){
+      foreach ($container_data as $v) {
+        $pdf->MultiCell(100,4,strtoupper($v['container_number']."/".$v['seal_number']."/".$v['container_type']."/".$v['quantity'].$v['name']."/".$v['gw']."KGS./".$v['volume']."CBM"),0);
+      }
     }
+    
   }else{
     $pdf->AddPage();
     $pdf->SetFont('times', 'B', 8, '', true);

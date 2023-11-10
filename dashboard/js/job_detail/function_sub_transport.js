@@ -434,6 +434,7 @@ const function_sub_transport = {
                 arr_hbl_transport.push(id_number_hbl)
             })
 
+            // console.log(arr_hbl_transport)
             let text_conatiner_transport = arr_container_transport.join(',')
             let text_hbl_transport = arr_hbl_transport.join(',')
             
