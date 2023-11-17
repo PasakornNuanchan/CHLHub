@@ -73,14 +73,24 @@ if ($arr_data[0]['data_status'] != '') {
 
     if ($st_2 == '1') {
       $search_action_status_check = "AND b.check_date_time IS NOT NULL";
+    }else{
+      $search_action_status_check = "AND b.check_date_time IS NULL";
+
     }
 
     if ($st_3 == '1') {
       $search_action_status_paid = "AND b.action_paid_date_time IS NOT NULL";
+    }else{
+      $search_action_status_paid = "AND b.action_paid_date_time IS NULL";
+
     }
 
     if ($st_4 == '1') {
       $search_action_status_approve = "AND b.approve_date_time IS NOT NULL";
+      
+    }else{
+      $search_action_status_approve = "AND b.approve_date_time IS NULL";
+
     }
 
     if ($st_6 == '1') {

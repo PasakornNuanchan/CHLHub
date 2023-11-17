@@ -12,6 +12,9 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+    
 </head>
 
 <body class="  ">
@@ -38,11 +41,17 @@ require 'function/auth/get_session.php';
                 <!-- <div class="col-md-12 col-xl-2"></div> -->
                 <div class="col-md-12 col-xl-12" style="zoom:80%">
                     <div class="card">
+                        <div class="card-body">
+                        <button id="exportBtn">Export to Excel</button>
+                        </div>
+                    </div>
+                    <div class="card">
                         <div class="card-body row">
                             <div class="col">
                                 <h4>Transport reserve</h4>
                             </div>
                             <div class="col text-end">
+                                <a class="btn btn-outline-primary btn-sm" onclick="transport_function.function_gen_excel_transport()">Report transport</a>
                                 <a class="btn btn-outline-primary btn-sm" href="../dashboard/CHL-suptransport_list.php" target="_blank">Supplier</a>
                                 <!-- <button class="btn btn-outline-primary btn-sm" href="">btn</button> -->
                             </div>
@@ -135,7 +144,7 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div class="area_text"></div>
                 </div>
@@ -159,7 +168,7 @@ require 'function/auth/get_session.php';
 
 </html>
 <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-<!-- <script src="js/carrier_management/carrier_management_set.js"></script> -->
+
 <script src="js/transport_reserve/transport_function.js"></script>
 <script src="js/transport_reserve/transport_first.js"></script>
 

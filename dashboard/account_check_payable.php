@@ -21,27 +21,50 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    .table_data_account td:nth-child(3) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,
+    .table_data_account td:nth-child(3) input,
     .table_data_account td:nth-child(9) input,
     .table_data_account td:nth-child(10) input,
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input,
     .table_data_account td:nth-child(14) input {
-        width: 150px;
+        width: 200px;
     }
 
-    .table_data_account td:nth-child(6) input,
+    .table_data_account td:nth-child(1) ,
+    .table_data_account td:nth-child(2) ,
+    .table_data_account td:nth-child(3) ,
+    .table_data_account td:nth-child(4) ,
+    .table_data_account td:nth-child(5) ,
+    .table_data_account td:nth-child(6) ,
+    .table_data_account td:nth-child(7) ,
+    .table_data_account td:nth-child(8) ,
+    .table_data_account td:nth-child(9) ,
+    .table_data_account td:nth-child(10) ,
+    .table_data_account td:nth-child(11) ,
+    .table_data_account td:nth-child(12) ,
+    .table_data_account td:nth-child(13) ,
+    .table_data_account td:nth-child(14) {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+   
+
+    .table_data_account td:nth-child(6) input{
+        width: 200px;
+
+    }
     .table_data_account td:nth-child(9) input{
-        width: 70px;
+        width: 210px;
     }
 
     .table_data_account td:nth-child(4) input,
     .table_data_account td:nth-child(5) input,
     .table_data_account td:nth-child(13) input
     {
-        width: 250px;
+        width: 240px;
     }
 </style>
 
@@ -89,11 +112,6 @@ require 'function/auth/get_session.php';
                                 <datalist class="job_number_list_option" id="job_number_list">
                                 </datalist>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="bd-example mt-3">
-                        <div class="row g-3">
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Select currency</label>
                                 <select name="" id="" class="form-select form-select-sm sel_currency">
@@ -105,10 +123,24 @@ require 'function/auth/get_session.php';
                                 </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label class="form-label">Paid Action</label>
+                                <select name="" id="" class="form-select form-select-sm sel_paid_action">
+                                    <option value="ALL">ALL</option>
+                                    <option value="0">Unpaid</option>
+                                    <option value="1">Paid</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bd-example mt-3">
+                        <div class="row g-3">
+                            
+                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Total</label>
                                 <input type="text" class="form-control form-control-sm inp_total">
                             </div>
-                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Date End 结束日期</label>
                                 <input type="date" class="form-control form-control-sm inp_end_date">
                             </div>

@@ -23,7 +23,11 @@ require 'function/auth/get_session.php';
         width: 400px;
     }
 
-    .table_detail_bl td:nth-child(2) input {
+    .table_detail_bl td:nth-child(2) input,
+    .table_detail_bl td:nth-child(5) input,
+    .table_detail_bl td:nth-child(6) input,
+    .table_detail_bl td:nth-child(7) input,
+    .table_detail_bl td:nth-child(8) input {
         width: 200px;
     }
 
@@ -35,205 +39,156 @@ require 'function/auth/get_session.php';
         width: 50px;
     }
 
-    .table_detail_bl td:nth-child(5) input {
-        width: 200px;
-    }
 
-    .table_detail_bl td:nth-child(6) input {
-        width: 200px;
-    }
-
-    .table_detail_bl td:nth-child(7) input {
-        width: 200px;
-    }
-
-    .table_detail_bl td:nth-child(8) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(1) input {
-        width: 50px;
-    }
-
+    #table_billing_ar td:nth-child(1) input,
     #table_billing_ar td:nth-child(2) input {
         width: 50px;
     }
 
-    #table_billing_ar td:nth-child(3) select {
-        width: 150px;
-    }
-
-    #table_billing_ar td:nth-child(4) input {
-        width: 300px;
-    }
-
+    #table_billing_ar td:nth-child(4) input,
     #table_billing_ar td:nth-child(5) select {
         width: 300px;
     }
 
-    #table_billing_ar td:nth-child(7) select {
-        width: 100px;
-    }
-
-    #table_billing_ar td:nth-child(8) input {
-        width: 100px;
-    }
-
-    #table_billing_ar td:nth-child(9) input {
-        width: 150px;
-    }
-
-    #table_billing_ar td:nth-child(10) input {
-        width: 150px;
-    }
-
-    #table_billing_ar td:nth-child(11) input {
-        width: 100px;
-    }
-
-    #table_billing_ar td:nth-child(12) input {
-        width: 150px;
-    }
-
-    #table_billing_ar td:nth-child(13) input {
-        width: 150px;
-    }
-
+    #table_billing_ar td:nth-child(7) select,
+    #table_billing_ar td:nth-child(8) input,
+    #table_billing_ar td:nth-child(11) input,
     #table_billing_ar td:nth-child(15) select {
-        width: 100px;
+        width: 150px;
     }
 
-    #table_billing_ar td:nth-child(17) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(28) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(26) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(30) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(29) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(27) input {
-        width: 200px;
-    }
-
-    #table_billing_ar td:nth-child(25) input {
-        width: 200px;
-    }
-
+    #table_billing_ar td:nth-child(9) input,
+    #table_billing_ar td:nth-child(10) input,
+    #table_billing_ar td:nth-child(12) input,
+    #table_billing_ar td:nth-child(13) input,
+    #table_billing_ar td:nth-child(14) input,
+    #table_billing_ar td:nth-child(3) select,
     #table_billing_ar td:nth-child(18) input {
         width: 150px;
     }
 
+    #table_billing_ar td:nth-child(17) input,
+    #table_billing_ar td:nth-child(28) input,
+    #table_billing_ar td:nth-child(26) input,
+    #table_billing_ar td:nth-child(30) input,
+    #table_billing_ar td:nth-child(29) input,
+    #table_billing_ar td:nth-child(27) input,
+    #table_billing_ar td:nth-child(22) input,
+    #table_billing_ar td:nth-child(23) input,
+    #table_billing_ar td:nth-child(24) input,
+    #table_billing_ar td:nth-child(25) input,
     #table_billing_ar td:nth-child(19) input {
         width: 200px;
     }
 
 
 
-    #table_billing_ap td:nth-child(1) input {
-        width: 50px;
+    #table_billing_ar td:nth-child(1),
+    #table_billing_ar td:nth-child(2),
+    #table_billing_ar td:nth-child(3),
+    #table_billing_ar td:nth-child(4),
+    #table_billing_ar td:nth-child(5),
+    #table_billing_ar td:nth-child(6),
+    #table_billing_ar td:nth-child(7),
+    #table_billing_ar td:nth-child(8),
+    #table_billing_ar td:nth-child(9),
+    #table_billing_ar td:nth-child(10),
+    #table_billing_ar td:nth-child(11),
+    #table_billing_ar td:nth-child(12),
+    #table_billing_ar td:nth-child(13),
+    #table_billing_ar td:nth-child(14),
+    #table_billing_ar td:nth-child(15),
+    #table_billing_ar td:nth-child(16),
+    #table_billing_ar td:nth-child(17),
+    #table_billing_ar td:nth-child(18),
+    #table_billing_ar td:nth-child(19),
+    #table_billing_ar td:nth-child(20),
+    #table_billing_ar td:nth-child(21),
+    #table_billing_ar td:nth-child(22),
+    #table_billing_ar td:nth-child(23),
+    #table_billing_ar td:nth-child(24),
+    #table_billing_ar td:nth-child(25),
+    #table_billing_ar td:nth-child(26),
+    #table_billing_ar td:nth-child(27),
+    #table_billing_ar td:nth-child(28),
+    #table_billing_ar td:nth-child(29),
+    #table_billing_ar td:nth-child(30) {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 
+
+
+
+    #table_billing_ap td:nth-child(1) input,
     #table_billing_ap td:nth-child(2) input {
         width: 50px;
     }
 
-    #table_billing_ap td:nth-child(3) select {
-        width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(4) input {
-        width: 300px;
-    }
-
-    #table_billing_ap td:nth-child(5) select {
-        width: 300px;
-    }
-
-    #table_billing_ap td:nth-child(7) select {
-        width: 100px;
-    }
-
-    #table_billing_ap td:nth-child(8) input {
-        width: 100px;
-    }
-
-    #table_billing_ap td:nth-child(9) input {
-        width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(10) input {
-        width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(11) input {
-        width: 100px;
-    }
-
-    #table_billing_ap td:nth-child(12) input {
-        width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(13) input {
-        width: 150px;
-    }
-
-    #table_billing_ap td:nth-child(16) input {
-        width: 200px;
-    }
-
+    #table_billing_ap td:nth-child(10) input,
+    #table_billing_ap td:nth-child(9) input,
+    #table_billing_ap td:nth-child(3) select,
+    #table_billing_ap td:nth-child(12) input,
+    #table_billing_ap td:nth-child(13) input,
     #table_billing_ap td:nth-child(17) input {
         width: 150px;
     }
 
-    #table_billing_ap td:nth-child(18) input {
-        width: 200px;
+    #table_billing_ap td:nth-child(5) select,
+    #table_billing_ap td:nth-child(4) input {
+        width: 300px;
     }
 
-    #table_billing_ap td:nth-child(24) input {
-        width: 200px;
+    #table_billing_ap td:nth-child(11) input,
+    #table_billing_ap td:nth-child(7) select,
+    #table_billing_ap td:nth-child(8) input {
+        width: 140px;
     }
 
-    #table_billing_ap td:nth-child(25) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(26) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(27) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(28) input {
-        width: 200px;
-    }
-
-    #table_billing_ap td:nth-child(29) input {
+    #table_billing_ap td:nth-child(18) input,
+    #table_billing_ap td:nth-child(24) input,
+    #table_billing_ap td:nth-child(25) input,
+    #table_billing_ap td:nth-child(26) input,
+    #table_billing_ap td:nth-child(27) input,
+    #table_billing_ap td:nth-child(28) input,
+    #table_billing_ap td:nth-child(29) input,
+    #table_billing_ap td:nth-child(16) input {
         width: 200px;
     }
 
 
-
-
-
-
-
-
-
-
+    #table_billing_ap td:nth-child(1),
+    #table_billing_ap td:nth-child(2),
+    #table_billing_ap td:nth-child(3),
+    #table_billing_ap td:nth-child(4),
+    #table_billing_ap td:nth-child(5),
+    #table_billing_ap td:nth-child(6),
+    #table_billing_ap td:nth-child(7),
+    #table_billing_ap td:nth-child(8),
+    #table_billing_ap td:nth-child(9),
+    #table_billing_ap td:nth-child(10),
+    #table_billing_ap td:nth-child(11),
+    #table_billing_ap td:nth-child(12),
+    #table_billing_ap td:nth-child(13),
+    #table_billing_ap td:nth-child(14),
+    #table_billing_ap td:nth-child(15),
+    #table_billing_ap td:nth-child(16),
+    #table_billing_ap td:nth-child(17),
+    #table_billing_ap td:nth-child(18),
+    #table_billing_ap td:nth-child(19),
+    #table_billing_ap td:nth-child(20),
+    #table_billing_ap td:nth-child(21),
+    #table_billing_ap td:nth-child(22),
+    #table_billing_ap td:nth-child(23),
+    #table_billing_ap td:nth-child(24),
+    #table_billing_ap td:nth-child(25),
+    #table_billing_ap td:nth-child(26),
+    #table_billing_ap td:nth-child(27),
+    #table_billing_ap td:nth-child(28),
+    #table_billing_ap td:nth-child(29){
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 
 
     #table_container_module_setting_width td:nth-child(6) input {

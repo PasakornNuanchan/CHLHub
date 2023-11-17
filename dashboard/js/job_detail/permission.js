@@ -2,7 +2,7 @@ const permission_file = {
     check_permission : async function (){
         let as_shipping = $('.inp_ats').val()
         let res_data = await this.get_permission();
-        console.log(res_data)
+        // console.log(res_data)
         if(res_data['data_permission']['job_detail'] == "2"){
             $('#job_detail_tab_target').find('.form-control').attr('disabled',true)
             $('#job_detail_tab_target').find('.form-select').attr('disabled',true)
@@ -17,7 +17,18 @@ const permission_file = {
             $('#transport_tab_target').find('.form-control').attr('disabled',true)
             $('#transport_tab_target').find('.form-select').attr('disabled',true)
             $('#transport_tab_target').find('.form-check-input').attr('disabled',true)
-            $('#transport_tab_target').find('.btn').remove()
+            $('#transport_tab_target').find('.btn-success').remove()
+            $('#transport_tab_target').find('.btn_transport_delete_driver').remove()
+            $('#transport_tab_target').find('.btn_add_new_driver').remove()
+            $('#transport_tab_target').find('.hbl_data_selected').removeAttr("onclick")
+            $('#transport_tab_target').find('.container_data_selected').removeAttr("onclick")
+            $('#transport_tab_target').find('.btn_delete_transport').remove()
+
+            
+            
+
+            
+            
         }else if(res_data['data_permission']['transport'] == "3"){
             $('#transport_tab').remove()
             $('#transport_tab_target').remove()

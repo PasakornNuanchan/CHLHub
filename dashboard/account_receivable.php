@@ -21,36 +21,6 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    /* .table_data_account td:nth-child(3) input,
-    .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(16) input,
-    .table_data_account td:nth-child(17) input,
-    .table_data_account td:nth-child(18) input,
-    .table_data_account td:nth-child(19) input,
-    .table_data_account td:nth-child(20) input,
-    .table_data_account td:nth-child(21) input,
-    .table_data_account td:nth-child(22) input,
-    .table_data_account td:nth-child(23) input,
-    .table_data_account td:nth-child(24) input,
-    .table_data_account td:nth-child(25) input {
-        width: 150px;
-    }
-
-    .table_data_account td:nth-child(5) input,
-    .table_data_account td:nth-child(15) input {
-        width: 200px;
-    }
-
-    .table_data_account td:nth-child(6) input,
-    .table_data_account td:nth-child(7) input,
-    .table_data_account td:nth-child(8) input,
-    .table_data_account td:nth-child(9) input,
-    .table_data_account td:nth-child(12) input,
-    .table_data_account td:nth-child(13) input {
-        width: 120px;
-    } */
-
-
 
     .table_data_account td:nth-child(9) input,
     .table_data_account td:nth-child(10) input {
@@ -69,7 +39,7 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(23) input,
     .table_data_account td:nth-child(24) input {
-        width: 150px;
+        width: 200px;
     }
 
     .table_data_account td:nth-child(4) input,
@@ -83,14 +53,39 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(8) input,
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input {
-        width: 120px;
-    }r
+        width: 170px;
+    }
 
-
+    .table_data_account td:nth-child(1) ,
+    .table_data_account td:nth-child(2) ,
+    .table_data_account td:nth-child(3) ,
+    .table_data_account td:nth-child(4) ,
+    .table_data_account td:nth-child(5) ,
+    .table_data_account td:nth-child(6) ,
+    .table_data_account td:nth-child(7) ,
+    .table_data_account td:nth-child(8) ,
+    .table_data_account td:nth-child(9) ,
+    .table_data_account td:nth-child(10) ,
+    .table_data_account td:nth-child(11) ,
+    .table_data_account td:nth-child(12) ,
+    .table_data_account td:nth-child(14) ,
+    .table_data_account td:nth-child(15) ,
+    .table_data_account td:nth-child(16) ,
+    .table_data_account td:nth-child(17) ,
+    .table_data_account td:nth-child(18) ,
+    .table_data_account td:nth-child(19) ,
+    .table_data_account td:nth-child(20) ,
+    .table_data_account td:nth-child(21) ,
+    .table_data_account td:nth-child(22) ,
+    .table_data_account td:nth-child(23) ,
+    .table_data_account td:nth-child(24){
+        padding-right: 2px;
+        padding-left: 2px;
+    }
 
     .table_data_account td:nth-child(9) input,
     .table_data_account td:nth-child(10) input {
-        width: 70px;
+        width: 130px;
     }
 </style>
 
@@ -287,7 +282,7 @@ require 'function/auth/get_session.php';
                                     <th>Create By</th>
                                     <th>Create Datetime</th>
                                     <th>Checked by</th>
-                                    <th>Checked Datetime</th>
+                                    <th>CheckedDatetime</th>
                                     <th>Booking No.</th>
                                     <th>Container No.</th>
                                     <th>Client</th>
@@ -304,7 +299,7 @@ require 'function/auth/get_session.php';
                                     <th>币种</th>
                                     <th>数量</th>
                                     <th>单价</th>
-                                    <th>应付金额（不含税）</th>
+                                    <th>应付金额(不含税)</th>
                                     <th></th>
                                     <th></th>
                                     <th>应付含税金额</th>

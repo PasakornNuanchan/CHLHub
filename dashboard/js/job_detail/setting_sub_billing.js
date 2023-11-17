@@ -38,7 +38,7 @@ const sub_billing = {
             let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
             let remark = v['remark'] ? v['remark'] : '';
 
-
+            let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
             let status_data = v['status'] ? v['status'] : '';
 
             let billing_date = create_data_time.substring(0, 10);
@@ -93,8 +93,8 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt inp_paid_amt${i}" disabled></td><!-- paid amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
-                <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
-                <td><div class="inp_status"></div></td><!-- status -->
+                <td class="text-center"><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
+                <td class="text-center"><div class="inp_status"></div></td><!-- status -->
                 <td><input type="checkbox" class="form-input-check chb_tax_hold chb_tax_hold${i}"></td><!-- tax invoice with hole -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_commit" value="${commit_sale}"></td><!-- commision sale -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${cbb}" disabled></td><!-- branch -->
@@ -104,7 +104,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm" value="${last_update_datetime}" disabled></td><!-- last modifier date -->
                 <td><input type="text" class="form-control form-control-sm" value="${ccb}" disabled></td><!-- checker  -->
                 <td><input type="text" class="form-control form-control-sm" value="${check_date_time}" disabled></td><!-- checker date -->
-                <td><button class="btn btn-danger btn-sm rounded" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
+                <td><button class="btn btn-danger btn-sm rounded btn_delete" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
             </tr>
             `;
 
@@ -137,18 +137,28 @@ const sub_billing = {
             //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
             // }
 
-            if(status_data == '0'){
+            if(paid_date_time == ''){
                 $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
-            }else if(status_data == '1'){
+            }else{
                 //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
 
                 $(`.data_ap${i} > td > .inp_payble`).html('Paid')
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
-            }else if(status_data == '2'){
-                $(`.data_ap${i} > td > .inp_payble`).html('Reject')
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
+                $(`.data_ap${i} > td > .form-control`).attr('disabled',true)
+                $(`.data_ap${i} > td > .form-select`).attr('disabled',true)
+                $(`.data_ap${i} > td > .btn_delete`).remove()
+                
             }
+
+
+
+            if(status_data == '1'){
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
+            }else if(status_data == '2'){
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
+            }else if(status_data == '3'){
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Approve</span>')
+            }
+
             if(action_paid_by != ''){
                 $(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischeckdone":'1'})
 
@@ -236,7 +246,7 @@ const sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
-            <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+            <td></td><!-- status -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
             <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
             <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
@@ -408,11 +418,13 @@ const sub_billing = {
                 let brunch = v['brunch'] ? v['brunch'] : '';
                 let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
                 let actpb = v['action_paid_by'] ? v['action_paid_by'] : '';
+
+                let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
                 i++;
 
             html_data_ar = `
             <tr id_list = "${id_list}" class="data_ar${i} data_ar_list${id_list}" type = "AR">
-                <td><input type="checkbox" class="form-input-check inp_box_select_ar inp_box_select${i}" id_data_billing ="${id_list}"></td>
+                <td class="text-center"><input type="checkbox" class="form-input-check inp_box_select_ar inp_box_select${i}" id_data_billing ="${id_list}"></td>
                 <td class="text-center">${i}</td> <!-- No -->
                 <td>${data_select_code_billing_ar}</td>
                 <td><input type="text" class="form-control form-control-sm inp_data_item inp_data_item${i}"></td> <!-- item -->
@@ -446,16 +458,16 @@ const sub_billing = {
                                         </select></td><!-- with holding tax -->
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar ch_revd_amt_ar${i}" ></td><!-- rcvd amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
-                <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
-                <td><div class="inp_status"></div></td>
-                <td class="text-center">${brunch}</td><!-- brunch -->
+                <td class="text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td class="text-center"><div class="inp_status"></div></td>
+                <td class="text-center"><input class="form-control form-control-sm text-center" value="${brunch}" disabled></td><!-- brunch -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${cb}"></td><!-- create by, -->
                 <td><input type="text" class="form-control form-control-sm inp_create_datetime_ar" disabled value="${create_data_time}"></td><!-- create datetime. -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
                 <td><input type="text" class="form-control form-control-sm" disabled value="${check_date_time}"></td><!-- checker date -->
-                <td>
+                <td class="text-center">
                 <button class="btn btn-danger btn-sm btn_del_ar" onclick="function_sub_billing.delete_list(this)">Del</button>
                 </td><!-- ACTION -->
             </tr>
@@ -486,16 +498,22 @@ const sub_billing = {
                     $(`.ch_revd_amt_ar${i}`).prop('checked',true).attr('disabled',true)
                 }
 
-
-                if(status_data == '0'){
-                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
-                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
-                }else if(status_data == '1'){
-                    //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+                if(paid_date_time != ''){
                     $(`.data_ar${i} > td > .inp_payble`).html('Paid')
-                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
+                    $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
+                    $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
+                    $(`.data_ar${i} > td > .btn_delete`).remove()
+                }else{
+                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
+
+                }
+
+                if(status_data == '1'){
+                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
                 }else if(status_data == '2'){
-                    $(`.data_ar${i} > td > .inp_payble`).html('Reject')
+                    //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+                    $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
+                }else if(status_data == '3'){
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
                 }
 
@@ -563,7 +581,7 @@ const sub_billing = {
                                         </select></td><!-- with holding tax -->
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
-                <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td class="text-cemter"><input type="checkbox" class="form-input-check ch_check_ar"></td>
                 <td></td>
                 <td></td><!-- Create by. -->
                 <td></td><!-- Create datetime -->

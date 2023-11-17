@@ -424,12 +424,12 @@ const function_sub_transport = {
 
             let arr_container_transport = [];
             let arr_hbl_transport = [];
-            $(this).find('.data_container_transport > button').each(function(){
+            $(this).find('.data_container_transport > button').each(function () {
                 let id_number_container = $(this).attr('data_select_id')
                 arr_container_transport.push(id_number_container)
             })
 
-            $(this).find('.data_hbl_transport > button').each(function(){
+            $(this).find('.data_hbl_transport > button').each(function () {
                 let id_number_hbl = $(this).attr('data_select_id')
                 arr_hbl_transport.push(id_number_hbl)
             })
@@ -437,7 +437,7 @@ const function_sub_transport = {
             // console.log(arr_hbl_transport)
             let text_conatiner_transport = arr_container_transport.join(',')
             let text_hbl_transport = arr_hbl_transport.join(',')
-            
+
             // data_hbl_transport
             // data_container_transport
             obj_transport_detail = {
@@ -460,8 +460,8 @@ const function_sub_transport = {
                 inp_ggpca: inp_ggpca,
                 inp_ggdoca: inp_ggdoca,
                 inp_ggdeca: inp_ggdeca,
-                text_conatiner_transport : text_conatiner_transport,
-                text_hbl_transport : text_hbl_transport,
+                text_conatiner_transport: text_conatiner_transport,
+                text_hbl_transport: text_hbl_transport,
             }
 
             arr_transport_detail.push(obj_transport_detail)
@@ -543,12 +543,12 @@ const function_sub_transport = {
     },
 
 
-    generate_qr: async function (e,t) {
+    generate_qr: async function (e, t) {
         // สร้าง QR code
 
         $('#add_moda').remove();
         $('#qrcode').html('')
-        let a = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + '?dsfkodsf=' + e+ '&fkosdf='+t;
+        let a = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + '?dsfkodsf=' + e + '&fkosdf=' + t;
         // สร้าง HTML ของ Modal
         var html = `
             <div class="modal fade" data_list="${e}" id="add_moda_transport_mode">
@@ -585,9 +585,9 @@ const function_sub_transport = {
         });
     },
 
-    get_to_copy: async function (e,t) {
+    get_to_copy: async function (e, t) {
 
-        let dataToCopy = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + "?dsfkodsf=" + e+ '&fkosdf='+t;
+        let dataToCopy = "http://www.uat-chlop.com/chlhub/dashboard/transport_mode.php" + "?dsfkodsf=" + e + '&fkosdf=' + t;
         var copyTextArea = $("<textarea/>");// สร้าง element textarea สำหรับใช้คัดลอกข้อมูล
         copyTextArea.text(dataToCopy);// กำหนดข้อมูลให้กับ textarea
         $("#add_moda_transport_mode").append(copyTextArea);// นำ textarea ไปแทรกใน DOM (เปิด textarea ในหน้าจอ)
@@ -633,57 +633,35 @@ const function_sub_transport = {
     generate_transport: async function (e) {
 
         let arr_select = []
-        
-        $('.hbl_sel_data').each(function (i, v) {
-            let data = $(this).val();
 
-            let obk_select = {
-                value : data,
-                label : data,
-            }
-            arr_select.push(obk_select)
-
+        let arr_hbl = []
+        let arr_container = []
+        $(e).closest('.card').find('.hbl_data_selected').each(function (e) {
+            arr_hbl.push($(this).text())
         })
-       
+        let data_hbl = arr_hbl.join(',')
 
-        let inputOptions = arr_select.reduce((obj, item) => {
-            obj[item.value] = item.label
-            return obj
-        }, {})
+        // $(e).closest('.card').find('.container_data_selected').each(function (e) {
+        //     arr_container.push($(this).attr('data_select_id'))
+        // })
+        // let data_container = arr_container.join(',')
 
-        let { value: selectedFruit } = await Swal.fire({
-            title: 'Select hbl',
-            input: 'select',
-            inputOptions: inputOptions,
-            inputPlaceholder: 'Please select your data',
-            showCancelButton: true,
-            inputValidator: (value) => {
-                return new Promise((resolve) => {
-                    if (value !== '') {
-                        resolve()
-                    } else {
-                        resolve('คุณต้องเลือกผลไม้')
-                    }
-                })
-            }
-        })
+        let data_container = $(e).closest('.driver_detail').find('.inp_select_container_transport').val()
 
-        if (selectedFruit) {
-            let selectedFruitLabel = arr_select.find(hbl => hbl.value === selectedFruit).label
-            var currentURL = window.location.href;
-            var url = new URL(currentURL);
-            var id_number = url.searchParams.get("job_number");
-            let h_data = $(e).closest('.card').attr('transport_id')
-            window.open(`php/job_detail/create_pdf_generate_transport.php?job_number=${id_number}&transport_number=${h_data}&lskdhblf=${selectedFruitLabel}`, "_blank")    
-        }
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var id_number = url.searchParams.get("job_number");
+        let h_data = $(e).closest('.card').attr('transport_id')
+        window.open(`php/job_detail/create_pdf_generate_transport.php?job_number=${id_number}&transport_number=${h_data}&lskdhblf=${data_hbl}&container_data=${data_container}`, "_blank")
+
     },
 
 
 
-    select_hbl_data_transport : async function(e){
+    select_hbl_data_transport: async function (e) {
         let val_this_data = $(e).find(':selected').val()
         let val_this_data_text = $(e).find(':selected').text()
-        if(val_this_data != ''){
+        if (val_this_data != '') {
             html_data_badge_hbl = `<button class="btn btn-sm btn-outline-danger m-2 hbl_data_selected" data_select_id="${val_this_data}" onclick="function_sub_transport.delete_hbl_data_transport(this)" style="zoom:90%">${val_this_data_text} <i class="bi bi-trash "></i></button>`
             // $('.data_hbl_transport').append(html_data_badge_hbl)
             $(e).closest('.card').find('.data_hbl_transport').append(html_data_badge_hbl)
@@ -691,14 +669,14 @@ const function_sub_transport = {
         $(e).val('')
     },
 
-    delete_hbl_data_transport : async function(e){
+    delete_hbl_data_transport: async function (e) {
         $(e).remove()
     },
 
-    select_container_data_transport : async function(e){
+    select_container_data_transport: async function (e) {
         let val_this_data = $(e).find(':selected').val()
         let val_this_data_text = $(e).find(':selected').text()
-        if(val_this_data != ''){
+        if (val_this_data != '') {
             html_data_badge_hbl = `<button class="btn btn-sm btn-outline-danger m-2 container_data_selected" data_select_id="${val_this_data}" onclick="function_sub_transport.delete_container_data_transport(this)" style="zoom:90%">${val_this_data_text} <i class="bi bi-trash "></i></button>`
             // $('.data_hbl_transport').append(html_data_badge_hbl)
             $(e).closest('.card').find('.data_container_transport').append(html_data_badge_hbl)
@@ -706,7 +684,7 @@ const function_sub_transport = {
         $(e).val('')
     },
 
-    delete_container_data_transport : async function(e){
+    delete_container_data_transport: async function (e) {
         $(e).remove()
     },
 }

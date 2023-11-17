@@ -16,7 +16,11 @@ FROM
 WHERE
   b.type = 'AP' 
   AND b.type = 'AP' 
-  AND b.approve_date_time IS NOT NULL
+GROUP BY
+	bill_to_c 
+HAVING
+bill_to_c IS NOT null
+
 ";
 
 
@@ -28,8 +32,11 @@ FROM
   billing b
 WHERE
   b.type = 'AP' 
-  AND b.type = 'AP' 
-  AND b.approve_date_time IS NOT NULL
+  AND b.type = 'AP'
+ GROUP BY
+ b.ref_job_id
+HAVING
+job_number IS NOT NULL
 ";
 
 

@@ -92,7 +92,7 @@
     }
     
     // echo $sql_save;
-    if ($con->query($sql_save) != 1) {
+    if ($con->query($sql_data_query) != 1) {
         $arr_suc = '0';
     } else {
         $arr_suc = '1';

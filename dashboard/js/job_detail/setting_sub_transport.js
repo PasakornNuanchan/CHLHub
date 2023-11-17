@@ -3,7 +3,7 @@ const sub_transport = {
     first_post_data: async function (data) {
         let res_data = await this.ajax_request_first(data);
 
-        console.log(res_data)        
+        // console.log(res_data)        
         
         var data_container_transport_driver = '';
         if(sub_job_detail.data_container_for_transport != "0 results"){
@@ -50,7 +50,7 @@ const sub_transport = {
                                     <input type="text" class="form-control form-control-sm inp_seal_transport" placeholder="Seal" disabled>
                                 </div>
                                 <div class="col">
-                                    <button class="bi bi-trash btn btn-outline-danger" onclick="function_sub_transport.delete_driver(this)"></button>
+                                    <button class="bi bi-trash btn btn-outline-danger btn_transport_delete_driver" onclick="function_sub_transport.delete_driver(this)"></button>
                                 </div>
                             
                             </div>
@@ -93,10 +93,11 @@ const sub_transport = {
                                         <input type="text" class="form-control form-control-sm inp_seal_transport" placeholder="Seal" disabled>
                                     </div>
                                     <div class="col-lg-1 col-md-12 col-sm-12">
-                                        <button class=" btn btn-outline-danger btn-sm col-sm-12 " onclick="function_sub_transport.delete_driver(this,'${v1['ID']}')"><i class="bi bi-trash"></i> Del</button>
+                                        <button class=" btn btn-outline-danger btn-sm col-sm-12 btn_transport_delete_driver" onclick="function_sub_transport.delete_driver(this,'${v1['ID']}')"><i class="bi bi-trash"></i> Del</button>
                                     </div>
                                     <div class="col-lg-1 col-md-12 col-sm-12">
                                         <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_qr('${v['ID']}','${v1['ID']}')">Task</button>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_transport(this)">Gen detail</button>
                                     </div>
                                 </div>
                             </div>
@@ -149,8 +150,7 @@ const sub_transport = {
                             $.each(res_data['get_data_hbl_assign'],function(i1,v1){
                                 let id_number = v1['ID'] ? v1['ID'] : '';
                                 let data_hbl = v1['hbl'] ? v1['hbl'] : '';
-                                console.log(id_number)
-                                console.log(data_hbl)
+                                
                                 if(v == v1['ID']){
                                     html_data_hbl += `<button class="btn btn-sm btn-outline-danger m-2 hbl_data_selected" data_select_id="${id_number}" onclick="function_sub_transport.delete_hbl_data_transport(this)" style="zoom:90%">${data_hbl} <i class="bi bi-trash "></i></button>`
                                 }
@@ -164,7 +164,12 @@ const sub_transport = {
                 let html_transport_data = ``;
                 html_transport_data = `
                 <div class="card p-4 card_transport " transport_id=${v['ID']}>
-                    <h5 route="${i}">Transport Booking Detail (route ${i})</h5>
+                    <div class="row">
+                        <div class="col text-start">
+                            <h5 route="${i}">Transport Booking Detail (route ${i})</h5>
+                        </div>
+                        
+                    </div>
                     <div class="form-group mt-4 row">
                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Supplier:</label>
                         <div class="col-sm-9 col-md-5 col-lg-4">
@@ -173,6 +178,7 @@ const sub_transport = {
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">HBL:</label>
                         <div class="col-sm-9 col-md-5 col-lg-3">
@@ -357,12 +363,11 @@ const sub_transport = {
                     ${html_driver_data}
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-block btn-outline-primary btn-sm col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_driver(${i})"> add new driver</button>
+                        <button class="btn btn-block btn-outline-primary btn_add_new_driver btn-sm col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_driver(${i})"> add new driver</button>
                     </div>
                     <div class="form-group text-end float-end">
                         <button class="btn btn-danger btn-sm btn_delete_transport" onclick="function_sub_transport.delete_route(this,'${v['ID']}')"><i class="bi bi-trash"></i> del</button>
                         <button class="btn btn-success btn-sm" onclick="function_sub_transport.save_transport();"><i class="bi bi-save"></i> save</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_transport.generate_transport(this)">generate</button>
 
                     </div>
 

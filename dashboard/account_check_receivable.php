@@ -29,12 +29,12 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input,
     .table_data_account td:nth-child(14) input {
-        width: 150px;
+        width: 200px;
     }
 
     .table_data_account td:nth-child(6) input,
     .table_data_account td:nth-child(9) input{
-        width: 70px;
+        width: 210px;
     }
 
     .table_data_account td:nth-child(4) input,
@@ -43,6 +43,26 @@ require 'function/auth/get_session.php';
     {
         width: 250px;
     }
+
+
+    .table_data_account td:nth-child(3),
+    .table_data_account td:nth-child(7),
+    .table_data_account td:nth-child(8),
+    .table_data_account td:nth-child(9),
+    .table_data_account td:nth-child(10),
+    .table_data_account td:nth-child(11),
+    .table_data_account td:nth-child(12),
+    .table_data_account td:nth-child(14),
+    .table_data_account td:nth-child(6),
+    .table_data_account td:nth-child(9),
+    .table_data_account td:nth-child(4),
+    .table_data_account td:nth-child(5),
+    .table_data_account td:nth-child(13){
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+
 </style>
 
 
@@ -89,11 +109,6 @@ require 'function/auth/get_session.php';
                                 <datalist class="job_number_list_option" id="job_number_list">
                                 </datalist>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="bd-example mt-3">
-                        <div class="row g-3">
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Select currency</label>
                                 <select name="" id="" class="form-select form-select-sm sel_currency">
@@ -105,9 +120,23 @@ require 'function/auth/get_session.php';
                                 </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label class="form-label">Paid Action</label>
+                                <select name="" id="" class="form-select form-select-sm sel_paid_action">
+                                    <option value="ALL">ALL</option>
+                                    <option value="0">Unpaid</option>
+                                    <option value="1">Paid</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bd-example mt-3">
+                        <div class="row g-3">
+                            
+                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Total</label>
                                 <input type="text" class="form-control form-control-sm inp_total">
-                            </div>
+                            </div> -->
                             <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label class="form-label">Date End 结束日期</label>
                                 <input type="date" class="form-control form-control-sm inp_end_date">
@@ -203,8 +232,8 @@ require 'function/auth/get_session.php';
                     <div class="text-start">
                         <button class="btn btn-sm btn-success" onclick="function_acp.select_all('select')">select all 全选</button>
                         <button class="btn btn-sm btn-warning" onclick="function_acp.select_all('deselect')">deselect all 全不选</button>
-                        <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button>
+                        <!-- <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button> -->
                     </div>
                     <div style="zoom: 80%">
                         <div class="form-group row text-center mt-3">

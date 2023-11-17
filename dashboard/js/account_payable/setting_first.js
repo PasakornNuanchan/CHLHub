@@ -18,6 +18,7 @@ const setting_first = {
         if(e == undefined){
             res_data = await this.ajax_first_set();
             this.get_res_data_table = res_data['table'];
+            $('.sel_st_1').prop('checked',true)
         }else{
             res_data = e;
         }
@@ -146,18 +147,18 @@ const setting_first = {
                 html_append_data = `
                 <tr class="text-center data_id${id_number}" data_id = "${id_number}">
                     <td>${i}</td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${job_number}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${bill_to_c}" disabled></td>                                    Bill to
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${billing_item_name}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-center inp_currency" value="${currency}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end" value="${qty}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end" value="${unit_price}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end" value="${ap_amt}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end" value="${vat_show}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end" value="${with_holding_tax_show}" disabled> </td>                                    WH%
-                    <td><input type="text" class="form-control form-control form-control-sm text-end inp_ap_amt_incvat" value="${ap_amt_incvat}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm text-end inp_payment"></td>
-                    <td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${job_number}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${bill_to_c}" disabled></td>                                    Bill to
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${billing_item_name}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-center inp_currency" value="${currency}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end" value="${qty}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end" value="${unit_price}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end" value="${ap_amt}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-center" value="${vat_show}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-center" value="${with_holding_tax_show}" disabled> </td>                                    WH%
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end inp_ap_amt_incvat" value="${ap_amt_incvat}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end inp_payment"></td>
+                    <td class="text-center">
                         <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1" onclick="ap_function.select_approve(this)" checked="">
                         <label for="radio1" class="form-check-label pl-2">Waiting</label>
                         <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" onclick="ap_function.select_approve(this)">
@@ -165,20 +166,20 @@ const setting_first = {
                         <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3_${id_number}" name_data="3" onclick="ap_function.select_approve(this)">
                         <label for="radio3" class="form-check-label pl-2">Reject</label>
                     </td>                              
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${remark}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${cs_support_name}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${sale_support_name}" disabled></td>
-                    <td><input type="date" class="form-control form-control form-control-sm" value="${create_date}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${create_by_name}" disabled></td>
-                    <td><input type="datetime" class="form-control form-control form-control-sm" value="${create_data_time}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${check_by_name}" disabled></td>
-                    <td><input type="datetime" class="form-control form-control form-control-sm" value="${check_date_time}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${booking_number}" disabled></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${container_data}" disabled></td>                                    Container No.
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${hbl_data}" disabled></td>                         
-                    <td><input type="checkbox" class="form-input-check tb_in_tb"></td>
-                    <td><input type="text" class="form-control form-control form-control-sm" value="" disabled></td>                                    
-                    <td><input type="text" class="form-control form-control form-control-sm" value="${action_paid_date_time}" disabled></td>                                    Request payble
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${remark}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${cs_support_name}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${sale_support_name}" disabled></td>
+                    <td class="text-center"><input type="date" class="form-control form-control form-control-sm" value="${create_date}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${create_by_name}" disabled></td>
+                    <td class="text-center"><input type="datetime" class="form-control form-control form-control-sm" value="${create_data_time}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${check_by_name}" disabled></td>
+                    <td class="text-center"><input type="datetime" class="form-control form-control form-control-sm" value="${check_date_time}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${booking_number}" disabled></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${container_data}" disabled></td>                                    Container No.
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${hbl_data}" disabled></td>                         
+                    <td class="text-center"><input type="checkbox" class="form-input-check tb_in_tb"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="" disabled></td>                                    
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${action_paid_date_time}" disabled></td>                                    Request payble
                 </tr>
                 `;
 
@@ -198,15 +199,33 @@ const setting_first = {
                 
                 if(status_data == '2'){
                     $(`.data_id${id_number} > td > .data_sela_2`).prop('checked',true)
+                    
+                    
                 }else if(status_data == '3'){
                     $(`.data_id${id_number} > td > .data_sela_3`).prop('checked',true)
                 }else{
                     $(`.data_id${id_number} > td > .data_sela_1`).prop('checked',true)
                 }
 
+                // action_paid_date_time
+                // check_date_time
 
 
+                if(action_paid_date_time != '' && check_date_time != ''){
+                    $(`.data_id${id_number} > td > .form-check-input`).attr('disabled',false)
+                    $(`.data_id${id_number} > td > .inp_payment`).attr('disabled',false)
+                    $(`.data_id${id_number} > td > .tb_in_tb`).attr('disabled',false)
+                    
+                }else{
+                    $(`.data_id${id_number} > td > .form-check-input`).attr('disabled',true)
+                    $(`.data_id${id_number} > td > .inp_payment`).attr('disabled',true)
+                    $(`.data_id${id_number} > td > .tb_in_tb`).attr('disabled',true)
 
+                }
+
+                if(status_data == '2'){
+                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+                }
             })
         }
         currency_thb = currency_thb.toFixed(2)
@@ -239,10 +258,10 @@ const setting_first = {
         $('.inp_paid_rmb').val(paid_rmb)
         $('.inp_paid_hkd').val(paid_hkd)
 
-        await $('.sel_st_1').prop('checked',true)
         
         
-        console.log(res_data['table'])
+        
+        // console.log(res_data['table'])
     },
 
     ajax_first_set: async function () {

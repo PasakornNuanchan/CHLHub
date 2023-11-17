@@ -3,7 +3,7 @@ const sub_reportcs = {
     first_post_data : async function (id_number){
         let res_data = await this.ajax_setting_data_first(id_number)
         
-        console.log(res_data)
+        // console.log(res_data)
         
         let revby_inv = res_data['get_data_table_reportcs']['f_recinv'] ? res_data['get_data_table_reportcs']['f_recinv'] + ' ' + res_data['get_data_table_reportcs']['l_recinv'] : '';
         let revby_bl = res_data['get_data_table_reportcs']['f_recbl'] ? res_data['get_data_table_reportcs']['f_recbl'] + ' ' + res_data['get_data_table_reportcs']['l_recbl'] : '';

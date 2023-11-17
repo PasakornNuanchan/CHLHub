@@ -38,10 +38,16 @@ if ($arr_data[0]['data_status'] != '') {
     $search_action_status_paid = "";
     $search_action_status_approve = "";
 
+
+
+    
+
+
     if ($st_1 == '1') {
       $having_data = "HAVING
         billing_payment_check IS NULL";
       $search_action_status =  "AND status != '3' ";
+      // $data_payment = "AND billing_payment_check IS NULL";
     }
 
     if ($st_5 == '1') {
@@ -52,14 +58,20 @@ if ($arr_data[0]['data_status'] != '') {
 
     if ($st_2 == '1') {
       $search_action_status_check = "AND b.check_date_time IS NOT NULL";
+    }else{
+      $search_action_status_check = "AND b.check_date_time IS NULL";
     }
 
     if ($st_3 == '1') {
       $search_action_status_paid = "AND b.action_paid_date_time IS NOT NULL";
+    }else{
+      $search_action_status_paid = "AND b.action_paid_date_time IS NULL";
     }
 
     if ($st_4 == '1') {
       $search_action_status_approve = "AND b.approve_date_time IS NOT NULL";
+    }else{
+      $search_action_status_approve = "AND b.approve_date_time IS NULL";
     }
 
     if ($st_6 == '1') {
@@ -124,7 +136,7 @@ if ($arr_data[0]['data_status'] != '') {
     //   $check_all = $data_checked_all == '1' ? "" : $check_create." ".$check_checked." ".$check_apply." ".$check_approve ;
 
 
-    $sql_query_data = "
+   $sql_query_data = "
     SELECT
         b.ID,
         b.billing_description,
@@ -202,6 +214,7 @@ if ($arr_data[0]['data_status'] != '') {
       b.ID
       $having_data
     ";
+    // (SELECT bp.paid_date_time FROM billing_payment bp WHERE b.ID = bp.ref_billing_id) billing_payment_check,
 
     // echo $sql_query_data;
   }

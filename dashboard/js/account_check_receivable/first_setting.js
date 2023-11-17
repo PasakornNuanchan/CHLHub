@@ -55,7 +55,7 @@ const first_setting = {
             res_data = e;            
         }
 
-        console.log(res_data)
+        
         if(res_data['table'] != "0 result"){
             let currency_exchange_thb = 0;            
             let currency_exchange_usd = 0;
@@ -78,9 +78,11 @@ const first_setting = {
                 let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
                 let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
                 let sys_rate_currency = v['sys_rate_currency'] ? v['sys_rate_currency'] : '';
+                let paid_action = v['paid_action'] ? v['paid_action'] : '';
                 let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
                 let data_amt_incv = ((qty*unit_price)*(vat/100)+(qty*unit_price));
                 let data_amt_incv_exchange_rate = data_amt_incv*sys_rate
+                
 
 
                 if(sys_rate_currency == "THB"){
@@ -100,14 +102,14 @@ const first_setting = {
                 let data_html_paste = `
                 <tr class=" row_master_${id_number}" id_number="${id_number}" ref_id="${ref_job_id}">
                     <td class="text-center">${i}</td>
-                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel"></td>
+                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" onclick="function_acp.select_checked(this)"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_job_no"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_amt_incv text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_rate text-end"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency_can text-end"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency_can text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_amt_incv_can text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_remark"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_create_by"></td>
@@ -119,6 +121,11 @@ const first_setting = {
 
                 data_amt_incv = data_amt_incv.toFixed(2)
                 data_amt_incv_exchange_rate = data_amt_incv_exchange_rate.toFixed(2)
+
+                if(paid_action != ''){
+                    $(`.row_master_${id_number} > td > .cbx_sel`).attr({'checked':true,'disabled':true})
+
+                }
 
                 $(`.row_master_${id_number} > td > .inp_job_no`).val(job_number).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_bill_to`).val(bill_to_c).attr('disabled',true)

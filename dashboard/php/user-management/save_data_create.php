@@ -27,14 +27,12 @@ foreach($arr_data as $k => $v){
             `email`,
             `sec_user_id`,
             `sec_user_pass`,
-            `pincode_forgot`,
             `status_user`,
             `department_number`,
             `bank_number`,
             `bank_name`
         )
         VALUES(
-            '$inp_un',
             '$inp_fn',
             '$inp_ln',
             '$inp_ad',

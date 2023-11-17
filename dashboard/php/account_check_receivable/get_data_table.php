@@ -12,7 +12,7 @@ if($arr_data[0] != ''){
     $data_id = isset($v['data_id']) ? $v['data_id'] : '';
     $data_job = isset($v['data_job']) ? $v['data_job'] : '';
     $data_currency = isset($v['data_currency']) ? $v['data_currency'] : '';
-
+    $data_paid_action = isset($v['paid_action']) ? $v['paid_action'] : '';
     
 
 
@@ -22,13 +22,20 @@ if($arr_data[0] != ''){
     // $data_job
     // $data_currency
 
-
+    if($data_paid_action == "ALL"){
+      $data_query_paid_action = ""; 
+    }else if($data_paid_action == '0'){
+      $data_query_paid_action = "AND bp.paid_date_time IS NULL";
+    }else if($data_paid_action == '1'){
+      $data_query_paid_action = "AND bp.paid_date_time IS NOT NULL";
+    }
     $sql_get_data_table = "
       SELECT
           (SELECT job_number FROM job_title WHERE ID = b.ref_job_id) job_number,
           (SELECT concat(first_name,' ',last_name) FROM user WHERE user.ID = (SELECT sale_support FROM job_title WHERE ID = b.ref_job_id)) sale_support,
           if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),
           (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
+          bp.paid_date_time as paid_action,
           (SELECT bd.billing_item_name FROM billing_description bd WHERE b.billing_description = bd.ID) billing_des_name,
           b.currency,
           b.ref_job_id,
@@ -41,6 +48,8 @@ if($arr_data[0] != ''){
           b.sys_rate_currency
       FROM
           billing b
+          LEFT JOIN billing_payment bp ON b.ID = bp.ref_billing_id
+
       WHERE
           b.type = 'AR' 
           AND b.type = 'AR' 
@@ -48,6 +57,7 @@ if($arr_data[0] != ''){
           $data_query_type_n_id
           $data_query_job
           $data_query_currency
+          $data_query_paid_action
       ";
 
 
@@ -58,12 +68,13 @@ if($arr_data[0] != ''){
   SELECT
       (SELECT job_number FROM job_title WHERE ID = b.ref_job_id) job_number,
       (SELECT concat(first_name,' ',last_name) FROM user WHERE user.ID = (SELECT sale_support FROM job_title WHERE ID = b.ref_job_id)) sale_support,
-      if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),
-      (SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to)) as bill_to_c,
+      (SELECT c.consignee_name FROM consignee c WHERE c.ID = b.bill_to) as bill_to_c,
+      (SELECT bp.paid_date_time FROM billing_payment bp WHERE b.ID = bp.ref_billing_id) as paid_action,
       (SELECT bd.billing_item_name FROM billing_description bd WHERE b.billing_description = bd.ID) billing_des_name,
       b.currency,
       b.ID,
       b.qty,
+      b.ref_job_id,
       b.unit_price,
       b.vat,
       b.remark,

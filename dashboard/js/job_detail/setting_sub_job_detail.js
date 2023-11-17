@@ -5,7 +5,7 @@ const sub_job_detail = {
     first_post_data: async function (data) {
         //data = 1;
         let res_data = await this.ajax_request_first(data);
-        console.log(res_data)
+        // console.log(res_data)
         this.data_container_for_transport = res_data['container'];
         //job_detail
 

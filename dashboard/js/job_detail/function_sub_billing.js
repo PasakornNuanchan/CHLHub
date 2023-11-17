@@ -90,14 +90,14 @@ const function_sub_billing = {
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
                 <td><input type="checkbox" class="form-input-check ch_check_ar"></td>
-                <td>status</td>
-                <td></td><!-- Create by. -->
-                <td></td><!-- Create datetime -->
-                <td></td><!-- Check datetime -->
-                <td></td><!-- Paid Check by. -->
-                <td></td><!-- Paid Check datetime -->
-                <td></td><!-- Last update by. -->
-                <td></td><!-- Last update datetime -->
+                <td></td>
+                <td><input class="form-control form-control-sm " disabled></td><!-- Create by. -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Create datetime -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Check datetime -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Paid Check by. -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Paid Check datetime -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Last update by. -->
+                <td><input class="form-control form-control-sm " disabled></td><!-- Last update datetime -->
                 <td><button class="btn btn-danger btn-sm btn_del_ar">Del</button></td><!-- ACTION -->
             </tr>
         `;
@@ -142,7 +142,7 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
-            <td><span class="badge rounded-pill bg-success" style="border-radius: 12px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">Paid</span></td><!-- status -->
+            <td></td><!-- status -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
             <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
             <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
@@ -476,6 +476,7 @@ const function_sub_billing = {
         let data_result = 0;
 
         data_result = parseFloat(amt_inc_vat * sys_rate)
+        data_result = data_result.toFixed(2)
         $('.inp_paid_amt', $(e).closest('tr')).val(data_result)
         await this.cal_result_ap()
     },
@@ -924,12 +925,12 @@ const function_sub_billing = {
                 get_data_bill_to = $(get_tr).find('.inp_billing_to_ap').val()
                 get_data_bill_to_type = $(get_tr).find('.inp_billing_to_ap :selected').attr('type')
                 get_currency = $(get_tr).find('.inp_currency_ap').val()
+                
                 get_qty = $(get_tr).find('.inp_qty').val()
                 get_unit_price = $(get_tr).find('.inp_unit_price').val()
                 get_ap_amt = $(get_tr).find('.inp_ap_amt').val()
                 get_vat = $(get_tr).find('.inp_vat').val()
                 get_amt_inc_vat = $(get_tr).find('.inp_amt_inc_vat_ap').val()
-
                 get_sys_rate = $(get_tr).find('.inp_sys_rate_ap').val()
                 currency_main = $('.inp_currency_main_ap').val()
 
@@ -1397,6 +1398,8 @@ const function_sub_billing = {
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
         $('.table_billing_ap > tbody > tr').each(function () {
+
+
             let get_id_list = $(this).attr('id_list');
             let description_code = $('.sel_data_billing_ap', this).val()
             let billing_to = $('.inp_billing_to_ap', this).val()

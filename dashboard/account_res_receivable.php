@@ -9,7 +9,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Account payable report</title>
+    <title>Account receivable report</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -38,17 +38,53 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(21) input,
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(14) input {
-        width: 150px;
+        width: 220px;
     }
 
     .table_data_account td:nth-child(7) input {
-        width: 80px;
+        width: 150px;
 
     }
 
     .table_data_account td:nth-child(5) input {
         width: 250px;
 
+    }
+
+
+
+    .table_data_account td:nth-child(1),
+    .table_data_account td:nth-child(2),
+    .table_data_account td:nth-child(3),
+    .table_data_account td:nth-child(4),
+    .table_data_account td:nth-child(5),
+    .table_data_account td:nth-child(6),
+    .table_data_account td:nth-child(7),
+    .table_data_account td:nth-child(8),
+    .table_data_account td:nth-child(9),
+    .table_data_account td:nth-child(10),
+    .table_data_account td:nth-child(11),
+    .table_data_account td:nth-child(12),
+    .table_data_account td:nth-child(13),
+    .table_data_account td:nth-child(14),
+    .table_data_account td:nth-child(15),
+    .table_data_account td:nth-child(16),
+    .table_data_account td:nth-child(17),
+    .table_data_account td:nth-child(18),
+    .table_data_account td:nth-child(19),
+    .table_data_account td:nth-child(20),
+    .table_data_account td:nth-child(21),
+    .table_data_account td:nth-child(22),
+    .table_data_account td:nth-child(23),
+    .table_data_account td:nth-child(24),
+    .table_data_account td:nth-child(25),
+    .table_data_account td:nth-child(26),
+    .table_data_account td:nth-child(27),
+    .table_data_account td:nth-child(28),
+    .table_data_account td:nth-child(29),
+    .table_data_account td:nth-child(30){
+        padding-left: 2px;
+        padding-right: 2px;
     }
 </style>
 
@@ -77,7 +113,7 @@ require 'function/auth/get_session.php';
             <!-- headtab -->
             <div class="card">
                 <div class="card-header">
-                    <h4>Account Payable Report</h4>
+                    <h4>Account receivable report</h4>
                 </div>
 
                 <div class="card-body">
@@ -174,8 +210,8 @@ require 'function/auth/get_session.php';
                                     <th>THB</th>
                                     <th>CNY</th>
                                     <th>HKD</th>
-                                    <th>amount currency</th>
-                                    <th>exchage rate</th>
+                                    <th>amount<br>currency</th>
+                                    <th>exchage<br>rate</th>
                                     <th>S/O</th>
                                     <th>BL</th>
                                     <th>Sailing date</th>

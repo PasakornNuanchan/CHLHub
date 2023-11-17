@@ -194,6 +194,27 @@ const ar_function = {
                 }else{
                     $(`.data_id${id_number} > td > .data_sela_1`).prop('checked',true)
                 }
+
+                
+                $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+
+                console.log(action_paid_date_time)
+                console.log(check_date_time)
+
+                if(action_paid_date_time != '' && check_date_time != ''){
+                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',false)
+                }
+
+                
+
+
+                // action_paid_date_time
+                // check_date_time
+
+
+                if(status_data == '2'){
+                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+                }
             })
 
             currency_thb = currency_thb.toFixed(2)
@@ -317,6 +338,9 @@ const ar_function = {
                         'Your file has been save.',
                         'success'
                     )
+                    if(arr_data_sent[0]['name_data'] == '1'){
+                        $(e).closest('tr').find('.data_sela').attr('disabled',true)
+                    }
                 }else{
                     Swal.fire({
                         icon: 'error',

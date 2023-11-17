@@ -25,7 +25,7 @@ const setting_data = {
         $('.mbl_data_list').html('');
         $('.request_data_list').html('');
         let res_data = await this.ajax_setting_data_first(data_load_job_number,data_load_mbl,data_load_container,rd_st,rd_ty);
-        console.log(res_data)
+        // console.log(res_data)
 
         let data_job_number = '';
         $.each(res_data['data_job_number'],function (i,v){

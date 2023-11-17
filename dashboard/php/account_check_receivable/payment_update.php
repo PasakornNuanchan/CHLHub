@@ -9,7 +9,7 @@ $arr_data = $_POST['arr_data'];
 foreach($arr_data as $k => $v){
 
 
-    $data_id = isset($v['data_id']) ? $v['data_id'] : '';
+    $data_id = isset($v['id_number']) ? $v['id_number'] : '';
     $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
 
 
@@ -39,5 +39,5 @@ foreach($arr_data as $k => $v){
     }
 }
 
-echo json_encode(array('res_arr'=>$res_arr));
+echo json_encode($res_arr);
 ?>

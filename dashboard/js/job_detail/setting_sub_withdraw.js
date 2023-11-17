@@ -92,7 +92,7 @@ const sub_withdraw = {
     first_post_data: async function (data) {
         
         let res_data = await this.ajax_save_data(data)
-        console.log(res_data)
+        // console.log(res_data)
         $(`.table_wd_payble tbody`).html('');
         let html_data_wd = '';
         if (res_data['data_withdraw'] != "0 results") {

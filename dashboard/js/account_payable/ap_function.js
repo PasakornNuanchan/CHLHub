@@ -16,7 +16,11 @@ const ap_function = {
             $('.sel_st_6').prop('checked',false)  
         }else if(e == '5'){
             $('.sel_st_1').prop('checked',false)  
-            $('.sel_st_6').prop('checked',false)  
+            $('.sel_st_6').prop('checked',false)
+            $('.sel_st_2').prop('checked',true)
+            $('.sel_st_3').prop('checked',true)
+            $('.sel_st_4').prop('checked',true)
+            $('.sel_st_5').prop('checked',true)
         }else if(e == '2' || e == '3' | e == '4'){
             $('.sel_st_6').prop('checked',false)  
         }

@@ -5,7 +5,7 @@ const sub_gang_bl = {
         var id_number = url.searchParams.get("job_number");
 
         let res_data = await this.get_bl_data(id_number)
-        console.log(res_data)
+        // console.log(res_data)
         $('.bl_header_old').remove();
         $('.bl_page_old').remove();
         let html_data_header = '';

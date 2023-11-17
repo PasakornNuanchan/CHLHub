@@ -7,6 +7,7 @@ include '../../core/conn.php';
 $job_number = $_GET['job_number'];
 $task_number = $_GET['transport_number'];
 $hbl = $_GET['lskdhblf'];
+$container = $_GET['container_data'];
 
 
 $sql_count_container = "
@@ -41,6 +42,24 @@ if ($result->num_rows > 0) {
   $data_detail = "0 results";
 }
 
+$sql_container_data = "
+SELECT
+    `container_type`,
+    `container_number`
+FROM
+    `container`
+WHERE
+    ID IN ($container)
+";
+
+$result = $con->query($sql_container_data);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $container_detail[] = $row;
+  }
+} else {
+  $container_detail = "0 results";
+}
 
 
 
@@ -407,9 +426,7 @@ $pdf->MultiCell(57, 5, iconv('UTF-8', 'TIS-620', $data_place_to_delivery),0,"C")
 $pdf->SetXY(50,95);
 $pdf->MultiCell(53, 4, iconv('UTF-8', 'TIS-620', $data_place_to_pick),0,"C");
 
-// data Container no
-$pdf->SetXY(50,111);
-$pdf->Cell(53, 6, iconv('UTF-8', 'TIS-620', "LCL"),"0",0,"C");
+
 
 // data plate
 $pdf->SetXY(138,109);
@@ -436,6 +453,16 @@ $pdf->Cell(145, 6, iconv('UTF-8', 'TIS-620', $data_container_package.$data_conta
 //$data_container_package_unit
 
 
+// data Container no
+$pdf->SetY(111);
+foreach($container_detail as $k => $v){
+  
+  $container_type = isset($v['container_type']) ? $v['container_type'] : '';
+  $container_number = isset($v['container_number']) ? $v['container_number'] : '';
+
+  $pdf->SetX(50);
+  $pdf->MultiCell(53, 6, iconv('UTF-8', 'TIS-620', $container_number." ".$container_type),"0","C");
+}
 
 
 

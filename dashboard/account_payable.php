@@ -21,44 +21,7 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
-    /* .table_data_account td:nth-child(3) input,
-    .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(16) input,
-    .table_data_account td:nth-child(17) input,
-    .table_data_account td:nth-child(18) input,
-    .table_data_account td:nth-child(19) input,
-    .table_data_account td:nth-child(20) input,
-    .table_data_account td:nth-child(21) input,
-    .table_data_account td:nth-child(22) input,
-    .table_data_account td:nth-child(23) input,
-    .table_data_account td:nth-child(24) input,
-    .table_data_account td:nth-child(25) input {
-        width: 150px;
-    }
-
-    .table_data_account td:nth-child(5) input,
-    .table_data_account td:nth-child(15) input {
-        width: 200px;
-    }
-
-    .table_data_account td:nth-child(6) input,
-    .table_data_account td:nth-child(7) input,
-    .table_data_account td:nth-child(8) input,
-    .table_data_account td:nth-child(9) input,
-    .table_data_account td:nth-child(12) input,
-    .table_data_account td:nth-child(13) input {
-        width: 120px;
-    }
-
-
-
-    .table_data_account td:nth-child(10) input,
-    .table_data_account td:nth-child(11) input {
-        width: 70px;
-    } */
-
-
-
+   
 
     .table_data_account td:nth-child(2) input,
     .table_data_account td:nth-child(3) input,
@@ -72,7 +35,8 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(23) input,
     .table_data_account td:nth-child(24) input {
-        width: 150px;
+        width: 200px;
+    
     }
 
     .table_data_account td:nth-child(4) input,
@@ -86,15 +50,47 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(8) input,
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input {
-        width: 120px;
+        width: 170px;
     }
-
-
 
     .table_data_account td:nth-child(9) input,
     .table_data_account td:nth-child(10) input {
-        width: 70px;
+        width: 130px;
     }
+
+    .table_data_account td:nth-child(1) ,
+    .table_data_account td:nth-child(2) ,
+    .table_data_account td:nth-child(3) ,
+    .table_data_account td:nth-child(4) ,
+    .table_data_account td:nth-child(5) ,
+    .table_data_account td:nth-child(6) ,
+    .table_data_account td:nth-child(7) ,
+    .table_data_account td:nth-child(8) ,
+    .table_data_account td:nth-child(9) ,
+    .table_data_account td:nth-child(10) ,
+    .table_data_account td:nth-child(11) ,
+    .table_data_account td:nth-child(12) ,
+    .table_data_account td:nth-child(14) ,
+    .table_data_account td:nth-child(15) ,
+    .table_data_account td:nth-child(16) ,
+    .table_data_account td:nth-child(17) ,
+    .table_data_account td:nth-child(18) ,
+    .table_data_account td:nth-child(19) ,
+    .table_data_account td:nth-child(20) ,
+    .table_data_account td:nth-child(21) ,
+    .table_data_account td:nth-child(22) ,
+    .table_data_account td:nth-child(23) ,
+    .table_data_account td:nth-child(24) {
+        
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .table_data_account td:nth-child(13){
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
 </style>
 
 
@@ -268,10 +264,9 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                     <div class="bd-example mt-3 table-responsive">
-                        <table class="table table-hover table_data_account" style="zoom: 60%">
+                        <table class="table table-hover table_data_account table-lg" style="zoom: 60%">
                             <thead>
                                 <tr class="text-center">
-                                    <!-- <th></th> -->
                                     <th>No.</th>
                                     <th>Job No.</th>
                                     <th>Bill to</th>
@@ -301,7 +296,6 @@ require 'function/auth/get_session.php';
                                     <th>Request payble</th>
                                 </tr>
                                 <tr class="text-center">
-                                    <!-- <th></th> -->
                                     <th>序号</th>
                                     <th>系统单号</th>
                                     <th>结算单位</th>
@@ -309,7 +303,7 @@ require 'function/auth/get_session.php';
                                     <th>币种</th>
                                     <th>数量</th>
                                     <th>单价</th>
-                                    <th>应付金额（不含税）</th>
+                                    <th>应付金额(不含税) </th>
                                     <th></th>
                                     <th></th>
                                     <th>应付含税金额</th>

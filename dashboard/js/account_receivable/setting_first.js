@@ -176,6 +176,7 @@ const setting_first = {
                     $(`.data_id${id_number} > td >.tb_in_tb`).prop('checked',true)
                 }
                 
+                
                 if(status_data == '2'){
                     $(`.data_id${id_number} > td > .data_sela_2`).prop('checked',true)
                 }else if(status_data == '3'){
@@ -184,6 +185,18 @@ const setting_first = {
                     $(`.data_id${id_number} > td > .data_sela_1`).prop('checked',true)
                 }
 
+                // action_paid_date_time
+                // check_date_time
+                $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+
+                if(action_paid_date_time != '' || check_date_time != ''){
+                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',false)
+                }
+                
+                console.log(status_data)
+                if(status_data == '2'){
+                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+                }
 
             })
         }

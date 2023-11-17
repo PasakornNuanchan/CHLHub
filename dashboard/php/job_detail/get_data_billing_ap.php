@@ -6,6 +6,7 @@ require '../../core/con_path.php';
 $id_number = $_POST['id_number'];
 $sql_request_data_billing = "
 SELECT
+bp.paid_date_time,
     bi.*,
     cb.first_name cbfn,
     cb.last_name cbln,
@@ -26,8 +27,9 @@ LEFT JOIN USER apb ON
     apb.ID = bi.action_paid_by
 LEFT JOIN USER lub ON
     lub.ID = bi.last_update_by
+LEFT JOIN billing_payment bp ON bp.ref_billing_id = bi.ID
 WHERE
-    bi.type = 'AP' AND ref_job_id = '$id_number'
+    bi.type = 'AP' AND bi.ref_job_id = '$id_number'
 ";
 
 $result = $con->query($sql_request_data_billing);

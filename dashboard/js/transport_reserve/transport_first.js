@@ -25,7 +25,7 @@ const transport_first = {
 
     setting_first: async function () {
         let res_data = await this.ajax_setting_data_first()
-        console.log(res_data)
+        // console.log(res_data)
         if (res_data['task'] != "0 results") {
             $('.data_transport').html('')
             $.each(res_data['task'], function (i, v) {

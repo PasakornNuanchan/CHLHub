@@ -65,12 +65,12 @@ const first_setting = {
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_amount"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_usd"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_thb"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_rmb"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_hkd"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_amount_currency"></td>  
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_usd"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_thb"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_rmb"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_hkd"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_amount_currency"></td>  
                     <td class="text-center"><input type="text" class="form-control form-control inp_exchage_rate"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_so"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bl"></td>
@@ -149,17 +149,18 @@ const first_setting = {
     default_setting : async function(){
         let res_data = await this.ajax_setting_default();
 
-        let res_bill_to = await removeDuplicate_bill_to(res_data['bill_to']);
-        let res_job_detail = await removeDuplicate_job_number(res_data['job_number']);
-        
+        // let res_bill_to = await removeDuplicate_bill_to(res_data['bill_to']);
+        // let res_job_detail = await removeDuplicate_job_number(res_data['job_number']);
+        // 
+        // console.log(res_data)
 
         let html_data_bill_to = '';
         let html_data_job_number = '';
-        $.each(res_bill_to,function(i,v){
+        $.each(res_data['bill_to'],function(i,v){
             html_data_bill_to += `<option value="${v['bill_to_c']}" data_type="${v['bill_to_type']}" data_row="${v['bill_to']}">${v['bill_to_c']}</option>`;
         })
 
-        $.each(res_job_detail,function(i,v){
+        $.each(res_data['job_number'],function(i,v){
             html_data_job_number += `<option value="${v['job_number']}" data_row="${v['id_number']}">${v['job_number']}</option>`;
         })
 

@@ -60,14 +60,14 @@ const first_setting = {
                     <td class="text-center"><input type="text" class="form-control form-control inp_job_number"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_amount"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_usd"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_thb"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_rmb"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_hkd"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_amount_currency"></td>  
-                    <td class="text-center"><input type="text" class="form-control form-control inp_exchage_rate"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_amount"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_usd"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_thb"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_rmb"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_hkd"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_amount_currency"></td>  
+                    <td class="text-center"><input type="text" class="form-control form-control text-end inp_exchage_rate"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_so"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bl"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_sailing_date"></td>  
@@ -95,14 +95,14 @@ const first_setting = {
                 }else if(currency == "HKD"){
                     $(`.id_row_${i} > td > .inp_hkd`).val(data_incv)
                 }
-
+consignee_name
                 $(`.id_row_${i} > td > .inp_thb`).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_usd`).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_rmb`).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_hkd`).attr('disabled',true)
 
                 $(`.id_row_${i} > td > .inp_job_number`).val(job_number).attr('disabled',true)
-                $(`.id_row_${i} > td > .inp_bill_to`).val(bill_to_c).attr('disabled',true)
+                $(`.id_row_${i} > td > .inp_bill_to`).val(consignee_name).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_code`).val(billing_des_name).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_amount`).val(data_incv).attr('disabled',true)
                 $(`.id_row_${i} > td > .inp_currency`).val(currency).attr('disabled',true)

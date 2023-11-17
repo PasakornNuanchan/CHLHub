@@ -60,6 +60,7 @@ const first_setting = {
         }
 
         console.log(res_data)
+        // console.log(res_data)
         if(res_data['table'] != "0 result"){
             let currency_exchange_thb = 0;            
             let currency_exchange_usd = 0;
@@ -104,16 +105,16 @@ const first_setting = {
 
                 i++;
                 let data_html_paste = `
-                <tr class=" row_master_${id_number}" id_number="${id_number}" ref_id="${ref_job_id}">
+                <tr class=" row_master_${id_number}" id_number="${id_number}" ref_job_id="${ref_job_id}">
                     <td class="text-center">${i}</td>
-                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" style="zoom:150%"></td>
+                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" onclick="function_acp.check_paid_data(this)" style="zoom:150%"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_job_no"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_amt_incv text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_rate text-end"></td>
-                    <td class="text-center"><input type="text" class="form-control form-control inp_currency_can text-end"></td>
+                    <td class="text-center"><input type="text" class="form-control form-control text-center inp_currency_can text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_amt_incv_can text-end"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_remark"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_create_by"></td>
@@ -126,7 +127,7 @@ const first_setting = {
                 data_amt_incv = data_amt_incv.toFixed(2)
                 data_amt_incv_exchange_rate = data_amt_incv_exchange_rate.toFixed(2)
 
-                if(billing_payment_check == ''){
+                if(billing_payment_check != ''){
                     $(`.row_master_${id_number} > td > .cbx_sel`).prop('checked',true).attr('disabled',true)
                 }
 

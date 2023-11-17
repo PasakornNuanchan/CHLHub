@@ -57,7 +57,7 @@ if($arr_data[0] != ''){
   $sql_get_data_table = "
   SELECT
           (SELECT c.consignee_name FROM consignee c WHERE c.ID = (SELECT jt.consignee_number FROM job_title jt WHERE ID = b.ref_job_id)) consignee_name ,
-                    (SELECT c.tel FROM consignee c WHERE c.ID = (SELECT jt.consignee_number FROM job_title jt WHERE ID = b.ref_job_id)) consginee_tel ,
+          (SELECT c.tel FROM consignee c WHERE c.ID = (SELECT jt.consignee_number FROM job_title jt WHERE ID = b.ref_job_id)) consginee_tel ,
           (SELECT job_number FROM job_title WHERE ID = b.ref_job_id) job_number,
           (SELECT concat(first_name,' ',last_name) FROM user WHERE user.ID = (SELECT sale_support FROM job_title WHERE ID = b.ref_job_id)) sale_support,
           if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),

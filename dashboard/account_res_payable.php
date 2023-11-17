@@ -13,6 +13,7 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
 
 
@@ -38,17 +39,41 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(21) input,
     .table_data_account td:nth-child(22) input,
     .table_data_account td:nth-child(14) input {
-        width: 150px;
+        width: 180px;
     }
 
     .table_data_account td:nth-child(7) input {
-        width: 80px;
+        width: 150px;
 
     }
 
     .table_data_account td:nth-child(5) input {
         width: 250px;
 
+    }
+
+    .table_data_account td:nth-child(3),
+    .table_data_account td:nth-child(4),
+    .table_data_account td:nth-child(6),
+    .table_data_account td:nth-child(8),
+    .table_data_account td:nth-child(9),
+    .table_data_account td:nth-child(10),
+    .table_data_account td:nth-child(11),
+    .table_data_account td:nth-child(12),
+    .table_data_account td:nth-child(13),
+    .table_data_account td:nth-child(15),
+    .table_data_account td:nth-child(16),
+    .table_data_account td:nth-child(17),
+    .table_data_account td:nth-child(18),
+    .table_data_account td:nth-child(19),
+    .table_data_account td:nth-child(20),
+    .table_data_account td:nth-child(21),
+    .table_data_account td:nth-child(22),
+    .table_data_account td:nth-child(14), 
+    .table_data_account td:nth-child(7),
+    .table_data_account td:nth-child(5) {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 </style>
 
@@ -75,39 +100,42 @@ require 'function/auth/get_session.php';
             <!-- MAIN BODY START -->
 
             <!-- headtab -->
+
             <div class="card">
-                <div class="card-headerw">
-                    <h4>Account Payable Report</h4>
-                    <button class="btn btn-outline-warning btn-sm rounded" onclick="function_arp.open_excel()">print</button>
-
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col text-start">
+                            <h4>Account Payable Report</h4>
+                        </div>
+                        <div class="col text-end">
+                            <button class="btn btn-outline-warning btn-sm rounded" onclick="function_arp.function_gen_excel_transport(this)">print</button>
+                        </div>
+                    </div>
                 </div>
-
                 <div class="card-body">
-                    <div class="bd-example">
-                        <h5>Filter</h5>
-                        <div class="row g-3">
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Bill to</label>
-                                <input type="text" class="form-control form-control-sm inp_data_bill_to" list="bill_to_list">
-                                <datalist class="bill_to_list_option" id="bill_to_list">
-                                </datalist>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Job number</label>
-                                <input type="text" class="form-control form-control-sm inp_data_job_number" list="job_number_list">
-                                <datalist class="job_number_list_option" id="job_number_list">
-                                </datalist>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Select currency</label>
-                                <select name="" id="" class="form-select form-select-sm sel_currency">
-                                    <option value="">-- Select currency --</option>
-                                    <option value="USD">USD</option>
-                                    <option value="THB">THB</option>
-                                    <option value="RMB">RMB</option>
-                                    <option value="HKD">HKD</option>
-                                </select>
-                            </div>
+                    <h5>Filter</h5>
+                    <div class="row g-3">
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <label class="form-label">Bill to</label>
+                            <input type="text" class="form-control form-control-sm inp_data_bill_to" list="bill_to_list">
+                            <datalist class="bill_to_list_option" id="bill_to_list">
+                            </datalist>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <label class="form-label">Job number</label>
+                            <input type="text" class="form-control form-control-sm inp_data_job_number" list="job_number_list">
+                            <datalist class="job_number_list_option" id="job_number_list">
+                            </datalist>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <label class="form-label">Select currency</label>
+                            <select name="" id="" class="form-select form-select-sm sel_currency">
+                                <option value="">-- Select currency --</option>
+                                <option value="USD">USD</option>
+                                <option value="THB">THB</option>
+                                <option value="RMB">RMB</option>
+                                <option value="HKD">HKD</option>
+                            </select>
                         </div>
                     </div>
 
@@ -146,19 +174,7 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
 
-                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Sale support 业务员</label>
-                                <input type="text" class="form-control form-control-sm inp_sale" list="sale_support_list">
-                                <datalist class="sale_support_data_option" id="sale_support_list">
-                                </datalist>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">CS support 操作员</label>
-                                <input type="text" class="form-control form-control-sm inp_cs" list="cs_support_list">
-                                <datalist class="cs_support_data_option" id="cs_support_list">
-                                </datalist>
-                            </div> -->
-                            <button class="btn btn-outline-primary btn-sm" onclick="function_acp.filter_select();"><i class="bi bi-search"></i> search</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="function_arp.request_data_search_filter();"><i class="bi bi-search"></i> search</button>
                         </div>
                     </div>
                     <div class="bd-example mt-3 table-responsive">
@@ -176,8 +192,8 @@ require 'function/auth/get_session.php';
                                     <th>THB</th>
                                     <th>CNY</th>
                                     <th>HKD</th>
-                                    <th>amount currency</th>
-                                    <th>exchage rate</th>
+                                    <th>amount<br>currency</th>
+                                    <th>exchage<br>rate</th>
                                     <th>S/O</th>
                                     <th>BL</th>
                                     <th>Sailing date</th>
