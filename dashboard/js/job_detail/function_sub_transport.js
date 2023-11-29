@@ -308,7 +308,7 @@ const function_sub_transport = {
                 </div>
             </div>
             <div class="form-group text-end float-end">
-                <button class="btn btn-danger btn-sm" onclick="function_sub_transport.delete_route(this)"><i class="bi bi-trash"></i> del</button>
+                <button class="btn btn-danger btn_delete_route btn-sm" onclick="function_sub_transport.delete_route(this)"><i class="bi bi-trash"></i> del</button>
                 <button class="btn btn-success btn-sm" onclick="function_sub_transport.save_transport()"><i class="bi bi-save"></i> save</button>
             </div>
         </div>

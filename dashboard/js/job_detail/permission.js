@@ -109,6 +109,7 @@ const permission_file = {
         //     $('#customs_tab_target').remove()
         // }
 
+        // $('.sidebar-toggle').remove();
     },
 
 

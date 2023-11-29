@@ -4,7 +4,28 @@ require 'function/auth/get_session.php';
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
+<style>
 
+    .table tr {
+        padding-left: 0px; 
+        padding-right: 0px;
+    }
+    .table {
+    width: 100%; /* กำหนดความกว้างของตารางเป็น 100% */
+    table-layout: fixed; /* ทำให้ความกว้างของเซลล์ในตารางเป็นคงที่ */
+    overflow-x: auto;
+    white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+    }
+
+    .table th,
+    .table td {
+         /* กำหนดความกว้างสูงสุดของเซลล์ในตาราง */
+        overflow: hidden;
+        text-overflow: ellipsis; /* การแสดง ... สำหรับข้อความที่เกินขนาดเซลล์ */
+        white-space: nowrap;
+    }
+     
+</style>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +35,7 @@ require 'function/auth/get_session.php';
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
-<body style="zoom:80%;">
+<body>
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -50,15 +71,18 @@ require 'function/auth/get_session.php';
                         <div class="bd-example table-responsive">
                             <table id="myTable" class="table table-hover">
                                 <thead>
-                                    <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
-                                        <th>Creat Date</th>
-                                        <th>Job number</th>
-                                        <th>B/L</th>
-                                        <th>Carrier</th>
-                                        <th>Consignee</th>
-                                        <th>T/S Port</th>
-                                        <th>ETA</th>
+                                    <tr class="text-center bg-gradient p-1" style="background-color :#0D47A1; color :aliceblue;">
                                         <th>Action</th>
+                                        <th>Job number</th>
+                                        <th>Sale Support</th>
+                                        <th>Client</th>
+                                        <th>Booking number</th>
+                                        <th>POL</th>
+                                        <th>POD</th>
+                                        <th>ETD</th>
+                                        <th>ETA</th>
+                                        <!-- <th>Payable</th> -->
+                                        <!-- <th>Receivable</th> -->
                                     </tr>
                                 </thead>
                                 <tbody style="text-align:center;">

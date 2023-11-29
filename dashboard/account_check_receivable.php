@@ -21,6 +21,10 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
+
+
+    
+
     .table_data_account td:nth-child(3) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,

@@ -29,6 +29,7 @@ const sub_job_detail = {
         $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected',true)
         $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected',true)
 
+        $('.inp_create_date').val(res_data['job_title']['create_date'])
         $('.inp_jobnumber').val(res_data['job_title']['job_number'])
         $('.inp_bookingnumber').val(res_data['job_title']['booking_number'])
         $('.inp_consignee').val(res_data['job_title']['consignee_number'])
@@ -66,7 +67,7 @@ const sub_job_detail = {
                                 <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data" value="${hbl_data}">
                             </div>
                             <div class="col-sm-1 col-md-2 col-lg-1">
-                                <button class="btn btn-outline-danger btn-sm" onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash" ></i></button>
+                                <button class="btn btn-outline-danger btn_delete_hbl btn-sm" onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash" ></i></button>
                             </div>
                         </div>
                     </div>
@@ -119,7 +120,7 @@ const sub_job_detail = {
                     <td class="text-center"><div class="q_container"></div></td>
                     <td class="container_type_data_selector${i}" >${sub_job_detail.data_select_container}</td>
                     <td><input type="number" class="form-control form-control-sm text-center inp_num_q" value="${count_data_row}" disabled></td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" onclick="function_sub_job_detail.delete_container_main(this,${i})"><i class="bi bi-trash"></i></button></td>
+                    <td class="text-center"><button class="btn btn-danger btn_delete_container btn-sm" onclick="function_sub_job_detail.delete_container_main(this,${i})"><i class="bi bi-trash"></i></button></td>
                 </tr>
                 `;
 

@@ -191,8 +191,8 @@ const sub_customs = {
                                 <input type="datetime" class="form-control form-control-sm inp_conatiner_upload_datetime${i}" value="${check_date_time}">
                             </div>
                             <div class="col-lg-3 col-md-5 text-center">
-                                <button class="btn btn-success btn-sm cf_up${i}" onclick="function_sub_customs.modal_ship('cf_up','${id_number}')">Confirm</button>
-                                <button class="btn btn-danger btn-sm tb_up${i}" onclick="function_sub_customs.modal_ship('tb_up','${id_number}')">Troubleshoot</button>
+                                <button class="btn btn-success btn-sm cf_up cf_up${i}" onclick="function_sub_customs.modal_ship('cf_up','${id_number}')">Confirm</button>
+                                <button class="btn btn-danger btn-sm tb_up tb_up${i}" onclick="function_sub_customs.modal_ship('tb_up','${id_number}')">Troubleshoot</button>
                             </div>
                             <div class="col-lg-3 col-md-5 ">
                                 <input type="text" class="form-control form-control-sm inp_container_upload_problem${i}" value="${problem_check}" placeholder="check by.">
@@ -238,8 +238,8 @@ const sub_customs = {
                                 <input type="datetime" class="form-control form-control-sm inp_conatiner_arrived_datetime${i}" value="${check_date_time}">
                             </div>
                             <div class="col-lg-3 col-md-5 text-center">
-                                <button class="btn btn-success btn-sm cf_ar${i}"  onclick="function_sub_customs.modal_ship('cf_ar','${id_number}')" >Confirm</button>
-                                <button class="btn btn-danger btn-sm tb_ar${i}"  onclick="function_sub_customs.modal_ship('tb_ar','${id_number}')">Troubleshoot</button>
+                                <button class="btn btn-success btn-sm cf_ar cf_ar${i}"  onclick="function_sub_customs.modal_ship('cf_ar','${id_number}')" >Confirm</button>
+                                <button class="btn btn-danger btn-sm tb_ar tb_ar${i}"  onclick="function_sub_customs.modal_ship('tb_ar','${id_number}')">Troubleshoot</button>
                             </div>
                             <div class="col-lg-3 col-md-5 ">
                                 <input type="text" class="form-control form-control-sm inp_container_arrived_problem${i}" value="${problem_check}"">
@@ -285,8 +285,8 @@ const sub_customs = {
                             <input type="datetime" class="form-control form-control-sm inp_conatiner_cy_datetime${i}" value="${check_date_time}">
                         </div>
                         <div class="col-lg-3 col-md-5 text-center">
-                            <button class="btn btn-success btn-sm cf_cy${i}" onclick="function_sub_customs.modal_ship('cf_cy','${id_number}')">Confirm</button>
-                            <button class="btn btn-danger btn-sm tb_cy${i}" onclick="function_sub_customs.modal_ship('tb_cy','${id_number}')">Troubleshoot</button>
+                            <button class="btn btn-success btn-sm cf_cy cf_cy${i}" onclick="function_sub_customs.modal_ship('cf_cy','${id_number}')">Confirm</button>
+                            <button class="btn btn-danger btn-sm tb_cy tb_cy${i}" onclick="function_sub_customs.modal_ship('tb_cy','${id_number}')">Troubleshoot</button>
                         </div>
                         <div class="col-lg-3 col-md-5 ">
                             <input type="text" class="form-control form-control-sm inp_container_cy_problem${i}" value="${problem_check}"">

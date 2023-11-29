@@ -18,7 +18,7 @@ if($arr_data_save_ap != ''){
         $unit_price = isset($v['unit_price']) ? $v['unit_price'] : '0';
         $vat = isset($v['vat']) ? $v['vat'] : '0';
         $sys_rate = isset($v['sys_rate']) ? $v['sys_rate'] : '';
-        $sys_rate_currency = isset($v['sys_rate_currency']) ? $v['sys_rate_currency'] : '';
+        
         $remark = isset($v['remark']) ? $v['remark'] : '';
         $commit_sale = isset($v['commit_sale']) ? $v['commit_sale'] : '';
         $tax_with_hold = isset($v['tax_with_hold']) ? $v['tax_with_hold'] : '';
@@ -77,7 +77,6 @@ if($arr_data_save_ap != ''){
                 `last_update_by` = '$data_user',
                 `last_update_datetime` = '$t_time_save',
                 `sys_rate` = '$sys_rate',
-                `sys_rate_currency` = '$sys_rate_currency',
                 `commit_sale` = '$commit_sale',
                 `with_holding_tax` = '$tax_with_hold'
             WHERE
@@ -132,7 +131,6 @@ if($arr_data_save_ap != ''){
                 `ref_job_id`,
                 `sys_rate`,
                 `Billing_date`,
-                `sys_rate_currency`,
                 `commit_sale`,
                 `with_holding_tax`
             )
@@ -156,7 +154,6 @@ if($arr_data_save_ap != ''){
                 '$id_number',
                 '$sys_rate',
                 '$t_time_save',
-                '$sys_rate_currency',
                 '$commit_sale',
                 '$with_holding_tax'
             )
@@ -189,7 +186,6 @@ if($arr_data_save_ar != ''){
         $unit_price = isset($v['unit_price']) ? $v['unit_price'] : '0';
         $vat = isset($v['vat']) ? $v['vat'] : '0';
         $sys_rate = isset($v['sys_rate']) ? $v['sys_rate'] : '';
-        $sys_rate_currency_b = isset($v['sys_rate_currency']) ? $v['sys_rate_currency'] : '';
         $remark = isset($v['remark']) ? $v['remark'] : '';
         $tax_with_hold = isset($v['tax_with_hold']) ? $v['tax_with_hold'] : '';
         $check = isset($v['check']) ? $v['check'] : '';
@@ -256,7 +252,6 @@ if($arr_data_save_ar != ''){
                 `last_update_datetime` = '$t_time_save',
                 $query_need_vat
                 `sys_rate` = '$sys_rate',
-                `sys_rate_currency` = '$sys_rate_currency_b',
                 `with_holding_tax` = '$tax_with_hold'
             WHERE
                 ID = '$get_id_list'
@@ -323,7 +318,6 @@ if($arr_data_save_ar != ''){
                 `ref_job_id`,
                 `sys_rate`,
                 `Billing_date`,
-                `sys_rate_currency`,
                 `with_holding_tax`
             )
             VALUES(
@@ -347,7 +341,6 @@ if($arr_data_save_ar != ''){
                 '$id_number',
                 '$sys_rate',
                 '$t_time_save',
-                '$sys_rate_currency_b',
                 '$with_holding_tax'
             )
             ";

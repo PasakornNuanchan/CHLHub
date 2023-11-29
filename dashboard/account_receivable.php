@@ -27,8 +27,21 @@ require 'function/auth/get_session.php';
         width: 70px;
     }
 
-    .table_data_account td:nth-child(2) input,
+    .table_data_account td:nth-child(2) input{
+        width: 150px;
+    }
+
+
     .table_data_account td:nth-child(3) input,
+    .table_data_account td:nth-child(4) input{
+        width: 250px;
+    }
+
+    .table_data_account td:nth-child(5) input,
+    .table_data_account td:nth-child(6) input{
+        width: 80px;
+    }
+
     .table_data_account td:nth-child(15) input,
     .table_data_account td:nth-child(16) input,
     .table_data_account td:nth-child(17) input,
@@ -42,18 +55,15 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-    .table_data_account td:nth-child(4) input,
     .table_data_account td:nth-child(14) input {
         width: 200px;
     }
 
-    .table_data_account td:nth-child(5) input,
-    .table_data_account td:nth-child(6) input,
     .table_data_account td:nth-child(7) input,
     .table_data_account td:nth-child(8) input,
     .table_data_account td:nth-child(11) input,
     .table_data_account td:nth-child(12) input {
-        width: 170px;
+        width: 130px;
     }
 
     .table_data_account td:nth-child(1) ,
@@ -266,10 +276,10 @@ require 'function/auth/get_session.php';
                                     <th>Job No.</th>
                                     <th>Bill to</th>
                                     <th>Code</th>
-                                    <th>Currency</th>
+                                    <th>Cur.</th>
                                     <th>QTY</th>
                                     <th>UNIT PRICE</th>
-                                    <th>AP AMT</th>
+                                    <th>AR AMT</th>
                                     <th>VAT%</th>
                                     <th>WH%</th>
                                     <th>AMTINCV.</th>
@@ -299,7 +309,8 @@ require 'function/auth/get_session.php';
                                     <th>币种</th>
                                     <th>数量</th>
                                     <th>单价</th>
-                                    <th>应付金额(不含税)</th>
+                                    <th>应付金额
+                                        <br>(不含税)</th>
                                     <th></th>
                                     <th></th>
                                     <th>应付含税金额</th>

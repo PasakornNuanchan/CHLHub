@@ -60,7 +60,7 @@ const sub_gang_bl = {
                                     <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">Consignee : </label>
                                     <div class="col">
                                         <textarea class="form-control inp_bl_consingee inp_bl_consingee${i}" id="exampleFormControlTextarea1" rows="5" maxlength="400" ></textarea>
-                                        <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.address_consignee(this)">Save as consignee</button>
+                                        <button class="btn btn-sm btn-outline-primary btn_address_consignee" onclick="function_sub_bl.address_consignee(this)">Save as consignee</button>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +277,7 @@ const sub_gang_bl = {
                                 </select>
                             </div>
                             <div class="col-lg-2">
-                                <button class="btn btn-sm btn-outline-primary" onclick="function_sub_bl.select_bl_container(this)">Select all container</button>
+                                <button class="btn btn-sm btn-outline-primary btn_select_bl_container" onclick="function_sub_bl.select_bl_container(this)">Select all container</button>
                             </div>
                         </div>
                     </div>
@@ -379,7 +379,7 @@ const sub_gang_bl = {
                             </div>
                         </div>
                         <div class="text-end">
-                            <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data(this)"><i class="bi bi-save"></i> save</button>
+                            <button class="btn btn-success btn-sm btn_save_bl rounded" onclick="function_sub_bl.get_save_data(this)"><i class="bi bi-save"></i> save</button>
                             <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_telex_line(this)">Telex release BL</button>
                             <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl(this)">Generate BL</button>
                             <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line(this)">Generate BL With line</button>

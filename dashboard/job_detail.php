@@ -15,7 +15,9 @@ require 'function/auth/get_session.php';
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
 </head>
 <style>
@@ -40,7 +42,7 @@ require 'function/auth/get_session.php';
     }
 
 
-    #table_billing_ar td:nth-child(1) input,
+    /* #table_billing_ar td:nth-child(1) input,
     #table_billing_ar td:nth-child(2) input {
         width: 50px;
     }
@@ -79,8 +81,55 @@ require 'function/auth/get_session.php';
     #table_billing_ar td:nth-child(25) input,
     #table_billing_ar td:nth-child(19) input {
         width: 200px;
+    } */
+
+
+    #table_billing_ar td:nth-child(1),
+    #table_billing_ar td:nth-child(2),
+    #table_billing_ar td:nth-child(3) {
+        width: 50px;
     }
 
+    #table_billing_ar td:nth-child(4) select,
+    #table_billing_ar td:nth-child(5) input,
+    #table_billing_ar td:nth-child(6) select {
+        width: 200px;
+    }
+
+    #table_billing_ar td:nth-child(7) select {
+        width: 130px;
+    }
+
+    #table_billing_ar td:nth-child(8) input,
+    #table_billing_ar td:nth-child(11) input {
+        width: 80px;
+    }
+
+    #table_billing_ar td:nth-child(9) input,
+    #table_billing_ar td:nth-child(10) input {
+        width: 130px;
+
+    }
+
+    #table_billing_ar td:nth-child(13) input,
+    #table_billing_ar td:nth-child(14) input {
+        width: 140px;
+    }
+
+
+    #table_billing_ar td:nth-child(18) input {
+        width: 200px;
+    }
+
+
+    #table_billing_ar td:nth-child(22) input,
+    #table_billing_ar td:nth-child(23) input,
+    #table_billing_ar td:nth-child(24) input,
+    #table_billing_ar td:nth-child(25) input,
+    #table_billing_ar td:nth-child(26) input,
+    #table_billing_ar td:nth-child(27) input {
+        width: 200px;
+    }
 
 
     #table_billing_ar td:nth-child(1),
@@ -120,30 +169,69 @@ require 'function/auth/get_session.php';
 
 
 
-    #table_billing_ap td:nth-child(1) input,
-    #table_billing_ap td:nth-child(2) input {
+    #table_billing_ap td:nth-child(1),
+    #table_billing_ap td:nth-child(2),
+    #table_billing_ap td:nth-child(3) {
         width: 50px;
     }
 
-    #table_billing_ap td:nth-child(10) input,
+    #table_billing_ap td:nth-child(4) select,
+    #table_billing_ap td:nth-child(5) input,
+    #table_billing_ap td:nth-child(6) select {
+        width: 200px;
+    }
+
+    #table_billing_ap td:nth-child(7) select {
+        width: 130px;
+    }
+
+    #table_billing_ap td:nth-child(8) input,
+    #table_billing_ap td:nth-child(11) input {
+        width: 80px;
+    }
+
     #table_billing_ap td:nth-child(9) input,
-    #table_billing_ap td:nth-child(3) select,
+    #table_billing_ap td:nth-child(10) input {
+        width: 130px;
+
+    }
+
+    #table_billing_ap td:nth-child(13) input,
+    #table_billing_ap td:nth-child(14) input {
+        width: 140px;
+    }
+
+    #table_billing_ap td:nth-child(12) select {
+        width: 120px;
+    }
+
+    #table_billing_ap td:nth-child(19) input {
+        width: 200px;
+    }
+
+
+    #table_billing_ap td:nth-child(24) input,
+    #table_billing_ap td:nth-child(25) input,
+    #table_billing_ap td:nth-child(26) input,
+    #table_billing_ap td:nth-child(27) input,
+    #table_billing_ap td:nth-child(28) input,
+    #table_billing_ap td:nth-child(29) input {
+        width: 200px;
+    }
+
+
+    /* #table_billing_ap td:nth-child(10) input,
+    #table_billing_ap td:nth-child(9) input,
     #table_billing_ap td:nth-child(12) input,
     #table_billing_ap td:nth-child(13) input,
     #table_billing_ap td:nth-child(17) input {
         width: 150px;
     }
 
-    #table_billing_ap td:nth-child(5) select,
-    #table_billing_ap td:nth-child(4) input {
-        width: 300px;
-    }
+    
 
     #table_billing_ap td:nth-child(11) input,
-    #table_billing_ap td:nth-child(7) select,
-    #table_billing_ap td:nth-child(8) input {
-        width: 140px;
-    }
+    
 
     #table_billing_ap td:nth-child(18) input,
     #table_billing_ap td:nth-child(24) input,
@@ -154,7 +242,7 @@ require 'function/auth/get_session.php';
     #table_billing_ap td:nth-child(29) input,
     #table_billing_ap td:nth-child(16) input {
         width: 200px;
-    }
+    } */
 
 
     #table_billing_ap td:nth-child(1),
@@ -185,7 +273,7 @@ require 'function/auth/get_session.php';
     #table_billing_ap td:nth-child(26),
     #table_billing_ap td:nth-child(27),
     #table_billing_ap td:nth-child(28),
-    #table_billing_ap td:nth-child(29){
+    #table_billing_ap td:nth-child(29) {
         padding-left: 2px;
         padding-right: 2px;
     }
@@ -215,9 +303,52 @@ require 'function/auth/get_session.php';
     #table_container_module_setting_width td:nth-child(13) input {
         width: 250px;
     }
+
+
+    .table_billing_ap {
+        overflow-x: auto;
+        white-space: nowrap;
+        /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+    }
+
+    .table_billing_ap thead tr th:nth-child(-n+5),
+    .table_billing_ap tbody tr td:nth-child(-n+5) {
+        position: sticky;
+        left: 0;
+        background-color: #f8f9fa;
+        z-index: 1;
+    }
+
+    .table_billing_ap thead tr th:nth-child(n+6),
+    .table_billing_ap tbody tr td:nth-child(n+6) {
+        position: sticky;
+        background-color: #f8f9fa;
+        z-index: 0;
+    }
+
+    .table_billing_ar {
+        overflow-x: auto;
+        white-space: nowrap;
+        /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+    }
+
+    .table_billing_ar thead tr th:nth-child(-n+5),
+    .table_billing_ar tbody tr td:nth-child(-n+5) {
+        position: sticky;
+        left: 0;
+        background-color: #f8f9fa;
+        z-index: 1;
+    }
+
+    .table_billing_ar thead tr th:nth-child(n+6),
+    .table_billing_ar tbody tr td:nth-child(n+6) {
+        position: sticky;
+        background-color: #f8f9fa;
+        z-index: 0;
+    }
 </style>
 
-<body class="">
+<body class="" style="zoom:90%">
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -275,7 +406,7 @@ require 'function/auth/get_session.php';
                                     <h4>Job Detail</h4>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 text-end">
-                                    <button class="btn btn-outline-primary btn-sm" onclick="function_sub_job_detail.load_save_data()">load</button>
+                                    <button class="btn btn-outline-primary btn-sm btn_load_date" onclick="function_sub_job_detail.load_save_data()">load</button>
                                     <button class="btn btn-outline-primary btn-sm btn_generate_job_detail" onclick="function_sub_job_detail.generate_job_detail_document()"><i class="bi bi-printer"></i> Job detail</button>
                                 </div>
                             </div>
@@ -284,6 +415,12 @@ require 'function/auth/get_session.php';
 
                             <div class="row">
                                 <div class="col-xl-6">
+                                    <div class="form-group row">
+                                        <label class="control-label col-sm-3 col-lg-3 align-self-center ">Create Date:</label>
+                                        <div class="col-sm-9 col-md-9 col-lg-9">
+                                            <input type="datetime" class="form-control form-control-sm inp_create_date"  disabled>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Job Number:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -511,7 +648,7 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <div class="col-sm-3 col-md-3 col-lg-3"></div>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <button class="btn btn-primary btn-sm btn-block col-lg-12 col-xl-12" onclick="function_sub_job_detail.add_hbl()">add hb/l</button>
+                                            <button class="btn btn-primary btn_add_hbl btn-sm btn-block col-lg-12 col-xl-12" onclick="function_sub_job_detail.add_hbl()">add hb/l</button>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -637,7 +774,7 @@ require 'function/auth/get_session.php';
                                             </tbody>
                                         </table>
                                         <div class="head_b_btn_add_new_row">
-                                            <button class="btn btn-outline-primary btn-sm col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="function_sub_job_detail.add_container_v2()">Add Container</button>
+                                            <button class="btn btn-outline-primary btn_add_container_job_detail btn-sm col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="function_sub_job_detail.add_container_v2()">Add Container</button>
                                         </div>
                                     </div>
                                 </div>
@@ -691,7 +828,7 @@ require 'function/auth/get_session.php';
                                     </tbody>
                                 </table>
                                 <div class="text-end">
-                                    <button class="btn btn-success btn-sm " onclick="function_sub_job_detail.get_data_all_page()"><i class="bi bi-save"></i> Save</button>
+                                    <button class="btn btn-success btn_save_job_detail btn-sm " onclick="function_sub_job_detail.get_data_all_page()"><i class="bi bi-save"></i> Save</button>
                                 </div>
                             </div>
                         </div>
@@ -879,7 +1016,7 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <div class="col">
-                        <button class="btn btn-block btn-outline-primary col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_route();">add new route</button>
+                        <button class="btn btn-block btn-outline-primary btn_add_new_route col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12" onclick="function_sub_transport.add_new_route();">add new route</button>
                     </div>
                 </div>
                 <div class="tab-pane fade " id="reportcs_tab_target" role="tabpanel" aria-labelledby="reportcs_tab" style="zoom:80%;">
@@ -1814,6 +1951,11 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
+
+
+                <style>
+
+                </style>
                 <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
@@ -1823,7 +1965,7 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
                                     <div class="text-end">
-                                        <button class="btn btn-success rounded text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                        <button class="btn btn-success rounded btn_save_all_billing text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
                                         <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
@@ -1835,43 +1977,48 @@ require 'function/auth/get_session.php';
                             <div class="bd-example table-responsive">
                                 <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
                                     <thead>
-                                        <tr class="text-center">
-                                            <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
-                                            <th>No</th>
-                                            <th>Code</th>
-                                            <th>Item</th>
-                                            <th>Bill to</th>
-                                            <th>Payble</th>
-                                            <th>Currency</th>
-                                            <th>QTY.</th>
-                                            <th>Unit Price</th>
-                                            <th>AP AMT.</th>
-                                            <th>VAT%</th>
-                                            <th>AMT(INCL.VAT)</th>
-                                            <th>Billing Date</th>
-                                            <th>Sys Rate</th>
-                                            <th>Sys Rate currency</th>
-                                            <th>Apply</th>
-                                            <th>Apply Date</th>
-                                            <th>Paid amt</th>
-                                            <th>Remark</th>
-                                            <th>CHECK</th>
-                                            <th>Status</th>
-                                            <th>Tax Invoice (with hold)</th>
-                                            <th>Commission Sale</th>
-                                            <th>Branch</th>
-                                            <th>Creater</th>
-                                            <th>Create date</th>
-                                            <th>Last modifier</th>
-                                            <th>Last nodifier date</th>
-                                            <th>Cheker</th>
-                                            <th>Check Date</th>
-                                            <th>Action</th>
+                                        <tr class="text-center" style="font-size:14;
+                                        ">
+                                            <th class="text-center">Action</th>
+                                            <th class="text-center"><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Code</th>
+                                            <th class="text-center">Item</th>
+                                            <th class="text-center">Bill to</th>
+                                            <!-- <th class="text-center">Payble</th> -->
+                                            <th class="text-center">Currency</th>
+                                            <th class="text-center">QTY.</th>
+                                            <th class="text-center">Unit Price</th>
+                                            <th class="text-center">AP AMT.</th>
+                                            <th class="text-center">VAT%</th>
+                                            <th class="text-center">Tax <br> (w/h)</th>
+                                            <th class="text-center">Vat (EXCL)</th>
+                                            <th class="text-center">AMT <br> (INCL.VAT)</th>
+                                            <th class="text-center">Paid amt</th>
+                                            <th class="text-center">Billing Date</th>
+                                            <th class="text-center">Sys Rate</th>
+                                            <th class="text-center">Apply</th>
+                                            <th class="text-center">Apply Date</th>
+                                            <th class="text-center">Remark</th>
+                                            <th class="text-center">CHECK</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Commission <br> Sale</th>
+                                            <th class="text-center">Branch</th>
+                                            <th class="text-center">Creater</th>
+                                            <th class="text-center">Create date</th>
+                                            <th class="text-center">Last modifier</th>
+                                            <th class="text-center">Last nodifier date</th>
+                                            <th class="text-center">Cheker</th>
+                                            <th class="text-center">Check Date</th>
+
                                         </tr>
 
                                     </thead>
-                                    <tbody>
+                                    <tbody class="justify-content-center text-align-center" style="text-align: center; vertical-align: middle;">
                                         <tr class="text-center">
+                                            <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
+                                                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button>
+                                            </td><!--  action -->
                                             <td></td>
                                             <td><select class="form-select form-select-sm sel_data_billing_ap" onchange="function_sub_billing.change_sub_billing(this)">
                                                     <option value="">-- please select code --</option>
@@ -1881,7 +2028,7 @@ require 'function/auth/get_session.php';
                                                     <option value="">-- please select bill to</option>
                                                 </select></td> <!-- Bill to -->
                                             <td>
-                                                <div class="paid_status"></div>
+                                                <!-- <div class="paid_status"></div> -->
                                             </td> <!-- Payble -->
                                             <td><select class="form-select form-select-sm">
                                                     <option value="THB">THB</option>
@@ -1911,52 +2058,77 @@ require 'function/auth/get_session.php';
                                             <td><input type="text" class="form-control form-control-sm"></td><!-- last modifier date -->
                                             <td><input type="text" class="form-control form-control-sm"></td><!-- checker  -->
                                             <td><input type="text" class="form-control form-control-sm"></td><!-- checker date -->
-                                            <td><button class="btn btn-success btn-sm rounded"><i class="bi bi-save"></i> save</button>
-                                                <button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button>
-                                            </td><!--  action -->
+
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="button_add_new_list_ap">
-                                <button class="btn btn-sm btn-outline-primary col-lg-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ap()">add new list account payble</button>
+                                <button class="btn btn-sm btn-outline-primary btn_add_new_list_ap col-lg-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ap()">add new list account payble</button>
                             </div>
-                            <div class="text-end mt-4">
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency Main:</label>
-                                    <div class="col-lg-2 col-xl-2 col-md-3 text-center">
-                                        <select class="form-select form-select-sm inp_currency_main_ap">
-                                            <option value="THB">THB</option>
-                                            <option value="USD">USD</option>
-                                            <option value="RMB">RMB</option>
-                                            <option value="YEN">YEN</option>
-                                        </select>
-                                    </div>
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1"></div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">USD</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">THB</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">HKD</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">RMB</div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_sub_total_ap text-end">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Sub total</p>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_vat_inc_ap text-end">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ap_usd" readonly>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_total_ap text-end">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ap_thb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ap_rmb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ap_hkd" readonly>
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Vat</p>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ap_usd" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ap_thb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ap_rmb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ap_hkd" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ap_usd" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ap_thb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ap_rmb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ap_hkd" readonly>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="card p-4">
@@ -1966,6 +2138,7 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6">
                                 <div class="text-end">
+                                    <button class="btn btn-success btn_save_all_billing rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
                                     <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
                                     <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
                                     <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
@@ -1980,24 +2153,26 @@ require 'function/auth/get_session.php';
                                 <table class="table table-hover table_billing_ar" id="table_billing_ar">
                                     <thead>
                                         <tr class="text-center">
+                                            <th>action</th>
                                             <th><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ar')">all</button></th>
                                             <th>No.</th>
                                             <th>Code</th>
                                             <th>Item</th>
                                             <th>Bill to</th>
-                                            <th>Payble</th>
+                                            <!-- <th>Payble</th> -->
                                             <th>Currency</th>
                                             <th>QTY.</th>
                                             <th>Unit Price</th>
                                             <th>AR AMT.</th>
                                             <th>VAT%</th>
-                                            <th>AMT(INCL.VAT)</th>
-                                            <th>Billing Date</th>
-                                            <th>Sys rate</th>
-                                            <th>Sys Rate currency</th>
                                             <th>Need Vat</th>
                                             <th>With hold (%)</th>
+                                            <th>Vat (EXCL)</th>
+                                            <th>AMT(INCL.VAT)</th>
                                             <th>Rcvd Amt</th>
+                                            <th>Billing Date</th>
+                                            <th>Sys rate</th>
+                                            <!-- <th>Sys Rate currency</th> -->
                                             <th>Remark</th>
                                             <th>Check</th>
                                             <th>staus</th>
@@ -2008,7 +2183,6 @@ require 'function/auth/get_session.php';
                                             <th>last modifier date</th>
                                             <th>checker</th>
                                             <th>checker date</th>
-                                            <th>action</th>
                                         </tr>
                                         <!-- <tr>
                                             <th class="text-center">1</th>
@@ -2083,40 +2257,67 @@ require 'function/auth/get_session.php';
                                 </table>
                             </div>
                             <div class="button_add_new_list_ar text-center">
-                                <button class="btn btn-sm btn-outline-primary col-lg-12 col-xs-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ar()">add new list account receivable</button>
+                                <button class="btn btn-sm btn-outline-primary btn_add_new_list_ar col-lg-12 col-xs-12 col-sm-12 col-md-12 col-xl-12" onclick="function_sub_billing.add_new_list_ar()">add new list account receivable</button>
                             </div>
-                            <div class="text-end mt-4">
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Currency :</label>
-                                    <div class="col-lg-2 col-xl-2 col-md-3 text-end">
-                                        <select class="form-select form-select-sm inp_currency_main_ar">
-                                            <option value="THB">THB</option>
-                                            <option value="USD">USD</option>
-                                            <option value="RMB">RMB</option>
-                                            <option value="YEN">YEN</option>
-                                        </select>
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1"></div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">USD</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">THB</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">HKD</div>
+                                    <div class="m-2 col-md-2 col-lg-1 col-xl-1 text-center">RMB</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Sub total</p>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ar_usd " readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ar_thb " readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ar_rmb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end sub_total_ar_hkd" readonly>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Sub total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_sub_total_ar text-end">
+
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Vat</p>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ar_usd " readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ar_thb " readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ar_rmb " readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end vat_ar_hkd " readonly>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Value added Tax :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm  inp_vat_inc_ar text-end">
+
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <p>Total</p>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-9 col-xl-8 col-md-6"></div>
-                                    <label class="control-label align-self-center col-lg-2 col-md-3">Total :</label>
-                                    <div class="col-lg-2 col-md-3">
-                                        <input type="text" class="form-control form-control-sm inp_total inp_total_ar text-end">
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ar_usd" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ar_thb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ar_rmb" readonly>
+                                    </div>
+                                    <div class="col-md-2 col-lg-1 col-xl-1 m-2">
+                                        <input type="text" class="form-control form-control-sm text-end total_ar_hkd" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -2355,7 +2556,8 @@ require 'function/auth/get_session.php';
 <script src="js/job_detail/setting_create_job.js"></script>
 <script src="js/job_detail/setting_sub_bl.js"></script>
 <script src="js/job_detail/function_sub_bl.js"></script>
-<script src="js/job_detail//setting_bl_gang_bl.js"></script>
+<script src="js/job_detail/setting_bl_gang_bl.js"></script>
+<script src="js/job_detail/log_job.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -2376,6 +2578,7 @@ require 'function/auth/get_session.php';
 
         sidebar_main.set_data_rows();
         job_detail.set_header_page();
+        
     });
 </script>
 

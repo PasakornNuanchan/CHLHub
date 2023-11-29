@@ -4,15 +4,15 @@
     $arr = array();
     $sql = "
     SELECT 
-        jt.create_date,
-        jt.job_number,
-        jt.mbl,
         jt.ID,
-        (SELECT c.carrier_name FROM carrier c WHERE c.ID = jt.carrier_number) carrier_name,
-        (SELECT co.consignee_name FROM consignee co WHERE co.ID = jt.consignee_number) consignee_name,
-        (SELECT concat(a.location_name,',',a.provice) FROM area a WHERE a.area_number = jt.ts_port_number) location_name,
+        jt.job_number,
+		if(jt.client_type = 1,(SELECT sp.shipper_name FROM shipper sp WHERE sp.ID = jt.client_number),(SELECT c.consignee_name FROM consignee c WHERE c.ID = jt.client_number)) as client_name,
+        jt.booking_number,
+        (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_loading_number) as POL,
+        (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_discharge) as POD,
+        jt.etd,
         jt.eta,
-        jt.ID
+        (SELECT concat(u.first_name,' ',u.last_name) FROM user u WHERE u.ID = jt.sale_support) as sale_support
     FROM
         job_title as jt
     ORDER BY jt.ID DESC";

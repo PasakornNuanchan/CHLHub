@@ -3,7 +3,11 @@ include('core/conn.php');
 require_once 'lang_lib.php';
 ?>
 <script src="js/sidebar_main/side_main.js"></script>
-
+<style>
+    body {
+        zoom:75%
+    }
+</style>
 
 <aside class="sidebar sidebar-default navs-rounded-all">
     <div class="sidebar-header d-flex align-items-center justify-content-start">

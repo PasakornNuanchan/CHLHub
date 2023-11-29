@@ -17,7 +17,7 @@ const sub_billing = {
 
         let data_sel_billing_ap = $('.sel_data_billing_ap').parent().html()
         let data_sel_bill_to = $('.inp_billing_to_ap').parent().html()
-        //console.log(data_sel_billing_ap)
+
         this.select_billing_des_ap = data_sel_billing_ap
         this.select_bill_to_ap = data_sel_bill_to
         $('.table_billing_ap > tbody').html('')
@@ -47,6 +47,7 @@ const sub_billing = {
             let check_by = v['check_by'] ? v['check_by'] : '';
             let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
             let tax_with_hold_by = v['tax_with_hold_by'] ? v['tax_with_hold_by'] : '';
+            let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
             let commit_sale = v['commit_sale'] ? v['commit_sale'] : '';
             let vat = v['vat'] ? v['vat'] : '';
             let apb = v['apbfn'] == null ? '' : v['apbfn'] + ' ' + v['apbln']
@@ -63,14 +64,15 @@ const sub_billing = {
             
 
             html_data_ap = `
-            <tr class="text-center data_ap${i} data_ap_list${id_list}" id_list="${id_list}" type="AP">
+            <tr class="text-center data_ap${i} data_ap_list${id_list}" id_list="${id_list}" type="AP" >
+                <td><button class="btn btn-danger btn-sm rounded btn_delete btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button></td><!--  action -->
                 <td><input type="checkbox" class="form-input-check inp_box_select_ap inp_box_select${i}" id_data_billing ="${id_list}" ></td>
                 <td>${i}</td>
                 <td>${data_sel_billing_ap}</td>
                 <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
                 <td>${data_sel_bill_to}</td> <!-- Bill to -->
-                <td><div class="inp_payble"></div></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm  inp_currency_ap"  onchange="function_sub_billing.change_currency(this)">
+                <!-- <td><div class="inp_payble"></div></td> -->  <!-- Payble --> 
+                <td><select class="form-select form-select-sm text-center inp_currency_ap"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
@@ -80,22 +82,32 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm  text-end inp_unit_price inp_unit_price_ap${i}" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
                 <td><input type="text" class="form-control form-control-sm  text-end inp_ap_amt inp_ap_amt${i}" disabled></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm  text-center inp_vat inp_vat_ap${i}" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
+                <td>
+                <!-- <input type="checkbox" class="form-input-check chb_tax_hold chb_tax_hold${i}"> -->
+                <select class="form-select form-select-sm chb_tax_hold chb_tax_hold${i} text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
+                    <option value="0">Non</option>
+                    <option value="1">1%</option>
+                    <option value="3">3%</option>
+                    <option value="5">5%</option>
+                    <option value="7">7%</option>
+                </select>
+                </td><!-- tax invoice with hole -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_vat_exl inp_vat_exl${i}" readonly></td>
                 <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap inp_amt_inc_vat_ap${i}" disabled ></td><!-- AMT(INCL.vat) -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt inp_paid_amt${i}" disabled></td><!-- paid amt -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${billing_date}" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_ap"  onchange="function_sub_billing.change_currency(this)">
+                <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ap"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
-                    <option value="YEN">YEN</option>
-                    </select></td><!-- sysrate currency -->
+                    <option value="HKD">HKD</option>
+                    </select></td> --><!-- sysrate currency -->
                 <td><input type="checkbox" class="form-input-check chb_apply chb_apply${i}"></td><!-- apply -->
                 <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt inp_paid_amt${i}" disabled></td><!-- paid amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
-                <td class="text-center"><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
-                <td class="text-center"><div class="inp_status"></div></td><!-- status -->
-                <td><input type="checkbox" class="form-input-check chb_tax_hold chb_tax_hold${i}"></td><!-- tax invoice with hole -->
+                <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
+                <td><div class="inp_status"></div></td><!-- status -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_commit" value="${commit_sale}"></td><!-- commision sale -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${cbb}" disabled></td><!-- branch -->
                 <td><input type="text" class="form-control form-control-sm" value="${cb}" disabled></td><!-- creater -->
@@ -104,7 +116,6 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm" value="${last_update_datetime}" disabled></td><!-- last modifier date -->
                 <td><input type="text" class="form-control form-control-sm" value="${ccb}" disabled></td><!-- checker  -->
                 <td><input type="text" class="form-control form-control-sm" value="${check_date_time}" disabled></td><!-- checker date -->
-                <td><button class="btn btn-danger btn-sm rounded btn_delete" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
             </tr>
             `;
 
@@ -115,7 +126,6 @@ const sub_billing = {
             let data_qty = parseFloat($(`.inp_qty_ap${i}`).val())
             let data_unit_price = parseFloat($(`.inp_unit_price_ap${i}`).val())
             let vat_cal = parseFloat($(`.inp_vat_ap${i}`).val())
-            
             
             $(`.data_ap${i} > td > .sel_data_billing_ap`).val(billing_description)
 
@@ -137,17 +147,7 @@ const sub_billing = {
             //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
             // }
 
-            if(paid_date_time == ''){
-                $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
-            }else{
-                //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
-
-                $(`.data_ap${i} > td > .inp_payble`).html('Paid')
-                $(`.data_ap${i} > td > .form-control`).attr('disabled',true)
-                $(`.data_ap${i} > td > .form-select`).attr('disabled',true)
-                $(`.data_ap${i} > td > .btn_delete`).remove()
-                
-            }
+            
 
 
 
@@ -167,24 +167,46 @@ const sub_billing = {
             if(check_by  != ''){
                 $(`.chb_check${i}`).attr({'checked':true,'disabled':true,"ischeckdone":'1'})
             }
-            
-            if(tax_with_hold_by != ''){
-                $(`.chb_tax_hold${i}`).attr({'checked':true,'disabled':true,"ischeckwithhold":'1'})
+        
+
+            let vat_ex = 0;
+            let whdt = 0;
+            let vat_inc = 0;
+            let vat_real = 0;
+            // with_holding_tax
+
+            ap_amt = qty * unit_price;
+
+            if(with_holding_tax == 0){
+                vat_ex = ap_amt*(vat/100)
+                amt_inc_vat = vat_ex+ap_amt
+            }else {
+                whdt = ap_amt*(with_holding_tax/100)
+                vat_inc = ap_amt*(vat/100)
+                vat_ex = vat_inc - whdt
+                vat_real = ap_amt*(vat/100)
+                amt_inc_vat = ap_amt + vat_real - whdt
             }
-
-            // if(check_by != '' && action_paid_by != ''){
-            //     $(`.data_ap${i} > td > .form-control`).attr('disabled',true)
-            //     $(`.data_ap${i} > td > .form-select`).attr('disabled',true)
-            // }
-
-            ap_amt = data_qty * data_unit_price;
-            amt_inc_vat = (ap_amt * vat_cal / 100) + ap_amt
             ap_amt = ap_amt.toFixed(2)
             amt_inc_vat = amt_inc_vat.toFixed(2)
-
+            vat_ex = vat_ex.toFixed(2)
             $(`.inp_ap_amt${i}`).val(ap_amt)
+            $(`.inp_vat_exl${i}`).val(vat_ex)
+            $(`.data_ap${i} > td >.chb_tax_hold${i}`).val(with_holding_tax)
             $(`.inp_amt_inc_vat_ap${i}`).val(amt_inc_vat)
-            $(`.inp_paid_amt${i}`).val(amt_inc_vat)
+
+            if(paid_date_time == ''){
+                $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
+                $(`.data_ap${i} > td > .inp_paid_amt`).val(0)
+            }else{
+                //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+                $(`.data_ap${i} > td > .inp_paid_amt`).val(amt_inc_vat).attr({"style":"color:red; text-weight:bold"})
+                $(`.data_ap${i} > td > .inp_payble`).html('Paid')
+                $(`.data_ap${i} > td > .form-control`).attr('disabled',true)
+                $(`.data_ap${i} > td > .form-select`).attr('disabled',true)
+                $(`.data_ap${i} > td > .btn_delete`).remove()
+            }
+            // $(`.inp_paid_amt${i}`).val(amt_inc_vat)
 
             // $(`.inp_amt_ap${i}`).attr('disabled', true)
             // $(`.inp_amtincv${i}`).attr('disabled', true)
@@ -216,12 +238,13 @@ const sub_billing = {
     }else{
         html_data_ap = `
         <tr list_id = "" type = "AP">
+            <td><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
             <td></td>
             <td>1</td>
             <td>${sub_billing.select_billing_des_ap}</td>
             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
             <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
-            <td><div class="paid_status"></div></td> <!-- Payble -->
+            <!-- <td><div class="paid_status"></div></td>--> <!-- Payble -->
             <td><select class="form-select form-select-sm inp_currency_ap" onchange="function_sub_billing.change_currency(this)">
                 <option value="THB">THB</option>
                 <option value="USD">USD</option>
@@ -232,22 +255,32 @@ const sub_billing = {
             <td><input type="number" class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
             <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt " disabled></td><!-- AR AMT -->
             <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
+            <td class="text-center"><!--<input type="checkbox" class="form-input-check chb_tax_hold ">-->
+            <select class="form-select form-select-sm chb_tax_hold text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
+                    <option value="0">Non</option>
+                    <option value="1">1%</option>
+                    <option value="3">3%</option>
+                    <option value="5">5%</option>
+                    <option value="7">7%</option>
+                </select>
+            </td><!-- tax invoice with hole -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_vat_exl" readonly></td>
+
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
             <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
-            <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
+            <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
-                    </select></td><!-- sysrate currency -->
+                    </select></td>--><!-- sysrate currency -->
             <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
-            <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
             <td></td><!-- status -->
-            <td class="text-center"><input type="checkbox" class="form-input-check chb_tax_hold "></td><!-- tax invoice with hole -->
             <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
             <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater -->
@@ -256,7 +289,6 @@ const sub_billing = {
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
-            <td><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i> Del</button></td><!--  action -->
         </tr>
             `;
 
@@ -317,48 +349,7 @@ const sub_billing = {
         $('.inp_vat_inc_ap').val(tof_vat_all).attr('disabled', true)
 
         // function_cal_result
-
-        let find_targer = $('.table_billing_ap > tbody > tr') 
-        
-        let inp_ap_amt = 0;
-        let inp_amt_inc_vat_ap = 0;
-        let add_tax = 0;
-
-        let data_obj = {}
-        let data_arr = []
-        $(find_targer).each(function(i,v){
-            let data_ap_amt = parseFloat($('.inp_ap_amt',this).val())
-            let data_amt_inc_vat = parseFloat($('.inp_amt_inc_vat_ap',this).val())
-            let sys_rate = parseFloat($('.inp_sys_rate_ap',this).val())
-
-            let keep_amt = data_ap_amt * sys_rate
-            let keep_amt_inc = data_amt_inc_vat * sys_rate
-            
-            data_obj={
-                keep_amt : keep_amt,
-                keep_amt_inc : keep_amt_inc
-            }
-            data_arr.push(data_obj)
-        })
-
-        $.each(data_arr,function(i,v){
-            let data_keep_amt = v['keep_amt']
-            let data_keep_amt_inc = v['keep_amt_inc']
-
-            inp_ap_amt = inp_ap_amt +data_keep_amt;
-            inp_amt_inc_vat_ap = inp_amt_inc_vat_ap +data_keep_amt_inc;
-        })
-
-
-        add_tax = inp_amt_inc_vat_ap - inp_ap_amt;
-
-        inp_ap_amt = inp_ap_amt.toFixed(2)
-        add_tax = add_tax.toFixed(2)
-        inp_amt_inc_vat_ap = inp_amt_inc_vat_ap.toFixed(2)
-        
-        $('.inp_sub_total_ap').val(inp_ap_amt)
-        $('.inp_vat_inc_ap').val(add_tax)
-        $('.inp_total_ap').val(inp_amt_inc_vat_ap)
+        await function_sub_billing.cal_result_ap()
 
         
        
@@ -424,52 +415,56 @@ const sub_billing = {
 
             html_data_ar = `
             <tr id_list = "${id_list}" class="data_ar${i} data_ar_list${id_list}" type = "AR">
-                <td class="text-center"><input type="checkbox" class="form-input-check inp_box_select_ar inp_box_select${i}" id_data_billing ="${id_list}"></td>
-                <td class="text-center">${i}</td> <!-- No -->
-                <td>${data_select_code_billing_ar}</td>
-                <td><input type="text" class="form-control form-control-sm inp_data_item inp_data_item${i}"></td> <!-- item -->
-                <td>${data_select_bill_to_ar}</td>
-                <td align="center"><div class="inp_payble"></div></td> <!-- Payble -->
-                <td><select class="form-select form-select-sm inp_currency_ar inp_currency_ar${i}" onchange="function_sub_billing.change_currency(this)">
+                <td class="text-center headcol">
+                    <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button>
+                </td><!-- ACTION -->
+                <td class="text-center headcol"><input type="checkbox" class="form-input-check inp_box_select_ar inp_box_select${i}" id_data_billing ="${id_list}"></td>
+                <td class="text-center headcol">${i}</td> <!-- No -->
+                <td class="headcol">${data_select_code_billing_ar}</td>
+                <td class="headcol"><input type="text" class="form-control form-control-sm inp_data_item inp_data_item${i}"></td> <!-- item -->
+                <td class="long">${data_select_bill_to_ar}</td>
+                <!-- <td align="center"><div class="inp_payble"></div>--></td> <!-- Payble -->
+                <td class="long"><select class="form-select form-select-sm inp_currency_ar inp_currency_ar${i}" onchange="function_sub_billing.change_currency(this)">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                         <option value="YEN">YEN</option>
                     </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" value="${qty}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
-                <td><input type="text" class="form-control form-control-sm inp_data_amt inp_ar_amt text-end" disabled></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
-                <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
-                <td><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
-                <td><select class="form-select form-select-sm inp_sys_rate_currency_arf" onchange="function_sub_billing.change_currency(this)">
+                <td class="long"><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" value="${qty}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td> <!-- QTY. -->
+                <td class="long"><input type="number" class="form-control form-control-sm inp_unit_price text-end" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
+                <td class="long"><input type="text" class="form-control form-control-sm inp_data_amt inp_ar_amt text-end" disabled></td><!-- AR AMT -->
+                <td class="long"><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
+                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar ch_need_vat_ar${i}"></td><!-- need vat -->
+                <td class="text-center long"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
+                    <option value="0">Non with holding tax</option>
+                    <option value="1">1%</option>
+                    <option value="3">3%</option>
+                    <option value="5">5%</option>
+                    <option value="7">7%</option>
+                </select></td><!-- with holding tax -->
+                <td class="text-center long"><input class="form-control form-control-sm text-end inp_vat_exc "></td>
+                <td class="long"><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
+                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar ch_revd_amt_ar${i}" ></td><!-- rcvd amt -->
+                <td class="long"><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
+                <td class="long"><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
+                <!--<td><select class="form-select form-select-sm inp_sys_rate_currency_arf" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
-                    </select></td><!-- sysrate currency -->
-                <td class="text-center"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar ch_need_vat_ar${i}"></td><!-- need vat -->
-                <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage">
-                                            <option value="">Non with holding tax</option>
-                                            <option value="1">1%</option>
-                                            <option value="3">3%</option>
-                                            <option value="7">7%</option>
-                                        </select></td><!-- with holding tax -->
-                <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar ch_revd_amt_ar${i}" ></td><!-- rcvd amt -->
-                <td><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
-                <td class="text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
-                <td class="text-center"><div class="inp_status"></div></td>
-                <td class="text-center"><input class="form-control form-control-sm text-center" value="${brunch}" disabled></td><!-- brunch -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${cb}"></td><!-- create by, -->
-                <td><input type="text" class="form-control form-control-sm inp_create_datetime_ar" disabled value="${create_data_time}"></td><!-- create datetime. -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
-                <td><input type="text" class="form-control form-control-sm" disabled value="${check_date_time}"></td><!-- checker date -->
-                <td class="text-center">
-                <button class="btn btn-danger btn-sm btn_del_ar" onclick="function_sub_billing.delete_list(this)">Del</button>
-                </td><!-- ACTION -->
+                    </select></td>--><!-- sysrate currency -->
+                
+                <td class="long"><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
+                <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
+                <td class="long text-center"><div class="inp_status"></div></td>
+                <td class="long text-center"><input class="form-control form-control-sm text-center" value="${brunch}" disabled></td><!-- brunch -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${cb}"></td><!-- create by, -->
+                <td class="long"><input type="text" class="form-control form-control-sm inp_create_datetime_ar" disabled value="${create_data_time}"></td><!-- create datetime. -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${check_date_time}"></td><!-- checker date -->
+                
             </tr>
             `;
 
@@ -498,15 +493,7 @@ const sub_billing = {
                     $(`.ch_revd_amt_ar${i}`).prop('checked',true).attr('disabled',true)
                 }
 
-                if(paid_date_time != ''){
-                    $(`.data_ar${i} > td > .inp_payble`).html('Paid')
-                    $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
-                    $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
-                    $(`.data_ar${i} > td > .btn_delete`).remove()
-                }else{
-                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
-
-                }
+                
 
                 if(status_data == '1'){
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
@@ -524,25 +511,50 @@ const sub_billing = {
                 $(`.data_ar${i} > td > .select_bill_to_ar`).val()
                 $(`.data_ar${i} > td > .select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
                 $(`.data_ar${i} > td > inp_currency_ar${i}`).val(currency)
-
-                let data_qty = parseFloat($(`.data_ar${i} > td > .inp_qty_ar`).val())
-                let data_unit_price = parseFloat($(`.data_ar${i} > td > .inp_unit_price`).val())
-                let data_amt = data_qty*data_unit_price
-                data_amt = data_amt.toFixed(2)
-                $(`.data_ar${i} > td > .inp_data_amt`).val(data_amt)
-                data_amt = parseFloat(data_amt)
-                let data_vat = $(`.data_ar${i} > td > .inp_vat_ar`).val()
-                let data_amt_inc_vat = ((data_amt * data_vat)/100)+data_amt;
-                data_amt_inc_vat = data_amt_inc_vat.toFixed(2)
-                $(`.data_ar${i} > td > .inp_amt_inc_vat_ar`).val(data_amt_inc_vat)
+                // with_holding_tax
+                // let data_qty = parseFloat($(`.data_ar${i} > td > .inp_qty_ar`).val())
+                // let data_unit_price = parseFloat($(`.data_ar${i} > td > .inp_unit_price`).val())
+                // let data_vat = $(`.data_ar${i} > td > .inp_vat_ar`).val()
+                let amt = qty * unit_price
+                let data_tax_withhold = 0;
+                let data_vat = 0;
+                let data_vatexcl = 0;
+                let data_amtincl = 0;
+                if(with_holding_tax == 0){
+                    data_vat = amt * (vat/100)
+                    data_vatexcl = data_vat
+                    data_amtincl = (amt + data_vat)
+                }else{
+                    data_tax_withhold = amt * (with_holding_tax/100)
+                    data_vat = amt * (vat/100)
+                    data_vatexcl = data_vat - data_tax_withhold
+                    data_amtincl = (amt + data_vat) - data_tax_withhold
+                }
                 
-                // if(apb != ''){
-                //     $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
-                //     $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
-                //     $(`.data_ar${i} > td > .form-input-check`).attr('disabled',true)
-                //     $(`.data_ar${i} > td > .btn_del_ar`) .remove()
-                //     $(`.data_ar${i} > td > .btn_save_ar`) .remove()
-                // }
+                
+                
+                
+
+                amt = amt.toFixed(2)
+                data_vatexcl = data_vatexcl.toFixed(2)
+                data_amtincl = data_amtincl.toFixed(2)
+                $(`.data_ar${i} > td > .inp_ar_amt`).val(amt)
+                $(`.data_ar${i} > td > .inp_vat_exc`).val(data_vatexcl)
+                $(`.data_ar${i} > td > .inp_amt_inc_vat_ar`).val(data_amtincl)
+
+                if(paid_date_time != ''){
+                        // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl)
+                        $(`.data_ar${i} > td > .inp_payble`).html('Paid')
+                        $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
+                        $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
+                        $(`.data_ar${i} > td > .btn_delete`).remove()
+                    }else{
+                        $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
+                        // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl).attr({"style":"color:red; text-weight:bold"})
+    
+                    }
+                
+                
             })
         }else{
 
@@ -553,7 +565,7 @@ const sub_billing = {
                 <td>${sub_billing.html_select_code_billing_ar}</td>
                 <td><input type="text" class="form-control form-control-sm inp_data_item" disabled></td> <!-- item -->
                 <td>${sub_billing.html_select_bill_to_ar}</td>
-                <td align="center"></td> <!-- Payble -->
+                <!-- <td align="center"></td>--> <!-- Payble -->
                 <td><select class="form-select form-select-sm inp_currency_ar "  onchange="function_sub_billing.change_currency(this)">
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
@@ -563,6 +575,14 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
+                <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
+                                            <option value="0">Non with holding tax</option>
+                                            <option value="1">1%</option>
+                                            <option value="3">3%</option>
+                                            <option value="5">5%</option>
+                                            <option value="7">7%</option>
+                                        </select></td><!-- with holding tax -->
+                <td class="text-center"><input class="form-control form-control-sm text-end inp_vat_exc"></td>
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
@@ -573,12 +593,7 @@ const sub_billing = {
                     <option value="YEN">YEN</option>
                     </select></td><!-- sysrate currency -->
                 <td class="text-center"><input type="checkbox" class="fotm-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
-                <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage">
-                                            <option value="0">Non with holding tax</option>
-                                            <option value="1">1%</option>
-                                            <option value="3">3%</option>
-                                            <option value="7">7%</option>
-                                        </select></td><!-- with holding tax -->
+                
                 <td><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar" ></td><!-- rcvd amt -->
                 <td><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
                 <td class="text-cemter"><input type="checkbox" class="form-input-check ch_check_ar"></td>
@@ -643,7 +658,7 @@ const sub_billing = {
         $('.inp_sub_total_ar').val(data_sub_total).attr('disabled',true)
         $('.inp_vat_inc_ar').val(data_value_tax).attr('disabled',true)
         $('.inp_total_ar').val(data_total).attr('disabled',true)
-
+        function_sub_billing.billing_ap_function_cal_row_ar();
     },
 
     ajax_setting_data_first_ar: async function (id_number) {

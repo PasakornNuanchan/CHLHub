@@ -49,14 +49,15 @@ const job_list = {
             data.forEach(function (item) {
                 var last_button = '<button type="button" onclick="job_list.set_to_page_up(' + item.ID + ')"  class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button>'
                 table.row.add([
-                item.create_date,
+                last_button,
                 item.job_number,
-                item.mbl,
-                item.carrier_name,
-                item.consignee_name,
-                item.location_name,
+                item.sale_support,
+                item.client_name,
+                item.booking_number,
+                item.POL,
+                item.POD,
+                item.etd,
                 item.eta,
-                last_button
                 ]).draw();
             });
         });

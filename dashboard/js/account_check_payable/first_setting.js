@@ -107,7 +107,7 @@ const first_setting = {
                 let data_html_paste = `
                 <tr class=" row_master_${id_number}" id_number="${id_number}" ref_job_id="${ref_job_id}">
                     <td class="text-center">${i}</td>
-                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" onclick="function_acp.check_paid_data(this)" style="zoom:150%"></td>
+                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" onclick="function_acp.check_paid_data(this)" style="zoom:200%"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_job_no"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>

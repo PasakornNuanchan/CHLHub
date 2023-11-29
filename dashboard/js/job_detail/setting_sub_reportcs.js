@@ -30,11 +30,11 @@ const sub_reportcs = {
         let chetime_il =  res_data['get_data_table_reportcs']['il_check_datetime'] ? res_data['get_data_table_reportcs']['il_check_datetime'] : '';
 
         
-        let act_inv = revtime_inv === '' ? `<button class="btn btn-success btn-sm" onclick="function_sub_reportcs.modal_doc('inv')">received</button>` : `<button class="btn btn-warning btn-sm" onclick="function_sub_reportcs.modal_doc('inv')">re-upload</button>`;
-        let act_bl = revtime_bl === '' ? `<button class="btn btn-success btn-sm" onclick="function_sub_reportcs.modal_doc('bl')">received</button>` : `<button class="btn btn-warning btn-sm" onclick="function_sub_reportcs.modal_doc('bl')">re-upload</button>`;
-        let act_pl = revtime_pl === '' ? `<button class="btn btn-success btn-sm" onclick="function_sub_reportcs.modal_doc('pl')">received</button>` : `<button class="btn btn-warning btn-sm" onclick="function_sub_reportcs.modal_doc('pl')">re-upload</button>`;
-        let act_id = revtime_id === '' ? `<button class="btn btn-success btn-sm" onclick="function_sub_reportcs.modal_doc('id')">received</button>` : `<button class="btn btn-warning btn-sm" onclick="function_sub_reportcs.modal_doc('id')">re-upload</button>`;
-        let act_il = revtime_il === '' ? `<button class="btn btn-success btn-sm" onclick="function_sub_reportcs.modal_doc('il')">received</button>` : `<button class="btn btn-warning btn-sm" onclick="function_sub_reportcs.modal_doc('il')">re-upload</button>`;
+        let act_inv = revtime_inv === '' ? `<button class="btn btn-success btn_receive_docu btn-sm" onclick="function_sub_reportcs.modal_doc('inv')">received</button>` : `<button class="btn btn-warning btn_re_update btn-sm" onclick="function_sub_reportcs.modal_doc('inv')">re-upload</button>`;
+        let act_bl = revtime_bl === '' ? `<button class="btn btn-success btn_receive_docu btn-sm" onclick="function_sub_reportcs.modal_doc('bl')">received</button>` : `<button class="btn btn-warning btn_re_update btn-sm" onclick="function_sub_reportcs.modal_doc('bl')">re-upload</button>`;
+        let act_pl = revtime_pl === '' ? `<button class="btn btn-success btn_receive_docu btn-sm" onclick="function_sub_reportcs.modal_doc('pl')">received</button>` : `<button class="btn btn-warning btn_re_update btn-sm" onclick="function_sub_reportcs.modal_doc('pl')">re-upload</button>`;
+        let act_id = revtime_id === '' ? `<button class="btn btn-success btn_receive_docu btn-sm" onclick="function_sub_reportcs.modal_doc('id')">received</button>` : `<button class="btn btn-warning btn_re_update btn-sm" onclick="function_sub_reportcs.modal_doc('id')">re-upload</button>`;
+        let act_il = revtime_il === '' ? `<button class="btn btn-success btn_receive_docu btn-sm" onclick="function_sub_reportcs.modal_doc('il')">received</button>` : `<button class="btn btn-warning btn_re_update btn-sm" onclick="function_sub_reportcs.modal_doc('il')">re-upload</button>`;
 
         
         if(res_data['get_data_table_reportcs']['inv_receiv_datetime'] != null){

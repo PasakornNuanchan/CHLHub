@@ -113,6 +113,7 @@ const function_acp = {
         let currency_can = $(e).closest('tr').find('.inp_currency_can').val()
         let amt_inc_can = $(e).closest('tr').find('.inp_amt_incv_can').val()
 
+        
 
         Swal.fire({
             title: "Are you sure?",
@@ -155,6 +156,9 @@ const function_acp = {
                         icon: "error"
                     });
                 }
+            }else{
+                $(e).prop('checked',false)
+                
             }
         });
 

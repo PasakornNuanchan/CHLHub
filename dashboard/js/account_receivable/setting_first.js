@@ -68,15 +68,29 @@ const setting_first = {
                 let approve_datetime = v['approve_date_time'] ? v['approve_date_time'] : '';
                     
                 let ap_amt = qty * unit_price;
-                let ap_amt_incvat = (ap_amt*(vat/100))+ap_amt;
-                let amt_cal = parseFloat(qty) * parseFloat(unit_price);
-                let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
+                let ap_amt_incvat = 0;
+                let cal_vat = 0;
+                let cal_wh = 0;
+                let tax_exc = 0;
+                let ap_amt_incvat_cal = 0;
+                if(with_holding_tax == 0){
+                    cal_vat = ap_amt * (vat/100)
+                    ap_amt_incvat = cal_vat + ap_amt
+                    ap_amt_incvat_cal = ap_amt_incvat
+                }else{
+                    cal_vat = ap_amt * (vat/100)
+                    cal_wh = ap_amt * (with_holding_tax/100)
+                    tax_exc = cal_vat - cal_wh
+                    ap_amt_incvat = ap_amt + cal_vat - cal_wh
+                    ap_amt_incvat_cal = ap_amt_incvat
+                }
+                // let ap_amt_incvat = (ap_amt*(vat/100))+ap_amt;
+                // let amt_cal = parseFloat(qty) * parseFloat(unit_price);
+                // let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
                 
                 
 
-                ap_amt_incvat_cal = ap_amt_incvat_cal.toFixed(2)
-                ap_amt_incvat_cal = parseFloat(ap_amt_incvat_cal)
-
+           
                 ap_amt = ap_amt.toFixed(2)
                 ap_amt_incvat = ap_amt_incvat.toFixed(2)
 

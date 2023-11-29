@@ -36,7 +36,8 @@ SELECT
     `notify_number`,
     `client_type`,
     `client_number`,
-    `final_destination`
+    `final_destination`,
+    `create_date`
 FROM
     `job_title`
 WHERE

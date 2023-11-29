@@ -78,22 +78,36 @@ const setting_first = {
                 let approve_by = v['approve_by'] ? v['approve_by'] : '';
                 let approve_datetime = v['approve_date_time'] ? v['approve_date_time'] : '';
                 let billing_payment_check = v['billing_payment_check'] ? v['billing_payment_check'] : '';
+                let ap_amt_incvat_cal = 0;
+                
                 let ap_amt = qty * unit_price;
-                let ap_amt_incvat = (ap_amt*(vat/100))+ap_amt;
-                let amt_cal = parseFloat(qty) * parseFloat(unit_price);
-                let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
-                
-                
-                
-                ap_amt_incvat_cal = ap_amt_incvat_cal.toFixed(2)
-                ap_amt_incvat_cal = parseFloat(ap_amt_incvat_cal)
+                let ap_amt_incvat = 0;
+                let cal_vat = 0;
+                let cal_wh = 0;
+                let tax_exc = 0;
+                if(with_holding_tax == 0){
+                    cal_vat = (ap_amt*(vat/100));
+                    ap_amt_incvat = ap_amt + cal_vat
+                    ap_amt_incvat_cal = ap_amt_incvat
+                }else{
+                    cal_vat = (ap_amt*(vat/100));
+                    cal_wh = (ap_amt)*(with_holding_tax/100);
+                    tax_exc = cal_vat - cal_wh
+                    ap_amt_incvat = ap_amt + tax_exc;
+                    ap_amt_incvat_cal =ap_amt_incvat
+                }
 
-                ap_amt = ap_amt.toFixed(2)
+                
+                cal_vat = cal_vat.toFixed(2)
                 ap_amt_incvat = ap_amt_incvat.toFixed(2)
-
-
+                // let ap_amt_incvat = (ap_amt*(vat/100));
+                // let ap_cal_wh = (ap_amt*(with_holding_tax/100))
+                // let ap_amtincv = ap_amt + ap_amt_incvat - ap_cal_wh
+                // let amt_cal = parseFloat(qty) * parseFloat(unit_price);
+                // let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
                 
-
+        
+                
                 if(approve_datetime != ""){
 
 
@@ -175,11 +189,11 @@ const setting_first = {
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${check_by_name}" disabled></td>
                     <td class="text-center"><input type="datetime" class="form-control form-control form-control-sm" value="${check_date_time}" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${booking_number}" disabled></td>
-                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${container_data}" disabled></td>                                    Container No.
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${container_data}" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${hbl_data}" disabled></td>                         
                     <td class="text-center"><input type="checkbox" class="form-input-check tb_in_tb"></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="" disabled></td>                                    
-                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${action_paid_date_time}" disabled></td>                                    Request payble
+                    <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${action_paid_date_time}" disabled></td>
                 </tr>
                 `;
 
