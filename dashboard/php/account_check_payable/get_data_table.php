@@ -47,7 +47,8 @@ if($arr_data[0] != ''){
           b.vat,
           b.remark,
           b.sys_rate,
-          b.sys_rate_currency
+          b.sys_rate_currency,
+          b.amtinclvat
       FROM
           billing b
       LEFT JOIN billing_payment bp ON b.ID = bp.ref_billing_id
@@ -82,7 +83,8 @@ if($arr_data[0] != ''){
       b.vat,
       b.remark,
       b.sys_rate,
-      b.sys_rate_currency
+      b.sys_rate_currency,
+      b.amtinclvat
   FROM
       billing b
   WHERE

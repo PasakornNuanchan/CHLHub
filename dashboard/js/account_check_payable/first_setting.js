@@ -85,7 +85,7 @@ const first_setting = {
                 let sys_rate_currency = v['sys_rate_currency'] ? v['sys_rate_currency'] : '';
                 let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
                 let billing_payment_check = v['billing_payment_check'] ? v['billing_payment_check'] : '';
-
+                let amtinclvat = v['amtinclvat'] ? v['amtinclvat']: '';
                 let data_amt_incv = ((qty*unit_price)*(vat/100)+(qty*unit_price));
                 let data_amt_incv_exchange_rate = data_amt_incv*sys_rate
 
@@ -107,7 +107,7 @@ const first_setting = {
                 let data_html_paste = `
                 <tr class=" row_master_${id_number}" id_number="${id_number}" ref_job_id="${ref_job_id}">
                     <td class="text-center">${i}</td>
-                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel" onclick="function_acp.check_paid_data(this)" style="zoom:200%"></td>
+                    <td class="text-center"><input type="checkbox" class="form-check-input cbx_sel"  style="zoom:200%"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_job_no"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_bill_to"></td>
                     <td class="text-center"><input type="text" class="form-control form-control inp_code"></td>
@@ -135,7 +135,7 @@ const first_setting = {
                 $(`.row_master_${id_number} > td > .inp_bill_to`).val(bill_to_c).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_code`).val(billing_des_name).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_currency`).val(currency).attr('disabled',true)
-                $(`.row_master_${id_number} > td > .inp_amt_incv`).val(data_amt_incv).attr('disabled',true)
+                $(`.row_master_${id_number} > td > .inp_amt_incv`).val(amtinclvat).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_rate`).val(sys_rate).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_currency_can`).val(sys_rate_currency).attr('disabled',true)
                 $(`.row_master_${id_number} > td > .inp_amt_incv_can`).val(data_amt_incv_exchange_rate).attr('disabled',true)

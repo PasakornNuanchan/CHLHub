@@ -1503,6 +1503,7 @@ const function_sub_billing = {
             let amt_inc_vat_ap = $('.inp_amt_inc_vat_ap').val()
             let check = $('.chb_check', this).is(':checked') ? '1' : '0';
             let apply = $('.chb_apply', this).is(':checked') ? '1' : '0';
+            let amt_incv = $('.inp_amt_inc_vat_ar',this).val()
 
             // case has id_list
             if (get_id_list != undefined) {
@@ -1522,7 +1523,7 @@ const function_sub_billing = {
                         let check_apply = v['action_paid_by'] ? 1 : 0;
                         let check_check = v['check_by'] ? 1 : 0;
                         let check_tax_with_hole = v['tax_with_hold_by'] ? 1 : 0;
-
+                        
                         if (description_code == check_description &&
                             billing_to == check_billing_to &&
                             billing_to_type == check_billing_to_type &&
@@ -1535,7 +1536,7 @@ const function_sub_billing = {
                             commit_sale == check_commit_sale &&
                             check_apply == apply &&
                             check_check == check &&
-                            check_tax_with_hole == tax_with_hold
+                            check_tax_with_hole == tax_with_hold 
                         ) {
 
                         } else {
@@ -1558,6 +1559,7 @@ const function_sub_billing = {
                                 check: check,
                                 apply: apply,
                                 id_number: id_number,
+                                amt_incv : amt_incv,
                             }
                             arr_data_save_ap.push(obj)
                         }
@@ -1581,6 +1583,7 @@ const function_sub_billing = {
                     check: check,
                     apply: apply,
                     id_number: id_number,
+                    amt_incv : amt_incv,
                 }
                 arr_data_save_ap.push(obj)
             }
@@ -1604,7 +1607,7 @@ const function_sub_billing = {
             let need_vat = $('.ch_need_vat_ar', this).is(':checked') ? '1' : '0';
             let tax_with_hold = $('.inp_wt_percentage', this).val();
             let check = $('.ch_check_ar', this).is(':checked') ? '1' : '0';
-
+            let amt_incv = $('.inp_amt_inc_vat_ar',this).val()
             
 
             // case has id_list
@@ -1662,6 +1665,7 @@ const function_sub_billing = {
                                 receiv_amt: receiv_amt,
                                 need_vat: need_vat,
                                 id_number: id_number,
+                                amt_incv:amt_incv,
                             }
                             arr_data_save_ar.push(obj)
                         }
@@ -1684,6 +1688,7 @@ const function_sub_billing = {
                     receiv_amt: receiv_amt,
                     need_vat: need_vat,
                     id_number: id_number,
+                    amt_incv:amt_incv,
                 }
                 
                 arr_data_save_ar.push(obj)

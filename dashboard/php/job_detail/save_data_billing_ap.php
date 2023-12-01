@@ -25,6 +25,7 @@ if($arr_data_save_ap != ''){
         $check = isset($v['check']) ? $v['check'] : '';
         $apply = isset($v['apply']) ? $v['apply'] : '';
         $id_number = isset($v['id_number']) ? $v['id_number'] : '';
+        $amt_incv = isset($v['amt_incv']) ? $v['amt_incv'] : '';
     
     
         $receiv_amt = isset($v['receiv_amt']) ? $v['receiv_amt'] : '';
@@ -71,6 +72,7 @@ if($arr_data_save_ap != ''){
                 `vat` = '$vat',
                 `remark` = '$remark',
                 `type` = 'AP',
+                `amtinclvat` = '$amt_incv',
                 $query_apply
                 $query_check
                 $query_status
@@ -191,7 +193,7 @@ if($arr_data_save_ar != ''){
         $check = isset($v['check']) ? $v['check'] : '';
         $id_number = isset($v['id_number']) ? $v['id_number'] : '';
     
-    
+        $amt_incv = isset($v['amt_incv']) ? $v['amt_incv'] : '';
         $receiv_amt = isset($v['receiv_amt']) ? $v['receiv_amt'] : '';
         $need_vat = isset($v['need_vat']) ? $v['need_vat'] : '';
     
@@ -245,6 +247,7 @@ if($arr_data_save_ar != ''){
                 `vat` = '$vat',
                 `remark` = '$remark',
                 `type` = 'AR',
+                `amtinclvat` = '$amt_incv',
                 $query_receiv
                 $query_check
                 $query_status

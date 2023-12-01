@@ -41,23 +41,7 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-    .table_data_account td:nth-child(1) ,
-    .table_data_account td:nth-child(2) ,
-    .table_data_account td:nth-child(3) ,
-    .table_data_account td:nth-child(4) ,
-    .table_data_account td:nth-child(5) ,
-    .table_data_account td:nth-child(6) ,
-    .table_data_account td:nth-child(7) ,
-    .table_data_account td:nth-child(8) ,
-    .table_data_account td:nth-child(9) ,
-    .table_data_account td:nth-child(10) ,
-    .table_data_account td:nth-child(11) ,
-    .table_data_account td:nth-child(12) ,
-    .table_data_account td:nth-child(13) ,
-    .table_data_account td:nth-child(14) {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
+   
 
    
 
@@ -74,6 +58,26 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(13) input
     {
         width: 240px;
+    }
+
+
+    .table_data_account td:nth-child(1) ,
+    .table_data_account td:nth-child(2) ,
+    .table_data_account td:nth-child(3) ,
+    .table_data_account td:nth-child(4) ,
+    .table_data_account td:nth-child(5) ,
+    .table_data_account td:nth-child(6) ,
+    .table_data_account td:nth-child(7) ,
+    .table_data_account td:nth-child(8) ,
+    .table_data_account td:nth-child(9) ,
+    .table_data_account td:nth-child(10) ,
+    .table_data_account td:nth-child(11) ,
+    .table_data_account td:nth-child(12) ,
+    .table_data_account td:nth-child(13) ,
+    .table_data_account td:nth-child(14) {
+        padding-left: 2px;
+        padding-right: 2px;
+        
     }
 </style>
 
@@ -158,8 +162,8 @@ require 'function/auth/get_session.php';
                                     <th>Code</th>
                                     <th>Currency</th>
                                     <th>AMT.INCV</th>
-                                    <th>exchange rate</th>
-                                    <th>currency cancle</th>
+                                    <th>Unliquidation <br> amount</th>
+                                    <th>Write-off</th>
                                     <th>AMT INCV cancle</th>
                                     <th>Remark</th>
                                     <th>create by</th>
@@ -215,7 +219,6 @@ require 'function/auth/get_session.php';
                                     <td class="text-center"><input type="text" class="form-control form-control inp_create_datetime"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_sale"></td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
