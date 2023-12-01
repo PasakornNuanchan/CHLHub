@@ -1941,10 +1941,10 @@ require 'function/auth/get_session.php';
                                         </div>
                                     </div>
                                     <div class="text-end">
-                                        <button class="btn btn-success btn-sm rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
-                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_telex_line()">Telex release BL</button>
-                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl()">Generate BL</button>
-                                        <button class="btn btn-outline-primary btn-sm" onclick="function_sub_bl.generate_bl_line()">Generate BL With line</button>
+                                        <button class="btn btn-success btn-sm rounded " onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
+                                        <button class="btn btn-outline-primary btn-sm " onclick="function_sub_bl.generate_telex_line()">Telex release BL</button>
+                                        <button class="btn btn-outline-primary btn-sm " onclick="function_sub_bl.generate_bl()">Generate BL</button>
+                                        <button class="btn btn-outline-primary btn-sm " onclick="function_sub_bl.generate_bl_line()">Generate BL With line</button>
                                     </div>
                                 </div>
                             </div>
@@ -1965,10 +1965,10 @@ require 'function/auth/get_session.php';
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
                                     <div class="text-end">
-                                        <button class="btn btn-success rounded btn_save_all_billing text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
-                                        <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
+                                        <button class="btn btn-success rounded m-1 btn_save_all_billing text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
                                     </div>
                                 </div>
                             </div>
@@ -2138,12 +2138,12 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6">
                                 <div class="text-end">
-                                    <button class="btn btn-success btn_save_all_billing rounded" onclick="function_sub_bl.get_save_data()"><i class="bi bi-save"></i> save</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
-                                    <button class="btn btn-outline-primary rounded text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
+                                <button class="btn btn-success rounded btn_save_all_billing m-1 text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
 
                                 </div>
                             </div>

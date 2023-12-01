@@ -30,6 +30,8 @@ if ($arr_data[0]['data_status'] != '') {
     $st_4 = isset($v['st_4']) ? $v['st_4'] : '';
     $st_5 = isset($v['st_5']) ? $v['st_5'] : '';
     $st_6 = isset($v['st_6']) ? $v['st_6'] : '';
+    $st_7 = isset($v['st_7']) ? $v['st_7'] : '';
+    $st_8 = isset($v['st_8']) ? $v['st_8'] : '';
 
 
     $search_action_status = "";
@@ -37,7 +39,7 @@ if ($arr_data[0]['data_status'] != '') {
     $search_action_status_check = "";
     $search_action_status_paid = "";
     $search_action_status_approve = "";
-
+    $data_reach_pre_approve = "";
 
 
     
@@ -76,6 +78,17 @@ if ($arr_data[0]['data_status'] != '') {
 
     if ($st_6 == '1') {
       $search_action_status =  "AND status = '3' ";
+    }
+
+    if ($st_8 == '1') {
+      $data_reach_pre_approve =  "AND b.pre_approve_status = '1' ";
+    }
+
+    if($st_7 == '1'){
+      $search_action_status_check = '';
+      $search_action_status_paid = '';
+      $search_action_status_approve = '';
+      $search_action_status = '';
     }
 
 
@@ -190,7 +203,8 @@ if ($arr_data[0]['data_status'] != '') {
         b.with_holding_tax,
         b.paid_amt,
         b.approve_by,
-        b.approve_date_time
+        b.approve_date_time,
+        b.pre_approve_status
     FROM
         `billing` b
         LEFT JOIN job_title jt ON jt.ID = b.ref_job_id
@@ -209,6 +223,7 @@ if ($arr_data[0]['data_status'] != '') {
         $search_action_status_check
         $search_action_status_paid
         $search_action_status_approve
+        $data_reach_pre_approve
         $search_action_status
     GROUP BY
       b.ID
@@ -283,7 +298,8 @@ if ($arr_data[0]['data_status'] != '') {
       b.with_holding_tax,
       b.paid_amt,
       b.approve_by,
-      b.approve_date_time
+      b.approve_date_time,
+      b.pre_approve_status
     FROM
       `billing` b
       LEFT JOIN job_title jt ON jt.ID = b.ref_job_id

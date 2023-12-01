@@ -1500,6 +1500,7 @@ const function_sub_billing = {
             let remark = $('.inp_remark_ap', this).val()
             let commit_sale = $('.inp_commit', this).val()
             let tax_with_hold = $('.chb_tax_hold', this).val()
+            let amt_inc_vat_ap = $('.inp_amt_inc_vat_ap').val()
             let check = $('.chb_check', this).is(':checked') ? '1' : '0';
             let apply = $('.chb_apply', this).is(':checked') ? '1' : '0';
 

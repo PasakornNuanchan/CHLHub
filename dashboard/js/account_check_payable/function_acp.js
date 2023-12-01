@@ -193,5 +193,159 @@ const function_acp = {
             });
         });
     },
+
+
+
+    get_data_show_expen : async function(){
+        let a = $('.table_data_account > tbody > tr')
+        $.each(a,function(){
+
+            let checked_data = $(this).closest('tr').find('.cbx_sel').prop('checked') ? '1' : '0';
+            if(checked_data == '1'){
+                let id_number = $(this).attr('id_number')
+
+            }
+
+            
+        })
+    },
+
+
+    modal_check_data : async function(){
+
+        if ($('#pcad_modal').length >= 1) {
+            $('#pcad_modal').remove()
+        }
+
+        html = `
+        <div class="modal fade" id="pcad_modal" >
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style="width:100%; height:100%;">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Expense Processing</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="m-1 p-2 c_modal_button">
+                        <button class="btn btn-sm btn-outline-primary">Confirm</button>
+                        <button class="btn btn-sm btn-outline-primary" disabled>Print</button>
+                        <button class="btn btn-sm btn-outline-primary" disabled>Print format setting</button>
+                    </div>
+                    <div class="m1 p-2 c_modal_data_detail">
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="table-responsive ">
+                        <table id="basic-table" class="table table-hover " name="billing-ap-tbl" role="grid" style="border-radius: 12px;">
+                            <thead>
+                                <tr class="text-center bg-gradient" style="background-color :#0D47A1; color :aliceblue;">
+                                    <th>No</th>
+                                    <th>OK</th>
+                                    <th>Job number</th>
+                                    <th>Stauts</th>
+                                    <th>Currency</th>
+                                    <th>remark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+            
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="billing_ap.import_save_data()">import</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+        $('body').append(html)
+        $('#pcad_modal').modal('show')
+    },
 }
 

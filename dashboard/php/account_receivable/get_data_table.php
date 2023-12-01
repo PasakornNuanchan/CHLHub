@@ -30,6 +30,8 @@ if ($arr_data[0]['data_status'] != '') {
     $st_4 = isset($v['st_4']) ? $v['st_4'] : '';
     $st_5 = isset($v['st_5']) ? $v['st_5'] : '';
     $st_6 = isset($v['st_6']) ? $v['st_6'] : '';
+    $st_7 = isset($v['st_7']) ? $v['st_7'] : '';
+    $st_8 = isset($v['st_8']) ? $v['st_8'] : '';
     
 
     $bill_to = $type_bill_to_serach != '' ? "AND b.bill_to_type = '$type_bill_to_serach' AND b.bill_to = '$data_bill_to_serach' " : '';
@@ -56,7 +58,7 @@ if ($arr_data[0]['data_status'] != '') {
     $search_action_status_check = "";
     $search_action_status_paid = "";
     $search_action_status_approve = "";
-
+    $data_reach_pre_approve = "";
     if ($st_1 == '1') {
       $having_data = "HAVING
         billing_payment_check IS NULL";
@@ -97,6 +99,18 @@ if ($arr_data[0]['data_status'] != '') {
       $search_action_status =  "AND status = '3' ";
     }
 
+    if ($st_7 == '1') {
+      // $search_action_status =  "AND status = '3' ";
+      $search_action_status = "";
+      $search_action_status_check = "";
+      $search_action_status_paid = "";
+      $search_action_status_approve = "";
+      $having_data = "";
+    }
+
+    if ($st_8 == '1') {
+      $data_reach_pre_approve =  "AND b.pre_approve_status = '1' ";
+    }
 
     // $check_create = $data_checked_create == '1' ? "AND b.create_data_time IS NOT NULL" : "AND b.create_data_time IS NULL";
     // $check_checked = $data_checked_check == '1' ? "AND b.check_date_time IS NOT NULL" : "AND b.check_date_time IS NULL";
@@ -159,7 +173,8 @@ if ($arr_data[0]['data_status'] != '') {
         b.with_holding_tax,
         b.paid_amt,
         b.approve_by,
-        b.approve_date_time
+        b.approve_date_time,
+        b.pre_approve_status
     FROM
         `billing` b
         LEFT JOIN job_title jt ON jt.ID = b.ref_job_id
@@ -178,6 +193,7 @@ if ($arr_data[0]['data_status'] != '') {
         $search_action_status
         $search_action_status_check
         $search_action_status_paid
+        $data_reach_pre_approve
         $search_action_status_approve
     GROUP BY
       b.ID
@@ -248,18 +264,17 @@ if ($arr_data[0]['data_status'] != '') {
   b.with_holding_tax,
   b.paid_amt,
   b.approve_by,
-  b.approve_date_time
+  b.approve_date_time,
+  b.pre_approve_status
 FROM
   `billing` b
   LEFT JOIN job_title jt ON jt.ID = b.ref_job_id
   LEFT JOIN container c1 ON b.ref_job_id = c1.ref_job_id
   LEFT JOIN bl_title bl ON b.ref_job_id = bl.ref_job_id
 WHERE
-  b.type = 'AR' AND status != '3'
+  b.type = 'AR' 
 GROUP BY
 b.ID
-HAVING
-        billing_payment_check IS NULL
       ";
 
   $result = $con->query($sql_query_data);

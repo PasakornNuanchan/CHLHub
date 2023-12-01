@@ -1,6 +1,7 @@
 const setting_first = {
 
     get_res_data_table : '',
+    data_in_table : '',
     first_set: async function (e) {
 
         if(e == undefined){
@@ -18,32 +19,18 @@ const setting_first = {
         if(e == undefined){
             res_data = await this.ajax_first_set();
             this.get_res_data_table = res_data['table'];
-            $('.sel_st_1').prop('checked',true)
+            $('.input_first').prop('checked',true)
         }else{
             res_data = e;
         }
         
-        //console.log(res_data)
-        
+        console.log(res_data)
+        this.data_in_table = res_data;
         
 
         $('.table_data_account tbody').html('')
 
-            let currency_thb = 0;        
-            let currency_usd = 0;
-            let currency_rmb = 0;
-            let currency_hkd = 0; 
-
-            let check_thb = 0;        
-            let check_usd = 0;
-            let check_rmb = 0;
-            let check_hkd = 0; 
-
-            let paid_thb = 0;
-            let paid_usd = 0;
-            let paid_rmb = 0;
-            let paid_hkd = 0;
-
+        
         
         if (res_data['table'] != "0 results") {
             let html_append_data = '';
@@ -78,6 +65,7 @@ const setting_first = {
                 let approve_by = v['approve_by'] ? v['approve_by'] : '';
                 let approve_datetime = v['approve_date_time'] ? v['approve_date_time'] : '';
                 let billing_payment_check = v['billing_payment_check'] ? v['billing_payment_check'] : '';
+                let pre_approve_status = v['pre_approve_status'] ? v['pre_approve_status'] : '';
                 let ap_amt_incvat_cal = 0;
                 
                 let ap_amt = qty * unit_price;
@@ -96,68 +84,13 @@ const setting_first = {
                     ap_amt_incvat = ap_amt + tax_exc;
                     ap_amt_incvat_cal =ap_amt_incvat
                 }
-
+                // console.log(status_data)
                 
+
                 cal_vat = cal_vat.toFixed(2)
                 ap_amt_incvat = ap_amt_incvat.toFixed(2)
-                // let ap_amt_incvat = (ap_amt*(vat/100));
-                // let ap_cal_wh = (ap_amt*(with_holding_tax/100))
-                // let ap_amtincv = ap_amt + ap_amt_incvat - ap_cal_wh
-                // let amt_cal = parseFloat(qty) * parseFloat(unit_price);
-                // let ap_amt_incvat_cal = parseFloat(amt_cal*parseFloat(vat/100))+amt_cal
+          
                 
-        
-                
-                if(approve_datetime != ""){
-
-
-                    if(currency == "THB"){
-                        paid_thb = paid_thb + ap_amt_incvat_cal
-                    }
-                    if(currency == "USD"){
-                        paid_usd = paid_usd + ap_amt_incvat_cal
-                    }
-                    if(currency == "RMB"){
-                        paid_rmb = paid_rmb + ap_amt_incvat_cal
-                    }
-                    if(currency == "HKD"){
-                        paid_hkd = paid_hkd + ap_amt_incvat_cal
-                    }
-                }
-
-                if(check_date_time == ""){
-
-                    if(currency == "THB"){
-                        check_thb = check_thb + ap_amt_incvat_cal
-                    }
-                    if(currency == "USD"){
-                        check_usd = check_usd + ap_amt_incvat_cal
-                    }
-                    if(currency == "RMB"){
-                        check_rmb = check_rmb + ap_amt_incvat_cal
-                    }
-                    if(currency == "HKD"){
-                        check_hkd = check_hkd + ap_amt_incvat_cal
-                    }
-                }
-
-                if(currency == "THB"){
-                    currency_thb = currency_thb + ap_amt_incvat_cal
-                }
-                if(currency == "USD"){
-                    currency_usd = currency_usd + ap_amt_incvat_cal
-                }
-                if(currency == "RMB"){
-                    currency_rmb = currency_rmb + ap_amt_incvat_cal
-                }
-                if(currency == "HKD"){
-                    currency_hkd = currency_hkd + ap_amt_incvat_cal
-                }
-
-
-
-
-                // <td><input type="checkbox" class="form-input-check chx_select_data"></td>
                 html_append_data = `
                 <tr class="text-center data_id${id_number}" data_id = "${id_number}">
                     <td>${i}</td>
@@ -172,14 +105,16 @@ const setting_first = {
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-center" value="${with_holding_tax_show}" disabled> </td>                                    WH%
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end inp_ap_amt_incvat" value="${ap_amt_incvat}" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm text-end inp_payment"></td>
+                    <td class="text-center"><input type="checkbox" class="form-input-check tb_pre_app"  style="zoom:200%"></td>
                     <td class="text-center">
-                        <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1" onclick="ap_function.select_approve(this)" checked="">
-                        <label for="radio1" class="form-check-label pl-2">Waiting</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_2" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" onclick="ap_function.select_approve(this)">
-                        <label for="radio2" class="form-check-label pl-2">Approve</label>
-                        <input type="radio" class="form-check-input data_sela data_sela_3" name="bsradio1_${id_number}" id="radio3_${id_number}" name_data="3" onclick="ap_function.select_approve(this)">
-                        <label for="radio3" class="form-check-label pl-2">Reject</label>
-                    </td>                              
+                        <input type="radio" class="form-check-input data_sela data_sela_1" style="zoom:150%" name="bsradio1_${id_number}" id="radio1_${id_number}" name_data="1"  checked="">
+                        <label for="radio1" class="form-check-label pl-2" style="zoom:150%">Waiting</label>
+                        <input type="radio" class="form-check-input data_sela data_sela_2" style="zoom:150%" name="bsradio1_${id_number}" id="radio2_${id_number}" name_data="2" >
+                        <label for="radio2" class="form-check-label pl-2" style="zoom:150%">Approve</label>
+                        <input type="radio" class="form-check-input data_sela data_sela_3" style="zoom:150%" name="bsradio1_${id_number}" id="radio3_${id_number}" name_data="3" >
+                        <label for="radio3" class="form-check-label pl-2" style="zoom:150%">Reject</label>
+                    </td>                         
+                    <td class="text-center"><input type="text" class="form-control form-control-sm text-end" value="" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${remark}" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${cs_support_name}" disabled></td>
                     <td class="text-center"><input type="text" class="form-control form-control form-control-sm" value="${sale_support_name}" disabled></td>
@@ -199,6 +134,8 @@ const setting_first = {
 
                 $('.table_data_account tbody').append(html_append_data)
 
+                pre_approve_status == '1' ? $(`.data_id${id_number} > td > .tb_pre_app`).prop('checked',true) : '';
+
 
                 if(billing_payment_check != ''){
                     $(`.data_id${id_number} > td >.inp_payment`).val(ap_amt_incvat).attr('disabled',true)
@@ -213,11 +150,9 @@ const setting_first = {
                 
                 if(status_data == '2'){
                     $(`.data_id${id_number} > td > .data_sela_2`).prop('checked',true)
-                    
-                    
                 }else if(status_data == '3'){
                     $(`.data_id${id_number} > td > .data_sela_3`).prop('checked',true)
-                }else{
+                }else if(status_data == '1'){
                     $(`.data_id${id_number} > td > .data_sela_1`).prop('checked',true)
                 }
 
@@ -237,45 +172,14 @@ const setting_first = {
 
                 }
 
-                if(status_data == '2'){
-                    $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
-                }
+                // if(status_data == '2'){
+                    // $(`.data_id${id_number} > td > .data_sela`).attr('disabled',true)
+                // }
             })
         }
-        currency_thb = currency_thb.toFixed(2)
-        currency_usd = currency_usd.toFixed(2)
-        currency_rmb = currency_rmb.toFixed(2)
-        currency_hkd = currency_hkd.toFixed(2)
-        $('.total_payble_usd').val(currency_usd)
-        $('.total_payble_thb').val(currency_thb)
-        $('.total_payble_rmb').val(currency_rmb)
-        $('.total_payble_hkd').val(currency_hkd)
 
-
-        check_thb = check_thb.toFixed(2)
-        check_usd = check_usd.toFixed(2)
-        check_rmb = check_rmb.toFixed(2)
-        check_hkd = check_hkd.toFixed(2)
-        $('.verfied_usd').val(check_usd)               
-        $('.verfied_thb').val(check_thb)           
-        $('.verfied_rmb').val(check_rmb)           
-        $('.verfied_hkd').val(check_hkd)    
-
-
-        paid_thb = paid_thb.toFixed(2)
-        paid_usd = paid_usd.toFixed(2)
-        paid_rmb = paid_rmb.toFixed(2)
-        paid_hkd = paid_hkd.toFixed(2)        
+        this.cal_total();
         
-        $('.inp_paid_thb').val(paid_thb)        
-        $('.inp_paid_usd').val(paid_usd)
-        $('.inp_paid_rmb').val(paid_rmb)
-        $('.inp_paid_hkd').val(paid_hkd)
-
-        
-        
-        
-        // console.log(res_data['table'])
     },
 
     ajax_first_set: async function () {
@@ -290,6 +194,69 @@ const setting_first = {
             });
         });
     },
+
+    cal_total : async function (){
+        let e = $('.table_data_account > tbody > tr')
+
+        let data_total_usd = 0;
+        let data_total_thb = 0;
+        let data_total_rmb = 0;
+        let data_total_hkd = 0;
+        let data_approve_usd = 0;
+        let data_approve_thb = 0;
+        let data_approve_rmb = 0;
+        let data_approve_hkd = 0;
+
+        $.each(e,function(){
+            let id_number = $(this).attr('data_id')
+            let currency = $(this).find('.inp_currency').val()
+            let inp_ap_amt_incvat = parseFloat($(this).find('.inp_ap_amt_incvat').val())
+            let data_check1 = $(this).find(`#radio1_${id_number}`).is(":checked") ? '1' : '0';
+            let data_check2 = $(this).find(`#radio2_${id_number}`).is(":checked") ? '1' : '0';
+            let data_check3 = $(this).find(`#radio3_${id_number}`).is(":checked") ? '1' : '0';
+        
+        
+            if(data_check1 == "1"){
+                if(currency == "THB"){
+                    data_total_thb = data_total_thb + inp_ap_amt_incvat;
+                }else if(currency == "USD"){
+                    data_total_usd = data_total_usd + inp_ap_amt_incvat;
+                }else if(currency == "RMB"){
+                    data_total_rmb = data_total_rmb + inp_ap_amt_incvat;
+                }else if(currency == "HKD"){
+                    data_total_hkd = data_total_hkd + inp_ap_amt_incvat;
+                }
+            }else if(data_check2 == "1"){
+                if(currency == "THB"){
+                    data_approve_thb = data_approve_thb + inp_ap_amt_incvat;
+                }else if(currency == "USD"){
+                    data_approve_usd = data_approve_usd + inp_ap_amt_incvat;
+                }else if(currency == "RMB"){
+                    data_approve_rmb = data_approve_rmb + inp_ap_amt_incvat;
+                }else if(currency == "HKD"){
+                    data_approve_hkd = data_approve_hkd + inp_ap_amt_incvat;
+                }
+            }
+        })
+
+        data_total_usd = data_total_usd.toFixed(2)
+        data_total_thb = data_total_thb.toFixed(2)
+        data_total_rmb = data_total_rmb.toFixed(2)
+        data_total_hkd = data_total_hkd.toFixed(2)
+        data_approve_usd = data_approve_usd.toFixed(2)
+        data_approve_thb = data_approve_thb.toFixed(2)
+        data_approve_rmb = data_approve_rmb.toFixed(2)
+        data_approve_hkd = data_approve_hkd.toFixed(2)
+
+        $('.total_payble_usd').val(data_total_usd)
+        $('.total_payble_thb').val(data_total_thb)
+        $('.total_payble_rmb').val(data_total_rmb)
+        $('.total_payble_hkd').val(data_total_hkd)
+        $('.verfied_usd').val(data_approve_usd)
+        $('.verfied_thb').val(data_approve_thb)
+        $('.verfied_rmb').val(data_approve_rmb)
+        $('.verfied_hkd').val(data_approve_hkd)
+    }
 
 
 }

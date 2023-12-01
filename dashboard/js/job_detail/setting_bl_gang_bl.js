@@ -31,7 +31,7 @@ const sub_gang_bl = {
                 let id_data = v['ID'] ? v['ID'] : '';
 
                 html_data_pill = `
-            <div class="tab-pane fade bl_tab_target bl_page_old" id="bl_tab_target${v['ID']}" bl_number="${id_data}" role="tabpanel" aria-labelledby="bl_tab${v['ID']}">
+            <div class="tab-pane fade bl_tab_target bl_page_old" id="bl_tab_target${v['ID']}" bl_number="${id_data}" role="tabpanel" aria-labelledby="bl_tab${v['ID']}" style="zoom:80%">
                 <div class="row">
                 <div class=" col-xl-7 col-lg-7">
                     <div class="card p-4">

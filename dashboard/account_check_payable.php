@@ -14,8 +14,17 @@ require 'function/auth/get_session.php';
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<style>
+.modal-backdrop {
+        width: 100%;
+        height: 100%;
+    }
 
-
+    .modal-dialog { 
+    max-width : 80% ;
+    }
+</style>
+    
 
 
 </head>
@@ -135,27 +144,6 @@ require 'function/auth/get_session.php';
 
                     <div class="bd-example mt-3">
                         <div class="row g-3">
-                            
-                            <!-- <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Total</label>
-                                <input type="text" class="form-control form-control-sm inp_total">
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Date End 结束日期</label>
-                                <input type="date" class="form-control form-control-sm inp_end_date">
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">Sale support 业务员</label>
-                                <input type="text" class="form-control form-control-sm inp_sale" list="sale_support_list">
-                                <datalist class="sale_support_data_option" id="sale_support_list">
-                                </datalist>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                <label class="form-label">CS support 操作员</label>
-                                <input type="text" class="form-control form-control-sm inp_cs" list="cs_support_list">
-                                <datalist class="cs_support_data_option" id="cs_support_list">
-                                </datalist>
-                            </div> -->
                             <button class="btn btn-outline-primary btn-sm" onclick="function_acp.filter_select();"><i class="bi bi-search"></i> search</button>
                         </div>
                     </div>
@@ -233,8 +221,9 @@ require 'function/auth/get_session.php';
                     </div>
 
                     <div class="text-start">
-                        <button class="btn btn-sm btn-outline-success" onclick="function_acp.select_all('1')">Checked All 全选</button>
-                        <button class="btn btn-sm btn-outline-warning" onclick="function_acp.select_all('2')">deselect all 全不选</button>
+                        <button class="btn btn-sm btn-outline-success" onclick="function_acp.get_data_show_expen()">Preview Expenses</button>
+                        <!-- <button class="btn btn-sm btn-outline-success" onclick="function_acp.select_all('1')">Checked All 全选</button> -->
+                        <!-- <button class="btn btn-sm btn-outline-warning" onclick="function_acp.select_all('2')">deselect all 全不选</button> -->
                         <!-- <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button> -->
                         <!-- <button class="btn btn-sm btn-outline-danger" onclick="ap_function.select_action_table('reject')" >Reject only select</button> -->
                     </div>
@@ -278,87 +267,9 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="form-group row text-center">
-                            <label class="col-xl-2">Verified Total Payables 应付已审合计：</label>
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>USD</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm verfied_usd text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>THB</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm verfied_thb text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>RMB</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm verfied_rmb text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>HKD</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm verfied_hkd text-end" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row text-center">
-                            <label class="col-xl-2">Total Payment Requests 付款申请合计：</label>
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>USD</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm inp_paid_usd text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>THB</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm inp_paid_thb text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>RMB</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm inp_paid_rmb text-end" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-sm-12 col-sx-12 row">
-                                <div class="col-xs-2 col-sm-2 col-xl-2">
-                                    <label>HKD</label>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-xl-10">
-                                    <input type="text" class="form-control form-control-sm inp_paid_hkd text-end" disabled>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
-
-
         </div>
 
 

@@ -26,10 +26,6 @@ const first_setting = {
             $('.table_data_account tbody').html('')
             let html_data_tr = '';
 
-
-
-            
-
             $.each(res_data['table'],function(i,v){
                 let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
                 let consginee_tel = v['consginee_tel'] ? v['consginee_tel'] : '';

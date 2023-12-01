@@ -1,20 +1,26 @@
 const ar_function = {
 
     select_data : async function(e){
-        if(e == '6'){
+        if(e == '6'){ //reject
             $('.sel_st_1').prop('checked',false)
             $('.sel_st_2').prop('checked',false)
             $('.sel_st_3').prop('checked',false)
             $('.sel_st_4').prop('checked',false)
             $('.sel_st_5').prop('checked',false)
-        }else if(e == '1'){
+        }else if(e == '1'){ // unpaid
             $('.sel_st_5').prop('checked',false)  
             $('.sel_st_6').prop('checked',false)  
-        }else if(e == '5'){
+            $('.sel_st_7').prop('checked',false)  
+        }else if(e == '5'){ // paid
             $('.sel_st_1').prop('checked',false)  
             $('.sel_st_6').prop('checked',false)  
+            $('.sel_st_7').prop('checked',false) 
+            
+       
+
         }else if(e == '2' || e == '3' | e == '4'){
             $('.sel_st_6').prop('checked',false)  
+            $('.sel_st_7').prop('checked',false)  
         }
     },
 
@@ -40,6 +46,8 @@ const ar_function = {
         let st_4 = $('.sel_st_4').prop('checked') ? '1' : '0';
         let st_5 = $('.sel_st_5').prop('checked') ? '1' : '0';
         let st_6 = $('.sel_st_6').prop('checked') ? '1' : '0';
+        let st_7 = $('.sel_st_7').prop('checked') ? '1' : '0';
+        let st_8 = $('.sel_st_8').prop('checked') ? '1' : '0';
 
         let sale_data_search = $(`#sale_support_list option[value="${data_sale}"]`).attr('id_number')
         let cs_data_search = $(`#cs_support_list option[value="${data_cs}"]`).attr('id_number')
@@ -72,6 +80,8 @@ const ar_function = {
             st_4 : st_4,
             st_5 : st_5,
             st_6 : st_6,
+            st_7 : st_7,
+            st_8 : st_8,
         }
         arr_data.push(obj_data)
 
@@ -115,6 +125,9 @@ const ar_function = {
                 let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
                 let create_date = v['create_date'] ? v['create_date'] : '';
                 let status_data = v['status'] ? v['status'] : '';
+                let pre_approve_status = v['pre_approve_status'] ? v['pre_approve_status'] : '';
+
+
                 let ap_amt = qty * unit_price;
                 let ap_amt_incvat = (ap_amt * (vat / 100)) + ap_amt;
                 let amt_cal = parseFloat(qty) * parseFloat(unit_price);
@@ -156,6 +169,7 @@ const ar_function = {
                     <td><input type="text" class="form-control form-control form-control-sm text-end" value="${with_holding_tax_show}" disabled> </td>                                    WH%
                     <td><input type="text" class="form-control form-control form-control-sm text-end inp_ap_amt_incvat" value="${ap_amt_incvat}" disabled></td>
                     <td><input type="text" class="form-control form-control form-control-sm"></td>
+                    <td><input type="checkbox" class="form-input-check tb_pre_app" onclick="ar_function.pre_approve(this)" style="zoom:200%"></td>
                     <td>
                         <input type="radio" class="form-check-input data_sela data_sela_1" name="bsradio1_${id_number}" id="radio1" name_data="1" checked="">
                         <label for="radio1" class="form-check-label pl-2">Waiting</label>
@@ -182,6 +196,10 @@ const ar_function = {
                 `;
 
                 $('.table_data_account tbody').append(html_append_data)
+
+                if(pre_approve_status == '1'){
+                    $(`.data_id${id_number} > td > .tb_pre_app`).prop('checked',true)
+                }
 
                 if (action_paid_by != '') {
                     $(`.data_id${id_number} > td >.tb_in_tb`).prop('checked', true)
@@ -372,6 +390,78 @@ const ar_function = {
                 type: "post",
                 url: "php/account_receivable/set_status.php",
                 data: { arr_data_sent : arr_data_sent},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    pre_approve : async function(e){
+        let data_id = $(e).closest('tr').attr('data_id')
+        // console.log(setting_first.data_in_table['data'])
+
+        // console.log(data_id)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, got it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let checked_data = $(e).prop('checked') ? 1 : 0;
+                let res_data = await this.ajax_update_pre_approve(data_id,checked_data)
+                
+                if (res_data['res_arr'] == '1') {
+                    Swal.fire(
+                        'Save it!',
+                        'Your file has been save.',
+                        'success'
+                    )
+
+                    $.each(setting_first.data_in_table['table'],function(i,v){
+                        if(v['ID'] == data_id){
+                            v['pre_approve_status'] = checked_data
+                            return;
+                        }
+                    })
+
+                    console.log(setting_first.data_in_table)
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data is problem pls. contact to tech team',
+                    })
+                }
+            }else{
+                let data_old = '';
+                $.each(setting_first.data_in_table['table'],function(i,v){
+                    if(v['ID'] == data_id){
+                        data_old = v
+                        return;
+                    }
+                })
+                if(data_old['pre_approve_status'] == '1'){
+                    $(e).prop('checked',true)
+                }else{
+                    $(e).prop('checked',false)
+                }
+            }
+        })
+    },
+
+    ajax_update_pre_approve : async function (data_id,checked_data) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payable/set_pre_approve.php",
+                data: { data_id: data_id,
+                    checked_data: checked_data },
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
