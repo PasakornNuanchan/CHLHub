@@ -218,16 +218,16 @@ const function_acp = {
                 arr_data.push(obj_data)
             }
         })
+        await this.modal_check_data(arr_data)
 
-        if(arr_data != ''){
-            await this.modal_check_data(arr_data)
-        }else{
-            Swal.fire({
-                title: "error!",
-                text: "Please select expenses ",
-                icon: "error"
-            });
-        }
+        // if(arr_data != ''){
+        // }else{
+        //     Swal.fire({
+        //         title: "error!",
+        //         text: "Please select expenses ",
+        //         icon: "error"
+        //     });
+        // }
     },
 
 
@@ -276,81 +276,78 @@ const function_acp = {
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Payment system number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Cashing</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Bank Chg.</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Offset</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                             </div>
                             <div class="col-xl-4">
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Cust Code</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Cust inv no.</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Amount</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>Offset AMT</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                             </div>
                             <div class="col-xl-4">
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>???</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
                                 <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
+                                    <div class="col-lg-6 col-md-6 text-center"><label>prepare</label></div>
                                     <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
                                 </div>
-                                <div class="row m-1">
-                                    <div class="col-lg-6 col-md-6 text-center"><label>Document Number</label></div>
-                                    <div class="col-lg-6 col-md-6 text-center"><input type="text" class="form-control form-control-sm"></div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -365,13 +362,21 @@ const function_acp = {
                                     <th>No</th>
                                     <th>OK</th>
                                     <th>Job number</th>
-                                    <th>Stauts</th>
-                                    <th>Currency</th>
-                                    <th>remark</th>
+                                    <th>Fee</th>
+                                    <th>Settlement</th>
+                                    <th>Curr.</th>
+                                    <th>AP/AR Total</th>
+                                    <th>Outstanding</th>
+                                    <th>Settlement</th>
+                                    <th>Actual ex.rate</th>
+                                    <th>Actual currency</th>
+                                    <th>Curr.</th>
+                                    <th>Annotated</th>
+                                    <th>Vat%</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            ${html_data_detail_list}
+                            
                             </tbody>
                         </table>
                         </div>

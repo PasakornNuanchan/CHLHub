@@ -14,16 +14,7 @@ require 'function/auth/get_session.php';
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<style>
-.modal-backdrop {
-        width: 100%;
-        height: 100%;
-    }
 
-    .modal-dialog { 
-    max-width : 80% ;
-    }
-</style>
     
 
 
@@ -41,26 +32,6 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-   
-
-   
-
-    .table_data_account td:nth-child(6) input{
-        width: 200px;
-
-    }
-    .table_data_account td:nth-child(9) input{
-        width: 210px;
-    }
-
-    .table_data_account td:nth-child(4) input,
-    .table_data_account td:nth-child(5) input,
-    .table_data_account td:nth-child(13) input
-    {
-        width: 240px;
-    }
-
-
     .table_data_account td:nth-child(1) ,
     .table_data_account td:nth-child(2) ,
     .table_data_account td:nth-child(3) ,
@@ -77,7 +48,23 @@ require 'function/auth/get_session.php';
     .table_data_account td:nth-child(14) {
         padding-left: 2px;
         padding-right: 2px;
-        
+    }
+
+   
+
+    .table_data_account td:nth-child(6) input{
+        width: 200px;
+
+    }
+    .table_data_account td:nth-child(9) input{
+        width: 210px;
+    }
+
+    .table_data_account td:nth-child(4) input,
+    .table_data_account td:nth-child(5) input,
+    .table_data_account td:nth-child(13) input
+    {
+        width: 240px;
     }
 </style>
 
@@ -162,8 +149,8 @@ require 'function/auth/get_session.php';
                                     <th>Code</th>
                                     <th>Currency</th>
                                     <th>AMT.INCV</th>
-                                    <th>Unliquidation <br> amount</th>
-                                    <th>Write-off</th>
+                                    <th>exchange rate</th>
+                                    <th>currency cancle</th>
                                     <th>AMT INCV cancle</th>
                                     <th>Remark</th>
                                     <th>create by</th>
@@ -219,12 +206,13 @@ require 'function/auth/get_session.php';
                                     <td class="text-center"><input type="text" class="form-control form-control inp_create_datetime"></td>
                                     <td class="text-center"><input type="text" class="form-control form-control inp_sale"></td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
 
                     <div class="text-start">
-                        <button class="btn btn-sm btn-outline-success" onclick="function_acp.get_data_show_expen()">Preview Expenses</button>
+                        <button class="btn btn-sm btn-outline-success" onclick="function_acp.modal_check_data('1')">Preview Expenses</button>
                         <!-- <button class="btn btn-sm btn-outline-success" onclick="function_acp.select_all('1')">Checked All 全选</button> -->
                         <!-- <button class="btn btn-sm btn-outline-warning" onclick="function_acp.select_all('2')">deselect all 全不选</button> -->
                         <!-- <button class="btn btn-sm btn-outline-primary" onclick="function_acp.get_select_paid()" >Approve only select</button> -->
@@ -273,6 +261,8 @@ require 'function/auth/get_session.php';
                     </div>
                 </div>
             </div>
+
+
         </div>
 
 

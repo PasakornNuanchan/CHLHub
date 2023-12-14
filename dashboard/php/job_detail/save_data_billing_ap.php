@@ -40,8 +40,8 @@ if($arr_data_save_ap != ''){
         
         if ($get_id_list != '') {
             $query_apply = "";
-            $query_status = "`status` = '0',`";
-            if ($apply != '') {
+            $query_status = "`status` = '0',";
+            if ($apply == '1') {
                 $query_apply = "
                 `action_paid_by` = '$data_user',
                 `action_paid_date_time` = '$t_time_save',
@@ -51,7 +51,7 @@ if($arr_data_save_ap != ''){
             }
     
             $query_check = "";
-            if ($check != '') {
+            if ($check == '1') {
                 $query_check = "
                 `check_by` = '$data_user',
                 `check_date_time` = '$t_time_save',
@@ -157,12 +157,12 @@ if($arr_data_save_ap != ''){
                 '$sys_rate',
                 '$t_time_save',
                 '$commit_sale',
-                '$with_holding_tax'
+                '$tax_with_hold'
             )
             ";
         }
     
-        //$sql_query_data_billing_ap;
+        // echo $sql_query_data_billing_ap;
         $result = $con->query($sql_query_data_billing_ap);
         if ($result->num_rows == 0) {
             $arr_res_ap = '1';
@@ -205,9 +205,9 @@ if($arr_data_save_ar != ''){
         
         if ($get_id_list != '') {
             $query_receiv = "";
-            $query_status = "`status` = '0',`";
+            $query_status = "`status` = '0',";
     
-            if ($receiv_amt != '') {
+            if ($receiv_amt == '') {
                 $query_receiv = "
                 `action_paid_by` = '$data_user',
                 `action_paid_date_time` = '$t_time_save',
@@ -217,7 +217,7 @@ if($arr_data_save_ar != ''){
             }
     
             $query_check = "";
-            if ($check != '') {
+            if ($check == '1') {
                 $query_check = "
                 `check_by` = '$data_user',
                 `check_date_time` = '$t_time_save',
@@ -225,7 +225,7 @@ if($arr_data_save_ar != ''){
             }
     
             $query_need_vat = "";
-            if($need_vat != ''){
+            if($need_vat == '1'){
                 $query_need_vat = "
                 `need_vat` = '$need_vat',
                 ";
@@ -321,7 +321,8 @@ if($arr_data_save_ar != ''){
                 `ref_job_id`,
                 `sys_rate`,
                 `Billing_date`,
-                `with_holding_tax`
+                `with_holding_tax`,
+                `amtinclvat`
             )
             VALUES(
                 '$description_code',
@@ -344,11 +345,12 @@ if($arr_data_save_ar != ''){
                 '$id_number',
                 '$sys_rate',
                 '$t_time_save',
-                '$with_holding_tax'
+                '$tax_with_hold',
+                '$amt_incv'
             )
             ";
         }
-        //$sql_query_data_billing_ar;
+        // echo $sql_query_data_billing_ar;
         $result = $con->query($sql_query_data_billing_ar);
         if ($result->num_rows == 0) {
             $arr_res_ar = '1';

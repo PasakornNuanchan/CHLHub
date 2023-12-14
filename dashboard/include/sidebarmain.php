@@ -7,6 +7,10 @@ require_once 'lang_lib.php';
     body {
         zoom:75%
     }
+
+    .side_bar_main_add {
+        text-overflow:ellipsis;
+    }
 </style>
 
 <aside class="sidebar sidebar-default navs-rounded-all">
