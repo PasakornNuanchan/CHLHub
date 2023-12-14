@@ -9,7 +9,7 @@ require 'function/auth/get_session.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Account payable check</title>
+    <title>Account payment</title>
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -58,44 +58,29 @@ require 'function/auth/get_session.php';
         padding-right: 1px;
     }
 
-    .table_ar td:nth-child(2) input,
-    .table_ar td:nth-child(3) input,
-    .table_ar td:nth-child(4) input {
-        width: 200px;
-    }
-
-    .table_ar td:nth-child(5) input,
-    .table_ar td:nth-child(6) input,
-    .table_ar td:nth-child(9) input,
-    .table_ar td:nth-child(10) input {
-        width: 90px;
-    }
-
-    .table_ar td:nth-child(7) input,
-    .table_ar td:nth-child(8) input,
-    .table_ar td:nth-child(11) input,
-    .table_ar td:nth-child(12) input {
+    .table td:nth-child(3) input,
+    .table td:nth-child(6) input,
+    .table td:nth-child(7) input,
+    .table td:nth-child(8) input,
+    .table td:nth-child(9) input,
+    .table td:nth-child(11) input,
+    .table td:nth-child(12) input,
+    .table td:nth-child(14) input,
+    .table td:nth-child(15) input,
+    .table td:nth-child(16) input{
         width: 150px;
-
     }
 
-    .table_ar td:nth-child(14) input,
-    .table_ar td:nth-child(15) input,
-    .table_ar td:nth-child(16) input,
-    .table_ar td:nth-child(17) input,
-    .table_ar td:nth-child(18) input,
-    .table_ar td:nth-child(19) input,
-    .table_ar td:nth-child(20) input,
-    .table_ar td:nth-child(21) input,
-    .table_ar td:nth-child(22) input,
-    .table_ar td:nth-child(23) input,
-    .table_ar td:nth-child(24) input,
-    .table_ar td:nth-child(25) input,
-    .table_ar td:nth-child(26) input,
-    .table_ar td:nth-child(27) input,
-    .table_ar td:nth-child(28) input {
+    .table td:nth-child(4) input{
         width: 200px;
     }
+
+    .table td:nth-child(5) input,
+    .table td:nth-child(10) input,
+    .table td:nth-child(13) input{
+        width: 100px;
+    }
+
 
     .modal-backdrop {
         width: 1000%;
@@ -179,8 +164,8 @@ require 'function/auth/get_session.php';
                         <div class="card-body row">
                             <div class="col-xl-1 col-lg-1"><label for="">Job Number</label></div>
                             <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_job_number" onchange="start.select_filter()"></div>
-                            <div class="col-xl-1 col-lg-1"><label for="">DN/CN</label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_dn_cn" onchange="start.select_filter()"></div>
+                            <!-- <div class="col-xl-1 col-lg-1"><label for="">DN/CN</label></div>
+                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_dn_cn" onchange="start.select_filter()"></div> -->
                             <div class="col-xl-1 col-lg-1"><label for="">currency</label></div>
                             <div class="col-xl-2 col-lg-2">
                                 <select class="form-select form-select-sm inp_currency_main_change" onchange="start.change_currency(this)"name="" id="">
@@ -213,19 +198,20 @@ require 'function/auth/get_session.php';
                     <div class="card card_list">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover " style="zoom:75%;">
+                                <table class="table table-hover " style="zoom:100%;">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center" style="zoom:90%">
                                             <th>No</th>
                                             <th>select</th>
                                             <th>Job#</th>
                                             <th>Total</th>
-                                            <th>currency</th>
+                                            <th>Cur</th>
                                             <th>AP total</th>
                                             <th>Outstanding</th>
                                             <th>settlement</th>
-                                            <th>actual ex.rate</th>
-                                            <th>actual curr.</th>
+                                            <th>actual
+                                                <br>ex.rate</th>
+                                            <th>actual<br>curr.</th>
                                             <th>Total</th>
                                             <th>Amt(incl-vat)</th>
                                             <th>Vat(%)</th>
@@ -233,6 +219,24 @@ require 'function/auth/get_session.php';
                                             <th>Customer</th>
                                             <th>Finish</th>
                                         </tr>
+                                        <!-- <tr class="text-center" style="zoom:90%">
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                            <th>9</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                            <th>13</th>
+                                            <th>14</th>
+                                            <th>15</th>
+                                            <th>16</th>
+                                        </tr> -->
                                     </thead>
                                     <tbody>
                                         <tr>

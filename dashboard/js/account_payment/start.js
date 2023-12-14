@@ -131,8 +131,8 @@ const start = {
                     $(`.table > tbody > .row_data${id_number} > td > .inp_total_amt`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_writen`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_write_off`).val(amtinclvat).attr('disabled',true)
-                    $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate`).val(sys_rate)
-                    $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate_to`).val(sys_rate_currency)
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate`).val(sys_rate).attr('disabled',true)
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate_to`).val(sys_rate_currency).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_amt_incv_write_off`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_amt`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_vat`).val(vat).attr('disabled',true)
@@ -274,8 +274,8 @@ const start = {
         let data_currency_hkd_review = 0;
 
         $.each(e_path, function () {
-            let inp_cur = $(this).find('.inp_cur').val()
-            let inp_unit_price = $(this).find('.inp_writen').val()
+            let inp_cur = $(this).find('.inp_sysrate_to').val()
+            let inp_unit_price = $(this).find('.inp_amt_incv_write_off').val()
             inp_unit_price = parseFloat(inp_unit_price)
             
 
@@ -295,10 +295,9 @@ const start = {
         
 
         $.each(e_path, function () {
-            let inp_cur = $(this).find('.inp_cur').val()
-            let inp_unit_price = $(this).find('.inp_writen').val()
+            let inp_cur = $(this).find('.inp_sysrate_to').val()
+            let inp_unit_price = $(this).find('.inp_amt_incv_write_off').val()
             let data_check = '';
-
             let id_number = $(this).attr('id_number');
             // console.log(id_number)
             let data_radio_select_type = $(this).find(`.cbx_data`).prop("checked") ? '1' : '0';
@@ -319,6 +318,19 @@ const start = {
                 }
             }
         })
+
+        
+        $('.data_currency_usd').html('')
+        $('.data_currency_thb').html('')
+        $('.data_currency_rmb').html('')
+        $('.data_currency_yen').html('')
+        $('.data_currency_hkd').html('')
+        $('.data_currency_review_usd').html('')
+        $('.data_currency_review_thb').html('')
+        $('.data_currency_review_rmb').html('')
+        $('.data_currency_review_yen').html('')
+        $('.data_currency_review_hkd').html('')
+
         data_currency_usd = data_currency_usd.toFixed(2)
         data_currency_thb = data_currency_thb.toFixed(2)
         data_currency_rmb = data_currency_rmb.toFixed(2)
@@ -342,7 +354,36 @@ const start = {
         $('.data_currency_review_rmb').html(data_currency_rmb_review)
         $('.data_currency_review_yen').html(data_currency_yen_review)
         $('.data_currency_review_hkd').html(data_currency_hkd_review)
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
     },
+
+
+
+    ajax_get_bank_data : async function(){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment/get_data_bank.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+
 
     generate_inv : async function (){
         
@@ -352,10 +393,12 @@ const start = {
         let e_path = $('.table tbody tr')
 
         let html_modal_data_table= '';
-
         let get_total_data_incl_all = 0;
+        let get_total_incl = 0;
         let arr_data_customer = []
         let arr_data_sale = []
+        
+        
 
         i=0;
         $.each(e_path,function(){
@@ -377,8 +420,11 @@ const start = {
                 let description_customer = $(this).find('.inp_description').val()
 
                 amt_incv_write_off = parseFloat(amt_incv_write_off)
+                write_off = parseFloat(write_off)
+                get_total_incl = get_total_incl + write_off
                 get_total_data_incl_all = get_total_data_incl_all + amt_incv_write_off 
                 amt_incv_write_off.toFixed(2)
+                write_off.toFixed(2)
                 arr_data_sale.push(id_number)
                 arr_data_customer.push(description_customer)
 
@@ -442,7 +488,7 @@ const start = {
                                                 <label for="">结算单位 settlement unit</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
                                             </div>
                                         </div>
                                     </div>
@@ -564,7 +610,7 @@ const start = {
                                                 <label for="">付款方式 payment method</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <select class="form-select form-select-sm">
+                                                <select class="form-select form-select-sm inp_method_cash">
                                                     <option value="tranfer">Tranfer</option>
                                                     <option value="cash">Cash</option>
                                                     <option value="hedge">Hedge</option>
@@ -592,7 +638,7 @@ const start = {
                                                 <label for>序号 number<label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <input type="text" class="form-control form-control-sm inp_number_rec">
                                             </div>
                                         </div>
                                     </div>
@@ -612,7 +658,9 @@ const start = {
                                                 <label for="">银行账号 bank account</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <select class="form-select form-select-sm inp_bank_account">
+                                                    <option value="">-- select bank account --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -622,7 +670,7 @@ const start = {
                                                 <label for="">实际付款金额 actual payment amount</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <input type="text" class="form-control form-control-sm inp_acual_payment">
                                             </div>
                                         </div>
                                     </div>
@@ -670,6 +718,7 @@ const start = {
 
         
         let data_unique_customer = $.unique(arr_data_customer);
+        data_unique_customer = data_unique_customer.join(',')
         // console.log(v1)
         let data_all_sale = []
 
@@ -687,27 +736,39 @@ const start = {
         let data_sale = $.unique(data_all_sale);
         data_sale = data_sale.join(',')
 
-        // console.log(this.data_table)
-        // let data_join_customer = $.join(data_unique_customer)
 
-
-
-        // $('.').val(data_join_customer)
+        $('.inp_acual_payment').val(get_total_incl).attr('disabled',true)// 
         $('.inp_payment_type').val(data_radio_select_type).attr('disabled',true)
         $('.inp_amount_all').val(get_total_data_incl_all).attr('disabled',true)
         $('.inp_currency_main').val(data_val).attr('disabled',true)
         $('.inp_number_payment_record').val(i).attr('disabled',true)
         $('.inp_sale_man').val(data_sale).attr('disabled',true)
-
-
+        $('.inp_consignee_data_detail').val(data_unique_customer).attr('disabled',true)
+        $('.inp_number_rec').val(i).attr('disabled',true)
         $('#modal_account_payment').modal('show')
         
+        let res_data_bank = await this.ajax_get_bank_data();
+        let data_bank_account = '';
+        if(res_data_bank['bank'] != "0 results"){
+            $.each(res_data_bank['bank'],function(i,v){
+                if(v['bank_code'] != null){
+                    data_bank_account += `<option value="${v['ID']}">${v['bank_code']}</option>`
+
+                }
+            })
+            $('.inp_bank_account').append(data_bank_account)
+        }
+        console.log(res_data_bank['bank'])
+
+
 
     },
 
     change_currency : async function (){
         let data_val = $(`.inp_currency_main_change`).val()
         $(`.table tbody tr td .inp_sysrate_to`).val(data_val)
+        await this.cal_currency();
+
     },
 
 
@@ -733,4 +794,6 @@ const start = {
         // $('.inp_amount_all').val(data_cal_currency)
         // console.log(data_cal_currency)
     },
+
+    
 }
