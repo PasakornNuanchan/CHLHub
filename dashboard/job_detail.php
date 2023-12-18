@@ -398,7 +398,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade " id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
+                <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab" style="zoom:80%;">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">
@@ -641,7 +641,7 @@ require 'function/auth/get_session.php';
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
                                             <div class="col-sm-9 col-md-9 col-lg-9">
-                                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data">
+                                                <input type="text" class="form-control form-control-sm inp_first_hbl_d inp_hbl hbl_sel_data">
                                             </div>
                                         </div>
                                     </div>
@@ -1956,7 +1956,7 @@ require 'function/auth/get_session.php';
                 <style>
 
                 </style>
-                <div class="tab-pane fade  show active" id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
+                <div class="tab-pane fade  " id="billing_tab_target" role="tabpanel" aria-labelledby="billing_tab" style="zoom:70%">
                     <div class="card p-4">
                         <div class="card-header">
                             <div class="row">

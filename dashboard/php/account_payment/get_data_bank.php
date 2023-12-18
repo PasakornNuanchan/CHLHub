@@ -24,7 +24,7 @@ $sql_data_bank = "
     `last_modify_by`,
     `last_modify_datetime`
 FROM
-    `acbank`
+    `bank_account_corp`
 ";
 
 

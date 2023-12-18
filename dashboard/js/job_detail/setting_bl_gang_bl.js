@@ -43,7 +43,7 @@ const sub_gang_bl = {
                                 <div class="row">
                                     <label class="col-xl-2 col-lg-2 col-md-2 col-sx-2">HBL : </label>
                                     <div class="col">
-                                        <input class="form-control form-control-sm inp_hbl" value="${hbl}">
+                                        <input class="form-control form-control-sm inp_hbl" value="${hbl}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@ const sub_gang_bl = {
                                 <div class="row">
                                     <label class="col-xl-3 col-lg-3 col-md-3 col-sx-3"> Final destination</label>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm inp_final_destination inp_final_destination${i}">
+                                        <input type="text" class="form-control form-control-sm inp_final_destination inp_final_destination${i}" disabled>
                                     </div>
                                 </div>
                             </div>

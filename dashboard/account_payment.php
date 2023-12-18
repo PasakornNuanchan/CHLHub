@@ -13,6 +13,11 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script> -->
+
 </head>
 
 <style>
@@ -67,17 +72,17 @@ require 'function/auth/get_session.php';
     .table td:nth-child(12) input,
     .table td:nth-child(14) input,
     .table td:nth-child(15) input,
-    .table td:nth-child(16) input{
+    .table td:nth-child(16) input {
         width: 150px;
     }
 
-    .table td:nth-child(4) input{
+    .table td:nth-child(4) input {
         width: 200px;
     }
 
     .table td:nth-child(5) input,
     .table td:nth-child(10) input,
-    .table td:nth-child(13) input{
+    .table td:nth-child(13) input {
         width: 100px;
     }
 
@@ -164,18 +169,18 @@ require 'function/auth/get_session.php';
                         <div class="card-body row">
                             <div class="col-xl-1 col-lg-1"><label for="">Job Number</label></div>
                             <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_job_number" onchange="start.select_filter()"></div>
-                            <!-- <div class="col-xl-1 col-lg-1"><label for="">DN/CN</label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_dn_cn" onchange="start.select_filter()"></div> -->
                             <div class="col-xl-1 col-lg-1"><label for="">currency</label></div>
                             <div class="col-xl-2 col-lg-2">
-                                <select class="form-select form-select-sm inp_currency_main_change" onchange="start.change_currency(this)"name="" id="">
-                                    <option value="USD">USD</option>    
+                                <select class="form-select form-select-sm inp_currency_main_change" onchange="start.change_currency(this)" name="" id="">
+                                    <option value="USD">USD</option>
                                     <option value="THB">THB</option>
                                     <option value="RMB">RMB</option>
                                     <option value="YEN">YEN</option>
                                     <option value="HKD">HKD</option>
                                 </select>
                             </div>
+                            <div class="col-xl-1 col-lg-1"><label for="">Actual AMT</label></div>
+                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_actual_amt_total text-end" disabled onchange="start.select_filter()"></div>
                         </div>
                     </div>
                 </div>
@@ -197,46 +202,32 @@ require 'function/auth/get_session.php';
                 <div class="col-lg-10 col-xl-10">
                     <div class="card card_list">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover " style="zoom:100%;">
+                            <div class="table-responsive" style="height:100%">
+                                <table class="table table-hover table_payment" style="zoom:100%;overflow: scroll;">
                                     <thead>
                                         <tr class="text-center" style="zoom:90%">
-                                            <th>No</th>
-                                            <th>select</th>
-                                            <th>Job#</th>
-                                            <th>Total</th>
-                                            <th>Cur</th>
-                                            <th>AP total</th>
-                                            <th>Outstanding</th>
-                                            <th>settlement</th>
-                                            <th>actual
-                                                <br>ex.rate</th>
+                                            <th onclick="start.sort_data()">No</th>
+                                            <th onclick="start.sort_data()">select</th>
+                                            <th onclick="start.sort_data()">Job#</th>
+                                            <th onclick="start.sort_data()">Code</th>
+                                            <th onclick="start.sort_data()">Cur</th>
+                                            <th onclick="start.sort_data()">AMTINCV</th>
+                                            <th onclick="start.sort_data()">Outstanding</th>
+                                            <th onclick="start.sort_data()">settlement</th>
+                                            <th onclick="start.sort_data()">actual
+                                                <br>ex.rate
+                                            </th>
                                             <th>actual<br>curr.</th>
                                             <th>Total</th>
-                                            <th>Amt(incl-vat)</th>
+                                            <th>Amt</th>
                                             <th>Vat(%)</th>
-                                            <th>?i</th>
+                                            <th>WHT</th>
                                             <th>Customer</th>
                                             <th>Finish</th>
+                                            <th>Remark</th>
+                                            <th>Sales</th>
+                                            <th>billing date</th>
                                         </tr>
-                                        <!-- <tr class="text-center" style="zoom:90%">
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
-                                            <th>6</th>
-                                            <th>7</th>
-                                            <th>8</th>
-                                            <th>9</th>
-                                            <th>10</th>
-                                            <th>11</th>
-                                            <th>12</th>
-                                            <th>13</th>
-                                            <th>14</th>
-                                            <th>15</th>
-                                            <th>16</th>
-                                        </tr> -->
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -257,36 +248,71 @@ require 'function/auth/get_session.php';
                                             <th><input type="text" class="form-control form-control-sm"></th><!-- ??? -->
                                             <th><input type="text" class="form-control form-control-sm"></th><!-- description -->
                                             <th><input type="text" class="form-control form-control-sm"></th><!-- stauts paid -->
+                                            <th><input type="text" class="form-control form-control-sm"></th><!-- remark -->
+                                            <th><input type="text" class="form-control form-control-sm"></th><!-- sales -->
+                                            <th><input type="text" class="form-control form-control-sm"></th><!-- billing date -->
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
 
+                        </div>
+                        <hr>
+                        <div class="form-group p-2 m-2">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="">Total Pay/Rcvd</label>
+                                </div>
+                                <div class="col">USD : <div class="data_currency_usd"></div>
+                                </div>
+                                <div class="col">THB : <div class="data_currency_thb"></div>
+                                </div>
+                                <div class="col">RMB : <div class="data_currency_rmb"></div>
+                                </div>
+                                <div class="col">YEN : <div class="data_currency_yen"></div>
+                                </div>
+                                <div class="col">HKD : <div class="data_currency_hkd"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+
+                <!-- <table id="datatable" class="table table-striped" data-toggle="data-table">
+                    <thead>
+                        <tr class="text-center" style="zoom:90%">
+                            <th>No</th>
+                            <th>select</th>
+                            <th>Job#</th>
+                            <th>Code</th>
+                            <th>Cur</th>
+                            <th>AMTINCV</th>
+                            <th>Outstanding</th>
+                            <th>settlement</th>
+                            <th>actual
+                                <br>ex.rate
+                            </th>
+                            <th>actual<br>curr.</th>
+                            <th>Total</th>
+                            <th>Amt</th>
+                            <th>Vat(%)</th>
+                            <th>WHT</th>
+                            <th>Customer</th>
+                            <th>Finish</th>
+                            <th>Remark</th>
+                            <th>Sales</th>
+                            <th>billing date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table> -->
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="">Total pay/rcvd</label>
-                            </div>
-                            <div class="col">USD : <div class="data_currency_usd"></div>
-                            </div>
-                            <div class="col">THB : <div class="data_currency_thb"></div>
-                            </div>
-                            <div class="col">RMB : <div class="data_currency_rmb"></div>
-                            </div>
-                            <div class="col">YEN : <div class="data_currency_yen"></div>
-                            </div>
-                            <div class="col">HKD : <div class="data_currency_hkd"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
+            <!-- <div class="card">
+                <div class="card-body"> -->
+
+            <!-- <div class="form-group">
                         <div class="row">
                             <div class="col">
                                 <label for="">Total review</label>
@@ -302,9 +328,9 @@ require 'function/auth/get_session.php';
                             <div class="col">HKD : <div class="data_currency_review_hkd"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </div> -->
+            <!-- </div>
+            </div> -->
         </div>
 
 
@@ -335,9 +361,9 @@ require 'function/auth/get_session.php';
         start.start_setting();
         start.start_setting_table();
         $('.check_start').prop('checked', true)
+        // $(".table_payment").bootstrapTable();
+
         // $('#modal_account_payment').modal('show')
 
     });
 </script>
-
-

@@ -13,11 +13,11 @@ const start = {
         }else{
             res_data = e;
         }
-
+        
         this.data_table = res_data
         $('.table tbody').html('');
         console.log(res_data)
-        
+        // res_data['table']['billing_description'].sort();
             if(res_data['table'] != "0 results"){
                 $.each(res_data['table'],function(i,v){
                     let id_number = v['ID'] ? v['ID'] : '';
@@ -104,9 +104,12 @@ const start = {
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_amt_incv_write_off text-end" ></td><!-- ??? -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_amt text-end" ></td><!-- ??? -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_vat text-center" ></td><!-- ???Vat -->
-                        <td class="text-center"><input type="text" class="form-control form-control-sm inp_amt_excv text-end" ></td><!-- ??? -->
+                        <td class="text-center"><input type="text" class="form-control form-control-sm inp_amt_excv text-center" ></td><!-- ??? -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_description" ></td><!-- description -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_status_paid text-center" ></td><!-- stauts paid -->
+                        <td class="text-center"><input type="text" class="form-control form-control-sm inp_remark text-center" ></td><!-- remark -->
+                        <td class="text-center"><input type="text" class="form-control form-control-sm inp_sales text-center" ></td><!-- sales -->
+                        <td class="text-center"><input type="text" class="form-control form-control-sm inp_billing_date text-center" ></td><!-- billing date -->
                     </tr>
                     `;
         
@@ -136,9 +139,16 @@ const start = {
                     $(`.table > tbody > .row_data${id_number} > td > .inp_amt_incv_write_off`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_amt`).val(amtinclvat).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_vat`).val(vat).attr('disabled',true)
-                    $(`.table > tbody > .row_data${id_number} > td > .inp_amt_excv`).val(data_amt_not_vat).attr('disabled',true)
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_amt_excv`).val(with_holding_tax).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_description`).val(bill_to_c).attr('disabled',true)
                     $(`.table > tbody > .row_data${id_number} > td > .inp_status_paid`).val()
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_remark`).val(remark).attr('disabled',true)
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_sales`).val(sale_support_f+' '+sale_support_l).attr('disabled',true)
+                    $(`.table > tbody > .row_data${id_number} > td > .inp_billing_date`).val(create_data_time).attr('disabled',true)
+
+                    
+                    
+                    
                 })
             }
         await this.cal_currency()
@@ -273,12 +283,24 @@ const start = {
         let data_currency_yen_review = 0;
         let data_currency_hkd_review = 0;
 
+        let actual_amt_total = 0;
+
+        $.each(e_path, function () {
+            let inp_unit_price = $(this).find('.inp_amt_incv_write_off').val()
+            inp_unit_price = parseFloat(inp_unit_price)
+            let data_radio_select_type = $(this).find(`.cbx_data`).prop("checked") ? '1' : '0';
+            if(data_radio_select_type == '1'){
+                actual_amt_total = actual_amt_total + inp_unit_price;
+            }
+        })
+        
+        
+
         $.each(e_path, function () {
             let inp_cur = $(this).find('.inp_sysrate_to').val()
             let inp_unit_price = $(this).find('.inp_amt_incv_write_off').val()
             inp_unit_price = parseFloat(inp_unit_price)
             
-
             if (inp_cur == "USD") {
                 data_currency_usd = data_currency_usd + inp_unit_price;
             } else if (inp_cur == "THB") {
@@ -330,6 +352,12 @@ const start = {
         $('.data_currency_review_rmb').html('')
         $('.data_currency_review_yen').html('')
         $('.data_currency_review_hkd').html('')
+
+        $('.inp_actual_amt_total').val('')
+
+        actual_amt_total = actual_amt_total.toFixed(2)
+        $('.inp_actual_amt_total').val(actual_amt_total)
+
 
         data_currency_usd = data_currency_usd.toFixed(2)
         data_currency_thb = data_currency_thb.toFixed(2)
@@ -521,7 +549,7 @@ const start = {
                                                 <label for="">收付单号 Payment receipt number</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <input type="text" class="form-control form-control-sm inp_payment_document">
                                             </div>
                                         </div>
                                     </div>
@@ -530,8 +558,11 @@ const start = {
                                             <div class="col-lg-5">
                                                 <label for="">系统销账总额 total system write-offs</label>
                                             </div>
-                                            <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                            <div class="col-lg-4">
+                                                <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
                                             </div>
                                         </div>
                                     </div>
@@ -564,7 +595,12 @@ const start = {
                                                 <label for="">收付地点 payment place</label>
                                             </div>
                                             <div class="col-lg-7">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                                    <option value="TH">TH</option>
+                                                    <option value="CN">CN</option>
+                                                    <option value="HK">HK</option>
+                                                    <option value="US">US</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -736,7 +772,16 @@ const start = {
         let data_sale = $.unique(data_all_sale);
         data_sale = data_sale.join(',')
 
-
+        //inp_amount_all_write_off
+        //inp_currency_main_write_off
+        let path_table = $('.table_payment > tbody > tr');
+        let data_all_amount = 0;
+        $.each(path_table,function(){
+            let data_all_amount_cal = parseFloat($(this).find('.inp_amt_incv_write_off').val())
+            data_all_amount = data_all_amount + data_all_amount_cal
+        })
+        data_all_amount = data_all_amount.toFixed(2)
+        get_total_data_incl_all = get_total_data_incl_all.toFixed(2)
         $('.inp_acual_payment').val(get_total_incl).attr('disabled',true)// 
         $('.inp_payment_type').val(data_radio_select_type).attr('disabled',true)
         $('.inp_amount_all').val(get_total_data_incl_all).attr('disabled',true)
@@ -746,7 +791,10 @@ const start = {
         $('.inp_consignee_data_detail').val(data_unique_customer).attr('disabled',true)
         $('.inp_number_rec').val(i).attr('disabled',true)
         $('#modal_account_payment').modal('show')
-        
+
+        $('.inp_amount_all_write_off').val(data_all_amount).attr('disabled',true)
+        $('.inp_currency_main_write_off').val(data_val).attr('disabled',true)
+
         let res_data_bank = await this.ajax_get_bank_data();
         let data_bank_account = '';
         if(res_data_bank['bank'] != "0 results"){
@@ -759,9 +807,38 @@ const start = {
             $('.inp_bank_account').append(data_bank_account)
         }
         console.log(res_data_bank['bank'])
+        await this.set_payment_place();
+        
 
+    },
 
+    set_payment_place : async function (){
+        //setting document nubmer
 
+        let data_radio_select_type = $('input[name="radio_function_paid"]:checked').val();
+        let data_payment_place = $('.sel_data_payment_place').val()
+
+        let res_data = await this.ajax_get_last_payment(data_radio_select_type,data_payment_place);
+        let number_document_auto = `${data_radio_select_type+data_payment_place+res_data}`;
+        
+        $('.inp_payment_document').val(number_document_auto).attr('disabled',true)
+        
+        
+    },
+
+    ajax_get_last_payment : async function(data_radio_select_type,data_payment_place){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment/get_last_payment.php",
+                data:{data_radio_select_type:data_radio_select_type,
+                    data_payment_place:data_payment_place},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
 
     change_currency : async function (){
@@ -795,5 +872,11 @@ const start = {
         // console.log(data_cal_currency)
     },
 
-    
+    // sort_data : async function(){
+    //     let path = $('.table_payment tbody tr')
+    //     $.each(path,function(){
+    //         console.log($(this).find('td').eq(0).find('input').val())
+            
+    //     })
+    // },
 }

@@ -51,9 +51,10 @@ const sub_job_detail = {
         $('.inp_finaldestination').val(res_data['job_title']['final_destination'])
 
         //$('.inp_hbl').val(res_data['job_title']['hbl'])
-
+        $('.hbl_added').html('')
+        $('.inp_first_hbl_d').html('')
         if(res_data['hbl_data'] != "0 results"){
-            $('.hbl_added').html('')
+            
             $.each(res_data['hbl_data'],function(i,v){
                 let hbl_data = v['hbl'] ? v['hbl'] : '';
                 let id_hbl = v['ID'] ? v['ID'] : '';
@@ -75,6 +76,24 @@ const sub_job_detail = {
                 `;
                 $('.hbl_added').append(html_data)
             })
+        }else{
+            let html_data = `
+                <div class="form-group row" id_hbl="">
+                    <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
+                    <div class="col-sm-9 col-md-5 col-lg-9">
+                        <div class="row">
+                            <div class="col-sm-11 col-md-10 col-lg-11">
+                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data" value="">
+                            </div>
+                            <div class="col-sm-1 col-md-2 col-lg-1">
+                                <button class="btn btn-outline-danger btn_delete_hbl btn-sm" onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash" ></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                $('.hbl_added').append(html_data)
+            
         }
         
 

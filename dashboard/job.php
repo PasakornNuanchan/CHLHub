@@ -120,3 +120,4 @@ require 'function/auth/get_session.php';
         job_list.set_header_page();
     });
 </script>
+

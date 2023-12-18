@@ -21,11 +21,9 @@ const function_sub_bl = {
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
 
-
         let h_data = $(e).closest('.bl_tab_target')
         let data_find_table_detail_bl = $(h_data).find('.table_detail_bl > tbody > tr')
         let data_find_table_container = $(h_data).find('.table_container_bl > tbody > tr')
-        //let data_find_table_fright = $(h_data).find('.table_fright > tbody > tr')
 
         let bl_data = $(h_data).attr('bl_number')
         let shipper_bl = $('.inp_bl_shipping',h_data).val()
@@ -44,12 +42,9 @@ const function_sub_bl = {
         let sel_frieght = $('.sel_frieight_ppocc',h_data).val()
     
         let arr_container_data = []
-
         $(e).closest('.card').find('.table tbody tr').each(function(a){
-            
             let data = $(this).attr('container_id')
             arr_container_data.push(data)
-
         })
         let data_container_all = arr_container_data.join(',')
 
@@ -110,7 +105,6 @@ const function_sub_bl = {
 
         $(data_find_table_container).each(function (i, v) {
             let id_container = $(this).attr('container_id')
-            
             let quantity_bl = $('.inp_quantity_bl', this).val()
             let unit_bl = $('.inp_bl_unit_data', this).val()
             let cbm_bl = $('.inp_cbm_bl', this).val()
@@ -122,62 +116,30 @@ const function_sub_bl = {
                 unit_bl: unit_bl,
                 cbm_bl: cbm_bl,
                 weight: weight
-
             }
-
             table_container_bl_arr.push(table_container_bl_obj)
         })
-
-        let table_fright_bl_arr = [];
-        // $(data_find_table_fright).each(function(i,v){
-        //     let id_list =  $(this).attr('id_list')
-            
-        //     let charge = $('.inp_charge',this).val()
-        //     let prepaid = $('.inp_prepaid',this).val()
-        //     let collect = $('.inp_collect',this).val()
-        //     let ref_id_row = $(data_find_table_fright,this).closest('.table').attr('ref_id_row')
-        //     let ref_job_id = $(data_find_table_fright,this).closest('.table').attr('id_number')
-
-        //     let obj_fright = {
-        //         id_list : id_list,
-        //         ref_id_row : ref_id_row,
-        //         ref_job_id : ref_job_id,
-        //         charge : charge,
-        //         prepaid : prepaid,
-        //         collect : collect,
-        //     }
-
-        //     table_fright_bl_arr.push(obj_fright)
-            
-        // })
-
-
-
-
+      
         // console.log(data_detail_arr)
         // console.log(table_detail_arr)
-        // console.log(table_container_bl_arr)
         // console.log(table_fright_bl_arr)
 
-        let res_data = await this.ajax_save_data_bl(data_detail_arr, table_detail_arr, table_container_bl_arr,table_fright_bl_arr,this.arr_fright_delete)
-        if (res_data['arr_save_detail'] == '1' && res_data['arr_save_list'] == '1' && res_data['arr_save_container'] == '1' ) {
+        let res_data = await this.ajax_save_data_bl(data_detail_arr, table_detail_arr, table_container_bl_arr,this.arr_fright_delete)
+        // if (res_data['arr_save_detail'] == '1' && res_data['arr_save_list'] == '1' && res_data['arr_save_container'] == '1' ) {
             Swal.fire(
                 'saved!',
                 'Your data has been saved.',
                 'success'
             )
-            var currentURL = window.location.href;
-            var url = new URL(currentURL);
-            var id_number = url.searchParams.get("job_number");
             await sub_job_detail.first_post_data(id_number);
 
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'System has problem plese contact to thailand tech team ',
-            })
-        }
+        // } else {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Oops...',
+        //         text: 'System has problem plese contact to thailand tech team ',
+        //     })
+        // }
 
 
 
@@ -185,7 +147,7 @@ const function_sub_bl = {
 
     },
 
-    ajax_save_data_bl: async function (data_detail_arr, table_detail_arr, table_container_bl_arr,table_fright_bl_arr,arr_fright_delete) {
+    ajax_save_data_bl: async function (data_detail_arr, table_detail_arr, table_container_bl_arr,arr_fright_delete) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -193,7 +155,6 @@ const function_sub_bl = {
                     data_detail_arr : data_detail_arr,
                     table_detail_arr : table_detail_arr,
                     table_container_bl_arr : table_container_bl_arr,
-                    table_fright_bl_arr : table_fright_bl_arr,  
                     arr_fright_delete : arr_fright_delete,
                 },
                 url: "php/job_detail/save_data_bl.php",

@@ -16,6 +16,10 @@ require 'function/auth/get_session.php';
 </head>
 
 <style>
+    .btn-width {
+        width: 100%;
+    }
+
     .card {
         margin-left: 2px;
         margin-right: 2px;
@@ -101,16 +105,6 @@ require 'function/auth/get_session.php';
         width: 1000%;
         height: 100%;
     }
-
-    .modal-dialog {
-        position: absolute;
-        left: 5%;
-        width: 2000px;
-    }
-
-    .modal-content {
-        width: 2000px;
-    }
 </style>
 
 
@@ -141,18 +135,19 @@ require 'function/auth/get_session.php';
                                 <label class="form-label">Date </label>
                                 <select class="form-select form-select-sm rounded">
                                     <option value="">Create Job Date</option>
+                                    <option value="">OP Date</option>
+                                    <option value="">Received Date</option>
+                                    <option value="">Paid Date</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Sale </label>
-                                <select class="form-select form-select-sm rounded">
-                                    <option value="">test</option>
+                                <select class="form-select form-select-sm rounded sel_sale">
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Client </label>
-                                <select class="form-select form-select-sm rounded">
-                                    <option value=""></option>
+                                <select class="form-select form-select-sm rounded sel_client">
                                 </select>
                             </div>
                         </div>
@@ -169,7 +164,9 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Job</label>
-                                <input type="text" class="form-control form-control-sm rounded">
+                                <input type="text" class="form-control form-control-sm rounded inp_job_number" list="job_number_list">
+                                <datalist name="job_number_list" id="job_number_list">
+                                </datalist>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Type</label>
@@ -201,7 +198,7 @@ require 'function/auth/get_session.php';
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="form-label">Curr.</label>
-                                <select class="form-select form-select-sm"name="" id="">
+                                <select class="form-select form-select-sm" name="" id="">
                                     <option value="THB">THB</option>
                                     <option value="USD">USD</option>
                                     <option value="RMB">RMB</option>
@@ -213,21 +210,25 @@ require 'function/auth/get_session.php';
                                 <label class="form-label">with co-op ofc profit</label>
                                 <input type="text" class="form-control form-control-sm rounded">
                             </div>
+                            <div class="form-group">
+                                <button class="btn btn-outline-primary btn-sm btn-width" onclick="start.modal_setting_incentive()">setting</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card" >
+            <div class="card">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="zoom:80%">
+                            <table class="table table-hover table_process" style="zoom:80%">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>sCommiss</th>
                                         <th>Job#</th>
+                                        <th>Client</th>
                                         <th>Sales</th>
                                         <th>AR amt</th>
                                         <th>Rcvd Amt</th>
@@ -244,7 +245,25 @@ require 'function/auth/get_session.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <tr class="text-center">
+                                        <td>1</td>
+                                        <td><input type="checkbox" class="form-input-check" style="zoom:150%"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_job_number"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_client"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_sale_name"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_ar_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_rcvd_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_ap_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_paid_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_profit"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_total"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_op_date"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_rcvd_date"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_paid_date"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_ar_settld"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_so"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_vsl"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -252,7 +271,7 @@ require 'function/auth/get_session.php';
                 </div>
             </div>
 
-            <div class="card" >
+            <div class="card">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -274,11 +293,28 @@ require 'function/auth/get_session.php';
                                         <th>BANK Chg.</th>
                                         <th>Ex gain or loss</th>
                                         <th>Fee and ex. Dee sub co. Share%</th>
-                                        <th>net commi</th>
+                                        <th>net commission</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <tr class="text-center">
+                                        <td>1</td>
+                                        <td><input type="text" class="form-control form-control-sm inp_sales_name_1"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_sales_name_2"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_dept"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_type"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_all_result"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_cashing_ar"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_settled_profit"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_reduction"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_profit_rate"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_profit_fine_amt"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_bank_chg"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_ex_gain"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_fee"></td>
+                                        <td><input type="text" class="form-control form-control-sm inp_net_commi"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -305,17 +341,22 @@ require 'function/auth/get_session.php';
 </html>
 <!-- <script src="js/account_payment/start.js"></script> -->
 <!-- <script src="js/account_payment/start_default.js"></script> -->
+<script src="js/incentive_management/start.js"></script>
+<script src="js/incentive_management/setting_default.js"></script>
 
 
 
 <script>
     $(document).ready(function() {
         sidebar_main.set_data_rows();
+        start.setting_header();
+        start.setting_data_table()
+        setting_data_default.start_default();
         // start_default.start_default();
         // start.start_setting();
         // start.start_setting_table();
         // $('.check_start').prop('checked', true)
         // $('#modal_account_payment').modal('show')
-
     });
 </script>
+

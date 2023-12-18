@@ -28,7 +28,7 @@ require '../../core/con_path.php';
       u2.last_name last_fn,
       u2.last_name last_ln
   FROM
-      acbank bank
+      bank_account_corp bank
   LEFT JOIN user u1 ON bank.create_by = u1.ID
   LEFT JOIN user u2 ON bank.last_modify_by = u2.ID
   WHERE

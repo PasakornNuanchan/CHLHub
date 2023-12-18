@@ -28,6 +28,8 @@ SELECT
     `consignee_name` AS NAME
 FROM
     consignee
+ORDER BY
+	NAME
 ";
 
 

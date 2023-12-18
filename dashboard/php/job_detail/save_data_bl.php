@@ -10,58 +10,9 @@ $table_container_bl_arr = $_POST['table_container_bl_arr'];
 $table_fright_bl_arr = $_POST['table_fright_bl_arr'];
 $arr_fright_delete = $_POST['arr_fright_delete'];
 
-// foreach ($table_fright_bl_arr as $k => $v) {
-//     $id_list = isset($v['id_list']) ? $v['id_list'] : '';
-//     $charge = isset($v['charge']) ? $v['charge'] : '';
-//     $prepaid = isset($v['prepaid']) ? $v['prepaid'] : '';
-//     $collect = isset($v['collect']) ? $v['collect'] : '';
-//     $ref_id_row = isset($v['ref_id_row']) ? $v['ref_id_row'] : '';
-//     $ref_job_id = isset($v['ref_job_id']) ? $v['ref_job_id'] : '';
-
-//     if ($id_list != '') {
-//         $sql_query_fright = "
-//         UPDATE
-//             `fright_bl`
-//         SET
-//             `fright` = '$charge',
-//             `prepaid` = '$prepaid',
-//             `collect` = '$collect',
-//             `ref_job_id` = '$ref_job_id'
-//         WHERE
-//             `ID` = '$id_list'
-//         ";
-        
-//     } else {
-//         $sql_query_fright = "
-//         INSERT INTO `fright_bl`(
-//             `fright`,
-//             `prepaid`,
-//             `collect`,
-//             `ref_row`,
-//             `ref_job_id`
-//         )
-//         VALUES(
-//             '$charge',
-//             '$prepaid',
-//             '$collect',
-//             '$ref_id_row',
-//             '$ref_job_id'
-//         )
-//         ";
-//     }
-//     //echo $sql_query_fright;
-//     $result = $con->query($sql_query_fright);
-//     if ($result->num_rows == 0) {
-//         $arr_query_fright = '1';
-//     } else {
-//         $arr_query_fright = '0';
-//     }
-// }
-
-if($arr_fright_delete != ''){
-    foreach($arr_fright_delete as $k => $v){
+if ($arr_fright_delete != '') {
+    foreach ($arr_fright_delete as $k => $v) {
         $data_id = isset($v['data_id']) ? $v['data_id'] : '';
-
         $sql_query_delete_fright = "
         DELETE
         FROM
@@ -72,9 +23,6 @@ if($arr_fright_delete != ''){
         $con->query($sql_query_delete_fright);
     }
 }
-
-
-
 
 
 foreach ($data_detail_arr as $k => $v) {
@@ -216,16 +164,16 @@ foreach ($table_container_bl_arr as $k => $v) {
     $quantity_bl = $quantity_bl == '' ? "NULL" : "'" . $quantity_bl . "'";
 
     $sql_query_container = "
-UPDATE
-    `container`
-SET
-    `volume` = $cbm_bl,
-    `package` = $quantity_bl,
-    `gw` = $weight_bl,
-    `unit` = '$unit_bl'
-WHERE
-    ID = '$id_number'
-";
+    UPDATE
+        `container`
+    SET
+        `volume` = $cbm_bl,
+        `package` = $quantity_bl,
+        `gw` = $weight_bl,
+        `unit` = '$unit_bl'
+    WHERE
+        ID = '$id_number'
+    ";
     //echo $sql_query_container;
     $result = $con->query($sql_query_container);
     if ($result->num_rows == 0) {

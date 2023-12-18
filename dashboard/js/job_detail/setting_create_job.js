@@ -13,7 +13,7 @@ const create_job = {
         $('.btn_generate_job_detail').remove()
         $('.job_description').remove()
 
-
+        $('.hbl_added').html('')
         $('.head_d_btn_get_data_detail').html('')
         let btn_get_save_detail = `<button class="btn btn-sm btn-success" onclick="create_job.get_data_create()" ><i class="bi bi-save"></i> save</button>`;
         $('.save_create_btn_add').append(btn_get_save_detail)
@@ -27,6 +27,7 @@ const create_job = {
         $('.table_container_module tbody').html('')
         $('.head_b_btn_add_new_row').append(btn_add_new_row)
         
+        await function_sub_job_detail.add_hbl()
     },
 
 
