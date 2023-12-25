@@ -215,7 +215,8 @@ require 'function/auth/get_session.php';
     #table_billing_ap td:nth-child(26) input,
     #table_billing_ap td:nth-child(27) input,
     #table_billing_ap td:nth-child(28) input,
-    #table_billing_ap td:nth-child(29) input {
+    #table_billing_ap td:nth-child(29) input,
+    #table_billing_ap td:nth-child(30) input {
         width: 200px;
     }
 
@@ -1995,11 +1996,11 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">Vat (EXCL)</th>
                                             <th class="text-center">AMT <br> (INCL.VAT)</th>
                                             <th class="text-center">Paid amt</th>
+                                            <th class="text-center">Remark</th>
                                             <th class="text-center">Billing Date</th>
                                             <th class="text-center">Sys Rate</th>
                                             <th class="text-center">Apply</th>
                                             <th class="text-center">Apply Date</th>
-                                            <th class="text-center">Remark</th>
                                             <th class="text-center">CHECK</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Commission <br> Sale</th>
@@ -2165,15 +2166,17 @@ require 'function/auth/get_session.php';
                                             <th>Unit Price</th>
                                             <th>AR AMT.</th>
                                             <th>VAT%</th>
-                                            <th>Need Vat</th>
+                                            
                                             <th>With hold (%)</th>
                                             <th>Vat (EXCL)</th>
                                             <th>AMT(INCL.VAT)</th>
                                             <th>Rcvd Amt</th>
+                                            <th>Remark</th>
+
                                             <th>Billing Date</th>
                                             <th>Sys rate</th>
                                             <!-- <th>Sys Rate currency</th> -->
-                                            <th>Remark</th>
+                                            <th>Need Vat</th>
                                             <th>Check</th>
                                             <th>staus</th>
                                             <th>branch</th>

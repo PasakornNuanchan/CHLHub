@@ -55,4 +55,27 @@ const function_act = {
             });
         });
     },
+
+    approve_all : async function(){
+        let path = $('.table tbody tr')
+        $.each(path,function(){
+            let data_id_number = $(this).attr('id_number')
+            let data_disabled = $(this).find(`input[name="radio_act${data_id_number}"]`).attr('disabled')
+            if(data_disabled != 'disabled'){
+                $(this).find('.radio_act_a').prop('checked',true)
+            }
+            
+        })
+    },
+
+    waiting_all : async function(){
+        let path = $('.table tbody tr')
+        $.each(path,function(){
+            let data_id_number = $(this).attr('id_number')
+            let data_disabled = $(this).find(`input[name="radio_act${data_id_number}"]`).attr('disabled')
+            if(data_disabled != 'disabled'){
+                $(this).find('.radio_act_w').prop('checked',true)
+            }
+        })
+    }
 }

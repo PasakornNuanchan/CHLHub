@@ -84,9 +84,14 @@ if ($data_radio_process == '') {
           (SELECT u6.first_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_f,
           (SELECT u6.last_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_l,
           (SELECT jt.booking_number FROM job_title jt WHERE jt.ID = b.ref_job_id) booking_no,
-          (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container
+          (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container,
+          bpl.amount as amount_paid,
+          bpl.currency as currency_paid
+
       FROM
           billing b
+          LEFT JOIN billing_payment_list bpl ON bpl.data_number_id = b.ID 
+
       WHERE
           b.type = 'AR'
     ";
@@ -130,12 +135,14 @@ if ($data_radio_process == '') {
             $sql_check
             $sql_apply
             AND b.status = '2'
+            AND bpl.amount IS null
             ";
         } elseif ($data_radio_select_type == "Paid") {
             $sql_data_type = "
             $sql_check
             $sql_apply
             AND b.status = '2'
+            AND bpl.amount IS NOT null
             "; 
         } elseif ($data_radio_select_type == "Reject") {
             $sql_data_type = "AND b.status = '3'";
@@ -150,15 +157,20 @@ if ($data_radio_process == '') {
                 $sql_apply
                 $sql_approve
                 AND b.status != '3' 
+                AND bpl.amount IS null
+
             ";
         } elseif ($data_radio_select_type == "Paid") {
             $sql_data_type = "
                 $sql_check
                 $sql_apply
                 $sql_approve
-                AND b.status != '3' 
+
+                
+                AND b.status != '3'
+                AND bpl.amount IS NOT null
             ";
-            $having_type = "AND billing_payment IS NOT NULL";
+            // $having_type = "AND billing_payment IS NOT NULL";
         } elseif ($data_radio_select_type == "Reject") {
             $sql_data_type = "AND b.status = '3'";
         }
@@ -279,9 +291,15 @@ if ($data_radio_process == '') {
           (SELECT u6.last_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_l,
           (SELECT jt.booking_number FROM job_title jt WHERE jt.ID = b.ref_job_id) booking_no,
           (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container,
-          (SELECT bp.paid_by FROM billing_payment bp WHERE bp.ref_billing_id = b.ID) billing_payment
+          (SELECT bp.paid_by FROM billing_payment bp WHERE bp.ref_billing_id = b.ID) billing_payment,
+          bpl.amount as amount_paid,
+          bpl.currency as currency_paid
+
       FROM
           billing b
+          LEFT JOIN billing_payment_list bpl ON bpl.data_number_id = b.ID 
+
+          
       WHERE
             b.type = '$sql_radio_function_select'
             $sql_data_type

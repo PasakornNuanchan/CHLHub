@@ -13,7 +13,7 @@ require 'function/auth/get_session.php';
     <?php include '../assets/include/theme_include_css.php'; ?>
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<!-- 
+    <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script> -->
@@ -101,10 +101,18 @@ require 'function/auth/get_session.php';
     .modal-content {
         width: 2000px;
     }
+
+    th.sticky-column,
+    td.sticky-column {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: #fff;
+    }
 </style>
 
 
-<body class="" style="">
+<body class="" >
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -168,7 +176,7 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body row">
                             <div class="col-xl-1 col-lg-1"><label for="">Job Number</label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_job_number" onchange="start.select_filter()"></div>
+                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_job_number_filter" onchange="start.select_filter()"></div>
                             <div class="col-xl-1 col-lg-1"><label for="">currency</label></div>
                             <div class="col-xl-2 col-lg-2">
                                 <select class="form-select form-select-sm inp_currency_main_change" onchange="start.change_currency(this)" name="" id="">
@@ -200,21 +208,21 @@ require 'function/auth/get_session.php';
                     </div>
                 </div>
                 <div class="col-lg-10 col-xl-10">
-                    <div class="card card_list">
+                    <div class="card card_list ">
                         <div class="card-body">
                             <div class="table-responsive" style="height:100%">
                                 <table class="table table-hover table_payment" style="zoom:100%;overflow: scroll;">
                                     <thead>
                                         <tr class="text-center" style="zoom:90%">
-                                            <th onclick="start.sort_data()">No</th>
-                                            <th onclick="start.sort_data()">select</th>
-                                            <th onclick="start.sort_data()">Job#</th>
-                                            <th onclick="start.sort_data()">Code</th>
-                                            <th onclick="start.sort_data()">Cur</th>
-                                            <th onclick="start.sort_data()">AMTINCV</th>
-                                            <th onclick="start.sort_data()">Outstanding</th>
-                                            <th onclick="start.sort_data()">settlement</th>
-                                            <th onclick="start.sort_data()">actual
+                                            <th class="sticky-column">No</th>
+                                            <th class="sticky-column">select</th>
+                                            <th class="sticky-column">Job#</th>
+                                            <th>Code</th>
+                                            <th>Cur</th>
+                                            <th>AMTINCV</th>
+                                            <th>Outstanding</th>
+                                            <th>settlement</th>
+                                            <th>actual
                                                 <br>ex.rate
                                             </th>
                                             <th>actual<br>curr.</th>
@@ -257,7 +265,12 @@ require 'function/auth/get_session.php';
                             </div>
 
                         </div>
+                        <div class="form-group p-2 m-2">
+                        <button class="btn btn-success btn-sm" onclick="start.select_all_check()">Select all</button>
+                        <button class="btn btn-warning btn-sm" onclick="start.un_select_all_check()">Deselect all</button>
+                        </div>    
                         <hr>
+
                         <div class="form-group p-2 m-2">
                             <div class="row">
                                 <div class="col">
@@ -351,6 +364,7 @@ require 'function/auth/get_session.php';
 </html>
 <script src="js/account_payment/start.js"></script>
 <script src="js/account_payment/start_default.js"></script>
+<script src="js/account_payment/process_part.js"></script>
 
 
 

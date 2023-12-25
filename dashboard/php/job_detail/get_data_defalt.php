@@ -34,23 +34,35 @@ FROM
 ";
 $sql_get_billing_des_ar = "
 SELECT
-    `ID`,
-    `billing_number`,
-    `billing_code`,
-    `billing_item_name`,
-    `vat`
+    bd.ID,
+    bd.billing_number,
+    bd.billing_code,
+    bd.billing_item_name,
+    bd.vat,
+    bd.billing_item_name_cn,
+    bd.type_billing
 FROM
-    `billing_description`";
+    billing_description bd
+WHERE
+    1
+ORDER BY
+	bd.billing_code";
 
 $sql_get_billing_des = "
 SELECT
-    `ID`,
-    `billing_number`,
-    `billing_code`,
-    `billing_item_name`,
-    `vat`
+    bd.ID,
+    bd.billing_number,
+    bd.billing_code,
+    bd.billing_item_name,
+    bd.vat,
+    bd.billing_item_name_cn,
+    bd.type_billing
 FROM
-    `billing_description`
+    billing_description bd
+WHERE
+    1
+ORDER BY
+	bd.billing_code
 ";
 
 $sql_get_bill_to = "

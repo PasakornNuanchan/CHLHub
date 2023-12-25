@@ -71,12 +71,22 @@ if($data_radio_process == ''){
     (SELECT u6.first_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_f,
     (SELECT u6.last_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_l,
     (SELECT jt.booking_number FROM job_title jt WHERE jt.ID = b.ref_job_id) booking_no,
-    (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container
+    (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container,
+    (SELECT bpl.amount FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID) billing_payment_spend,
+    (SELECT bpl.currency FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID) billing_payment_cur,
+    (SELECT jt.create_date FROM job_title jt WHERE jt.ID = b.ref_job_id) create_date_job
+
     FROM
     billing b
     WHERE
     b.type = 'AR' 
     AND b.status = '2'
+    HAVING
+    billing_payment_spend is null
+    ORDER BY
+    job_number
+    
+
 ";
 }else{
 
@@ -102,19 +112,26 @@ if($data_radio_process == ''){
     // $data_data_id
     // $data_data_type
     // $data_name_type
-    $data_having = "";
+    $data_having = "
+    HAVING
+    billing_payment_spend is null";
+
     if($data_name_type != '0' || $job_number != '' || $dn_cn != ''){
 
 
-        $data_name_type = $data_name_type != '0' ? "bill_to_c = '$data_name_type'" : "";
-        $job_number = $job_number != '' ? "job_number = '$job_number'" : "";
+        $data_name_type = $data_name_type != '0' ? "AND bill_to_c = '$data_name_type'" : "";
+        $job_number = $job_number != '' ? "AND job_number = '$job_number'" : "";
         // $dn_cn
 
         
         $data_having = "
         HAVING
+        1=1
         $data_name_type
-        $job_number";
+        $job_number 
+        
+        AND billing_payment_spend is null
+        ";
     }
 
     $data_bill_to_c = "";
@@ -186,13 +203,18 @@ if($data_radio_process == ''){
     (SELECT u6.first_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_f,
     (SELECT u6.last_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_l,
     (SELECT jt.booking_number FROM job_title jt WHERE jt.ID = b.ref_job_id) booking_no,
-    (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container
+    (SELECT GROUP_CONCAT(con.container_number) FROM container con WHERE b.ref_job_id = con.ref_job_id) container,
+    (SELECT bpl.amount FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID) billing_payment_spend,
+    (SELECT bpl.currency FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID) billing_payment_cur,
+    (SELECT jt.create_date FROM job_title jt WHERE jt.ID = b.ref_job_id) create_date_job
     FROM
     billing b
     WHERE
     b.type = '$data_radio_select_type' 
     AND b.status = '2'
     $data_having
+    ORDER BY
+    job_number
     ";
 
 

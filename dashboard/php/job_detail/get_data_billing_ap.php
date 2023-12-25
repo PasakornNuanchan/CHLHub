@@ -16,7 +16,9 @@ bp.paid_date_time,
     apb.first_name apbfn,
     apb.last_name apbln,
     lub.first_name lubfn,
-    lub.last_name lubln
+    lub.last_name lubln,
+    bpl.amount as amount_bpl,
+    bpl.currency as currency_bpl
 FROM
     billing bi
 LEFT JOIN USER cb ON
@@ -28,6 +30,7 @@ LEFT JOIN USER apb ON
 LEFT JOIN USER lub ON
     lub.ID = bi.last_update_by
 LEFT JOIN billing_payment bp ON bp.ref_billing_id = bi.ID
+LEFT JOIN billing_payment_list bpl ON bpl.data_number_id = bi.ID 
 WHERE
     bi.type = 'AP' AND bi.ref_job_id = '$id_number'
 ";

@@ -60,24 +60,21 @@ require 'function/auth/get_session.php';
 
     .table_ar td:nth-child(2) input,
     .table_ar td:nth-child(3) input,
-    .table_ar td:nth-child(4) input
-    {
+    .table_ar td:nth-child(4) input {
         width: 200px;
     }
 
     .table_ar td:nth-child(5) input,
     .table_ar td:nth-child(6) input,
     .table_ar td:nth-child(9) input,
-    .table_ar td:nth-child(10) input
-    {
+    .table_ar td:nth-child(10) input {
         width: 90px;
     }
 
     .table_ar td:nth-child(7) input,
     .table_ar td:nth-child(8) input,
     .table_ar td:nth-child(11) input,
-    .table_ar td:nth-child(12) input
-    {
+    .table_ar td:nth-child(12) input {
         width: 150px;
 
     }
@@ -96,14 +93,23 @@ require 'function/auth/get_session.php';
     .table_ar td:nth-child(25) input,
     .table_ar td:nth-child(26) input,
     .table_ar td:nth-child(27) input,
-    .table_ar td:nth-child(28) input
-    {
+    .table_ar td:nth-child(28) input {
         width: 200px;
     }
 
+    th.sticky-column,
+    td.sticky-column {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: #fff;
+    }
 
-
-    
+    tr.sticky_super_top {
+        position: sticky;
+        z-index: 2;
+        background-color: #fff;
+    }
 </style>
 
 
@@ -146,9 +152,9 @@ require 'function/auth/get_session.php';
                 <div class="col-lg-2 col-xl-2 text-center">
                     <div class="card">
                         <div class="card-body">
-                            <input type="radio" class="form-check-input check_start" onchange="start.select_filter() "name="radio_function_select" id="radio1" value="receivable">
+                            <input type="radio" class="form-check-input check_start" onchange="start.select_filter() " name="radio_function_select" id="radio1" value="receivable">
                             <label class="form-check-label pl-2">Receivable</label>
-                            <input type="radio" class="form-check-input" onchange="start.select_filter() "name="radio_function_select" id="radio2" value="payable">
+                            <input type="radio" class="form-check-input" onchange="start.select_filter() " name="radio_function_select" id="radio2" value="payable">
                             <label class="form-check-label pl-2">Payable</label>
                         </div>
                     </div>
@@ -197,7 +203,7 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col">
                                     <label class="form-label">Job number</label>
                                     <input type="text" class="form-control form-control-sm inp_job_number" onchange="start.select_filter()" list="job_number_list">
                                     <datalist id="job_number_list" class="data_list_job_number">
@@ -211,7 +217,7 @@ require 'function/auth/get_session.php';
                                         
                                     </datalist>
                                 </div> -->
-                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col">
                                     <label class="form-label">Billing Code</label>
                                     <input type="text" class="form-control form-control-sm inp_billing_code" onchange="start.select_filter()" list="billing_list">
                                     <datalist id="billing_list" class="data_list_billing_list">
@@ -219,7 +225,7 @@ require 'function/auth/get_session.php';
                                     </datalist>
                                 </div>
 
-                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col">
                                     <label class="form-label">Sale support</label>
                                     <input type="text" class="form-control form-control-sm inp_sale_code" onchange="start.select_filter()" list="sale_support_list">
                                     <datalist id="sale_support_list" class="data_list_sale_list">
@@ -227,7 +233,7 @@ require 'function/auth/get_session.php';
                                     </datalist>
                                 </div>
 
-                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col">
                                     <label class="form-label">CS Support</label>
                                     <input type="text" class="form-control form-control-sm inp_cs_code" onchange="start.select_filter()" list="cs_support_list">
                                     <datalist id="cs_support_list" class="data_list_cs_list">
@@ -235,7 +241,7 @@ require 'function/auth/get_session.php';
                                     </datalist>
                                 </div>
 
-                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="col">
                                     <label class="form-label">Select Search</label>
                                     <select class="form-select form-select-sm data_select_search" onchange="start.select_filter()" name="" id="">
                                         <option value="">-- Select Search --</option>
@@ -245,11 +251,11 @@ require 'function/auth/get_session.php';
                                     </select>
                                 </div>
 
-                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                <div class="col">
                                     <label class="form-label">Date start</label>
                                     <input type="date" class="form-control form-control-sm inp_date_start" onchange="start.select_filter()">
                                 </div>
-                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                <div class="col">
                                     <label class="form-label">Date end</label>
                                     <input type="date" class="form-control form-control-sm inp_data_end" onchange="start.select_filter()">
                                 </div>
@@ -274,15 +280,15 @@ require 'function/auth/get_session.php';
                     </div>
                 </div>
                 <div class="col-lg-10 col-xl-10">
-                    <div class="card card_table">
+                    <div class="card card_list">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table_ar" style="zoom:75%;">
+                            <div class="">
+                                <table class="table table-hover table_ar" style="zoom:75%;overflow: scroll;">
                                     <thead class="">
                                         <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Job number</th>
-                                            <th>Bill to</th>
+                                            <th class="sticky-column">No</th>
+                                            <th class="sticky-column">Job number</th>
+                                            <th class="sticky-column">Bill to</th>
                                             <th>Code</th>
                                             <th>Cur.</th>
                                             <th>QTY</th>
@@ -341,9 +347,9 @@ require 'function/auth/get_session.php';
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-center">1</td><!-- No -->
-                                            <td class="text-center"><input type="text" class="form-control form-control-sm" readonly value="T23112012"></td><!-- Job number -->
-                                            <td class="text-center"><input type="text" class="form-control form-control-sm" readonly value="Thai customs"></td><!-- Bill to -->
+                                            <td class="sticky-column text-center">1</td><!-- No -->
+                                            <td class="sticky-column text-center"><input type="text" class="form-control form-control-sm" readonly value="T23112012"></td><!-- Job number -->
+                                            <td class="sticky-column text-center"><input type="text" class="form-control form-control-sm" readonly value="Thai customs"></td><!-- Bill to -->
                                             <td class="text-center"><input type="text" class="form-control form-control-sm" readonly value=""></td><!-- Code -->
                                             <td class="text-center"><input type="text" class="form-control form-control-sm" readonly value=""></td><!-- Cur. -->
                                             <td class="text-center"><input type="text" class="form-control form-control-sm" readonly value=""></td><!-- QTY -->
@@ -381,8 +387,14 @@ require 'function/auth/get_session.php';
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-end mt-3">
-                                <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
+                            <div class=" mt-3">
+                                <div class="text-start">
+                                    <button class="btn btn-sm btn-warning" onclick="function_act.waiting_all()">Waiting All</button>
+                                    <button class="btn btn-sm btn-success" onclick="function_act.approve_all()">Approve All</button>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,14 +478,14 @@ require 'function/auth/get_session.php';
         start.start_page();
         $('.check_start').prop('checked', true)
         // $('.sidebar').addClass('sidebar-mini')
-        $('.cb_check').prop('checked',false).attr('disabled',true)
-        $('.cb_apply').prop('checked',false).attr('disabled',true)
-        $('.cb_appove').prop('checked',false).attr('disabled',true)
+        $('.cb_check').prop('checked', false).attr('disabled', true)
+        $('.cb_apply').prop('checked', false).attr('disabled', true)
+        $('.cb_appove').prop('checked', false).attr('disabled', true)
         start.start_setting_table();
         // first_setting.start_page();
         // start.start_setting();
         // start.data_start()
         start_default.start_default()
-        
+
     });
 </script>

@@ -70,11 +70,10 @@ const function_sub_billing = {
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                     </select></td> <!-- Currency -->
-                <td><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)" ></td> <!-- QTY. -->
-                <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
+                <td><input type="number" value="0"class="form-control form-control-sm inp_qty_ar inp_qty text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)" ></td> <!-- QTY. -->
+                <td><input type="number" value="0"class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
-                <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
-                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+                <td><input type="number" value="0"class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
                                             <option value="0">Non with holding tax</option>
                                             <option value="1">1%</option>
@@ -84,10 +83,13 @@ const function_sub_billing = {
                                         </select></td><!-- with holding tax -->
                 <td class="text-center"><input class="form-control form-control-sm text-end inp_vat_exc"></td>
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
-                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar " ></td><!-- rcvd amt -->
-                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td class="text-center long"><input type="text" class="form-control form-control-sm text-center ch_revd_amt_ar " disabled ></td><!-- rcvd amt -->
                 <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
+
+                <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" value="0"onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+
                 <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
                 <td class="long text-center"><div class="inp_status"></div></td>
                 <td class="long text-center"><input class="form-control form-control-sm text-center" disabled></td><!-- brunch -->
@@ -110,9 +112,9 @@ const function_sub_billing = {
 
         html_data_ap = `
         <tr list_id = "" type = "AP">
-            <td><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i></button></td><!--  action -->
-            <td></td>
-            <td>${rows_cal}</td>
+            <td class="sticky-column"><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i></button></td><!--  action -->
+            <td class="sticky-column"></td>
+            <td class="sticky-column">${rows_cal}</td>
             <td>${sub_billing.select_billing_des_ap}</td>
             <td><input type="text" class="form-control form-control-sm inp_des_ap" disabled></td> <!-- Description -->
             <td>${sub_billing.select_bill_to_ap}</td> <!-- Bill to -->
@@ -122,10 +124,10 @@ const function_sub_billing = {
                 <option value="RMB">RMB</option>
                 <option value="JP">JP</option>
             </select></td> <!-- Currency -->
-            <td><input type="number" class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
-            <td><input type="number" class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
+            <td><input type="number" value="0"class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
+            <td><input type="number" value="0"class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
             <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt " disabled></td><!-- AR AMT -->
-            <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
+            <td><input type="number" value="0" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
             <td class="text-center"><!--<input type="checkbox" class="form-input-check chb_tax_hold ">-->
             <select class="form-select form-select-sm chb_tax_hold text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
                     <option value="0">Non</option>
@@ -139,8 +141,11 @@ const function_sub_billing = {
 
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
+            <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
+
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-            <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+
+            <td><input type="number"  value="0"class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
             <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
@@ -149,7 +154,6 @@ const function_sub_billing = {
                     </select></td>--><!-- sysrate currency -->
             <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
-            <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
             <td></td><!-- status -->
             <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
@@ -1661,6 +1665,7 @@ const function_sub_billing = {
         function_sub_billing.cal_result_ar()
     }
 
+    
 
 
 

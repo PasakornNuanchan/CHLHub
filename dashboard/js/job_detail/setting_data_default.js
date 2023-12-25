@@ -174,7 +174,7 @@ const setting_data_default = {
 
         if(res_data_default['area_data'] != "0 results"){
             $.each(res_data_default['area_data'],function(i,v){
-                area_data +=`<option value="${v['ID']}">${v['location_name']+' '+v['provice']}</option>`;
+                area_data +=`<option value="${v['ID']}">${v['location_name']}</option>`;
             })
             $('#area_data').append(area_data)
             $('#area_datal').append(area_data)

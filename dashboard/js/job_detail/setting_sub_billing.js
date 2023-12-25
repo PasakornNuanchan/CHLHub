@@ -95,6 +95,8 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm text-end inp_vat_exl inp_vat_exl${i}" readonly></td>
                 <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap inp_amt_inc_vat_ap${i}" disabled ></td><!-- AMT(INCL.vat) -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt inp_paid_amt${i}" disabled></td><!-- paid amt -->
+                <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
+
                 <td><input type="text" class="form-control form-control-sm text-center" value="${billing_date}" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
                 <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ap"  onchange="function_sub_billing.change_currency(this)">
@@ -105,7 +107,6 @@ const sub_billing = {
                     </select></td> --><!-- sysrate currency -->
                 <td><input type="checkbox" class="form-input-check chb_apply chb_apply${i}"></td><!-- apply -->
                 <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
-                <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
                 <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
                 <td><div class="inp_status"></div></td><!-- status -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_commit" value="${commit_sale}"></td><!-- commision sale -->
@@ -151,12 +152,12 @@ const sub_billing = {
 
 
 
-            if(status_data == '1'){
+            if(status_data == '0' || status_data == '1'){
                 $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
             }else if(status_data == '2'){
                 $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
             }else if(status_data == '3'){
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Approve</span>')
+                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">reject</span>')
             }
 
             if(action_paid_by != ''){
@@ -267,6 +268,7 @@ const sub_billing = {
 
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
+            <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
             <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
             <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
@@ -277,7 +279,6 @@ const sub_billing = {
                     </select></td>--><!-- sysrate currency -->
             <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
-            <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
             <td></td><!-- status -->
             <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
@@ -408,9 +409,14 @@ const sub_billing = {
                 let brunch = v['brunch'] ? v['brunch'] : '';
                 let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
                 let actpb = v['action_paid_by'] ? v['action_paid_by'] : '';
-
+                let amount_bpl =  v['amount_bpl'] ? v['amount_bpl'] : '0';
+                let currency_bpl =  v['currency_bpl'] ? v['currency_bpl'] : '';
                 let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
                 i++;
+                
+                // if(amount_bpl != 0){
+
+                // }
 
             html_data_ar = `
             <tr id_list = "${id_list}" class="data_ar${i} data_ar_list${id_list}" type = "AR">
@@ -433,7 +439,6 @@ const sub_billing = {
                 <td class="long"><input type="number" class="form-control form-control-sm inp_unit_price text-end" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td class="long"><input type="text" class="form-control form-control-sm inp_data_amt inp_ar_amt text-end" disabled></td><!-- AR AMT -->
                 <td class="long"><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
-                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar ch_need_vat_ar${i}"></td><!-- need vat -->
                 <td class="text-center long"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
                     <option value="0">Non with holding tax</option>
                     <option value="1">1%</option>
@@ -443,7 +448,9 @@ const sub_billing = {
                 </select></td><!-- with holding tax -->
                 <td class="text-center long"><input class="form-control form-control-sm text-end inp_vat_exc "></td>
                 <td class="long"><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
-                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar ch_revd_amt_ar${i}" ></td><!-- rcvd amt -->
+                <td class="text-center long"><input type="text" class="form-control form-control-sm text-end ch_revd_amt_ar ch_revd_amt_ar${i}"></td><!-- rcvd amt -->
+                <td class="long"><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
+
                 <td class="long"><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
                 <td class="long"><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
                 <!--<td><select class="form-select form-select-sm inp_sys_rate_currency_arf" onchange="function_sub_billing.change_currency(this)">
@@ -452,8 +459,8 @@ const sub_billing = {
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
                     </select></td>--><!-- sysrate currency -->
+                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar ch_need_vat_ar${i}"></td><!-- need vat -->
                 
-                <td class="long"><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
                 <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
                 <td class="long text-center"><div class="inp_status"></div></td>
                 <td class="long text-center"><input class="form-control form-control-sm text-center" value="${brunch}" disabled></td><!-- brunch -->
@@ -494,10 +501,9 @@ const sub_billing = {
 
                 
 
-                if(status_data == '1'){
+                if(status_data == '1' || status_data == '0'){
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
                 }else if(status_data == '2'){
-                    //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
                 }else if(status_data == '3'){
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
@@ -541,6 +547,19 @@ const sub_billing = {
                 $(`.data_ar${i} > td > .inp_vat_exc`).val(data_vatexcl)
                 $(`.data_ar${i} > td > .inp_amt_inc_vat_ar`).val(data_amtincl)
 
+
+                amount_bpl = parseFloat(amount_bpl)
+                if(amount_bpl != 0 ){
+                    $(`.data_ar${i} > td > .ch_revd_amt_ar`).css("color","red")
+                }
+                amount_bpl = amount_bpl != 0 ? 0 : data_amtincl;
+                // amount_bpl = parseFloat(amount_bpl)
+                // amount_bpl = amount_bpl.toFixed(2)
+                //amount_bpl = amount_bpl != 0 ? 0 : data_amtincl;
+                $(`.data_ar${i} > td > .ch_revd_amt_ar`).val(amount_bpl)
+
+
+
                 if(paid_date_time != ''){
                         // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl)
                         $(`.data_ar${i} > td > .inp_payble`).html('Paid')
@@ -577,7 +596,6 @@ const sub_billing = {
                 <td><input type="number" class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
-                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
                                             <option value="0">Non with holding tax</option>
                                             <option value="1">1%</option>
@@ -588,9 +606,12 @@ const sub_billing = {
                 <td class="text-center"><input class="form-control form-control-sm text-end inp_vat_exc"></td>
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_revd_amt_ar " ></td><!-- rcvd amt -->
+                <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
+
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
                 <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
-                <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
+                <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
+
                 <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
                 <td class="long text-center"><div class="inp_status"></div></td>
                 <td class="long text-center"><input class="form-control form-control-sm text-center" disabled></td><!-- brunch -->

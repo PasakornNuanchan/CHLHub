@@ -84,14 +84,19 @@ const start = {
                 let container = v['container'] ? v['container'] : '';
 
                 let create_job = v['create_job'] ? v['create_job'] : '';
+
+                let amount_paid = v['amount_paid'] ? v['amount_paid'] : '0';
+                let currency_paid = v['currency_paid'] ? v['currency_paid'] : '';
+
+               
                 i++
 
                 let html_data = ``;
                 html_data = `
                 <tr class="row_id${id_number}" id_number="${id_number}">
-                    <td class="text-center">${i}</td><!-- No -->
-                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_job_number" readonly></td><!-- Job number -->
-                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_bill_to" readonly></td><!-- Bill to -->
+                    <td class="text-center sticky-column">${i}</td><!-- No -->
+                    <td class="text-center sticky-column"><input type="text" class="form-control form-control-sm inp_job_number" readonly></td><!-- Job number -->
+                    <td class="text-center sticky-column"><input type="text" class="form-control form-control-sm inp_bill_to" readonly></td><!-- Bill to -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_description" readonly></td><!-- Code -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_currency text-center" readonly></td><!-- Cur. -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_qty text-center" readonly></td><!-- QTY -->
@@ -100,7 +105,7 @@ const start = {
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_vat text-center" readonly></td><!-- VAT% -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_wh text-center" readonly></td><!-- WH% -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_amtincv text-end" readonly></td><!-- AMTINCV -->
-                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_amtpaid text-end" readonly></td><!-- AMTPAID -->
+                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_amtpaid text-end "  readonly></td><!-- AMTPAID -->
                     <td class="text-center">
                         <input type="radio" class="form-check-input radio_act_w radio_act" onclick="start.cal_currency();" name="radio_act${id_number}" id="radio1_${id_number}" value="0">
                         <label for="radio1_${id_number}" class="form-check-label pl-2">Waiting</label>
@@ -129,6 +134,16 @@ const start = {
 
                 $('.table > tbody').append(html_data)
 
+                parseFloat(amount_paid)
+                if(amount_paid != 0){
+                    // console.log(id_number)
+                    $(`.table > tbody > .row_id${id_number} > td > .inp_amtpaid`).css("color","red")
+                }
+                $(`.table > tbody > .row_id${id_number} > td > .inp_job_number`).val(job_number)
+
+                amount_paid = amount_paid != 0 ? 0 : amtinclvat;
+                amount_paid = parseFloat(amount_paid)
+                amount_paid = amount_paid.toFixed(2)
 
                 unit_price = parseFloat(unit_price)
                 qty = parseFloat(qty)
@@ -138,10 +153,10 @@ const start = {
                 unit_price = unit_price.toFixed(2)
                 amtinclvat = amtinclvat.toFixed(2)
 
-                
+              
 
 
-                $(`.table > tbody > .row_id${id_number} > td > .inp_job_number`).val(job_number)
+
                 $(`.table > tbody > .row_id${id_number} > td > .inp_bill_to`).val(bill_to_c)
                 $(`.table > tbody > .row_id${id_number} > td > .inp_description`).val(billing_description)
                 $(`.table > tbody > .row_id${id_number} > td > .inp_currency`).val(currency)
@@ -151,7 +166,7 @@ const start = {
                 $(`.table > tbody > .row_id${id_number} > td > .inp_vat`).val(vat + "%")
                 $(`.table > tbody > .row_id${id_number} > td > .inp_wh`).val(with_holding_tax + "%")
                 $(`.table > tbody > .row_id${id_number} > td > .inp_amtincv`).val(amtinclvat)
-                $(`.table > tbody > .row_id${id_number} > td > .inp_amtpaid`).val()
+                $(`.table > tbody > .row_id${id_number} > td > .inp_amtpaid`).val(amount_paid)
                 $(`.table > tbody > .row_id${id_number} > td > .inp_remark`).val(remark)
                 $(`.table > tbody > .row_id${id_number} > td > .inp_op`).val(cs_support_f + ' ' + cs_support_l)
                 $(`.table > tbody > .row_id${id_number} > td > .inp_sale`).val(sale_support_f + ' ' + sale_support_l)
@@ -380,6 +395,16 @@ const start = {
             }
         }
 
+        if(data_radio_select_type == "Paid"){
+            $('.cb_check').attr('disabled', true).prop('checked',true)
+            $('.cb_apply').attr('disabled', true).prop('checked',true)
+            $('.cb_appove').attr('disabled', true).prop('checked',true)
+        }
+        if(data_radio_select_type == "unpaid"){
+            $('.cb_check').attr('disabled', false).prop('checked',false)
+            $('.cb_apply').attr('disabled', false).prop('checked',false)
+            $('.cb_appove').attr('disabled', false).prop('checked',false)
+        }
     },
 
     cal_currency: async function () {
