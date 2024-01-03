@@ -135,16 +135,16 @@ const start = {
                 $('.table > tbody').append(html_data)
 
                 parseFloat(amount_paid)
-                if(amount_paid != 0){
+                if(amount_paid == 0){
                     // console.log(id_number)
                     $(`.table > tbody > .row_id${id_number} > td > .inp_amtpaid`).css("color","red")
                 }
                 $(`.table > tbody > .row_id${id_number} > td > .inp_job_number`).val(job_number)
 
-                amount_paid = amount_paid != 0 ? 0 : amtinclvat;
+                amount_paid = amount_paid != 0 ? amtinclvat : 0 ;
                 amount_paid = parseFloat(amount_paid)
                 amount_paid = amount_paid.toFixed(2)
-
+                
                 unit_price = parseFloat(unit_price)
                 qty = parseFloat(qty)
                 amtinclvat = parseFloat(amtinclvat)

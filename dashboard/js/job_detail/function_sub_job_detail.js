@@ -351,7 +351,7 @@ const function_sub_job_detail = {
             gw_all = gw_all.toFixed(2)
             single_w_all = single_w_all.toFixed(2)
         })
-
+        // package_all = package_all.toFixed(2)
         //$('.inp_cargo_des').val(cargo_description_all)
         $('.inp_quantity').val(package_all)
         $('.inp_gw_container').val(gw_all)

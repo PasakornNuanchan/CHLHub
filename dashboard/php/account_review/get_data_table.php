@@ -112,9 +112,9 @@ if ($data_radio_process == '') {
     }
     // $cb_appove
     if ($cb_appove == '1') {
-        $sql_approve = "AND b.status = '2' ";
+        $sql_approve = "AND b.approve_by IS NOT NULL ";
     } else {
-        $sql_approve = "AND b.status = '0' ";
+        $sql_approve = "AND b.approve_by IS NULL ";
     }
 
     // $data_radio_select_type

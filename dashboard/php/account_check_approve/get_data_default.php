@@ -45,15 +45,34 @@ GROUP BY
 $sql_data_description = "
 SELECT
 	bd.ID,
-    bd.billing_item_name
+    bd.billing_code
 FROM
     `billing` b
     LEFT JOIN billing_description bd ON b.billing_description = bd.ID
 GROUP BY
 	bd.ID
-
 ";
 
+$sql_data_user_serach = "
+SELECT
+	u.ID,
+  u.first_name,
+  u.last_name
+FROM
+    `user` u
+ORDER BY
+	u.first_name ASC
+";
+
+
+$result = $con->query($sql_data_user_serach);
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $user_search[] = $row;
+    }
+  } else {
+    $user_search = "0 results";
+  }
 
 $result = $con->query($sql_data_default);
   if ($result->num_rows > 0) {
@@ -83,4 +102,4 @@ $result = $con->query($sql_data_default);
   }
 
 
-  echo json_encode(array('default'=>$default,'job_number'=>$job_number,'description'=>$description));
+  echo json_encode(array('default'=>$default,'job_number'=>$job_number,'description'=>$description,'user_search'=>$user_search));

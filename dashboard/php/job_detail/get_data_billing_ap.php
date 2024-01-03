@@ -18,7 +18,19 @@ bp.paid_date_time,
     lub.first_name lubfn,
     lub.last_name lubln,
     bpl.amount as amount_bpl,
-    bpl.currency as currency_bpl
+    bpl.currency as currency_bpl,
+    sra.usd_thb,
+    sra.usd_rmb,
+    sra.usd_yen,
+    sra.thb_usd,
+    sra.thb_rmb,
+    sra.thb_yen,
+    sra.rmb_usd,
+    sra.rmb_thb,
+    sra.rmb_yen,
+    sra.yen_usd,
+    sra.yen_thb,
+    sra.yen_rmb
 FROM
     billing bi
 LEFT JOIN USER cb ON
@@ -31,6 +43,7 @@ LEFT JOIN USER lub ON
     lub.ID = bi.last_update_by
 LEFT JOIN billing_payment bp ON bp.ref_billing_id = bi.ID
 LEFT JOIN billing_payment_list bpl ON bpl.data_number_id = bi.ID 
+LEFT JOIN sys_rate_cur sra ON sra.ID = bpl.currency_number
 WHERE
     bi.type = 'AP' AND bi.ref_job_id = '$id_number'
 ";

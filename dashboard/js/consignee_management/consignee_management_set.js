@@ -26,8 +26,11 @@ const consignee_list_set = {
             await this.set_head_page();
             await this.set_raw_data(consignee_number);
             await this.set_data_user_consignee(consignee_number);
+            $('#user_detail_tab').remove();
+
         } else {
             await this.set_head_page();
+            $('#user_detail_tab').remove();
         }
     },
 
@@ -43,53 +46,56 @@ const consignee_list_set = {
         let res = await this.ajax_load_user_data(consignee_number)
         console.log(res)
         $('.user_card_tab').html('')
-        $.each(res['user_data_consignee'],function (i,v){
-            let uID = v['ID'] ? v['ID'] : '';
-            let username = v['sec_username'] ? v['sec_username'] : '';
-            let password = v['sec_password'] ? v['sec_password'] : '';
-            let forgot_pin = v['forgot_pin'] ? v['forgot_pin'] : '';
-            let status_u = v['status_u'] ? v['status_u'] : '';
-            let html_user_consignee = '';
-
-            html_user_consignee = `
-            <div class="consignee_user" user_consignee_id="${uID}">
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 align-self-center ">username :</label>
-                    <div class="col-sm-9 col-md-9 col-lg-9">
-                        <input type="input" class="form-control form-control-sm inp_username" value="${username}">
+        if(res['user_data_consignee'] != "0 results"){
+            $.each(res['user_data_consignee'],function (i,v){
+                let uID = v['ID'] ? v['ID'] : '';
+                let username = v['sec_username'] ? v['sec_username'] : '';
+                let password = v['sec_password'] ? v['sec_password'] : '';
+                let forgot_pin = v['forgot_pin'] ? v['forgot_pin'] : '';
+                let status_u = v['status_u'] ? v['status_u'] : '';
+                let html_user_consignee = '';
+    
+                html_user_consignee = `
+                <div class="consignee_user" user_consignee_id="${uID}">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">username :</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp_username" value="${username}">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 align-self-center ">password :</label>
-                    <div class="col-sm-9 col-md-9 col-lg-9">
-                        <input type="input" class="form-control form-control-sm inp_pass" value="${password}">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">password :</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <input type="input" class="form-control form-control-sm inp_pass" value="${password}">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 align-self-center ">stauts :</label>
-                    <div class="col-sm-9 col-md-9 col-lg-9">
-                        <select class="form-select form-select-sm inp_status inp_status${i}">
-                            <option value="1">active</option>
-                            <option value="0">Inactive</option>
-                        </select>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">stauts :</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                            <select class="form-select form-select-sm inp_status inp_status${i}">
+                                <option value="1">active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-3 align-self-center ">forgot pin (for reset password) :</label>
-                    <div class="col-sm-9 col-md-9 col-lg-9">
-                    <input type="input" class="form-control form-control-sm inp_forgot" value="${forgot_pin}">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3 align-self-center ">forgot pin (for reset password) :</label>
+                        <div class="col-sm-9 col-md-9 col-lg-9">
+                        <input type="input" class="form-control form-control-sm inp_forgot" value="${forgot_pin}">
+                        </div>
                     </div>
+                    <div class="text-end">
+                        <button class="btn btn-sm btn-danger" onclick="consignee_list_set.delete_user_consingee(this)"><i class="bi bi-trash"></i> Delete</button>
+                    </div>
+                    <hr>
                 </div>
-                <div class="text-end">
-                    <button class="btn btn-sm btn-danger" onclick="consignee_list_set.delete_user_consingee(this)"><i class="bi bi-trash"></i> Delete</button>
-                </div>
-                <hr>
-            </div>
-            `;
-            
-            $('.user_card_tab').append(html_user_consignee)
-            $(`.inp_status${i}`).val(status_u)
-        })
+                `;
+                
+                $('.user_card_tab').append(html_user_consignee)
+                $(`.inp_status${i}`).val(status_u)
+            })
+        }
+        
     },
 
     ajax_load_user_data : async function(consignee_number){
@@ -109,14 +115,27 @@ const consignee_list_set = {
     set_raw_data : async function (consignee_number){
         let rrd = await consignee_list_set.ajax_request_raw_data(consignee_number)
         //$('.inp-consignee_number').val(rrd['sqrc']['consignee_number'])
-        $('.inp-cname').val(rrd['sqrc']['consignee_name']).attr('readonly',true)
-        $('.inp-address').val(rrd['sqrc']['address'])
-        $('.inp-tax_id').val(rrd['sqrc']['tax'])
-        $('.inp-email').val(rrd['sqrc']['email'])
-        $('.inp-phone_number').val(rrd['sqrc']['tel'])
-        $('.inp-fax').val(rrd['sqrc']['fax'])
-        $('.inp-linkman').val(rrd['sqrc']['contact_person_name'])
-        $('.inp-contact').val(rrd['sqrc']['contact_person_tel'])
+        let consignee_name = rrd['sqrc']['consignee_name'] ? rrd['sqrc']['consignee_name'] : '';
+        let address = rrd['sqrc']['address'] ? rrd['sqrc']['address'] : '';
+        let tax = rrd['sqrc']['tax'] ? rrd['sqrc']['tax'] : '';
+        let email = rrd['sqrc']['email'] ? rrd['sqrc']['email'] : '';
+        let tel = rrd['sqrc']['tel'] ? rrd['sqrc']['tel'] : '';
+        let fax = rrd['sqrc']['fax'] ? rrd['sqrc']['fax'] : '';
+        let contact_person_name = rrd['sqrc']['contact_person_name'] ? rrd['sqrc']['contact_person_name'] : '';
+        let contact_person_tel = rrd['sqrc']['contact_person_tel'] ? rrd['sqrc']['contact_person_tel'] : '';
+        let user_sale = rrd['sqrc']['user_sale'] ? rrd['sqrc']['user_sale'] : '';
+
+
+
+        await $('.inp-cname').val(consignee_name).attr('disabled',true)
+        await $('.inp-address').val(address)
+        await $('.inp-tax_id').val(tax)
+        await $('.inp-email').val(email)
+        await $('.inp-phone_number').val(tel)
+        await $('.inp-fax').val(fax)
+        await $('.inp-linkman').val(contact_person_name)
+        await $('.inp-contact').val(contact_person_tel)
+        await $('.sel_sale_support').val(user_sale)
     },
 
     add_new_user_consignee : async function (){
@@ -266,6 +285,8 @@ const consignee_list_set = {
                 let corp_fax = $('.inp-fax').val()
                 let corp_linkman = $('.inp-linkman').val()
                 let corp_contact_tel = $('.inp-contact').val()
+                let corp_sale_support = $('.sel_sale_support').val()
+
 
                 let check_val = 0;
 
@@ -279,6 +300,8 @@ const consignee_list_set = {
                 }
 
                 if(check_val == 0){
+
+                this.consignee_number_global = this.consignee_number_global == "undefined" ? '' : this.consignee_number_global;
                    uset_arr_temp = {
                     consignee_id : this.consignee_number_global,
                     corp_name : corp_name,
@@ -289,32 +312,37 @@ const consignee_list_set = {
                     corp_fax : corp_fax,
                     corp_linkman : corp_linkman,
                     corp_contact_tel : corp_contact_tel,
-                    
+                    corp_sale_support : corp_sale_support,
                    }
-
                     let res_save_raw_data  = await this.ajax_save_raw_data(uset_arr_temp)
                     console.log(res_save_raw_data)
-                    if(res_save_raw_data['st'] == '4'){
+                    if(res_save_raw_data['arr_suc']['st'] == '4'){
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Cannot has save your data because corporate name is duplicate please change corporate name',
                         })
-                    }else if(res_save_raw_data['st'] == '1'){
-                        Swal.fire(
-                            'saved!',
-                            'Your file has been saved.',
-                            'success'
-                        )
-                        $('.inp-cname').val('')
-                        $('.inp-address').val('')
-                        $('.inp-tax_id').val('')
-                        $('.inp-email').val('')
-                        $('.inp-phone_number').val('')
-                        $('.inp-fax').val('')
-                        $('.inp-linkman').val('')
-                        $('.inp-contact').val('')
-                    }else if(res_save_raw_data['st'] == '0'){
+                    }else if(res_save_raw_data['arr_suc']['st'] == '1'){
+                        Swal.fire({
+                            title: 'Saved!',
+                            text: 'Your file has been saved.',
+                            icon: 'success',
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              window.location.href = 'CHL-consignee-management.php' + '?consignee_number=' + res_save_raw_data['last_id'];;
+                            }
+                          });
+                        
+                        // $('.inp-cname').val('')
+                        // $('.inp-address').val('')
+                        // $('.inp-tax_id').val('')
+                        // $('.inp-email').val('')
+                        // $('.inp-phone_number').val('')
+                        // $('.inp-fax').val('')
+                        // $('.inp-linkman').val('')
+                        // $('.inp-contact').val('')
+
+                    }else if(res_save_raw_data['arr_suc']['st'] == '0'){
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -338,7 +366,41 @@ const consignee_list_set = {
                 },
             });
         });
-    }
+    },
+
+
+    corp_check : async function (){
+        let name = $('.inp-cname').val()
+
+        if(name != ''){
+            let res_data_name = await this.ajax_check_name(name)
+        
+            if(res_data_name == '0'){
+                $('.data_check_name').html(`<i class="bi bi-check-lg" style="zoom:200%; color:green;"></i>`);
+                
+            }else{
+                $('.data_check_name').html(`<i class="bi bi-x-lg" style="zoom:200%; color:red;"></i>`);
+            }
+        }else{
+            $('.data_check_name').html('');
+        }
+
+        
+    },
+
+    ajax_check_name : async function (name){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/consignee-management/check_data_name.php",
+                data: {'name' : name},
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
     
 };
 

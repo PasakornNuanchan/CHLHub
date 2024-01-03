@@ -13,9 +13,9 @@
       $phone_number = isset($_POST['uset_arr_temp']['phone_number']) ? $_POST['uset_arr_temp']['phone_number'] : '';
       $contact = isset($_POST['uset_arr_temp']['contact']) ? $_POST['uset_arr_temp']['contact'] : '';
 
-
-        
-            if ($carrier_id != 'undefined') {
+        $data_type = "";
+        $last_id = "";
+            if ($carrier_id != '') {
                 $sql_save = "
                 UPDATE
                     `carrier`
@@ -28,6 +28,7 @@
                 WHERE
                     `ID` = '$carrier_id'
                     ";
+                $data_type = '1';
             } else {
                 $sql_save = "
                 INSERT INTO `carrier`(
@@ -45,17 +46,25 @@
                     '$contact'
                 )
                             ";
+                $data_type = '2';
             }
-        
+            // echo $sql_save;
             if ($con->query($sql_save) != 1) {
                 $arr_suc['st'] = '0';
+                
             } else {
                 $arr_suc['st'] = '1';
+                // echo $data_type;
+                $last_id_insert = $con->insert_id;
+                $last_id_update = $carrier_id;
+                if($data_type == '1'){
+                    $last_id = $last_id_update;
+                }else{
+                    $last_id = $last_id_insert;
+                }
             }
+            
 
-
-      
-
-        echo json_encode($arr_suc);
-   
+        echo json_encode(array('arr_suc'=>$arr_suc,'last_id'=>$last_id));
+//    
 ?>

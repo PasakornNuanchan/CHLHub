@@ -100,7 +100,7 @@ require 'function/auth/get_session.php';
         width: 130px;
     }
 
-    #table_billing_ar td:nth-child(8) input,
+    
     #table_billing_ar td:nth-child(11) input {
         width: 80px;
     }
@@ -116,6 +116,9 @@ require 'function/auth/get_session.php';
         width: 140px;
     }
 
+    #table_billing_ar td:nth-child(8) input{
+        width: 120px;
+    }
 
     #table_billing_ar td:nth-child(18) input {
         width: 200px;
@@ -185,7 +188,7 @@ require 'function/auth/get_session.php';
         width: 130px;
     }
 
-    #table_billing_ap td:nth-child(8) input,
+    
     #table_billing_ap td:nth-child(11) input {
         width: 80px;
     }
@@ -201,12 +204,14 @@ require 'function/auth/get_session.php';
         width: 140px;
     }
 
+    #table_billing_ap td:nth-child(8) input,
     #table_billing_ap td:nth-child(12) select {
         width: 120px;
     }
 
-    #table_billing_ap td:nth-child(19) input {
-        width: 200px;
+    #table_billing_ap td:nth-child(19) input,
+    #table_billing_ap td:nth-child(21) input{
+        width: auto;
     }
 
 
@@ -1965,11 +1970,11 @@ require 'function/auth/get_session.php';
                                     <h4>Account Payble</h4>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6">
-                                    <div class="text-end">
-                                        <button class="btn btn-success rounded m-1 btn_save_all_billing text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
-                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
-                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
-                                        <button class="btn btn-outline-primary m-1 rounded text-end" onclick="function_sub_billing.modal_profit_billing()">profit</button>
+                                    <div class="text-end btn_save_mode_invoice">
+                                        <button class="btn btn-success rounded m-1 btn_save_all_billing text-end hide_mode_invoice" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end hide_mode_invoice" onclick="function_sub_billing.generate_bill_ap()">Generate bill</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end hide_mode_invoice" onclick="function_sub_billing.get_copy_ap_to_ar()">Copy AP to AR</button>
+                                        <button class="btn btn-outline-primary m-1 rounded text-end hide_mode_invoice" onclick="function_sub_billing.modal_profit_billing()">profit</button>
                                     </div>
                                 </div>
                             </div>
@@ -1978,15 +1983,13 @@ require 'function/auth/get_session.php';
                             <div class="bd-example table-responsive">
                                 <table class="table table-hover table_billing_ap" id="table_billing_ap" onchange="function_sub_billing.cal_result_ap(this)">
                                     <thead>
-                                        <tr class="text-center" style="font-size:14;
-                                        ">
+                                        <tr class="text-center" style="font-size:14;">
                                             <th class="text-center">Action</th>
                                             <th class="text-center"><button class="btn btn-sm btn-outline-primary" onclick="function_sub_billing.select_all_box('ap')">all</button></th>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Code</th>
                                             <th class="text-center">Item</th>
                                             <th class="text-center">Bill to</th>
-                                            <!-- <th class="text-center">Payble</th> -->
                                             <th class="text-center">Currency</th>
                                             <th class="text-center">QTY.</th>
                                             <th class="text-center">Unit Price</th>
@@ -2008,11 +2011,42 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">Creater</th>
                                             <th class="text-center">Create date</th>
                                             <th class="text-center">Last modifier</th>
-                                            <th class="text-center">Last nodifier date</th>
+                                            <th class="text-center">Last modifier date</th>
                                             <th class="text-center">Cheker</th>
                                             <th class="text-center">Check Date</th>
-
                                         </tr>
+                                        <!-- <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                            <td>11</td>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>16</td>
+                                            <td>17</td>
+                                            <td>18</td>
+                                            <td>19</td>
+                                            <td>20</td>
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>24</td>
+                                            <td>25</td>
+                                            <td>26</td>
+                                            <td>27</td>
+                                            <td>28</td>
+                                            <td>29</td>
+                                            <td>30</td>
+                                        </tr> -->
 
                                     </thead>
                                     <tbody class="justify-content-center text-align-center" style="text-align: center; vertical-align: middle;">
@@ -2138,13 +2172,13 @@ require 'function/auth/get_session.php';
                                 <h4>Account Receivable</h4>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="text-end">
-                                <button class="btn btn-success rounded btn_save_all_billing m-1 text-end" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
-                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
-                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
-                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
-                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
-                                    <button class="btn btn-outline-primary rounded m-1 text-end" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
+                                <div class="text-end btn_save_mode_invoice">
+                                    <button class="btn btn-success rounded btn_save_all_billing m-1 text-end hide_mode_invoice" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> save</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end hide_mode_invoice" onclick="function_sub_billing.generate_bill_ar()">Generate Invoice</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end hide_mode_invoice" onclick="function_sub_billing.generate_bill_ar_full()">Generate Invoice (Full)</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end hide_mode_invoice" onclick="function_sub_billing.get_generate_bill_ar_state_ment_account()">Generate Statement of Account</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end hide_mode_invoice" onclick="function_sub_billing.get_generate_bill_ar_debit_note()">Generate debit note</button>
+                                    <button class="btn btn-outline-primary rounded m-1 text-end hide_mode_invoice" onclick="function_sub_billing.get_generate_bill_ar_debit_note_line()">Generate debit note line</button>
 
                                 </div>
                             </div>
@@ -2169,7 +2203,7 @@ require 'function/auth/get_session.php';
                                             
                                             <th>With hold (%)</th>
                                             <th>Vat (EXCL)</th>
-                                            <th>AMT(INCL.VAT)</th>
+                                            <th>AMT<br>(INCL.VAT)</th>
                                             <th>Rcvd Amt</th>
                                             <th>Remark</th>
 

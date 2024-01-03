@@ -53,9 +53,9 @@ require 'function/auth/get_session.php';
         color: red;
     }
 
-    .table>tbody td:nth-child(-n+15) {
-        padding-left: 3px;
-        padding-right: 3px;
+    .table>tbody td:nth-child(-n+20) {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 
     .table_check td:nth-child(1),
@@ -63,26 +63,28 @@ require 'function/auth/get_session.php';
         width: 100px;
     }
 
-    .table_check td:nth-child(6) input,
+    
     .table_check td:nth-child(7) input,
-    .table_check td:nth-child(9) input,
+    .table_check td:nth-child(11) input,
     .table_check td:nth-child(10) input {
-        width: 80px;
+        width: 90px;
     }
-
+    
     .table_check td:nth-child(3) input,
+    .table_check td:nth-child(9) input,
     .table_check td:nth-child(8) input {
         width: 150px;
     }
-
+    .table_check td:nth-child(6) input,
     .table_check td:nth-child(4) input,
     .table_check td:nth-child(5) input,
-    .table_check td:nth-child(11) input,
     .table_check td:nth-child(12) input,
     .table_check td:nth-child(13) input,
     .table_check td:nth-child(14) input,
     .table_check td:nth-child(15) input,
-    .table_check td:nth-child(16) input {
+    .table_check td:nth-child(16) input,
+    .table_check td:nth-child(17) input,
+    .table_check td:nth-child(18) input {
         width: 200px;
     }
 
@@ -142,7 +144,7 @@ require 'function/auth/get_session.php';
             </div> -->
 
             <div class="row">
-                <div class="col-lg-2 col-xl-2">
+                <!-- <div class="col-lg-2 col-xl-2">
                     <div class="card">
                         <div class="card-body">
                             <input type="radio" class="form-check-input  check_start" name="radio_process" id="process" value="process" onclick="start.select_filter()">
@@ -171,7 +173,7 @@ require 'function/auth/get_session.php';
                             <label class="form-check-label pl-2">Apply</label>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-lg-2 col-xl-2">
                     <div class="card">
                         <div class="card-body">
@@ -194,6 +196,27 @@ require 'function/auth/get_session.php';
                                     <datalist id="job_number_list" class="data_list_job_number">
 
                                     </datalist>
+                                </div>
+                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <label class="form-label">Applied Person</label>
+                                    <input type="text" class="form-control form-control-sm inp_applied_person" onchange="start.select_filter()" list="applied_person_list">
+                                    <datalist id="applied_person_list" class="data_list_applied_person">
+
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <label class="form-label">Applied Date</label>
+                                    <input type="Date" class="form-control form-control-sm inp_date_applied" onchange="start.select_filter()">
+                                </div>
+                                <div class="col-sm-1 col-md col-lg-1 col-xl-1">
+                                    <div class="form-group">
+                                        <input type="radio" class="form-check-input check_start" name="radio_p" id="radio1" value="unpaid" onclick="start.select_filter()">
+                                        <label class="form-check-label pl-2">Unpaid</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="radio" class="form-check-input" name="radio_p" id="radio2" value="paid" onclick="start.select_filter()">
+                                        <label class="form-check-label pl-2">Paid</label>
+                                    </div>
                                 </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <label class="form-label">Billing Code</label>
@@ -230,6 +253,7 @@ require 'function/auth/get_session.php';
                                     <thead class="">
                                         <tr class="text-center ">
                                             <th>Check</th>
+                                            <th>Rewise</th>
                                             <th>No</th>
                                             <th>Job Number</th>
                                             <th>Bill to</th>
@@ -247,6 +271,7 @@ require 'function/auth/get_session.php';
                                             <th>Apply By</th>
                                             <th>Apply Datetime</th>
                                         </tr>
+                                        
                                     </thead>
                                     <tbody>
                                         <tr>

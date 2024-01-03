@@ -21,15 +21,43 @@ WHERE
 ";
 
 
-
 $result = $con->query($sql_request_data_table);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $table[] = $row;
+    $id_find[] = $row['id_job_title'];
   }
 } else {
   $table = "0 results";
 }
 
-echo json_encode(array('table'=>$table));
-?>
+$id_find = implode(",",$id_find);
+// $id_find;
+$sql_data_all_amount = "
+SELECT
+    bpl.ID,
+    bpl.data_number_id ,
+    bpl.amount,
+    b.currency as current_currency,
+    bpl.currency as currency_new,
+    bpl.id_refer_bp,
+    bpl.currency_number,
+    b.ref_job_id
+FROM
+    billing_payment_list bpl
+    LEFT JOIN billing b ON b.ID = bpl.data_number_id
+WHERE
+b.ref_job_id IN ($id_find)
+";
+
+$result = $con->query($sql_data_all_amount);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $spend[] = $row;
+  }
+} else {
+  $spend = "0 results";
+}
+
+echo json_encode(array('table'=>$table,'spend'=>$spend));
+// ?>

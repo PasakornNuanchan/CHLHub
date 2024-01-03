@@ -23,13 +23,15 @@ const start = {
 
             let html_data_table_proces = ``;
 
-
             ar_amt = parseFloat(ar_amt)
             ar_amt = ar_amt.toFixed(2)
 
             ap_amt = parseFloat(ap_amt)
             ap_amt = ap_amt.toFixed(2)
 
+            $.each(res_data['spend'],function(i1,v1){
+                
+            })
 
             html_data_table_proces = `
             <tr class="text-center row_id${id_job_title}" id_job_number="${id_job_title}">

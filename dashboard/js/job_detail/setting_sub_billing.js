@@ -1,10 +1,10 @@
 const sub_billing = {
-    select_billing_des_ap : '',
-    select_bill_to_ap : '',
-    html_select_code_billing_ar : '',
-    html_select_bill_to_ar : '',
-    data_list_ap : '',
-    data_list_ar : '',
+    select_billing_des_ap: '',
+    select_bill_to_ap: '',
+    html_select_code_billing_ar: '',
+    html_select_bill_to_ar: '',
+    data_list_ap: '',
+    data_list_ar: '',
 
 
     first_post_data_ap: async function (id_number) {
@@ -12,7 +12,7 @@ const sub_billing = {
         console.log(res_data)
         let html_data_ap = '';
 
-        
+
         this.data_list_ap = res_data;
 
         let data_sel_billing_ap = $('.sel_data_billing_ap').parent().html()
@@ -23,47 +23,65 @@ const sub_billing = {
         $('.table_billing_ap > tbody').html('')
 
         if (res_data['get_data_ap'] != "0 results") {
-        $.each(res_data['get_data_ap'],async function (i, v) {
-            let billing_description = v['billing_description'] ? v['billing_description'] : '';
-            let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
-            let bill_to = v['bill_to'] ? v['bill_to'] : '';
-            let bill_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
-            let payble = v['payble'] ? v['payble'] : '';
-            let qty = v['qty'] ? parseFloat(v['qty']) : '';
-            let unit_price = v['unit_price'] ? parseFloat(v['unit_price']) : '';
-            let cb = v['cbfn'] == null ? '' : v['cbfn'] + ' ' + v['cbln'];
-            let ccb = v['ccbfn'] == null ? '' : v['ccbfn'] + ' ' + v['ccbln'];
-            let cbb = v['cbb'] == null ? '' : v['cbb'];
-            let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
-            let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
-            let remark = v['remark'] ? v['remark'] : '';
+            $.each(res_data['get_data_ap'], async function (i, v) {
+                let billing_description = v['billing_description'] ? v['billing_description'] : '';
+                let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
+                let bill_to = v['bill_to'] ? v['bill_to'] : '';
+                let bill_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
+                let payble = v['payble'] ? v['payble'] : '';
+                let qty = v['qty'] ? parseFloat(v['qty']) : '';
+                let unit_price = v['unit_price'] ? parseFloat(v['unit_price']) : '';
+                let cb = v['cbfn'] == null ? '' : v['cbfn'] + ' ' + v['cbln'];
+                let ccb = v['ccbfn'] == null ? '' : v['ccbfn'] + ' ' + v['ccbln'];
+                let cbb = v['cbb'] == null ? '' : v['cbb'];
+                let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
+                let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
+                let remark = v['remark'] ? v['remark'] : '';
 
-            let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
-            let status_data = v['status'] ? v['status'] : '';
+                let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
+                let status_data = v['status'] ? v['status'] : '';
 
-            let billing_date = create_data_time.substring(0, 10);
-            let action_paid_by = v['action_paid_by'] ? v['action_paid_by'] : '';
-            let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
-            let check_by = v['check_by'] ? v['check_by'] : '';
-            let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
-            let tax_with_hold_by = v['tax_with_hold_by'] ? v['tax_with_hold_by'] : '';
-            let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
-            let commit_sale = v['commit_sale'] ? v['commit_sale'] : '';
-            let vat = v['vat'] ? v['vat'] : '';
-            let apb = v['apbfn'] == null ? '' : v['apbfn'] + ' ' + v['apbln']
-            let lub = v['lubfn'] == null ? '' : v['lubfn'] + ' ' + v['lubln']
-            let res_ap_amt = parseFloat((qty * unit_price));
-            let res_ap_inc = parseFloat(((res_ap_amt * vat) / 100) + res_ap_amt);
-            let res_ap_amt_t = res_ap_amt.toFixed(2);
-            let res_ap_inc_t = res_ap_inc.toFixed(2);
-            let currency = v['currency'] ? v['currency'] : '';
-            let bc_pay = payble == '1' ? '<span class="badge rounded-pill bg-success" >Paid</span>' : '<span class="badge rounded-pill bg-danger" >Unpiad</span>'
-            let id_list = v['ID'] ? v['ID'] : '';
-            
-            i++;
-            
+                let billing_date = create_data_time.substring(0, 10);
+                let action_paid_by = v['action_paid_by'] ? v['action_paid_by'] : '';
+                let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
+                let check_by = v['check_by'] ? v['check_by'] : '';
+                let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
+                let tax_with_hold_by = v['tax_with_hold_by'] ? v['tax_with_hold_by'] : '';
+                let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
+                let commit_sale = v['commit_sale'] ? v['commit_sale'] : '';
+                let vat = v['vat'] ? v['vat'] : '';
+                let apb = v['apbfn'] == null ? '' : v['apbfn'] + ' ' + v['apbln']
+                let lub = v['lubfn'] == null ? '' : v['lubfn'] + ' ' + v['lubln']
+                let res_ap_amt = parseFloat((qty * unit_price));
+                let res_ap_inc = parseFloat(((res_ap_amt * vat) / 100) + res_ap_amt);
+                let res_ap_amt_t = res_ap_amt.toFixed(2);
+                let res_ap_inc_t = res_ap_inc.toFixed(2);
+                let currency = v['currency'] ? v['currency'] : '';
+                let bc_pay = payble == '1' ? '<span class="badge rounded-pill bg-success" >Paid</span>' : '<span class="badge rounded-pill bg-danger" >Unpiad</span>'
+                let id_list = v['ID'] ? v['ID'] : '';
+                let currency_bpl = v['currency_bpl'] ? v['currency_bpl'] : '';
 
-            html_data_ap = `
+                let lcurrency = currency.toLowerCase();
+                let lcurrency_bpl = currency_bpl.toLowerCase();
+
+                let currency_aaa = v[`${lcurrency + '_' + lcurrency_bpl}`] ? v[`${lcurrency + '_' + lcurrency_bpl}`] : '0';
+
+                // let usd_rmb = v['usd_rmb'] ? v['usd_rmb'] : '';
+                // let usd_yen = v['usd_yen'] ? v['usd_yen'] : '';
+                // let thb_usd = v['thb_usd'] ? v['thb_usd'] : '';
+                // let thb_rmb = v['thb_rmb'] ? v['thb_rmb'] : '';
+                // let thb_yen = v['thb_yen'] ? v['thb_yen'] : '';
+                // let rmb_usd = v['rmb_usd'] ? v['rmb_usd'] : '';
+                // let rmb_thb = v['rmb_thb'] ? v['rmb_thb'] : '';
+                // let rmb_yen = v['rmb_yen'] ? v['rmb_yen'] : '';
+                // let yen_usd = v['yen_usd'] ? v['yen_usd'] : '';
+                // let yen_thb = v['yen_thb'] ? v['yen_thb'] : '';
+                // let yen_rmb = v['yen_rmb'] ? v['yen_rmb'] : '';
+                i++;
+
+
+
+                html_data_ap = `
             <tr class="text-center data_ap${i} data_ap_list${id_list}" id_list="${id_list}" type="AP" >
                 <td><button class="btn btn-danger btn-sm rounded btn_delete btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button></td><!--  action -->
                 <td><input type="checkbox" class="form-input-check inp_box_select_ap inp_box_select${i}" id_data_billing ="${id_list}" ></td>
@@ -76,7 +94,8 @@ const sub_billing = {
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
-                    <option value="JP">JP</option>
+                    <option value="YEN">YEN</option>
+                    <option value="HKD">HKD</option>
                 </select></td> <!-- Currency -->
                 <td><input type="number" class="form-control form-control-sm  text-center inp_qty inp_qty_ap${i}" value="${qty}" onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
                 <td><input type="number" class="form-control form-control-sm  text-end inp_unit_price inp_unit_price_ap${i}" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
@@ -85,7 +104,7 @@ const sub_billing = {
                 <td>
                 <!-- <input type="checkbox" class="form-input-check chb_tax_hold chb_tax_hold${i}"> -->
                 <select class="form-select form-select-sm chb_tax_hold chb_tax_hold${i} text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
-                    <option value="0">Non with holding tax</option>
+                    <option value="0">0%</option>
                     <option value="1">1%</option>
                     <option value="3">3%</option>
                     <option value="5">5%</option>
@@ -98,7 +117,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_remark_ap" value="${remark}"></td><!-- remark -->
 
                 <td><input type="text" class="form-control form-control-sm text-center" value="${billing_date}" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap" disabled value="${currency_aaa}" disabled onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
                 <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ap"  onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
@@ -109,135 +128,118 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
                 <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
                 <td><div class="inp_status"></div></td><!-- status -->
-                <td><input type="text" class="form-control form-control-sm text-end inp_commit" value="${commit_sale}"></td><!-- commision sale -->
+                <td><input type="text" class="form-control form-control-sm text-end inp_commit" disabled value="${commit_sale}"></td><!-- commision sale -->
                 <td><input type="text" class="form-control form-control-sm text-center" value="${cbb}" disabled></td><!-- branch -->
                 <td><input type="text" class="form-control form-control-sm" value="${cb}" disabled></td><!-- creater -->
                 <td><input type="text" class="form-control form-control-sm inp_create_date_ap" value="${create_data_time}" disabled></td><!-- creater date -->
                 <td><input type="text" class="form-control form-control-sm" value="${lub}" disabled></td><!-- last modifier -->
                 <td><input type="text" class="form-control form-control-sm" value="${last_update_datetime}" disabled></td><!-- last modifier date -->
-                <td><input type="text" class="form-control form-control-sm" value="${ccb}" disabled></td><!-- checker  -->
-                <td><input type="text" class="form-control form-control-sm" value="${check_date_time}" disabled></td><!-- checker date -->
+                <td><input type="text" class="form-control form-control-sm" value="${apb}" disabled></td><!-- checker  -->
+                <td><input type="text" class="form-control form-control-sm" value="${action_paid_date_time}" disabled></td><!-- checker date -->
             </tr>
             `;
 
-            $('.table_billing_ap > tbody').append(html_data_ap)
+                $('.table_billing_ap > tbody').append(html_data_ap)
 
-            let ap_amt = 0;
-            let amt_inc_vat = 0;
-            let data_qty = parseFloat($(`.inp_qty_ap${i}`).val())
-            let data_unit_price = parseFloat($(`.inp_unit_price_ap${i}`).val())
-            let vat_cal = parseFloat($(`.inp_vat_ap${i}`).val())
-            
-            $(`.data_ap${i} > td > .sel_data_billing_ap`).val(billing_description)
 
-            $(`.data_ap${i} > td > .inp_billing_to_ap option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
-            let data_requeset = '';
-            $.each(setting_data_default.data_billing_des,function(i,v){
-                if(billing_description == v['ID']){
-                    data_requeset =  v['billing_item_name'];
+
+                let ap_amt = 0;
+                let amt_inc_vat = 0;
+                let data_qty = parseFloat($(`.inp_qty_ap${i}`).val())
+                let data_unit_price = parseFloat($(`.inp_unit_price_ap${i}`).val())
+                let vat_cal = parseFloat($(`.inp_vat_ap${i}`).val())
+
+                $(`.data_ap${i} > td > .sel_data_billing_ap`).val(billing_description)
+
+                $(`.data_ap${i} > td > .inp_billing_to_ap option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
+                let data_requeset = '';
+                $.each(setting_data_default.data_billing_des, function (i, v) {
+                    if (billing_description == v['ID']) {
+                        data_requeset = v['billing_item_name'];
+                    }
+                })
+                $(`.data_ap${i} > td > .inp_des_ap`).val(data_requeset)
+
+                // if(action_paid_by != ''){
+                //     //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+                //     $(`.data_ap${i} > td > .inp_payble`).html('Paid')
+                //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
+                // }else{
+                //     $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
+                //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
+                // }
+
+
+
+
+
+                if (status_data == '0' || status_data == '1') {
+                    $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
+                } else if (status_data == '2') {
+                    $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
+                } else if (status_data == '3') {
+                    $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">reject</span>')
                 }
+
+                if (action_paid_by != '') {
+                    $(`.chb_apply${i}`).attr({ 'checked': true, 'disabled': true, "ischeckdone": '1' })
+
+                }
+
+                if (check_by != '') {
+                    $(`.chb_check${i}`).attr({ 'checked': true, 'disabled': true, "ischeckdone": '1' })
+                }
+
+                $(`.data_ap${i} > td > .inp_currency_ap`).val(currency)
+
+                let vat_ex = 0;
+                let whdt = 0;
+                let vat_inc = 0;
+                let vat_real = 0;
+                // with_holding_tax
+
+                ap_amt = qty * unit_price;
+
+                if (with_holding_tax == 0) {
+                    vat_ex = ap_amt * (vat / 100)
+                    amt_inc_vat = vat_ex + ap_amt
+                } else {
+                    whdt = ap_amt * (with_holding_tax / 100)
+                    vat_inc = ap_amt * (vat / 100)
+                    vat_ex = vat_inc - whdt
+                    vat_real = ap_amt * (vat / 100)
+                    amt_inc_vat = ap_amt + vat_real - whdt
+                }
+                ap_amt = ap_amt.toFixed(2)
+                amt_inc_vat = amt_inc_vat.toFixed(2)
+                vat_ex = vat_ex.toFixed(2)
+                $(`.inp_ap_amt${i}`).val(ap_amt)
+                $(`.inp_vat_exl${i}`).val(vat_ex)
+                $(`.data_ap${i} > td >.chb_tax_hold${i}`).val(with_holding_tax)
+                $(`.inp_amt_inc_vat_ap${i}`).val(amt_inc_vat)
+
+                if (paid_date_time == '') {
+                    $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
+                    $(`.data_ap${i} > td > .inp_paid_amt`).val(0)
+                } else {
+                    //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
+                    $(`.data_ap${i} > td > .inp_paid_amt`).val(amt_inc_vat).attr({ "style": "color:red; text-weight:bold" })
+                    $(`.data_ap${i} > td > .inp_payble`).html('Paid')
+                    $(`.data_ap${i} > td > .form-control`).attr('disabled', true)
+                    $(`.data_ap${i} > td > .form-select`).attr('disabled', true)
+                    $(`.data_ap${i} > td > .btn_delete`).remove()
+                }
+
+                if (check_by != '') {
+                    $(`.data_ap_list${id_list} > td > .form-control`).attr('disabled', true)
+                    $(`.data_ap_list${id_list} > td > .form-select`).attr('disabled', true)
+                }
+                // if(check_by != ''){
+                //     $(`.data_ap_list${id_number} > td > .form-control`).attr('disabled',true)
+                // }
             })
-            $(`.data_ap${i} > td > .inp_des_ap`).val(data_requeset)
-
-            // if(action_paid_by != ''){
-            //     //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
-            //     $(`.data_ap${i} > td > .inp_payble`).html('Paid')
-            //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Paid</span>')
-            // }else{
-            //     $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
-            //     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Prepaid</span>')
-            // }
-
-            
-
-
-
-            if(status_data == '0' || status_data == '1'){
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
-            }else if(status_data == '2'){
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
-            }else if(status_data == '3'){
-                $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">reject</span>')
-            }
-
-            if(action_paid_by != ''){
-                $(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischeckdone":'1'})
-
-            }
-
-            if(check_by  != ''){
-                $(`.chb_check${i}`).attr({'checked':true,'disabled':true,"ischeckdone":'1'})
-            }
-        
-
-            let vat_ex = 0;
-            let whdt = 0;
-            let vat_inc = 0;
-            let vat_real = 0;
-            // with_holding_tax
-
-            ap_amt = qty * unit_price;
-
-            if(with_holding_tax == 0){
-                vat_ex = ap_amt*(vat/100)
-                amt_inc_vat = vat_ex+ap_amt
-            }else {
-                whdt = ap_amt*(with_holding_tax/100)
-                vat_inc = ap_amt*(vat/100)
-                vat_ex = vat_inc - whdt
-                vat_real = ap_amt*(vat/100)
-                amt_inc_vat = ap_amt + vat_real - whdt
-            }
-            ap_amt = ap_amt.toFixed(2)
-            amt_inc_vat = amt_inc_vat.toFixed(2)
-            vat_ex = vat_ex.toFixed(2)
-            $(`.inp_ap_amt${i}`).val(ap_amt)
-            $(`.inp_vat_exl${i}`).val(vat_ex)
-            $(`.data_ap${i} > td >.chb_tax_hold${i}`).val(with_holding_tax)
-            $(`.inp_amt_inc_vat_ap${i}`).val(amt_inc_vat)
-
-            if(paid_date_time == ''){
-                $(`.data_ap${i} > td > .inp_payble`).html('Prepaid')
-                $(`.data_ap${i} > td > .inp_paid_amt`).val(0)
-            }else{
-                //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
-                $(`.data_ap${i} > td > .inp_paid_amt`).val(amt_inc_vat).attr({"style":"color:red; text-weight:bold"})
-                $(`.data_ap${i} > td > .inp_payble`).html('Paid')
-                $(`.data_ap${i} > td > .form-control`).attr('disabled',true)
-                $(`.data_ap${i} > td > .form-select`).attr('disabled',true)
-                $(`.data_ap${i} > td > .btn_delete`).remove()
-            }
-            // $(`.inp_paid_amt${i}`).val(amt_inc_vat)
-
-            // $(`.inp_amt_ap${i}`).attr('disabled', true)
-            // $(`.inp_amtincv${i}`).attr('disabled', true)
-            // $(`.inp_currency${i}`).val(currency)
-
-
-            // if (payble == '1') {
-            //     $(`.inp_payble_checkbox${i}`).attr({ 'checked': true, 'disabled': true })
-            //     $(`.btn_delete_list${i}`).remove()
-
-            // }
-
-            // if (payble = '1' && check_date_time != '') {
-            //     $(`.inp_des_ap${i}`).attr('disabled', true)
-            //     $(`.inp_billing_to_ap${i}`).attr('disabled', true)
-            //     $(`.inp_currency${i}`).attr('disabled', true)
-            //     $(`.inp_qty_ap${i}`).attr('disabled', true)
-            //     $(`.inp_unit_price_ap${i}`).attr('disabled', true)
-            //     $(`.inp_des_ap${i}`).attr('disabled', true)
-            //     $(`.inp_add_on_ap${i}`).attr('disabled', true)
-            //     $(`.inp_vat_ap${i}`).attr('disabled', true)
-
-            // }
-
-            // if (check_date_time != '') {
-            //     $(`.inp_check_list_box${i}`).attr({ 'checked': true, 'disabled': true })
-            // }
-        })
-    }else{
-        html_data_ap = `
+        } else {
+            html_data_ap = `
         <tr list_id = "" type = "AP">
             <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td><!--  action -->
             <td></td>
@@ -257,7 +259,7 @@ const sub_billing = {
             <td><input type="number" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
             <td class="text-center"><!--<input type="checkbox" class="form-input-check chb_tax_hold ">-->
             <select class="form-select form-select-sm chb_tax_hold text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
-                    <option value="0">Non with holding tax</option>
+                    <option value="0">0%</option>
                     <option value="1">1%</option>
                     <option value="3">3%</option>
                     <option value="5">5%</option>
@@ -270,7 +272,7 @@ const sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-            <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ap"  disabled onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
             <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
@@ -293,7 +295,7 @@ const sub_billing = {
             `;
 
             $('.table_billing_ap > tbody').append(html_data_ap)
-    }
+        }
         // currency
         let val_usd = 34.55;
         let val_th = 1;
@@ -348,20 +350,21 @@ const sub_billing = {
         let tof_vat_all = vat_all.toFixed(2)
         $('.inp_vat_inc_ap').val(tof_vat_all).attr('disabled', true)
 
+
         // function_cal_result
         await function_sub_billing.cal_result_ap()
 
-        
-       
 
 
-        
 
-        
+
+
+
+
     },
-    
+
     first_post_data_ar: async function (id_number) {
-        
+
         let res_data = await this.ajax_setting_data_first_ar(id_number)
 
         this.data_list_ar = res_data
@@ -369,14 +372,14 @@ const sub_billing = {
         let html_data_ar = '';
         let data_select_code_billing_ar = $('.select_code_billing_ar').parent().html()
 
-        
+
         let data_select_bill_to_ar = $('.select_bill_to_ar').parent().html()
 
         this.html_select_code_billing_ar = data_select_code_billing_ar;
         this.html_select_bill_to_ar = data_select_bill_to_ar;
         $('.table_billing_ar > tbody').html('')
         if (res_data['get_data_ar'] != "0 results") {
-            
+
             $.each(res_data['get_data_ar'], function (i, v) {
                 let id_list = v['ID'] ? v['ID'] : '';
                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
@@ -409,16 +412,17 @@ const sub_billing = {
                 let brunch = v['brunch'] ? v['brunch'] : '';
                 let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
                 let actpb = v['action_paid_by'] ? v['action_paid_by'] : '';
-                let amount_bpl =  v['amount_bpl'] ? v['amount_bpl'] : '0';
-                let currency_bpl =  v['currency_bpl'] ? v['currency_bpl'] : '';
+                let amount_bpl = v['amount_bpl'] ? v['amount_bpl'] : '0';
+                let currency_bpl = v['currency_bpl'] ? v['currency_bpl'] : '';
                 let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
+                let check_by = v['check_by'] ? v['check_by'] : '';
                 i++;
-                
+
                 // if(amount_bpl != 0){
 
                 // }
 
-            html_data_ar = `
+                html_data_ar = `
             <tr id_list = "${id_list}" class="data_ar${i} data_ar_list${id_list}" type = "AR">
                 <td class="text-center headcol">
                     <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button>
@@ -434,25 +438,26 @@ const sub_billing = {
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
                         <option value="YEN">YEN</option>
+                        <option value="HKD">HKD</option>
                     </select></td> <!-- Currency -->
                 <td class="long"><input type="number" class="form-control form-control-sm inp_qty_ar inp_qty text-center" value="${qty}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td> <!-- QTY. -->
                 <td class="long"><input type="number" class="form-control form-control-sm inp_unit_price text-end" value="${unit_price}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td class="long"><input type="text" class="form-control form-control-sm inp_data_amt inp_ar_amt text-end" disabled></td><!-- AR AMT -->
                 <td class="long"><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" value="${vat}" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
                 <td class="text-center long"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
-                    <option value="0">Non with holding tax</option>
+                    <option value="0">0%</option>
                     <option value="1">1%</option>
                     <option value="3">3%</option>
                     <option value="5">5%</option>
                     <option value="7">7%</option>
                 </select></td><!-- with holding tax -->
-                <td class="text-center long"><input class="form-control form-control-sm text-end inp_vat_exc "></td>
+                <td class="text-center long"><input class="form-control form-control-sm text-end inp_vat_exc " disabled></td>
                 <td class="long"><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar text-end" disabled></td><!-- AMT(INCL.vat) -->
-                <td class="text-center long"><input type="text" class="form-control form-control-sm text-end ch_revd_amt_ar ch_revd_amt_ar${i}"></td><!-- rcvd amt -->
+                <td class="text-center long"><input type="text" class="form-control form-control-sm text-end ch_revd_amt_ar ch_revd_amt_ar${i}" disabled></td><!-- rcvd amt -->
                 <td class="long"><input type="text" class="form-control form-control-sm inp_remark" value="${remark}"></td>  <!-- remark -->
 
                 <td class="long"><input type="text" class="form-control form-control-sm" value="${billing_date}" disabled></td><!-- Billing Date -->
-                <td class="long"><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ar" value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
+                <td class="long"><input type="text" class="form-control form-control-sm text-end inp_sys_rate_ar" disabled value="${sys_rate}" onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- sysrate -->
                 <!--<td><select class="form-select form-select-sm inp_sys_rate_currency_arf" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
@@ -468,51 +473,51 @@ const sub_billing = {
                 <td class="long"><input type="text" class="form-control form-control-sm inp_create_datetime_ar" disabled value="${create_data_time}"></td><!-- create datetime. -->
                 <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${lub}"></td><!-- lastmo by -->
                 <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${last_update_datetime}"></td><!-- lastmo date -->
-                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${ccb}"></td><!--  checker by -->
-                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${check_date_time}"></td><!-- checker date -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${apb}"></td><!--  checker by -->
+                <td class="long"><input type="text" class="form-control form-control-sm" disabled value="${action_paid_date_time}"></td><!-- checker date -->
                 
             </tr>
             `;
 
-                
+
 
                 $('.table_billing_ar > tbody').append(html_data_ar)
-                
+
 
                 $(`.data_ar${i} > td > .select_code_billing_ar`).val(billing_description)
                 $(`.data_ar${i} > td > .inp_wt_percentage`).val(with_holding_tax)
-                let data_target = $(`.data_ar${i} > td > .select_code_billing_ar`).val()                
+                let data_target = $(`.data_ar${i} > td > .select_code_billing_ar`).val()
                 let data_find = '';
-                $.each(setting_data_default.data_billing_des_ar,function(i,v){
+                $.each(setting_data_default.data_billing_des_ar, function (i, v) {
                     // console.log(v['ID'])
-                    if(v['ID']== data_target){
+                    if (v['ID'] == data_target) {
                         data_find = v['billing_item_name'];
                     }
                 })
-                $(`.inp_data_item${i}`).val(data_find).attr('disabled',true)
+                $(`.inp_data_item${i}`).val(data_find).attr('disabled', true)
 
-                if(need_vat == '1'){
-                    $(`.ch_need_vat_ar${i}`).prop('checked',true)
+                if (need_vat == '1') {
+                    $(`.ch_need_vat_ar${i}`).prop('checked', true)
                 }
 
-                if(actpb != ''){
-                    $(`.ch_revd_amt_ar${i}`).prop('checked',true).attr('disabled',true)
+                if (actpb != '') {
+                    $(`.ch_revd_amt_ar${i}`).prop('checked', true).attr('disabled', true)
                 }
 
-                
 
-                if(status_data == '1' || status_data == '0'){
+
+                if (status_data == '1' || status_data == '0') {
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
-                }else if(status_data == '2'){
+                } else if (status_data == '2') {
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-success">Approve</span>')
-                }else if(status_data == '3'){
+                } else if (status_data == '3') {
                     $(`.data_ar${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-danger">Reject</span>')
                 }
 
-                if(ccb != ''){
-                    $(`.data_ar${i} > td > .ch_check_ar`).prop('checked',true).attr({'disabled':true,"ischeckdone":'1'})
+                if (ccb != '') {
+                    $(`.data_ar${i} > td > .ch_check_ar`).prop('checked', true).attr({ 'disabled': true, "ischeckdone": '1' })
                 }
-                
+
                 $(`.data_ar${i} > td > .select_bill_to_ar`).val()
                 $(`.data_ar${i} > td > .select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
                 $(`.data_ar${i} > td > inp_currency_ar${i}`).val(currency)
@@ -525,20 +530,20 @@ const sub_billing = {
                 let data_vat = 0;
                 let data_vatexcl = 0;
                 let data_amtincl = 0;
-                if(with_holding_tax == 0){
-                    data_vat = amt * (vat/100)
+                if (with_holding_tax == 0) {
+                    data_vat = amt * (vat / 100)
                     data_vatexcl = data_vat
                     data_amtincl = (amt + data_vat)
-                }else{
-                    data_tax_withhold = amt * (with_holding_tax/100)
-                    data_vat = amt * (vat/100)
+                } else {
+                    data_tax_withhold = amt * (with_holding_tax / 100)
+                    data_vat = amt * (vat / 100)
                     data_vatexcl = data_vat - data_tax_withhold
                     data_amtincl = (amt + data_vat) - data_tax_withhold
                 }
-                
-                
-                
-                
+
+
+
+
 
                 amt = amt.toFixed(2)
                 data_vatexcl = data_vatexcl.toFixed(2)
@@ -549,32 +554,36 @@ const sub_billing = {
 
 
                 amount_bpl = parseFloat(amount_bpl)
-                if(amount_bpl != 0 ){
-                    $(`.data_ar${i} > td > .ch_revd_amt_ar`).css("color","red")
+                if (amount_bpl != 0) {
+                    $(`.data_ar${i} > td > .ch_revd_amt_ar`).css("color", "red")
                 }
-                amount_bpl = amount_bpl != 0 ? 0 : data_amtincl;
-                // amount_bpl = parseFloat(amount_bpl)
-                // amount_bpl = amount_bpl.toFixed(2)
-                //amount_bpl = amount_bpl != 0 ? 0 : data_amtincl;
+                amount_bpl = amount_bpl != 0 ? data_amtincl : 0;
+                amount_bpl = parseFloat(amount_bpl)
+                amount_bpl = amount_bpl.toFixed(2)
                 $(`.data_ar${i} > td > .ch_revd_amt_ar`).val(amount_bpl)
 
 
 
-                if(paid_date_time != ''){
-                        // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl)
-                        $(`.data_ar${i} > td > .inp_payble`).html('Paid')
-                        $(`.data_ar${i} > td > .form-control`).attr('disabled',true)
-                        $(`.data_ar${i} > td > .form-select`).attr('disabled',true)
-                        $(`.data_ar${i} > td > .btn_delete`).remove()
-                    }else{
-                        $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
-                        // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl).attr({"style":"color:red; text-weight:bold"})
-    
-                    }
-                
-                
+                if (paid_date_time != '') {
+                    // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl)
+                    $(`.data_ar${i} > td > .inp_payble`).html('Paid')
+                    $(`.data_ar${i} > td > .form-control`).attr('disabled', true)
+                    $(`.data_ar${i} > td > .form-select`).attr('disabled', true)
+                    $(`.data_ar${i} > td > .btn_delete`).remove()
+                } else {
+                    $(`.data_ar${i} > td > .inp_payble`).html('Prepaid')
+                    // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl).attr({"style":"color:red; text-weight:bold"})
+
+                }
+                console.log(check_by)
+
+
+                if (check_by != '') {
+                    $(`.data_ar_list${id_list} > td > .form-control`).attr('disabled', true)
+                    $(`.data_ar_list${id_list} > td > .form-select`).attr('disabled', true)
+                }
             })
-        }else{
+        } else {
 
             html_data_ar = `
             <tr list_id = "" type = "AR">
@@ -597,7 +606,7 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
                 <td><input type="number" class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
-                                            <option value="0">Non with holding tax</option>
+                                            <option value="0">0%</option>
                                             <option value="1">1%</option>
                                             <option value="3">3%</option>
                                             <option value="5">5%</option>
@@ -609,7 +618,7 @@ const sub_billing = {
                 <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
 
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" disabled onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
                 <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
 
                 <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
@@ -623,7 +632,7 @@ const sub_billing = {
                 <td class="long"><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
             </tr>
             `;
-                $('.table_billing_ar > tbody').append(html_data_ar)
+            $('.table_billing_ar > tbody').append(html_data_ar)
         }
 
 
@@ -637,7 +646,7 @@ const sub_billing = {
         let data_total = 0;
         data_obj = {}
         data_arr = []
-        $('.table_billing_ar > tbody > tr').each(function (i,v){
+        $('.table_billing_ar > tbody > tr').each(function (i, v) {
             let data_qty = parseFloat($('.inp_qty').val())
             let data_unit_price = parseFloat($('.inp_unit_price').val())
             let data_vat = parseFloat($('.inp_vat').val())
@@ -646,33 +655,33 @@ const sub_billing = {
             let data_sub_total = 0;
             let data_total = 0;
             let data_tax = 0;
-            
+
             data_sub_total = data_qty * data_unit_price
-            data_total = ((data_sub_total*data_vat)/100)+data_sub_total
-            
+            data_total = ((data_sub_total * data_vat) / 100) + data_sub_total
+
             data_obj = {
-                data_sub_total : data_sub_total,
-                data_total : data_total
+                data_sub_total: data_sub_total,
+                data_total: data_total
             }
             data_arr.push(data_obj)
         })
-        
-        
-        $.each(data_arr,function(i,v){
-            let data_sub = v['data_sub_total'] ? v['data_sub_total'] : 0 ;
+
+
+        $.each(data_arr, function (i, v) {
+            let data_sub = v['data_sub_total'] ? v['data_sub_total'] : 0;
             let data_total_a = v['data_total'] ? v['data_total'] : 0;
             data_sub_total = data_sub_total + data_sub
             data_total = data_total + data_total_a
         })
-        
+
         data_value_tax = data_total - data_sub_total
         data_value_tax = data_value_tax.toFixed(2)
         data_sub_total = data_sub_total.toFixed(2)
         data_total = data_total.toFixed(2)
-        
-        $('.inp_sub_total_ar').val(data_sub_total).attr('disabled',true)
-        $('.inp_vat_inc_ar').val(data_value_tax).attr('disabled',true)
-        $('.inp_total_ar').val(data_total).attr('disabled',true)
+
+        $('.inp_sub_total_ar').val(data_sub_total).attr('disabled', true)
+        $('.inp_vat_inc_ar').val(data_value_tax).attr('disabled', true)
+        $('.inp_total_ar').val(data_total).attr('disabled', true)
         function_sub_billing.billing_ap_function_cal_row_ar();
     },
 
@@ -692,7 +701,7 @@ const sub_billing = {
         });
     },
 
-    
+
 
     ajax_setting_data_first_ap: async function (id_number) {
         return new Promise(function (resolve, reject) {
@@ -710,5 +719,5 @@ const sub_billing = {
         });
     },
 
-    
+
 }

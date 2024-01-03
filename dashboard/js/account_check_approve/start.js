@@ -16,6 +16,7 @@ const start = {
         let html_head = `
         <tr class="text-center">
             <th>Check</th>
+            <th>Reverse</th>
             <th>No</th>
             <th>Job Number</th>
             <th>Bill to</th>
@@ -84,7 +85,7 @@ const start = {
                 let currency_main = v['currency_main'] ? v['currency_main'] : '';
                 let need_vat = v['need_vat'] ? v['need_vat'] : '';
                 let refer = v['refer'] ? v['refer'] : '';
-                let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
+                let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '0';
                 let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
                 let pre_approve_by = v['pre_approve_by'] ? v['pre_approve_by'] : '';
                 let pre_approve_dt = v['pre_approve_dt'] ? v['pre_approve_dt'] : '';
@@ -104,6 +105,7 @@ const start = {
                 data_html = `
                 <tr id_number="${id_number}" class="table_number_${i}">
                     <td class="text-center"><input type="checkbox" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
+                    <td class="text-center"><button class="btn btn-sm btn-warning" onclick="start.sent_to_job_detail(${ref_job_id})">reverse</button></td>
                     <td class="text-center">${i}</td>
                     <td><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
                     <td><input type="text" class="form-control form-control-sm text-start inp_bill_to" disabled></td>
@@ -154,22 +156,36 @@ const start = {
         await this.cal_currency();
     },
 
+    sent_to_job_detail : async function(data){
+        window.location = "job_detail.php" + "?job_number=" + data+"&action=invoice_mode";
+    },
 
     select_filter: async function () {
         
-        let data_radio_process = $('input[name="radio_process"]:checked').val();
-        let data_radio_select_type = $('input[name="radio_function_select"]:checked').val();
-        let data_radio_act = $('input[name="radio_select_act"]:checked').val();
+        
+
+        // let data_radio_process = $('input[name="radio_process"]:checked').val();
+        // let data_radio_select_type = $('input[name="radio_function_select"]:checked').val();
+        // let data_radio_act = $('input[name="radio_select_act"]:checked').val();
 
         let data_data_id = '';
         let data_data_type = '';
         let data_name_type = '';
 
         let job_number = $('.inp_job_number').val() ? $('.inp_job_number').val() : '';
+        let data_applied_person = $('.inp_applied_person').val()
+        data_applied_person = $(`.data_list_applied_person option[item_search="${data_applied_person}"]`).attr('id_search')
+        data_applied_person = data_applied_person ? data_applied_person : '';
+
+        let data_date_applied = $('.inp_date_applied').val()
+        let radio_p = $('input[name="radio_p"]:checked').val();
+
+
+
         let billing_code = $('.inp_billing_code').val() ? $('.inp_billing_code').val() : '';
-
-        billing_code = $(`.data_list_billing_list option[billing_item_name="${billing_code}"]`).attr('number_des')
-
+        // console.log(billing_code)
+        // billing_code = $(`.data_list_billing_list option[billing_item_name="${billing_code}"]`).attr('number_des')
+        // billing_code = billing_code ? billing_code : '';
 
         $.each($('.data_sic > div > button'), function () {
             let data_hasclass = $(this).hasClass('active_side')
@@ -181,37 +197,36 @@ const start = {
 
         })
 
+        console.log(data_data_id)
+        console.log(data_data_type)
+        console.log(data_name_type)
+        console.log(job_number)
+        console.log(billing_code)
+        console.log(data_applied_person)
+        console.log(data_date_applied)
+        console.log(radio_p)
 
-        let res_data = await this.ajax_setting_data_table(data_radio_process, data_radio_select_type, data_data_id, data_data_type, data_name_type, job_number, billing_code, data_radio_act)
+        let res_data = await this.ajax_setting_data_table(data_data_id, data_data_type, data_name_type, job_number, billing_code,data_applied_person,data_date_applied,radio_p)
         console.log(res_data)
-        if (data_radio_act == "check") {
-            $('.table').removeClass("table_apply")
-            $('.table').addClass("table_check")
-            await this.data_start(res_data)
-
-        } else {
-            await start_apply.data_start_apply(res_data)
-            $('.table').removeClass("table_check")
-            $('.table').addClass("table_apply")
-
-
-        }
+        
+        await this.data_start(res_data)
+        
     },
 
-    ajax_setting_data_table: async function (data_radio_process, data_radio_select_type, data_data_id, data_data_type, data_name_type, job_number, billing_code, data_radio_act) {
+    ajax_setting_data_table: async function (data_data_id, data_data_type, data_name_type, job_number, billing_code,data_applied_person,data_date_applied,radio_p) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/account_check_approve/get_data_table.php",
                 data: {
-                    data_radio_process: data_radio_process,
-                    data_radio_select_type: data_radio_select_type,
                     data_data_id: data_data_id,
                     data_data_type: data_data_type,
                     data_name_type: data_name_type,
                     job_number: job_number,
                     billing_code: billing_code,
-                    data_radio_act: data_radio_act,
+                    data_applied_person: data_applied_person,
+                    data_date_applied: data_date_applied,
+                    radio_p: radio_p
                 },
                 dataType: "json",
                 success: function (res) {
@@ -241,16 +256,20 @@ const start = {
 
         let html_data_job = '';
         let html_data_des = '';
-
+        let html_data_search = '';
         $.each(res_data_default['job_number'], function (i, v) {
             html_data_job += `<option realdata="${v['job_number']}">${v['job_number']}</option>`;
         })
         $.each(res_data_default['description'], function (i, v) {
-            html_data_des += `<option number_des="${v['ID']}" billing_item_name="${v['billing_item_name']}">${v['billing_item_name']}</option>`;
+            html_data_des += `<option number_des="${v['ID']}" billing_item_name="${v['billing_code']}">${v['billing_code']}</option>`;
+        })
+        $.each(res_data_default['user_search'],function(i,v){
+            html_data_search += `<option item_search="${v['first_name']+' '+v['last_name']}" id_search="${v['ID']}">${v['first_name']+' '+v['last_name']}</option>`
         })
 
         $('.data_list_job_number').append(html_data_job)
         $('.data_list_billing_list').append(html_data_des)
+        $('.data_list_applied_person').append(html_data_search)
     },
 
     mark_active: async function (e) {

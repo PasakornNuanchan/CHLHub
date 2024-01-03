@@ -180,9 +180,9 @@ const start = {
         let data_val = $(`.inp_currency_main_change`).val()
         $(`.table tbody tr td .inp_sysrate_to`).val(data_val)
         let res_data_currency = this.data_res_data_currency
-
+        console.log(res_data_currency)
         let e_path = $('.table_payment > tbody tr')
-
+        
         $.each(e_path, function () {
             let currency = $(this).find('.inp_cur').val()
             let currency_to = $(this).find('.inp_sysrate_to').val()
@@ -192,15 +192,16 @@ const start = {
             let lcurrency_to = currency_to.toLowerCase();
             let data_find = 0;
             let data_cal = 0;
+            let data_currency_id = '';
             $.each(res_data_currency['currency'], function (i, v) {
                 if (v['job_number'] == job_number) {
                     data_find = v[`${lcurrency + "_" + lcurrency_to}`] ? v[`${lcurrency + "_" + lcurrency_to}`] : 1;
                     data_cal = parseFloat(data_find * write_off)
                     data_cal = data_cal.toFixed(2)
-
+                    data_currency_id = v['data_currency_id'];
                 }
             })
-            $(this).find('.inp_sysrate').val(data_find)
+            $(this).find('.inp_sysrate').val(data_find).attr("data_currency_id",`${data_currency_id}`)
             $(this).find('.inp_amt_incv_write_off').val(data_cal)
         })
 
@@ -628,7 +629,7 @@ const start = {
                 let amt_incv_write_off = $(this).find('.inp_amt_incv_write_off').val()
                 let vat = $(this).find('.inp_vat').val()
                 let description_customer = $(this).find('.inp_description').val()
-
+                let data_currency_id = $(this).find('.inp_sysrate').attr('data_currency_id')
                 amt_incv_write_off = parseFloat(amt_incv_write_off)
                 write_off = parseFloat(write_off)
                 get_total_incl = get_total_incl + write_off
@@ -648,8 +649,8 @@ const start = {
                     <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
                     <td><input class="form-control form-control-sm text-end" readonly value="${writen}"></td>
                     <td><input class="form-control form-control-sm text-end" readonly value="${write_off}"></td>
-                    <td><input class="form-control form-control-sm text-center" readonly value="${sysrate}"></td>
-                    <td><input class="form-control form-control-sm text-center inp_currency_to" readonly value="${sysrate_to}"></td>
+                    <td><input class="form-control form-control-sm text-center data_currency" readonly data_currency_id="${data_currency_id}" value="${sysrate}"></td>
+                    <td><input class="form-control form-control-sm text-center inp_currency_to"  readonly value="${sysrate_to}"></td>
                     <td><input class="form-control form-control-sm text-end data_incv_wrute_off" readonly value="${amt_incv_write_off}"></td>
                     <td><input class="form-control form-control-sm" readonly value=""></td>
                     <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
@@ -978,9 +979,13 @@ const start = {
         let data_all_amount = 0;
         let count_all = 0;
         $.each(path_table, function () {
-            count_all++;
-            let data_all_amount_cal = parseFloat($(this).find('.inp_amt_incv_write_off').val())
-            data_all_amount = data_all_amount + data_all_amount_cal
+            let data_cbx = $(this).find('.cbx_data').prop('checked') ? '1' : '0';
+            if(data_cbx == '1'){
+                count_all++;
+                let data_all_amount_cal = parseFloat($(this).find('.inp_amt_incv_write_off').val())
+                data_all_amount = data_all_amount + data_all_amount_cal
+            }
+            
         })
         data_all_amount = data_all_amount.toFixed(2)
         get_total_data_incl_all = get_total_data_incl_all.toFixed(2)
@@ -1132,11 +1137,13 @@ const start = {
             let data_currency_to = $(this).find('.inp_currency_to').val()
             if (data_check == '1') {
                 let data_number_id = $(this).attr('data_number_id')
+                let data_currency = $(this).find('.data_currency').attr('data_currency_id')
                 let amount = $(this).find('.data_incv_wrute_off').val()
                 let obj_data = {
                     data_number_id: data_number_id,
                     amount: amount,
                     currency: data_currency_to,
+                    data_currency : data_currency,
                 }
                 arr_data_get_list.push(obj_data)
             }

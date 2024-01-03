@@ -73,19 +73,22 @@ foreach($arr_data_get_list as $k => $v){
     $data_number_id = isset($v['data_number_id']) ? $v['data_number_id'] : '';
     $amount = isset($v['amount']) ? $v['amount'] : '';
     $currency = isset($v['currency']) ? $v['currency'] : '';
+    $data_currency = isset($v['data_currency']) ? $v['data_currency'] : '';
 
     $sql_data_list = "
     INSERT INTO `billing_payment_list`(
         `data_number_id`,
         `amount`,
         `currency`,
-        `id_refer_bp`
+        `id_refer_bp`,
+        `currency_number`
     )
     VALUES(
         '$data_number_id',
         '$amount',
         '$currency',
-        '$last_id'
+        '$last_id',
+        '$data_currency'
     )
     ";
     
@@ -95,6 +98,7 @@ foreach($arr_data_get_list as $k => $v){
         $res_detail_list = '0';
     }
 }
+
 
 echo json_encode(array('res_detail_title'=>$res_detail_title,'res_detail_list'=>$res_detail_list))
 

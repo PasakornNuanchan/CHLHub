@@ -57,7 +57,7 @@ const function_sub_billing = {
         html_data_ar = `
         <tr list_id = "" type = "AR">
                 <td class="text-center headcol">
-                    <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list_add_new(this)"><i class="bi bi-trash"></i></button>
                 </td>
                 <td class="text-center"></td> <!-- No -->
                 <td class="text-center">${rows_cal}</td>
@@ -69,13 +69,15 @@ const function_sub_billing = {
                         <option value="THB">THB</option>
                         <option value="USD">USD</option>
                         <option value="RMB">RMB</option>
+                        <option value="YEN">YEN</option>
+                        <option value="HKD">HKD</option>
                     </select></td> <!-- Currency -->
                 <td><input type="number" value="0"class="form-control form-control-sm inp_qty_ar inp_qty text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)" ></td> <!-- QTY. -->
                 <td><input type="number" value="0"class="form-control form-control-sm inp_unit_price text-end" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- Unit Price -->
                 <td><input type="text" class="form-control form-control-sm inp_data_amt text-end inp_ar_amt" disabled></td><!-- AR AMT -->
                 <td><input type="number" value="0"class="form-control form-control-sm inp_vat_ar inp_vat text-center" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)"></td><!-- VAT% -->
                 <td class="text-center"><select class="form-select form-select-sm inp_wt_percentage" onchange="function_sub_billing.billing_ap_function_cal_row_ar(this)">
-                                            <option value="0">Non with holding tax</option>
+                                            <option value="0">0%</option>
                                             <option value="1">1%</option>
                                             <option value="3">3%</option>
                                             <option value="5">5%</option>
@@ -87,7 +89,7 @@ const function_sub_billing = {
                 <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
 
                 <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" value="0"onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
+                <td><input type="text" class="form-control form-control-sm inp_sys_rate_ar" disabled value="0"onchange="function_sub_billing.sys_rate_ar(this)" ></td><!-- sysrate -->
                 <td class="text-center long"><input type="checkbox" class="form-input-check text-center ch_need_vat_ar"></td><!-- need vat -->
 
                 <td class="long text-center"><input type="checkbox" class="form-input-check ch_check_ar"></td>
@@ -112,7 +114,7 @@ const function_sub_billing = {
 
         html_data_ap = `
         <tr list_id = "" type = "AP">
-            <td class="sticky-column"><button class="btn btn-danger btn-sm rounded"><i class="bi bi-trash"></i></button></td><!--  action -->
+            <td class="sticky-column"><button class="btn btn-danger btn-sm rounded" onclick="function_sub_billing.delete_list_add_new(this)"><i class="bi bi-trash"></i></button></td><!--  action -->
             <td class="sticky-column"></td>
             <td class="sticky-column">${rows_cal}</td>
             <td>${sub_billing.select_billing_des_ap}</td>
@@ -122,7 +124,8 @@ const function_sub_billing = {
                 <option value="THB">THB</option>
                 <option value="USD">USD</option>
                 <option value="RMB">RMB</option>
-                <option value="JP">JP</option>
+                <option value="YEN">YEN</option>
+                <option value="HKD">HKD</option>
             </select></td> <!-- Currency -->
             <td><input type="number" value="0"class="form-control form-control-sm text-center inp_qty " onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td> <!-- QTY. -->
             <td><input type="number" value="0"class="form-control form-control-sm text-end inp_unit_price "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- Unit Price -->
@@ -130,7 +133,7 @@ const function_sub_billing = {
             <td><input type="number" value="0" class="form-control form-control-sm text-center inp_vat "  onchange="function_sub_billing.billing_ap_function_cal_row(this)"></td><!-- AR VAT% -->
             <td class="text-center"><!--<input type="checkbox" class="form-input-check chb_tax_hold ">-->
             <select class="form-select form-select-sm chb_tax_hold text-center" onchange="function_sub_billing.billing_ap_function_cal_row(this)">
-                    <option value="0">Non</option>
+                    <option value="0">0%</option>
                     <option value="1">1%</option>
                     <option value="3">3%</option>
                     <option value="5">5%</option>
@@ -139,13 +142,13 @@ const function_sub_billing = {
             </td><!-- tax invoice with hole -->
             <td><input type="text" class="form-control form-control-sm text-end inp_vat_exl" readonly></td>
 
-            <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap " disabled ></td><!-- AMT(INCL.vat) -->
+            <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap" disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
 
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
 
-            <td><input type="number"  value="0"class="form-control form-control-sm text-end inp_sys_rate_ap"  onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
+            <td><input type="number"  value="0"class="form-control form-control-sm text-end inp_sys_rate_ap" disabled onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
             <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
@@ -156,7 +159,7 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
             <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
             <td></td><!-- status -->
-            <td><input type="text" class="form-control form-control-sm inp_commit"></td><!-- commision sale -->
+            <td><input type="text" class="form-control form-control-sm inp_commit" disabled></td><!-- commision sale -->
             <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- creater date -->
@@ -452,16 +455,16 @@ const function_sub_billing = {
         
         thb_inp_ar_amt = thb_inp_ar_amt.toFixed(2)
         thb_inp_vat_exl = thb_inp_vat_exl.toFixed(2)
-        thb_inp_amt_inc_vat_ap = thb_inp_amt_inc_vat_ar.toFixed(2)
+        thb_inp_amt_inc_vat_ar = thb_inp_amt_inc_vat_ar.toFixed(2)
         usd_inp_ar_amt = usd_inp_ar_amt.toFixed(2)
         usd_inp_vat_exl = usd_inp_vat_exl.toFixed(2)
-        usd_inp_amt_inc_vat_ap = usd_inp_amt_inc_vat_ar.toFixed(2)
+        usd_inp_amt_inc_vat_ar = usd_inp_amt_inc_vat_ar.toFixed(2)
         rmb_inp_ar_amt = rmb_inp_ar_amt.toFixed(2)
         rmb_inp_vat_exl = rmb_inp_vat_exl.toFixed(2)
-        rmb_inp_amt_inc_vat_ap = rmb_inp_amt_inc_vat_ar.toFixed(2)
+        rmb_inp_amt_inc_vat_ar = rmb_inp_amt_inc_vat_ar.toFixed(2)
         hkd_inp_ar_amt = hkd_inp_ar_amt.toFixed(2)
         hkd_inp_vat_exl = hkd_inp_vat_exl.toFixed(2)
-        hkd_inp_amt_inc_vat_ap = hkd_inp_amt_inc_vat_ar.toFixed(2)
+        hkd_inp_amt_inc_vat_ar = hkd_inp_amt_inc_vat_ar.toFixed(2)
 
         $('.sub_total_ar_thb').val(thb_inp_ar_amt)
         $('.vat_ar_thb').val(thb_inp_vat_exl)
@@ -555,119 +558,134 @@ const function_sub_billing = {
         let ap_usd = 0;
         let ap_rmb = 0;
         let ap_yen = 0;
+        let ap_hkd = 0;
 
         let ap_incl_vat_thb = 0;
         let ap_incl_vat_usd = 0;
         let ap_incl_vat_rmb = 0;
         let ap_incl_vat_yen = 0;
+        let ap_incl_vat_hkd = 0;
 
         let ar_thb = 0;
         let ar_usd = 0;
         let ar_rmb = 0;
         let ar_yen = 0;
+        let ar_hkd = 0;
 
         let ar_incl_vat_thb = 0;
         let ar_incl_vat_usd = 0;
         let ar_incl_vat_rmb = 0;
         let ar_incl_vat_yen = 0;
+        let ar_incl_vat_hkd = 0;
 
-        $('.table_billing_ap > tbody >tr').each(function (i, v) {
-            let qty = parseFloat($('.inp_qty', this).val())
-            let unp = parseFloat($('.inp_unit_price', this).val())
-            let vat = parseFloat($('.inp_vat', this).val())
-            let sys = parseFloat($('.inp_sys_rate_ap', this).val())
-            let cur = $('.inp_currency_ap').val()
+        $('.table_billing_ap > tbody > tr').each(function (i, v) {
+            let data_amtincv = $(this).find('.inp_amt_inc_vat_ap').val()
+            let data_amt = $(this).find('.inp_ap_amt').val()
+            let data_currency = $(this).find('.inp_currency_ap').val()
 
-
-            let sub_total = (qty * unp) * sys
-
-            let total = ((((qty * unp) * vat) / 100) + (qty * unp)) * sys
-
-            if (cur == "THB") {
-                ap_thb = parseFloat(ap_thb) + parseFloat(sub_total);
-                ap_incl_vat_thb = ap_incl_vat_thb + total
-            } else if (cur == "USD") {
-                ap_usd = parseFloat(ap_usd) + parseFloat(sub_total);
-                ap_incl_vat_usd = ap_incl_vat_usd + total
-            } else if (cur == "RMB") {
-                ap_rmb = parseFloat(ap_rmb) + parseFloat(sub_total);
-                ap_incl_vat_rmb = ap_incl_vat_rmb + total
-            } else if (cur == "YEN") {
-                ap_yen = parseFloat(ap_yen) + parseFloat(sub_total);
-                ap_incl_vat_yen = ap_incl_vat_yen + total
+            data_amtincv = parseFloat(data_amtincv)
+            data_amt = parseFloat(data_amt)
+            
+            if(data_currency == "THB"){
+                ap_thb = ap_thb + data_amt
+                ap_incl_vat_thb = ap_incl_vat_thb + data_amtincv
+            }else if(data_currency == "RMB"){
+                ap_rmb = ap_thb + data_amt
+                ap_incl_vat_rmb = ap_incl_vat_thb + data_amtincv
+            }else if(data_currency == "YEN"){
+                ap_yen = ap_thb + data_amt
+                ap_incl_vat_yen = ap_incl_vat_thb + data_amtincv
+            }else if(data_currency == "USD"){
+                ap_usd = ap_thb + data_amt
+                ap_incl_vat_usd = ap_incl_vat_thb + data_amtincv
+            }else if(data_currency == "HKD"){
+                ap_hkd = ap_thb + data_amt
+                ap_incl_vat_hkd = ap_incl_vat_thb + data_amtincv
             }
-        })
-        console.log(ap_thb)
 
-        $('.table_billing_ar > tbody >tr').each(function (i, v) {
-            let qty = parseFloat($('.inp_qty', this).val())
-            let unp = parseFloat($('.inp_unit_price', this).val())
-            let vat = parseFloat($('.inp_vat', this).val())
-            let sys = parseFloat($('.inp_sys_rate_ar', this).val())
-            let cur = $('.inp_currency_ar').val()
-
-
-            let sub_total = (qty * unp) * sys
-            let total = ((((qty * unp) * vat) / 100) + (qty * unp)) * sys
-
-            if (cur == "THB") {
-                ar_thb = parseFloat(ar_thb) + parseFloat(sub_total);
-                ar_incl_vat_thb = ar_incl_vat_thb + total
-            } else if (cur == "USD") {
-                ar_usd = parseFloat(ar_usd) + parseFloat(sub_total);
-                ar_incl_vat_usd = ar_incl_vat_usd + total
-            } else if (cur == "RMB") {
-                ar_rmb = parseFloat(ar_rmb) + parseFloat(sub_total);
-                ar_incl_vat_rmb = ar_incl_vat_rmb + total
-            } else if (cur == "YEN") {
-                ar_yen = parseFloat(ar_yen) + parseFloat(sub_total);
-                ar_incl_vat_yen = ar_incl_vat_yen + total
-            }
         })
 
+        $('.table_billing_ar > tbody > tr').each(function (i, v) {
 
+            let data_amtincv = $(this).find('.inp_amt_inc_vat_ar').val()
+            let data_amt = $(this).find('.inp_ar_amt').val()
+            let data_currency = $(this).find('.inp_currency_ar').val()
+
+            data_amtincv = parseFloat(data_amtincv)
+            data_amt = parseFloat(data_amt)
+
+            if(data_currency == "THB"){
+                ar_thb = ar_thb + data_amt
+                ar_incl_vat_thb = ar_incl_vat_thb + data_amtincv
+            }else if(data_currency == "RMB"){
+                ar_rmb = ar_thb + data_amt
+                ar_incl_vat_rmb = ar_incl_vat_thb + data_amtincv
+            }else if(data_currency == "YEN"){
+                ar_yen = ar_thb + data_amt
+                ar_incl_vat_yen = ar_incl_vat_thb + data_amtincv
+            }else if(data_currency == "USD"){
+                ar_usd = ar_thb + data_amt
+                ar_incl_vat_usd = ar_incl_vat_thb + data_amtincv
+            }else if(data_currency == "HKD"){
+                ar_hkd = ar_thb + data_amt
+                ar_incl_vat_hkd = ar_incl_vat_thb + data_amtincv
+            }
+        })
+
+
+        console.log(ar_thb)
+        console.log(ar_usd)
+        console.log(ar_rmb)
+        console.log(ar_yen)
+        console.log(ar_hkd)
 
         let all_ar_ap_non_vat_thb = ar_thb - ap_thb;
         let all_ar_ap_non_vat_usd = ar_usd - ap_usd;
         let all_ar_ap_non_vat_rmb = ar_rmb - ap_rmb;
         let all_ar_ap_non_vat_yen = ar_yen - ap_yen;
-
-        all_ar_ap_non_vat_thb = all_ar_ap_non_vat_thb.toFixed(2);
-        all_ar_ap_non_vat_usd = all_ar_ap_non_vat_usd.toFixed(2);
-        all_ar_ap_non_vat_rmb = all_ar_ap_non_vat_rmb.toFixed(2);
-        all_ar_ap_non_vat_yen = all_ar_ap_non_vat_yen.toFixed(2);
+        let all_ar_ap_non_vat_hkd = ar_hkd - ap_hkd;
 
         let all_ar_ap_incl_vat_thb = ar_incl_vat_thb - ap_incl_vat_thb;
         let all_ar_ap_incl_vat_usd = ar_incl_vat_usd - ap_incl_vat_usd;
         let all_ar_ap_incl_vat_rmb = ar_incl_vat_rmb - ap_incl_vat_rmb;
         let all_ar_ap_incl_vat_yen = ar_incl_vat_yen - ap_incl_vat_yen;
-
-        all_ar_ap_incl_vat_thb = all_ar_ap_incl_vat_thb.toFixed(2);
-        all_ar_ap_incl_vat_usd = all_ar_ap_incl_vat_usd.toFixed(2);
-        all_ar_ap_incl_vat_rmb = all_ar_ap_incl_vat_rmb.toFixed(2);
-        all_ar_ap_incl_vat_yen = all_ar_ap_incl_vat_yen.toFixed(2);
+        let all_ar_ap_incl_vat_hkd = ar_incl_vat_hkd - ap_incl_vat_hkd;
 
 
-        ap_incl_vat_thb = ap_incl_vat_thb.toFixed(2);
-        ap_incl_vat_usd = ap_incl_vat_usd.toFixed(2);
-        ap_incl_vat_rmb = ap_incl_vat_rmb.toFixed(2);
-        ap_incl_vat_yen = ap_incl_vat_yen.toFixed(2);
 
-        ar_incl_vat_thb = ar_incl_vat_thb.toFixed(2);
-        ar_incl_vat_usd = ar_incl_vat_usd.toFixed(2);
-        ar_incl_vat_rmb = ar_incl_vat_rmb.toFixed(2);
-        ar_incl_vat_yen = ar_incl_vat_yen.toFixed(2);
+        ar_thb = ar_thb.toFixed(2) 
+        ar_usd = ar_usd.toFixed(2) 
+        ar_rmb = ar_rmb.toFixed(2) 
+        ar_yen = ar_yen.toFixed(2) 
+        ar_hkd = ar_hkd.toFixed(2) 
+        ap_thb = ap_thb.toFixed(2)
+        ap_usd = ap_usd.toFixed(2)
+        ap_rmb = ap_rmb.toFixed(2)
+        ap_yen = ap_yen.toFixed(2)
+        ap_hkd = ap_hkd.toFixed(2)
+        ar_incl_vat_thb = ar_incl_vat_thb.toFixed(2)
+        ar_incl_vat_usd = ar_incl_vat_usd.toFixed(2)
+        ar_incl_vat_rmb = ar_incl_vat_rmb.toFixed(2)
+        ar_incl_vat_yen = ar_incl_vat_yen.toFixed(2)
+        ar_incl_vat_hkd = ar_incl_vat_hkd.toFixed(2)
+        ap_incl_vat_thb = ap_incl_vat_thb.toFixed(2)
+        ap_incl_vat_usd = ap_incl_vat_usd.toFixed(2)
+        ap_incl_vat_rmb = ap_incl_vat_rmb.toFixed(2)
+        ap_incl_vat_yen = ap_incl_vat_yen.toFixed(2)
+        ap_incl_vat_hkd = ap_incl_vat_hkd.toFixed(2)
 
 
-        ap_thb = ap_thb.toFixed(2);
-        ap_usd = ap_usd.toFixed(2);
-        ap_rmb = ap_rmb.toFixed(2);
-        ap_yen = ap_yen.toFixed(2);
 
-        ar_thb = ar_thb.toFixed(2);
-        ar_usd = ar_usd.toFixed(2);
-        ar_rmb = ar_rmb.toFixed(2);
-        ar_yen = ar_yen.toFixed(2);
+        all_ar_ap_non_vat_thb = all_ar_ap_non_vat_thb.toFixed(2)
+        all_ar_ap_non_vat_usd = all_ar_ap_non_vat_usd.toFixed(2)
+        all_ar_ap_non_vat_rmb = all_ar_ap_non_vat_rmb.toFixed(2)
+        all_ar_ap_non_vat_yen = all_ar_ap_non_vat_yen.toFixed(2)
+        all_ar_ap_non_vat_hkd = all_ar_ap_non_vat_hkd.toFixed(2)
+        all_ar_ap_incl_vat_thb = all_ar_ap_incl_vat_thb.toFixed(2)
+        all_ar_ap_incl_vat_usd = all_ar_ap_incl_vat_usd.toFixed(2)
+        all_ar_ap_incl_vat_rmb = all_ar_ap_incl_vat_rmb.toFixed(2)
+        all_ar_ap_incl_vat_yen = all_ar_ap_incl_vat_yen.toFixed(2)
+        all_ar_ap_incl_vat_hkd = all_ar_ap_incl_vat_hkd.toFixed(2)
 
 
         html = `
@@ -745,6 +763,15 @@ const function_sub_billing = {
                                             <td class="text-end">${ar_incl_vat_yen}</td>
                                             <td class="text-end">${ap_incl_vat_yen}</td>
                                             <td class="text-end"><div class="data_incl_vat_yen">${all_ar_ap_incl_vat_yen}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HKD</td>
+                                            <td class="text-end">${ar_hkd}</td>
+                                            <td class="text-end">${ap_hkd}</td>
+                                            <td class="text-end"><div class="data_non_vat_yen">${all_ar_ap_non_vat_hkd}</div></td>
+                                            <td class="text-end">${ar_incl_vat_hkd}</td>
+                                            <td class="text-end">${ap_incl_vat_hkd}</td>
+                                            <td class="text-end"><div class="data_incl_vat_yen">${all_ar_ap_incl_vat_hkd}</div></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -966,49 +993,7 @@ const function_sub_billing = {
         });
     },
 
-    delete_list: function (e) {
-        Swal.fire({
-            title: `Are you sure delete list`,
-            text: `you sure click on Yes, save it!`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, save it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                let clo_tr_del = $(e).closest('tr')
-                let clo_tr_del_id = $(clo_tr_del).attr('id_list')
-
-                let res_data = '';
-                if (clo_tr_del_id == undefined) {
-                    res_data = '1'
-                    clo_tr_del.remove();
-
-                } else {
-                    let res_data_result = await this.ajax_delete_list(clo_tr_del_id)
-                    res_data = res_data_result['arr_res'];
-                    clo_tr_del.remove();
-                }
-
-
-
-                if (res_data == '1') {
-                    Swal.fire(
-                        'saved!',
-                        'Your data has been saved.',
-                        'success'
-                    )
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'System has problem plese contact to thailand tech team ',
-                    })
-                }
-            }
-        })
-    },
+    
 
     ajax_delete_list: async function (id_number) {
         return new Promise(function (resolve, reject) {
@@ -1363,6 +1348,9 @@ const function_sub_billing = {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
+
+        let ap_lost = 0;
+        let ar_lost = 0;
         $('.table_billing_ap > tbody > tr').each(function () {
 
 
@@ -1383,7 +1371,6 @@ const function_sub_billing = {
             let check = $('.chb_check', this).is(':checked') ? '1' : '0';
             let apply = $('.chb_apply', this).is(':checked') ? '1' : '0';
             let amt_incv = $('.inp_amt_inc_vat_ap',this).val()
-
             // case has id_list
             if (get_id_list != undefined) {
                 $.each(sub_billing.data_list_ap['get_data_ap'], function (i, v) {
@@ -1401,12 +1388,7 @@ const function_sub_billing = {
                         let check_commit_sale = v['commit_sale'] ? v['commit_sale'] : ''
                         let check_apply = v['action_paid_by'] ? '1' : '0';
                         let check_check = v['check_by'] ? '1' : '0';
-                        let check_tax_with_hole = v['with_holding_tax'] ? v['with_holding_tax'] : '';
-                        
-                        console.log(apply)
-                        console.log(check_apply)
-                        console.log(check)
-                        console.log(check_check)
+                        let check_tax_with_hole = v['with_holding_tax'] ? v['with_holding_tax'] : ''
 
                         if (description_code == check_description &&
                             billing_to == check_billing_to &&
@@ -1472,6 +1454,8 @@ const function_sub_billing = {
                         amt_incv : amt_incv,
                     }
                     arr_data_save_ap.push(obj)
+                }else{
+                    ap_lost ++ 
                 }
                 
             }
@@ -1609,6 +1593,8 @@ const function_sub_billing = {
                 }
                 
                 arr_data_save_ar.push(obj)
+                }else{
+                    ar_lost++;
                 }
             }
             
@@ -1616,29 +1602,83 @@ const function_sub_billing = {
         })
 
         //console.log(arr_data_save_ap)
-        console.log(arr_data_save_ar)
-        console.log(arr_data_save_ap)
-        let res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar)
+        // console.log(arr_data_save_ar)
+        // console.log(arr_data_save_ap)
+        // console.log(ap_lost)
+        // console.log(ar_lost)
+        let res_data = '';
+        if(ap_lost >= 1 || ar_lost >= 1){
+            ap_lost= ap_lost >= 1 ? 'AP' : '';
+            ar_lost= ar_lost >= 1 ? 'AR' : '';
 
-        if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
-            Swal.fire(
-                'saved!',
-                'Your data has been saved.',
-                'success'
-            )
-        }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
-            Swal.fire(
-                'saved!',
-                'Your data has been saved.',
-                'success'
-            )
-        }else {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please Contact to tech team in thailand',
+                title: `Are you sure `,
+                html: `Newly added ${ap_lost} ${ar_lost} list There is incomplete information. Please fill in all information and press save again.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, save it!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar)
+                    if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
+                        Swal.fire(
+                            'saved!',
+                            'Your data has been saved.',
+                            'success'
+                        )
+                    }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
+                        Swal.fire(
+                            'saved!',
+                            'Your data has been saved.',
+                            'success'
+                        )
+                    }else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please Contact to tech team in thailand',
+                        })
+                    }
+                }
             })
+            
+        }else{
+            res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar)
+            if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
+                Swal.fire(
+                    'saved!',
+                    'Your data has been saved.',
+                    'success'
+                )
+            }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
+                Swal.fire(
+                    'saved!',
+                    'Your data has been saved.',
+                    'success'
+                )
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Contact to tech team in thailand',
+                })
+            }
         }
+
+        var currentURL = window.location.href;
+        var url = new URL(currentURL);
+        var action_data = url.searchParams.get("action");
+        if(action_data == 'preview'){
+            var id_number = url.searchParams.get("job_number");
+            sub_billing.first_post_data_ap(id_number)
+            sub_billing.first_post_data_ar(id_number)
+        }else if(action_data == 'invoice_mode'){
+            window.location = "account_review_check.php"
+        }
+        
+        
     },
 
 
@@ -1663,7 +1703,62 @@ const function_sub_billing = {
     change_currency: function (e) {
         function_sub_billing.cal_result_ap()
         function_sub_billing.cal_result_ar()
-    }
+    },
+
+    delete_list_add_new : async function(e){
+
+        let tr_data = $(e).closest('tr')
+        $(tr_data).remove()
+        await function_sub_billing.cal_result_ar();
+                await function_sub_billing.cal_result_ap();
+    },
+
+    delete_list: function (e) {
+        Swal.fire({
+            title: `Are you sure delete list`,
+            text: `you sure click on Yes, save it!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let clo_tr_del = $(e).closest('tr')
+                let clo_tr_del_id = $(clo_tr_del).attr('id_list')
+
+                let res_data = '';
+                if (clo_tr_del_id == undefined) {
+                    res_data = '1'
+                    clo_tr_del.remove();
+
+                } else {
+                    let res_data_result = await this.ajax_delete_list(clo_tr_del_id)
+                    res_data = res_data_result['arr_res'];
+                    clo_tr_del.remove();
+                }
+
+                if (res_data == '1') {
+                    Swal.fire(
+                        'saved!',
+                        'Your data has been saved.',
+                        'success'
+                    )
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'System has problem plese contact to thailand tech team ',
+                    })
+                }
+                await function_sub_billing.cal_result_ar();
+                await function_sub_billing.cal_result_ap();
+            }
+        })
+
+        
+        
+    },
 
     
 

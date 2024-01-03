@@ -132,6 +132,7 @@ if($arr_data_save_ap != ''){
                 `status`,
                 `ref_job_id`,
                 `sys_rate`,
+                `amtinclvat`,
                 `Billing_date`,
                 `commit_sale`,
                 `with_holding_tax`
@@ -155,6 +156,7 @@ if($arr_data_save_ap != ''){
                 $query_status
                 '$id_number',
                 '$sys_rate',
+                '$amt_incv',
                 '$t_time_save',
                 '$commit_sale',
                 '$tax_with_hold'

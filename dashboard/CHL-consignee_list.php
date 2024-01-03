@@ -63,8 +63,28 @@ require 'function/auth/get_session.php';
                                     <tbody align="center">
                                         <?php
                                         $sql_table_list = "
-                                        SELECT * FROM `consignee`
+                                        SELECT
+                                            c.ID,
+                                            c.consignee_number,
+                                            c.consignee_name,
+                                            c.tel,
+                                            c.email,
+                                            c.user_sale,
+                                            c.tax,
+                                            c.bank_account_name,
+                                            c.bank_number,
+                                            c.address,
+                                            c.contact_person_name,
+                                            c.contact_person_tel,
+                                            c.fax,
+                                            c.linkman,
+                                            (SELECT COUNT(jt.ID) FROM job_title jt WHERE jt.consignee_number = c.ID ) data_count_del
+                                        FROM
+                                            consignee c
+
                                         ";
+
+                                        
                                         $fetch_sql = mysqli_query($con, $sql_table_list);
                                         while ($result_table_list = mysqli_fetch_assoc($fetch_sql)) {
 
