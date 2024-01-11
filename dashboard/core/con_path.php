@@ -1,7 +1,7 @@
 <?php
-    $emi = ($_SESSION['email']);
+    $emi = ($_SESSION['name']);
     $sql_user_query = "
-    SELECT ID,user_number,bank_number,bank_name,department_number FROM user WHERE email = '$emi'";
+    SELECT ID,user_number,bank_number,bank_name,department_number FROM user WHERE first_name = '$emi'";
 
     $result = $con->query($sql_user_query);
     if ($result->num_rows > 0) {

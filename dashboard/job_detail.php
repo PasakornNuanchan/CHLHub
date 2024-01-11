@@ -279,7 +279,11 @@ require 'function/auth/get_session.php';
     #table_billing_ap td:nth-child(26),
     #table_billing_ap td:nth-child(27),
     #table_billing_ap td:nth-child(28),
-    #table_billing_ap td:nth-child(29) {
+    #table_billing_ap td:nth-child(29),
+    #table_billing_ap td:nth-child(30),
+    #table_billing_ap td:nth-child(31),
+    #table_billing_ap td:nth-child(32),
+    #table_billing_ap td:nth-child(33) {
         padding-left: 2px;
         padding-right: 2px;
     }
@@ -2003,6 +2007,7 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">Billing Date</th>
                                             <th class="text-center">Sys Rate</th>
                                             <th class="text-center">Apply</th>
+                                            <th class="text-center">Apply By</th>
                                             <th class="text-center">Apply Date</th>
                                             <th class="text-center">CHECK</th>
                                             <th class="text-center">Status</th>
@@ -2014,6 +2019,8 @@ require 'function/auth/get_session.php';
                                             <th class="text-center">Last modifier date</th>
                                             <th class="text-center">Cheker</th>
                                             <th class="text-center">Check Date</th>
+                                            <th class="text-center">Approve By</th>
+                                            <th class="text-center">Approve Date</th>
                                         </tr>
                                         <!-- <tr>
                                             <td>1</td>

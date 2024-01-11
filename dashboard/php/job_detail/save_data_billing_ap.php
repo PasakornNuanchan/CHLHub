@@ -5,7 +5,7 @@ require '../../core/con_path.php';
 
 $arr_data_save_ap = $_POST['arr_data_save_ap'];
 $arr_data_save_ar = $_POST['arr_data_save_ar'];
-
+$mode_check = $_POST['mode_check'];
 if($arr_data_save_ap != ''){
     foreach ($arr_data_save_ap as $v) {
 
@@ -41,23 +41,38 @@ if($arr_data_save_ap != ''){
         if ($get_id_list != '') {
             $query_apply = "";
             $query_status = "`status` = '0',";
-            if ($apply == '1') {
-                $query_apply = "
-                `action_paid_by` = '$data_user',
-                `action_paid_date_time` = '$t_time_save',
-                ";
-                $query_status = "`status` = '1',";
+            
     
-            }
-    
-            $query_check = "";
-            if ($check == '1') {
+            
+            if($mode_check == "check"){
                 $query_check = "
-                `check_by` = '$data_user',
-                `check_date_time` = '$t_time_save',
+                `check_by` = null,
+                `check_date_time` = null,
                 ";
+                if ($apply == '1') {
+                    $query_apply = "
+                    `action_paid_by` = '$data_user',
+                    `action_paid_date_time` = '$t_time_save',
+                    ";
+                    $query_status = "`status` = '1',";
+                }else{
+                    $query_apply = "
+                    `action_paid_by` = null,
+                    `action_paid_date_time` = null,
+                    ";
+                }
+            }else{
+                if ($apply == '1') {
+                    $query_apply = "
+                    `action_paid_by` = '$data_user',
+                    `action_paid_date_time` = '$t_time_save',
+                    ";
+                    $query_status = "`status` = '1',";
+                }
             }
     
+         
+
             // update
             $sql_query_data_billing_ap = "
             UPDATE
@@ -73,6 +88,7 @@ if($arr_data_save_ap != ''){
                 `remark` = '$remark',
                 `type` = 'AP',
                 `amtinclvat` = '$amt_incv',
+                $clear_check
                 $query_apply
                 $query_check
                 $query_status
@@ -233,7 +249,13 @@ if($arr_data_save_ar != ''){
                 ";
             }
     
-           
+            if($mode_check == "check"){
+                $query_check = "
+                `check_by` = '$data_user',
+                `check_date_time` = '$t_time_save',
+                ";
+
+            }
     
             // update
             $sql_query_data_billing_ar = "

@@ -102,17 +102,30 @@ require 'function/auth/get_session.php';
         width: 2000px;
     }
 
-    th.sticky-column,
     td.sticky-column {
         position: sticky;
         left: 0;
         z-index: 1;
         background-color: #fff;
     }
+
+    th.sticky-column{
+        position: sticky;
+        left: 0;
+        top:0;
+        z-index: 4;
+        background-color: #fff;
+    }
+
+    th.sticky-top {
+        z-index:2;
+        background-color: #fff;
+
+    }
 </style>
 
 
-<body class="" >
+<body class="">
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -210,31 +223,31 @@ require 'function/auth/get_session.php';
                 <div class="col-lg-10 col-xl-10">
                     <div class="card card_list ">
                         <div class="card-body">
-                            <div class="table-responsive" style="height:100%">
-                                <table class="table table-hover table_payment" style="zoom:100%;overflow: scroll;">
+                            <div class="table-responsive" style="height:550px">
+                                <table class="table table-hover table_payment" style="zoom:80%;overflow: scroll;">
                                     <thead>
                                         <tr class="text-center" style="zoom:90%">
                                             <th class="sticky-column">No</th>
                                             <th class="sticky-column">select</th>
                                             <th class="sticky-column">Job#</th>
-                                            <th>Code</th>
-                                            <th>Cur</th>
-                                            <th>AMTINCV</th>
-                                            <th>Outstanding</th>
-                                            <th>settlement</th>
-                                            <th>actual
+                                            <th class="sticky-top">Code</th>
+                                            <th class="sticky-top">Cur</th>
+                                            <th class="sticky-top">AMTINCV</th>
+                                            <th class="sticky-top">Outstanding</th>
+                                            <th class="sticky-top">settlement</th>
+                                            <th class="sticky-top">actual
                                                 <br>ex.rate
                                             </th>
-                                            <th>actual<br>curr.</th>
-                                            <th>Total</th>
-                                            <th>Amt</th>
-                                            <th>Vat(%)</th>
-                                            <th>WHT</th>
-                                            <th>Customer</th>
-                                            <th>Finish</th>
-                                            <th>Remark</th>
-                                            <th>Sales</th>
-                                            <th>billing date</th>
+                                            <th class="sticky-top">actual<br>curr.</th>
+                                            <th class="sticky-top">Total</th>
+                                            <th class="sticky-top">Amt</th>
+                                            <th class="sticky-top">Vat(%)</th>
+                                            <th class="sticky-top">WHT</th>
+                                            <th class="sticky-top">Customer</th>
+                                            <th class="sticky-top">Finish</th>
+                                            <th class="sticky-top">Remark</th>
+                                            <th class="sticky-top">Sales</th>
+                                            <th class="sticky-top">billing date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -263,12 +276,11 @@ require 'function/auth/get_session.php';
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                         <div class="form-group p-2 m-2">
-                        <button class="btn btn-success btn-sm" onclick="start.select_all_check()">Select all</button>
-                        <button class="btn btn-warning btn-sm" onclick="start.un_select_all_check()">Deselect all</button>
-                        </div>    
+                            <button class="btn btn-success btn-sm" onclick="start.select_all_check()">Select all</button>
+                            <button class="btn btn-warning btn-sm" onclick="start.un_select_all_check()">Deselect all</button>
+                        </div>
                         <hr>
 
                         <div class="form-group p-2 m-2">

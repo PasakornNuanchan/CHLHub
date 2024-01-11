@@ -24,6 +24,13 @@ const sub_billing = {
 
         if (res_data['get_data_ap'] != "0 results") {
             $.each(res_data['get_data_ap'], async function (i, v) {
+
+
+                let currentURL = window.location.href;
+                let url = new URL(currentURL);
+                let action_data = url.searchParams.get("action");
+
+
                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
                 let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
                 let bill_to = v['bill_to'] ? v['bill_to'] : '';
@@ -40,7 +47,7 @@ const sub_billing = {
 
                 let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
                 let status_data = v['status'] ? v['status'] : '';
-
+                let approve_date_time = v['approve_date_time'] ? v['approve_date_time'] : '';
                 let billing_date = create_data_time.substring(0, 10);
                 let action_paid_by = v['action_paid_by'] ? v['action_paid_by'] : '';
                 let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
@@ -52,6 +59,10 @@ const sub_billing = {
                 let vat = v['vat'] ? v['vat'] : '';
                 let apb = v['apbfn'] == null ? '' : v['apbfn'] + ' ' + v['apbln']
                 let lub = v['lubfn'] == null ? '' : v['lubfn'] + ' ' + v['lubln']
+                let app = v['appfn'] == null ? '' : v['appfn'] + ' ' + v['appln']
+                
+
+                
                 let res_ap_amt = parseFloat((qty * unit_price));
                 let res_ap_inc = parseFloat(((res_ap_amt * vat) / 100) + res_ap_amt);
                 let res_ap_amt_t = res_ap_amt.toFixed(2);
@@ -64,8 +75,14 @@ const sub_billing = {
                 let lcurrency = currency.toLowerCase();
                 let lcurrency_bpl = currency_bpl.toLowerCase();
 
-                let currency_aaa = v[`${lcurrency + '_' + lcurrency_bpl}`] ? v[`${lcurrency + '_' + lcurrency_bpl}`] : '0';
-
+                let amount_bpl = v['amount_bpl'] ? v['amount_bpl'] : '0';
+                let currency_aaa = ''
+                if(amount_bpl != ''){
+                    currency_aaa = v[`${lcurrency_bpl + '_' + lcurrency}`] ? v[`${lcurrency_bpl + '_' + lcurrency}`] : '1';
+                    currency_aaa = parseFloat(currency_aaa)   
+                }
+                let data_amount_bpl = parseFloat(amount_bpl)
+                data_amount_bpl = data_amount_bpl.toFixed(2)
                 // let usd_rmb = v['usd_rmb'] ? v['usd_rmb'] : '';
                 // let usd_yen = v['usd_yen'] ? v['usd_yen'] : '';
                 // let thb_usd = v['thb_usd'] ? v['thb_usd'] : '';
@@ -83,7 +100,7 @@ const sub_billing = {
 
                 html_data_ap = `
             <tr class="text-center data_ap${i} data_ap_list${id_list}" id_list="${id_list}" type="AP" >
-                <td><button class="btn btn-danger btn-sm rounded btn_delete btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button></td><!--  action -->
+                <td><button class="btn btn-danger btn-sm rounded btn_delete btn_delete_ap${id_list} btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button></td><!--  action -->
                 <td><input type="checkbox" class="form-input-check inp_box_select_ap inp_box_select${i}" id_data_billing ="${id_list}" ></td>
                 <td>${i}</td>
                 <td>${data_sel_billing_ap}</td>
@@ -125,7 +142,8 @@ const sub_billing = {
                     <option value="HKD">HKD</option>
                     </select></td> --><!-- sysrate currency -->
                 <td><input type="checkbox" class="form-input-check chb_apply chb_apply${i}"></td><!-- apply -->
-                <td><input type="text" class="form-control form-control-sm " value="${action_paid_date_time}"disabled></td><!-- apply date -->
+                <td><input type="text" class="form-control form-control-sm inp_apply_by" disabled></td>
+                <td><input type="text" class="form-control form-control-sm inp_apply_datetime" disabled></td><!-- apply date -->
                 <td><input type="checkbox" class="form-input-check chb_check chb_check${i}" id="chb_check"></td><!-- CHECK -->
                 <td><div class="inp_status"></div></td><!-- status -->
                 <td><input type="text" class="form-control form-control-sm text-end inp_commit" disabled value="${commit_sale}"></td><!-- commision sale -->
@@ -134,8 +152,10 @@ const sub_billing = {
                 <td><input type="text" class="form-control form-control-sm inp_create_date_ap" value="${create_data_time}" disabled></td><!-- creater date -->
                 <td><input type="text" class="form-control form-control-sm" value="${lub}" disabled></td><!-- last modifier -->
                 <td><input type="text" class="form-control form-control-sm" value="${last_update_datetime}" disabled></td><!-- last modifier date -->
-                <td><input type="text" class="form-control form-control-sm" value="${apb}" disabled></td><!-- checker  -->
-                <td><input type="text" class="form-control form-control-sm" value="${action_paid_date_time}" disabled></td><!-- checker date -->
+                <td><input type="text" class="form-control form-control-sm" value="${ccb}" disabled></td><!-- checker  -->
+                <td><input type="text" class="form-control form-control-sm" value="${check_date_time}" disabled></td><!-- checker date -->
+                <td><input type="text" class="form-control form-control-sm" value="${app}" disabled></td><!-- approve by  -->
+                <td><input type="text" class="form-control form-control-sm" value="${approve_date_time}" disabled></td><!-- approve date -->
             </tr>
             `;
 
@@ -160,6 +180,12 @@ const sub_billing = {
                 })
                 $(`.data_ap${i} > td > .inp_des_ap`).val(data_requeset)
 
+
+                if(action_data == "preview"){
+                    $(`.data_ap${i} > td > .inp_apply_by`).val(apb)
+                    $(`.data_ap${i} > td > .inp_apply_datetime`).val(action_paid_date_time)
+                }
+                
                 // if(action_paid_by != ''){
                 //     //$(`.chb_apply${i}`).attr({'checked':true,'disabled':true,"ischedkedon":'1'})
                 //     $(`.data_ap${i} > td > .inp_payble`).html('Paid')
@@ -170,8 +196,7 @@ const sub_billing = {
                 // }
 
 
-
-
+               
 
                 if (status_data == '0' || status_data == '1') {
                     $(`.data_ap${i} > td > .inp_status`).html('<span class="badge rounded-pill bg-warning">Waiting</span>')
@@ -182,12 +207,17 @@ const sub_billing = {
                 }
 
                 if (action_paid_by != '') {
-                    $(`.chb_apply${i}`).attr({ 'checked': true, 'disabled': true, "ischeckdone": '1' })
-
+                    if(action_data == "preview"){
+                        $(`.chb_apply${i}`).attr({ 'checked': true, 'disabled': true, "ischeckdone": '1' })
+                    }else{
+                        
+                    }
                 }
 
                 if (check_by != '') {
                     $(`.chb_check${i}`).attr({ 'checked': true, 'disabled': true, "ischeckdone": '1' })
+                }else{
+                    $(`.chb_check${i}`).remove()
                 }
 
                 $(`.data_ap${i} > td > .inp_currency_ap`).val(currency)
@@ -230,13 +260,22 @@ const sub_billing = {
                     $(`.data_ap${i} > td > .btn_delete`).remove()
                 }
 
-                if (check_by != '') {
+                
+                if (action_paid_by != '') {
                     $(`.data_ap_list${id_list} > td > .form-control`).attr('disabled', true)
                     $(`.data_ap_list${id_list} > td > .form-select`).attr('disabled', true)
+
+                    
+                    if(action_data == "preview"){
+                        $(`.btn_delete_ap${id_list}`).remove()
+                    }
                 }
-                // if(check_by != ''){
-                //     $(`.data_ap_list${id_number} > td > .form-control`).attr('disabled',true)
-                // }
+
+               
+               
+                if(data_amount_bpl != 0){
+                    $(`.data_ap${i} > td > .inp_paid_amt`).val(data_amount_bpl).attr({ "style": "color:red; text-weight:bold" })
+                }
             })
         } else {
             html_data_ap = `
@@ -393,6 +432,7 @@ const sub_billing = {
                 let ccb = v['ccbfn'] == null ? '' : v['ccbfn'] + ' ' + v['ccbln'];
                 let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
                 let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
+                
                 let remark = v['remark'] ? v['remark'] : '';
                 let status_data = v['status'] ? v['status'] : '';
                 let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
@@ -425,7 +465,7 @@ const sub_billing = {
                 html_data_ar = `
             <tr id_list = "${id_list}" class="data_ar${i} data_ar_list${id_list}" type = "AR">
                 <td class="text-center headcol">
-                    <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-danger btn-sm btn_del_ar btn_delete_ar${id_list} btn_delete_list_billing" onclick="function_sub_billing.delete_list(this)"><i class="bi bi-trash"></i></button>
                 </td><!-- ACTION -->
                 <td class="text-center headcol"><input type="checkbox" class="form-input-check inp_box_select_ar inp_box_select${i}" id_data_billing ="${id_list}"></td>
                 <td class="text-center headcol">${i}</td> <!-- No -->
@@ -516,6 +556,8 @@ const sub_billing = {
 
                 if (ccb != '') {
                     $(`.data_ar${i} > td > .ch_check_ar`).prop('checked', true).attr({ 'disabled': true, "ischeckdone": '1' })
+                }else{
+                    $(`.data_ar${i} > td > .ch_check_ar`).remove()
                 }
 
                 $(`.data_ar${i} > td > .select_bill_to_ar`).val()
@@ -575,13 +617,15 @@ const sub_billing = {
                     // $(`.data_ar${i} > td > .inp_paid_amt`).val(data_amtincl).attr({"style":"color:red; text-weight:bold"})
 
                 }
-                console.log(check_by)
 
 
                 if (check_by != '') {
                     $(`.data_ar_list${id_list} > td > .form-control`).attr('disabled', true)
                     $(`.data_ar_list${id_list} > td > .form-select`).attr('disabled', true)
+                    $(`.btn_delete_ar${id_list}`).remove()
                 }
+                
+                
             })
         } else {
 
@@ -718,6 +762,26 @@ const sub_billing = {
             });
         });
     },
+
+    setting_ap_ar : async function(e) {
+        let table_ap = $('.table_billing_ap > tbody > tr')
+        $.each(table_ap,function(){
+            let data_id_list_check = $(this).attr('id_list')
+
+            if(e != data_id_list_check){
+                $(this).remove()
+            }
+        })
+
+        let table_ar = $('.table_billing_ar > tbody > tr')
+        $.each(table_ar,function(){
+            let data_id_list_check = $(this).attr('id_list')
+
+            if(e != data_id_list_check){
+                $(this).remove()
+            }
+        })
+    }
 
 
 }

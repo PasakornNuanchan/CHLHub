@@ -19,6 +19,8 @@ bp.paid_date_time,
     lub.last_name lubln,
     bpl.amount as amount_bpl,
     bpl.currency as currency_bpl,
+    app.first_name appfn,
+    app.last_name appln,
     sra.usd_thb,
     sra.usd_rmb,
     sra.usd_yen,
@@ -41,6 +43,8 @@ LEFT JOIN USER apb ON
     apb.ID = bi.action_paid_by
 LEFT JOIN USER lub ON
     lub.ID = bi.last_update_by
+LEFT JOIN USER app ON
+    app.ID = bi.approve_by
 LEFT JOIN billing_payment bp ON bp.ref_billing_id = bi.ID
 LEFT JOIN billing_payment_list bpl ON bpl.data_number_id = bi.ID 
 LEFT JOIN sys_rate_cur sra ON sra.ID = bpl.currency_number

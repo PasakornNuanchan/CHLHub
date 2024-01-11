@@ -68,9 +68,10 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.pre_approve_status
   FROM
       billing b
+  WHERE b.type = 'AP' AND action_paid_by IS NOT NULL
   ORDER BY
   b.check_by ASC,
-  job_number
+  job_number ASC, bill_to_c ASC
   ";
 } else {
 
@@ -111,11 +112,12 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     // $radio_p
 
     // having
-    $data_applied_person = $data_applied_person ? "AND b.check_by = '$data_applied_person'" : '';
-    $data_date_applied = $data_date_applied ? "AND b.check_date_time LIKE '%$data_date_applied%'" : '';
+    $data_applied_person = $data_applied_person ? "AND b.action_paid_by = '$data_applied_person'" : '';
+    $data_date_applied = $data_date_applied ? "AND b.action_paid_date_time LIKE '%$data_date_applied%'" : '';
     $data_find_where = "
     WHERE
-    1=1
+    b.type='AP'
+    AND action_paid_by IS NOT NULL
     $data_applied_person
     $data_date_applied
     ";
@@ -126,7 +128,8 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     $data_name_type = $data_name_type ? "AND bill_to_c = '$data_name_type'" : '';
     $data_find_having = "
     Having
-    1=1
+    b.type='AP'
+    AND action_paid_by IS NOT NULL
     $billing_code
     $job_number
     $data_name_type

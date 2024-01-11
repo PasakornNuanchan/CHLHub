@@ -34,6 +34,9 @@ const start = {
 
         // res_data['table']['billing_description'].sort();
         if (res_data['table'] != "0 results") {
+            
+
+            
             $.each(res_data['table'], function (i, v) {
                 let id_number = v['ID'] ? v['ID'] : '';
                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
@@ -131,7 +134,7 @@ const start = {
                 $('.table tbody').append(html_data)
 
 
-
+                
 
                 if (amount != 0 || amount != null || amount != '') {
                     amount = parseFloat(amount)
@@ -152,7 +155,7 @@ const start = {
                 $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate`).val(sys_rate).attr('disabled', true)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_sysrate_to`).val(currency_main).attr('disabled', true)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_amt_incv_write_off`).val(amtinclvat).attr('disabled', true)
-                $(`.table > tbody > .row_data${id_number} > td > .inp_amt`).val(amtinclvat).attr('disabled', true)
+                $(`.table > tbody > .row_data${id_number} > td > .inp_amt`).val(data_amt_not_vat).attr('disabled', true)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_vat`).val(vat).attr('disabled', true)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_amt_excv`).val(with_holding_tax).attr('disabled', true)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_description`).val(bill_to_c).attr('disabled', true)
@@ -169,6 +172,7 @@ const start = {
 
 
             })
+        
         }
         await this.cal_currency();
         await this.data_cal_sysrate();

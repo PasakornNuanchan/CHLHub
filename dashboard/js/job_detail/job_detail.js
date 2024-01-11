@@ -36,6 +36,7 @@ const job_detail = {
         };
 
         let get_action = getUrlParameter('action');
+        let id_number_data_list = getUrlParameter('id_number');
 
         
         if (get_action == "preview") {
@@ -71,8 +72,8 @@ const job_detail = {
             $('.btn_add_new_list_ap').remove()
             $('.btn_add_new_list_ar').remove()
             $('.hide_mode_invoice').remove()
-            $('.btn_del_ar').remove()
-            $('.btn_delete_list_billing').remove()
+            // $('.btn_del_ar').remove()
+            // $('.btn_delete_list_billing').remove()
             $('.inp_box_select_ap').remove()
             $('.inp_box_select_ar').remove()
             $('.btn_save_mode_invoice').html('<button class="btn btn-success" onclick="function_sub_billing.save_all_billing()"><i class="bi bi-save"></i> Save</button>')
@@ -94,6 +95,8 @@ const job_detail = {
             $('.inp_vat_ar').attr('disabled',false)
             $('.inp_wt_percentage').attr('disabled',false)
             $('.inp_remark').attr('disabled',false)
+
+            await sub_billing.setting_ap_ar(id_number_data_list)
 
         }
 

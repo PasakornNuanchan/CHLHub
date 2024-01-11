@@ -97,14 +97,28 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-    th.sticky-column,
-    td.sticky-column {
+    .table_ar th.sticky-top{
+        z-index: 4;
+        background-color: #fff;
+
+    }
+
+    .table_ar th.sticky-column{
         position: sticky;
         left: 0;
-        z-index: 1;
+        top: 0;
+        z-index: 5;
         background-color: #fff;
     }
 
+    td.sticky-column {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: #fff;
+    }
+
+   
     tr.sticky_super_top {
         position: sticky;
         z-index: 2;
@@ -162,9 +176,9 @@ require 'function/auth/get_session.php';
                 <div class="col-lg-3 col-xl-3">
                     <div class="card">
                         <div class="card-body text-center">
-                            <input type="radio" class="form-check-input check_start" onchange="start.select_filter()" onclick="start.select_type()" name="radio_select_act" id="radio1" value="All">
+                            <input type="radio" class="form-check-input " onchange="start.select_filter()" onclick="start.select_type()" name="radio_select_act" id="radio1" value="All">
                             <label class="form-check-label pl-2">ALL</label>
-                            <input type="radio" class="form-check-input " onchange="start.select_filter()" onclick="start.select_type()" name="radio_select_act" id="radio1" value="Unpaid">
+                            <input type="radio" class="form-check-input check_start" onchange="start.select_filter()" onclick="start.select_type()" name="radio_select_act" id="radio1" value="Unpaid">
                             <label class="form-check-label pl-2">Unpaid</label>
                             <input type="radio" class="form-check-input" onchange="start.select_filter()" onclick="start.select_type()" name="radio_select_act" id="radio2" value="Paid">
                             <label class="form-check-label pl-2">Paid</label>
@@ -178,10 +192,10 @@ require 'function/auth/get_session.php';
                         <div class="card-body text-center">
                             <!-- <input type="checkbox" class="form-check-input cb_all" onchange="start.select_filter()" name="radio_type_act" id="radio1" value="all">
                             <label class="form-check-label pl-2">All</label> -->
-                            <input type="checkbox" class="form-check-input cb_check" onchange="start.select_filter()" name="radio_type_act" id="radio1" value="check">
-                            <label class="form-check-label pl-2">Check</label>
                             <input type="checkbox" class="form-check-input cb_apply" onchange="start.select_filter()" name="radio_type_act" id="radio2" value="apply">
                             <label class="form-check-label pl-2">Apply</label>
+                            <input type="checkbox" class="form-check-input cb_check" onchange="start.select_filter()" name="radio_type_act" id="radio1" value="check">
+                            <label class="form-check-label pl-2">Check</label>
                             <input type="checkbox" class="form-check-input cb_appove" onchange="start.select_filter()" name="radio_type_act" id="radio2" value="approve">
                             <label class="form-check-label pl-2">Approve</label>
                         </div>
@@ -282,38 +296,38 @@ require 'function/auth/get_session.php';
                 <div class="col-lg-10 col-xl-10">
                     <div class="card card_list">
                         <div class="card-body">
-                            <div class="">
+                            <div class="table-responsive" style="height: 470px;">
                                 <table class="table table-hover table_ar" style="zoom:75%;overflow: scroll;">
                                     <thead class="">
                                         <tr class="text-center">
-                                            <th class="sticky-column">No</th>
-                                            <th class="sticky-column">Job number</th>
-                                            <th class="sticky-column">Bill to</th>
-                                            <th>Code</th>
-                                            <th>Cur.</th>
-                                            <th>QTY</th>
-                                            <th>UNIT PRICE</th>
-                                            <th>AP AMT</th>
-                                            <th>VAT%</th>
-                                            <th>WH%</th>
-                                            <th>AMTINCV</th>
-                                            <th>AMTPAID</th>
-                                            <th>STATUS</th>
-                                            <th>REMARK</th>
-                                            <th>OP</th>
-                                            <th>SALE</th>
-                                            <th>Create Date</th>
-                                            <th>Creater</th>
-                                            <th>Biiling Date</th>
-                                            <th>check by.</th>
-                                            <th>check date</th>
-                                            <th>apply by.</th>
-                                            <th>apply date</th>
-                                            <th>approve by.</th>
-                                            <th>approve date</th>
-                                            <th>booking no</th>
-                                            <th>container no</th>
-                                            <th>payment status </th>
+                                            <th class="sticky-column sticky-top ">No</th>
+                                            <th class="sticky-column sticky-top ">Job number</th>
+                                            <th class="sticky-column sticky-top ">Bill to</th>
+                                            <th class="sticky-top">Code</th>
+                                            <th class="sticky-top">Cur.</th>
+                                            <th class="sticky-top">QTY</th>
+                                            <th class="sticky-top">UNIT PRICE</th>
+                                            <th class="sticky-top">AP AMT</th>
+                                            <th class="sticky-top">VAT%</th>
+                                            <th class="sticky-top">WH%</th>
+                                            <th class="sticky-top">AMTINCV</th>
+                                            <th class="sticky-top">AMTPAID</th>
+                                            <th class="sticky-top">STATUS</th>
+                                            <th class="sticky-top">REMARK</th>
+                                            <th class="sticky-top">OP</th>
+                                            <th class="sticky-top">SALE</th>
+                                            <th class="sticky-top">Create Date</th>
+                                            <th class="sticky-top">Creater</th>
+                                            <th class="sticky-top">Biiling Date</th>
+                                            <th class="sticky-top">check by.</th>
+                                            <th class="sticky-top">check date</th>
+                                            <th class="sticky-top">apply by.</th>
+                                            <th class="sticky-top">apply date</th>
+                                            <th class="sticky-top">approve by.</th>
+                                            <th class="sticky-top">approve date</th>
+                                            <th class="sticky-top">booking no</th>
+                                            <th class="sticky-top">container no</th>
+                                            <th class="sticky-top">payment status </th>
                                         </tr>
                                         <!-- <tr class="text-center">
                                             <td>1</td>
@@ -387,52 +401,52 @@ require 'function/auth/get_session.php';
                                     </tbody>
                                 </table>
                             </div>
-                            <div class=" mt-3">
-                                <div class="text-start">
-                                    <button class="btn btn-sm btn-warning" onclick="function_act.waiting_all()">Waiting All</button>
-                                    <button class="btn btn-sm btn-success" onclick="function_act.approve_all()">Approve All</button>
+                        </div>
+                        <div class="form-group p-2 m-2">
+                            <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-sm btn-warning" onclick="function_act.waiting_all()">Waiting All</button>
+                                <button class="btn btn-sm btn-success" onclick="function_act.approve_all()">Approve All</button>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
+                            </div>
+                            </div>
+                            
+                        </div>
+                        <hr>
+                        <div class="form-group p-2 m-2">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="">Total pay/rcvd</label>
                                 </div>
-                                <div class="text-end">
-                                    <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
+                                <div class="col">USD : <div class="data_currency_usd"></div>
+                                </div>
+                                <div class="col">THB : <div class="data_currency_thb"></div>
+                                </div>
+                                <div class="col">RMB : <div class="data_currency_rmb"></div>
+                                </div>
+                                <div class="col">YEN : <div class="data_currency_yen"></div>
+                                </div>
+                                <div class="col">HKD : <div class="data_currency_hkd"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="">Total pay/rcvd</label>
-                            </div>
-                            <div class="col">USD : <div class="data_currency_usd"></div>
-                            </div>
-                            <div class="col">THB : <div class="data_currency_thb"></div>
-                            </div>
-                            <div class="col">RMB : <div class="data_currency_rmb"></div>
-                            </div>
-                            <div class="col">YEN : <div class="data_currency_yen"></div>
-                            </div>
-                            <div class="col">HKD : <div class="data_currency_hkd"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="">Total review</label>
-                            </div>
-                            <div class="col">USD : <div class="data_currency_review_usd"></div>
-                            </div>
-                            <div class="col">THB : <div class="data_currency_review_thb"></div>
-                            </div>
-                            <div class="col">RMB : <div class="data_currency_review_rmb"></div>
-                            </div>
-                            <div class="col">YEN : <div class="data_currency_review_yen"></div>
-                            </div>
-                            <div class="col">HKD : <div class="data_currency_review_hkd"></div>
+                        <div class="form-group p-2 m-2">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="">Total review</label>
+                                </div>
+                                <div class="col">USD : <div class="data_currency_review_usd"></div>
+                                </div>
+                                <div class="col">THB : <div class="data_currency_review_thb"></div>
+                                </div>
+                                <div class="col">RMB : <div class="data_currency_review_rmb"></div>
+                                </div>
+                                <div class="col">YEN : <div class="data_currency_review_yen"></div>
+                                </div>
+                                <div class="col">HKD : <div class="data_currency_review_hkd"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -478,10 +492,7 @@ require 'function/auth/get_session.php';
         start.start_page();
         $('.check_start').prop('checked', true)
         // $('.sidebar').addClass('sidebar-mini')
-        $('.cb_check').prop('checked', false).attr('disabled', true)
-        $('.cb_apply').prop('checked', false).attr('disabled', true)
-        $('.cb_appove').prop('checked', false).attr('disabled', true)
-        start.start_setting_table();
+        start.select_filter();
         // first_setting.start_page();
         // start.start_setting();
         // start.data_start()

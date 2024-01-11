@@ -145,9 +145,7 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm text-end inp_amt_inc_vat_ap" disabled ></td><!-- AMT(INCL.vat) -->
             <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt " disabled></td><!-- paid amt -->
             <td><input type="text" class="form-control form-control-sm inp_remark_ap"></td><!-- remark -->
-
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- Billing Date -->
-
             <td><input type="number"  value="0"class="form-control form-control-sm text-end inp_sys_rate_ap" disabled onchange="function_sub_billing.sys_rate_ap(this)"></td><!-- Sys rate -->
             <!-- <td><select class="form-select form-select-sm inp_sys_rate_currency_ar" onchange="function_sub_billing.change_currency(this)">
                     <option value="THB">THB</option>
@@ -155,9 +153,10 @@ const function_sub_billing = {
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
                     </select></td>--><!-- sysrate currency -->
-            <td><input type="checkbox" class="form-input-check chb_apply "></td><!-- apply -->
+            <td><!--<input type="checkbox" class="form-input-check chb_apply ">--></td><!-- apply -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply by -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- apply date -->
-            <td class="text-center"><input type="checkbox" class="form-input-check chb_check "></td><!-- CHECK -->
+            <td class="text-center"><!--<input type="checkbox" class="form-input-check chb_check ">--></td><!-- CHECK -->
             <td></td><!-- status -->
             <td><input type="text" class="form-control form-control-sm inp_commit" disabled></td><!-- commision sale -->
             <td><input type="text" class="form-control form-control-sm text-center"  disabled></td><!-- branch -->
@@ -1348,6 +1347,7 @@ const function_sub_billing = {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
+        var mode_check = url.searchParams.get("mode_check");
 
         let ap_lost = 0;
         let ar_lost = 0;
@@ -1503,35 +1503,6 @@ const function_sub_billing = {
                         let check_need_vat = v['need_vat'] == '1' ? '1' : '0';
                         // sys_rate_currency
 
-                        // console.log(get_id_list)
-                        // console.log(description_code)
-                        // console.log(check_description)
-                        // console.log(billing_to)
-                        // console.log(check_billing_to)
-                        // console.log(billing_to_type)
-                        // console.log(check_billing_to_type)
-                        // console.log(currency)
-                        // console.log(check_currency)
-                        // console.log(qty)
-                        // console.log(check_qty)
-                        // console.log(unit_price)
-                        // console.log(check_unit_price)
-                        // console.log(vat)
-                        // console.log(check_vat)
-                        // console.log(sys_rate)
-                        // console.log(check_sys_rate)
-                        // console.log(remark)
-                        // console.log(check_remark)
-                        // console.log(receiv_amt)
-                        // console.log(check_receiv_amt)
-                        // console.log(need_vat)
-                        // console.log(check_need_vat)
-                        // console.log(tax_with_hold)
-                        // console.log(check_tax_with_hole)
-                        // console.log(check)
-                        // console.log(check_check)
-                        // console.log(amt_incv)
-
                         if (description_code == check_description &&
                             billing_to == check_billing_to &&
                             billing_to_type == check_billing_to_type &&
@@ -1601,16 +1572,11 @@ const function_sub_billing = {
             
         })
 
-        //console.log(arr_data_save_ap)
-        // console.log(arr_data_save_ar)
-        // console.log(arr_data_save_ap)
-        // console.log(ap_lost)
-        // console.log(ar_lost)
         let res_data = '';
         if(ap_lost >= 1 || ar_lost >= 1){
             ap_lost= ap_lost >= 1 ? 'AP' : '';
             ar_lost= ar_lost >= 1 ? 'AR' : '';
-
+            
             Swal.fire({
                 title: `Are you sure `,
                 html: `Newly added ${ap_lost} ${ar_lost} list There is incomplete information. Please fill in all information and press save again.`,
@@ -1628,12 +1594,46 @@ const function_sub_billing = {
                             'Your data has been saved.',
                             'success'
                         )
+                        var currentURL = window.location.href;
+                        var url = new URL(currentURL);
+                        var action_data = url.searchParams.get("action");
+                        if(action_data == 'preview'){
+                            var id_number = url.searchParams.get("job_number");
+                            sub_billing.first_post_data_ap(id_number)
+                            sub_billing.first_post_data_ar(id_number)
+                        }else if(action_data == 'invoice_mode'){
+                            let mode_check = url.searchParams.get("mode_check");
+
+                            if(mode_check == "check"){
+                                window.location = "account_review_check.php"
+                            }else if(mode_check == "approve"){
+                                window.location = "account_review.php"
+                            }
+        
+                        }
                     }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
                         Swal.fire(
                             'saved!',
                             'Your data has been saved.',
                             'success'
                         )
+                        var currentURL = window.location.href;
+                        var url = new URL(currentURL);
+                        var action_data = url.searchParams.get("action");
+                        if(action_data == 'preview'){
+                            var id_number = url.searchParams.get("job_number");
+                            sub_billing.first_post_data_ap(id_number)
+                            sub_billing.first_post_data_ar(id_number)
+                        }else if(action_data == 'invoice_mode'){
+                            let mode_check = url.searchParams.get("mode_check");
+
+                            if(mode_check == "check"){
+                                window.location = "account_review_check.php"
+                            }else if(mode_check == "approve"){
+                                window.location = "account_review.php"
+                            }
+        
+                        }
                     }else {
                         Swal.fire({
                             icon: 'error',
@@ -1645,19 +1645,53 @@ const function_sub_billing = {
             })
             
         }else{
-            res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar)
+            res_data = await this.ajax_save_data_billing(arr_data_save_ap, arr_data_save_ar,mode_check)
             if (res_data['arr_res_ap'] == '1' && res_data['arr_res_ar'] == '1') {
                 Swal.fire(
                     'saved!',
                     'Your data has been saved.',
                     'success'
                 )
+                var currentURL = window.location.href;
+                var url = new URL(currentURL);
+                var action_data = url.searchParams.get("action");
+                if(action_data == 'preview'){
+                    var id_number = url.searchParams.get("job_number");
+                    sub_billing.first_post_data_ap(id_number)
+                    sub_billing.first_post_data_ar(id_number)
+                }else if(action_data == 'invoice_mode'){
+                    let mode_check = url.searchParams.get("mode_check");
+
+                    if(mode_check == "check"){
+                        window.location = "account_review_check.php"
+                    }else if(mode_check == "approve"){
+                        window.location = "account_review.php"
+                    }
+
+                }
             }else if(res_data['arr_res_ap'] == null && res_data['arr_res_ar'] == null){
                 Swal.fire(
                     'saved!',
                     'Your data has been saved.',
                     'success'
                 )
+                var currentURL = window.location.href;
+                var url = new URL(currentURL);
+                var action_data = url.searchParams.get("action");
+                if(action_data == 'preview'){
+                    var id_number = url.searchParams.get("job_number");
+                    sub_billing.first_post_data_ap(id_number)
+                    sub_billing.first_post_data_ar(id_number)
+                }else if(action_data == 'invoice_mode'){
+                    let mode_check = url.searchParams.get("mode_check");
+
+                    if(mode_check == "check"){
+                        window.location = "account_review_check.php"
+                    }else if(mode_check == "approve"){
+                        window.location = "account_review.php"
+                    }
+
+                }
             }else {
                 Swal.fire({
                     icon: 'error',
@@ -1667,30 +1701,22 @@ const function_sub_billing = {
             }
         }
 
-        var currentURL = window.location.href;
-        var url = new URL(currentURL);
-        var action_data = url.searchParams.get("action");
-        if(action_data == 'preview'){
-            var id_number = url.searchParams.get("job_number");
-            sub_billing.first_post_data_ap(id_number)
-            sub_billing.first_post_data_ar(id_number)
-        }else if(action_data == 'invoice_mode'){
-            window.location = "account_review_check.php"
-        }
+       
         
         
     },
 
 
 
-    ajax_save_data_billing: async function (arr_data_save_ap, arr_data_save_ar) {
+    ajax_save_data_billing: async function (arr_data_save_ap, arr_data_save_ar,mode_check) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/job_detail/save_data_billing_ap.php",
                 data: {
                     arr_data_save_ap: arr_data_save_ap,
-                    arr_data_save_ar: arr_data_save_ar
+                    arr_data_save_ar: arr_data_save_ar,
+                    mode_check:mode_check,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -1751,8 +1777,17 @@ const function_sub_billing = {
                         text: 'System has problem plese contact to thailand tech team ',
                     })
                 }
-                await function_sub_billing.cal_result_ar();
-                await function_sub_billing.cal_result_ap();
+
+                var currentURL = window.location.href;
+                var url = new URL(currentURL);
+                var action_data = url.searchParams.get("action");
+                if(action_data == "preview"){
+                    await function_sub_billing.cal_result_ar();
+                    await function_sub_billing.cal_result_ap();
+                }else if(action_data = "invoice_mode"){
+                    window.location = "account_review_check.php"
+                }
+                
             }
         })
 
