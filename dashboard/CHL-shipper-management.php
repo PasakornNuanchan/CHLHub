@@ -35,8 +35,7 @@ require 'function/auth/get_session.php';
         <div class="conatiner-fluid content-inner mt-n5 py-0">
             <!-- MAIN BODY START -->
             <div class="row">
-                <div class="col-md-12 col-xl-2"></div>
-                <div class="col-md-12 col-xl-7">                    
+                <div class="col-md-12 col-xl-6">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
@@ -44,12 +43,6 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                         <div class="card-body">
-                            <!-- <div class="form-group row">
-                                <label class="control-label col-sm-3 align-self-center ">Consignee number</label>
-                                <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control form-control-sm inp-shipper_number" id="">
-                                </div>
-                            </div> -->
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Shipper name</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
@@ -99,8 +92,138 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div style="float: right">
-                            <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="shipper_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
+                                <button class="btn btn-success rounded-pill btn-sm" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" onclick="shipper_list_set.fn_save_raw()"><i class="bi bi-check-square"></i> Save</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Accounting</h4>
+                            <div class="form-group pl-2 mt-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="">Payment term (day)</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control form-control-sm inp_payment_term_day">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Bank</h4>
+                            <div class="card_bank_data">
+                                <div class="card card_cma mt-3">
+                                    <div class="card-body">
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">The bank abbreviation</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_bank_abb" maxlength="60">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Company Name</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_company_name" maxlength="80">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Company address</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_company_address" maxlength="200">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Bank name</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_bank_name" maxlength="40">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Bank account No</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_bank_account" maxlength="70">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Bank SWIFT CODE</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_bank_swift_code" maxlength="40">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">BANK CODE</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_bank_code" maxlength="40">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2 mt-4">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Country</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_country" maxlength="40">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">TAX number</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_tax_number" maxlength="40">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group pl-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label for="">Commercial number</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-sm inp_commercial_number" maxlength="70">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm col-12" onclick="shipper_list_set.add_bank()">Add Bank</button>
                         </div>
                     </div>
                 </div>

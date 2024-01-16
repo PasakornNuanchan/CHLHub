@@ -23,6 +23,7 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.billing_description as billing_des_id,
       IF(b.type = 'AR',(SELECT c.consignee_name FROM consignee c WHERE c.ID = b.bill_to),
       if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),(SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to))) as bill_to_c,
+      if(b.bill_to_type = '1','GC','CARRIER') as type_bill,
       b.payble,
       b.currency,
       b.qty,
@@ -65,7 +66,9 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.paid_amt,
       b.pre_approve_by,
       b.pre_approve_dt,
-      b.pre_approve_status
+      b.pre_approve_status,
+      b.payment_term,
+      b.bank_number
   FROM
       billing b
   WHERE b.type = 'AP' AND action_paid_by IS NOT NULL
@@ -148,6 +151,7 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.billing_description as billing_des_id,
       IF(b.type = 'AR',(SELECT c.consignee_name FROM consignee c WHERE c.ID = b.bill_to),
       if(b.bill_to_type = '1',(SELECT gc.name FROM Goverment_contact gc WHERE gc.ID = b.bill_to),(SELECT car.carrier_name FROM carrier car WHERE car.ID = b.bill_to))) as bill_to_c,
+      if(b.bill_to_type = '1','GC','CARRIER') as type_bill,
       b.payble,
       b.currency,
       b.qty,
@@ -190,7 +194,9 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.paid_amt,
       b.pre_approve_by,
       b.pre_approve_dt,
-      b.pre_approve_status
+      b.pre_approve_status,
+      b.payment_term,
+      b.bank_number
   FROM
       billing b
       $data_find_where

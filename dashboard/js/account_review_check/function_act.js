@@ -7,14 +7,18 @@ const function_act = {
 
             let data_dis = $(this).find('.data_check').attr('disabled') ? '1' : '0';
             if(data_dis == '0'){
-
                 let data_check = $(this).find('.data_check').prop("checked") ? '1' : '0';
                 if(data_check == '1'){
-                    let data_id = $(this).closest('tr').attr('id_number')
-                    let obj_data = {
-                        data_id : data_id
+                    
+                    let data_id = $(this).closest('tr').attr('id_number') ? $(this).closest('tr').attr('id_number') : '';
+                    // console.log(data_id)
+                    if(data_id != ''){
+                        let obj_data = {
+                            data_id : data_id
+                        }
+                        arr_data.push(obj_data)
                     }
-                    arr_data.push(obj_data)
+                    
                 }
             }  
         })

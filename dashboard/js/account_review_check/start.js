@@ -27,13 +27,36 @@ const start = {
             <th class="sticky-top">Vat%</th>
             <th class="sticky-top">W/H</th>
             <th class="sticky-top">Total</th>
+            <th class="sticky-top">Bank <br> payment</th>
+            <th class="sticky-top">Payment <br> Term</th>
             <th class="sticky-top">Create By</th>
             <th class="sticky-top">Create Datetime</th>
             <th class="sticky-top">Apply By</th>
             <th class="sticky-top">Apply Datetime</th>
             <th class="sticky-top">Check by</th>
             <th class="sticky-top">Check Datetime</th>
-            
+        </tr>
+        <tr class="text-center">
+            <th class="sticky-top">1</th>
+            <th class="sticky-top">2</th>
+            <th class="sticky-top">3</th>
+            <th class="sticky-top">4</th>
+            <th class="sticky-top">5</th>
+            <th class="sticky-top">6</th>
+            <th class="sticky-top">7</th>
+            <th class="sticky-top">8</th>
+            <th class="sticky-top">9</th>
+            <th class="sticky-top">10</th>
+            <th class="sticky-top">11</th>
+            <th class="sticky-top">12</th>
+            <th class="sticky-top">13</th>
+            <th class="sticky-top">14</th>
+            <th class="sticky-top">15</th>
+            <th class="sticky-top">16</th>
+            <th class="sticky-top">17</th>
+            <th class="sticky-top">18</th>
+            <th class="sticky-top">19</th>
+            <th class="sticky-top">20</th>
         </tr>
         `;
 
@@ -57,6 +80,9 @@ const start = {
             groupedData[key].push(item.ID);
 
         });
+
+        let res_data_bank = await this.ajax_request_bank_data();
+        console.log(res_data_bank['bank_data']);
         // console.log(groupedData)
         let data_count_show = 0;
         if (res_data['table'] != "0 results") {
@@ -66,11 +92,19 @@ const start = {
                     let data_job_number_main = '';
                     let data_bill_to_main = '';
                     let obj_billing_description = []
+                    let obj_currency = []
+                    let obj_checked = []
                     let data_vm = vm.join('_')
+                    let obj_date_first = []
+
+                    let main_sum_qty = 0;
+                    let main_sum_unit_price = 0;
+                    let main_sum_total = 0;
+                    let main_sum_vat = 0;
+
                     let data_head_html = `
-                    
-                    <tr class="main_table${data_vm}" style="background-color:#E4E4E4" >
-                        <td class="sticky-left text-center" style="background-color:#E4E4E4"><input type="checkbox" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
+                    <tr class="main_table${data_vm}" main_table="${data_vm}" style="background-color:#E4E4E4" >
+                        <td class="sticky-left text-center" style="background-color:#E4E4E4"><input type="checkbox" onclick="start.check_sub_table(this)" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
                         <td class="sticky-left text-center" style="background-color:#E4E4E4"><button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapse${data_vm}" aria-expanded="false" aria-controls="collapse${data_vm}">List</button></td>
                         <td class="sticky-left text-center" style="background-color:#E4E4E4">${data_count_show}</td>
                         <td class="sticky-left" style="background-color:#E4E4E4"><input type="text" class="form-control form-control-sm text-start inp_job_number_main" disabled></td>
@@ -82,6 +116,10 @@ const start = {
                         <td><input type="text" class="form-control form-control-sm text-center inp_vat_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-center inp_wh_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-end inp_total_main" disabled></td>
+                        <td><select class="form-select form-select-sm sel_bank_number">
+                            <option value=""></option>
+                        </select></td>
+                        <td><input type="date" class="form-control form-control-sm inp_payment_term"></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_create_b_mainy" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_apply_by_main" disabled></td>
@@ -114,15 +152,39 @@ const start = {
                                 let check_by_l = v['check_by_l'] ? v['check_by_l'] : '';
                                 let action_paid_by_f = v['action_paid_by_f'] ? v['action_paid_by_f'] : '';
                                 let action_paid_by_l = v['action_paid_by_l'] ? v['action_paid_by_l'] : '';
+                                let check_by = v['check_by'] ? v['check_by'] : '';
+
+                                let type_bill = v['type_bill'] ? v['type_bill'] : '';
+                                let bill_to = v['bill_to'] ? v['bill_to'] : '';
+                                let data_select_bank = ``;
+                                $.each(res_data_bank['bank_data'], function (d, f) {
+                                    let bill_type = f['bill_type'] ? f['bill_type'] : '';
+                                    let id_number = f['id_number'] ? f['id_number'] : '';
+                                    let bank_abb = f['bank_abb'] ? f['bank_abb'] : '';
+                                    let bank_number = f['bank_number'] ? f['bank_number'] : '';
+                                    let carrier_id = f['carrier_id'] ? f['carrier_id'] : '';
+
+                                    if (type_bill == bill_type) {
+                                        if (carrier_id == bill_to) {
+                                            data_select_bank += `<option value="${id_number}">${bank_abb} / ${bank_number}</option>`;
+                                        }
+                                    }
+                                })
 
                                 data_job_number_main = job_number
                                 data_bill_to_main = bill_to_c
                                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
                                 obj_billing_description.push(billing_description)
-                                
+
+                                obj_currency.push(currency)
+                                amtinclvat = parseFloat(amtinclvat)
+                                main_sum_total = main_sum_total + amtinclvat
+                                amtinclvat = amtinclvat.toFixed(2)
+                                // obj_date_first.push()
+
                                 data_html = `
-                                <tr id_number="${id_number}" id="collapse${data_vm}" class="table_number_${data_count_show+i} collapse collapse_data_${data_vm}" style="background-color:#B5CAFF">
-                                    <td class="sticky-left text-center" style="background-color:#B5CAFF"><input type="checkbox" class="data_check" onchange="start.cal_currency()" disabled style="zoom:200%"></td>
+                                <tr id_number="${id_number}" id="collapse${data_vm}" sub_table="${data_vm}" class="table_number_${data_count_show + i} sub_table${data_vm} collapse collapse_data_${data_vm} main_table${data_vm}" style="background-color:#B5CAFF">
+                                    <td class="sticky-left text-center" style="background-color:#B5CAFF"><input type="checkbox" class="data_check" onclick="start.check_and_uncheck_sub(this)" onchange="start.cal_currency()"  style="zoom:200%"></td>
                                     <td class="sticky-left text-center" style="background-color:#B5CAFF"><button class="btn btn-sm btn-warning btn_sent_job" onclick="start.sent_to_job_detail(${ref_job_id},${id_number})">reverse</button></td>
                                     <td class="sticky-left text-center" style="background-color:#B5CAFF">${data_count_show}</td>
                                     <td class="sticky-left" style="background-color:#B5CAFF"><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
@@ -134,6 +196,10 @@ const start = {
                                     <td><input type="text" class="form-control form-control-sm text-center inp_vat" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_wh" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-end inp_total" disabled></td>
+                                    <td><select class="form-select form-select-sm sel_bank_number">
+                                        <option value=""></option>
+                                    </select></td>
+                                    <td><input type="date" class="form-control form-control-sm inp_payment_term"></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_create_by" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_apply_by" disabled></td>
@@ -144,36 +210,68 @@ const start = {
                                 </tr>
                                 `;
                                 $(`.table > tbody`).append(data_html)
-                                $(`.table_number_${data_count_show+i} > td > .inp_job_number`).val(job_number)
-                                $(`.table_number_${data_count_show+i} > td > .inp_bill_to`).val(bill_to_c)
-                                $(`.table_number_${data_count_show+i} > td > .inp_description`).val(billing_description)
-                                $(`.table_number_${data_count_show+i} > td > .inp_cur`).val(currency)
-                                $(`.table_number_${data_count_show+i} > td > .inp_qty`).val(qty)
-                                $(`.table_number_${data_count_show+i} > td > .inp_unit_price`).val(unit_price)
-                                $(`.table_number_${data_count_show+i} > td > .inp_vat`).val(vat)
-                                $(`.table_number_${data_count_show+i} > td > .inp_wh`).val(with_holding_tax)
-                                $(`.table_number_${data_count_show+i} > td > .inp_total`).val(amtinclvat)
-                                $(`.table_number_${data_count_show+i} > td > .inp_create_by`).val(create_by_f+" "+create_by_l)
-                                $(`.table_number_${data_count_show+i} > td > .inp_create_datetime`).val(create_data_time)
-                                $(`.table_number_${data_count_show+i} > td > .inp_apply_by`).val(action_paid_by_f+" "+action_paid_by_l)
-                                $(`.table_number_${data_count_show+i} > td > .inp_apply_datetime`).val(action_paid_date_time)
-                                $(`.table_number_${data_count_show+i} > td > .inp_check_by`).val(check_by_f+" "+check_by_l)
-                                $(`.table_number_${data_count_show+i} > td > .inp_check_datetime`).val(check_date_time)
+                                $(`.table_number_${data_count_show + i} > td > .inp_job_number`).val(job_number)
+                                $(`.table_number_${data_count_show + i} > td > .inp_bill_to`).val(bill_to_c)
+                                $(`.table_number_${data_count_show + i} > td > .inp_description`).val(billing_description)
+                                $(`.table_number_${data_count_show + i} > td > .inp_cur`).val(currency)
+                                $(`.table_number_${data_count_show + i} > td > .inp_qty`).val(qty)
+                                $(`.table_number_${data_count_show + i} > td > .inp_unit_price`).val(unit_price)
+                                $(`.table_number_${data_count_show + i} > td > .inp_vat`).val(vat)
+                                $(`.table_number_${data_count_show + i} > td > .inp_wh`).val(with_holding_tax)
+                                $(`.table_number_${data_count_show + i} > td > .inp_total`).val(amtinclvat)
+                                $(`.table_number_${data_count_show + i} > td > .inp_create_by`).val(create_by_f + " " + create_by_l)
+                                $(`.table_number_${data_count_show + i} > td > .inp_create_datetime`).val(create_data_time)
+                                $(`.table_number_${data_count_show + i} > td > .inp_apply_by`).val(action_paid_by_f + " " + action_paid_by_l)
+                                $(`.table_number_${data_count_show + i} > td > .inp_apply_datetime`).val(action_paid_date_time)
+                                $(`.table_number_${data_count_show + i} > td > .inp_check_by`).val(check_by_f + " " + check_by_l)
+                                $(`.table_number_${data_count_show + i} > td > .inp_check_datetime`).val(check_date_time)
+                                if (check_by != '') {
+                                    $(`.table_number_${data_count_show + i} > td > .data_check`).prop('checked', true).attr('disabled', true)
+                                    $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).attr('disabled', true)
+                                    $(`.table_number_${data_count_show + i} > td > .inp_payment_term`).attr('disabled', true)
+                                    obj_checked.push(check_by)
+                                }
+
+                                if (data_select_bank != '') {
+                                    $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).append(data_select_bank)
+                                } else {
+
+                                }
+
 
 
                             }
                         })
-                        
+
                     })
                     let data_join_billing_description = obj_billing_description.join(',');
+                    main_sum_total = main_sum_total.toFixed(2)
+
                     $(`.main_table${data_vm} > td > .inp_job_number_main`).val(data_job_number_main)
                     $(`.main_table${data_vm} > td > .inp_bill_to_main`).val(data_bill_to_main)
-                    $(`.main_table${data_vm} > td > .inp_description_main`).val(obj_billing_description)
+                    $(`.main_table${data_vm} > td > .inp_description_main`).val(data_join_billing_description)
+                    $(`.main_table${data_vm} > td > .inp_total_main`).val(main_sum_total)
+
+                    let data_sub_table_check = $(`.sub_table${data_vm}`).length
+                    let data_obj_checked = obj_checked.length
+
+                    if (data_sub_table_check == data_obj_checked) {
+                        $(`.main_table${data_vm} > td > .data_check`).prop('checked', true).attr('disabled', true)
+                    }
+
+                    var uniqueArray_currency_main = obj_currency.filter(function (item, index, self) {
+                        return self.indexOf(item) === index;
+                    });
+
+                    if (uniqueArray_currency_main.length == 1) {
+                        $(`.main_table${data_vm} > td > .inp_cur_main`).val(uniqueArray_currency_main[0])
+                    }
+
 
                 } else {
-                    $.each(res_data['table'],function(i,v){
+                    $.each(res_data['table'], function (i, v) {
                         let id_number = v['ID'] ? v['ID'] : '';
-                        if(vm[0] == id_number){
+                        if (vm[0] == id_number) {
                             let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
                             let job_number = v['job_number'] ? v['job_number'] : '';
                             let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
@@ -193,6 +291,29 @@ const start = {
                             let check_by_l = v['check_by_l'] ? v['check_by_l'] : '';
                             let action_paid_by_f = v['action_paid_by_f'] ? v['action_paid_by_f'] : '';
                             let action_paid_by_l = v['action_paid_by_l'] ? v['action_paid_by_l'] : '';
+                            let check_by = v['check_by'] ? v['check_by'] : '';
+
+                            let payment_term = v['payment_term'] ? v['payment_term'] : '';
+                            let bank_number = v['bank_number'] ? v['bank_number'] : '';
+
+                            let type_bill = v['type_bill'] ? v['type_bill'] : '';
+                            let bill_to = v['bill_to'] ? v['bill_to'] : '';
+                            let data_select_bank = ``;
+                            $.each(res_data_bank['bank_data'], function (d, f) {
+                                let bill_type = f['bill_type'] ? f['bill_type'] : '';
+                                let id_number = f['id_number'] ? f['id_number'] : '';
+                                let bank_abb = f['bank_abb'] ? f['bank_abb'] : '';
+                                let bank_number = f['bank_number'] ? f['bank_number'] : '';
+                                let carrier_id = f['carrier_id'] ? f['carrier_id'] : '';
+
+                                if (type_bill == bill_type) {
+                                    if (carrier_id == bill_to) {
+                                        data_select_bank += `<option value="${id_number}">${bank_abb} / ${bank_number}</option>`;
+                                    }
+                                }
+                            })
+                            console.log(data_select_bank)
+
                             data_html = `
                                 <tr id_number="${id_number}" class="id_number_row_${id_number} table_number_${data_count_show}" >
                                     <td class="sticky-left text-center"><input type="checkbox" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
@@ -207,6 +328,9 @@ const start = {
                                     <td><input type="text" class="form-control form-control-sm text-center inp_vat" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-center inp_wh" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-end inp_total" disabled></td>
+                                    <td><select class="form-select form-select-sm sel_bank_number">
+                                    </select></td>
+                                    <td><input type="Date" class="form-control form-control-sm inp_payment_term"></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_create_by" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_apply_by" disabled></td>
@@ -216,175 +340,65 @@ const start = {
                         
                                 </tr>
                                 `;
-                                $(`.table > tbody`).append(data_html)
+                            $(`.table > tbody`).append(data_html)
 
-                                $(`.id_number_row_${id_number} > td > .inp_job_number`).val(job_number)
-                                $(`.id_number_row_${id_number} > td > .inp_bill_to`).val(bill_to_c)
-                                $(`.id_number_row_${id_number} > td > .inp_description`).val(billing_description)
-                                $(`.id_number_row_${id_number} > td > .inp_cur`).val(currency)
-                                $(`.id_number_row_${id_number} > td > .inp_qty`).val(qty)
-                                $(`.id_number_row_${id_number} > td > .inp_unit_price`).val(unit_price)
-                                $(`.id_number_row_${id_number} > td > .inp_vat`).val(vat)
-                                $(`.id_number_row_${id_number} > td > .inp_wh`).val(with_holding_tax)
-                                $(`.id_number_row_${id_number} > td > .inp_total`).val(amtinclvat)
-                                $(`.id_number_row_${id_number} > td > .inp_create_by`).val(create_by_f+" "+create_by_l)
-                                $(`.id_number_row_${id_number} > td > .inp_create_datetime`).val(create_data_time)
-                                $(`.id_number_row_${id_number} > td > .inp_apply_by`).val(action_paid_by_f+" "+action_paid_by_l)
-                                $(`.id_number_row_${id_number} > td > .inp_apply_datetime`).val(action_paid_date_time)
-                                $(`.id_number_row_${id_number} > td > .inp_check_by`).val(check_by_f+" "+check_by_l)
-                                $(`.id_number_row_${id_number} > td > .inp_check_datetime`).val(check_date_time)
+                            $(`.id_number_row_${id_number} > td > .inp_job_number`).val(job_number)
+                            $(`.id_number_row_${id_number} > td > .inp_bill_to`).val(bill_to_c)
+                            $(`.id_number_row_${id_number} > td > .inp_description`).val(billing_description)
+                            $(`.id_number_row_${id_number} > td > .inp_cur`).val(currency)
+                            $(`.id_number_row_${id_number} > td > .inp_qty`).val(qty)
+                            $(`.id_number_row_${id_number} > td > .inp_unit_price`).val(unit_price)
+                            $(`.id_number_row_${id_number} > td > .inp_vat`).val(vat)
+                            $(`.id_number_row_${id_number} > td > .inp_wh`).val(with_holding_tax)
+                            $(`.id_number_row_${id_number} > td > .inp_total`).val(amtinclvat)
+                            $(`.id_number_row_${id_number} > td > .inp_create_by`).val(create_by_f + " " + create_by_l)
+                            $(`.id_number_row_${id_number} > td > .inp_create_datetime`).val(create_data_time)
+                            $(`.id_number_row_${id_number} > td > .inp_apply_by`).val(action_paid_by_f + " " + action_paid_by_l)
+                            $(`.id_number_row_${id_number} > td > .inp_apply_datetime`).val(action_paid_date_time)
+                            $(`.id_number_row_${id_number} > td > .inp_check_by`).val(check_by_f + " " + check_by_l)
+                            $(`.id_number_row_${id_number} > td > .inp_check_datetime`).val(check_date_time)
+                            $(`.id_number_row_${id_number} > td > .inp_payment_term`).val(payment_term)
+
+                            if (check_by != '') {
+                                $(`.id_number_row_${id_number} > td > .data_check`).prop('checked', true).attr('disabled', true)
+                                // $(`.id_number_row_${id_number} > td > .sel_bank_number`).attr('disabled', true)
+                                // $(`.id_number_row_${id_number} > td > .inp_payment_term`).attr('disabled', true)
+                            }
+
+                            if (data_select_bank != '') {
+                                $(`.id_number_row_${id_number} > td > .sel_bank_number`).append('<option value="">Please select bank</option>'+data_select_bank)
+                            }else{
+                                $(`.id_number_row_${id_number} > td > .sel_bank_number`).append('<option value="">non bank please enter data</option>')
+                            }
+
+                            if(bank_number != ''){
+                                $(`.id_number_row_${id_number} > td > .sel_bank_number`).val(bank_number)
+                            }
+
+                            
+
                         }
                     })
-                    // console.log(vm[0])
                 }
-
             })
         }
 
-        // data_html = `
-        // <tr id_number="${id_number}" class="table_number_${i}" style="background-color:#fab">
-        //     <td class="sticky-left text-center"><input type="checkbox" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
-        //     <td class="sticky-left text-center"><button class="btn btn-sm btn-warning btn_sent_job" onclick="start.sent_to_job_detail(${ref_job_id},${id_number})">reverse</button></td>
-        //     <td class="sticky-left text-center">${i}</td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_bill_to" disabled></td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_description" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_cur" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_qty" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_unit_price" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_vat" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_wh" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_total" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_create_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_apply_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_apply_datetime" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_check_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_check_datetime" disabled></td>
 
-        // </tr>
-        // `;
-
-        // if (res_data['table'] != "0 results") {
-        //     $.each(res_data['table'], function (i, v) {
-        //         i++;
-        //         let id_number = v['ID'] ? v['ID'] : '';
-        //         let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
-        //         let job_number = v['job_number'] ? v['job_number'] : '';
-
-        //         let billing_description = v['billing_description'] ? v['billing_description'] : '';
-        //         let billing_des_id = v['billing_des_id'] ? v['billing_des_id'] : '';
-        //         let bill_to_type = v['bill_to_type'] ? v['bill_to_type'] : '';
-        //         let bill_to = v['bill_to'] ? v['bill_to'] : '';
-        //         let payble = v['payble'] ? v['payble'] : '';
-
-        //         let currency = v['currency'] ? v['currency'] : '';
-        //         let qty = v['qty'] ? v['qty'] : '';
-        //         let unit_price = v['unit_price'] ? v['unit_price'] : '';
-        //         let amount = v['amount'] ? v['amount'] : '';
-        //         let vat = v['vat'] ? v['vat'] : '';
-        //         let amtinclvat = v['amtinclvat'] ? v['amtinclvat'] : '';
-        //         let remark = v['remark'] ? v['remark'] : '';
-        //         let type = v['type'] ? v['type'] : '';
-        //         let create_by = v['create_by'] ? v['create_by'] : '';
-        //         let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
-        //         let check_by = v['check_by'] ? v['check_by'] : '';
-        //         let check_date_time = v['check_date_time'] ? v['check_date_time'] : '';
-        //         let action_paid_by = v['action_paid_by'] ? v['action_paid_by'] : '';
-        //         let action_paid_date_time = v['action_paid_date_time'] ? v['action_paid_date_time'] : '';
-        //         let approve_by = v['approve_by'] ? v['approve_by'] : '';
-        //         let approve_date_time = v['approve_date_time'] ? v['approve_date_time'] : '';
-        //         let delete_date_time = v['delete_date_time'] ? v['delete_date_time'] : '';
-        //         let delete_by = v['delete_by'] ? v['delete_by'] : '';
-        //         let status_data = v['status'] ? v['status'] : '';
-        //         let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
-        //         let add_on = v['add_on'] ? v['add_on'] : '';
-        //         let last_update_by = v['last_update_by'] ? v['last_update_by'] : '';
-        //         let last_update_datetime = v['last_update_datetime'] ? v['last_update_datetime'] : '';
-        //         let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
-        //         let Billing_date = v['Billing_date'] ? v['Billing_date'] : '';
-        //         let sys_rate_currency = v['sys_rate_currency'] ? v['sys_rate_currency'] : '';
-        //         let tax_with_hold_by = v['tax_with_hold_by'] ? v['tax_with_hold_by'] : '';
-        //         let commit_sale = v['commit_sale'] ? v['commit_sale'] : '';
-        //         let tax_with_hold_date_time = v['tax_with_hold_date_time'] ? v['tax_with_hold_date_time'] : '';
-        //         let currency_main = v['currency_main'] ? v['currency_main'] : '';
-        //         let need_vat = v['need_vat'] ? v['need_vat'] : '';
-        //         let refer = v['refer'] ? v['refer'] : '';
-        //         let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '0';
-        //         let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
-        //         let pre_approve_by = v['pre_approve_by'] ? v['pre_approve_by'] : '';
-        //         let pre_approve_dt = v['pre_approve_dt'] ? v['pre_approve_dt'] : '';
-        //         let pre_approve_statu = v['pre_approve_statu'] ? v['pre_approve_statu'] : '';
-
-        //         let create_by_f = v['create_by_f'] ? v['create_by_f'] : '';
-        //         let create_by_l = v['create_by_l'] ? v['create_by_l'] : '';
-        //         let check_by_f = v['check_by_f'] ? v['check_by_f'] : '';
-        //         let check_by_l = v['check_by_l'] ? v['check_by_l'] : '';
-        //         let action_paid_by_f = v['action_paid_by_f'] ? v['action_paid_by_f'] : '';
-        //         let action_paid_by_l = v['action_paid_by_l'] ? v['action_paid_by_l'] : '';
-
-        //         amtinclvat = parseFloat(amtinclvat)
-        //         amtinclvat = amtinclvat.toFixed(2)
-        //         let data_html = ``;
-
-        // data_html = `
-        // <tr id_number="${id_number}" class="table_number_${i}">
-        //     <td class="sticky-left text-center"><input type="checkbox" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
-        //     <td class="sticky-left text-center"><button class="btn btn-sm btn-warning btn_sent_job" onclick="start.sent_to_job_detail(${ref_job_id},${id_number})">reverse</button></td>
-        //     <td class="sticky-left text-center">${i}</td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_bill_to" disabled></td>
-        //     <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_description" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_cur" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_qty" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_unit_price" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_vat" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-center inp_wh" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-end inp_total" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_create_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_apply_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_apply_datetime" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_check_by" disabled></td>
-        //     <td><input type="text" class="form-control form-control-sm text-start inp_check_datetime" disabled></td>
-
-        // </tr>
-        // `;
-
-
-        //         $(`.table > tbody`).append(data_html)
-
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_job_number`).val(job_number).attr('job_number_data', `${job_number}`)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_bill_to`).val(bill_to_c).attr({ 'bill_to_type': `${bill_to_type}`, 'bill_to': `${bill_to}` })
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_description`).val(billing_description).attr({ 'billing_des_id': `${billing_des_id}` })
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_cur`).val(currency)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_qty`).val(qty)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_unit_price`).val(unit_price)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_vat`).val(vat)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_wh`).val(with_holding_tax)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_total`).val(amtinclvat)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_create_by`).val(create_by_f + " " + create_by_l)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_create_datetime`).val(create_data_time)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_check_by`).val(check_by_f + " " + check_by_l)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_check_datetime`).val(check_date_time)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_apply_by`).val(action_paid_by_f + " " + action_paid_by_l)
-        //         $(`.table > tbody > .table_number_${i} > td > .inp_apply_datetime`).val(action_paid_date_time)
-        //         if (check_by != '') {
-        //             $(`.table > tbody > .table_number_${i} > td > .data_check`).prop('checked', true).attr('disabled', true)
-        //         }
-
-        //         console.log(approve_by)
-        //         if(approve_by != ''){
-        //             $(`.table > tbody > .table_number_${i} > td > .btn_sent_job`).remove()
-        //         }
-        //     })
-
-
-
-
-        // }
 
         await this.cal_currency();
+    },
+
+    ajax_request_bank_data: async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_check_approve/request_bank_data.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
 
     sent_to_job_detail: async function (data, id_number) {
@@ -620,5 +634,30 @@ const start = {
             }
         })
     },
+
+    check_sub_table: async function (e) {
+        let data_main_table = $(e).closest('tr').attr('main_table');
+        let data_main_attr = $(e).prop('checked') ? '1' : '0';
+        if (data_main_attr == '1') {
+            $(`.sub_table${data_main_table} > td > .data_check`).prop('checked', true)
+        } else {
+            $(`.sub_table${data_main_table} > td > .data_check`).prop('checked', false)
+        }
+    },
+
+    check_and_uncheck_sub: async function (e) {
+        let data_sub_table = $(e).closest('tr').attr('sub_table')
+        let data_prop = $(e).prop('checked') ? '1' : '0';
+
+        if (data_prop == '1') {
+            $(`.main_table${data_sub_table}`).find('.data_check').prop('checked', true)
+            $(`.sub_table${data_sub_table}`).find('.data_check').prop('checked', true)
+        } else {
+            $(`.main_table${data_sub_table}`).find('.data_check').prop('checked', false)
+            $(`.sub_table${data_sub_table}`).find('.data_check').prop('checked', false)
+
+        }
+        // console.log(data_sub_table)
+    }
 
 }

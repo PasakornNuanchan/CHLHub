@@ -9,7 +9,8 @@ const consignee_list_set = {
         $('.bcpage').append(html_bdpage);
 
     }, 
-  
+
+   
 };
 
 

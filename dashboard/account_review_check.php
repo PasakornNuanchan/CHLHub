@@ -80,15 +80,19 @@ require 'function/auth/get_session.php';
     .table_check td:nth-child(4) input,
     .table_check td:nth-child(5) input,
     .table_check td:nth-child(12) input,
-    .table_check td:nth-child(13) input,
     .table_check td:nth-child(14) input,
     .table_check td:nth-child(15) input,
     .table_check td:nth-child(16) input,
     .table_check td:nth-child(17) input,
-    .table_check td:nth-child(18) input {
+    .table_check td:nth-child(18) input,
+    .table_check td:nth-child(19) input,
+    .table_check td:nth-child(20) input {
         width: 200px;
     }
 
+    .table_check td:nth-child(13) select{
+        width: 230px;
+    }
    
 
     .table_check > thead > tr > th.sticky-top {
@@ -273,6 +277,8 @@ require 'function/auth/get_session.php';
                                             <th class="sticky-top">Vat%</th>
                                             <th class="sticky-top">W/H</th>
                                             <th class="sticky-top">Total</th>
+                                            <th class="sticky-top">Bank <br> payment</th>
+                                            <th class="sticky-top">Payment <br> Term</th>
                                             <th class="sticky-top">Create By</th>
                                             <th class="sticky-top">Create Datetime</th>
                                             <th class="sticky-top">Check by</th>
