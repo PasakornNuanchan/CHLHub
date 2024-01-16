@@ -117,6 +117,11 @@ if ($data_radio_process == '') {
         $sql_approve = "AND b.approve_by IS NULL ";
     }
 
+    if($cb_check == '0' && $cb_apply == '0' && $cb_appove == '0'){
+        $sql_check = "";
+        $sql_apply = "";
+        $sql_approve = "";
+    }
     // $data_radio_select_type
 
     $sql_data_type = "";

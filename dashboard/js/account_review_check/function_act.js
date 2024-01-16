@@ -6,15 +6,20 @@ const function_act = {
         $.each(e_path,function(){
 
             let data_dis = $(this).find('.data_check').attr('disabled') ? '1' : '0';
+            
             if(data_dis == '0'){
                 let data_check = $(this).find('.data_check').prop("checked") ? '1' : '0';
                 if(data_check == '1'){
                     
                     let data_id = $(this).closest('tr').attr('id_number') ? $(this).closest('tr').attr('id_number') : '';
-                    // console.log(data_id)
+                    let bank_number = $(this).closest('tr').find('.sel_bank_number').val()
+                    let payment = $(this).closest('tr').find('.inp_payment_term').val()
+                    
                     if(data_id != ''){
                         let obj_data = {
-                            data_id : data_id
+                            data_id : data_id,
+                            bank_number : bank_number,
+                            payment : payment,
                         }
                         arr_data.push(obj_data)
                     }
@@ -22,8 +27,8 @@ const function_act = {
                 }
             }  
         })
+        // console.log(arr_data)
         
-    //   console.log(arr_data)
         let res_data = await this.ajax_save_data(arr_data)
 
         if(res_data == '1'){

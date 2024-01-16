@@ -96,14 +96,14 @@ const start = {
                     let obj_checked = []
                     let data_vm = vm.join('_')
                     let obj_date_first = []
-
+                    let data_sel_bank_main = ''
                     let main_sum_qty = 0;
                     let main_sum_unit_price = 0;
                     let main_sum_total = 0;
                     let main_sum_vat = 0;
 
                     let data_head_html = `
-                    <tr class="main_table${data_vm}" main_table="${data_vm}" style="background-color:#E4E4E4" >
+                    <tr class="main_table${data_vm} main_table" main_table="${data_vm}" style="background-color:#E4E4E4" >
                         <td class="sticky-left text-center" style="background-color:#E4E4E4"><input type="checkbox" onclick="start.check_sub_table(this)" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
                         <td class="sticky-left text-center" style="background-color:#E4E4E4"><button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapse${data_vm}" aria-expanded="false" aria-controls="collapse${data_vm}">List</button></td>
                         <td class="sticky-left text-center" style="background-color:#E4E4E4">${data_count_show}</td>
@@ -116,10 +116,9 @@ const start = {
                         <td><input type="text" class="form-control form-control-sm text-center inp_vat_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-center inp_wh_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-end inp_total_main" disabled></td>
-                        <td><select class="form-select form-select-sm sel_bank_number">
-                            <option value=""></option>
+                        <td><select class="form-select form-select-sm sel_bank_number" onchange="start.bank_select(this)">
                         </select></td>
-                        <td><input type="date" class="form-control form-control-sm inp_payment_term"></td>
+                        <td><input type="date" class="form-control form-control-sm inp_payment_term" onchange="start.payment_select_select(this)"></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_create_b_mainy" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_create_datetime_main" disabled></td>
                         <td><input type="text" class="form-control form-control-sm text-start inp_apply_by_main" disabled></td>
@@ -130,7 +129,10 @@ const start = {
                     
                     `;
                     $(`.table > tbody`).append(data_head_html)
+                    let payment_term_main = ''
+                        let bank_number_main = ''
                     $.each(vm, function (imm, vmm) {
+                        
                         $.each(res_data['table'], function (i, v) {
                             let id_number = v['ID'] ? v['ID'] : '';
                             if (vmm == id_number) {
@@ -153,6 +155,8 @@ const start = {
                                 let action_paid_by_f = v['action_paid_by_f'] ? v['action_paid_by_f'] : '';
                                 let action_paid_by_l = v['action_paid_by_l'] ? v['action_paid_by_l'] : '';
                                 let check_by = v['check_by'] ? v['check_by'] : '';
+                                let payment_term = v['payment_term'] ? v['payment_term'] : '';
+                                let bank_number = v['bank_number'] ? v['bank_number'] : '';
 
                                 let type_bill = v['type_bill'] ? v['type_bill'] : '';
                                 let bill_to = v['bill_to'] ? v['bill_to'] : '';
@@ -171,6 +175,7 @@ const start = {
                                     }
                                 })
 
+                                data_sel_bank_main = data_select_bank
                                 data_job_number_main = job_number
                                 data_bill_to_main = bill_to_c
                                 let billing_description = v['billing_description'] ? v['billing_description'] : '';
@@ -197,7 +202,6 @@ const start = {
                                     <td><input type="text" class="form-control form-control-sm text-center inp_wh" disabled></td>
                                     <td><input type="text" class="form-control form-control-sm text-end inp_total" disabled></td>
                                     <td><select class="form-select form-select-sm sel_bank_number">
-                                        <option value=""></option>
                                     </select></td>
                                     <td><input type="date" class="form-control form-control-sm inp_payment_term"></td>
                                     <td><input type="text" class="form-control form-control-sm text-start inp_create_by" disabled></td>
@@ -225,6 +229,7 @@ const start = {
                                 $(`.table_number_${data_count_show + i} > td > .inp_apply_datetime`).val(action_paid_date_time)
                                 $(`.table_number_${data_count_show + i} > td > .inp_check_by`).val(check_by_f + " " + check_by_l)
                                 $(`.table_number_${data_count_show + i} > td > .inp_check_datetime`).val(check_date_time)
+                                
                                 if (check_by != '') {
                                     $(`.table_number_${data_count_show + i} > td > .data_check`).prop('checked', true).attr('disabled', true)
                                     $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).attr('disabled', true)
@@ -233,13 +238,18 @@ const start = {
                                 }
 
                                 if (data_select_bank != '') {
-                                    $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).append(data_select_bank)
+                                    $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).append('<option value="">Please select bank</option>'+data_select_bank)
                                 } else {
-
+                                    $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).append('<option value="">non bank please enter data</option>')
                                 }
 
-
-
+                                if(payment_term != ''){
+                                    $(`.table_number_${data_count_show + i} > td > .inp_payment_term`).val(payment_term)
+                                }
+                                $(`.table_number_${data_count_show + i} > td > .sel_bank_number`).val(bank_number)
+                                
+                                payment_term_main = payment_term
+                                bank_number_main = bank_number
                             }
                         })
 
@@ -251,12 +261,14 @@ const start = {
                     $(`.main_table${data_vm} > td > .inp_bill_to_main`).val(data_bill_to_main)
                     $(`.main_table${data_vm} > td > .inp_description_main`).val(data_join_billing_description)
                     $(`.main_table${data_vm} > td > .inp_total_main`).val(main_sum_total)
-
+                    
                     let data_sub_table_check = $(`.sub_table${data_vm}`).length
                     let data_obj_checked = obj_checked.length
 
                     if (data_sub_table_check == data_obj_checked) {
                         $(`.main_table${data_vm} > td > .data_check`).prop('checked', true).attr('disabled', true)
+                        $(`.main_table${data_vm} > td > .sel_bank_number`).attr('disabled', true)
+                        $(`.main_table${data_vm} > td > .inp_payment_term`).attr('disabled', true)
                     }
 
                     var uniqueArray_currency_main = obj_currency.filter(function (item, index, self) {
@@ -267,6 +279,15 @@ const start = {
                         $(`.main_table${data_vm} > td > .inp_cur_main`).val(uniqueArray_currency_main[0])
                     }
 
+                    if (data_sel_bank_main != '') {
+                        $(`.main_table${data_vm} > td > .sel_bank_number`).append('<option value="">Please select bank</option>'+data_sel_bank_main)
+                    } else {
+                        $(`.main_table${data_vm} > td > .sel_bank_number`).append('<option value="">non bank please enter data</option>')
+                    }
+                    // console.log()
+                    // console.log()
+                    $(`.main_table${data_vm} > td > .inp_payment_term`).val(payment_term_main)
+                    $(`.main_table${data_vm} > td > .sel_bank_number`).val(bank_number_main)
 
                 } else {
                     $.each(res_data['table'], function (i, v) {
@@ -312,7 +333,7 @@ const start = {
                                     }
                                 }
                             })
-                            console.log(data_select_bank)
+                            // console.log(data_select_bank)
 
                             data_html = `
                                 <tr id_number="${id_number}" class="id_number_row_${id_number} table_number_${data_count_show}" >
@@ -361,8 +382,8 @@ const start = {
 
                             if (check_by != '') {
                                 $(`.id_number_row_${id_number} > td > .data_check`).prop('checked', true).attr('disabled', true)
-                                // $(`.id_number_row_${id_number} > td > .sel_bank_number`).attr('disabled', true)
-                                // $(`.id_number_row_${id_number} > td > .inp_payment_term`).attr('disabled', true)
+                                $(`.id_number_row_${id_number} > td > .sel_bank_number`).attr('disabled', true)
+                                $(`.id_number_row_${id_number} > td > .inp_payment_term`).attr('disabled', true)
                             }
 
                             if (data_select_bank != '') {
@@ -658,6 +679,20 @@ const start = {
 
         }
         // console.log(data_sub_table)
+    },
+
+    bank_select : async function(e){
+        let data_select = $(e).val()
+        let data_main_table = $(e).closest('.main_table').attr('main_table')
+        $(`.sub_table${data_main_table} > td > .sel_bank_number`).val(data_select)
+        
+    },
+
+    payment_select_select : async function(e){
+        let data_select = $(e).val()
+        let data_main_table = $(e).closest('.main_table').attr('main_table')
+        $(`.sub_table${data_main_table} > td > .inp_payment_term`).val(data_select)
+        
     }
 
 }

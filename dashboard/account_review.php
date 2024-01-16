@@ -192,11 +192,11 @@ require 'function/auth/get_session.php';
                         <div class="card-body text-center">
                             <!-- <input type="checkbox" class="form-check-input cb_all" onchange="start.select_filter()" name="radio_type_act" id="radio1" value="all">
                             <label class="form-check-label pl-2">All</label> -->
-                            <input type="checkbox" class="form-check-input cb_apply" onchange="start.select_filter()" name="radio_type_act" id="radio2" value="apply">
+                            <input type="checkbox" class="form-check-input cb_apply " onchange="start.select_filter()" name="radio_type_act" id="radio2" value="apply">
                             <label class="form-check-label pl-2">Apply</label>
-                            <input type="checkbox" class="form-check-input cb_check" onchange="start.select_filter()" name="radio_type_act" id="radio1" value="check">
+                            <input type="checkbox" class="form-check-input cb_check " onchange="start.select_filter()" name="radio_type_act" id="radio1" value="check">
                             <label class="form-check-label pl-2">Check</label>
-                            <input type="checkbox" class="form-check-input cb_appove" onchange="start.select_filter()" name="radio_type_act" id="radio2" value="approve">
+                            <input type="checkbox" class="form-check-input cb_appove " onchange="start.select_filter()" name="radio_type_act" id="radio2" value="approve">
                             <label class="form-check-label pl-2">Approve</label>
                         </div>
                     </div>
