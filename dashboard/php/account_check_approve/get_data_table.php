@@ -11,7 +11,7 @@ $billing_code = isset($_POST['billing_code']) ? $_POST['billing_code'] : '';
 $data_applied_person = isset($_POST['data_applied_person']) ? $_POST['data_applied_person'] : '';
 $data_date_applied = isset($_POST['data_date_applied']) ? $_POST['data_date_applied'] : '';
 $radio_p = isset($_POST['radio_p']) ? $_POST['radio_p'] : '';
-
+$radio_type = isset($_POST['radio_type']) ? $_POST['radio_type'] : '';
 if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '' && $radio_p == '') {
   $sql_get_data_table = "
   SELECT
@@ -79,33 +79,8 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
 } else {
 
 
-  // $data_query_type = "";
 
-  // $data_having = '';
-  // if ($job_number != '' || $billing_code != '' || $data_name_type != '') {
-  //   $data_query_job_nubmer = $job_number != '' ? "AND job_number = '$job_number' " : "";
-  //   $data_query_data_billing = $billing_code != '' ? "AND billing_des_id = '$billing_code' " : "";
-  //   $data_name_type = $data_name_type != '0' ? "AND bill_to_c = '$data_name_type'" : "";
-
-  //   $data_having = "
-  //   HAVING
-  //   1=1
-  //   $data_query_job_nubmer
-  //   $data_query_data_billing
-  //   $data_name_type
-  //   ";
-  // }
-
-  // if($data_name_type != ''){
-  //   $data_name_type
-  // $job_number
-  // $billing_code
-
-  // $radio_p
-  // }
-  
-  
-  if($billing_code != '' || $data_applied_person != '' || $data_date_applied != '' || $radio_p != ''){
+  if ($billing_code != '' || $data_applied_person != '' || $data_date_applied != '' || $radio_p != '' || $radio_type != '') {
 
     // $data_name_type
     // $job_number
@@ -113,14 +88,23 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     // $data_applied_person
     // $data_date_applied
     // $radio_p
-
+    if($radio_type == "AP"){
+      $data_type_find = "
+      b.type='$radio_type'
+      AND action_paid_by IS NOT NULL
+      ";
+    }else{
+      $data_type_find = "
+      b.type='$radio_type'
+      ";
+    }
+    
     // having
     $data_applied_person = $data_applied_person ? "AND b.action_paid_by = '$data_applied_person'" : '';
     $data_date_applied = $data_date_applied ? "AND b.action_paid_date_time LIKE '%$data_date_applied%'" : '';
     $data_find_where = "
     WHERE
-    b.type='AP'
-    AND action_paid_by IS NOT NULL
+    $data_type_find
     $data_applied_person
     $data_date_applied
     ";
@@ -131,15 +115,14 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     $data_name_type = $data_name_type ? "AND bill_to_c = '$data_name_type'" : '';
     $data_find_having = "
     Having
-    b.type='AP'
-    AND action_paid_by IS NOT NULL
+    $data_type_find
     $billing_code
     $job_number
     $data_name_type
     ";
   }
-  
-  
+
+
 
   $sql_get_data_table = "
   SELECT
@@ -208,14 +191,38 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
 }
 
 // echo $sql_get_data_table;
+$arr_get_to_table = [];
 $result = $con->query($sql_get_data_table);
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $table[] = $row;
+  }
+
+  foreach ($table as $k => $v) {
+
+
+    $data_table_bill_to_type = $v['bill_to_type'];
+    $data_table_bill_to = $v['bill_to'];
+    $data_table_jobnumber = $v['job_number'];
+    $data_table_currency = $v['currency'];
+    $data_table_check_by = $v['check_by'] ? "H" : "NH";
+
+    $data_name_find =
+      $data_table_bill_to_type .
+      $data_table_bill_to .
+      $data_table_jobnumber .
+      $data_table_currency .
+      $data_table_check_by;
+
+    if(in_array($data_name_find,$arr_get_to_table)){
+      $arr_get_to_table[$data_name_find][] = $v;
+    }else{
+      $arr_get_to_table[$data_name_find][] = $v;
+    }
   }
 } else {
   $table = "0 results";
 }
 
 
-echo json_encode(array('table' => $table));
+echo json_encode(array('table' => $arr_get_to_table));

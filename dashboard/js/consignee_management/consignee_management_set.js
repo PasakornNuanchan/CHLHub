@@ -481,11 +481,12 @@ const consignee_list_set = {
                     }
                     arr_data.push(obj_data)
                 })
-                // console.log(uset_arr_temp)
-                // console.log(arr_data)
+                console.log(uset_arr_temp)
+                console.log(arr_data)
                 // console.log(res_save_raw_data)
 
                 let res_save_raw_data = await this.ajax_save_raw_data(uset_arr_temp, arr_data, consignee_list_set.arr_del_list)
+                console.log(res_save_raw_data)
                 if (res_save_raw_data['arr_suc']['st'] == '1') {
                     Swal.fire({
                         title: 'Saved!',

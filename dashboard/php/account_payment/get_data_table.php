@@ -11,6 +11,8 @@ $data_name_type = isset($_POST['data_name_type']) ? $_POST['data_name_type'] : '
 $job_number = isset($_POST['job_number']) ? $_POST['job_number'] : '';
 $dn_cn = isset($_POST['dn_cn']) ? $_POST['dn_cn'] : '';
 
+
+
 if($data_radio_process == ''){
     $sql_data_table = "
     SELECT
@@ -64,8 +66,20 @@ if($data_radio_process == ''){
     b.pre_approve_by,
     b.pre_approve_dt,
     b.pre_approve_status,
+    if(b.type = 'AR',
+    (SELECT conb.company_name FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.company_name FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_name,
+    if(b.type = 'AR',
+    (SELECT conb.bank_account FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.company_name FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_number,
+    if(b.type = 'AR',
+    (SELECT conb.id FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.id FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_id,
+    
     (SELECT u4.first_name FROM user u4 WHERE u4.ID = (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as cs_support_f,
     (SELECT u4.last_name FROM user u4 WHERE u4.ID = (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as cs_support_l,
+    (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID) cs_support_number,
+    (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID) sale_support_number,
     (SELECT u5.first_name FROM user u5 WHERE u5.ID = (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as sale_support_f,
     (SELECT u5.first_name FROM user u5 WHERE u5.ID = (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as sale_support_l,
     (SELECT u6.first_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_f,
@@ -196,8 +210,19 @@ if($data_radio_process == ''){
     b.pre_approve_by,
     b.pre_approve_dt,
     b.pre_approve_status,
+    if(b.type = 'AR',
+    (SELECT conb.company_name FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.company_name FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_name,
+    if(b.type = 'AR',
+    (SELECT conb.bank_account FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.company_name FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_number,
+    if(b.type = 'AR',
+    (SELECT conb.id FROM consignee_bank conb WHERE b.bank_number = conb.ID),
+    (SELECT car_b.id FROM carrier_bank car_b WHERE b.bank_number = car_b.ID)) bank_id,
     (SELECT u4.first_name FROM user u4 WHERE u4.ID = (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as cs_support_f,
     (SELECT u4.last_name FROM user u4 WHERE u4.ID = (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as cs_support_l,
+    (SELECT jt.cs_support FROM job_title jt WHERE b.ref_job_id = jt.ID) cs_support_number,
+    (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID) sale_support_number,
     (SELECT u5.first_name FROM user u5 WHERE u5.ID = (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as sale_support_f,
     (SELECT u5.first_name FROM user u5 WHERE u5.ID = (SELECT jt.sale_support FROM job_title jt WHERE b.ref_job_id = jt.ID)) as sale_support_l,
     (SELECT u6.first_name FROM user u6 WHERE b.approve_by = u6.ID) approve_by_f,

@@ -95,11 +95,11 @@ require 'function/auth/get_session.php';
     .modal-dialog {
         position: absolute;
         left: 5%;
-        width: 2000px;
+        width: 1600px;
     }
 
     .modal-content {
-        width: 2000px;
+        width: 1600px;
     }
 
     td.sticky-column {
@@ -122,6 +122,27 @@ require 'function/auth/get_session.php';
         background-color: #fff;
 
     }
+    .table_list_data_processing > tbody td:nth-child(-n+29) {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .table_list_data_processing > tbody td:nth-child(-n+29) input {
+        width: 100%;
+    }
+
+    .table_list_data_processing > tbody td:nth-child(4) input{
+        width:300px;
+    }
+
+    .table_list_data_processing > tbody td:nth-child(3) input,
+    .table_list_data_processing > tbody td:nth-child(6) input,
+    .table_list_data_processing > tbody td:nth-child(7) input,
+    .table_list_data_processing > tbody td:nth-child(8) input,
+    .table_list_data_processing > tbody td:nth-child(11) input{
+        width:190px;
+    }
+    
 </style>
 
 
@@ -156,9 +177,9 @@ require 'function/auth/get_session.php';
                         <div class="card-body">
                             <td class="text-center">
                                 <input type="radio" class="form-check-input check_start" name="radio_process" onclick="start.select_filter()" value="Rprocess" id="radio_process1">
-                                <label for="radio_process1" class="form-check-label pl-2">Unprocess</label>
+                                <label for="radio_process1" class="form-check-label pl-2">Process</label>
                                 <input type="radio" class="form-check-input" name="radio_process" onclick="start.select_filter()" value="process" id="radio_process2">
-                                <label for="radio_process2" class="form-check-label pl-2">Process</label>
+                                <label for="radio_process2" class="form-check-label pl-2">Re-process</label>
                             </td>
                         </div>
                     </div>
@@ -194,7 +215,7 @@ require 'function/auth/get_session.php';
                             <div class="col-xl-2 col-lg-2">
                                 <select class="form-select form-select-sm inp_currency_main_change" onchange="start.change_currency(this)" name="" id="">
                                     <option value="USD">USD</option>
-                                    <option value="THB">THB</option>
+                                    <option value="THB" selected>THB</option>
                                     <option value="RMB">RMB</option>
                                     <option value="YEN">YEN</option>
                                     <option value="HKD">HKD</option>

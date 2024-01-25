@@ -122,10 +122,10 @@ const start = {
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_create_date text-center" readonly ></td><!-- SALE -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_creater" readonly ></td><!-- create by. -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_billing_date " readonly ></td><!-- CREATE DATE -->
-                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_check_by" readonly ></td><!-- check by. -->
-                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_check_datetime" readonly ></td><!-- check datetime -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_apply_by" readonly ></td><!-- apply by. -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_apply_datetime" readonly ></td><!-- apply datetime -->
+                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_check_by" readonly ></td><!-- check by. -->
+                    <td class="text-center"><input type="text" class="form-control form-control-sm inp_check_datetime" readonly ></td><!-- check datetime -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_approve_by" readonly ></td><!-- approve by. -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_approve_datetime" readonly ></td><!-- approve datetime -->
                     <td class="text-center"><input type="text" class="form-control form-control-sm inp_booking_no" readonly ></td><!-- booking no -->
@@ -193,15 +193,27 @@ const start = {
                         $(`.table > tbody > .row_id${id_number} > td > .radio_act_r`).prop('checked', true)
                     }
 
+                    console.log(status)
                     let data_radio_process = $('input[name="radio_process"]:checked').val();
                     if (data_radio_process == "process") {
-                        if (status == '2') {
-                            $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
-                        } else if (status == '3') {
-                            $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
-                        } else if (check_by == ''){
-                            $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                        if(type == "AP"){
+                            if (status == '2') {
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            } else if (status == '3') {
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            } else if (check_by == ''){
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            }
+                        }else{
+                            if (status == '3') {
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            }else if (status == '2'){
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            } else if (check_by == ''){
+                                $(`.table > tbody > .row_id${id_number} > td > .radio_act`).attr('disabled', true)
+                            }
                         }
+                        
                     }
 
 

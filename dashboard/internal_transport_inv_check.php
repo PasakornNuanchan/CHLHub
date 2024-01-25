@@ -90,7 +90,7 @@ require 'function/auth/get_session.php';
             <!-- MAIN BODY START -->
 
             <!-- headtab -->
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-body card_body_head_nav">
                     <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -101,7 +101,7 @@ require 'function/auth/get_session.php';
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="job_detail_tab_target" role="tabpanel" aria-labelledby="job_detail_tab">
                     <div class="card">
@@ -109,9 +109,6 @@ require 'function/auth/get_session.php';
                             <div class="row">
                                 <div class="row-6">
                                     <h5>Expense</h5>
-                                </div>
-                                <div class="row-6 text-end">
-                                    <button class="btn btn-sm btn-primary" onclick="setup.add_list()">Add List</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -148,7 +145,11 @@ require 'function/auth/get_session.php';
                                     <input type="Date" class="form-control form-control-sm inp_end_date">
                                 </div>
                             </div>
-
+                            <div class="text-end">
+                                <button class="btn btn-sm btn-success" onclick="setup.checked_all_data('t')">Checked All</button>
+                                <button class="btn btn-sm btn-warning" onclick="setup.checked_all_data('f')">Unchecked All</button>
+                                <button class="btn btn-sm btn-primary" onclick="setup.checked_all_data('f')">Save</button>
+                            </div>
                             <div class="add_list_on mt-4 card">
                                 
                             </div>
@@ -157,6 +158,7 @@ require 'function/auth/get_session.php';
                                     <thead>
                                         <tr class="text-center">
                                             <th>No</th>
+                                            <th>Check</th>
                                             <th>Job number</th>
                                             <th>Description</th>
                                             <th>Bill to</th>
@@ -182,6 +184,7 @@ require 'function/auth/get_session.php';
                                     <tbody>
                                         <tr class="text-center">
                                             <td>1</td>
+                                            <td><input type="check" class="form-input-check inp_checked_data"></td>
                                             <td><select class="form-select form-select-sm sel_job_number">
                                                     <option value="">-- select job number --</option>
                                                 </select></td>
@@ -250,8 +253,8 @@ require 'function/auth/get_session.php';
 
 </html>
 
-<script src="js/internal_transport_inv/setup.js"></script>
-<script src="js/internal_transport_inv/action.js"></script>
+<script src="js/internal_transport_inv_check/setup.js"></script>
+<script src="js/internal_transport_inv_check/action.js"></script>
 
 
 <script>

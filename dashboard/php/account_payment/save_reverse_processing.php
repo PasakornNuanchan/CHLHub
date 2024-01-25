@@ -6,6 +6,8 @@ require '../../core/con_path.php';
 
 $arr_data_title = $_POST['arr_data_title'] ? $_POST['arr_data_title'] : '';
 $arr_data_list = $_POST['arr_data_list'] ? $_POST['arr_data_list'] : '';
+$arr_data_list_ins = $_POST['arr_data_list_ins'] ? $_POST['arr_data_list_ins'] : '';
+
 
 foreach($arr_data_title as $k => $v){
    
@@ -23,12 +25,45 @@ foreach($arr_data_title as $k => $v){
     WHERE
         ID = '$id_payment'
     ";
-    // if ($con->query($sql_data_query_title) === TRUE) {
-    //     $last_id = $con->insert_id;
-    //     $res_detail_title = '1';
-    // } else {
-    //     $res_detail_title = '0';
-    // }
+
+    // echo $sql_query_data_title;
+    if ($con->query($sql_query_data_title) === TRUE) {
+        $last_id = $con->insert_id;
+        $billing_payment = '1';
+    } else {
+        $billing_payment = '0';
+    }
+}
+
+foreach($arr_data_list_ins as $k => $v){
+    $data_id = isset($v['data_id']) ? $v['data_id'] : '';
+    $id_bp = isset($v['id_bp']) ? $v['id_bp'] : '';
+    $currency_to = isset($v['currency_to']) ? $v['currency_to'] : '';
+    $id_currency = isset($v['id_currency']) ? $v['id_currency'] : '';
+    $incv_wrute_off = isset($v['incv_wrute_off']) ? $v['incv_wrute_off'] : '';
+
+    $sql_query_data_list = "
+    INSERT INTO `billing_payment_list`(
+        `data_number_id`,
+        `amount`,
+        `currency`,
+        `id_refer_bp`,
+        `currency_number`
+    )
+    VALUES(
+        '$data_id',
+        '$incv_wrute_off',
+        '$currency_to',
+        '$id_bp',
+        '$id_currency'
+    )
+    ";
+
+    if ($con->query($sql_query_data_list) === TRUE) {
+        $billing_payment_list = '1';
+    } else {
+        $billing_payment_list = '0';
+    }
 }
 
 foreach($arr_data_list as $k => $v){
@@ -41,33 +76,16 @@ foreach($arr_data_list as $k => $v){
     WHERE
         data_number_id = '$data'
     ";
-    // $data_number_id = isset($v['data_number_id']) ? $v['data_number_id'] : '';
-    // $amount = isset($v['amount']) ? $v['amount'] : '';
-    // $currency = isset($v['currency']) ? $v['currency'] : '';
-
-    // $sql_data_list = "
-    // INSERT INTO `billing_payment_list`(
-    //     `data_number_id`,
-    //     `amount`,
-    //     `currency`,
-    //     `id_refer_bp`
-    // )
-    // VALUES(
-    //     '$data_number_id',
-    //     '$amount',
-    //     '$currency',
-    //     '$last_id'
-    // )
-    // ";
-    
-    // if ($con->query($sql_data_list) === TRUE) {
-    //     $res_detail_list = '1';
-    // } else {
-    //     $res_detail_list = '0';
-    // }
+   
+    // echo $sql_query_data_list;
+    if ($con->query($sql_query_data_list) === TRUE) {
+        $billing_payment_list = '1';
+    } else {
+        $billing_payment_list = '0';
+    }
 }
 
-// echo json_encode(array('res_detail_title'=>$res_detail_title,'res_detail_list'=>$res_detail_list))
+echo json_encode(array('billing_payment'=>$billing_payment,'billing_payment_list'=>$billing_payment_list))
 
 
 

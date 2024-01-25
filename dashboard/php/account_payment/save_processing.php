@@ -20,10 +20,15 @@ foreach($arr_data_get_title as $k => $v){
     $remark_data = isset($v['remark_data']) ? $v['remark_data'] : '';
     $payment_type = isset($v['payment_type']) ? $v['payment_type'] : '';
     $customer_name = isset($v['customer_name']) ? $v['customer_name'] : '';
-
+    $type_data = isset($v['type_data']) ? $v['type_data'] : '';
+    $name_file = isset($v['name_file']) ? $v['name_file'] : '';
+    $Base_64_file_base = isset($v['Base_64_file_base']) ? $v['Base_64_file_base'] : '';
     $payment_date = $payment_date == '' ? 'null' : "'$payment_date'";
     $write_off_date = $write_off_date == '' ? 'null' : "'$write_off_date'";
-
+    $data_currency_start = isset($v['data_currency_start']) ? $v['data_currency_start'] : '';
+    $data_currency_write_off = isset($v['data_currency_write_off']) ? $v['data_currency_write_off'] : '';
+    $data_hanler = isset($v['data_hanler']) ? $v['data_hanler'] : '';
+    $data_sale = isset($v['data_sale']) ? $v['data_sale'] : '';
 
     $sql_data_query_title = "
     INSERT INTO `billing_payment`(
@@ -41,7 +46,15 @@ foreach($arr_data_get_title as $k => $v){
         `write_off_date`,
         `remark`,
         `ref_billing`,
-        `consignee_name`
+        `consignee_name`,
+        `receipt`,
+        `type_file_receipt`,
+        `file_name`,
+        `currency_start`,
+        `currency_end`,
+        `hanler`,
+        `sale`
+    
     )
     VALUES(
         '$data_user',
@@ -58,7 +71,15 @@ foreach($arr_data_get_title as $k => $v){
         $write_off_date,
         '$remark_data',
         '$list_description',
-        '$customer_name'
+        '$customer_name',
+        '$Base_64_file_base',
+        '$type_data',
+        '$name_file',
+        '$data_currency_start',
+        '$data_currency_write_off',
+        '$data_hanler',
+        '$data_sale'
+
     )
     ";
     if ($con->query($sql_data_query_title) === TRUE) {

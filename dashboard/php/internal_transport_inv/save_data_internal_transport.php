@@ -18,6 +18,9 @@ $Base_64_file_base = isset($_POST['Base_64_file_base']) ? $_POST['Base_64_file_b
 
 
 
+
+
+
 $sql_data_set = "
         INSERT INTO `transport_statement`(
             `ref_job_id`,

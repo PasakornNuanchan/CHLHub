@@ -233,6 +233,16 @@ require 'function/auth/get_session.php';
                                         <label class="form-check-label pl-2">Paid</label>
                                     </div>
                                 </div>
+                                <div class="col-sm-2 col-md col-lg-2 col-xl-2">
+                                    <div class="form-group">
+                                        <input type="radio" class="form-check-input check_start" name="radio_type" value="AP" onclick="start.select_filter()">
+                                        <label class="form-check-label pl-2">Account Payable</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="radio" class="form-check-input" name="radio_type" value="AR" onclick="start.select_filter()">
+                                        <label class="form-check-label pl-2">Account Receivable</label>
+                                    </div>
+                                </div>
                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                     <label class="form-label">Billing Code</label>
                                     <input type="text" class="form-control form-control-sm inp_billing_code" onchange="start.select_filter()" list="billing_list">

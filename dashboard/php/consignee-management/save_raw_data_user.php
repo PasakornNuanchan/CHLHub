@@ -18,7 +18,7 @@ $corp_sale_support = isset($_POST['uset_arr_temp']['corp_sale_support']) ? $_POS
 $corp_term_pay = isset($_POST['uset_arr_temp']['corp_term_pay']) ? $_POST['uset_arr_temp']['corp_term_pay'] : '';
 
 
-if ($consignee_id != '') {
+if ($consignee_id != 'undefined') {
     $sql_save = "
     UPDATE
         `consignee`
@@ -74,7 +74,7 @@ if ($consignee_id != '') {
         }
 }
 
-
+// echo $sql_save;
 if($arr_data != ''){
     foreach($arr_data as $k => $v){
         $id_number = isset($v['id_number']) ? $v['id_number'] : '';

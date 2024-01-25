@@ -6,7 +6,7 @@ require '../../core/con_path.php';
 $id_number = $_POST['id_number'];
 $sql_request_data_billing = "
 SELECT
-bp.paid_date_time,
+    bp.paid_date_time,
     bi.*,
     cb.first_name cbfn,
     cb.last_name cbln,

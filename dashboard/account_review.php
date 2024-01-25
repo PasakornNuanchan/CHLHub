@@ -97,13 +97,13 @@ require 'function/auth/get_session.php';
         width: 200px;
     }
 
-    .table_ar th.sticky-top{
+    .table_ar th.sticky-top {
         z-index: 4;
         background-color: #fff;
 
     }
 
-    .table_ar th.sticky-column{
+    .table_ar th.sticky-column {
         position: sticky;
         left: 0;
         top: 0;
@@ -118,12 +118,13 @@ require 'function/auth/get_session.php';
         background-color: #fff;
     }
 
-   
+
     tr.sticky_super_top {
         position: sticky;
         z-index: 2;
         background-color: #fff;
     }
+
 </style>
 
 
@@ -201,16 +202,8 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-2 col-xl-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <input type="radio" name="radio_check" class="form-check-input check_start" value="uncheck" onclick="start.select_filter()">
-                            <label class="form-check-label pl-2">UNCHECK</label>
-                            <input type="radio" name="radio_check" class="form-check-input" value="check" onclick="start.select_filter()">
-                            <label class="form-check-label pl-2">CHECK</label>
-                        </div>
-                    </div>
-                </div> -->
+                <!-- <div class="col-lg-2 col-xl-2"> -->
+                <!-- </div> -->
             </div>
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
@@ -319,10 +312,10 @@ require 'function/auth/get_session.php';
                                             <th class="sticky-top">Create Date</th>
                                             <th class="sticky-top">Creater</th>
                                             <th class="sticky-top">Biiling Date</th>
-                                            <th class="sticky-top">check by.</th>
-                                            <th class="sticky-top">check date</th>
                                             <th class="sticky-top">apply by.</th>
                                             <th class="sticky-top">apply date</th>
+                                            <th class="sticky-top">check by.</th>
+                                            <th class="sticky-top">check date</th>
                                             <th class="sticky-top">approve by.</th>
                                             <th class="sticky-top">approve date</th>
                                             <th class="sticky-top">booking no</th>
@@ -404,15 +397,15 @@ require 'function/auth/get_session.php';
                         </div>
                         <div class="form-group p-2 m-2">
                             <div class="row">
-                            <div class="col-6">
-                                <button class="btn btn-sm btn-warning" onclick="function_act.waiting_all()">Waiting All</button>
-                                <button class="btn btn-sm btn-success" onclick="function_act.approve_all()">Approve All</button>
+                                <div class="col-6">
+                                    <button class="btn btn-sm btn-warning" onclick="function_act.waiting_all()">Waiting All</button>
+                                    <button class="btn btn-sm btn-success" onclick="function_act.approve_all()">Approve All</button>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
+                                </div>
                             </div>
-                            <div class="col-6 text-end">
-                                <button class="btn btn-sm btn-success" onclick="function_act.save_data()">Save</button>
-                            </div>
-                            </div>
-                            
+
                         </div>
                         <hr>
                         <div class="form-group p-2 m-2">

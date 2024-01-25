@@ -19,7 +19,7 @@ SELECT
     sr.ID as data_currency_id
 FROM
     job_title jt
-    LEFT JOIN sys_rate_cur sr ON jt.create_date BETWEEN sr.start_date AND sr.end_date
+    LEFT JOIN sys_rate_cur sr ON jt.etd BETWEEN sr.start_date AND sr.end_date
 
 WHERE
     jt.job_number IN ($arr_data_sys_rate)
@@ -27,7 +27,7 @@ WHERE
 
 
 
-// echo $sql_data_table;
+// echo $sql_get_currency;
 
 $result = $con->query($sql_get_currency);
 if ($result->num_rows > 0) {
