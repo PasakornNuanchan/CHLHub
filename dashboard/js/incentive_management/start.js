@@ -5,87 +5,79 @@ const start = {
         $('.breadcrumb-item > a').html('Incentive Management')
     },
 
-    setting_data_table: async function () {
+    setting_data_table: async function (res_data) {
 
         $('.table_process tbody').html('');
 
-        let res_data = await this.ajax_request_data_table();
         console.log(res_data)
-        $.each(res_data['table'], function (i, v) {
-            i++
-            let id_job_title = v['id_job_title'] ? v['id_job_title'] : '';
+       
+        $.each(res_data['table_data'],function(i,v){
+            i++;
+            let id_job_number = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
             let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
-            let sale_support_f = v['sale_support_f'] ? v['sale_support_f'] : '';
-            let sale_support_l = v['sale_support_l'] ? v['sale_support_l'] : '';
-            let ar_amt = v['ar_amt'] ? v['ar_amt'] : 0;
-            let ap_amt = v['ap_amt'] ? v['ap_amt'] : 0;
+            let f_name_sale = v['f_name_sale'] ? v['f_name_sale'] : '';
+            let l_name_sale = v['l_name_sale'] ? v['l_name_sale'] : '';
+            let ar_amt = v['ar_amt'] ? v['ar_amt'] : '0';
+            let rcvd_amt = v['rcvd_amt'] ? v['rcvd_amt'] : '0';
+            let ap_amt = v['ap_amt'] ? v['ap_amt'] : '0';
+            let paid_amt = v['paid_amt'] ? v['paid_amt'] : '0';
+            let create_date = v['create_date'] ? v['create_date'] : '';
+            let rcvd_date = v['rcvd_date'] ? v['rcvd_date'] : '';
+            let paid_date = v['paid_date'] ? v['paid_date'] : '';
+            let voy_no_mother = v['mother_vessel'] ? v['mother_vessel'] : '';
 
-            let html_data_table_proces = ``;
-
-            ar_amt = parseFloat(ar_amt)
-            ar_amt = ar_amt.toFixed(2)
-
-            ap_amt = parseFloat(ap_amt)
-            ap_amt = ap_amt.toFixed(2)
-
-            $.each(res_data['spend'],function(i1,v1){
-                
-            })
 
             html_data_table_proces = `
-            <tr class="text-center row_id${id_job_title}" id_job_number="${id_job_title}">
-                <td>${i}</td>
-                <td><input type="checkbox" class="form-input-check" style="zoom:150%"></td>
-                <td><input type="text" class="form-control form-control-sm inp_job_number"></td>
-                <td><input type="text" class="form-control form-control-sm inp_client"></td>
-                <td><input type="text" class="form-control form-control-sm inp_sale_name"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_ar_amt"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_rcvd_amt"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_profit"></td>
-                <td><input type="text" class="form-control form-control-sm text-end inp_total"></td>
-                <td><input type="text" class="form-control form-control-sm inp_op_date"></td>
-                <td><input type="text" class="form-control form-control-sm inp_rcvd_date"></td>
-                <td><input type="text" class="form-control form-control-sm inp_paid_date"></td>
-                <td><input type="text" class="form-control form-control-sm inp_ar_settld"></td>
-                <td><input type="text" class="form-control form-control-sm inp_so"></td>
-                <td><input type="text" class="form-control form-control-sm inp_vsl"></td>
-            </tr>
-            `;
-
-            $('.table_process > tbody').append(html_data_table_proces)
-
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_job_number`).attr('disabled', true).val(job_number)
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_client`).attr('disabled', true).val(bill_to_c)
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_sale_name`).attr('disabled', true).val(sale_support_f + ' ' + sale_support_l)
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_ar_amt`).attr('disabled', true).val(ar_amt)
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_rcvd_amt`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_ap_amt`).attr('disabled', true).val(ap_amt)
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_paid_amt`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_profit`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_total`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_op_date`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_rcvd_date`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_paid_date`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_ar_settld`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_so`).attr('disabled', true).val()
-            $(`.table_process > tbody > .row_id${id_job_title} > td > .inp_vsl`).attr('disabled', true).val()
+             <tr class="text-center row_id${id_job_number}" id_job_number="${id_job_number}">
+                 <td>${i}</td>
+                 <td><input type="checkbox" class="form-input-check" style="zoom:150%"></td>
+                 <td><input type="text" class="form-control form-control-sm inp_job_number"></td>
+                 <td><input type="text" class="form-control form-control-sm inp_client"></td>
+                 <td><input type="text" class="form-control form-control-sm inp_sale_name"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_ar_amt"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_rcvd_amt"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_ap_amt"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_paid_amt"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_profit"></td>
+                 <td><input type="text" class="form-control form-control-sm text-end inp_total"></td>
+                 <td><input type="text" class="form-control form-control-sm text-center inp_op_date"></td>
+                 <td><input type="text" class="form-control form-control-sm text-center inp_rcvd_date"></td>
+                 <td><input type="text" class="form-control form-control-sm text-center inp_paid_date"></td>
+                 <td><input type="text" class="form-control form-control-sm text-center inp_ar_settld"></td>
+                 <td><input type="text" class="form-control form-control-sm inp_so"></td>
+                 <td><input type="text" class="form-control form-control-sm inp_vsl"></td>
+             </tr>
+             `;
+             $('.table_process > tbody').append(html_data_table_proces)
+            $(`.row_id${id_job_number} td > .inp_job_number`).val(job_number).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_client`).val(bill_to_c).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_sale_name`).val(f_name_sale+' '+l_name_sale).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_ar_amt`).val(ar_amt).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_rcvd_amt`).val(rcvd_amt).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_ap_amt`).val(ap_amt).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_paid_amt`).val(paid_amt).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_profit`).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_total`).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_op_date`).val(create_date).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_rcvd_date`).val(rcvd_date).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_paid_date`).val(paid_date).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_ar_settld`).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_so`).attr('disabled',true)
+            $(`.row_id${id_job_number} td > .inp_vsl`).val(voy_no_mother).attr('disabled',true)
+            
         })
-
-
-
         await this.cal_total();
-
+        
     },
 
 
-    ajax_request_data_table: async function () {
+    ajax_request_data_table: async function (data_sent) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/incentive_management/get_data_table.php",
+                data : {'data_sent' : data_sent},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);
@@ -122,7 +114,39 @@ const start = {
     },
 
     filter_incentive: async function () {
+        let date_select = $('.inp_date_select').val()
+        let sale = $('.sel_sale').val()
+        let client = $('.sel_client').val()
+        let date_start = $('.inp_date_start').val()
+        let date_end = $('.inp_date_end').val()
+        let job_number = $('.inp_job_number').val()
+        let have_ar = $('.inp_have_ar').prop('checked') ? '1' : '0';
+        let no_ap = $('.inp_no_ap').prop('checked') ? '1' : '0';
+        let unfinish = $('.inp_unfinish').prop('checked') ? '1' : '0';
+        let all_co = $('.inp_all_co').prop('checked') ? '1' : '0';
+        let commition = $('.inp_commition').prop('checked') ? '1' : '0';
+        let currency = $('.inp_currency').val()
+        let co_op = $('.inp_co_op').val()
 
+        let obj_data = {
+            date_select : date_select,
+            sale : sale,
+            client : client,
+            date_start : date_start,
+            date_end : date_end,
+            job_number : job_number,
+            have_ar : have_ar,
+            no_ap : no_ap,
+            unfinish : unfinish,
+            all_co : all_co,
+            commition : commition,
+            currency : currency,
+            co_op : co_op,
+        }
+        console.log(obj_data)
+
+        let res_data = await this.ajax_request_data_table(obj_data);
+        await this.setting_data_table(res_data)
     },
 
     modal_setting_incentive: async function () {

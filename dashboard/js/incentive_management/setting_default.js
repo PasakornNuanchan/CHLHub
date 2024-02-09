@@ -9,7 +9,7 @@ const setting_data_default = {
         let res_data = await this.ajax_request_default_data();
         console.log(res_data)
 
-        let html_data_sale_user = `<option value="">All</option>`;
+        let html_data_sale_user = `<option value="">-- All --</option>`;
         $.each(res_data['sale'],function(i,v){
             html_data_sale_user += `<option value="${v['ID']}">${v['first_name']} ${v['last_name']}</option>`;
         })
@@ -17,7 +17,7 @@ const setting_data_default = {
         $('.sel_sale').append(html_data_sale_user)
 
 
-        let html_data_client_user = '<option value="">All</option>';
+        let html_data_client_user = '<option value="">-- All --</option>';
         $.each(res_data['client'],function(i,v){
             html_data_client_user += `<option value="${v['ID']}">${v['consignee_name']}</option>`;
         })

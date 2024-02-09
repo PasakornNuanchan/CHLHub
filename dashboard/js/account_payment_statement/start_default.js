@@ -9,7 +9,7 @@ const start_default = {
             let NAME = v['NAME'] ? v['NAME'] : '';
             data_default += `
             <div class="form-group">
-                <button class="btn btn-sm" data_id="${ID}" data_type="${TYPE}" name_type="${NAME}" onclick="start.mark_active(this)"><i class="bi bi-folder text-warning" style="zoom:135%"></i> ${NAME}</button>
+                <button class="btn btn-sm" data_id="${ID}" data_type="${TYPE}" name_type="${NAME}" onclick="start.mark_active(this)"><i class="bi bi-folder text-warning" style="zoom:135%"></i>${NAME}</button>
             </div>
             `;
         })

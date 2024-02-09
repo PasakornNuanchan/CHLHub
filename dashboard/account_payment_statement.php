@@ -171,23 +171,32 @@ require 'function/auth/get_session.php';
                         <div class="card-body row">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="form-group text-center mt-2">
-                                    <input type="radio" class="form-check-input check_start" onclick="start.select_filter()" value="ALL" name="radio_function_paid" id="radio_function_paid2">
+                                    <input type="radio" class="form-check-input" checked onclick="start.select_filter()" value="ALL" name="radio_function_paid" id="radio_function_paid2">
                                     <label for="radio_function_paid2" class="form-check-label pl-2"> ALL</label>
-                                    <input type="radio" class="form-check-input " onclick="start.select_filter()" value="AR" name="radio_function_paid" id="radio_function_paid1">
+                                    <input type="radio" class="form-check-input " onclick="start.select_filter()" value="Receivable" name="radio_function_paid" id="radio_function_paid1">
                                     <label for="radio_function_paid1" class="form-check-label pl-2"> Receive</label>
-                                    <input type="radio" class="form-check-input " onclick="start.select_filter()" value="AP" name="radio_function_paid" id="radio_function_paid3">
+                                    <input type="radio" class="form-check-input " onclick="start.select_filter()" value="Payable" name="radio_function_paid" id="radio_function_paid3">
                                     <label for="radio_function_paid3" class="form-check-label pl-2"> Payable</label>
                                 </div>
                             </div>
                             <div class="col-xl-1 col-lg-1 text-center"><label for="">PAYMENT/RECEIPT NUMBER </label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_document_number"></div>
+                            <div class="col-xl-2 col-lg-2">
+                                <input type="text" class="form-control form-control-sm inp_document_number_search" onchange="start.select_filter()" list="data_list_document_number">
+                                <datalist id="data_list_document_number" class="list_document_number">
+                                </datalist>
+                            </div>
                             <div class="col-xl-1 col-lg-1 text-center"><label for="">JOB NUMBER </label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_job_number"></div>
+                            <div class="col-xl-2 col-lg-2">
+                                <input type="text" class="form-control form-control-sm inp_job_number_search" onchange="start.select_filter()" list="data_list_job_number">
+                                <datalist id="data_list_job_number" class="list_job_number">
+                                </datalist>
+                            </div>
                             <div class="col-xl-1 col-lg-1 text-center"><label for="">CURRENCY</label></div>
                             <div class="col-xl-1 col-lg-1">
-                                <select class="form-select form-select-sm inp_currency" name="" id="">
+                                <select class="form-select form-select-sm inp_currency_search" onchange="start.select_filter()" name="" id="">
+                                    <option value="ALL" selected>ALL</option>
                                     <option value="USD">USD</option>
-                                    <option value="THB" selected>THB</option>
+                                    <option value="THB">THB</option>
                                     <option value="RMB">RMB</option>
                                     <option value="YEN">YEN</option>
                                     <option value="HKD">HKD</option>
@@ -195,8 +204,8 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="col-xl-1 col-lg-1 text-center"><label for="">BANK ACCOUNT</label></div>
                             <div class="col-xl-1 col-lg-1">
-                                <select class="form-select form-select-sm inp_bank_account" name="" id="">
-
+                                <select class="form-select form-select-sm inp_bank_account_search" onchange="start.select_filter()" name="" id="">
+                                    <option value="" selected >-- select bank number -- </option>
                                 </select>
                             </div>
                         </div>
@@ -308,7 +317,7 @@ require 'function/auth/get_session.php';
 </html>
 <script src="js/account_payment_statement/start.js"></script>
 <script src="js/account_payment_statement/start_default.js"></script>
-<script src="js/account_payment_statement/process_part.js"></script>
+<!-- <script src="js/account_payment_statement/process_part.js"></script> -->
 
 
 
@@ -317,9 +326,10 @@ require 'function/auth/get_session.php';
         await sidebar_main.set_data_rows();
         await start_default.start_default();
         await start.select_filter()
+        await start.gen_default();
+
         // start.start_setting();
         // start.start_setting_table();
-        $('.check_start').prop('checked', true)
 
 
     });

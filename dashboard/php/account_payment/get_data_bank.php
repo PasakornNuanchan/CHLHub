@@ -3,6 +3,9 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 require '../../core/con_path.php';
 
+
+
+
 $sql_data_bank = "
     SELECT
     `ID`,
@@ -28,6 +31,17 @@ FROM
 ";
 
 
+$sql_data_get_user = "
+SELECT
+    `ID`,
+    `first_name`,
+    `last_name`
+FROM
+    `user`
+WHERE
+    ID = '$data_user'
+";
+
 // echo $sql_data_table;
 
 $result = $con->query($sql_data_bank);
@@ -38,4 +52,15 @@ if ($result->num_rows > 0) {
 } else {
     $bank = "0 results";
 }
-echo json_encode(array('bank' => $bank));
+
+
+$result = $con->query($sql_data_get_user);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $user_data_get[] = $row;
+    }
+} else {
+    $user_data_get = "0 results";
+}
+
+echo json_encode(array('bank' => $bank,'user_data_get'=>$user_data_get));

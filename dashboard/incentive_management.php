@@ -133,72 +133,75 @@ require 'function/auth/get_session.php';
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="form-label">Date </label>
-                                <select class="form-select form-select-sm rounded">
-                                    <option value="">Create Job Date</option>
-                                    <option value="">OP Date</option>
-                                    <option value="">Received Date</option>
-                                    <option value="">Paid Date</option>
+                                <select class="form-select form-select-sm rounded inp_date_select" onchange="start.filter_incentive()">
+                                    <option value="">-- select date --</option>
+                                    <option value="op_date">OP Date</option>
+                                    <option value="received_date">Received Date</option>
+                                    <option value="paid_date">Paid Date</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Sale </label>
-                                <select class="form-select form-select-sm rounded sel_sale">
+                                <select class="form-select form-select-sm rounded sel_sale" onchange="start.filter_incentive()">
+                                    <option value="">-- Select Sale --</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Client </label>
-                                <select class="form-select form-select-sm rounded sel_client">
+                                <select class="form-select form-select-sm rounded sel_client" onchange="start.filter_incentive()">
+                                    <option value="">-- Select Client --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="form-label">From</label>
-                                <input type="date" class="form-control form-control-sm rounded">
+                                <input type="date" class="form-control form-control-sm rounded inp_date_start" onchange="start.filter_incentive()">
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
-                                <label class="form-label">From</label>
-                                <input type="date" class="form-control form-control-sm rounded">
+                                <label class="form-label">To</label>
+                                <input type="date" class="form-control form-control-sm rounded inp_date_end" onchange="start.filter_incentive()">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Job</label>
-                                <input type="text" class="form-control form-control-sm rounded inp_job_number" list="job_number_list">
+                                <input type="text" class="form-control form-control-sm rounded inp_job_number" list="job_number_list" onchange="start.filter_incentive()">
                                 <datalist name="job_number_list" id="job_number_list">
                                 </datalist>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="form-label">Type</label>
-                                <input type="text" class="form-control form-control-sm rounded">
-                            </div>
+                                <input type="text" class="form-control form-control-sm rounded ">
+                            </div> -->
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
-                                <input type="checkbox" class="form-check-input" id="inp_have_ar">
+                                <input type="checkbox" class="form-check-input inp_have_ar" id="" onchange="start.filter_incentive()">
                                 <label for="inp_have_ar" class="form-label">Undisplay have AR</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" class="form-check-input" id="inp_no_ap">
+                                <input type="checkbox" class="form-check-input inp_no_ap" id="" onchange="start.filter_incentive()">
                                 <label for="inp_no_ap" class="form-label">Undisplay No AP</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" class="form-check-input" id="inp_unfinish">
+                                <input type="checkbox" class="form-check-input inp_unfinish" id="" onchange="start.filter_incentive()">
                                 <label for="inp_unfinish" class="form-label">Undisplay Unfinish Bill</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" class="form-check-input" id="inp_all_co">
+                                <input type="checkbox" class="form-check-input inp_all_co" id="" onchange="start.filter_incentive()">
                                 <label for="inp_all_co" class="form-label">All Co</label>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" class="form-check-input" id="inp_commition">
+                                <input type="checkbox" class="form-check-input inp_commition" id="" onchange="start.filter_incentive()">
                                 <label for="inp_commition" class="form-label">Undisplay Commitsition taked out</label>
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="form-label">Curr.</label>
-                                <select class="form-select form-select-sm" name="" id="">
+                                <select class="form-select form-select-sm inp_currency" name="" id="" onchange="start.filter_incentive()">
+                                    <option value="ALL">ALL</option>
                                     <option value="THB">THB</option>
                                     <option value="USD">USD</option>
                                     <option value="RMB">RMB</option>
@@ -208,7 +211,7 @@ require 'function/auth/get_session.php';
                             </div>
                             <div class="form-group">
                                 <label class="form-label">with co-op ofc profit</label>
-                                <input type="text" class="form-control form-control-sm rounded">
+                                <input type="text" class="form-control form-control-sm rounded inp_co_op" onchange="start.filter_incentive()">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-outline-primary btn-sm btn-width" onclick="start.modal_setting_incentive()">setting</button>
@@ -277,7 +280,7 @@ require 'function/auth/get_session.php';
                         <div class="table-responsive">
                             <table class="table table-hover" style="zoom:80%">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>Sales</th>
                                         <th>Sales</th>
@@ -350,7 +353,7 @@ require 'function/auth/get_session.php';
     $(document).ready(function() {
         sidebar_main.set_data_rows();
         start.setting_header();
-        start.setting_data_table()
+        start.filter_incentive()
         setting_data_default.start_default();
         // start_default.start_default();
         // start.start_setting();

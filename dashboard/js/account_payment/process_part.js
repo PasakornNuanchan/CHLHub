@@ -14,7 +14,6 @@ const process_part = {
         arr_data_sys_rate = $.unique(arr_data_sys_rate)
         arr_data_sys_rate = arr_data_sys_rate.join(',')
         let res_data_currency = await start.ajax_setting_main_currency(arr_data_sys_rate)
-        console.log(res_data_list)
         let res_data_bank = await start.ajax_get_bank_data();
         let data_bank_account = '';
         let b = 0;
@@ -40,6 +39,8 @@ const process_part = {
                 var arr_cs = []
                 var arr_sale = []
 
+                let status_list = v['status_list'] == '1' ? `checked=""` : '';
+                // console.log(status_list)
                 $.each(res_data_currency['currency'], function (i, v) {
                     let job_number_data = v['job_number'] ? v['job_number'] : '';
                     if (job_number_data == data_job_number) {
@@ -70,34 +71,33 @@ const process_part = {
                 amount_bpl = amount_bpl.toFixed(2)
                 i++;
                 html_data_list += `
-                    <tr class="text-center" data_number_id="${id_number}">
+                    <tr class="text-center data_number_id_${id_number}" data_number_id="${id_number}" hv="1">
                         <td>${i}</td>
-                        <td><input type="checkbox" style="zoom:150%" class="chex_box_modal chx_as_box_modal" checked="" onchange="process_part.check_before_save()" onclick="process_part.cal_data()"></td>
+                        <td><input type="checkbox" style="zoom:150%" class="chex_box_modal chx_as_box_modal" ${status_list} onchange="process_part.cancle_in_row(this)" onclick="process_part.cal_data('reverse')"></td>
                         <td><input class="form-control form-control-sm" readonly value="${data_job_number}"></td>
                         <td><input class="form-control form-control-sm" readonly value="${bill_to}"></td>
                         <td><input class="form-control form-control-sm text-center currency_start" readonly value="${cur}"></td>
                         <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
                         <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
-                        <td><input class="form-control form-control-sm text-end inp_total" readonly value="${total_amt}"></td>
-                        <td><input class="form-control form-control-sm text-center" readonly value="${sysrate_data}"></td>
-                        <td><input class="form-control form-control-sm text-center inp_currency_to" readonly value="${currency_bpl}"></td>
-                        <td><input class="form-control form-control-sm text-end data_incv_wrute_off" readonly value="${amount_bpl}"></td>
+                        <td><input class="form-control form-control-sm text-end inp_total inp_total${id_number}"real_data_show="${total_amt}" readonly value="${total_amt}"></td>
+                        <td><input class="form-control form-control-sm text-center inp_sysrate" real_data_show="${sysrate_data}" readonly value="${sysrate_data}"></td>
+                        <td><input class="form-control form-control-sm text-center inp_currency_to" real_data_show="${currency_bpl}" readonly value="${currency_bpl}"></td>
+                        <td><input class="form-control form-control-sm text-end data_incv_wrute_off" real_data_show="${amount_bpl}" readonly value="${amount_bpl}"></td>
                         <td><input class="form-control form-control-sm" readonly value=""></td>
                         <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
                     </tr>
                 `;
+
             })
         }
 
 
         let radio_function_paid = $('input[name="radio_function_paid"]:checked').val();
-        // console.log(radio_function_paid)
 
         if ($('#modal_account_payment').length >= 1) {
             $('#modal_account_payment').remove()
         }
 
-        // console.log(start.data_get_table_reverse['table'])
 
         $.each(start.data_get_table_reverse['table'], function (i, v) {
 
@@ -110,6 +110,7 @@ const process_part = {
                 let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
                 let status_billing = v['status_billing'] ? v['status_billing'] : '';
                 let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
+                
                 let document_payment = v['document_payment'] ? v['document_payment'] : '';
                 let type_document = v['type_document'] ? v['type_document'] : '';
                 let pay_at = v['pay_at'] ? v['pay_at'] : '';
@@ -122,6 +123,14 @@ const process_part = {
                 let ref_billing = v['ref_billing'] ? v['ref_billing'] : '';
                 let bank_code = v['bank_code'] ? v['bank_code'] : '';
                 let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
+                let actual_total_payment = v['actual_total_payment'] ? v['actual_total_payment'] : '';
+                let acount_payment_amount = v['acount_payment_amount'] ? v['acount_payment_amount'] : '';
+
+                let currency_start = v['currency_start'] ? v['currency_start'] : '';
+                let currency_end = v['currency_end'] ? v['currency_end'] : '';
+
+                let number_data = v['number_data'] ? v['number_data'] : '';
+                let payment_rec = v['payment_rec'] ? v['payment_rec'] : '';
 
 
                 html = `
@@ -136,10 +145,10 @@ const process_part = {
                                     <div class="detail_description">
                                         <div class="row">
                                             <div class="col">
-                                                <button class="btn btn-outline-primary btn-sm btn_save_data_reverse_processing" onclick="process_part.save_reverse()" disabled>OK</button>
-                                                <button class="btn btn-outline-primary btn-sm">Print</button>
+                                                <button class="btn btn-outline-primary btn-sm btn_save_data_reverse_processing" onclick="process_part.save_reverse()">OK</button>
+                                                <!-- <button class="btn btn-outline-primary btn-sm">Print</button> -->
                                                 <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                                <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" onclick="process_part.start_modal_add_on('${radio_function_paid}')"> Add list </button>
+                                                <!-- <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" onclick="process_part.start_modal_add_on('${radio_function_paid}')"> Add list </button> -->
                                             </div>
                                             <!-- row 1 -->
                                             <div class="row mt-2">
@@ -239,6 +248,7 @@ const process_part = {
                                                         </div>
                                                         <div class="col-lg-7">
                                                             <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                                                <option value="">-- select --</option>                                                                
                                                                 <option value="TH">TH</option>
                                                                 <option value="CN">CN</option>
                                                                 <option value="HK">HK</option>
@@ -256,7 +266,15 @@ const process_part = {
                                                             <input type="text" class="form-control form-control-sm text-end inp_amount_all">
                                                         </div>
                                                         <div class="col-lg-3">
-                                                            <input type="text" class="form-control form-control-sm text-center inp_currency_main">
+                                                            <!-- <input type="text" class="form-control form-control-sm text-center inp_currency_main"> -->
+                                                            <select class="form-select form-select-sm text-center inp_currency_main">
+                                                                    <option value="">-- select --</option>
+                                                                    <option value="THB">THB</option>
+                                                                    <option value="USD">USD</option>
+                                                                    <option value="RMB">RMB</option>
+                                                                    <option value="YEN">YEN</option>
+                                                                    <option value="HKD">HKD</option>
+                                                                </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -290,6 +308,7 @@ const process_part = {
                                                         </div>
                                                         <div class="col-lg-7">
                                                             <select class="form-select form-select-sm inp_method_cash">
+                                                                <option value=""> -- select --</option>
                                                                 <option value="tranfer">Tranfer</option>
                                                                 <option value="cash">Cash</option>
                                                                 <option value="hedge">Hedge</option>
@@ -432,53 +451,104 @@ const process_part = {
                 data_total_all = data_total_all.toFixed(2)
                 arr_get_currency_data = $.unique(arr_get_currency_data)
                 arr_get_currency_data = arr_get_currency_data.join(',')
-
                 data_amount_all = data_amount_all.toFixed(2)
-                $('.inp_currency_main').val(arr_get_currency_data).attr('disabled', true)
-                $('.inp_amount_all').val(data_amount_all).attr('disabled', true)
-                $('.inp_number_rec').val(data_number).attr('disabled', true)
+
+                // paid_amt
+                // actual_total_payment
+                // acount_payment_amount
+                paid_amt = parseFloat(paid_amt)
+                actual_total_payment = parseFloat(actual_total_payment)
+                acount_payment_amount = parseFloat(acount_payment_amount)
+
+
+                
+
+
+                paid_amt = paid_amt.toFixed(2)
+                actual_total_payment = actual_total_payment.toFixed(2)
+                acount_payment_amount = acount_payment_amount.toFixed(2)
+                $('.inp_amount_all_write_off').val(paid_amt).attr('disabled',true)
+                $('.inp_currency_main_write_off').val(currency_start).attr('disabled',true)
+                $('.inp_amount_all').val(actual_total_payment)
+                $('.inp_currency_main').val(currency_end)
+                $('.inp_acual_payment').val(acount_payment_amount)
+                // console.log(acount_payment_amount)
+
+                $('.inp_number_rec').val(number_data)
                 $('.inp_payment_type').val(type_document).attr('disabled', true)
-                $('.inp_consignee_data_detail').val(consignee_name).attr('disabled', true)
                 $('.inp_write_off_date').val(write_off_date).attr('disabled', true)
                 $('.inp_payment_document').val(document_payment).attr('disabled', true)
-                $('.sel_data_payment_place').val(pay_at).attr('disabled', true)
-                $('.inp_remark_data_modal').val(remark).attr('disabled', true)
-                $('.inp_method_cash').val(tranfer_method).attr('disabled', true)
-                $('.inp_payment_date').val(payment_date).attr('disabled', true)
-                $('.inp_bank_account').val(bank_account).attr('disabled', true)
+                $('.sel_data_payment_place').val(pay_at)
+                $('.inp_remark_data_modal').val(remark)
+                $('.inp_method_cash').val(tranfer_method)
+                $('.inp_payment_date').val(payment_date)
+                $('.inp_bank_account').val(bank_account)
                 $('.inp_consignee_data_detail').val(consignee_name).attr('disabled', true)
-                $('.inp_acual_payment').val(data_total_all).attr('disabled', true)
-                $('.bi_image_receipt').val()
+                // $('.bi_image_receipt').val()
                 data_arr_sale == '' ? $('.inp_sale_man').attr('disabled', true) : $('.inp_sale_man').val(data_arr_sale).attr('disabled', true)
                 data_arr_cs == '' ? $('.inp_handler').attr('disabled', true) : $('.inp_handler').val(data_arr_cs).attr('disabled', true)
 
-                // console.log(data_arr_sale)
-                // console.log(data_arr_cs)
+                // inp_acual_payment
+                
+                // inp_amount_all
 
-                $('.inp_amount_all_write_off').val(data_amount_all).attr('disabled', true)
-                $('.inp_currency_main_write_off').val(arr_get_currency_data).attr('disabled', true)
-                $('.inp_number_payment_record').val(b).attr('disabled', true)
+                $('.inp_number_payment_record').val(payment_rec)
+                
 
                 return;
             }
         })
+        // let e_path = $('.table_list_data_processing tbody tr')
+
+        // $.each(e_path,function(){
+        //     let data_checked_box = $(this).find('.chex_box_modal').prop("checked") ? '1' : '0';
+        //     if(data_checked_box == '0'){
+        //         $(this).find('.inp_total').val('0.00')
+        //         $(this).find('.inp_sysrate').val('')
+        //         $(this).find('.inp_currency_to').val('')
+        //         $(this).find('.data_incv_wrute_off').val('0.00')
+        //     }
+
+        // })
+        await this.cal_data('reverse')
+
+
+
     },
 
-    check_before_save: async function () {
-        let amount_all_write_off = $('.inp_amount_all_write_off').val()
-        let amount_all = $('.inp_amount_all').val()
-        let number_rec = $('.inp_number_rec').val()
-        let number_payment_record = $('.inp_number_payment_record').val()
+    cancle_in_row : async function(e){
+        
+        let data_checked_box = $(e).closest('tr').find('.chx_as_box_modal').prop('checked') ? '1' : '0';
+        if(data_checked_box == '1'){
 
+            // inp_total
+            // inp_sysrate
+            // inp_currency_to
+            // data_incv_wrute_off
 
-        if (amount_all_write_off != amount_all && number_rec != number_payment_record) {
-            $('.btn_save_data_reverse_processing').attr('disabled', false)
+            let settelment = $(e).closest('tr').find('.inp_total').attr('real_data_show')
+            let sysrate = $(e).closest('tr').find('.inp_sysrate').attr('real_data_show')
+            let currency_to = $(e).closest('tr').find('.inp_currency_to').attr('real_data_show')
+            let incv_wrute_off = $(e).closest('tr').find('.data_incv_wrute_off').attr('real_data_show')
 
-        } else {
-            $('.btn_save_data_reverse_processing').attr('disabled', true)
+            $(e).closest('tr').find('.inp_total').val(settelment)
+            $(e).closest('tr').find('.inp_sysrate').val(sysrate)
+            $(e).closest('tr').find('.inp_currency_to').val(currency_to)
+            $(e).closest('tr').find('.data_incv_wrute_off').val(incv_wrute_off)
+        }else{
+            
 
+            $(e).closest('tr').find('.inp_total').val('0.00')
+            $(e).closest('tr').find('.inp_sysrate').val('')
+            $(e).closest('tr').find('.inp_currency_to').val('')
+            $(e).closest('tr').find('.data_incv_wrute_off').val('0.00')
         }
+
+        
+
+
     },
+
 
     ajax_get_data_process_reverse: async function (data) {
         return new Promise(function (resolve, reject) {
@@ -495,102 +565,195 @@ const process_part = {
             });
         });
     },
-    cal_data: async function () {
+    cal_data: async function (e) {
         let path_data = $('.table_list_data_processing tbody tr')
         let data_amount_all = 0;
         let count_list = 0;
         $.each(path_data, function () {
             let data_modal = $(this).find('.chx_as_box_modal').prop('checked') ? '1' : '0';
-            if (data_modal == '1') {
-                let data_amount = $(this).find('.data_incv_wrute_off').val()
+            let data_check = e == 'reverse' ? '1' : '0';
+            if (data_modal == data_check) {
+                let data_amount = $(this).find('.data_incv_wrute_off').attr('real_data_show') ? $(this).find('.data_incv_wrute_off').attr('real_data_show') : '0';
                 data_amount = parseFloat(data_amount)
                 data_amount_all = data_amount_all + data_amount
+
                 count_list++;
             }
 
         })
-        $('.inp_number_rec').val(count_list)
-        data_amount_all = parseFloat(data_amount_all)
         data_amount_all = data_amount_all.toFixed(2)
-        $('.inp_amount_all').val(data_amount_all)
-        $('.inp_acual_payment').val(data_amount_all)
+        if(e != 'reverse'){
+            $('.inp_number_rec').val(count_list)
+            data_amount_all = parseFloat(data_amount_all)
+            data_amount_all = data_amount_all.toFixed(2)
+            $('.inp_amount_all').val(data_amount_all)
+            $('.inp_acual_payment').val(data_amount_all)
+        }
+
+        if(e == 'reverse'){
+            $('.inp_amount_all_write_off').val(data_amount_all)
+
+        }
+        // if(e == 'reverse'){
+        //     $.each(path_data, function () {
+        //         let data_modal = $(this).find('.chx_as_box_modal').prop('checked') ? '1' : '0';
+        //         if (data_modal == data_check) {
+        //             let data_amount = $(this).find('.data_incv_wrute_off').val()
+        //             data_amount = parseFloat(data_amount)
+        //             data_amount_all = data_amount_all + data_amount
+        //             count_list++;
+        //         }
+    
+        //     })
+        // }
+        
     },
 
     save_reverse: async function () {
         let path_data = $('.table_list_data_processing tbody tr')
         let arr_data_list = []
         let arr_data_list_ins = []
+        let arr_data_list_upd = []
         let arr_data_list_del = []
+        let arr_data_list_have = []
         let id_payment = $('#modal_account_payment').attr('modal_id');
         let actual_pay = $('.inp_amount_all').val()
 
 
         $.each(path_data, function () {
             let data_modal = $(this).find('.chx_as_box_modal').prop('checked') ? '1' : '0';
-            if (data_modal == '1') {
+            let data_hv_check = $(this).attr('hv')
+            
+            if (data_hv_check != undefined) {
                 let data_id = $(this).attr('data_number_id') ? $(this).attr('data_number_id') : '';
-                if (data_id != '') {
-                    arr_data_list.push(data_id)
-
-
-                    let id_bp = $(this).closest('.modal').attr('id_bp')
-                    let currency_to = $(this).find('.inp_currency_to').val()
-                    let id_currency = $(this).find('.inp_currency_to').attr('id_currency')
-                    let incv_wrute_off = $(this).find('.data_incv_wrute_off').val()
-                    let obj_data = {
-                        data_id: data_id,
-                        id_bp: id_bp,
-                        currency_to: currency_to,
-                        id_currency: id_currency,
-                        incv_wrute_off: incv_wrute_off,
-                    }
-                    arr_data_list_ins.push(obj_data)
+                // if (data_modal == '1') {
+                //     arr_data_list_del.push(data_id)
+                // }else{
+                //         arr_data_list_have.push(data_id)
+                //     }
+                // }else{
+                //     let data_id = $(this).attr('data_number_id') ? $(this).attr('data_number_id') : '';
+                //     if(data_modal == '0'){
+                let id_number = $(this).attr('data_number_id')
+                let id_bp = $(this).closest('.modal').attr('id_bp')
+                let currency_to = $(this).find('.inp_currency_to').val()
+                let id_currency = $(this).find('.inp_currency_to').attr('id_currency')
+                let incv_wrute_off = $(this).find('.data_incv_wrute_off').val()
+                let obj_data = {
+                    id_number : id_number,
+                    data_id: data_id,
+                    id_bp: id_bp,
+                    data_modal: data_modal,
                 }
-
-
-
-
-            } else {
-                let data_id = $(this).attr('data_number_id') ? $(this).attr('data_number_id') : '';
-                if (data_id != '') {
-                    arr_data_list_del.push(data_id)
-                }
+                arr_data_list_upd.push(obj_data)
+                arr_data_list_have.push(id_bp)
+                // }
             }
+            
 
 
         })
-        let data_join = arr_data_list.join(',')
+
+
+        let data_join = arr_data_list_have.join(',')
         let arr_data_title = []
-        let obj_data_title = {
-            id_payment: id_payment,
-            actual_pay: actual_pay,
-            data_join: data_join,
-        }
 
-        arr_data_title.push(obj_data_title)
+        let data_payment_place = $('.sel_data_payment_place').val()
+        let method_cash = $('.inp_method_cash').val()
+        let number_rec = $('.inp_number_rec').val()
+        let currency_main = $('.inp_currency_main').val()
+        let number_payment_record = $('.inp_number_payment_record').val()
+        let payment_date = $('.inp_payment_date').val()
+        let bank_account = $('.inp_bank_account').val()
+        let remark_data_modal = $('.inp_remark_data_modal').val()
 
-        // console.log(arr_data_title)
-        // console.log(arr_data_list_del)
+        let amount_all_write_off = $('.inp_amount_all_write_off').val()
+        let amount_all = $('.inp_amount_all').val()
+        let data_number_rec = $('.inp_number_rec').val()
+        let number_payment_rec = $('.inp_number_payment_record').val()
 
-        let res_data_save = await this.ajax_save_data(arr_data_title, arr_data_list_del, arr_data_list_ins)
 
-        if (res_data_save['billing_payment'] == '1') {
-            Swal.fire(
-                'Save it!',
-                'Your file has been save.',
-                'success'
-            )
-            await $('#modal_account_payment').modal('toggle');
-            await start.select_filter();
+        let payment_document = $('.inp_payment_document').val()
+        
+        let acual_payment = $('.inp_acual_payment').val()
+        
+        let obj_data_title = {}
 
-        } else {
-            Swal.fire({
+        if (data_payment_place == "") {
+            await Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Data is problem pls. contact to tech team',
+                text: 'information not found in 收付地点 payment place',
             })
+            await $('.inp_number_rec').trigger('focus')
+        } else {
+            obj_data_title = {
+                id_payment: id_payment,
+                data_join: data_join,
+                data_payment_place : data_payment_place,
+                method_cash : method_cash,
+                number_rec : number_rec,
+                amount_all : amount_all,
+                currency_main : currency_main,
+                number_payment_record : number_payment_record,
+                payment_date : payment_date,
+                bank_account : bank_account,
+                remark_data_modal : remark_data_modal,
+                acual_payment : acual_payment,
+                amount_all_write_off : amount_all_write_off,
+                data_number_rec : data_number_rec,
+                payment_document : payment_document,
+                number_payment_rec : number_payment_rec,
+                
+            }
+            arr_data_title.push(obj_data_title)
+
+            // console.log(arr_data_list_upd)
+            
+            // console.log('teset123')
+            // console.log(arr_data_title)
+            // console.log(arr_data_list_upd)
+
+            let res_data_save = await this.ajax_save_data(arr_data_title, arr_data_list_upd)
+
+            if (res_data_save['billing_payment'] == '1') {
+                Swal.fire(
+                    'Save it!',
+                    'Your file has been save.',
+                    'success'
+                )
+                await $('#modal_account_payment').modal('toggle');
+                await start.select_filter();
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Data is problem pls. contact to tech team',
+                })
+            }
         }
+
     },
+
+    ajax_save_data: async function (arr_data_title, arr_data_list_upd) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment/save_reverse_processing.php",
+                data: {
+                    arr_data_title: arr_data_title,
+                    arr_data_list_upd : arr_data_list_upd,
+                },
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+
     ajax_request_data_list_add_on: function (data_consignee_find, data_payment_type, join_currenct_start, join_currenct_end) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -612,18 +775,13 @@ const process_part = {
 
     start_modal_add_on: async function (e) {
 
-        console.log(e)
         if ($('#modal_add_list').length >= 1) {
             $('#modal_add_list').remove()
         }
 
-
-
-
         // let data_currency = $('.inp_currency_main_write_off').val()
 
         let path_data = $('.table_list_data_processing tbody tr')
-        // console.log(path_data)
         let currenct_start = []
         let currenct_end = []
         let data_list_have = []
@@ -637,11 +795,8 @@ const process_part = {
         })
         currenct_start = $.unique(currenct_start)
         currenct_end = $.unique(currenct_end)
-        console.log(data_list_have)
         let join_currenct_start = currenct_start == '' ? '' : currenct_start.join(',');
         let join_currenct_end = currenct_end == '' ? '' : currenct_end.join(',');
-        // console.log(join_currenct_start)
-        // console.log(join_currenct_end)
         let data_consignee_find = $('.inp_consignee_data_detail').val()
         let data_payment_type = $('.inp_payment_type').val() == "Receiv" ? "AR" : "AP";
 
@@ -661,13 +816,11 @@ const process_part = {
             })
         }
 
-        console.log(data_cuurency_all)
         arr_data_sys_rate = $.unique(data_cuurency_all)
         arr_data_sys_rate = arr_data_sys_rate.join(',')
 
         let res_data_currency = await start.ajax_setting_main_currency(arr_data_sys_rate)
         this.res_data_currency1 = res_data_currency;
-        console.log(this.res_data_currency1)
 
 
         let html_modal_list = `
@@ -745,54 +898,50 @@ const process_part = {
         join_currenct_end != '' ? $('.sel_currency_end').val(join_currenct_end).attr('disabled', true) : '';
         $('.table_data_new_list tbody').html('');
         let table_add_on_data_list = $('.sel_currency_end').val()
-        // console.log(html_data_on_list)
         if (res_data['table'] != "0 results") {
 
             $.each(res_data['table'], function (i, v) {
                 let id_number = v['ID'] ? v['ID'] : '';
                 let html_data_on_list = '';
 
-                    i++;
-                    let job_number = v['job_number'] ? v['job_number'] : '';
-                    let billing_description = v['billing_description'] ? v['billing_description'] : '';
-                    let currency = v['currency'] ? v['currency'] : '';
-                    let amtinclvat = v['amtinclvat'] ? v['amtinclvat'] : '';
-                    let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
-                    let currency_main = v['currency_main'] ? v['currency_main'] : '';
+                i++;
+                let job_number = v['job_number'] ? v['job_number'] : '';
+                let billing_description = v['billing_description'] ? v['billing_description'] : '';
+                let currency = v['currency'] ? v['currency'] : '';
+                let amtinclvat = v['amtinclvat'] ? v['amtinclvat'] : '';
+                let sys_rate = v['sys_rate'] ? v['sys_rate'] : '';
+                let currency_main = v['currency_main'] ? v['currency_main'] : '';
 
-                    let vat = v['vat'] ? v['vat'] : '';
-                    let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
-                    let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
-                    let remark = v['remark'] ? v['remark'] : '';
-                    let sale_support_f = v['sale_support_f'] ? v['sale_support_f'] : '';
-                    let sale_support_l = v['sale_support_l'] ? v['sale_support_l'] : '';
-                    let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
+                let vat = v['vat'] ? v['vat'] : '';
+                let with_holding_tax = v['with_holding_tax'] ? v['with_holding_tax'] : '';
+                let bill_to_c = v['bill_to_c'] ? v['bill_to_c'] : '';
+                let remark = v['remark'] ? v['remark'] : '';
+                let sale_support_f = v['sale_support_f'] ? v['sale_support_f'] : '';
+                let sale_support_l = v['sale_support_l'] ? v['sale_support_l'] : '';
+                let create_data_time = v['create_data_time'] ? v['create_data_time'] : '';
 
-                    let qty = v['qty'] ? v['qty'] : '0';
-                    let unit_price = v['unit_price'] ? v['unit_price'] : '0';
-                    qty = parseFloat(qty)
-                    unit_price = parseFloat(unit_price)
-                    let data_amt_not_vat = qty * unit_price
-                    data_amt_not_vat = data_amt_not_vat.toFixed(2)
+                let qty = v['qty'] ? v['qty'] : '0';
+                let unit_price = v['unit_price'] ? v['unit_price'] : '0';
+                qty = parseFloat(qty)
+                unit_price = parseFloat(unit_price)
+                let data_amt_not_vat = qty * unit_price
+                data_amt_not_vat = data_amt_not_vat.toFixed(2)
 
 
-                    // let id_number = v['ID'] ? v['ID'] : '';
-                    let currency_data = '';
-                    let id_currency = '';
-                    $.each(res_data_currency['currency'], function (i1, v1) {
-                        let job_number_check = v1['job_number'] ? v1['job_number'] : ''
-                        if (job_number_check == job_number) {
-                            // console.log(8888)
-                            id_currency = v1['ID'] ? v1['ID'] : '';
-                            currency_data = v1[`${currency + '_' + table_add_on_data_list}`] ? v1[`${currency + '_' + table_add_on_data_list}`] : '1'
-                            // console.log(currency_data)
-                        }
-                    })
-                    // console.log(currency_data)
-                    let amt_data = amtinclvat * currency_data
-                    amt_data = parseFloat(amt_data)
-                    amt_data = amt_data.toFixed(2)
-                    html_data_on_list = `
+                // let id_number = v['ID'] ? v['ID'] : '';
+                let currency_data = '';
+                let id_currency = '';
+                $.each(res_data_currency['currency'], function (i1, v1) {
+                    let job_number_check = v1['job_number'] ? v1['job_number'] : ''
+                    if (job_number_check == job_number) {
+                        id_currency = v1['ID'] ? v1['ID'] : '';
+                        currency_data = v1[`${currency + '_' + table_add_on_data_list}`] ? v1[`${currency + '_' + table_add_on_data_list}`] : '1'
+                    }
+                })
+                let amt_data = amtinclvat * currency_data
+                amt_data = parseFloat(amt_data)
+                amt_data = amt_data.toFixed(2)
+                html_data_on_list = `
                         <tr class="id_number_${id_number}" id_number="${id_number}">
                             <td class="text-center">${i}</td>
                             <td class="text-center"><input type="checkbox"  style="zoom:150%" class="data_check_box_new_list" ></td>
@@ -816,19 +965,15 @@ const process_part = {
                         </tr>
                         `;
 
-                    // console.log(html_data_on_list)
                 $('.table_add_on_data_list').append(html_data_on_list)
-                // console.log(html_data_on_list)
             })
         }
 
         let data_path_new_list = $('.table_data_new_list tbody tr')
-        $.each(data_path_new_list,function(){
+        $.each(data_path_new_list, function () {
             let data_id_number = $(this).attr('id_number')
-            // console.log(data_id_number)
-            $.each(data_list_have,function(i,v){
-                if(v == data_id_number){
-                    console.log(888)
+            $.each(data_list_have, function (i, v) {
+                if (v == data_id_number) {
                     $(`.table_data_new_list > tbody > .id_number_${v}`).remove()
                 }
             })
@@ -874,18 +1019,17 @@ const process_part = {
                 arr_data.push(obj_data)
             }
         })
-        // console.log(arr_data)
         $(`#modal_add_list`).modal('hide')
 
         arr_check_currency = $.unique(arr_check_currency)
         arr_check_currency = arr_check_currency.length
-        if(arr_check_currency > 1){
+        if (arr_check_currency > 1) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please select same currency',
             })
-        }else{
+        } else {
             let html_data_list = '';
 
             $.each(arr_data, function (i, v) {
@@ -904,23 +1048,22 @@ const process_part = {
                 html_data_list += `
                     <tr class="text-center" data_number_id="${id_number}">
                         <td></td>
-                        <td><input type="checkbox" style="zoom:150%" class="chex_box_modal chx_as_box_modal" onchange="process_part.check_before_save()" onclick="process_part.cal_data()"></td>
+                        <td><input type="checkbox" style="zoom:150%" class="chex_box_modal chx_as_box_modal" onchange="process_part.cancle_in_row(this)" onclick="process_part.cal_data('reverse')"></td>
                         <td><input class="form-control form-control-sm" readonly value="${data_job_number}"></td>
                         <td><input class="form-control form-control-sm" readonly value="${bill_to}"></td>
                         <td><input class="form-control form-control-sm text-center currency_start" readonly value="${cur}"></td>
                         <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
                         <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
                         <td><input class="form-control form-control-sm text-end inp_total" readonly value="${total_amt}"></td>
-                        <td><input class="form-control form-control-sm text-center" readonly value="${sysrate_data}"></td>
-                        <td><input class="form-control form-control-sm text-center inp_currency_to" id_currency="${id_currency}" readonly value="${currency_bpl}"></td>
-                        <td><input class="form-control form-control-sm text-end data_incv_wrute_off" readonly value="${amount_bpl}"></td>
+                        <td><input class="form-control form-control-sm text-center inp_sysrate" readonly value="${sysrate_data}"></td>
+                        <td><input class="form-control form-control-sm text-center inp_currency_to inp_currency_to" id_currency="${id_currency}" readonly value="${currency_bpl}"></td>
+                        <td><input class="form-control form-control-sm text-end data_incv_wrute_off data_incv_wrute_off" readonly value="${amount_bpl}"></td>
                         <td><input class="form-control form-control-sm" readonly value=""></td>
                         <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
                     </tr>
                 `;
 
             })
-            // console.log(html_data_list)
             $('.body_main_add').append(html_data_list)
             let data_row = $('.table_list_data_processing tbody tr').length
             let path_data = $('.table_list_data_processing tbody tr')
@@ -938,13 +1081,13 @@ const process_part = {
             $('.inp_number_payment_record').val(data_row)
             $('.inp_currency_main_write_off').val(data_currency_main)
             $('.inp_currency_main').val(data_currency_main)
-            await this.cal_data();
+            await this.cal_data('reverse');
 
         }
 
 
 
-        
+
 
     },
 
@@ -958,7 +1101,6 @@ const process_part = {
             data_amtincv = parseFloat(data_amtincv)
             let data_sysrateyrate = '';
             let id_number = $(this).attr('id_number')
-            console.log(process_part.res_data_currency1['currency'])
             $.each(process_part.res_data_currency1['currency'], function (i, v) {
                 let job_number_data_check = v['job_number'] ? v['job_number'] : '';
                 currenct_start = currenct_start.toLowerCase()
@@ -968,7 +1110,6 @@ const process_part = {
                 }
             })
 
-            console.log(data_sysrateyrate)
             let data_cal = data_amtincv * data_sysrateyrate
             data_cal = data_cal.toFixed(2)
             value_select = value_select.toUpperCase()
@@ -979,30 +1120,12 @@ const process_part = {
         })
     },
 
-    ajax_save_data: async function (arr_data_title, arr_data_list, arr_data_list_ins) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "post",
-                url: "php/account_payment/save_reverse_processing.php",
-                data: {
-                    arr_data_title: arr_data_title,
-                    arr_data_list: arr_data_list,
-                    arr_data_list_ins: arr_data_list_ins,
-                },
-                dataType: "json",
-                success: function (res) {
-                    resolve(res);
-                },
-            });
-        });
-    },
-
-    open_pic : async function (data) {
+    open_pic: async function (data) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/account_payment/open_pic.php",
-                data: {data  : data},
+                data: { data: data },
                 dataType: "json",
                 success: function (res) {
                     var newTab = window.open();
@@ -1012,5 +1135,5 @@ const process_part = {
         });
     },
 
-    
+
 }

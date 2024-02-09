@@ -222,7 +222,7 @@ require 'function/auth/get_session.php';
                                 </select>
                             </div>
                             <div class="col-xl-1 col-lg-1"><label for="">Actual AMT</label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_actual_amt_total text-end" disabled onchange="start.select_filter()"></div>
+                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_actual_amt_total text-end" disabled ></div>
                         </div>
                     </div>
                 </div>

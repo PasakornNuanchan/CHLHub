@@ -55,7 +55,7 @@ const function_sub_billing = {
         rows_cal++;
 
         html_data_ar = `
-        <tr list_id = "" type = "AR">
+            <tr list_id = "" type = "AR">
                 <td class="text-center headcol">
                     <button class="btn btn-danger btn-sm btn_del_ar btn_delete_list_billing" onclick="function_sub_billing.delete_list_add_new(this)"><i class="bi bi-trash"></i></button>
                 </td>
@@ -83,7 +83,7 @@ const function_sub_billing = {
                                             <option value="5">5%</option>
                                             <option value="7">7%</option>
                                         </select></td><!-- with holding tax -->
-                <td class="text-center"><input class="form-control form-control-sm text-end inp_vat_exc"></td>
+                <td class="text-center"><input class="form-control form-control-sm text-end inp_vat_exc" disabled></td>
                 <td><input type="text" class="form-control form-control-sm inp_amt_inc_vat_ar  text-end " disabled></td><!-- AMT(INCL.vat) -->
                 <td class="text-center long"><input type="text" class="form-control form-control-sm text-center ch_revd_amt_ar " disabled ></td><!-- rcvd amt -->
                 <td class="long"><input type="text" class="form-control form-control-sm inp_remark"></td>  <!-- remark -->
@@ -166,6 +166,8 @@ const function_sub_billing = {
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- last modifier date -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker  -->
             <td><input type="text" class="form-control form-control-sm" disabled></td><!-- checker date -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- approve  -->
+            <td><input type="text" class="form-control form-control-sm" disabled></td><!-- approve date -->
         </tr>
         `;
         $('.table_billing_ap > tbody').append(html_data_ap)

@@ -22,8 +22,8 @@ $get_container_type = "SELECT ID,container_type_name,container_type_full_name FR
 $get_supplier = "SELECT ID,transport_sup_name FROM transport_sup";
 $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
 $sql_shipping_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '3'";
-$sql_cs_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '4'";
-$sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '6'";
+$sql_cs_user = "SELECT ID,first_name,last_name FROM user";
+$sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '22'";
 $sql_get_bill_to_ar = "
 SELECT
     1 AS TYPE,

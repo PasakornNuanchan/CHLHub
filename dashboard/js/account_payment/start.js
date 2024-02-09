@@ -102,7 +102,7 @@ const start = {
                 html_data = `
                     <tr class="row_data${id_number}" id_number="${id_number}">
                         <td class="text-center sticky-column">${i}</td><!-- No -->
-                        <td class="text-center sticky-column"><input type="checkbox" class="cbx_data" name="cbx_data${id_number}" style="zoom:200%;" onchange="start.cal_currency()"></td><!-- check -->
+                        <td class="text-center sticky-column"><input type="checkbox" class="cbx_data" name="cbx_data${id_number}" style="zoom:200%;" onclick="start.check_non_currency(this)" onchange="start.cal_currency()"></td><!-- check -->
                         <td class="text-center sticky-column"><input type="text" class="form-control form-control-sm inp_job_number" ></td><!-- Job number -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_bill_to" ></td><!-- bill to -->
                         <td class="text-center"><input type="text" class="form-control form-control-sm inp_cur text-center" ></td><!-- currency -->
@@ -175,67 +175,80 @@ const start = {
             })
 
         }
+        
+
         await this.cal_currency();
-        await this.data_cal_sysrate();
         await start.change_currency();
+
+        await this.data_cal_sysrate();
 
     },
 
     change_currency: async function () {
         let data_val = $(`.inp_currency_main_change`).val()
         $(`.table tbody tr td .inp_sysrate_to`).val(data_val)
-        let res_data_currency = this.data_res_data_currency
+        // let res_data_currency = this.data_res_data_currency
         // console.log(res_data_currency)
         // console.log(res_data_currency)
         let e_path = $('.table_payment > tbody tr')
-        // console.log(e_path)
-        $.each(e_path, function () {
-            let currency = $(this).find('.inp_cur').val()
-            let currency_to = $(this).find('.inp_sysrate_to').val()
-            let job_number = $(this).find('.inp_job_number').val()
-            let write_off = $(this).find('.inp_write_off').val()
-            let lcurrency = currency.toLowerCase();
-            let lcurrency_to = currency_to.toLowerCase();
-            let data_find = 0;
-            let data_cal = 0;
-            let data_currency_id = '';
-            // console.log(lcurrency + "_" + lcurrency_to)
-            $.each(res_data_currency['currency'], function (i, v) {
-                if (v['job_number'] == job_number) {
-                    data_find = v[`${lcurrency + "_" + lcurrency_to}`] ? v[`${lcurrency + "_" + lcurrency_to}`] : 1 ;
-                    // console.log(data_find)
-                    data_cal = parseFloat(data_find * write_off)
-                    data_cal = data_cal.toFixed(2)
-                    data_currency_id = v['data_currency_id'];
-                    return;
-                }
-            })
-            $(this).find('.inp_sysrate').val(data_find).attr("data_currency_id", `${data_currency_id}`)
-            $(this).find('.inp_amt_incv_write_off').val(data_cal)
+
+        let arr_data_find = []
+        $.each(e_path,function(){
+            let data_job_number = $(this).find('.inp_job_number').val()
+            arr_data_find.push(data_job_number)
         })
 
 
-        // $.each(res_data_currency['currency'],function(i1,va){
-        //     lcurrency = currency.toLowerCase();
-        //     lcurrency_select_main = currency_select_main.toLowerCase();
+        arr_data_find = $.unique(arr_data_find)
+        
+        let join_arr_data_find = arr_data_find.join(`','`)
+        console.log(join_arr_data_find)
+        let res_data_cal_curreny = await this.ajax_get_data_currency(join_arr_data_find)
 
+        console.log(res_data_cal_curreny)
+        data_val = data_val.toLowerCase()
+        $.each(res_data_cal_curreny['currency'],function(i,v){
+            let job_number = v['job_number'] ? v['job_number'] : '';
+            $.each(e_path,function(){
+                let job_number_serach = $(this).find('.inp_job_number').val()
 
-        //     let job_number_va = va['job_number'] ? va['job_number'] : '';
-
-        //     let data_find = '';
-        //     if(job_number_va == job_number){
-        //         data_find = va[`${lcurrency+"_"+lcurrency_select_main}`]
-
-
-
-
-        //     }
-
-        // })
-
+                if(job_number == job_number_serach){
+                    let currency_main = $(this).find('.inp_cur').val()
+                    let currency_main_l = currency_main.toLowerCase()
+                    
+                    let data_currency = '0';
+                    if(currency_main_l == data_val){
+                        data_currency = 1;
+                    }else{
+                        data_currency = v[`${currency_main_l}_${data_val}`]? v[`${currency_main_l}_${data_val}`] : 'non currency' ;
+                    }
+                    $(this).find('.inp_sysrate').val(data_currency)
+                }
+            })
+        })
+       
+        let path = $('.table_payment > tbody > tr')
+        $.each(path,function(){
+            console.log($(this).find('.cbx_data').prop('checked',false))
+        })
 
         await this.cal_currency();
+        await this.data_cal_sysrate();
+        await this.cal_data_actual();
+    },
 
+    ajax_get_data_currency : async function(join_arr_data_find){
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment/get_cal_currency.php",
+                dataType: "json",
+                data: { join_arr_data_find: join_arr_data_find },
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
     },
 
     ajax_setting_main_currency: async function (arr_data_sys_rate) {
@@ -404,80 +417,92 @@ const start = {
         $('.table_payment thead').append(thead_rprocess)
         $('.table_payment tbody').html('')
         // console.log(res_data)
-        $.each(res_data['table'], function (i, v) {
-            let id_number = v['ID'] ? v['ID'] : '';
-            let ref_billing_id = v['ref_billing_id'] ? v['ref_billing_id'] : '';
-            let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
-            let paid_by = v['paid_by'] ? v['paid_by'] : '';
-            let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
-            let status_billing = v['status_billing'] ? v['status_billing'] : '';
-            let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
-            let document_payment = v['document_payment'] ? v['document_payment'] : '';
-            let type_document = v['type_document'] ? v['type_document'] : '';
-            let pay_at = v['pay_at'] ? v['pay_at'] : '';
-            let tranfer_method = v['tranfer_method'] ? v['tranfer_method'] : '';
-            let total_payment = v['total_payment'] ? v['total_payment'] : '';
-            let bank_account = v['bank_account'] ? v['bank_account'] : '';
-            let payment_date = v['payment_date'] ? v['payment_date'] : '';
-            let write_off_date = v['write_off_date'] ? v['write_off_date'] : '';
-            let remark = v['remark'] ? v['remark'] : '';
-            let ref_billing = v['ref_billing'] ? v['ref_billing'] : '';
-            let bank_code = v['bank_code'] ? v['bank_code'] : '';
-            let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
-            let currency_start = v['currency_start'] ? v['currency_start'] : '';
-            let currency_end = v['currency_end'] ? v['currency_end'] : '';
-            let hanler = v['hanler'] ? v['hanler'] : '';
-            let sale = v['sale'] ? v['sale'] : '';
-            let job_number = v['job_number'] ? v['job_number']: '';
-            let total_start = v['total_start'] ? v['total_start']: "0.00";
-            let hanler_data = v['hanler_data'] ? v['hanler_data'] : '';
-            let sale_data = v['sale_data'] ? v['sale_data'] : '';
-            // console.log(job_number)
-            // console.log(total_start)
-            i++;
-            let html_data = `
-            <tr id_process="${id_number}" class="row_id_number${id_number}">
-                <td class="text-center">${i}</td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_document_payment"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_consignee"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_writeoff_date"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_currency_start"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-end inp_total_start"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_job_number_data"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_currency_end"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-end inp_total_end"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_remark_data_list"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_handler"></td>
-                <td><input style="width:100%;"class="form-control form-control-sm text-center inp_saleman"></td>
-                <td class="text-center"><button class="btn btn-sm btn-warning" onclick="process_part.process_reverse(${id_number})">edit</button></td>
-
-            </tr>
-            `;
-
-
-            $('.table_payment > tbody').append(html_data)
-
-            $(`.row_id_number${id_number} > td > .inp_document_payment`).val(document_payment).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_consignee`).val(consignee_name).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_writeoff_date`).val(write_off_date).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_currency_start`).val(currency_start).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_total_start`).val(total_start).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_job_number_data`).val(job_number).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_currency_end`).val(currency_end).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_total_end`).val(paid_amt).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(remark).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_handler`).val(hanler_data).attr('disabled', true)
-            $(`.row_id_number${id_number} > td > .inp_saleman`).val(sale_data).attr('disabled', true)
-            
-            // $(`.row_id_number${id_number} > td > .inp_total_start`).val(write_off_date).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_job_number_data`).val(write_off_date).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_currency_end`).val(write_off_date).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_total_end`).val(total_payment).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(write_off_date).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_handler`).val(write_off_date).attr('disabled', true)
-            // $(`.row_id_number${id_number} > td > .inp_saleman`).val(write_off_date).attr('disabled', true)
-            
-        })
+        if(res_data['table'] != "0 results"){
+            $.each(res_data['table'], function (i, v) {
+                let id_number = v['ID'] ? v['ID'] : '';
+                let ref_billing_id = v['ref_billing_id'] ? v['ref_billing_id'] : '';
+                let ref_job_id = v['ref_job_id'] ? v['ref_job_id'] : '';
+                let paid_by = v['paid_by'] ? v['paid_by'] : '';
+                let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
+                let status_billing = v['status_billing'] ? v['status_billing'] : '';
+                let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
+                let document_payment = v['document_payment'] ? v['document_payment'] : '';
+                let type_document = v['type_document'] ? v['type_document'] : '';
+                let pay_at = v['pay_at'] ? v['pay_at'] : '';
+                let tranfer_method = v['tranfer_method'] ? v['tranfer_method'] : '';
+                let total_payment = v['total_payment'] ? v['total_payment'] : '';
+                let bank_account = v['bank_account'] ? v['bank_account'] : '';
+                let payment_date = v['payment_date'] ? v['payment_date'] : '';
+                let write_off_date = v['write_off_date'] ? v['write_off_date'] : '';
+                let remark = v['remark'] ? v['remark'] : '';
+                let ref_billing = v['ref_billing'] ? v['ref_billing'] : '';
+                let bank_code = v['bank_code'] ? v['bank_code'] : '';
+                let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
+                let currency_start = v['currency_start'] ? v['currency_start'] : '';
+                let currency_end = v['currency_end'] ? v['currency_end'] : '';
+                let hanler = v['hanler'] ? v['hanler'] : '';
+                let sale = v['sale'] ? v['sale'] : '';
+                let job_number = v['job_number'] ? v['job_number']: '';
+                let total_start = v['total_start'] ? v['total_start']: "0.00";
+                let hanler_data = v['hanler_data'] ? v['hanler_data'] : '';
+                let sale_data = v['sale_data'] ? v['sale_data'] : '';
+    
+                
+                let actual_total_payment = v['actual_total_payment'] ? v['actual_total_payment'] : '';
+    
+                paid_amt = parseFloat(paid_amt)
+                actual_total_payment = parseFloat(actual_total_payment)
+    
+                paid_amt = paid_amt.toFixed(2)
+                actual_total_payment = actual_total_payment.toFixed(2)
+                // console.log(job_number)
+                // console.log(total_start)
+                i++;
+                let html_data = `
+                <tr id_process="${id_number}" class="row_id_number${id_number}">
+                    <td class="text-center">${i}</td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_document_payment"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_consignee"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_writeoff_date"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_currency_start"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-end inp_total_start"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_job_number_data"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_currency_end"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-end inp_total_end"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_remark_data_list"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_handler"></td>
+                    <td><input style="width:100%;"class="form-control form-control-sm text-center inp_saleman"></td>
+                    <td class="text-center"><button class="btn btn-sm btn-warning" onclick="process_part.process_reverse(${id_number})">edit</button></td>
+    
+                </tr>
+                `;
+    
+    
+                $('.table_payment > tbody').append(html_data)
+    
+                $(`.row_id_number${id_number} > td > .inp_document_payment`).val(document_payment).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_consignee`).val(consignee_name).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_writeoff_date`).val(write_off_date).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_currency_start`).val(currency_start).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_total_start`).val(paid_amt).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_job_number_data`).val(job_number).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_currency_end`).val(currency_end).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_total_end`).val(actual_total_payment).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(remark).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_handler`).val(hanler_data).attr('disabled', true)
+                $(`.row_id_number${id_number} > td > .inp_saleman`).val(sale_data).attr('disabled', true)
+                
+                // $(`.row_id_number${id_number} > td > .inp_total_start`).val(write_off_date).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_job_number_data`).val(write_off_date).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_currency_end`).val(write_off_date).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_total_end`).val(total_payment).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(write_off_date).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_handler`).val(write_off_date).attr('disabled', true)
+                // $(`.row_id_number${id_number} > td > .inp_saleman`).val(write_off_date).attr('disabled', true)
+                
+            })
+        }
+        
 
         this.data_get_table_reverse = res_data
 
@@ -523,7 +548,7 @@ const start = {
 
 
 
-    cal_currency: async function () {
+    cal_currency: async function () {   
         let e_path = $('.table > tbody > tr');
 
         let data_currency_usd = 0;
@@ -669,6 +694,7 @@ const start = {
         let arr_data_customer = []
         let arr_data_sale = []
 
+
         let arr_check_lunch = []
         $.each(e_path, function () {
             let data_check_prop = $(this).find('.cbx_data').prop("checked") ? '1' : '0';
@@ -732,7 +758,8 @@ const start = {
                 })
             } else {
                 i = 0;
-                $.each(e_path, function () {
+                
+                $.each(e_path,async function () {
                     let data_check_prop = $(this).find('.cbx_data').prop("checked") ? '1' : '0';
                     if (data_check_prop == '1') {
                         i++;
@@ -746,6 +773,8 @@ const start = {
                         let writen = $(this).find('.inp_writen').val()
                         let write_off = $(this).find('.inp_write_off').val()
                         let sysrate = $(this).find('.inp_sysrate').val()
+
+                        
                         let sysrate_to = $(this).find('.inp_sysrate_to').val()
                         let amt_incv_write_off = $(this).find('.inp_amt_incv_write_off').val()
                         let vat = $(this).find('.inp_vat').val()
@@ -763,22 +792,23 @@ const start = {
                         html_modal_data_table += `
                             <tr class="text-center" data_number_id="${id_number}">
                                 <td>${i}</td>
-                                <td><input type="checkbox" style="zoom:150%" class="chex_box_modal" checked="" onchange="start.condition_data_on_modal()"></td>
+                                <td><input type="checkbox" style="zoom:150%" class="chex_box_modal" checked=""  onchange="start.cal_data_hide_process(this)"></td>
                                 <td><input class="form-control form-control-sm" readonly value="${data_job_number}"></td>
                                 <td><input class="form-control form-control-sm" readonly value="${bill_to}"></td>
-                                <td><input class="form-control form-control-sm text-center" readonly value="${cur}"></td>
+                                <td><input class="form-control form-control-sm text-center inp_currency" readonly value="${cur}"></td>
                                 <td><input class="form-control form-control-sm text-end" readonly value="${total_amt}"></td>
                                 <td><input class="form-control form-control-sm text-end" readonly value="${writen}"></td>
-                                <td><input class="form-control form-control-sm text-end" readonly value="${write_off}"></td>
-                                <td><input class="form-control form-control-sm text-center data_currency" readonly data_currency_id="${data_currency_id}" value="${sysrate}"></td>
-                                <td><input class="form-control form-control-sm text-center inp_currency_to"  readonly value="${sysrate_to}"></td>
-                                <td><input class="form-control form-control-sm text-end data_incv_wrute_off" readonly value="${amt_incv_write_off}"></td>
+                                <td><input class="form-control form-control-sm text-end data_settelment" real_data="${write_off}" readonly value="${write_off}"></td>
+                                <td><input class="form-control form-control-sm text-center data_currency" real_data="${sysrate}" readonly data_currency_id="${data_currency_id}" value="${sysrate}"></td>
+                                <td><input class="form-control form-control-sm text-center inp_currency_to"  real_data="${sysrate_to}" readonly value="${sysrate_to}"></td>
+                                <td><input class="form-control form-control-sm text-end data_incv_wrute_off" real_data="${amt_incv_write_off}" readonly value="${amt_incv_write_off}"></td>
                                 <td><input class="form-control form-control-sm" readonly value=""></td>
                                 <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
                             </td>
                             `;
                     }
                 })
+
                 html = `
                         <div class="modal" id="modal_account_payment" data-bs-backdrop="true">
                             <div class="modal-dialog modal-xl ">
@@ -893,6 +923,7 @@ const start = {
                                                             </div>
                                                             <div class="col-lg-7">
                                                                 <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                                                    <option value="">-- select --</option>
                                                                     <option value="TH">TH</option>
                                                                     <option value="CN">CN</option>
                                                                     <option value="HK">HK</option>
@@ -904,13 +935,21 @@ const start = {
                                                     <div class="col-3">
                                                         <div class="row">
                                                             <div class="col-lg-5">
-                                                                <label for="">实际付款总额 Actual total payment</label>
+                                                                <label for="">实际收款总额 Actual total payment</label>
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <input type="text" class="form-control form-control-sm text-end inp_amount_all">
                                                             </div>
                                                             <div class="col-lg-3">
-                                                                <input type="text" class="form-control form-control-sm text-center inp_currency_main">
+                                                                <!--<input type="text" class="form-control form-control-sm text-center inp_currency_main">-->
+                                                                <select class="form-select form-select-sm text-center inp_currency_main">
+                                                                    <option value="">-- select -- </option>
+                                                                    <option value="THB">THB</option>
+                                                                    <option value="USD">USD</option>
+                                                                    <option value="RMB">RMB</option>
+                                                                    <option value="YEN">YEN</option>
+                                                                    <option value="HKD">HKD</option>
+                                                                </select>
                                                                 <input type="hidden" class="form-control form-control-sm text-center inp_currency_start">
                                                             </div>
                                                         </div>
@@ -941,10 +980,11 @@ const start = {
                                                     <div class="col-3">
                                                         <div class="row">
                                                             <div class="col-lg-5">
-                                                                <label for="">付款方式 payment method</label>
+                                                                <label for="">收款方式 payment method</label>
                                                             </div>
                                                             <div class="col-lg-7">
                                                                 <select class="form-select form-select-sm inp_method_cash">
+                                                                    <option value="">-- select --</option>
                                                                     <option value="tranfer">Tranfer</option>
                                                                     <option value="cash">Cash</option>
                                                                     <option value="hedge">Hedge</option>
@@ -955,7 +995,7 @@ const start = {
                                                     <div class="col-3">
                                                         <div class="row">
                                                             <div class="col-lg-5">
-                                                                <label for="">付款记录数 number of payment records</label>
+                                                                <label for="">收款记录数 number of payment records</label>
                                                             </div>
                                                             <div class="col-lg-7">
                                                                 <input type="text" class="form-control form-control-sm inp_number_payment_record">
@@ -1113,38 +1153,59 @@ const start = {
                 
                 //inp_amount_all_write_off
                 //inp_currency_main_write_off
-                let path_table = $('.table_payment > tbody > tr');
+                let path_table = $('.table_list_data_processing > tbody > tr');
                 let data_all_amount = 0;
                 let count_all = 0;
                 $.each(path_table, function () {
-                    let data_cbx = $(this).find('.cbx_data').prop('checked') ? '1' : '0';
+                    let data_cbx = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
+                    console.log(data_cbx)
                     if (data_cbx == '1') {
                         count_all++;
-                        let data_all_amount_cal = parseFloat($(this).find('.inp_amt_incv_write_off').val())
+                        let data_amount = $(this).find('.data_incv_wrute_off').val()
+                        // console.log(data_amount)
+                        let data_all_amount_cal = parseFloat(data_amount)
                         data_all_amount = data_all_amount + data_all_amount_cal
+                        // console.log(data_all_amount)
                     }
 
                 })
+
                 data_all_amount = data_all_amount.toFixed(2)
+
                 get_total_data_incl_all = get_total_data_incl_all.toFixed(2)
 
+                let currentDate = new Date().toJSON().slice(0, 10);
+                console.log(currentDate); // "2022-06-17"
 
-
-                $('.inp_acual_payment').val(get_total_incl).attr('disabled', true)// 
+                
+                // console.log(data_date_now)
+                get_total_incl = parseFloat(get_total_incl)
+                get_total_incl = get_total_incl.toFixed(2)
+                $('.inp_acual_payment').val('0')// 
                 $('.inp_payment_type').val(data_radio_select_type).attr('disabled', true)
-                $('.inp_amount_all').val(get_total_data_incl_all).attr('disabled', true)
-                $('.inp_currency_main').val(data_val).attr('disabled', true)
-                $('.inp_number_payment_record').val(count_all).attr('disabled', true)
+                // $('.inp_amount_all').val(get_total_data_incl_all)
+                $('.inp_amount_all').val('0.00')
+                $('.inp_currency_main').val('')
+                $('.inp_number_payment_record').val('0')
+                // $('.inp_number_payment_record').val('')
                 $('.inp_sale_man').val(data_sale).attr('disabled', true).attr('data_sale',data_sale_support_number)
                 $('.inp_consignee_data_detail').val(data_unique_customer).attr('disabled', true)
-                $('.inp_handler').val(data_create).attr('disabled', true).attr('data_hanler',data_cs_support_number)
+                // $('.inp_handler').val(data_create).attr('disabled', true).attr('data_hanler',data_cs_support_number)
                 $('.inp_currency_start').val(arr_currency_data[0])
 
-                $('.inp_number_rec').val(i).attr('disabled', true)
+                $('.inp_write_off_date').val(currentDate).attr('disabled',true)
+                
+                // await $('.inp_write_off_date').val(Date()).attr('disabled',true)
+                
+                $('.inp_number_rec').val('0')
                 $('#modal_account_payment').modal('show')
 
                 $('.inp_amount_all_write_off').val(data_all_amount).attr('disabled', true)
-                $('.inp_currency_main_write_off').val(data_val).attr('disabled', true)
+
+                
+                let data_inp_currency = $('.table_list_data_processing tbody tr td').find('.inp_currency_to').val()
+
+                $('.inp_currency_main_write_off').val(data_inp_currency).attr('disabled', true)
 
                 let res_data_bank = await this.ajax_get_bank_data();
                 let data_bank_account = '';
@@ -1157,6 +1218,12 @@ const start = {
                     })
                     $('.inp_bank_account').append(data_bank_account)
                 }
+                console.log(res_data_bank)
+                let data_first_name_user_ = res_data_bank['user_data_get'][0]['first_name']
+                let data_last_name_user_ = res_data_bank['user_data_get'][0]['last_name']
+                let data_ID_user_ = res_data_bank['user_data_get'][0]['ID']
+                $('.inp_handler').val(data_first_name_user_+" "+data_last_name_user_).attr({'data_user':data_ID_user_,'disabled':true})
+
                 // console.log(res_data_bank['bank'])
                 await this.set_payment_place();
 
@@ -1195,31 +1262,59 @@ const start = {
         });
     },
 
+    cal_data_hide_process : async function(e){
+        let data_check_prop = $(e).closest('tr').find('.chex_box_modal').prop("checked") ? '1' : '0';
 
+        if(data_check_prop == '1'){
+            
+            let settelment = $(e).closest('tr').find('.data_settelment').attr('real_data')
+            let incv_wrute_off = $(e).closest('tr').find('.data_incv_wrute_off').attr('real_data')
+            let data_currency = $(e).closest('tr').find('.data_currency').attr('real_data')
+            let inp_currency_to = $(e).closest('tr').find('.inp_currency_to').attr('real_data')
+            $(e).closest('tr').find('.data_settelment').val(settelment)
+            $(e).closest('tr').find('.data_incv_wrute_off').val(incv_wrute_off)
+            $(e).closest('tr').find('.data_currency').val(data_currency)
+            $(e).closest('tr').find('.inp_currency_to').val(inp_currency_to)
+        }else{
+            $(e).closest('tr').find('.data_settelment').val('0.00')
+            $(e).closest('tr').find('.data_incv_wrute_off').val('0.00')
+            $(e).closest('tr').find('.data_currency').val('')
+            $(e).closest('tr').find('.inp_currency_to').val('')
+        }
 
-
-    condition_data_on_modal: async function () {
-        // console.log(8888)
         let e_path = $('.table tbody tr')
-        let data_cal_currency = 0;
+        let data_cal_settelment = 0;
         let bdo = 0;
+        
         $.each(e_path, function () {
 
             let data_check_prop = $(this).find('.chex_box_modal').prop("checked") ? '1' : '0';
             if (data_check_prop == '1') {
                 bdo++;
-                let data_incv_wrute = $(this).find('.data_incv_wrute_off').val()
-                data_incv_wrute = parseFloat(data_incv_wrute)
-                data_cal_currency = data_cal_currency + data_incv_wrute
+                let data_settlement = $(this).find('.data_settelment').val()
+
+
+                data_settlement = parseFloat(data_settlement)
+                data_cal_settelment = data_cal_settelment + data_settlement
             }
         })
-        // console.log(data_cal_currency)
-        data_cal_currency = data_cal_currency.toFixed(2)
-        $('.inp_amount_all').val(data_cal_currency)
-        $('.inp_number_rec').val(bdo)
-        // $('.inp_amount_all').val(data_cal_currency)
-        // console.log(data_cal_currency)
+        data_cal_settelment = data_cal_settelment.toFixed(2)
+        $('.inp_amount_all_write_off').val(data_cal_settelment)
+        $('.inp_acual_payment').val(data_cal_settelment)
+
     },
+
+
+    // condition_data_on_modal: async function () {
+    //     // console.log(8888)
+        
+    //     // console.log(data_cal_currency)
+    //     // data_cal_currency = data_cal_currency.toFixed(2)
+    //     // $('.inp_amount_all').val(data_cal_currency)
+    //     // $('.inp_number_rec').val(bdo)
+    //     // $('.inp_amount_all').val(data_cal_currency)
+    //     // console.log(data_cal_currency)
+    // },
 
     select_all_check: async function () {
         $('.table_payment tbody tr td .cbx_data').prop('checked', true)
@@ -1239,12 +1334,16 @@ const start = {
         let write_off_date = $('.inp_write_off_date').val()
         let bank_account = $('.inp_bank_account').val()
         let remark_data = $('.inp_remark_data_modal').val()
-        
+        let number_data = $('.inp_number_rec').val()
+        let number_paymenr_rec = $('.inp_number_payment_record').val()
+
+
         let base_64_file = $('.inp_file_receipt').prop('files')[0];
+        // console.log(base_64_file)
         let data_currency_start = $('.inp_currency_start').val()
         let data_currency_write_off = $('.inp_currency_main_write_off').val()
-        let data_hanler = $('.inp_handler').attr('data_hanler')
-        let data_sale = $('.inp_sale').attr('data_sale')
+        let data_hanler = $('.inp_handler').attr('data_user')
+        let data_sale = $('.inp_sale_man').attr('data_sale')
         let payment_type = patment_document_number.substring(0, 2);
         // console.log(data_currency_start)
         // console.log(data_currency_write_off)
@@ -1263,16 +1362,22 @@ const start = {
 
         let arr_data_get_number_check = []
         $.each(e_path, function () {
-            let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
-            if (data_check == '1') {
+            // let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
+            // if (data_check == '1') {
                 let data_number_id = $(this).attr('data_number_id')
                 arr_data_get_number_check.push(data_number_id)
-            }
+            // }
         })
 
         // console.log(base_64_file)
         arr_data_get_number_check = arr_data_get_number_check.join(',')
         // console.log(arr_data_get_number_check)
+
+        let amount_all_write_off = $('.inp_amount_all_write_off').val()
+        let currency_main_write_off = $('.inp_currency_main_write_off').val()
+        let amount_all = $('.inp_amount_all').val()
+        let currency_main = $('.inp_currency_main').val()
+        let acual_payment = $('.inp_acual_payment').val()
 
         let arr_data_get_title = []
         let obj_data_get_title = {
@@ -1295,28 +1400,35 @@ const start = {
             data_hanler : data_hanler,
             data_sale : data_sale,
             Base_64_file_base: Base_64_file_base,
+            amount_all_write_off : amount_all_write_off,
+            currency_main_write_off : currency_main_write_off,
+            amount_all : amount_all,
+            currency_main : currency_main,
+            acual_payment : acual_payment,
+            number_data: number_data,
+            number_paymenr_rec: number_paymenr_rec,
         }
         arr_data_get_title.push(obj_data_get_title)
 
         let arr_data_get_list = []
         $.each(e_path, function () {
             let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
-            let data_currency_to = $(this).find('.inp_currency_to').val()
-            if (data_check == '1') {
+            let data_currency_to = $(this).find('.inp_currency_to').attr('real_data')
+            // if (data_check == '1') {
                 let data_number_id = $(this).attr('data_number_id')
                 let data_currency = $(this).find('.data_currency').attr('data_currency_id')
-                let amount = $(this).find('.data_incv_wrute_off').val()
+                let amount = $(this).find('.data_incv_wrute_off').attr('real_data')
                 let obj_data = {
                     data_number_id: data_number_id,
                     amount: amount,
+                    data_check : data_check,
                     currency: data_currency_to,
                     data_currency: data_currency,
                 }
                 arr_data_get_list.push(obj_data)
-            }
+            // }
         })
-        console.log(arr_data_get_title)
-        // console.log(arr_data_get_list)
+        
 
         if (arr_data_get_list.length < 1) {
             Swal.fire({
@@ -1325,32 +1437,24 @@ const start = {
                 text: 'Please select checked on list for save',
             })
             return;
-        } else {
-            if (payment_date == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please enter payment date',
-                })
-            } else if (bank_account == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please choose bank account',
-                })
-            } else if (write_off_date == '') {
+
+        }else if(payment_place == ''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select payment place',
+            })
+            return;
+        }else {
+            if (write_off_date == '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Please enter write off date',
                 })
-            } else if (base_64_file == undefined) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'please choose pictrue file',
-                })
             } else {
+                // console.log(arr_data_get_title)
+                // console.log(arr_data_get_list)
                 let res_data = await this.ajax_save_data_payment(arr_data_get_title, arr_data_get_list)
                 // console.log(res_data)
                 if (res_data['res_detail_title'] == '1' && res_data['res_detail_list'] == '1') {
@@ -1403,6 +1507,34 @@ const start = {
 
 
     },
+
+    check_non_currency : async function(e){
+        let data_sysrate = $(e).closest('tr').find('.inp_sysrate').val()
+        if(data_sysrate == 'non currency'){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please talk to coco for update currency',
+            })
+        $(e).closest('tr').find('.cbx_data').prop('checked',false)
+
+        }
+        await this.cal_data_actual();
+    },
+
+    cal_data_actual : async function(){
+        let e_path = $('.table_payment tbody tr')
+        let data_cal = 0;
+        $.each(e_path,function(){
+            let data_checked = $(this).find('.cbx_data').prop("checked") ? '1' : '0'
+            if(data_checked == '1'){
+                let data_amt_all = $(this).find('.inp_amt_incv_write_off').val() ? $(this).find('.inp_amt_incv_write_off').val() : 0;
+                data_amt_all = parseFloat(data_amt_all)
+                data_cal = data_cal+data_amt_all
+            }
+        })
+        $('.inp_actual_amt_total').val(data_cal)
+    }, 
 
 
 

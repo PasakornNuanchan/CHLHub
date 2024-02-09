@@ -14,12 +14,12 @@ const function_act = {
                     let payment = $(this).closest('tr').find('.inp_payment_term').val()
                     
 
-                    if(bank_number == '' || payment == ''){
+                    if( payment == ''){
                         data_check_save = '1'
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'List number xxx information bank or payment term is unvaliable please enter your data',
+                            text: 'information payment term is unvaliable please re-check your data',
                         })
                     }else{
                         if(bank_number != '' || payment != ''){

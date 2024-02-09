@@ -13,6 +13,8 @@ SELECT
     bpl.id_refer_bp,
     bpl.amount as amount_bpl,
     bpl.currency as currency_bpl,
+    bpl.status_list,
+    bpl.currency_number,
     bp.ID,
     bp.billing_description,
     bp.job_number,

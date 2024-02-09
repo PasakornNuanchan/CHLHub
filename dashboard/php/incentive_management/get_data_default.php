@@ -14,7 +14,7 @@ SELECT
 FROM
     `user`
 WHERE
-    department_number = '6'
+    department_number IN ('6','22')
 ";
 
 $sql_request_data_client = "

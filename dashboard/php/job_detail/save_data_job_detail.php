@@ -309,7 +309,6 @@ echo json_encode(array(
     'arr_data_container_information' => $arr_data_container_information,
     'arr_data_job_title' => $arr_data_job_title,
     'arr_data_delete_container' => $arr_data_delete_container,
-    'arr_data_save_container' => $arr_data_save_container,
     'arr_hbl_data' => $arr_hbl_data,
 ))
 ?>

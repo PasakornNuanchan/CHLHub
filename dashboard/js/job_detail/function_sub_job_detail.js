@@ -153,7 +153,7 @@ const function_sub_job_detail = {
                 //console.log()
                 let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl,this.arr_delete_hbl)
 
-                if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_data_save_container'] == '1' || res_return['arr_hbl_data'] == '1') {
+                if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_hbl_data'] == '1') {
                     Swal.fire(
                         'saved!',
                         'Your data has been saved.',
@@ -417,27 +417,40 @@ const function_sub_job_detail = {
     },
 
     generate_job : async function(){
-        let data_month = $('.inp_month_check').val()
-        let data_type = $('.inp_type_generate').val()
 
-        let data_year = data_month.substr(0,4)
-        let data_monthly = data_month.substr(5,3)
-        let full_my = data_year+data_monthly;
-
-        let res_data = await this.ajax_request_generate_job(full_my)
-       
-        let job_cal = '';
-        if(res_data == "0 results"){
-            job_cal = full_my+"000";
+        let data_type_gen = $('.inp_type_generate').val()
+        if(data_type_gen == ''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select type before generate.',
+            })
         }else{
-            job_cal = res_data.substr(1)
+            let data_month = $('.inp_month_check').val()
+            let data_type = $('.inp_type_generate').val()
+    
+            let data_year = data_month.substr(0,4)
+            let data_monthly = data_month.substr(5,3)
+            let full_my = data_year+data_monthly;
+    
+            console.log(full_my)
+            let res_data = await this.ajax_request_generate_job(full_my)
+           
+            let job_cal = '';
+            if(res_data == "0 results"){
+                job_cal = full_my+"000";
+            }else{
+                job_cal = res_data.substr(1)
+            }
+    
+            job_cal = parseFloat(job_cal)
+            job_cal = job_cal+1
+        
+            let text_job = data_type+(job_cal);
+            $('.inp_jobnumber').val(text_job)
         }
 
-        job_cal = parseFloat(job_cal)
-        job_cal = job_cal+1
-    
-        let text_job = data_type+(job_cal);
-        $('.inp_jobnumber').val(text_job)
+        
     },
 
     ajax_request_generate_job : function (full_my) {

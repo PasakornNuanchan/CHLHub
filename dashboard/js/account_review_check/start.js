@@ -53,14 +53,15 @@ const start = {
         }
         // console.log(res_data_bank)
 
-
+        let data_count_row = 0;
         $.each(res_data['table'], function (i, v) {
+            data_count_row++;
             if (v.length > 1) {
                 let data_head_html = `
                     <tr class="main_table${i} main_table table_data_main${i}" main_table="${i}" style="background-color:#E4E4E4" >
                         <td class="sticky-left text-center" style="background-color:#E4E4E4"><input type="checkbox" onclick="start.check_sub_table(this)" class="data_check" onchange="start.cal_currency()" style="zoom:200%"></td>
                         <td class="sticky-left text-center" style="background-color:#E4E4E4"><button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}">List</button></td>
-                        <td class="sticky-left text-center" style="background-color:#E4E4E4"></td>
+                        <td class="sticky-left text-center" style="background-color:#E4E4E4">${data_count_row}</td>
                         <td class="sticky-left" style="background-color:#E4E4E4"><input type="text" class="form-control form-control-sm text-start inp_job_number_main" disabled></td>
                         <td class="sticky-left" style="background-color:#E4E4E4"><input type="text" class="form-control form-control-sm text-start inp_bill_to_main" disabled></td>
                         <td class="sticky-left" style="background-color:#E4E4E4"><input type="text" class="form-control form-control-sm text-start inp_description_main" disabled></td>
@@ -148,7 +149,7 @@ const start = {
                         <tr id_number="${id_number}" id="collapse${i}" sub_table="${i}" class="table_number_${id_number} sub_table${i} collapse collapse_data_${i} main_table${i}" style="background-color:#B5CAFF">
                             <td class="sticky-left text-center" style="background-color:#B5CAFF"><input type="checkbox" class="data_check" onclick="start.check_and_uncheck_sub(this)" onchange="start.cal_currency()"  style="zoom:200%"></td>
                             <td class="sticky-left text-center" style="background-color:#B5CAFF"><button class="btn btn-sm btn-warning btn_sent_job" onclick="start.sent_to_job_detail('${ref_job_id}','${id_number}')">reverse</button></td>
-                            <td class="sticky-left text-center" style="background-color:#B5CAFF"></td>
+                            <td class="sticky-left text-center" style="background-color:#B5CAFF">${data_count_row}</td>
                             <td class="sticky-left" style="background-color:#B5CAFF"><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
                             <td class="sticky-left" style="background-color:#B5CAFF"><input type="text" class="form-control form-control-sm text-start inp_bill_to" disabled></td>
                             <td class="sticky-left" style="background-color:#B5CAFF"><input type="text" class="form-control form-control-sm text-start inp_description" disabled></td>
@@ -272,8 +273,16 @@ const start = {
                     let bill_to = v1['bill_to'] ? v1['bill_to'] : '';
                     let data_select_bank = ``;
                     let approve_by = v1['approve_by'] ? v1['approve_by'] : '';
-
-
+                    let amount_paid = v1['amount_paid'] ? v1['amount_paid'] : '';
+                    let currency_paid = v1['currency_paid'] ? v1['currency_paid'] : '';
+                    // console.log(amount_paid)
+                    if(amount_paid != ''){
+                        amount_paid = parseFloat(amount_paid)
+                        amount_paid = amount_paid.toFixed(2)
+                    }
+                    
+                    console.log(amount_paid)
+                
                     qty = parseFloat(qty)
                     unit_price = parseFloat(unit_price)
                     amtinclvat = parseFloat(amtinclvat)
@@ -285,7 +294,7 @@ const start = {
                         <tr id_number="${id_number}"  class="table_number_${id_number}" >
                             <td class="sticky-left text-center"><input type="checkbox" class="data_check" onclick="start.check_and_uncheck_sub(this)" onchange="start.cal_currency()"  style="zoom:200%"></td>
                             <td class="sticky-left text-center"><button class="btn btn-sm btn-warning btn_sent_job" onclick="start.sent_to_job_detail('${ref_job_id}','${id_number}')">reverse</button></td>
-                            <td class="sticky-left text-center"></td>
+                            <td class="sticky-left text-center">${data_count_row}</td>
                             <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_job_number" disabled></td>
                             <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_bill_to" disabled></td>
                             <td class="sticky-left"><input type="text" class="form-control form-control-sm text-start inp_description" disabled></td>

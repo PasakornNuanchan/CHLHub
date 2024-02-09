@@ -28,14 +28,14 @@ const start = {
                 <tr>
                     <td class="text-center">${i}</td>
                     <td><input type="text" class="form-control form-control-sm" disabled value="${type_document}"></td>
-                    <td><input type="text" class="form-control form-control-sm" disabled value="${document_payment}"></td>
-                    <td><input type="text" class="form-control form-control-sm" disabled value="${data_docuemnt}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_document_payment" disabled value="${document_payment}"></td>
+                    <td><input type="text" class="form-control form-control-sm " disabled value="${data_docuemnt}"></td>
                     <td><input type="text" class="form-control form-control-sm text-center" disabled value="${payment_date}"></td>
                     <td><input type="text" class="form-control form-control-sm" disabled value="${consignee_name}"></td>
-                    <td><input type="text" class="form-control form-control-sm" disabled value="${job_number}"></td>
+                    <td><input type="text" class="form-control form-control-sm inp_job_number" disabled value="${job_number}"></td>
                     <td><input type="text" class="form-control form-control-sm text-center" disabled value="${currency}"></td>
                     <td><input type="text" class="form-control form-control-sm text-end" disabled value="${amount}"></td>
-                    <td><input type="text" class="form-control form-control-sm text-center" disabled value="${bank_account_data}"></td>
+                    <td><input type="text" class="form-control form-control-sm text-center inp_bank_account" disabled value="${bank_account_data}"></td>
                     <td><input type="text" class="form-control form-control-sm" disabled value="${remark}"></td>
 
                 </tr>
@@ -43,10 +43,62 @@ const start = {
             
             $('.table_payment > tbody').append(html_data)
         })
-
     },
 
 
+    gen_default : async function(){
+        let path = $('.table_payment tbody tr')
+        let arr_data_document_payment = []
+        let arr_data_bank_account = []
+        let arr_data_job_number = []
+
+        $.each(path,function(){
+            let data_document = $(this).find('.inp_document_payment').val()
+            if(!arr_data_document_payment.includes(data_document)){
+                arr_data_document_payment.push(data_document)
+            }
+
+            let bank_account_data =  $(this).find('.inp_bank_account').val()
+            if(!arr_data_bank_account.includes(bank_account_data)){
+                arr_data_bank_account.push(bank_account_data)
+            }
+            
+            let job_number =  $(this).find('.inp_job_number').val()
+            if(job_number != ''){
+                if(!arr_data_job_number.includes(job_number)){
+                    arr_data_job_number.push(job_number)
+                }
+            }
+            
+        })
+
+        let html_data_document_payment = '';
+        let html_data_bank_account = '';
+        let html_data_job_number = '';
+
+        $.each(arr_data_document_payment,function(i,v){
+            html_data_document_payment += `<option>${v}</option>`;
+        })
+        $('.list_document_number').append(html_data_document_payment)
+
+        $.each(arr_data_bank_account,function(i,v){
+            html_data_bank_account += `<option value="${v}">${v}</option>`;
+        })
+        $('.inp_bank_account_search').append(html_data_bank_account)
+
+        $.each(arr_data_job_number,function(i,v){
+            html_data_job_number += `<option>${v}</option>`;
+        })
+        $('.list_job_number').append(html_data_job_number)
+// inp_document_number_search
+// inp_job_number_search
+// inp_bank_account_search
+
+        console.log(arr_data_document_payment)
+        console.log(arr_data_bank_account)
+        console.log(arr_data_job_number)
+
+    },
 
     mark_active: async function (e) {
         $('.active_side').removeClass('active_side');
@@ -55,49 +107,45 @@ const start = {
     },
 
     select_filter: async function () {
-        let data_radio_select_type = $('input[name="radio_function_paid"]:checked').val();
-        let job_number = $('.inp_job_number_filter').val() ? $('.inp_job_number_filter').val() : '';
-        // $('.table_payment thead').html('')
-        let data_data_id = '';
-        let data_data_type = '';
-        let data_name_type = '';
-        $.each($('.data_sic > div > button'), function () {
-            let data_hasclass = $(this).hasClass('active_side')
-            if (data_hasclass == true) {
-                data_data_id = $(this).attr('data_id')
-                data_data_type = $(this).attr('data_type')
-                data_name_type = $(this).attr('name_type')
-            }
-        })
-        let res_data = await this.ajax_setting_data(
-            data_radio_select_type,
-            data_data_id,
-            data_data_type,
-            data_name_type,
-            job_number
-        )
+        let data_radio_select_type = $('input[name="radio_function_paid"]:checked').val() == 'ALL' ? '' : $('input[name="radio_function_paid"]:checked').val();
+        let data_document_number_search = $('.inp_document_number_search').val()
+        let data_job_number_search = $('.inp_job_number_search').val()
+        let data_currency_search = $('.inp_currency_search').val() == 'ALL' ? '' : $('.inp_currency_search').val();
+        let data_bank_account_search = $('.inp_bank_account_search').val()
+        let data_active_cnee = $('.active_side').attr('name_type') == '0' ? '' : $('.active_side').attr('name_type');
+
+        let data_sent = {
+            data_radio_select_type : data_radio_select_type,
+            data_document_number_search : data_document_number_search,
+            data_job_number_search : data_job_number_search,
+            data_currency_search : data_currency_search,
+            data_bank_account_search : data_bank_account_search,
+            data_active_cnee : data_active_cnee,
+        }
+
+        console.log(data_sent)
+        // let data_data_id = '';
+        // let data_data_type = '';
+        // let data_name_type = '';
+        // $.each($('.data_sic > div > button'), function () {
+        //     let data_hasclass = $(this).hasClass('active_side')
+        //     if (data_hasclass == true) {
+        //         data_data_id = $(this).attr('data_id')
+        //         data_data_type = $(this).attr('data_type')
+        //         data_name_type = $(this).attr('name_type')
+        //     }
+        // })
+        let res_data = await this.ajax_setting_data(data_sent)
         await this.start_setting_table(res_data)
     },
 
-    ajax_setting_data: async function (
-        data_radio_select_type,
-        data_data_id,
-        data_data_type,
-        data_name_type,
-        job_number
-    ) {
+    ajax_setting_data: async function (data_sent) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/account_payment_statement/get_data_table.php",
                 dataType: "json",
-                data: {
-                    data_radio_select_type: data_radio_select_type,
-                    data_data_id: data_data_id,
-                    data_data_type: data_data_type,
-                    data_name_type: data_name_type,
-                    job_number: job_number,
-                },
+                data: {data_sent:data_sent},
                 success: function (res) {
                     resolve(res);
                 },

@@ -68,7 +68,9 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.pre_approve_dt,
       b.pre_approve_status,
       b.payment_term,
-      b.bank_number
+      b.bank_number,
+      (SELECT bpl.amount FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID ) amount_paid,
+      (SELECT bpl.currency FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID ) currency_paid
   FROM
       billing b
   WHERE b.type = 'AP' AND action_paid_by IS NOT NULL
@@ -87,7 +89,10 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     // $billing_code
     // $data_applied_person
     // $data_date_applied
-    // $radio_p
+    
+
+    // if($radio_p == "")
+
     if($radio_type == "AP"){
       $data_type_find = "
       b.type='$radio_type'
@@ -109,7 +114,7 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     $data_date_applied
     ";
 
-
+    $radio_pa = $radio_p == "paid" ? "AND amount_paid IS NOT NULL" : '';
     $job_number = $job_number ? "AND job_number = '$job_number'" : '';
     $billing_code = $billing_code ? "AND billing_description = '$billing_code'" : '';
     $data_name_type = $data_name_type ? "AND bill_to_c = '$data_name_type'" : '';
@@ -119,6 +124,7 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
     $billing_code
     $job_number
     $data_name_type
+    $radio_pa
     ";
   }
 
@@ -179,7 +185,10 @@ if ($billing_code == '' && $data_applied_person == '' && $data_date_applied == '
       b.pre_approve_dt,
       b.pre_approve_status,
       b.payment_term,
-      b.bank_number
+      b.bank_number,
+      (SELECT bpl.amount FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID ) amount_paid,
+      (SELECT bpl.currency FROM billing_payment_list bpl WHERE bpl.data_number_id = b.ID ) currency_paid
+
   FROM
       billing b
       $data_find_where
@@ -226,3 +235,4 @@ if ($result->num_rows > 0) {
 
 
 echo json_encode(array('table' => $arr_get_to_table));
+
