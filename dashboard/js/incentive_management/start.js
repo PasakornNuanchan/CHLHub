@@ -49,7 +49,17 @@ const start = {
                  <td><input type="text" class="form-control form-control-sm inp_vsl"></td>
              </tr>
              `;
-             $('.table_process > tbody').append(html_data_table_proces)
+
+            ar_amt = parseFloat(ar_amt)
+            rcvd_amt = parseFloat(rcvd_amt)
+            ap_amt = parseFloat(ap_amt)
+            paid_amt = parseFloat(paid_amt)
+            ar_amt = ar_amt.toFixed(2)
+            rcvd_amt = rcvd_amt.toFixed(2)
+            ap_amt = ap_amt.toFixed(2)
+            paid_amt = paid_amt.toFixed(2)
+
+            $('.table_process > tbody').append(html_data_table_proces)
             $(`.row_id${id_job_number} td > .inp_job_number`).val(job_number).attr('disabled',true)
             $(`.row_id${id_job_number} td > .inp_client`).val(bill_to_c).attr('disabled',true)
             $(`.row_id${id_job_number} td > .inp_sale_name`).val(f_name_sale+' '+l_name_sale).attr('disabled',true)
@@ -155,6 +165,7 @@ const start = {
         }
 
         let res_data = await this.ajax_request_data_modal();
+        console.log(res_data)
         this.data_on_modal_setting = res_data;
         let html_data_data_modal = '';
         $.each(res_data['user_data_modal'], function (i, v) {

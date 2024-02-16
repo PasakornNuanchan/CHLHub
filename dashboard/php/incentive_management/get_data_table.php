@@ -117,11 +117,11 @@ if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $table_data[] = $row;
 
-    if($row['user_sale'] != ''){
-      if(in_array(,$data_get_uesr) != $row['user_sale']){
-        $data_get_user[] = $row['user_sale'];
-      }
-    }
+    // if($row['user_sale'] != ''){
+    //   if(in_array(,$data_get_uesr) != $row['user_sale']){
+    //     $data_get_user[] = $row['user_sale'];
+    //   }
+    // }
   }
 } else {
   $table_data = "0 results";
@@ -130,13 +130,13 @@ if ($result->num_rows > 0) {
 
 
 
-if($table_data != "0 results"){
-  $data_implode_get_user = implode(",",$data_get_user);
-  $sql_data_get_user = "
-  SELECT * FROM user WHERE ID IN ($data_implode_get_user)
-  ";
-  echo $sql_data_get_user;
-}
+// if($table_data != "0 results"){
+//   $data_implode_get_user = implode(",",$data_get_user);
+//   $sql_data_get_user = "
+//   SELECT * FROM user WHERE ID IN ($data_implode_get_user)
+//   ";
+//   echo $sql_data_get_user;
+// }
 
 echo json_encode(array('table'=>$table,'spend'=>$spend,'table_data'=>$table_data));
 

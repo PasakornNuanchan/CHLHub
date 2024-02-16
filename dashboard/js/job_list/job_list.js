@@ -47,7 +47,7 @@ const job_list = {
                 order: [[0, 'desc']]
             });
             data.forEach(function (item) {
-                var last_button = '<button type="button" onclick="job_list.set_to_page_up(' + item.ID + ')"  class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</button>'
+                var last_button = '<a target="_blank" href="job_detail.php?job_number='+item.ID+'&action=preview"  class="btn btn-primary rounded-pill btn-sm bg-gradient" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"><i class="bi bi-eye"></i> Preview</a>'
                 table.row.add([
                 last_button,
                 item.job_number,
@@ -61,6 +61,8 @@ const job_list = {
                 ]).draw();
             });
         });
+
+
     },
 
     set_to_page_up : async function(data){
