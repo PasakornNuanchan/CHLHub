@@ -8,9 +8,8 @@ const start = {
 
 
     start_setting_table: async function (e) {
-
-        $('.table_payment > tbody').html('')
         console.log(e)
+        $('.table_payment > tbody').html('')
         $.each(e['table'], function (i, v) {
             i++;
             let type_document = v['type_document'] ? v['type_document'] : '';
@@ -58,10 +57,6 @@ const start = {
                 arr_data_document_payment.push(data_document)
             }
 
-            let bank_account_data =  $(this).find('.inp_bank_account').val()
-            if(!arr_data_bank_account.includes(bank_account_data)){
-                arr_data_bank_account.push(bank_account_data)
-            }
             
             let job_number =  $(this).find('.inp_job_number').val()
             if(job_number != ''){
@@ -81,24 +76,46 @@ const start = {
         })
         $('.list_document_number').append(html_data_document_payment)
 
-        $.each(arr_data_bank_account,function(i,v){
-            html_data_bank_account += `<option value="${v}">${v}</option>`;
-        })
-        $('.inp_bank_account_search').append(html_data_bank_account)
 
         $.each(arr_data_job_number,function(i,v){
             html_data_job_number += `<option>${v}</option>`;
         })
         $('.list_job_number').append(html_data_job_number)
-// inp_document_number_search
-// inp_job_number_search
-// inp_bank_account_search
+        
+    },
 
-        console.log(arr_data_document_payment)
-        console.log(arr_data_bank_account)
-        console.log(arr_data_job_number)
+    append_data_bank_detail : async function(){
+
+        let res_data = await this.ajax_get_bank_detail()
+        let html_data = ''
+        $.each(res_data['bank'],function(i,v){
+            let id_number = v['ID'] ? v['ID'] : '';
+            let bank_code = v['bank_code'] ? v['bank_code'] : '';
+            html_data += `<option value="${id_number}">${bank_code}</option>`;
+        })
+        $('.inp_bank_account_search').append(html_data)
+
 
     },
+
+    ajax_get_bank_detail : async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment_statement/get_bank_detail.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    
+
+
+
+    
 
     mark_active: async function (e) {
         $('.active_side').removeClass('active_side');

@@ -2,6 +2,7 @@ const start = {
     data_table: '',
     data_res_data_currency: '',
     data_get_table_reverse: '',
+    data_del_receipt : [],
     start_setting: async function () {
         $('.head-of-menu').html('Account payment')
     },
@@ -32,7 +33,7 @@ const start = {
         this.data_res_data_currency = '';
         this.data_res_data_currency = res_data_currency;
 
-        
+
         // res_data['table']['billing_description'].sort();
         if (res_data['table'] != "0 results") {
 
@@ -144,7 +145,6 @@ const start = {
                 let data_amt_not_vat = qty * unit_price
                 data_amt_not_vat = data_amt_not_vat.toFixed(2)
 
-                // console.log(data_amt_not_vat)
                 amtinclvat = parseFloat(amtinclvat)
                 amtinclvat = amtinclvat.toFixed(2)
                 $(`.table > tbody > .row_data${id_number} > td > .inp_job_number`).val(job_number).attr('disabled', true)
@@ -167,7 +167,6 @@ const start = {
 
 
                 // currency_select_main
-                // console.log(res_data_currency)
 
 
 
@@ -175,7 +174,7 @@ const start = {
             })
 
         }
-        
+
 
         await this.cal_currency();
         await start.change_currency();
@@ -188,48 +187,44 @@ const start = {
         let data_val = $(`.inp_currency_main_change`).val()
         $(`.table tbody tr td .inp_sysrate_to`).val(data_val)
         // let res_data_currency = this.data_res_data_currency
-        // console.log(res_data_currency)
-        // console.log(res_data_currency)
         let e_path = $('.table_payment > tbody tr')
 
         let arr_data_find = []
-        $.each(e_path,function(){
+        $.each(e_path, function () {
             let data_job_number = $(this).find('.inp_job_number').val()
             arr_data_find.push(data_job_number)
         })
 
 
         arr_data_find = $.unique(arr_data_find)
-        
+
         let join_arr_data_find = arr_data_find.join(`','`)
-        console.log(join_arr_data_find)
         let res_data_cal_curreny = await this.ajax_get_data_currency(join_arr_data_find)
 
-        console.log(res_data_cal_curreny)
         data_val = data_val.toLowerCase()
-        $.each(res_data_cal_curreny['currency'],function(i,v){
+        $.each(res_data_cal_curreny['currency'], function (i, v) {
             let job_number = v['job_number'] ? v['job_number'] : '';
-            $.each(e_path,function(){
+            $.each(e_path, function () {
                 let job_number_serach = $(this).find('.inp_job_number').val()
 
-                if(job_number == job_number_serach){
+                if (job_number == job_number_serach) {
                     let currency_main = $(this).find('.inp_cur').val()
                     let currency_main_l = currency_main.toLowerCase()
-                    
+
                     let data_currency = '0';
-                    if(currency_main_l == data_val){
+                    if (currency_main_l == data_val) {
                         data_currency = 1;
-                    }else{
-                        data_currency = v[`${currency_main_l}_${data_val}`]? v[`${currency_main_l}_${data_val}`] : 'non currency' ;
+                    } else {
+                        data_currency = v[`${currency_main_l}_${data_val}`] ? v[`${currency_main_l}_${data_val}`] : 'non currency';
                     }
                     $(this).find('.inp_sysrate').val(data_currency)
                 }
             })
         })
-       
+
         let path = $('.table_payment > tbody > tr')
-        $.each(path,function(){
-            console.log($(this).find('.cbx_data').prop('checked',false))
+        $.each(path, function () {
+            $(this).find('.cbx_data').prop('checked', false)
         })
 
         await this.cal_currency();
@@ -237,7 +232,7 @@ const start = {
         await this.cal_data_actual();
     },
 
-    ajax_get_data_currency : async function(join_arr_data_find){
+    ajax_get_data_currency: async function (join_arr_data_find) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -265,6 +260,7 @@ const start = {
         });
     },
 
+    
 
     ajax_setting_data: async function (
         data_radio_process,
@@ -373,7 +369,6 @@ const start = {
 
     setting_processing: async function (data_radio_select_type, job_number) {
         let res_data = await this.ajax_request_data_payment(data_radio_select_type, job_number)
-        // console.log(res_data)
         $('.table_payment thead').html('')
         $('.data_currency_usd').html('')
         $('.data_currency_thb').html('')
@@ -416,8 +411,7 @@ const start = {
             `;
         $('.table_payment thead').append(thead_rprocess)
         $('.table_payment tbody').html('')
-        // console.log(res_data)
-        if(res_data['table'] != "0 results"){
+        if (res_data['table'] != "0 results") {
             $.each(res_data['table'], function (i, v) {
                 let id_number = v['ID'] ? v['ID'] : '';
                 let ref_billing_id = v['ref_billing_id'] ? v['ref_billing_id'] : '';
@@ -442,21 +436,19 @@ const start = {
                 let currency_end = v['currency_end'] ? v['currency_end'] : '';
                 let hanler = v['hanler'] ? v['hanler'] : '';
                 let sale = v['sale'] ? v['sale'] : '';
-                let job_number = v['job_number'] ? v['job_number']: '';
-                let total_start = v['total_start'] ? v['total_start']: "0.00";
+                let job_number = v['job_number'] ? v['job_number'] : '';
+                let total_start = v['total_start'] ? v['total_start'] : "0.00";
                 let hanler_data = v['hanler_data'] ? v['hanler_data'] : '';
                 let sale_data = v['sale_data'] ? v['sale_data'] : '';
-    
-                
+
+
                 let actual_total_payment = v['actual_total_payment'] ? v['actual_total_payment'] : '';
-    
+
                 paid_amt = parseFloat(paid_amt)
                 actual_total_payment = parseFloat(actual_total_payment)
-    
+
                 paid_amt = paid_amt.toFixed(2)
                 actual_total_payment = actual_total_payment.toFixed(2)
-                // console.log(job_number)
-                // console.log(total_start)
                 i++;
                 let html_data = `
                 <tr id_process="${id_number}" class="row_id_number${id_number}">
@@ -476,10 +468,10 @@ const start = {
     
                 </tr>
                 `;
-    
-    
+
+
                 $('.table_payment > tbody').append(html_data)
-    
+
                 $(`.row_id_number${id_number} > td > .inp_document_payment`).val(document_payment).attr('disabled', true)
                 $(`.row_id_number${id_number} > td > .inp_consignee`).val(consignee_name).attr('disabled', true)
                 $(`.row_id_number${id_number} > td > .inp_writeoff_date`).val(write_off_date).attr('disabled', true)
@@ -491,7 +483,7 @@ const start = {
                 $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(remark).attr('disabled', true)
                 $(`.row_id_number${id_number} > td > .inp_handler`).val(hanler_data).attr('disabled', true)
                 $(`.row_id_number${id_number} > td > .inp_saleman`).val(sale_data).attr('disabled', true)
-                
+
                 // $(`.row_id_number${id_number} > td > .inp_total_start`).val(write_off_date).attr('disabled', true)
                 // $(`.row_id_number${id_number} > td > .inp_job_number_data`).val(write_off_date).attr('disabled', true)
                 // $(`.row_id_number${id_number} > td > .inp_currency_end`).val(write_off_date).attr('disabled', true)
@@ -499,10 +491,10 @@ const start = {
                 // $(`.row_id_number${id_number} > td > .inp_remark_data_list`).val(write_off_date).attr('disabled', true)
                 // $(`.row_id_number${id_number} > td > .inp_handler`).val(write_off_date).attr('disabled', true)
                 // $(`.row_id_number${id_number} > td > .inp_saleman`).val(write_off_date).attr('disabled', true)
-                
+
             })
         }
-        
+
 
         this.data_get_table_reverse = res_data
 
@@ -528,7 +520,6 @@ const start = {
 
 
     data_cal_sysrate: async function () {
-        // console.log(1)
         let e_path = $(`.table > tbody > tr`)
         $.each(e_path, function () {
 
@@ -548,7 +539,7 @@ const start = {
 
 
 
-    cal_currency: async function () {   
+    cal_currency: async function () {
         let e_path = $('.table > tbody > tr');
 
         let data_currency_usd = 0;
@@ -601,7 +592,6 @@ const start = {
             let inp_unit_price = $(this).find('.inp_amt_incv_write_off').val()
             let data_check = '';
             let id_number = $(this).attr('id_number');
-            // console.log(id_number)
             let data_radio_select_type = $(this).find(`.cbx_data`).prop("checked") ? '1' : '0';
 
             inp_unit_price = parseFloat(inp_unit_price)
@@ -721,27 +711,24 @@ const start = {
                     if (v == v1['ID']) {
                         let bill_to_type = v1['bill_to_type'] ? v1['bill_to_type'] : '';
                         let bill_to = v1['bill_to'] ? v1['bill_to'] : '';
-                        let currency_data = v1['currency'] ? v1['currency']: '';
+                        let currency_data = v1['currency'] ? v1['currency'] : '';
                         let main_find = bill_to_type + "_" + bill_to
-                        // console.log(main_find)
                         if (!arr_consignee_check !== main_find) {
                             arr_consignee_check.push(main_find)
                         }
-                        if(!arr_currency_data !== currency_data){
+                        if (!arr_currency_data !== currency_data) {
                             arr_currency_data.push(currency_data)
                         }
 
                     }
                 })
             })
-            
+
             // arr_consignee_check = arr_consignee_check.unique()
             arr_consignee_check = [...new Set(arr_consignee_check)];
-            //console.log(arr_consignee_check)
 
             arr_currency_data = [...new Set(arr_currency_data)];
             // arr_currency_data = arr_currency_data.join(',')
-            // console.log(arr_currency_data)
 
             if (arr_consignee_check.length > 1) {
                 Swal.fire({
@@ -750,7 +737,7 @@ const start = {
                     text: 'Consignee is not duplicate please change payment',
                 })
                 return;
-            }else if(arr_currency_data.length > 1){
+            } else if (arr_currency_data.length > 1) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -758,8 +745,8 @@ const start = {
                 })
             } else {
                 i = 0;
-                
-                $.each(e_path,async function () {
+
+                $.each(e_path, async function () {
                     let data_check_prop = $(this).find('.cbx_data').prop("checked") ? '1' : '0';
                     if (data_check_prop == '1') {
                         i++;
@@ -774,7 +761,7 @@ const start = {
                         let write_off = $(this).find('.inp_write_off').val()
                         let sysrate = $(this).find('.inp_sysrate').val()
 
-                        
+
                         let sysrate_to = $(this).find('.inp_sysrate_to').val()
                         let amt_incv_write_off = $(this).find('.inp_amt_incv_write_off').val()
                         let vat = $(this).find('.inp_vat').val()
@@ -810,8 +797,8 @@ const start = {
                 })
 
                 html = `
-                        <div class="modal" id="modal_account_payment" data-bs-backdrop="true">
-                            <div class="modal-dialog modal-xl ">
+                        <div class="modal" id="modal_account_payment" data-bs-backdrop="true" style="width:100%">
+                            <div class="modal-dialog modal-xl " style="width:100%">
                                 <div class="modal-content" style="box-shadow: 4px 4px 12px -1px rgba(0, 0, 0, 0.72); ">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Data processing</h4>
@@ -826,245 +813,245 @@ const start = {
                                                     <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                                 <!-- row 1 -->
-                                                <div class="row mt-2">
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">收付类型 Payment Type </label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_payment_type" >
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">结算单位 settlement unit</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">业务员 saleman</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_sale_man">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">销账日期 write-off date</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="date" class="form-control form-control-sm inp_write_off_date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- row2 -->
-                                                <div class="row mt-2">
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">收付单号 Payment receipt number</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_payment_document">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">系统销账总额 total system write-offs</label>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                    <!--    <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">Tranfer To Bank name</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_tranfer_to_bank_name">
-                                                            </div>
-                                                        </div> -->
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">经手人 handler</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_handler">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- row 3 -->
-                                                <div class="row mt-2">
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">收付地点 payment place</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
-                                                                    <option value="">-- select --</option>
-                                                                    <option value="TH">TH</option>
-                                                                    <option value="CN">CN</option>
-                                                                    <option value="HK">HK</option>
-                                                                    <option value="US">US</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">实际收款总额 Actual total payment</label>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <input type="text" class="form-control form-control-sm text-end inp_amount_all">
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <!--<input type="text" class="form-control form-control-sm text-center inp_currency_main">-->
-                                                                <select class="form-select form-select-sm text-center inp_currency_main">
-                                                                    <option value="">-- select -- </option>
-                                                                    <option value="THB">THB</option>
-                                                                    <option value="USD">USD</option>
-                                                                    <option value="RMB">RMB</option>
-                                                                    <option value="YEN">YEN</option>
-                                                                    <option value="HKD">HKD</option>
-                                                                </select>
-                                                                <input type="hidden" class="form-control form-control-sm text-center inp_currency_start">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <!-- <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">Tranfer to bank number</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_tranfer_to_bank_number">
-                                                            </div>
-                                                        </div> -->
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">备注 Remark</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_remark_data_modal">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- row4 -->
-                                                <div class="row mt-2">
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">收款方式 payment method</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <select class="form-select form-select-sm inp_method_cash">
-                                                                    <option value="">-- select --</option>
-                                                                    <option value="tranfer">Tranfer</option>
-                                                                    <option value="cash">Cash</option>
-                                                                    <option value="hedge">Hedge</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">收款记录数 number of payment records</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_number_payment_record">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                    <div class="text-center">
-                                                        <i class="bi bi-image" id="blah" src="" onclick="start.show_photo(this)"></i>
-                                                    </div>
-
-                                                        
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                                <div class="col-lg-5">
-                                                                    <label for="">Upload file receipt</label>
+                                                
+                                                <div class="row">
+                                                    <div class="col m-1" >
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">收付类型 Payment Type </label>
                                                                 </div>
-                                                                <div class="col-lg-7">
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_payment_type">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">收付单号 Payment receipt number</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_payment_document">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">收付地点 payment place</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                                                        <option value="">-- select --</option>
+                                                                        <option value="TH">TH</option>
+                                                                        <option value="CN">CN</option>
+                                                                        <option value="HK">HK</option>
+                                                                        <option value="US">US</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">收款方式 payment method</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <select class="form-select form-select-sm inp_method_cash">
+                                                                        <option value="">-- select --</option>
+                                                                        <option value="tranfer">Tranfer</option>
+                                                                        <option value="cash">Cash</option>
+                                                                        <option value="hedge">Hedge</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for>序号 number<label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_number_rec">
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                    <!-- row 2 -->
+                                                    <div class="col m-1">
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">结算单位 settlement unit</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">系统销账总额 total system write-offs</label>
+                                                                </div>
+                                                                <div class="col-lg-4" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
+                                                                </div>
+                                                                <div class="col-lg-3" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">实际收款总额 Actual total payment</label>
+                                                                </div>
+                                                                <div class="col-lg-4" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm text-end inp_amount_all" onchange="start.cal_data_actual_payment(this)">
+                                                                </div>
+                                                                <div class="col-lg-3" style="padding:1px">
+                                                                    <!--<input type="text" class="form-control form-control-sm text-center inp_currency_main">-->
+                                                                    <select class="form-select form-select-sm text-center inp_currency_main">
+                                                                        <option value="">-- select -- </option>
+                                                                        <option value="THB">THB</option>
+                                                                        <option value="USD">USD</option>
+                                                                        <option value="RMB">RMB</option>
+                                                                        <option value="YEN">YEN</option>
+                                                                        <option value="HKD">HKD</option>
+                                                                    </select>
+                                                                    <input type="hidden" class="form-control form-control-sm text-center inp_currency_start">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">收款记录数 number of payment records</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_number_payment_record">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">付款日期 payment date</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="date" class="form-control form-control-sm inp_payment_date">
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="col m-1">
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">业务员 saleman</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_sale_man">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                        <!-- <div class="col">
+                                                            <br>
+                                                            <i class="bi bi-image" id="blah" onclick="start.show_photo(this)"></i>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">上传文件收据 Upload file receipt</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
                                                                     <input type="file" class="form-control form-control-sm inp_file_receipt" onchange="readURL(this)">
                                                                 </div>
                                                             </div>
+                                                        </div> -->
+                                                        <!-- <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">银行账号 bank account</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <select class="form-select form-select-sm inp_bank_account">
+                                                                        <option value="">-- select bank account --</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="col m-1">
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">销账日期 write-off date</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="date" class="form-control form-control-sm inp_write_off_date">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">经手人 handler</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_handler">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px;">
+                                                                    <label for="">备注 Remark</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px;">
+                                                                    <textarea class="form-control inp_remark_data_modal" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col" style="padding:3px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-5" style="padding:1px">
+                                                                    <label for="">实际付款金额 actual payment amount</label>
+                                                                </div>
+                                                                <div class="col-lg-7" style="padding:1px">
+                                                                    <input type="text" class="form-control form-control-sm inp_acual_payment text-end">
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
-                                                <!-- row5 -->
-                                                <div class="row mt-2">
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for>序号 number<label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_number_rec">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">付款日期 payment date</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="date" class="form-control form-control-sm inp_payment_date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">银行账号 bank account</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <select class="form-select form-select-sm inp_bank_account">
-                                                                    <option value="">-- select bank account --</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="row">
-                                                            <div class="col-lg-5">
-                                                                <label for="">实际付款金额 actual payment amount</label>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <input type="text" class="form-control form-control-sm inp_acual_payment">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="table_picture mt-2" style="zoom:80%">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table_receipt">
+                                                    <thead>
+                                                        <tr class="text-center">
+                                                            <th>number record</th>
+                                                            <th>payment date</th>
+                                                            <th>Bank account</th>
+                                                            <th>currency</th>
+                                                            <th>acutal payment</th>
+                                                            <th>upload</th>
+                                                            <th>Receipt</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                                <button class="btn btn-outline-primary btn-sm" onclick="start.add_payment_modal()" style="width:100%">add payment</button>
                                             </div>
                                         </div>
                                         <div class="data_table mt-2" style="zoom:80%">
@@ -1106,7 +1093,6 @@ const start = {
 
                 let data_unique_customer = $.unique(arr_data_customer);
                 data_unique_customer = data_unique_customer.join(',')
-                // console.log(v1)
                 let data_all_sale = []
                 let data_all_create = []
                 let data_cs_support = []
@@ -1126,7 +1112,6 @@ const start = {
                     })
                 })
 
-                // console.log(this.data_table)
                 $.each(this.data_table['table'], function (i, v) {
                     $.each(arr_data_sale, function (i1, v1) {
                         if (v['ID'] == v1) {
@@ -1150,7 +1135,7 @@ const start = {
 
                 data_cs_support_number = data_cs_support_number.join(',')
                 data_sale_support_number = data_sale_support_number.join(',')
-                
+
                 //inp_amount_all_write_off
                 //inp_currency_main_write_off
                 let path_table = $('.table_list_data_processing > tbody > tr');
@@ -1158,14 +1143,11 @@ const start = {
                 let count_all = 0;
                 $.each(path_table, function () {
                     let data_cbx = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
-                    console.log(data_cbx)
                     if (data_cbx == '1') {
                         count_all++;
                         let data_amount = $(this).find('.data_incv_wrute_off').val()
-                        // console.log(data_amount)
                         let data_all_amount_cal = parseFloat(data_amount)
                         data_all_amount = data_all_amount + data_all_amount_cal
-                        // console.log(data_all_amount)
                     }
 
                 })
@@ -1175,34 +1157,32 @@ const start = {
                 get_total_data_incl_all = get_total_data_incl_all.toFixed(2)
 
                 let currentDate = new Date().toJSON().slice(0, 10);
-                console.log(currentDate); // "2022-06-17"
 
-                
-                // console.log(data_date_now)
+
                 get_total_incl = parseFloat(get_total_incl)
                 get_total_incl = get_total_incl.toFixed(2)
-                $('.inp_acual_payment').val('0')// 
+                // $('.inp_acual_payment').val('0')
                 $('.inp_payment_type').val(data_radio_select_type).attr('disabled', true)
                 // $('.inp_amount_all').val(get_total_data_incl_all)
                 $('.inp_amount_all').val('0.00')
                 $('.inp_currency_main').val('')
                 $('.inp_number_payment_record').val('0')
                 // $('.inp_number_payment_record').val('')
-                $('.inp_sale_man').val(data_sale).attr('disabled', true).attr('data_sale',data_sale_support_number)
+                $('.inp_sale_man').val(data_sale).attr('disabled', true).attr('data_sale', data_sale_support_number)
                 $('.inp_consignee_data_detail').val(data_unique_customer).attr('disabled', true)
                 // $('.inp_handler').val(data_create).attr('disabled', true).attr('data_hanler',data_cs_support_number)
                 $('.inp_currency_start').val(arr_currency_data[0])
 
-                $('.inp_write_off_date').val(currentDate).attr('disabled',true)
-                
+                $('.inp_write_off_date').val(currentDate).attr('disabled', true)
+
                 // await $('.inp_write_off_date').val(Date()).attr('disabled',true)
-                
-                $('.inp_number_rec').val('0')
+
+                // $('.inp_number_rec').val('0')
                 $('#modal_account_payment').modal('show')
 
                 $('.inp_amount_all_write_off').val(data_all_amount).attr('disabled', true)
 
-                
+
                 let data_inp_currency = $('.table_list_data_processing tbody tr td').find('.inp_currency_to').val()
 
                 $('.inp_currency_main_write_off').val(data_inp_currency).attr('disabled', true)
@@ -1218,18 +1198,91 @@ const start = {
                     })
                     $('.inp_bank_account').append(data_bank_account)
                 }
-                console.log(res_data_bank)
                 let data_first_name_user_ = res_data_bank['user_data_get'][0]['first_name']
                 let data_last_name_user_ = res_data_bank['user_data_get'][0]['last_name']
                 let data_ID_user_ = res_data_bank['user_data_get'][0]['ID']
-                $('.inp_handler').val(data_first_name_user_+" "+data_last_name_user_).attr({'data_user':data_ID_user_,'disabled':true})
+                $('.inp_handler').val(data_first_name_user_ + " " + data_last_name_user_).attr({ 'data_user': data_ID_user_, 'disabled': true })
 
-                // console.log(res_data_bank['bank'])
                 await this.set_payment_place();
+
+
+                start.add_payment_modal();
 
             }
         }
     },
+
+
+    add_payment_modal: async function () {
+
+
+        let data_number = $('.table_receipt tbody tr').length
+        data_number++;
+
+        let res_data_bank = await this.ajax_get_bank_data();
+        let data_bank_account = '';
+        if (res_data_bank['bank'] != "0 results") {
+            $.each(res_data_bank['bank'], function (i, v) {
+                if (v['bank_code'] != null) {
+                    data_bank_account += `<option value="${v['ID']}">${v['bank_code']}</option>`
+
+                }
+            })
+
+        }
+
+        let data_append = `
+        <tr class="text-center">
+            <td class="row_number">${data_number}</td>
+            <td><input type="date" class="form-control form-control-sm inp_payment_date" style="width:100%"></td>
+            <td><select class="form-select form-select-sm inp_bank_account">
+            <option value="">-- select bank account --</option>
+            ${data_bank_account}
+            </select></td>
+            <td><select class="form-select form-select-sm text-center inp_currency_receipt" style="width:100%">
+                    <option value="THB">THB</option>
+                    <option value="USD">USD</option>
+                    <option value="RMB">RMB</option>
+                    <option value="YEN">YEN</option>
+                    <option value="HKD">HKD</option>
+            </select></td>
+            <td><input type="number" class="form-control form-control-sm text-end inp_acutal_payment" style="width:100%"></td>
+            <td><input type="file" class="form-control form-control-sm inp_file_receipt" onchange="readURL(this)" style="width:100%"></td>
+            <td><i class="bi bi-image" id="blah" onclick="start.show_photo(this)"></i></td>
+            <td><button class="btn btn-sm btn-outline-danger" onclick="start.delete_payment_modal(this)"><i class="bi bi-trash text-danger"></i></button></td>
+        </tr>
+        `;
+
+        $('.table_receipt tbody').append(data_append)
+        start.cal_row_receipt();
+    },
+
+    delete_payment_modal: async function (e) {
+
+
+        let data_id_recipt = $(e).closest('tr').attr('id_number_data_receipt') ? $(e).closest('tr').attr('id_number_data_receipt')  : '';
+
+        if(data_id_recipt != ''){
+            start.data_del_receipt.push(data_id_recipt)
+        }
+        
+        $(e).closest('tr').remove()
+        // console.log(start.data_del_receipt)
+        start.cal_row_receipt();
+    },
+
+    cal_row_receipt: async function () {
+        let e_path = $('.table_receipt tbody tr')
+        let data_number = 0;
+        $.each(e_path, function () {
+            data_number++;
+            $(this).find('.row_number').html(data_number)
+        })
+
+        let data_number_cal = $('.table_receipt tbody tr').length
+        $('.inp_number_payment_record').val(data_number_cal)
+    },
+
 
     set_payment_place: async function () {
         //setting document nubmer
@@ -1262,11 +1315,11 @@ const start = {
         });
     },
 
-    cal_data_hide_process : async function(e){
+    cal_data_hide_process: async function (e) {
         let data_check_prop = $(e).closest('tr').find('.chex_box_modal').prop("checked") ? '1' : '0';
 
-        if(data_check_prop == '1'){
-            
+        if (data_check_prop == '1') {
+
             let settelment = $(e).closest('tr').find('.data_settelment').attr('real_data')
             let incv_wrute_off = $(e).closest('tr').find('.data_incv_wrute_off').attr('real_data')
             let data_currency = $(e).closest('tr').find('.data_currency').attr('real_data')
@@ -1275,7 +1328,7 @@ const start = {
             $(e).closest('tr').find('.data_incv_wrute_off').val(incv_wrute_off)
             $(e).closest('tr').find('.data_currency').val(data_currency)
             $(e).closest('tr').find('.inp_currency_to').val(inp_currency_to)
-        }else{
+        } else {
             $(e).closest('tr').find('.data_settelment').val('0.00')
             $(e).closest('tr').find('.data_incv_wrute_off').val('0.00')
             $(e).closest('tr').find('.data_currency').val('')
@@ -1285,7 +1338,7 @@ const start = {
         let e_path = $('.table tbody tr')
         let data_cal_settelment = 0;
         let bdo = 0;
-        
+
         $.each(e_path, function () {
 
             let data_check_prop = $(this).find('.chex_box_modal').prop("checked") ? '1' : '0';
@@ -1300,21 +1353,9 @@ const start = {
         })
         data_cal_settelment = data_cal_settelment.toFixed(2)
         $('.inp_amount_all_write_off').val(data_cal_settelment)
-        $('.inp_acual_payment').val(data_cal_settelment)
 
     },
 
-
-    // condition_data_on_modal: async function () {
-    //     // console.log(8888)
-        
-    //     // console.log(data_cal_currency)
-    //     // data_cal_currency = data_cal_currency.toFixed(2)
-    //     // $('.inp_amount_all').val(data_cal_currency)
-    //     // $('.inp_number_rec').val(bdo)
-    //     // $('.inp_amount_all').val(data_cal_currency)
-    //     // console.log(data_cal_currency)
-    // },
 
     select_all_check: async function () {
         $('.table_payment tbody tr td .cbx_data').prop('checked', true)
@@ -1324,39 +1365,22 @@ const start = {
     },
 
     save_data_payment: async function () {
+
         let patment_document_number = $('.inp_payment_document').val()
         let customer_name = $('.inp_consignee_data_detail').val()
         let payment_place = $('.sel_data_payment_place').val()
         let method_payment = $('.inp_method_cash').val()
         let amount_payment = $('.inp_amount_all').val()
         let currency = $('.inp_currency_main').val()
-        let payment_date = $('.inp_payment_date').val()
         let write_off_date = $('.inp_write_off_date').val()
-        let bank_account = $('.inp_bank_account').val()
         let remark_data = $('.inp_remark_data_modal').val()
-        let number_data = $('.inp_number_rec').val()
         let number_paymenr_rec = $('.inp_number_payment_record').val()
 
-
-        let base_64_file = $('.inp_file_receipt').prop('files')[0];
-        // console.log(base_64_file)
         let data_currency_start = $('.inp_currency_start').val()
         let data_currency_write_off = $('.inp_currency_main_write_off').val()
         let data_hanler = $('.inp_handler').attr('data_user')
         let data_sale = $('.inp_sale_man').attr('data_sale')
         let payment_type = patment_document_number.substring(0, 2);
-        // console.log(data_currency_start)
-        // console.log(data_currency_write_off)
-        // console.log(data_hanler)
-        // console.log(data_sale)
-        let Base_64_file_base = '';
-        let type_data = '';
-        let name_file = '';
-        if (base_64_file != undefined) {
-            type_data = base_64_file.type ? base_64_file.type : '';
-            name_file = base_64_file.name ? base_64_file.name : '';
-            Base_64_file_base = await convert_file(base_64_file);
-        }
 
         let e_path = $('.table_list_data_processing tbody tr')
 
@@ -1364,20 +1388,17 @@ const start = {
         $.each(e_path, function () {
             // let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
             // if (data_check == '1') {
-                let data_number_id = $(this).attr('data_number_id')
-                arr_data_get_number_check.push(data_number_id)
+            let data_number_id = $(this).attr('data_number_id')
+            arr_data_get_number_check.push(data_number_id)
             // }
         })
 
-        // console.log(base_64_file)
         arr_data_get_number_check = arr_data_get_number_check.join(',')
-        // console.log(arr_data_get_number_check)
 
         let amount_all_write_off = $('.inp_amount_all_write_off').val()
         let currency_main_write_off = $('.inp_currency_main_write_off').val()
         let amount_all = $('.inp_amount_all').val()
         let currency_main = $('.inp_currency_main').val()
-        let acual_payment = $('.inp_acual_payment').val()
 
         let arr_data_get_title = []
         let obj_data_get_title = {
@@ -1386,49 +1407,123 @@ const start = {
             method_payment: method_payment,
             amount_payment: amount_payment,
             currency: currency,
-            payment_date: payment_date,
             write_off_date: write_off_date,
-            bank_account: bank_account,
             list_description: arr_data_get_number_check,
             remark_data: remark_data,
             payment_type: payment_type,
             customer_name: customer_name,
-            type_data: type_data,
-            name_file: name_file,
-            data_currency_start : data_currency_start,
-            data_currency_write_off : data_currency_write_off,
-            data_hanler : data_hanler,
-            data_sale : data_sale,
-            Base_64_file_base: Base_64_file_base,
-            amount_all_write_off : amount_all_write_off,
-            currency_main_write_off : currency_main_write_off,
-            amount_all : amount_all,
-            currency_main : currency_main,
-            acual_payment : acual_payment,
-            number_data: number_data,
+            data_currency_start: data_currency_start,
+            data_currency_write_off: data_currency_write_off,
+            data_hanler: data_hanler,
+            data_sale: data_sale,
+            amount_all_write_off: amount_all_write_off,
+            currency_main_write_off: currency_main_write_off,
+            amount_all: amount_all,
+            currency_main: currency_main,
             number_paymenr_rec: number_paymenr_rec,
         }
         arr_data_get_title.push(obj_data_get_title)
 
         let arr_data_get_list = []
-        $.each(e_path, function () {
+        $.each(e_path, async function () {
             let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
             let data_currency_to = $(this).find('.inp_currency_to').attr('real_data')
             // if (data_check == '1') {
-                let data_number_id = $(this).attr('data_number_id')
-                let data_currency = $(this).find('.data_currency').attr('data_currency_id')
-                let amount = $(this).find('.data_incv_wrute_off').attr('real_data')
-                let obj_data = {
-                    data_number_id: data_number_id,
-                    amount: amount,
-                    data_check : data_check,
-                    currency: data_currency_to,
-                    data_currency: data_currency,
-                }
-                arr_data_get_list.push(obj_data)
+            let data_number_id = $(this).attr('data_number_id')
+            let data_currency = $(this).find('.data_currency').attr('data_currency_id')
+            let amount = $(this).find('.data_incv_wrute_off').attr('real_data')
+            let obj_data = {
+                data_number_id: data_number_id,
+                amount: amount,
+                data_check: data_check,
+                currency: data_currency_to,
+                data_currency: data_currency,
+            }
+            arr_data_get_list.push(obj_data)
             // }
         })
-        
+
+
+        // let path_receipt = $('.table_receipt tbody tr')
+
+        // let arr_data_receipt = []
+        // $('.table_receipt > tbody > tr').map(async function(){
+
+
+        //         let base_64_file = $(this).find('.inp_file_receipt').prop('files')[0];
+        //         let Base_64_file_base = '';
+        //         let type_data = '';
+        //         let name_file = '';
+        //         if (base_64_file != undefined) {
+        //             type_data = base_64_file.type ? base_64_file.type : '';
+        //             name_file = base_64_file.name ? base_64_file.name : '';
+        //             Base_64_file_base =  convert_file(base_64_file);    
+        //         }
+
+        //         let id_number_receipt = $(this).attr('id_number') ? $(this).attr('id_number') : '';
+        //         let payment_date = $(this).find('.inp_payment_date').val()
+        //         let bank_account = $(this).find('.inp_bank_account').val()
+        //         let currency_receipt = $(this).find('.inp_currency_receipt').val()
+        //         let acutal_payment = $(this).find('.inp_acutal_payment').val()
+
+
+
+        //         let obj_data_receipt = {
+        //             Base_64_file_base : Base_64_file_base,
+        //             id_number_receipt : id_number_receipt,
+        //             payment_date : payment_date,
+        //             bank_account : bank_account,
+        //             currency_receipt : currency_receipt,
+        //             acutal_payment : acutal_payment,
+        //             type_data : type_data,
+        //             name_file : name_file,
+        //         }
+
+        //         arr_data_receipt.push(obj_data_receipt)
+
+
+        // })
+        // Promise.all(arr_data_receipt).then(() => {
+        //     console.log(arr_data_receipt);
+        // });
+        let arr_data_receipt = [];
+        let arr_data_l = [];
+        // ใช้ map แทน each
+        const promises = $('.table_receipt > tbody > tr').map(async function () {
+            let base_64_file = $(this).find('.inp_file_receipt').prop('files')[0];
+            let Base_64_file_base = '';
+            let type_data = '';
+            let name_file = '';
+
+            if (base_64_file != undefined) {
+                type_data = base_64_file.type ? base_64_file.type : '';
+                name_file = base_64_file.name ? base_64_file.name : '';
+                Base_64_file_base = await convert_file(base_64_file);
+            }
+
+            let id_number_receipt = $(this).attr('id_number') ? $(this).attr('id_number') : '';
+            let payment_date = $(this).find('.inp_payment_date').val();
+            let bank_account = $(this).find('.inp_bank_account').val();
+            let currency_receipt = $(this).find('.inp_currency_receipt').val();
+            let actual_payment = $(this).find('.inp_acutal_payment').val();
+
+            let obj_data_receipt = {
+                Base_64_file_base: Base_64_file_base,
+                id_number_receipt: id_number_receipt,
+                payment_date: payment_date,
+                bank_account: bank_account,
+                currency_receipt: currency_receipt,
+                acutal_payment: actual_payment,
+                type_data: type_data,
+                name_file: name_file,
+            };
+
+            arr_data_receipt.push(obj_data_receipt);
+            return obj_data_receipt;
+        }).get();
+
+
+
 
         if (arr_data_get_list.length < 1) {
             Swal.fire({
@@ -1438,14 +1533,14 @@ const start = {
             })
             return;
 
-        }else if(payment_place == ''){
+        } else if (payment_place == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please select payment place',
             })
             return;
-        }else {
+        } else {
             if (write_off_date == '') {
                 Swal.fire({
                     icon: 'error',
@@ -1453,35 +1548,35 @@ const start = {
                     text: 'Please enter write off date',
                 })
             } else {
-                // console.log(arr_data_get_title)
-                // console.log(arr_data_get_list)
-                let res_data = await this.ajax_save_data_payment(arr_data_get_title, arr_data_get_list)
-                // console.log(res_data)
-                if (res_data['res_detail_title'] == '1' && res_data['res_detail_list'] == '1') {
-                    Swal.fire(
-                        'Save it!',
-                        'Your file has been save.',
-                        'success'
-                    )
-                    await $('#modal_account_payment').modal('toggle');
-                    await this.select_filter();
-    
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Data is problem pls. contact to tech team',
-                    })
-                }
+                Promise.all(promises).then(async() => {
+
+                    let res_data = await this.ajax_save_data_payment(arr_data_get_title, arr_data_get_list, arr_data_receipt)
+                    if (res_data['res_detail_title'] == '1' && res_data['res_detail_list'] == '1') {
+                        Swal.fire(
+                            'Save it!',
+                            'Your file has been save.',
+                            'success'
+                        )
+                        await $('#modal_account_payment').modal('toggle');
+                        await this.select_filter();
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Data is problem pls. contact to tech team',
+                        })
+                    }
+                });
             }
-            
+
         }
 
 
 
     },
 
-    ajax_save_data_payment: async function (arr_data_get_title, arr_data_get_list) {
+    ajax_save_data_payment: async function (arr_data_get_title, arr_data_get_list, arr_data_receipt) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -1489,6 +1584,7 @@ const start = {
                 data: {
                     arr_data_get_title: arr_data_get_title,
                     arr_data_get_list: arr_data_get_list,
+                    arr_data_receipt: arr_data_receipt,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -1501,41 +1597,46 @@ const start = {
     show_photo: async function (e) {
 
         let data_pho = $(e).attr('src')
-        //  console.log($(e)
         var newTab = window.open();
         newTab.document.write('<html><body><img id="imageDisplay" src="' + data_pho + '"></body></html>');
 
 
     },
 
-    check_non_currency : async function(e){
+    check_non_currency: async function (e) {
         let data_sysrate = $(e).closest('tr').find('.inp_sysrate').val()
-        if(data_sysrate == 'non currency'){
+        if (data_sysrate == 'non currency') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please talk to coco for update currency',
             })
-        $(e).closest('tr').find('.cbx_data').prop('checked',false)
+            $(e).closest('tr').find('.cbx_data').prop('checked', false)
 
         }
         await this.cal_data_actual();
     },
 
-    cal_data_actual : async function(){
+    cal_data_actual: async function () {
         let e_path = $('.table_payment tbody tr')
         let data_cal = 0;
-        $.each(e_path,function(){
+        $.each(e_path, function () {
             let data_checked = $(this).find('.cbx_data').prop("checked") ? '1' : '0'
-            if(data_checked == '1'){
+            if (data_checked == '1') {
                 let data_amt_all = $(this).find('.inp_amt_incv_write_off').val() ? $(this).find('.inp_amt_incv_write_off').val() : 0;
                 data_amt_all = parseFloat(data_amt_all)
-                data_cal = data_cal+data_amt_all
+                data_cal = data_cal + data_amt_all
             }
         })
         $('.inp_actual_amt_total').val(data_cal)
-    }, 
+    },
 
+    cal_data_actual_payment: async function (e) {
+        let data_val = $(e).val()
+        data_val = parseFloat(data_val)
+        data_val = data_val.toFixed(2)
+        // $('.inp_acual_payment').val(data_val)
+    },
 
 
 
@@ -1547,8 +1648,8 @@ function readURL(input) {
 
         reader.onload = function (e) {
 
-            $('#blah').attr('src', e.target.result);
-            $('#blah').addClass("text-primary")
+            $(input).closest('tr').find('#blah').attr('src', e.target.result);
+            $(input).closest('tr').find('#blah').addClass("text-primary")
         };
 
         reader.readAsDataURL(input.files[0]);

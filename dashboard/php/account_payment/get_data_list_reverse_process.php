@@ -68,6 +68,21 @@ WHERE
 ";
 
 
+$sql_query_data_receipt = "
+SELECT
+    br.ID,
+    br.ref_billing_payment,
+    br.image_type,
+    br.image_name,
+    br.currency_receipt,
+    br.bank_account,
+    br.payment_date,
+    br.actual_payment
+FROM
+    billing_receipt br
+WHERE
+    br.ref_billing_payment = '$data'
+";
 // echo $sql_data_table;
 
 $result = $con->query($sql_query_data_payment);
@@ -78,4 +93,13 @@ if ($result->num_rows > 0) {
 } else {
     $list = "0 results";
 }
-echo json_encode(array('list' => $list));
+
+$result = $con->query($sql_query_data_receipt);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $receipt[] = $row;
+    }
+} else {
+    $receipt = "0 results";
+}
+echo json_encode(array('list' => $list,'receipt'=>$receipt));

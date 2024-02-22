@@ -19,6 +19,8 @@ const process_part = {
         let b = 0;
         let data_arr_sale = '';
         let data_arr_cs = '';
+        
+
 
         if (res_data_list['list'] != "0 results") {
             $.each(res_data_list['list'], function (i, v) {
@@ -98,7 +100,7 @@ const process_part = {
             $('#modal_account_payment').remove()
         }
 
-
+        console.log(start.data_get_table_reverse['table'])
         $.each(start.data_get_table_reverse['table'], function (i, v) {
 
             let id_number = v['ID'] ? v['ID'] : '';
@@ -110,7 +112,7 @@ const process_part = {
                 let paid_date_time = v['paid_date_time'] ? v['paid_date_time'] : '';
                 let status_billing = v['status_billing'] ? v['status_billing'] : '';
                 let paid_amt = v['paid_amt'] ? v['paid_amt'] : '';
-                
+                let hanler_data = v['hanler_data'] ? v['hanler_data'] : '';
                 let document_payment = v['document_payment'] ? v['document_payment'] : '';
                 let type_document = v['type_document'] ? v['type_document'] : '';
                 let pay_at = v['pay_at'] ? v['pay_at'] : '';
@@ -150,285 +152,278 @@ const process_part = {
                                                 <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                 <!-- <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" onclick="process_part.start_modal_add_on('${radio_function_paid}')"> Add list </button> -->
                                             </div>
-                                            <!-- row 1 -->
-                                            <div class="row mt-2">
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">收付类型 Payment Type </label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_payment_type" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">结算单位 settlement unit</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
+                                            <div class="row">
+                                                <div class="col m-1" >
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">收付类型 Payment Type </label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_payment_type">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">业务员 saleman</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_sale_man">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">销账日期 write-off date</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="date" class="form-control form-control-sm inp_write_off_date">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">收付单号 Payment receipt number</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_payment_document">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!-- row2 -->
-                                            <div class="row mt-2">
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">收付单号 Payment receipt number</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_payment_document">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">系统销账总额 total system write-offs</label>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
-                                                        </div>
-                                                        <div class="col-lg-3">
-                                                            <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">收付地点 payment place</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                                                    <option value="">-- select --</option>
+                                                                    <option value="TH">TH</option>
+                                                                    <option value="CN">CN</option>
+                                                                    <option value="HK">HK</option>
+                                                                    <option value="US">US</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <!-- <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">显示总金额 Show total amount</label>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">收款方式 payment method</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <select class="form-select form-select-sm inp_method_cash">
+                                                                    <option value="">-- select --</option>
+                                                                    <option value="tranfer">Tranfer</option>
+                                                                    <option value="cash">Cash</option>
+                                                                    <option value="hedge">Hedge</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                    </div>
+                                                    <!-- <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for>序号 number<label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_number_rec">
+                                                            </div>
                                                         </div>
                                                     </div> -->
                                                 </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">经手人 handler</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_handler">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- row 3 -->
-                                            <div class="row mt-2">
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">收付地点 payment place</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
-                                                                <option value="">-- select --</option>                                                                
-                                                                <option value="TH">TH</option>
-                                                                <option value="CN">CN</option>
-                                                                <option value="HK">HK</option>
-                                                                <option value="US">US</option>
-                                                            </select>
+                                                <!-- row 2 -->
+                                                <div class="col m-1">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">结算单位 settlement unit</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">实际付款总额 Actual total payment</label>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">系统销账总额 total system write-offs</label>
+                                                            </div>
+                                                            <div class="col-lg-4" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
+                                                            </div>
+                                                            <div class="col-lg-3" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-4">
-                                                            <input type="text" class="form-control form-control-sm text-end inp_amount_all">
-                                                        </div>
-                                                        <div class="col-lg-3">
-                                                            <!-- <input type="text" class="form-control form-control-sm text-center inp_currency_main"> -->
-                                                            <select class="form-select form-select-sm text-center inp_currency_main">
-                                                                    <option value="">-- select --</option>
+                                                    </div>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">实际收款总额 Actual total payment</label>
+                                                            </div>
+                                                            <div class="col-lg-4" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm text-end inp_amount_all" onchange="start.cal_data_actual_payment(this)">
+                                                            </div>
+                                                            <div class="col-lg-3" style="padding:1px">
+                                                                <!--<input type="text" class="form-control form-control-sm text-center inp_currency_main">-->
+                                                                <select class="form-select form-select-sm text-center inp_currency_main">
+                                                                    <option value="">-- select -- </option>
                                                                     <option value="THB">THB</option>
                                                                     <option value="USD">USD</option>
                                                                     <option value="RMB">RMB</option>
                                                                     <option value="YEN">YEN</option>
                                                                     <option value="HKD">HKD</option>
                                                                 </select>
+                                                                <input type="hidden" class="form-control form-control-sm text-center inp_currency_start">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <!-- <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">显示总金额 Show total amount</label>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">收款记录数 number of payment records</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_number_payment_record">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm">
+                                                    </div>
+                                                    <!-- <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">付款日期 payment date</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="date" class="form-control form-control-sm inp_payment_date">
+                                                            </div>
                                                         </div>
                                                     </div> -->
                                                 </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">备注 Remark</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_remark_data_modal">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- row4 -->
-                                            <div class="row mt-2">
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">付款方式 payment method</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <select class="form-select form-select-sm inp_method_cash">
-                                                                <option value=""> -- select --</option>
-                                                                <option value="tranfer">Tranfer</option>
-                                                                <option value="cash">Cash</option>
-                                                                <option value="hedge">Hedge</option>
-                                                            </select>
+                                                <div class="col m-1">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">业务员 saleman</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_sale_man">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">付款记录数 number of payment records</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_number_payment_record">
+                                                    <div class="col">
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                    <div class="col">
+                                                        <br>
+                                                        <!-- <div class="text-center"><i class="bi bi-image bi_image_receipt" id="blah" onclick="process_part.open_pic('${id_number}')"></i></div> -->
+                                                    </div>
+                                                    <!-- <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">上传文件收据 Upload file receipt</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="file" class="form-control form-control-sm inp_file_receipt" onchange="readURL(this)">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="text-center"><i class="bi bi-image bi_image_receipt" id="blah" onclick="process_part.open_pic('${id_number}')"></i></div>
-                                                </div>
-                                            </div>
-                                            <!-- row5 -->
-                                            <div class="row mt-2">
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for>序号 number<label>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">银行账号 bank account</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <select class="form-select form-select-sm inp_bank_account">
+                                                                    <option value="">-- select bank account --</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_number_rec">
+                                                    </div> -->
+                                                </div>
+                                                <div class="col m-1">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">销账日期 write-off date</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="date" class="form-control form-control-sm inp_write_off_date">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">付款日期 payment date</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="date" class="form-control form-control-sm inp_payment_date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">银行账号 bank account</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <select class="form-select form-select-sm inp_bank_account">
-                                                                <option value="">-- select bank account --</option>
-                                                            </select>
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">经手人 handler</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_handler">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <div class="row">
-                                                        <div class="col-lg-5">
-                                                            <label for="">实际付款金额 actual payment amount</label>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <input type="text" class="form-control form-control-sm inp_acual_payment">
+                                                    <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px;">
+                                                                <label for="">备注 Remark</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px;">
+                                                                <textarea class="form-control inp_remark_data_modal" rows="3"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- <div class="col" style="padding:3px;">
+                                                        <div class="row">
+                                                            <div class="col-lg-5" style="padding:1px">
+                                                                <label for="">实际付款金额 actual payment amount</label>
+                                                            </div>
+                                                            <div class="col-lg-7" style="padding:1px">
+                                                                <input type="text" class="form-control form-control-sm inp_acual_payment text-end">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="data_table mt-2">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table_list_data_processing">
-                                                <thead >
-                                                    <tr class="text-center">
-                                                        <th>No.</th>
-                                                        <th>OK</th>
-                                                        <th>Job</th>
-                                                        <th>Fee</th>
-                                                        <th>Cur</th>
-                                                        <th>AR/AP Total</th>
-                                                        <th>Outstanding</th>
-                                                        <th>Settlement</th>
-                                                        <th>actual<br>ex.rate</th>
-                                                        <th>actual<br>currency</th>
-                                                        <th>Curr</th>
-                                                        <th>Anootated</th>
-                                                        <th>vat(%)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="body_main_add">
-                                                ${html_data_list}
-                                                </tbody>
-                                            </table>
+                                        <div class="table_picture mt-2" style="zoom:80%">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table_receipt">
+                                                    <thead>
+                                                        <tr class="text-center">
+                                                            <th>number record</th>
+                                                            <th>payment date</th>
+                                                            <th>Bank account</th>
+                                                            <th>currency</th>
+                                                            <th>acutal payment</th>
+                                                            <th>upload/Re-upload</th>
+                                                            <th>Receipt</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                                <button class="btn btn-outline-primary btn-sm" onclick="start.add_payment_modal()" style="width:100%">add payment</button>
+                                            </div>
+                                        </div>
+                                        <div class="data_table mt-2">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table_list_data_processing">
+                                                    <thead >
+                                                        <tr class="text-center">
+                                                            <th>No.</th>
+                                                            <th>OK</th>
+                                                            <th>Job</th>
+                                                            <th>Fee</th>
+                                                            <th>Cur</th>
+                                                            <th>AR/AP Total</th>
+                                                            <th>Outstanding</th>
+                                                            <th>Settlement</th>
+                                                            <th>actual<br>ex.rate</th>
+                                                            <th>actual<br>currency</th>
+                                                            <th>Curr</th>
+                                                            <th>Anootated</th>
+                                                            <th>vat(%)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="body_main_add">
+                                                    ${html_data_list}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 `;
                 $('body').append(html)
-
-
-
                 $('#modal_account_payment').modal('show')
-
-
-
-
-                if (res_data_bank['bank'] != "0 results") {
-                    $.each(res_data_bank['bank'], function (i, v) {
-                        if (v['bank_code'] != null) {
-                            data_bank_account += `<option value="${v['ID']}">${v['bank_code']}</option>`
-
-                        }
-                    })
-                    $('.inp_bank_account').append(data_bank_account)
-                }
-
-
-
                 type_document = type_document == "AP" ? "Paid" : "Receiv"
 
                 let data_number = $('.table_list_data_processing tbody tr').length
@@ -460,10 +455,6 @@ const process_part = {
                 actual_total_payment = parseFloat(actual_total_payment)
                 acount_payment_amount = parseFloat(acount_payment_amount)
 
-
-                
-
-
                 paid_amt = paid_amt.toFixed(2)
                 actual_total_payment = actual_total_payment.toFixed(2)
                 acount_payment_amount = acount_payment_amount.toFixed(2)
@@ -486,7 +477,7 @@ const process_part = {
                 $('.inp_consignee_data_detail').val(consignee_name).attr('disabled', true)
                 // $('.bi_image_receipt').val()
                 data_arr_sale == '' ? $('.inp_sale_man').attr('disabled', true) : $('.inp_sale_man').val(data_arr_sale).attr('disabled', true)
-                data_arr_cs == '' ? $('.inp_handler').attr('disabled', true) : $('.inp_handler').val(data_arr_cs).attr('disabled', true)
+                data_arr_cs == '' ? $('.inp_handler').attr('disabled', true) : $('.inp_handler').val(hanler_data).attr('disabled', true)
 
                 // inp_acual_payment
                 
@@ -498,22 +489,84 @@ const process_part = {
                 return;
             }
         })
-        // let e_path = $('.table_list_data_processing tbody tr')
-
-        // $.each(e_path,function(){
-        //     let data_checked_box = $(this).find('.chex_box_modal').prop("checked") ? '1' : '0';
-        //     if(data_checked_box == '0'){
-        //         $(this).find('.inp_total').val('0.00')
-        //         $(this).find('.inp_sysrate').val('')
-        //         $(this).find('.inp_currency_to').val('')
-        //         $(this).find('.data_incv_wrute_off').val('0.00')
-        //     }
-
-        // })
         await this.cal_data('reverse')
+        if (res_data_bank['bank'] != "0 results") {
+            $.each(res_data_bank['bank'], function (i, v) {
+                if (v['bank_code'] != null) {
+                    data_bank_account += `<option value="${v['ID']}">${v['bank_code']}</option>`
+
+                }
+            })
+        }
+
+        
+        if(res_data_list['receipt'] != "0 results"){
+            $.each(res_data_list['receipt'],function(i,v){
+                let id_number_receipt = v['ID'] ? v['ID'] : '';
+                let ref_billing_payment = v['ref_billing_payment'] ? v['ref_billing_payment'] : '';
+                let image_type = v['image_type'] ? v['image_type'] : '';
+                let image_name = v['image_name'] ? v['image_name'] : '';
+                let currency_receipt = v['currency_receipt'] ? v['currency_receipt'] : '';
+                let bank_account = v['bank_account'] ? v['bank_account'] : '';
+                let payment_date = v['payment_date'] ? v['payment_date'] : '';
+                let actual_payment = v['actual_payment'] ? v['actual_payment'] : '';
+                actual_payment = parseFloat(actual_payment)
+                actual_payment = actual_payment.toFixed(2)
+
+                let html_data_recipt = `
+                <tr class="text-center id_receipt_${id_number_receipt}" id_number_data_receipt="${id_number_receipt}">
+                    <td class="row_number"></td>
+                    <td><input type="date" class="form-control form-control-sm inp_payment_date" style="width:100%"></td>
+                    <td><select class="form-select form-select-sm inp_bank_account">
+                    <option value="">-- select bank account --</option>
+                    ${data_bank_account}
+                    </select></td>
+                    <td><select class="form-select form-select-sm text-center inp_currency_receipt" style="width:100%">
+                            <option value="THB">THB</option>
+                            <option value="USD">USD</option>
+                            <option value="RMB">RMB</option>
+                            <option value="YEN">YEN</option>
+                            <option value="HKD">HKD</option>
+                    </select></td>
+                    <td><input type="number" class="form-control form-control-sm text-end inp_acutal_payment" style="width:100%"></td>
+                    <td><input type="file" class="form-control form-control-sm inp_file_receipt" onchange="readURL(this)" style="width:100%"></td>
+                    <td><i class="bi bi-image text-primary" id="blah" blah_data="1" onclick="process_part.ajax_display_img('${id_number_receipt}')"></i></td>
+                    <td><button class="btn btn-sm btn-outline-danger" onclick="start.delete_payment_modal(this)"><i class="bi bi-trash text-danger"></i></button></td>
+                </tr>
+                `;
+
+                $('.table_receipt tbody').append(html_data_recipt)
+                $(`.id_receipt_${id_number_receipt} > td > .inp_payment_date`).val(payment_date)
+                $(`.id_receipt_${id_number_receipt} > td > .inp_bank_account`).val(bank_account)
+                $(`.id_receipt_${id_number_receipt} > td > .inp_currency_receipt`).val(currency_receipt)
+                $(`.id_receipt_${id_number_receipt} > td > .inp_acutal_payment`).val(actual_payment)
+                // $(`.id_receipt_${id_number_receipt} > td > .inp_file_receipt`).val(image_name)
+                
+                
+            })
+            
+            start.cal_row_receipt();
+
+        }
 
 
 
+    },
+
+
+    ajax_display_img: async function (e) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/account_payment/get_pic.php",
+                data: { data: e },
+                dataType: "json",
+                success: function (res) {
+                    var newTab = window.open();
+                    newTab.document.write('<html><body><img src="' + res + '"></body></html>');
+                },
+            });
+        });
     },
 
     cancle_in_row : async function(e){
@@ -619,21 +672,11 @@ const process_part = {
         let id_payment = $('#modal_account_payment').attr('modal_id');
         let actual_pay = $('.inp_amount_all').val()
 
-
         $.each(path_data, function () {
             let data_modal = $(this).find('.chx_as_box_modal').prop('checked') ? '1' : '0';
             let data_hv_check = $(this).attr('hv')
-            
             if (data_hv_check != undefined) {
                 let data_id = $(this).attr('data_number_id') ? $(this).attr('data_number_id') : '';
-                // if (data_modal == '1') {
-                //     arr_data_list_del.push(data_id)
-                // }else{
-                //         arr_data_list_have.push(data_id)
-                //     }
-                // }else{
-                //     let data_id = $(this).attr('data_number_id') ? $(this).attr('data_number_id') : '';
-                //     if(data_modal == '0'){
                 let id_number = $(this).attr('data_number_id')
                 let id_bp = $(this).closest('.modal').attr('id_bp')
                 let currency_to = $(this).find('.inp_currency_to').val()
@@ -647,34 +690,19 @@ const process_part = {
                 }
                 arr_data_list_upd.push(obj_data)
                 arr_data_list_have.push(id_bp)
-                // }
             }
-            
-
-
         })
-
-
         let data_join = arr_data_list_have.join(',')
         let arr_data_title = []
-
         let data_payment_place = $('.sel_data_payment_place').val()
         let method_cash = $('.inp_method_cash').val()
-        let number_rec = $('.inp_number_rec').val()
         let currency_main = $('.inp_currency_main').val()
-        let number_payment_record = $('.inp_number_payment_record').val()
         let payment_date = $('.inp_payment_date').val()
-        let bank_account = $('.inp_bank_account').val()
         let remark_data_modal = $('.inp_remark_data_modal').val()
-
         let amount_all_write_off = $('.inp_amount_all_write_off').val()
         let amount_all = $('.inp_amount_all').val()
-        let data_number_rec = $('.inp_number_rec').val()
         let number_payment_rec = $('.inp_number_payment_record').val()
-
-
         let payment_document = $('.inp_payment_document').val()
-        
         let acual_payment = $('.inp_acual_payment').val()
         
         let obj_data_title = {}
@@ -692,51 +720,124 @@ const process_part = {
                 data_join: data_join,
                 data_payment_place : data_payment_place,
                 method_cash : method_cash,
-                number_rec : number_rec,
                 amount_all : amount_all,
                 currency_main : currency_main,
-                number_payment_record : number_payment_record,
                 payment_date : payment_date,
-                bank_account : bank_account,
                 remark_data_modal : remark_data_modal,
                 acual_payment : acual_payment,
                 amount_all_write_off : amount_all_write_off,
-                data_number_rec : data_number_rec,
                 payment_document : payment_document,
                 number_payment_rec : number_payment_rec,
                 
             }
             arr_data_title.push(obj_data_title)
 
-            // console.log(arr_data_list_upd)
+            let arr_recipt = []
+            let arr_create = []
+            const promises = $('.table_receipt > tbody > tr').map(async function (){
+
+                let get_id_bp = $('#modal_account_payment').attr('id_bp')
+                let id_number_receipt = $(this).attr('id_number_data_receipt') ? $(this).attr('id_number_data_receipt') : '';
+                let payment_date = $(this).find('.inp_payment_date').val()
+                let bank_account = $(this).find('.inp_bank_account').val()
+                let currency = $(this).find('.inp_currency_receipt').val()
+                let actaul_payment = $(this).find('.inp_acutal_payment').val()
+                let blah_data = $(this).find('#blah').attr('blah_data')
+                let base_64_file = $(this).find('.inp_file_receipt').prop('files')[0];
+                let Base_64_file_base = '';
+                let type_data = '';
+                let name_file = '';
+
+                if(blah_data == '1'){
+                    if(base_64_file != undefined){
+                        type_data = base_64_file.type ? base_64_file.type : '';
+                        name_file = base_64_file.name ? base_64_file.name : '';
+                        Base_64_file_base = await convert_file(base_64_file);
+                        let obj_data = {
+                            id_number_receipt : id_number_receipt,
+                            bank_account : bank_account,
+                            currency : currency,
+                            actaul_payment : actaul_payment,
+                            payment_date : payment_date,
+                            type_data : type_data,
+                            name_file : name_file,
+                            Base_64_file_base : Base_64_file_base,
+                        }
+                        arr_recipt.push(obj_data)
+                        // console.log('change img')
+                    }else{
+                        let obj_data = {
+                            id_number_receipt : id_number_receipt,
+                            bank_account : bank_account,
+                            currency : currency,
+                            payment_date : payment_date,
+                            actaul_payment : actaul_payment,
+                            payment_date : payment_date,
+                        }
+                        arr_recipt.push(obj_data)
+                        // console.log('-')
+                    }
+                }else{
+                    if(base_64_file != undefined){
+                        type_data = base_64_file.type ? base_64_file.type : '';
+                        name_file = base_64_file.name ? base_64_file.name : '';
+                        Base_64_file_base = await convert_file(base_64_file);
+                        let obj_data = {
+                            get_id_bp : get_id_bp,
+                            id_number_receipt : id_number_receipt,
+                            bank_account : bank_account,
+                            currency : currency,
+                            actaul_payment : actaul_payment,
+                            payment_date : payment_date,
+                            type_data : type_data,
+                            name_file : name_file,
+                            Base_64_file_base : Base_64_file_base,
+                        }
+                        arr_create.push(obj_data)
+                        // console.log('new create')
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select Image ',
+                        })
+                        return;
+                    }
+                    
+                }
+            }).get();
+
+            Promise.all(promises).then(async() => {
+                // console.log()
+                let res_data_save = await this.ajax_save_data(arr_data_title, arr_data_list_upd,arr_recipt,arr_create,start.data_del_receipt)
+
+                if (res_data_save['billing_payment'] == '1') {
+                    Swal.fire(
+                        'Save it!',
+                        'Your file has been save.',
+                        'success'
+                    )
+                    await $('#modal_account_payment').modal('toggle');
+                    await start.select_filter();
+    
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Data is problem pls. contact to tech team',
+                    })
+                }
+
+
+            })
+
+
             
-            // console.log('teset123')
-            // console.log(arr_data_title)
-            // console.log(arr_data_list_upd)
-
-            let res_data_save = await this.ajax_save_data(arr_data_title, arr_data_list_upd)
-
-            if (res_data_save['billing_payment'] == '1') {
-                Swal.fire(
-                    'Save it!',
-                    'Your file has been save.',
-                    'success'
-                )
-                await $('#modal_account_payment').modal('toggle');
-                await start.select_filter();
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Data is problem pls. contact to tech team',
-                })
-            }
         }
 
     },
 
-    ajax_save_data: async function (arr_data_title, arr_data_list_upd) {
+    ajax_save_data: async function (arr_data_title, arr_data_list_upd,arr_recipt,arr_create,data_del_receipt) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -744,6 +845,9 @@ const process_part = {
                 data: {
                     arr_data_title: arr_data_title,
                     arr_data_list_upd : arr_data_list_upd,
+                    arr_recipt : arr_recipt,
+                    arr_create : arr_create,
+                    data_del_receipt : data_del_receipt,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -1136,4 +1240,21 @@ const process_part = {
     },
 
 
+}
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        // onclick="start.show_photo(this)"
+        reader.onload = function (e) {
+            var myElement =  $(input).closest('tr').find('#blah')
+            myElement.removeAttr('onclick')
+            myElement.attr('onclick','start.show_photo(this)');
+            // $(input).closest('tr').find('#blah').prop('onclick', null)
+            $(input).closest('tr').find('#blah').attr('src', e.target.result);
+            $(input).closest('tr').find('#blah').addClass("text-primary")
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }

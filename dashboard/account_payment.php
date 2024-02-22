@@ -93,14 +93,22 @@ require 'function/auth/get_session.php';
     }
 
     .modal-dialog {
-        position: absolute;
-        left: 5%;
-        width: 1600px;
+        width: 100%;
+        height: auto;
+        margin: 30px;
+        padding: 0;
+    }
+
+    .modal-xl {
+        max-width: 95%;
     }
 
     .modal-content {
-        width: 1600px;
+        height: auto;
+        min-height: 100%;
+        border-radius: 0;
     }
+
 
     td.sticky-column {
         position: sticky;
@@ -109,40 +117,40 @@ require 'function/auth/get_session.php';
         background-color: #fff;
     }
 
-    th.sticky-column{
+    th.sticky-column {
         position: sticky;
         left: 0;
-        top:0;
+        top: 0;
         z-index: 4;
         background-color: #fff;
     }
 
     th.sticky-top {
-        z-index:2;
+        z-index: 2;
         background-color: #fff;
 
     }
-    .table_list_data_processing > tbody td:nth-child(-n+29) {
+
+    .table_list_data_processing>tbody td:nth-child(-n+29) {
         padding-left: 1px;
         padding-right: 1px;
     }
 
-    .table_list_data_processing > tbody td:nth-child(-n+29) input {
+    .table_list_data_processing>tbody td:nth-child(-n+29) input {
         width: 100%;
     }
 
-    .table_list_data_processing > tbody td:nth-child(4) input{
-        width:300px;
+    .table_list_data_processing>tbody td:nth-child(4) input {
+        width: 300px;
     }
 
-    .table_list_data_processing > tbody td:nth-child(3) input,
-    .table_list_data_processing > tbody td:nth-child(6) input,
-    .table_list_data_processing > tbody td:nth-child(7) input,
-    .table_list_data_processing > tbody td:nth-child(8) input,
-    .table_list_data_processing > tbody td:nth-child(11) input{
-        width:190px;
+    .table_list_data_processing>tbody td:nth-child(3) input,
+    .table_list_data_processing>tbody td:nth-child(6) input,
+    .table_list_data_processing>tbody td:nth-child(7) input,
+    .table_list_data_processing>tbody td:nth-child(8) input,
+    .table_list_data_processing>tbody td:nth-child(11) input {
+        width: 190px;
     }
-    
 </style>
 
 
@@ -200,6 +208,7 @@ require 'function/auth/get_session.php';
                     <div class="card">
                         <div class="card-body text-center">
                             <button class="btn btn-success btn-sm col-lg-12" onclick="start.generate_inv()">save</button>
+                            <!-- <button class="btn btn-success btn-sm col-lg-12" onclick="start.generate_inv_v2()">save_v2</button> -->
                         </div>
                     </div>
                 </div>
@@ -222,7 +231,7 @@ require 'function/auth/get_session.php';
                                 </select>
                             </div>
                             <div class="col-xl-1 col-lg-1"><label for="">Actual AMT</label></div>
-                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_actual_amt_total text-end" disabled ></div>
+                            <div class="col-xl-2 col-lg-2"><input type="text" class="form-control form-control-sm inp_actual_amt_total text-end" disabled></div>
                         </div>
                     </div>
                 </div>
@@ -323,61 +332,217 @@ require 'function/auth/get_session.php';
                         </div>
                     </div>
                 </div>
-
-
-                <!-- <table id="datatable" class="table table-striped" data-toggle="data-table">
-                    <thead>
-                        <tr class="text-center" style="zoom:90%">
-                            <th>No</th>
-                            <th>select</th>
-                            <th>Job#</th>
-                            <th>Code</th>
-                            <th>Cur</th>
-                            <th>AMTINCV</th>
-                            <th>Outstanding</th>
-                            <th>settlement</th>
-                            <th>actual
-                                <br>ex.rate
-                            </th>
-                            <th>actual<br>curr.</th>
-                            <th>Total</th>
-                            <th>Amt</th>
-                            <th>Vat(%)</th>
-                            <th>WHT</th>
-                            <th>Customer</th>
-                            <th>Finish</th>
-                            <th>Remark</th>
-                            <th>Sales</th>
-                            <th>billing date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table> -->
             </div>
-            <!-- <div class="card">
-                <div class="card-body"> -->
-
-            <!-- <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="">Total review</label>
-                            </div>
-                            <div class="col">USD : <div class="data_currency_review_usd"></div>
-                            </div>
-                            <div class="col">THB : <div class="data_currency_review_thb"></div>
-                            </div>
-                            <div class="col">RMB : <div class="data_currency_review_rmb"></div>
-                            </div>
-                            <div class="col">YEN : <div class="data_currency_review_yen"></div>
-                            </div>
-                            <div class="col">HKD : <div class="data_currency_review_hkd"></div>
-                            </div>
-                        </div>
-                    </div> -->
-            <!-- </div>
-            </div> -->
         </div>
+
+
+        <!-- <div class="">
+            <div class="row mt-2">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">收付类型 Payment Type </label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_payment_type">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">结算单位 settlement unit</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_consignee_data_detail">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">业务员 saleman</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_sale_man">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">销账日期 write-off date</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="date" class="form-control form-control-sm inp_write_off_date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">收付单号 Payment receipt number</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_payment_document">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">系统销账总额 total system write-offs</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control form-control-sm text-end inp_amount_all_write_off">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control form-control-sm text-center inp_currency_main_write_off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">经手人 handler</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_handler">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">收付地点 payment place</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <select class="form-select form-select-sm sel_data_payment_place" onchange="start.set_payment_place()">
+                                <option value="">-- select --</option>
+                                <option value="TH">TH</option>
+                                <option value="CN">CN</option>
+                                <option value="HK">HK</option>
+                                <option value="US">US</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">实际付款总额 Actual total payment</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control form-control-sm text-end inp_amount_all">
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-select form-select-sm text-center inp_currency_main">
+                                <option value="">-- select --</option>
+                                <option value="THB">THB</option>
+                                <option value="USD">USD</option>
+                                <option value="RMB">RMB</option>
+                                <option value="YEN">YEN</option>
+                                <option value="HKD">HKD</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">备注 Remark</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_remark_data_modal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">付款方式 payment method</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <select class="form-select form-select-sm inp_method_cash">
+                                <option value=""> -- select --</option>
+                                <option value="tranfer">Tranfer</option>
+                                <option value="cash">Cash</option>
+                                <option value="hedge">Hedge</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">付款记录数 number of payment records</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_number_payment_record">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-center"><i class="bi bi-image bi_image_receipt" id="blah" onclick="process_part.open_pic('${id_number}')"></i></div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for>序号 number<label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_number_rec">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">付款日期 payment date</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="date" class="form-control form-control-sm inp_payment_date">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">银行账号 bank account</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <select class="form-select form-select-sm inp_bank_account">
+                                <option value="">-- select bank account --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="">实际付款金额 actual payment amount</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control form-control-sm inp_acual_payment">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
 
 
         <!-- MAIN BODY END -->

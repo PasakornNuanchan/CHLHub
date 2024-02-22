@@ -24,7 +24,7 @@ if($data_currency_search != ''){
     $data_currency_search = "AND currency =  '$data_currency_search'";
 }
 if($data_bank_account_search != ''){
-    $data_bank_account_search = "AND bank_account_data = '$data_bank_account_search'";
+    $data_bank_account_search = "AND data_account LIKE '%$data_bank_account_search%'";
 }
 if($data_active_cnee != ''){
     $data_active_cnee = "AND consignee_name = '$data_active_cnee'";
@@ -37,12 +37,13 @@ SELECT
 	CONCAT((bp.document_payment),
     (SELECT COUNT(bpl.ID) FROM billing_payment_list bpl WHERE bpl.id_refer_bp = bp.ID),
     LPAD(ROW_NUMBER() OVER (PARTITION BY bp.document_payment ORDER BY bpl.ID),2,'0')) data_docuemnt,
-    bp.payment_date,
+    (SELECT MAX(br.payment_date) FROM billing_receipt br WHERE br.ref_billing_payment= bp.ID) payment_date,
     bp.consignee_name,
     (SELECT jt.job_number FROM job_title jt WHERE jt.ID = (SELECT b.ref_job_id FROM billing b WHERE bpl.data_number_id = b.ID)) job_number,
     bpl.currency,
     FORMAT(bpl.amount,2) amount,
-    (SELECT bac.bank_code FROM bank_account_corp bac WHERE bac.ID = bp.bank_account) bank_account_data,
+    (SELECT GROUP_CONCAT(bac.bank_code) FROM bank_account_corp bac WHERE FIND_IN_SET(bac.ID,(SELECT GROUP_CONCAT(br.bank_account) FROM billing_receipt br WHERE FIND_IN_SET(br.ref_billing_payment, bp.ID)))) bank_account_data,
+    (SELECT GROUP_CONCAT(br.bank_account) FROM billing_receipt br WHERE br.ref_billing_payment = bp.ID) data_account,
     bp.remark
 FROM
     billing_payment bp
@@ -61,7 +62,7 @@ ORDER BY
 
 
 ";
-
+// echo $sql_data_table;
 $result = $con->query($sql_data_table);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
