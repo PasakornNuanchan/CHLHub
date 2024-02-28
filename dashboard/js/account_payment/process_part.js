@@ -150,7 +150,7 @@ const process_part = {
                                                 <button class="btn btn-outline-primary btn-sm btn_save_data_reverse_processing" onclick="process_part.save_reverse()">OK</button>
                                                 <!-- <button class="btn btn-outline-primary btn-sm">Print</button> -->
                                                 <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                                <!-- <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" onclick="process_part.start_modal_add_on('${radio_function_paid}')"> Add list </button> -->
+                                                <button class="btn btn-outline-primary btn-sm" class="btn btn-danger" onclick="process_part.start_modal_add_on('${radio_function_paid}')"> Add list </button>
                                             </div>
                                             <div class="row">
                                                 <div class="col m-1" >

@@ -567,7 +567,8 @@ const sub_billing = {
 
                 $(`.data_ar${i} > td > .select_bill_to_ar`).val()
                 $(`.data_ar${i} > td > .select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
-                $(`.data_ar${i} > td > inp_currency_ar${i}`).val(currency)
+                $(`.data_ar${i} > td > .inp_currency_ar${i}`).val(currency)
+
                 // with_holding_tax
                 // let data_qty = parseFloat($(`.data_ar${i} > td > .inp_qty_ar`).val())
                 // let data_unit_price = parseFloat($(`.data_ar${i} > td > .inp_unit_price`).val())

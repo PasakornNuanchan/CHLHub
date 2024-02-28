@@ -151,6 +151,29 @@ require 'function/auth/get_session.php';
     .table_list_data_processing>tbody td:nth-child(11) input {
         width: 190px;
     }
+
+
+
+    .table_data_add_new_list>tbody td:nth-child(-n+29) {
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .table_data_add_new_list>tbody td:nth-child(-n+29) input {
+        width: 100%;
+    }
+
+    .table_data_add_new_list>tbody td:nth-child(4) input {
+        width: 300px;
+    }
+
+    .table_data_add_new_list>tbody td:nth-child(3) input,
+    .table_data_add_new_list>tbody td:nth-child(6) input,
+    .table_data_add_new_list>tbody td:nth-child(7) input,
+    .table_data_add_new_list>tbody td:nth-child(8) input,
+    .table_data_add_new_list>tbody td:nth-child(11) input {
+        width: 190px;
+    }
 </style>
 
 

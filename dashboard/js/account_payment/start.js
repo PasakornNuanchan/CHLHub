@@ -3,6 +3,7 @@ const start = {
     data_res_data_currency: '',
     data_get_table_reverse: '',
     data_del_receipt : [],
+    data_table_main : '',
     start_setting: async function () {
         $('.head-of-menu').html('Account payment')
     },
@@ -33,10 +34,10 @@ const start = {
         this.data_res_data_currency = '';
         this.data_res_data_currency = res_data_currency;
 
-
+        start.data_table_main = res_data
         // res_data['table']['billing_description'].sort();
         if (res_data['table'] != "0 results") {
-
+            console.log(res_data)
 
 
             $.each(res_data['table'], function (i, v) {
@@ -200,10 +201,10 @@ const start = {
 
         let join_arr_data_find = arr_data_find.join(`','`)
         let res_data_cal_curreny = await this.ajax_get_data_currency(join_arr_data_find)
-
         data_val = data_val.toLowerCase()
         $.each(res_data_cal_curreny['currency'], function (i, v) {
             let job_number = v['job_number'] ? v['job_number'] : '';
+            let data_id = v['ID'] ? v['ID'] : '';
             $.each(e_path, function () {
                 let job_number_serach = $(this).find('.inp_job_number').val()
 
@@ -217,7 +218,8 @@ const start = {
                     } else {
                         data_currency = v[`${currency_main_l}_${data_val}`] ? v[`${currency_main_l}_${data_val}`] : 'non currency';
                     }
-                    $(this).find('.inp_sysrate').val(data_currency)
+                    $(this).find('.inp_sysrate').val(data_currency).attr('data_id_currency',data_id)
+                    
                 }
             })
         })
@@ -497,7 +499,7 @@ const start = {
 
 
         this.data_get_table_reverse = res_data
-
+        start.data_table_main = res_data
 
     },
 
@@ -760,6 +762,7 @@ const start = {
                         let writen = $(this).find('.inp_writen').val()
                         let write_off = $(this).find('.inp_write_off').val()
                         let sysrate = $(this).find('.inp_sysrate').val()
+                        let data_id_currency = $(this).find('.inp_sysrate').attr('data_id_currency')
 
 
                         let sysrate_to = $(this).find('.inp_sysrate_to').val()
@@ -778,7 +781,7 @@ const start = {
 
                         html_modal_data_table += `
                             <tr class="text-center" data_number_id="${id_number}">
-                                <td>${i}</td>
+                                <td><div class="number_data">${i}</div></td>
                                 <td><input type="checkbox" style="zoom:150%" class="chex_box_modal" checked=""  onchange="start.cal_data_hide_process(this)"></td>
                                 <td><input class="form-control form-control-sm" readonly value="${data_job_number}"></td>
                                 <td><input class="form-control form-control-sm" readonly value="${bill_to}"></td>
@@ -787,7 +790,7 @@ const start = {
                                 <td><input class="form-control form-control-sm text-end" readonly value="${writen}"></td>
                                 <td><input class="form-control form-control-sm text-end data_settelment" real_data="${write_off}" readonly value="${write_off}"></td>
                                 <td><input class="form-control form-control-sm text-center data_currency" real_data="${sysrate}" readonly data_currency_id="${data_currency_id}" value="${sysrate}"></td>
-                                <td><input class="form-control form-control-sm text-center inp_currency_to"  real_data="${sysrate_to}" readonly value="${sysrate_to}"></td>
+                                <td><input class="form-control form-control-sm text-center inp_currency_to" data_id_currency="${data_id_currency}" real_data="${sysrate_to}" readonly value="${sysrate_to}"></td>
                                 <td><input class="form-control form-control-sm text-end data_incv_wrute_off" real_data="${amt_incv_write_off}" readonly value="${amt_incv_write_off}"></td>
                                 <td><input class="form-control form-control-sm" readonly value=""></td>
                                 <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
@@ -1080,6 +1083,11 @@ const start = {
                                                 </table>
                                             </div>
                                         </div>
+                                        
+                                        <div class="data_add_new_list mt-2" style="zoom:80%">
+                                            
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="start.show_add_list_new(this)" style="zoom:80%;width:100%">Add new list</button>
                                     </div>
                                 </div>
                             </div>
@@ -1161,27 +1169,16 @@ const start = {
 
                 get_total_incl = parseFloat(get_total_incl)
                 get_total_incl = get_total_incl.toFixed(2)
-                // $('.inp_acual_payment').val('0')
                 $('.inp_payment_type').val(data_radio_select_type).attr('disabled', true)
-                // $('.inp_amount_all').val(get_total_data_incl_all)
                 $('.inp_amount_all').val('0.00')
                 $('.inp_currency_main').val('')
                 $('.inp_number_payment_record').val('0')
-                // $('.inp_number_payment_record').val('')
                 $('.inp_sale_man').val(data_sale).attr('disabled', true).attr('data_sale', data_sale_support_number)
                 $('.inp_consignee_data_detail').val(data_unique_customer).attr('disabled', true)
-                // $('.inp_handler').val(data_create).attr('disabled', true).attr('data_hanler',data_cs_support_number)
                 $('.inp_currency_start').val(arr_currency_data[0])
-
                 $('.inp_write_off_date').val(currentDate).attr('disabled', true)
-
-                // await $('.inp_write_off_date').val(Date()).attr('disabled',true)
-
-                // $('.inp_number_rec').val('0')
                 $('#modal_account_payment').modal('show')
-
                 $('.inp_amount_all_write_off').val(data_all_amount).attr('disabled', true)
-
 
                 let data_inp_currency = $('.table_list_data_processing tbody tr td').find('.inp_currency_to').val()
 
@@ -1211,7 +1208,249 @@ const start = {
             }
         }
     },
+    get_data_to_upper : async function(){
 
+        let arr_data_upper = []
+        $('.table_data_add_new_list tbody tr').each(function(){
+            let data_check = $(this).find('.chex_box_modal').prop('checked') ? '1' : '0';
+            console.log(data_check)
+            if(data_check == '1'){
+                let id_number = $(this).attr('data_number_id')
+                let job = $(this).find('.inp_job').val()
+                let bill_to = $(this).find('.inp_bill_to').val()
+                let currency = $(this).find('.inp_currency').val()
+                let total = $(this).find('.inp_total').val()
+                let write = $(this).find('.inp_write').val()
+                let settelment = $(this).find('.data_settelment').val()
+                let sys_rate = $(this).find('.data_currency').val()
+                let currency_to = $(this).find('.inp_currency_to').val()
+                let incv_wrute_off = $(this).find('.data_incv_wrute_off').val()
+                let vat = $(this).find('.data_vat').val()
+                let data_id_currency = $(this).find('.inp_currency_to').attr('data_id_currency')
+                // let currency = $(this).find('.data_currency').val()
+
+                let obj_data = {
+                    id_number : id_number,
+                    job : job,
+                    bill_to : bill_to,
+                    currency : currency,
+                    total : total,
+                    write : write,
+                    settelment : settelment,
+                    sys_rate : sys_rate,
+                    currency_to : currency_to,
+                    incv_wrute_off : incv_wrute_off,
+                    vat : vat,
+                    data_id_currency:data_id_currency,
+                }
+                arr_data_upper.push(obj_data)
+                $(this).remove()
+            }
+        })
+        
+        let html_modal_data_table = '';
+        $.each(arr_data_upper,function(i,v){
+            let id_number = v['id_number'] ? v['id_number'] : '';
+            let job_number = v['job'] ? v['job'] : '';
+            let bill_to = v['bill_to'] ? v['bill_to'] : '';
+            let cur = v['currency'] ? v['currency'] : '';
+            let total_amt = v['total'] ? v['total'] : '';
+            let writen = v['write'] ? v['write'] : '';
+            let write_off = v['settelment'] ? v['settelment'] : '';
+            let sysrate = v['sys_rate'] ? v['sys_rate'] : '';
+            let sysrate_to = v['currency_to'] ? v['currency_to'] : '';
+            let amt_incv_write_off = v['incv_wrute_off'] ? v['incv_wrute_off'] : '';
+            let vat = v['vat'] ? v['vat'] : '';
+            let data_id_currency = v['data_id_currency'] ? v['data_id_currency'] : '';
+            
+            html_modal_data_table += `
+            <tr class="text-center" data_number_id="${id_number}">
+                <td><div class="number_data">${i}</div></td>
+                <td><input type="checkbox" style="zoom:150%" class="chex_box_modal"  onchange="start.cal_data_hide_process(this)"></td>
+                <td><input class="form-control form-control-sm inp_job" readonly value="${job_number}"></td>
+                <td><input class="form-control form-control-sm inp_bill_to" readonly value="${bill_to}"></td>
+                <td><input class="form-control form-control-sm text-center inp_currency" readonly value="${cur}"></td>
+                <td><input class="form-control form-control-sm text-end inp_total" readonly value="${total_amt}"></td>
+                <td><input class="form-control form-control-sm text-end inp_write" readonly value="${writen}"></td>
+                <td><input class="form-control form-control-sm text-end data_settelment" real_data="${write_off}" readonly value="${write_off}"></td>
+                <td><input class="form-control form-control-sm text-center data_currency" real_data="${sysrate}" readonly  value="${sysrate}"></td>
+                <td><input class="form-control form-control-sm text-center inp_currency_to" data_id_currency="${data_id_currency}"  real_data="${sysrate_to}" readonly value="${sysrate_to}"></td>
+                <td><input class="form-control form-control-sm text-end data_incv_wrute_off" real_data="${amt_incv_write_off}" readonly value="${amt_incv_write_off}"></td>
+                <td><input class="form-control form-control-sm" readonly value=""></td>
+                <td><input class="form-control form-control-sm text-center" readonly value="${vat}"></td>
+            </td>
+            `;
+
+            $('.table_list_data_processing tbody').append(html_modal_data_table)
+        })
+        await start.cal_row_number_table_list_data_processing();
+        await start.cal_row_number_table_data_add_new_list();
+    },
+
+    cal_row_number_table_list_data_processing : async function(){
+        let i = 0;
+        $('.table_list_data_processing tbody tr').each(function(){
+            i++;
+            $(this).find('.number_data').html(i)
+        })
+    },
+
+    show_add_list_new: async function(e){
+        let check_hidden = $('.table_data_add_new_list_res').length
+        if(check_hidden == '0'){
+            // part set template
+            let arr_data_id = []
+            let html_data_add_new = `
+            <div class="table-responsive table_data_add_new_list_res">
+            <div class="row">
+                <div class="col">
+                    <h4>Add new list</h4>
+                </div>    
+                <div class="col text-end">
+                    <button class="btn btn-outline-success btn-sm" onclick="start.get_data_to_upper()">add data</button>
+                </div>    
+            </div>
+            
+                <table class="table table-hover table_data_add_new_list">
+                    <thead>
+                        <tr class="text-center">
+                        <th>No.</th>
+                        <th>OK</th>
+                        <th>Job</th>
+                        <th>Fee</th>
+                        <th>Cur</th>
+                        <th>AR/AP Total</th>
+                        <th>Outstanding</th>
+                        <th>Settlement</th>
+                        <th>actual<br>ex.rate</th>
+                        <th>actual<br>currency</th>
+                        <th>Curr</th>
+                        <th>Anootated</th>
+                        <th>vat(%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            `;
+
+            $('.data_add_new_list').append(html_data_add_new)
+
+            // get filter
+            let currency_data_main = ''
+            $('.table_list_data_processing tbody tr').each(function(){
+                currency_data_main = $(this).find('.inp_currency').val()
+                let id_number_find = $(this).attr('data_number_id')
+                arr_data_id.push(id_number_find)
+            })
+            let data_consignee = $('.inp_consignee_data_detail').val()
+            // part get data all
+            let arr_data_get_table = []
+            $('.table_payment tbody tr').each(function(){
+                let id_number = $(this).attr('id_number')
+                let job_number = $(this).find('.inp_job_number').val()
+                let bill_to = $(this).find('.inp_bill_to').val()
+                let cur = $(this).find('.inp_cur').val()
+                let total_amt = $(this).find('.inp_total_amt').val()
+                let writen = $(this).find('.inp_writen').val()
+                let write_off = $(this).find('.inp_write_off').val()
+                let sysrate = $(this).find('.inp_sysrate').val()
+                let sysrate_to = $(this).find('.inp_sysrate_to').val()
+                let amt_incv_write_off = $(this).find('.inp_amt_incv_write_off').val()
+                let amt = $(this).find('.inp_amt').val()
+                let vat = $(this).find('.inp_vat').val()
+                let amt_excv = $(this).find('.inp_amt_excv').val()
+                let data_id_currency = $(this).find('.inp_sysrate').attr('data_id_currency')
+                let description = $(this).find('.inp_description').val()
+
+
+                let data_obj = {
+                    job_number : job_number,
+                    bill_to : bill_to,
+                    cur : cur,
+                    total_amt : total_amt,
+                    writen : writen,
+                    write_off : write_off,
+                    sysrate : sysrate,
+                    sysrate_to : sysrate_to,
+                    amt_incv_write_off : amt_incv_write_off,
+                    amt : amt,
+                    vat : vat,
+                    amt_excv : amt_excv,
+                    id_number:id_number,
+                    data_id_currency :data_id_currency,
+                    description:description,
+                }
+
+                arr_data_get_table.push(data_obj)
+            })
+            let html_modal_data_table = '';
+
+            // filter
+            let filteredArray = arr_data_get_table.filter(item => !arr_data_id.includes(item.id_number));
+            
+
+            $.each(filteredArray, function (i, v) {
+                i++;
+                let id_number = v['id_number'] ? v['id_number'] : '';
+                let job_number = v['job_number'] ? v['job_number'] : '';
+                let bill_to = v['bill_to'] ? v['bill_to'] : '';
+                let cur = v['cur'] ? v['cur'] : '';
+                let total_amt = v['total_amt'] ? v['total_amt'] : '';
+                let writen = v['writen'] ? v['writen'] : '';
+                let write_off = v['write_off'] ? v['write_off'] : '';
+                let sysrate = v['sysrate'] ? v['sysrate'] : '';
+                let sysrate_to = v['sysrate_to'] ? v['sysrate_to'] : '';
+                let amt_incv_write_off = v['amt_incv_write_off'] ? v['amt_incv_write_off'] : '';
+                let amt = v['amt'] ? v['amt'] : '';
+                let vat = v['vat'] ? v['vat'] : '';
+                let amt_excv = v['amt_excv'] ? v['amt_excv'] : '';
+                let data_id_currency = v['data_id_currency'] ? v['data_id_currency'] : '';
+                let description = v['description'] ? v['description'] : '';
+                if(description == data_consignee){
+                    if (cur == currency_data_main) {
+
+                        html_modal_data_table += `
+                                <tr class="text-center" data_number_id="${id_number}">
+                                    <td><div class="number_data">${i}</div></td>
+                                    <td><input type="checkbox" style="zoom:150%" class="chex_box_modal"  onchange="start.cal_data_hide_process(this)"></td>
+                                    <td><input class="form-control form-control-sm inp_job" readonly value="${job_number}"></td>
+                                    <td><input class="form-control form-control-sm inp_bill_to" readonly value="${bill_to}"></td>
+                                    <td><input class="form-control form-control-sm text-center inp_currency" readonly value="${cur}"></td>
+                                    <td><input class="form-control form-control-sm text-end inp_total" readonly value="${total_amt}"></td>
+                                    <td><input class="form-control form-control-sm text-end inp_write" readonly value="${writen}"></td>
+                                    <td><input class="form-control form-control-sm text-end data_settelment" real_data="${write_off}" readonly value="${write_off}"></td>
+                                    <td><input class="form-control form-control-sm text-center data_currency" real_data="${sysrate}" readonly  value="${sysrate}"></td>
+                                    <td><input class="form-control form-control-sm text-center inp_currency_to"  real_data="${sysrate_to}" data_id_currency="${data_id_currency}" readonly value="${sysrate_to}"></td>
+                                    <td><input class="form-control form-control-sm text-end data_incv_wrute_off" real_data="${amt_incv_write_off}" readonly value="${amt_incv_write_off}"></td>
+                                    <td><input class="form-control form-control-sm" readonly value=""></td>
+                                    <td><input class="form-control form-control-sm text-center data_vat" readonly value="${vat}"></td>
+                                </td>
+                                `;
+                    }
+                }
+                
+
+            })
+            
+            $('.table_data_add_new_list tbody').append(html_modal_data_table)
+            await start.cal_row_number_table_data_add_new_list();
+        }else{
+            $('.table_data_add_new_list_res').remove('.table_data_add_new_list_res')
+
+        }
+
+    },
+
+    cal_row_number_table_data_add_new_list : async function(){
+        let i = 0;
+        $('.table_data_add_new_list tbody tr').each(function(){
+            i++;
+            $(this).find('.number_data').html(i)
+        })
+    },
 
     add_payment_modal: async function () {
 
@@ -1239,14 +1478,14 @@ const start = {
             <option value="">-- select bank account --</option>
             ${data_bank_account}
             </select></td>
-            <td><select class="form-select form-select-sm text-center inp_currency_receipt" style="width:100%">
+            <td><select class="form-select form-select-sm text-center inp_currency_receipt" onchange="start.cal_receipt_part()" style="width:100%">
                     <option value="THB">THB</option>
                     <option value="USD">USD</option>
                     <option value="RMB">RMB</option>
                     <option value="YEN">YEN</option>
                     <option value="HKD">HKD</option>
             </select></td>
-            <td><input type="number" class="form-control form-control-sm text-end inp_acutal_payment" style="width:100%"></td>
+            <td><input type="number" class="form-control form-control-sm text-end inp_acutal_payment" onchange="start.cal_receipt_part()" style="width:100%"></td>
             <td><input type="file" class="form-control form-control-sm inp_file_receipt" onchange="readURL(this)" style="width:100%"></td>
             <td><i class="bi bi-image" id="blah" onclick="start.show_photo(this)"></i></td>
             <td><button class="btn btn-sm btn-outline-danger" onclick="start.delete_payment_modal(this)"><i class="bi bi-trash text-danger"></i></button></td>
@@ -1255,6 +1494,26 @@ const start = {
 
         $('.table_receipt tbody').append(data_append)
         start.cal_row_receipt();
+    },
+
+
+
+    cal_receipt_part : async function(){
+        console.log('111')
+        let e_path = $('.table_receipt tbody tr')
+        let currency = ''
+        let data_all = 0;
+
+        $.each(e_path,function(){
+            currency = $(this).find('.inp_currency_receipt').val()
+            let data_get_res = $(this).find('.inp_acutal_payment').val() ? $(this).find('.inp_acutal_payment').val() : 0;
+            data_get_res = parseFloat(data_get_res)
+            data_all = data_all+data_get_res
+        })
+
+        data_all = data_all.toFixed(2)
+        $('.inp_currency_main').val(currency)
+        $('.inp_amount_all').val(data_all)
     },
 
     delete_payment_modal: async function (e) {
@@ -1430,7 +1689,7 @@ const start = {
             let data_currency_to = $(this).find('.inp_currency_to').attr('real_data')
             // if (data_check == '1') {
             let data_number_id = $(this).attr('data_number_id')
-            let data_currency = $(this).find('.data_currency').attr('data_currency_id')
+            let data_currency = $(this).find('.inp_currency_to').attr('data_id_currency')
             let amount = $(this).find('.data_incv_wrute_off').attr('real_data')
             let obj_data = {
                 data_number_id: data_number_id,

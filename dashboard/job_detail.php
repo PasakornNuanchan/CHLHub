@@ -454,7 +454,7 @@ require 'function/auth/get_session.php';
                                                 <select class="form-select form-select-sm inp_type_generate" name="" id="">
                                                     <option value="">-- select type --</option>
                                                     <option value="I">IMPORT</option>
-                                                    <option value="E">EXPOER</option>
+                                                    <option value="E">EXPORT</option>
                                                     <option value="R">RE-EXPORT</option>
                                                     <option value="P">PRODUCT</option>
                                                     <option value="L">LCL</option>
