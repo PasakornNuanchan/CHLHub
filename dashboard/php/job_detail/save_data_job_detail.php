@@ -21,7 +21,7 @@ foreach ($arr_hbl as $k => $v) {
             UPDATE
                 `bl_title`
             SET
-                `hbl` = '$hbl_data',
+                `hbl` = '$hbl_data'
             WHERE
                 `ref_job_id` = '$id_hbl'
             ";
@@ -38,7 +38,7 @@ foreach ($arr_hbl as $k => $v) {
             )
             ";
     }
-
+    
     $result = $con->query($sql_query_hbl);
     if ($result->num_rows == 0) {
         $arr_hbl_data = '1';

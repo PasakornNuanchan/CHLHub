@@ -1,7 +1,7 @@
 const sub_job_detail = {
     data_select_container: '',
-    data_container_for_transport : '',
-    select_packing_global : '',
+    data_container_for_transport: '',
+    select_packing_global: '',
     first_post_data: async function (data) {
         //data = 1;
         let res_data = await this.ajax_request_first(data);
@@ -10,7 +10,7 @@ const sub_job_detail = {
         //job_detail
 
         let job_number_data = res_data['job_title']['job_number'] ? res_data['job_title']['job_number'] : '';
-        if(job_number_data != ''){
+        if (job_number_data != '') {
             $('.generate_job_func').remove();
         }
 
@@ -26,8 +26,8 @@ const sub_job_detail = {
 
         //$(`.select_bill_to_ar option[type="${bill_to_type}"][value="${bill_to}"]`).prop('selected', true);
 
-        $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected',true)
-        $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected',true)
+        $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected', true)
+        $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected', true)
 
         $('.inp_create_date').val(res_data['job_title']['create_date'])
         $('.inp_jobnumber').val(res_data['job_title']['job_number'])
@@ -53,12 +53,12 @@ const sub_job_detail = {
         //$('.inp_hbl').val(res_data['job_title']['hbl'])
         $('.hbl_added').html('')
         $('.inp_first_hbl_d').html('')
-        if(res_data['hbl_data'] != "0 results"){
-            
-            $.each(res_data['hbl_data'],function(i,v){
+        if (res_data['hbl_data'] != "0 results") {
+
+            $.each(res_data['hbl_data'], function (i, v) {
                 let hbl_data = v['hbl'] ? v['hbl'] : '';
                 let id_hbl = v['ID'] ? v['ID'] : '';
-                
+
                 let html_data = `
                 <div class="form-group row" id_hbl="${id_hbl}">
                     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
@@ -76,14 +76,14 @@ const sub_job_detail = {
                 `;
                 $('.hbl_added').append(html_data)
             })
-        }else{
+        } else {
             let html_data = `
-                <div class="form-group row" id_hbl="">
+                <div class="form-group row">
                     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
                     <div class="col-sm-9 col-md-5 col-lg-9">
                         <div class="row">
                             <div class="col-sm-11 col-md-10 col-lg-11">
-                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data" value="">
+                                <input type="text" class="form-control form-control-sm inp_hbl hbl_sel_data">
                             </div>
                             <div class="col-sm-1 col-md-2 col-lg-1">
                                 <button class="btn btn-outline-danger btn_delete_hbl btn-sm" onclick="function_sub_job_detail.delete_data_hbl(this)"><i class="bi bi-trash" ></i></button>
@@ -92,10 +92,10 @@ const sub_job_detail = {
                     </div>
                 </div>
                 `;
-                $('.hbl_added').append(html_data)
-            
+            $('.hbl_added').append(html_data)
+
         }
-        
+
 
 
 
@@ -119,12 +119,12 @@ const sub_job_detail = {
         let select_packing = $('.inp_select_packing').parent().html();
         this.select_packing_global = select_packing;
         html_container_type = $('#container_type_data').parent().html();
-        
+
         this.data_select_container = $('.inp_container_type').parent().html()
         $('.table_data_container > tbody').html('')
         $('.table_container_module tbody').html('')
         $('.table_container_v2 tbody').html('')
-        
+
         let notify = res_data['job_title']['notify'] ? res_data['job_title']['notify'] : '';
         $('.inp_notify').val(notify)
 
@@ -145,7 +145,7 @@ const sub_job_detail = {
 
                 $('.table_container_v2 tbody').append(html_data_container_group)
                 $(`.table_container_v2 > tbody > tr > .container_type_data_selector${i} > .inp_container_type`).val(container_type).attr('disabled', true)
-                
+
                 if (res_data['container'] != "0 results") {
                     $.each(res_data['container'], function (i1, v1) {
                         if (v1['container_type'] == v['container_type']) {
@@ -162,7 +162,7 @@ const sub_job_detail = {
                             let rtn = v1['rtn'] ? v1['rtn'] : '';
                             let remark = v1['remark'] ? v1['remark'] : '';
                             let unit = v1['unit'] ? v1['unit'] : '';
-                            
+
                             let data_vgm = parseFloat(single_cnt) + parseFloat(gw);
 
                             let html_container_module = `
@@ -183,7 +183,7 @@ const sub_job_detail = {
                                 </tr>
                                 `;
                             $('.table_container_module tbody').append(html_container_module)
-                            $(`.table_container_module > tbody > .container_data_q${i1} > td > .inp_container_type`).val(data_container_v1).attr('disabled',true)
+                            $(`.table_container_module > tbody > .container_data_q${i1} > td > .inp_container_type`).val(data_container_v1).attr('disabled', true)
                             $(`.table_container_module > tbody > .container_data_q${i1} > td > .inp_select_packing`).val(unit)
                         }
 
@@ -206,7 +206,7 @@ const sub_job_detail = {
         }
 
 
-        
+
 
         // if (res_data['container'] == "0 results") {
 
@@ -259,11 +259,11 @@ const sub_job_detail = {
         //     })
         // }
 
-        
+
         await function_sub_job_detail.cal_number_container_rows()
         await function_sub_job_detail.cal_number_container_module_rows()
         await function_sub_job_detail.cal_cargo_information()
-        
+
     },
 
     ajax_request_first: async function (data) {

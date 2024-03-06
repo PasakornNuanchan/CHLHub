@@ -1,7 +1,7 @@
 const function_sub_job_detail = {
 
     arr_delete_container: [],
-    arr_delete_hbl:[],
+    arr_delete_hbl: [],
 
     get_data_all_page: async function () {
 
@@ -46,7 +46,7 @@ const function_sub_job_detail = {
                 let delivery_place = $('.inp_delivery_place').val()
                 let final_destination = $('.inp_finaldestination').val()
                 //let notify = $('.inp_notify').val()
-                
+
                 let client_value = $('.inp_client :selected').val()
                 let client_type = $('.inp_client :selected').attr('type_data')
                 let notify_value = $('.inp_notify_job_detail :selected').val()
@@ -65,7 +65,7 @@ const function_sub_job_detail = {
                     port_of_receipt: port_of_receipt,
                     port_of_loading: port_of_loading,
                     ts_port: ts_port,
-                    port_of_discharge : port_of_discharge,
+                    port_of_discharge: port_of_discharge,
                     port_of_delivery: port_of_delivery,
                     mother: mother,
                     feeder: feeder,
@@ -82,13 +82,13 @@ const function_sub_job_detail = {
                     booking_agent: booking_agent,
                     cs_data_user: cs_data_user,
                     sale_data_user: sale_data_user,
-                    commodity:commodity,
-                    delivery_place:delivery_place,
-                    client_value : client_value,
-                    client_type : client_type,
-                    notify_value : notify_value,
-                    notify_type : notify_type,
-                    final_destination : final_destination,
+                    commodity: commodity,
+                    delivery_place: delivery_place,
+                    client_value: client_value,
+                    client_type: client_type,
+                    notify_value: notify_value,
+                    notify_type: notify_type,
+                    final_destination: final_destination,
                 }
 
                 arr_detail_save.push(obj_detail_save)
@@ -117,7 +117,7 @@ const function_sub_job_detail = {
                         inp_container_number: inp_container_number,
                         inp_single_weight: inp_single_weight,
                         inp_package: inp_package,
-                        inp_select_packing : inp_select_packing,
+                        inp_select_packing: inp_select_packing,
                         inp_gw: inp_gw,
                         inp_volume: inp_volume,
                         inp_seal_number: inp_seal_number,
@@ -134,49 +134,51 @@ const function_sub_job_detail = {
 
                 let arr_hbl = []
                 //let obj_hbl = {}
-                $('.hbl_added > .form-group').each(function (e){
-                    
+                $('.hbl_added > .form-group').each(function (e) {
+
                     let id_hbl = $(this).attr('id_hbl')
-                    let hbl_data = $('.inp_hbl',this).val()
+                    let hbl_data = $('.inp_hbl', this).val()
                     let obj_hbl = {}
                     obj_hbl = {
-                        id_hbl : id_hbl,
-                        hbl_data : hbl_data
+                        id_hbl: id_hbl,
+                        hbl_data: hbl_data
                     }
                     arr_hbl.push(obj_hbl)
                 })
-                
+
+                console.log(arr_hbl)
                 var currentURL = window.location.href;
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
                 //console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
                 //console.log()
-                let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl,this.arr_delete_hbl)
-
-                if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_delete_container'] == '1' || res_return['arr_data_job_title'] == '1' || res_return['arr_hbl_data'] == '1') {
-                    Swal.fire(
-                        'saved!',
-                        'Your data has been saved.',
-                        'success'
-                    )
-                    var currentURL = window.location.href;
-                    var url = new URL(currentURL);
-                    var id_number = url.searchParams.get("job_number");
-                    
-                    await sub_gang_bl.setting_first_bl_gang();
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'System has problem plese contact to thailand tech team ',
-                    })
-                }
+                // let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl,this.arr_delete_hbl)
+                await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number, arr_hbl, this.arr_delete_hbl)
+                // if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_job_title'] == '1' ) {
+                await Swal.fire(
+                    'saved!',
+                    'Your data has been saved.',
+                    'success'
+                )
+                var currentURL = window.location.href;
+                var url = new URL(currentURL);
+                var id_number = url.searchParams.get("job_number");
+                await sub_job_detail.first_post_data(id_number);
+                // await location.reload();
+                // await sidebar_main.set_d/ata_rows();
+                // } else {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'System has problem plese contact to thailand tech team ',
+                //     })
+                // }
 
             }
         })
     },
 
-    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number,arr_hbl,arr_delete_hbl) {
+    ajax_sent_data_raw: function (arr_detail_save, arr_detail_container, delete_data, id_number, arr_hbl, arr_delete_hbl) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -186,8 +188,8 @@ const function_sub_job_detail = {
                     arr_detail_container: arr_detail_container,
                     delete_data: delete_data,
                     id_number: id_number,
-                    arr_hbl : arr_hbl,
-                    arr_delete_hbl : arr_delete_hbl,
+                    arr_hbl: arr_hbl,
+                    arr_delete_hbl: arr_delete_hbl,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -338,7 +340,7 @@ const function_sub_job_detail = {
             let volume = parseFloat($('.inp_volume', this).val())
             let gw = parseFloat($('.inp_gw', this).val())
             let single_w = parseFloat($('.inp_single_weight', this).val())
-            let package = parseFloat($('.inp_package',this).val())
+            let package = parseFloat($('.inp_package', this).val())
 
             package_all = parseFloat(package_all) + parseFloat(package)
 
@@ -371,7 +373,7 @@ const function_sub_job_detail = {
 
     },
 
-    cal_vgm : async function(e){
+    cal_vgm: async function (e) {
         let data_tare_weight = $(e).closest('tr').find('.inp_single_weight').val()
         let data_gross_weight = $(e).closest('tr').find('.inp_gw').val()
 
@@ -380,7 +382,7 @@ const function_sub_job_detail = {
 
         console.log(data_tare_weight)
         console.log(data_gross_weight)
-        data_tare_weight = parseFloat(data_tare_weight) 
+        data_tare_weight = parseFloat(data_tare_weight)
         data_gross_weight = parseFloat(data_gross_weight)
 
         let data_vgm = data_tare_weight + data_gross_weight
@@ -388,7 +390,7 @@ const function_sub_job_detail = {
         $(e).closest('tr').find('.inp_vgm').val(data_vgm)
     },
 
-    add_hbl : async function(){
+    add_hbl: async function () {
         //let html_add_hbl = `
         // <div class="form-group row">
         //     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
@@ -416,44 +418,44 @@ const function_sub_job_detail = {
         $('.hbl_added').append(html_add_hbl)
     },
 
-    generate_job : async function(){
+    generate_job: async function () {
 
         let data_type_gen = $('.inp_type_generate').val()
-        if(data_type_gen == ''){
+        if (data_type_gen == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please select type before generate.',
             })
-        }else{
+        } else {
             let data_month = $('.inp_month_check').val()
             let data_type = $('.inp_type_generate').val()
-    
-            let data_year = data_month.substr(0,4)
-            let data_monthly = data_month.substr(5,3)
-            let full_my = data_year+data_monthly;
-    
+
+            let data_year = data_month.substr(0, 4)
+            let data_monthly = data_month.substr(5, 3)
+            let full_my = data_year + data_monthly;
+
             console.log(full_my)
             let res_data = await this.ajax_request_generate_job(full_my)
-           
+
             let job_cal = '';
-            if(res_data == "0 results"){
-                job_cal = full_my+"000";
-            }else{
+            if (res_data == "0 results") {
+                job_cal = full_my + "000";
+            } else {
                 job_cal = res_data.substr(1)
             }
-    
+
             job_cal = parseFloat(job_cal)
-            job_cal = job_cal+1
-        
-            let text_job = data_type+(job_cal);
+            job_cal = job_cal + 1
+
+            let text_job = data_type + (job_cal);
             $('.inp_jobnumber').val(text_job)
         }
 
-        
+
     },
 
-    ajax_request_generate_job : function (full_my) {
+    ajax_request_generate_job: function (full_my) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -469,7 +471,7 @@ const function_sub_job_detail = {
         });
     },
 
-    get_to_copy : async function(e){
+    get_to_copy: async function (e) {
         let dataToCopy = $(e).closest('.form-group').find('.inp_copy_data :selected').text()
         var copyTextArea = $("<textarea/>");// สร้าง element textarea สำหรับใช้คัดลอกข้อมูล
         copyTextArea.text(dataToCopy);// กำหนดข้อมูลให้กับ textarea
@@ -480,33 +482,33 @@ const function_sub_job_detail = {
     },
 
 
-    delete_data_hbl : async function(e){
+    delete_data_hbl: async function (e) {
         let data_id_hbl = $(e).closest('.form-group').attr('id_hbl');
 
-        if(data_id_hbl != undefined){
+        if (data_id_hbl != undefined) {
             let obj_data = {
-                data_id_hbl : data_id_hbl,
+                data_id_hbl: data_id_hbl,
             }
             this.arr_delete_hbl.push(obj_data)
         }
-            
+
 
         $(e).closest('.form-group').remove()
     },
 
 
-    load_save_data : async function (){
-        
+    load_save_data: async function () {
+
         if ($('#add_modal_load_data').length >= 1) {
             $('#add_modal_load_data').remove()
         }
 
         let res_data = await this.ajax_request_job_load();
-        
+
         data_modal_detail_load = res_data;
 
         let tbody_data_html = '';
-        $.each(res_data['load_data'],function(i,v){
+        $.each(res_data['load_data'], function (i, v) {
             let id_number = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
             let client_name = v['client_name'] ? v['client_name'] : '';
@@ -605,11 +607,11 @@ const function_sub_job_detail = {
         $('#add_modal_load_data').modal('show')
     },
 
-    select_load_data : async function(e){
+    select_load_data: async function (e) {
         console.log(data_modal_detail_load)
         console.log(e)
         $('#add_modal_load_data').modal('toggle')
-        $.each(data_modal_detail_load['load_data'],async function(i,v){
+        $.each(data_modal_detail_load['load_data'], async function (i, v) {
             let id_number = v['ID'] ? v['ID'] : '';
             let client_type = v['client_type'] ? v['client_type'] : '';
             let client_number = v['client_number'] ? v['client_number'] : '';
@@ -630,54 +632,54 @@ const function_sub_job_detail = {
             let remark = v['remark'] ? v['remark'] : '';
             let sale_support = v['sale_support'] ? v['sale_support'] : '';
 
-            
 
-            if(e == id_number){
-            
-                if(client_type == '' && client_number == ''){
-                    $(`.inp_client option[value=""]`).prop('selected',true)
-                }else{
-                    $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected',true)
+
+            if (e == id_number) {
+
+                if (client_type == '' && client_number == '') {
+                    $(`.inp_client option[value=""]`).prop('selected', true)
+                } else {
+                    $(`.inp_client option[type_data="${client_type}"][value="${client_number}"]`).prop('selected', true)
                 }
 
-                if(notify_type == '' && notify_number == ''){
-                    $(`.inp_notify_job_detail option[value=""]`).prop('selected',true)
-                }else{
-                    $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected',true)
+                if (notify_type == '' && notify_number == '') {
+                    $(`.inp_notify_job_detail option[value=""]`).prop('selected', true)
+                } else {
+                    $(`.inp_notify_job_detail option[type_data="${notify_type}"][value="${notify_number}"]`).prop('selected', true)
 
                 }
 
-                $(`.inp_shipper option[value="${shipper_number}"]`).prop('selected',true)
-                $(`.inp_consignee option[value="${consignee_number}"]`).prop('selected',true)
+                $(`.inp_shipper option[value="${shipper_number}"]`).prop('selected', true)
+                $(`.inp_consignee option[value="${consignee_number}"]`).prop('selected', true)
 
-                $(`.inp_shipment option[value="${st_number}"]`).prop('selected',true)
-                $(`.inp_carrier option[value="${carrier_number}"]`).prop('selected',true)
-                $(`.inp_port_of_receipt option[value="${port_of_receipt_number}"]`).prop('selected',true)
-                $(`.inp_port_of_loading option[value="${port_of_loading_number}"]`).prop('selected',true)
-                $(`.inp_ts_port option[value="${ts_port_number}"]`).prop('selected',true)
-                $(`.inp_port_of_discharge option[value="${port_of_discharge}"]`).prop('selected',true)
-                $(`.inp_port_of_delivery option[value="${port_of_delivery_number}"]`).prop('selected',true)
+                $(`.inp_shipment option[value="${st_number}"]`).prop('selected', true)
+                $(`.inp_carrier option[value="${carrier_number}"]`).prop('selected', true)
+                $(`.inp_port_of_receipt option[value="${port_of_receipt_number}"]`).prop('selected', true)
+                $(`.inp_port_of_loading option[value="${port_of_loading_number}"]`).prop('selected', true)
+                $(`.inp_ts_port option[value="${ts_port_number}"]`).prop('selected', true)
+                $(`.inp_port_of_discharge option[value="${port_of_discharge}"]`).prop('selected', true)
+                $(`.inp_port_of_delivery option[value="${port_of_delivery_number}"]`).prop('selected', true)
                 $(`.inp_finaldestination`).val(final_destination)
-                $(`.inp_booking_agent option[value="${booking_agent}"]`).prop('selected',true)
+                $(`.inp_booking_agent option[value="${booking_agent}"]`).prop('selected', true)
                 $(`.inp_delivery_place`).val(delivery_place)
                 $(`.inp_remark`).val(remark)
-                $(`.inp_sale_user option[value="${sale_support}"]`).prop('selected',true)
+                $(`.inp_sale_user option[value="${sale_support}"]`).prop('selected', true)
 
             }
-                
 
-                
-            
 
-            
+
+
+
+
         })
-        
 
 
-        
+
+
     },
 
-    ajax_request_job_load : function (full_my) {
+    ajax_request_job_load: function (full_my) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
@@ -693,7 +695,7 @@ const function_sub_job_detail = {
         });
     },
 
-    generate_job_detail_document : async function (e) {
+    generate_job_detail_document: async function (e) {
         var currentURL = window.location.href;
         var url = new URL(currentURL);
         var id_number = url.searchParams.get("job_number");
