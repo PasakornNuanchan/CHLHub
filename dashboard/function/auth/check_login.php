@@ -19,13 +19,15 @@ $pass = $_POST['pass'];
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
-
+$key = "LHC2zMKN1!?a83b7@a3Hl9#SnaKA0923";
+$iterations = 9137;
+$pwHash = hash_pbkdf2('sha256', $pass, $key,$iterations,32);
 $stmt = $con->prepare("SELECT *, USER.user_number as 'user_ses_id'
                       FROM user
                       LEFT JOIN department ON department.department_number = user.department_number
                       WHERE sec_user_id = ? AND sec_user_pass = ? AND status_user = '1'");
 
-$stmt->bind_param("ss", $user, $pass);
+$stmt->bind_param("ss", $user, $pwHash);
 
 $stmt->execute();
 $result = $stmt->get_result();

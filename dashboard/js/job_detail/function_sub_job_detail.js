@@ -701,4 +701,12 @@ const function_sub_job_detail = {
         var id_number = url.searchParams.get("job_number");
         window.open(`php/job_detail/create_pdf_generate_job_detail.php?job_number=${id_number}`, "_blank")
     },
+
+
+    carrier_web : async function(){
+        let data_val_search = $(`.inp_carrier`).val()
+        let data = $(`.inp_carrier option[value="${data_val_search}"]`).attr('web_checl')
+        $(`.btn_carrier_daata`).attr('href',data)
+        
+    }
 }

@@ -58,7 +58,7 @@ require 'function/auth/get_session.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">First Name</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp_name" >
+                                    <input type="input" class="form-control form-control-sm inp_name">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -134,8 +134,8 @@ require 'function/auth/get_session.php';
                                     </div>
                                 </div>
                             </div>
-                                
-                            
+
+
 
                             <div class="passandforgotgen">
                                 <div class="form-group row">
@@ -147,18 +147,19 @@ require 'function/auth/get_session.php';
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center ">Pin Forgot</label>
                                     <div class="col-sm-9 col-md-9 col-lg-9">
+                                        
                                         <button class="btn btn-sm btn-success" onclick="customer_management.generate('gpf')">Generate Pin Forgot</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row p-3">
-                                    <div class="col-lg-11">
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <button class="btn btn-sm btn-success" onclick="customer_management.get_data_save()">save</button>
-                                    </div>
+                                <div class="col-lg-11">
                                 </div>
+                                <div class="col-lg-1">
+                                    <button class="btn btn-sm btn-success" onclick="customer_management.get_data_save()">save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

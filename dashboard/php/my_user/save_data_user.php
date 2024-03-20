@@ -19,6 +19,9 @@ foreach($arr_data_save as $k => $v){
     $new_password = isset($v['new_password']) ? $v['new_password'] : '';
     $cf_newpassword = isset($v['cf_newpassword']) ? $v['cf_newpassword'] : '';
 
+    $key = "LHC2zMKN1!?a83b7@a3Hl9#SnaKA0923";
+    $iterations = 9137;
+    $pwHash = hash_pbkdf2('sha256', $new_password, $key,$iterations,32);
 
     if($old_pass_word != '' &&$new_password != '' &&$cf_newpassword != '' ){
         
@@ -33,7 +36,7 @@ foreach($arr_data_save as $k => $v){
             `email` = '$email',
             `bank_number` = '$bank_number',
             `bank_name` = '$bank_name',
-            `sec_user_pass` = '$new_password'
+            `sec_user_pass` = '$pwHash'
         WHERE
             ID = '$data_user'
         ";

@@ -1,33 +1,33 @@
 <?php
 include '../../core/conn.php';
-$pw = $_POST['password'] ? $_POST['password'] : '';
+$password = $_POST['password'] ? $_POST['password'] : '';
 $val = $_POST['val'] ? $_POST['val'] : '';
-$ID = $_POST['check_number'] ? $_POST['check_number'] : '';
+$id_number = $_POST['lang_id'] ? $_POST['lang_id'] : '';
 
-
+// $password = "1!2@3#4$";
 $key = "LHC2zMKN1!?a83b7@a3Hl9#SnaKA0923";
 $iterations = 9137;
-$pwHash = hash_pbkdf2('sha256', $pw, $key,$iterations,32);
+$pwHash = hash_pbkdf2('sha256', $password, $key,$iterations,32);
 
-if($val == "gp"){
+if($val == "ps"){
     $sql = "
     UPDATE
-        `user_cus`
+        `user`
     SET
-        `sec_password` = '$pwHash'
+        `sec_user_pass` = '$pwHash'
     WHERE
-        ID = '$ID'
+        ID = '$id_number'
     ";
     
 
 }else{
     $sql = "
     UPDATE
-        `user_cus`
+        `user`
     SET
-        `forgot_pin` = '$pwHash'
+        `pincode_forgot` = '$pwHash'
     WHERE
-        ID = '$ID'
+        ID = '$id_number'
     ";
 }
 

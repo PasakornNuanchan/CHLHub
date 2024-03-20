@@ -13,6 +13,22 @@ require 'function/auth/get_session.php';
     <?php include 'include/lang_lib.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
+<style>
+    /* .btn_mao {
+        border-radius: 15px;
+        background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 80%, #00C0FF 100%);
+        animation: slidebg 5s linear infinite;
+        border: 0px;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 0.25rem 1rem;
+        color: #fff;
+        box-shadow: -1px 5px 5px -2px rgba(0, 0, 0, 0.28);
+        transition: background-color 1s;
+    } */
+
+   
+</style>
 
 <body class="  ">
     <!-- loader Start -->
@@ -45,6 +61,7 @@ require 'function/auth/get_session.php';
                             <div class="header-title">
                                 <h4 class="card-title">Detail</h4>
                             </div>
+                            <!-- <button class="btn_mao"><i class="bi bi-lock"></i> Lock</button> -->
                         </div>
                         <div class="card-body">
                             <!-- <div class="form-group row">
@@ -87,7 +104,7 @@ require 'function/auth/get_session.php';
                                 <label class="control-label col-sm-3 align-self-center ">Department</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <select class="form-select form-select-sm sel_department">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -102,25 +119,10 @@ require 'function/auth/get_session.php';
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <h4 class="card-title">Container</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="bd-example">
-                                    <svg class="bd-placeholder-img img-thumbnail" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <rect width="100%" height="100%" fill="#868e96"></rect><text x="30%" y="50%" fill="#dee2e6" dy=".3em">200x200</text>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
-                <!-- container information -->
                 <div class="col-md-12 col-xl-5">
 
-                    <div class="card">
+                    <div class="card card_change_pass">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
                                 <h4 class="card-title head_change">Change Password </h4>
@@ -130,25 +132,76 @@ require 'function/auth/get_session.php';
                             <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Username</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="input" class="form-control form-control-sm inp-user_name" >
+                                    <input type="input" class="form-control form-control-sm inp-user_name">
                                 </div>
                             </div>
                             <div class="form-group row fn_old_pass">
-                                <label class="control-label col-sm-3 align-self-center ">Old password </label>
+                                <label class="control-label col-sm-3 align-self-center ">Password </label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="password" class="form-control form-control-sm inp-old_pass_word">
+                                    <button class="btn btn-outline-success" onclick="user_list_set.generate('ps')">Reset password</button>
                                 </div>
                             </div>
-                            <div class="form-group row fn_new_pass">
-                                <label class="control-label col-sm-3 align-self-center text_new_pass ">New password</label>
+                            <div class="form-group row fn_forgot_pin">
+                                <label class="control-label col-sm-3 align-self-center text_new_pass ">Forgot pin</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="password" class="form-control form-control-sm inp-new_password">
+                                    <button class="btn btn-outline-success" onclick="user_list_set.generate('pfp')">Reset forgot pin</button>
                                 </div>
                             </div>
-                            <div class="form-group row fn_cf_new_pass">
-                                <label class="control-label col-sm-3 align-self-center ">Confirm new password</label>
+                        </div>
+                    </div>
+                    <div class="card card_first_login">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title head_change">Login </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 align-self-center ">Username</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
-                                    <input type="password" class="form-control form-control-sm inp-cf_newpassword">
+                                    <input type="input" class="form-control form-control-sm inp-user_name-newpass">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-sm-3 align-self-center ">Password </label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="password" class="form-control form-control-sm inp_pass_word_as">
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-outline-primary btn-sm" onclick="user_list_set.close_eye(this)"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-3 align-self-center ">Password confirm</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="password" class="form-control form-control-sm inp_pass_word_as_cf">
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-outline-primary btn-sm" onclick="user_list_set.close_eye(this)"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row fn_forgot_pin">
+                                <label class="control-label col-sm-3 align-self-center ">Forgot pin</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" class="form-control form-control-sm inp_forgot_as_pass">
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-outline-primary btn-sm" onclick="user_list_set.close_eye(this)"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

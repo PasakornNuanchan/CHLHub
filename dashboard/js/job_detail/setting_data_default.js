@@ -167,7 +167,7 @@ const setting_data_default = {
 
         if(res_data_default['carrier_data'] != "0 results"){
             $.each(res_data_default['carrier_data'],function(i,v){
-                carrier_data +=`<option value="${v['ID']}">${v['carrier_name']}</option>`;
+                carrier_data +=`<option value="${v['ID']}" web_checl="${v['web_check']}">${v['carrier_name']}</option>`;
             })
             $('#carrier_data').append(carrier_data)
         }

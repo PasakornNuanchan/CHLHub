@@ -32,7 +32,7 @@ const customer_management = {
         
         if (number_cus == null) {
             await this.set_data_preview();
-            $('.passandforgotgen').html('');
+            // $('.passandforgotgen').html('');
         } else {
             await this.set_data_preview();
             await this.set_raw_data(number_cus);
@@ -130,11 +130,6 @@ const customer_management = {
                 })
             }
         }
-
-        
-    
-        
-
         
     },
 
@@ -210,7 +205,7 @@ const customer_management = {
 
     generate: async function (val) {
 
-        var characters = "0123456789@#$%!-&*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var characters = "0123456789@#$%!&*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         var long = "6";
         let password = '';
         for (var i = 0; i < long; i++) {
@@ -226,7 +221,6 @@ const customer_management = {
         }
 
         
-        
         Swal.fire({
             title: `Are you sure ${context_title}?`,
             text: `New password : ${password}`,
@@ -237,8 +231,8 @@ const customer_management = {
             confirmButtonText: 'Confirm'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                let check_number_this = this.cm_id_global
-                let res_data = await this.ajax_generate(password,val,check_number_this)
+                
+                let res_data = await this.ajax_generate(password,val)
                 
                 if(res_data['st'] == '1'){
                     Swal.fire(
@@ -257,15 +251,14 @@ const customer_management = {
         })
     },
 
-    ajax_generate: async function (password,val,check_number_this) {
+    ajax_generate: async function (password,val) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/customer_management/reset_password.php",
                 data: 
                     { password: password,
-                    val : val,
-                    check_number : check_number_this},
+                    val : val,},
                 dataType: "json",
                 success: function (res) {
                     resolve(res);

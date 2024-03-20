@@ -100,7 +100,7 @@ require 'function/auth/get_session.php';
         width: 130px;
     }
 
-    
+
     #table_billing_ar td:nth-child(11) input {
         width: 80px;
     }
@@ -116,7 +116,7 @@ require 'function/auth/get_session.php';
         width: 140px;
     }
 
-    #table_billing_ar td:nth-child(8) input{
+    #table_billing_ar td:nth-child(8) input {
         width: 120px;
     }
 
@@ -188,7 +188,7 @@ require 'function/auth/get_session.php';
         width: 130px;
     }
 
-    
+
     #table_billing_ap td:nth-child(11) input {
         width: 80px;
     }
@@ -210,7 +210,7 @@ require 'function/auth/get_session.php';
     }
 
     #table_billing_ap td:nth-child(19) input,
-    #table_billing_ap td:nth-child(21) input{
+    #table_billing_ap td:nth-child(21) input {
         width: auto;
     }
 
@@ -428,7 +428,7 @@ require 'function/auth/get_session.php';
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Create Date:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="datetime" class="form-control form-control-sm inp_create_date"  disabled>
+                                            <input type="datetime" class="form-control form-control-sm inp_create_date" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -526,8 +526,6 @@ require 'function/auth/get_session.php';
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Shipment Terms:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
@@ -536,14 +534,19 @@ require 'function/auth/get_session.php';
                                             </select>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Carrier:</label>
                                         <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <select class="form-select form-select-sm inp_carrier" id="carrier_data">
-                                                <option value="">-- pleses select carrier --</option>
-                                            </select>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
+                                                    <select class="form-select form-select-sm inp_carrier" onchange="function_sub_job_detail.carrier_web(this)" id="carrier_data">
+                                                        <option value="">-- pleses select carrier --</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-end">
+                                                    <a class="btn btn-outline-primary btn-sm btn_carrier_daata" target="_blank"><i class="bi bi-calendar2"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -2207,7 +2210,7 @@ require 'function/auth/get_session.php';
                                             <th>Unit Price</th>
                                             <th>AR AMT.</th>
                                             <th>VAT%</th>
-                                            
+
                                             <th>With hold (%)</th>
                                             <th>Vat (EXCL)</th>
                                             <th>AMT<br>(INCL.VAT)</th>
@@ -2622,7 +2625,7 @@ require 'function/auth/get_session.php';
 
         sidebar_main.set_data_rows();
         job_detail.set_header_page();
-        
+
     });
 </script>
 
