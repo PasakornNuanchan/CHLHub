@@ -12,6 +12,11 @@ const sub_job_detail = {
         let job_number_data = res_data['job_title']['job_number'] ? res_data['job_title']['job_number'] : '';
         if (job_number_data != '') {
             $('.generate_job_func').remove();
+            $('.div_job_number').append(`
+            <button class="btn btn-outline-warning btn-sm" onclick="function_sub_job_detail.change_job_number()"><i class="bi bi-pencil"></i></button>
+            `)
+        }else{
+            $('.div_job_number').remove()
         }
 
         // let notify_type =  v['notify_type'] ? v['notify_type'] : '';

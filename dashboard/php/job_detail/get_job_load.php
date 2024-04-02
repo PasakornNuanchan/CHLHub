@@ -3,6 +3,10 @@ include '../../core/conn.php';
 require '../../function/auth/get_session.php';
 require '../../core/con_path.php';
 
+
+
+$data_job_number = $_POST['data_job_number'] ? $_POST['data_job_number'] : '';
+
 $sql_request_load = "
 SELECT
     jt.ID,
@@ -41,7 +45,12 @@ SELECT
     if(jt.client_type = '1',(SELECT sp.shipper_name FROM shipper sp WHERE sp.ID = jt.client_number),(SELECT c.consignee_name FROM consignee c WHERE c.ID = jt.client_number)) as client_name
 FROM
     job_title jt
-LIMIT 50    
+WHERE
+	jt.job_number LIKE '%$data_job_number%'
+ORDER BY
+	jt.ID DESC
+
+LIMIT 50 
 ";
 
 

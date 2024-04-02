@@ -24,9 +24,11 @@ const shipper_list_set = {
 
         if (get_shipper_number != 'undefined') {
             await this.set_head_page();
+            await this.setting_data_sale()
             await this.set_raw_data(shipper_number);
         } else {
             await this.set_head_page();
+            await this.setting_data_sale();
         }
     },
 
@@ -39,6 +41,42 @@ const shipper_list_set = {
         $('.bcpage').append(html_bdpage);
 
     },
+
+    ajax_get_data_sale: async function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "post",
+                url: "php/shipper-management/get_data_sale.php",
+                dataType: "json",
+                success: function (res) {
+                    resolve(res);
+                },
+            });
+        });
+    },
+
+    setting_data_sale : async function(){
+        let res_data = await this.ajax_get_data_sale()
+        console.log(res_data)
+        
+        if(res_data != "0 results"){
+            let html_data_sale = '';
+            $.each(res_data['sale'],function(i,v){
+                let dataid = v['id'] ? v['id'] : '';
+                let datafirst_name = v['first_name'] ? v['first_name'] : '';
+                let datalast_name = v['last_name'] ? v['last_name'] : '';
+
+                html_data_sale += `<option value="${dataid}">${datafirst_name} ${datalast_name}</option>`
+                
+            })
+            $('.sel_sale').append(html_data_sale)
+
+        }
+        
+    },
+
+
+
 
     set_raw_data: async function (shipper_number) {
         $('.card_bank_data').html('')
@@ -54,6 +92,7 @@ const shipper_list_set = {
         let linkman = rrd['sqrc']['linkman'] ? rrd['sqrc']['linkman'] : '';
         let linkman_tel = rrd['sqrc']['linkman_tel'] ? rrd['sqrc']['linkman_tel'] : '';
         let payment_term = rrd['sqrc']['payment_term'] ? rrd['sqrc']['payment_term'] : '';
+        let sale = rrd['sqrc']['sale'] ? rrd['sqrc']['sale'] : '';
         
         $('.inp-cname').val(shipper_name).attr('readonly', true)
         $('.inp-address').val(address)
@@ -64,6 +103,7 @@ const shipper_list_set = {
         $('.inp-linkman').val(linkman)
         $('.inp-contact').val(linkman_tel)
         $('.inp_payment_term_day').val(payment_term)
+        $('.sel_sale').val(sale)
  
         if (rrd['bank'] != "0 results") {
             $.each(rrd['bank'], function (i, v) {
@@ -246,7 +286,7 @@ const shipper_list_set = {
                 let linkman = $('.inp-linkman').val()
                 let linkman_tel = $('.inp-contact').val()
                 let payment_term = $('.inp_payment_term_day').val()
-
+                let sale_by = $('.sel_sale').val()
                 uset_arr_temp = {
                     shipper_id: this.shipper_number_global,
                     cname: cname,
@@ -258,6 +298,7 @@ const shipper_list_set = {
                     linkman: linkman,
                     linkman_tel: linkman_tel,
                     payment_term: payment_term,
+                    sale_by:sale_by,
                 }
 
                 let path = $('.card_bank_data > .card_cma')

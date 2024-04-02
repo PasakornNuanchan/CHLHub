@@ -33,8 +33,8 @@
             jt.job_number,
             if(jt.client_type = 1,(SELECT sp.shipper_name FROM shipper sp WHERE sp.ID = jt.client_number),(SELECT c.consignee_name FROM consignee c WHERE c.ID = jt.client_number)) as client_name,
             jt.booking_number,
-            (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_loading_number) as POL,
-            (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_discharge) as POD,
+            (SELECT concat(a.location_name) FROM area a WHERE a.ID = jt.port_of_loading_number) as POL,
+            (SELECT concat(a.location_name) FROM area a WHERE a.ID = jt.port_of_discharge) as POD,
             jt.etd,
             jt.eta,
             (SELECT concat(u.first_name,' ',u.last_name) FROM user u WHERE u.ID = jt.sale_support) as sale_support
@@ -60,8 +60,8 @@
             jt.job_number,
             if(jt.client_type = 1,(SELECT sp.shipper_name FROM shipper sp WHERE sp.ID = jt.client_number),(SELECT c.consignee_name FROM consignee c WHERE c.ID = jt.client_number)) as client_name,
             jt.booking_number,
-            (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_loading_number) as POL,
-            (SELECT concat(a.provice,',',a.location_name) FROM area a WHERE a.ID = jt.port_of_discharge) as POD,
+            (SELECT concat(a.location_name) FROM area a WHERE a.ID = jt.port_of_loading_number) as POL,
+            (SELECT concat(a.location_name) FROM area a WHERE a.ID = jt.port_of_discharge) as POD,
             jt.etd,
             jt.eta,
             (SELECT concat(u.first_name,' ',u.last_name) FROM user u WHERE u.ID = jt.sale_support) as sale_support

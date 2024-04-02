@@ -21,6 +21,12 @@ require 'function/auth/get_session.php';
 
 </head>
 <style>
+    .form-control,
+    .form-select,
+    body {
+        color: #393939;
+    }
+
     .table_detail_bl td:nth-child(1) textarea {
         width: 400px;
     }
@@ -293,6 +299,10 @@ require 'function/auth/get_session.php';
         width: 150px;
     }
 
+    .modal-backdrop {
+        width: 1000%;
+        height: 100%;
+    }
 
     #table_container_module_setting_width td:nth-child(7) select {
         width: 150px;
@@ -433,8 +443,10 @@ require 'function/auth/get_session.php';
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-sm-3 col-lg-3 align-self-center ">Job Number:</label>
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            <input type="text" class="form-control form-control-sm inp_jobnumber" maxlength="10" disabled>
+                                        <div class="col-sm-9 col-md-9 col-lg-9 row ">
+                                            <div class="col-11"><input type="text" class="form-control form-control-sm inp_jobnumber" maxlength="10" disabled></div>
+                                            <div class="col-1 div_job_number"></div>
+
                                         </div>
                                     </div>
                                     <div class="generate_job_func">
@@ -483,7 +495,7 @@ require 'function/auth/get_session.php';
                                         <div class="col-sm-9 col-md-9 col-lg-9">
                                             <div class="row">
                                                 <div class="col-xs-6 col-sm-6 col-md-10 col-lg-10">
-                                                    <select class="form-select form-select-sm inp_shipper inp_copy_data " id="shipper_db">
+                                                    <select class="form-select form-select-sm inp_shipper inp_copy_data " onchange="function_sub_job_detail.change_sale()" id="shipper_db">
                                                         <option value="">-- pleses select shipper --</option>
                                                     </select>
                                                 </div>
@@ -624,8 +636,6 @@ require 'function/auth/get_session.php';
                                             <input type="date" class="form-control form-control-sm inp_eta">
                                         </div>
                                     </div>
-
-
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="form-group row">
@@ -2621,6 +2631,10 @@ require 'function/auth/get_session.php';
 
 
 <script>
+    // $(window).on('beforeunload', function() {
+    //     return 'You can out';
+    // });
+
     $(document).ready(function() {
 
         sidebar_main.set_data_rows();
@@ -2649,4 +2663,5 @@ require 'function/auth/get_session.php';
     $("#imgInp").change(function() {
         readURL(this);
     });
+    
 </script>

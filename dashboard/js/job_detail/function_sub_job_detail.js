@@ -5,6 +5,84 @@ const function_sub_job_detail = {
 
     get_data_all_page: async function () {
 
+        let arr_detail_container = [];
+        let obj_detail_container = {};
+
+        $('.table_container_module > tbody > tr').each(function (e) {
+            let id_container = $(this).attr('id_container_module')
+            let inp_container_type = $('.inp_container_type', this).val()
+            let inp_cargo_des = $('.inp_cargo_description', this).val()
+            let inp_container_number = $('.inp_container_number', this).val()
+            let inp_single_weight = $('.inp_single_weight', this).val()
+            let inp_package = $('.inp_package', this).val()
+            let inp_select_packing = $('.inp_select_packing', this).val()
+            let inp_gw = $('.inp_gw', this).val()
+            let inp_volume = $('.inp_volume', this).val()
+            let inp_seal_number = $('.inp_seal_number', this).val()
+            let inp_cy = $('.inp_cy', this).val()
+            let inp_rtn = $('.inp_rtn', this).val()
+            let inp_remark = $('.inp_remark', this).val()
+
+            obj_detail_container = {
+                id_container: id_container,
+                inp_container_type: inp_container_type,
+                inp_cargo_des: inp_cargo_des,
+                inp_container_number: inp_container_number,
+                inp_single_weight: inp_single_weight,
+                inp_package: inp_package,
+                inp_select_packing: inp_select_packing,
+                inp_gw: inp_gw,
+                inp_volume: inp_volume,
+                inp_seal_number: inp_seal_number,
+                inp_cy: inp_cy,
+                inp_rtn: inp_rtn,
+                inp_remark: inp_remark,
+            }
+
+
+
+            arr_detail_container.push(obj_detail_container)
+
+        });
+
+        var duplicateNames = checkDuplicateNames(arr_detail_container);
+        
+        let data_dupcontainer = duplicateNames.length
+        if(data_dupcontainer >= 1){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Container nubmer is duplicate please change container number`,
+            })
+            return;
+        }
+        
+
+        let arr_hbl = []
+        $('.hbl_added > .form-group').each(function (e) {
+
+            let id_hbl = $(this).attr('id_hbl')
+            let hbl_data = $('.inp_hbl', this).val()
+            let obj_hbl = {}
+            obj_hbl = {
+                id_hbl: id_hbl,
+                hbl_data: hbl_data
+            }
+            arr_hbl.push(obj_hbl)
+        })
+
+        var duplicatehbl = checkDuplicatehbl(arr_hbl);
+        let data_duphbl = duplicatehbl.length
+        if(data_duphbl >= 1){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `HBL is duplicate please change HBL`,
+            })
+            return;
+        }
+
+
         Swal.fire({
             title: `Are you sure save this data`,
             text: `you sure click on Yes, save it!`,
@@ -92,69 +170,15 @@ const function_sub_job_detail = {
                 }
 
                 arr_detail_save.push(obj_detail_save)
-                let arr_detail_container = [];
-                let obj_detail_container = {};
+                
 
-                $('.table_container_module > tbody > tr').each(function (e) {
-                    let id_container = $(this).attr('id_container_module')
-                    let inp_container_type = $('.inp_container_type', this).val()
-                    let inp_cargo_des = $('.inp_cargo_description', this).val()
-                    let inp_container_number = $('.inp_container_number', this).val()
-                    let inp_single_weight = $('.inp_single_weight', this).val()
-                    let inp_package = $('.inp_package', this).val()
-                    let inp_select_packing = $('.inp_select_packing', this).val()
-                    let inp_gw = $('.inp_gw', this).val()
-                    let inp_volume = $('.inp_volume', this).val()
-                    let inp_seal_number = $('.inp_seal_number', this).val()
-                    let inp_cy = $('.inp_cy', this).val()
-                    let inp_rtn = $('.inp_rtn', this).val()
-                    let inp_remark = $('.inp_remark', this).val()
+                
 
-                    obj_detail_container = {
-                        id_container: id_container,
-                        inp_container_type: inp_container_type,
-                        inp_cargo_des: inp_cargo_des,
-                        inp_container_number: inp_container_number,
-                        inp_single_weight: inp_single_weight,
-                        inp_package: inp_package,
-                        inp_select_packing: inp_select_packing,
-                        inp_gw: inp_gw,
-                        inp_volume: inp_volume,
-                        inp_seal_number: inp_seal_number,
-                        inp_cy: inp_cy,
-                        inp_rtn: inp_rtn,
-                        inp_remark: inp_remark,
-                    }
-
-
-
-                    arr_detail_container.push(obj_detail_container)
-
-                });
-
-                let arr_hbl = []
-                //let obj_hbl = {}
-                $('.hbl_added > .form-group').each(function (e) {
-
-                    let id_hbl = $(this).attr('id_hbl')
-                    let hbl_data = $('.inp_hbl', this).val()
-                    let obj_hbl = {}
-                    obj_hbl = {
-                        id_hbl: id_hbl,
-                        hbl_data: hbl_data
-                    }
-                    arr_hbl.push(obj_hbl)
-                })
-
-                console.log(arr_hbl)
                 var currentURL = window.location.href;
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
-                //console.log(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number)
-                //console.log()
-                // let res_return = await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number,arr_hbl,this.arr_delete_hbl)
+                
                 await this.ajax_sent_data_raw(arr_detail_save, arr_detail_container, this.arr_delete_container, id_number, arr_hbl, this.arr_delete_hbl)
-                // if (res_return['arr_data_container_information'] == '1' || res_return['arr_data_job_title'] == '1' ) {
                 await Swal.fire(
                     'saved!',
                     'Your data has been saved.',
@@ -164,15 +188,7 @@ const function_sub_job_detail = {
                 var url = new URL(currentURL);
                 var id_number = url.searchParams.get("job_number");
                 await sub_job_detail.first_post_data(id_number);
-                // await location.reload();
-                // await sidebar_main.set_d/ata_rows();
-                // } else {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'System has problem plese contact to thailand tech team ',
-                //     })
-                // }
+                
 
             }
         })
@@ -352,9 +368,7 @@ const function_sub_job_detail = {
             volume_all = volume_all.toFixed(2)
             gw_all = gw_all.toFixed(2)
             single_w_all = single_w_all.toFixed(2)
-        })
-        // package_all = package_all.toFixed(2)
-        //$('.inp_cargo_des').val(cargo_description_all)
+        }) 
         $('.inp_quantity').val(package_all)
         $('.inp_gw_container').val(gw_all)
         $('.inp_vol').val(volume_all)
@@ -380,25 +394,15 @@ const function_sub_job_detail = {
         data_tare_weight = data_tare_weight === NaN ? 0 : data_tare_weight;
         data_gross_weight = data_gross_weight === NaN ? 0 : data_gross_weight;
 
-        console.log(data_tare_weight)
-        console.log(data_gross_weight)
+        
         data_tare_weight = parseFloat(data_tare_weight)
         data_gross_weight = parseFloat(data_gross_weight)
 
         let data_vgm = data_tare_weight + data_gross_weight
-        //console.log(data_vgm)
         $(e).closest('tr').find('.inp_vgm').val(data_vgm)
     },
 
     add_hbl: async function () {
-        //let html_add_hbl = `
-        // <div class="form-group row">
-        //     <label class="control-label col-sm-3 col-lg-3 align-self-center " maxlength="100">H B/L:</label>
-        //     <div class="col-sm-9 col-md-5 col-lg-9">
-        //         <input type="text" class="form-control form-control-sm inp_hbl">
-        //     </div>
-        // </div>
-        // `;
 
         let html_add_hbl = `
         <div class="form-group row" >
@@ -435,7 +439,6 @@ const function_sub_job_detail = {
             let data_monthly = data_month.substr(5, 3)
             let full_my = data_year + data_monthly;
 
-            console.log(full_my)
             let res_data = await this.ajax_request_generate_job(full_my)
 
             let job_cal = '';
@@ -558,8 +561,17 @@ const function_sub_job_detail = {
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                        <h4 class="modal-title">load document</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <div class="row col-12">
+                                <div class="col-3"><h4 class="modal-title">load document</h4></div>
+                                <div class="col-8">
+                                    <div class="row">
+                                    <div class="col-2"><label>serach : </label></div>
+                                    <div class="col-7"><input type="text" class="form-control form-control-sm inp_searching_data_job"></div>
+                                    <div class="col-3"><button class="btn btn-sm btn-outline-primary" onclick="function_sub_job_detail.searching_data_on_load_job()">search</button></div>
+                                    </div>
+                                </div>
+                                <div class="col-1 text-end"><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                            </div>
                         </div>
 
                         <!-- Modal body -->
@@ -587,7 +599,7 @@ const function_sub_job_detail = {
                                         <th>Remark</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody_job_number_select">
                                     ${tbody_data_html}
                                 </tbody>
                             </table>
@@ -607,9 +619,60 @@ const function_sub_job_detail = {
         $('#add_modal_load_data').modal('show')
     },
 
+    searching_data_on_load_job : async function(){
+        let data_seraching_job = $('.inp_searching_data_job').val()
+        let tbody_data_html = '';
+        let res_data = await this.ajax_request_job_load(data_seraching_job);
+        $('.tbody_job_number_select').html('')
+
+        $.each(res_data['load_data'], function (i, v) {
+            let id_number = v['ID'] ? v['ID'] : '';
+            let job_number = v['job_number'] ? v['job_number'] : '';
+            let client_name = v['client_name'] ? v['client_name'] : '';
+            let shipper_name = v['shipper_name'] ? v['shipper_name'] : '';
+            let consignee_name = v['consignee_name'] ? v['consignee_name'] : '';
+            let notify_name = v['notify_name'] ? v['notify_name'] : '';
+            let st_name = v['st_name'] ? v['st_name'] : '';
+            let carrier_name = v['carrier_name'] ? v['carrier_name'] : '';
+            let port_of_receipt_name = v['port_of_receipt_name'] ? v['port_of_receipt_name'] : '';
+            let port_of_loading_name = v['port_of_loading_name'] ? v['port_of_loading_name'] : '';
+            let ts_port_name = v['ts_port_name'] ? v['ts_port_name'] : '';
+            let port_of_discharge_name = v['port_of_discharge_name'] ? v['port_of_discharge_name'] : '';
+            let port_of_delivery_name = v['port_of_delivery_name'] ? v['port_of_delivery_name'] : '';
+            let final_destination = v['final_destination'] ? v['final_destination'] : '';
+            let booking_agent_name = v['booking_agent_name'] ? v['booking_agent_name'] : '';
+            let delivery_place = v['delivery_place'] ? v['delivery_place'] : '';
+            let remark = v['remark'] ? v['remark'] : '';
+
+            tbody_data_html += `
+            <tr>
+                <td><button class="btn btn-outline-primary btn-sm rounded" onclick="function_sub_job_detail.select_load_data(${id_number})">Select</button></td>
+                <td>${job_number}</td>
+                <td>${client_name}</td>
+                <td>${shipper_name}</td>
+                <td>${consignee_name}</td>
+                <td>${notify_name}</td>
+                <td>${st_name}</td>
+                <td>${carrier_name}</td>
+                <td>${port_of_receipt_name}</td>
+                <td>${port_of_loading_name}</td>
+                <td>${ts_port_name}</td>
+                <td>${port_of_discharge_name}</td>
+                <td>${port_of_delivery_name}</td>
+                <td>${final_destination}</td>
+                <td>${booking_agent_name}</td>
+                <td>${delivery_place}</td>
+                <td>${remark}</td>
+            </tr>
+            `;
+        })
+        $('.tbody_job_number_select').append(tbody_data_html)
+
+    },
+
+
     select_load_data: async function (e) {
-        console.log(data_modal_detail_load)
-        console.log(e)
+        
         $('#add_modal_load_data').modal('toggle')
         $.each(data_modal_detail_load['load_data'], async function (i, v) {
             let id_number = v['ID'] ? v['ID'] : '';
@@ -679,13 +742,15 @@ const function_sub_job_detail = {
 
     },
 
-    ajax_request_job_load: function (full_my) {
+
+
+    ajax_request_job_load: function (data_job_number) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "post",
                 url: "php/job_detail/get_job_load.php",
                 data: {
-                    full_my: full_my,
+                    data_job_number: data_job_number,
                 },
                 dataType: "json",
                 success: function (res) {
@@ -708,5 +773,69 @@ const function_sub_job_detail = {
         let data = $(`.inp_carrier option[value="${data_val_search}"]`).attr('web_checl')
         $(`.btn_carrier_daata`).attr('href',data)
         
+    },
+
+
+    change_sale : async function(){
+        let data_shipper = $('.inp_shipper').val()
+        let data_user_sale = $(`.inp_shipper > option[value=${data_shipper}]`).attr('data_sale') != 'null'? $(`.inp_shipper > option[value=${data_shipper}]`).attr('data_sale') : '';
+
+        $('.inp_sale_user').val(data_user_sale)
+        // if(data_user_sale == 'null'){
+        //     
+        //     
+        //     
+        //     
+        //     
+        // }
+    },
+
+    change_job_number : async function(){
+        
+        let value_job_number = $('.inp_jobnumber').attr('disabled') ? '1' : '0'
+        if(value_job_number == '1'){
+            $('.inp_jobnumber').attr('disabled',false)
+        }else{
+            $('.inp_jobnumber').attr('disabled',true)
+        }
     }
 }
+
+function checkDuplicateNames(arr) {
+    var existingNames = {};
+    var duplicateNames = [];
+
+    for (var i = 0; i < arr.length; i++) {
+        var currentName = arr[i].inp_container_number;
+        if (existingNames[currentName] === undefined) {
+            existingNames[currentName] = 1;
+        } else {
+            if (existingNames[currentName] === 1) {
+                duplicateNames.push(currentName);
+            }
+            existingNames[currentName]++;
+        }
+    }
+
+    return duplicateNames;
+}
+
+function checkDuplicatehbl(arr) {
+    var existingNames = {};
+    var duplicateNames = [];
+
+    for (var i = 0; i < arr.length; i++) {
+        var currentName = arr[i].hbl_data;
+        if (existingNames[currentName] === undefined) {
+            existingNames[currentName] = 1;
+        } else {
+            if (existingNames[currentName] === 1) {
+                duplicateNames.push(currentName);
+            }
+            existingNames[currentName]++;
+        }
+    }
+
+    return duplicateNames;
+}
+

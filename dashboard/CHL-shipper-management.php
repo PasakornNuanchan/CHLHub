@@ -62,6 +62,14 @@ require 'function/auth/get_session.php';
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="control-label col-sm-3 align-self-center ">Sale Name</label>
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <select class="form-select form-select-sm sel_sale">
+                                        <option value="">-- please select sale --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-sm-3 align-self-center ">Email</label>
                                 <div class="col-sm-9 col-md-9 col-lg-9">
                                     <input type="input" class="form-control form-control-sm inp-email">

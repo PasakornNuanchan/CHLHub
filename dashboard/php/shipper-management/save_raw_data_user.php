@@ -14,7 +14,7 @@ $fax = isset($_POST['uset_arr_temp']['fax']) ? $_POST['uset_arr_temp']['fax'] : 
 $linkman = isset($_POST['uset_arr_temp']['linkman']) ? $_POST['uset_arr_temp']['linkman'] : '';
 $linkman_tel = isset($_POST['uset_arr_temp']['linkman_tel']) ? $_POST['uset_arr_temp']['linkman_tel'] : '';
 $payment_term = isset($_POST['uset_arr_temp']['payment_term']) ? $_POST['uset_arr_temp']['payment_term'] : '';
-
+$sale_by = isset($_POST['uset_arr_temp']['sale_by']) ? $_POST['uset_arr_temp']['sale_by'] : '';
 
 if ($shipper_id != 'undefined') {
     $sql_save = "
@@ -28,7 +28,8 @@ if ($shipper_id != 'undefined') {
             `address` = '$address',
             `tax` = '$tax',
             `linkman_tel` = '$linkman_tel',
-            `payment_term` = '$payment_term'
+            `payment_term` = '$payment_term',
+            `sale` = '$sale_by'
         WHERE
             `ID` = '$shipper_id'
                         ";
@@ -50,7 +51,8 @@ if ($shipper_id != 'undefined') {
             `address`,
             `tax`,
             `linkman_tel`,
-            `payment_term`
+            `payment_term`,
+            `sale`
                 )
         VALUES(
             '$cname',
@@ -61,7 +63,8 @@ if ($shipper_id != 'undefined') {
             '$address',
             '$tax',
             '$linkman_tel',
-            '$payment_term'
+            '$payment_term',
+            '$sale_by'
         )";
         if ($con->query($sql_save) != 1) {
             $arr_suc['st'] = '0';

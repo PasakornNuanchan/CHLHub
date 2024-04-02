@@ -11,7 +11,7 @@ $get_container = "SELECT c.ID,c.container_number,(SELECT concat(ct.container_sub
 FROM container_type ct WHERE c.container_type = ct.container_type_name) as data_container FROM container c WHERE c.ref_job_id = '$id_number'";
 
 
-$get_shipper = "SELECT ID,shipper_name FROM shipper ORDER BY shipper_name ASC";
+$get_shipper = "SELECT ID,shipper_name,sale FROM shipper ORDER BY shipper_name ASC";
 $get_shipment = "SELECT ID,st_name FROM shipment_term";
 $get_consignee = "SELECT `ID`,`consignee_name` FROM `consignee` ORDER BY consignee_name ASC";
 $get_carrier = "SELECT ID,carrier_name,web_check FROM carrier ORDER BY carrier_name ASC" ;
@@ -23,7 +23,14 @@ $get_supplier = "SELECT ID,transport_sup_name FROM transport_sup";
 $sql_truck = "SELECT ID,truck_name FROM `type_truck`";
 $sql_shipping_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '3'";
 $sql_cs_user = "SELECT ID,first_name,last_name FROM user";
-$sql_sale_user = "SELECT ID,first_name,last_name FROM user WHERE department_number = '22'";
+$sql_sale_user = "SELECT u.ID,u.first_name,u.last_name FROM user u WHERE u.department_number IN (22,17)
+AND u.ID IN (40,41,43,50,47,15,14,77,78,79,80)
+             ";
+
+
+
+
+
 $sql_get_bill_to_ar = "
 SELECT
     1 AS TYPE,
