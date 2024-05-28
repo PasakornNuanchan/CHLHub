@@ -624,7 +624,8 @@ const function_sub_job_detail = {
         let tbody_data_html = '';
         let res_data = await this.ajax_request_job_load(data_seraching_job);
         $('.tbody_job_number_select').html('')
-
+        data_modal_detail_load = res_data
+        
         $.each(res_data['load_data'], function (i, v) {
             let id_number = v['ID'] ? v['ID'] : '';
             let job_number = v['job_number'] ? v['job_number'] : '';
@@ -644,6 +645,7 @@ const function_sub_job_detail = {
             let delivery_place = v['delivery_place'] ? v['delivery_place'] : '';
             let remark = v['remark'] ? v['remark'] : '';
 
+            
             tbody_data_html += `
             <tr>
                 <td><button class="btn btn-outline-primary btn-sm rounded" onclick="function_sub_job_detail.select_load_data(${id_number})">Select</button></td>
@@ -674,6 +676,7 @@ const function_sub_job_detail = {
     select_load_data: async function (e) {
         
         $('#add_modal_load_data').modal('toggle')
+        console.log(data_modal_detail_load['load_data'])
         $.each(data_modal_detail_load['load_data'], async function (i, v) {
             let id_number = v['ID'] ? v['ID'] : '';
             let client_type = v['client_type'] ? v['client_type'] : '';

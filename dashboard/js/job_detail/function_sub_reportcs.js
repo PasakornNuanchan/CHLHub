@@ -252,6 +252,8 @@ const function_sub_reportcs = {
             val_get: val_get
         }
 
+        console.log(data)
+
 
         let res = await this.ajax_save_docs(data);
         if (res == '1') {
@@ -372,12 +374,8 @@ const function_sub_reportcs = {
             });
         });
     },
-
-
-
-
-
 }
+
 async function convert_file(data) {
 
     const base64String = await toBase64(data);

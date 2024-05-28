@@ -56,7 +56,7 @@ LEFT JOIN shipper s ON jt.shipper_number = s.ID
 LEFT JOIN consignee c ON jt.consignee_number = c.ID
 LEFT JOIN area a1 ON jt.port_of_receipt_number = a1.ID
 LEFT JOIN area a2 ON jt.port_of_loading_number = a2.ID
-LEFT JOIN area a3 ON jt.ts_port_number = a3.ID
+LEFT JOIN area a3 ON jt.port_of_discharge = a3.ID
 LEFT JOIN area a4 ON jt.port_of_delivery_number = a4.ID
 LEFT JOIN shipment_term st ON jt.st_number = st.ID
 WHERE
@@ -93,6 +93,7 @@ if ($result->num_rows > 0) {
     $data_bl_number[] = $row['bl_number'];
     $data_notify[] = $row['notify_party'];
     $data_delivery_agent[] = $row['delivery_agent'];
+    $today = $row['shipper_on_board'];
   }
 } else {
   $data = "0 results";
@@ -637,7 +638,8 @@ $pdf->SetXY(160, 160);
 $pdf->SetFont('times', 'B', 8, '', true);
 $pdf->Cell(40, 4, "SHIPPED ON BOARD:", 0, 0, 'C');
 $pdf->SetXY(160, 165);
-$today = date("Y/m/d");
+// $today = date("Y/m/d");
+
 $pdf->SetFont('times', '', 8, '', true);
 $pdf->Cell(40, 4, $today, 0, 0, 'C');
 $pdf->SetY($data_last_y_get + 5);
